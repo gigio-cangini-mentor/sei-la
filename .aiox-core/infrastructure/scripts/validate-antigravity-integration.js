@@ -28,11 +28,14 @@ function validateAntigravityIntegration(options = {}) {
         ...getDefaultOptions(),
         ...options,
         projectRoot,
+        workflowsDir: options.workflowsDir || path.join(projectRoot, '.aios-core', 'product', 'templates', 'ide-rules', 'antigravity', 'workflows'),
     };
     const errors = [];
     const warnings = [];
 
-    if (!fs.existsSync(resolved.workflowsDir)) {
+    const workflowsDirExists = fs.existsSync(resolved.workflowsDir);
+
+    if (!workflowsDirExists) {
         warnings.push(`Antigravity workflows dir not found: ${path.relative(resolved.projectRoot, resolved.workflowsDir)}`);
     } else {
         const requiredFiles = ['aios-execute-story.md', 'aios-qa-review.md'];
@@ -48,7 +51,7 @@ function validateAntigravityIntegration(options = {}) {
         errors,
         warnings,
         metrics: {
-            workflowsDirExists: fs.existsSync(resolved.workflowsDir),
+            workflowsDirExists,
         },
     };
 }

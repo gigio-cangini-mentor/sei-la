@@ -43,6 +43,13 @@ function syncAntigravityWorkflows(projectRoot, dryRun, resultFiles, verbose = fa
             }
         }
     } catch (e) {
+        resultFiles.push({
+            agent: 'Workflow',
+            type: 'workflow-error',
+            filename: null,
+            path: null,
+            error: e.message,
+        });
         if (verbose) {
             console.warn(`${colors.yellow}⚠ Antigravity static workflow copy failed: ${e.message}${colors.reset}`);
         }

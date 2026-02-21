@@ -57,7 +57,7 @@ gemini
 Dentro do Gemini CLI, você tem acesso a:
 
 ### Menu de Agentes
-```
+```text
 /aios-menu
 ```
 Mostra todos os agentes disponíveis.
