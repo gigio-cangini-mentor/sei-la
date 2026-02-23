@@ -137,6 +137,9 @@ tools:
     tokenCost: 250
     category: web
     ptc_eligible: true
+    filter:
+      type: content
+      max_tokens: 3000
   NotebookEdit:
     tier: 1
     layer: L1
@@ -187,6 +190,9 @@ tools:
       - docs
       - api-reference
     mcp_server: docker-gateway
+    filter:
+      type: content
+      max_tokens: 5000
   supabase:
     tier: 2
     layer: L3
@@ -242,6 +248,13 @@ tools:
       - competitor
     mcp_server: docker-gateway
     input_examples: null # Placeholder — populated by TOK-4B
+    filter:
+      type: content
+      max_tokens: 2000
+      extract:
+        - title
+        - snippet
+        - url
   playwright:
     tier: 3
     layer: L4
@@ -258,6 +271,14 @@ tools:
       - website
     mcp_server: direct
     input_examples: null
+    filter:
+      type: schema
+      fields:
+        - url
+        - title
+        - status
+        - content
+      max_tokens: 4000
   apify:
     tier: 3
     layer: L4
@@ -273,6 +294,15 @@ tools:
       - actors
     mcp_server: docker-gateway
     input_examples: null
+    filter:
+      type: field
+      fields:
+        - username
+        - caption
+        - likes
+        - timestamp
+        - url
+      max_rows: 20
   nogic:
     tier: 3
     layer: L4
