@@ -1,8 +1,9 @@
 /**
  * Unit Tests: Doctor Check Modules
  * Story INS-4.1: aios doctor rewrite
+ * Story INS-4.8: 3 new checks (skills-count, commands-count, hooks-claude-count)
  *
- * Tests all 12 check modules individually with mocked filesystem.
+ * Tests all 15 check modules individually with mocked filesystem.
  */
 
 const path = require('path');
@@ -23,6 +24,10 @@ const claudeMdCheck = require('../../../../../.aios-core/core/doctor/checks/clau
 const graphDashboardCheck = require('../../../../../.aios-core/core/doctor/checks/graph-dashboard');
 const codeIntelCheck = require('../../../../../.aios-core/core/doctor/checks/code-intel');
 const ideSyncCheck = require('../../../../../.aios-core/core/doctor/checks/ide-sync');
+const skillsCountCheck = require('../../../../../.aios-core/core/doctor/checks/skills-count');
+const commandsCountCheck = require('../../../../../.aios-core/core/doctor/checks/commands-count');
+const hooksClaudeCountCheck = require('../../../../../.aios-core/core/doctor/checks/hooks-claude-count');
+const { loadChecks } = require('../../../../../.aios-core/core/doctor/checks');
 
 const mockContext = {
   projectRoot: '/mock/project',
@@ -308,5 +313,239 @@ describe('ide-sync check', () => {
 
     const result = await ideSyncCheck.run(mockContext);
     expect(result.status).toBe('WARN');
+  });
+});
+
+// === INS-4.8: New checks ===
+
+describe('skills-count check', () => {
+  it('should PASS when >=7 skills directories with SKILL.md', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const dirs = Array.from({ length: 8 }, (_, i) => ({
+      name: `skill-${i}`,
+      isDirectory: () => true,
+      isFile: () => false,
+    }));
+    fs.readdirSync.mockReturnValue(dirs);
+
+    const result = await skillsCountCheck.run(mockContext);
+    expect(result.check).toBe('skills-count');
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('8');
+  });
+
+  it('should WARN when <7 skills found', async () => {
+    fs.existsSync.mockImplementation((p) => {
+      if (p.includes('skills') && !p.includes('SKILL.md')) return true;
+      if (p.includes('SKILL.md')) return true;
+      return true;
+    });
+    const dirs = Array.from({ length: 3 }, (_, i) => ({
+      name: `skill-${i}`,
+      isDirectory: () => true,
+      isFile: () => false,
+    }));
+    fs.readdirSync.mockReturnValue(dirs);
+
+    const result = await skillsCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('3/7');
+  });
+
+  it('should FAIL when 0 skills found', async () => {
+    fs.existsSync.mockImplementation((p) => {
+      if (p.includes('SKILL.md')) return false;
+      return true;
+    });
+    const dirs = [{ name: 'empty', isDirectory: () => true, isFile: () => false }];
+    fs.readdirSync.mockReturnValue(dirs);
+
+    const result = await skillsCountCheck.run(mockContext);
+    expect(result.status).toBe('FAIL');
+    expect(result.fixCommand).toBe('npx aios-core install --force');
+  });
+
+  it('should FAIL when skills directory missing', async () => {
+    fs.existsSync.mockReturnValue(false);
+    const result = await skillsCountCheck.run(mockContext);
+    expect(result.status).toBe('FAIL');
+  });
+});
+
+describe('commands-count check', () => {
+  it('should PASS when >=20 command files', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const files = Array.from({ length: 22 }, (_, i) => ({
+      name: `cmd-${i}.md`,
+      isDirectory: () => false,
+      isFile: () => true,
+    }));
+    fs.readdirSync.mockReturnValue(files);
+
+    const result = await commandsCountCheck.run(mockContext);
+    expect(result.check).toBe('commands-count');
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('22');
+  });
+
+  it('should WARN when 12-19 command files', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const files = Array.from({ length: 15 }, (_, i) => ({
+      name: `cmd-${i}.md`,
+      isDirectory: () => false,
+      isFile: () => true,
+    }));
+    fs.readdirSync.mockReturnValue(files);
+
+    const result = await commandsCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('15/20');
+  });
+
+  it('should FAIL when <12 command files', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const files = Array.from({ length: 5 }, (_, i) => ({
+      name: `cmd-${i}.md`,
+      isDirectory: () => false,
+      isFile: () => true,
+    }));
+    fs.readdirSync.mockReturnValue(files);
+
+    const result = await commandsCountCheck.run(mockContext);
+    expect(result.status).toBe('FAIL');
+    expect(result.message).toContain('5');
+  });
+
+  it('should FAIL when commands directory missing', async () => {
+    fs.existsSync.mockReturnValue(false);
+    const result = await commandsCountCheck.run(mockContext);
+    expect(result.status).toBe('FAIL');
+  });
+});
+
+describe('hooks-claude-count check', () => {
+  it('should PASS when >=2 hook files and registered', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const hookFiles = [
+      { name: 'enforce-git-push.cjs', isFile: () => true, isDirectory: () => false },
+      { name: 'pre-commit-check.cjs', isFile: () => true, isDirectory: () => false },
+    ];
+    fs.readdirSync.mockReturnValue(hookFiles);
+    const settingsLocal = {
+      hooks: {
+        PreToolUse: [{ command: 'node .claude/hooks/enforce-git-push.cjs' }],
+        PostToolUse: [{ command: 'node .claude/hooks/pre-commit-check.cjs' }],
+      },
+    };
+    fs.readFileSync.mockReturnValue(JSON.stringify(settingsLocal));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.check).toBe('hooks-claude-count');
+    expect(result.status).toBe('PASS');
+    expect(result.message).toContain('2');
+  });
+
+  it('should WARN when hooks present but not registered', async () => {
+    fs.existsSync.mockImplementation((p) => {
+      if (p.includes('settings.local.json')) return true;
+      return true;
+    });
+    const hookFiles = [
+      { name: 'hook-a.cjs', isFile: () => true, isDirectory: () => false },
+      { name: 'hook-b.cjs', isFile: () => true, isDirectory: () => false },
+    ];
+    fs.readdirSync.mockReturnValue(hookFiles);
+    fs.readFileSync.mockReturnValue(JSON.stringify({ hooks: {} }));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('not registered');
+  });
+
+  it('should WARN when <2 hook files', async () => {
+    fs.existsSync.mockReturnValue(true);
+    const hookFiles = [
+      { name: 'single-hook.cjs', isFile: () => true, isDirectory: () => false },
+    ];
+    fs.readdirSync.mockReturnValue(hookFiles);
+    fs.readFileSync.mockReturnValue(JSON.stringify({ hooks: {} }));
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('WARN');
+    expect(result.message).toContain('1/2');
+  });
+
+  it('should FAIL when no hook files found', async () => {
+    fs.existsSync.mockReturnValue(true);
+    fs.readdirSync.mockReturnValue([]);
+
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('FAIL');
+  });
+
+  it('should FAIL when hooks directory missing', async () => {
+    fs.existsSync.mockReturnValue(false);
+    const result = await hooksClaudeCountCheck.run(mockContext);
+    expect(result.status).toBe('FAIL');
+  });
+});
+
+// === INS-4.8: Registry and task validation ===
+
+describe('check registry (INS-4.8)', () => {
+  it('should load 15 checks total', () => {
+    // loadChecks is the real function (not mocked) — verifies registration
+    const checks = loadChecks();
+    expect(checks).toHaveLength(15);
+  });
+
+  it('should include all 3 new checks', () => {
+    const checks = loadChecks();
+    const names = checks.map((c) => c.name);
+    expect(names).toContain('skills-count');
+    expect(names).toContain('commands-count');
+    expect(names).toContain('hooks-claude-count');
+  });
+});
+
+describe('health-check.yaml task (INS-4.8)', () => {
+  it('should NOT have *doctor alias', () => {
+    const realFs = jest.requireActual('fs');
+    const yaml = realFs.readFileSync(
+      path.join(__dirname, '..', '..', '..', '..', '..', '.aios-core', 'development', 'tasks', 'health-check.yaml'),
+      'utf8',
+    );
+    // Verify *doctor is not in the aliases list (only *hc should be)
+    const aliasMatch = yaml.match(/aliases:\s*\n((?:\s+-\s+.*\n)*)/);
+    expect(aliasMatch).toBeTruthy();
+    expect(aliasMatch[1]).not.toContain('*doctor');
+    expect(aliasMatch[1]).toContain('*hc');
+  });
+
+  it('should reference aios doctor --json in instructions', () => {
+    const realFs = jest.requireActual('fs');
+    const yaml = realFs.readFileSync(
+      path.join(__dirname, '..', '..', '..', '..', '..', '.aios-core', 'development', 'tasks', 'health-check.yaml'),
+      'utf8',
+    );
+    expect(yaml).toContain('aios doctor --json');
+    expect(yaml).toContain('node bin/aios.js doctor --json');
+  });
+
+  it('should have governance_map with all 15 checks', () => {
+    const realFs = jest.requireActual('fs');
+    const yaml = realFs.readFileSync(
+      path.join(__dirname, '..', '..', '..', '..', '..', '.aios-core', 'development', 'tasks', 'health-check.yaml'),
+      'utf8',
+    );
+    const expectedChecks = [
+      'settings-json', 'rules-files', 'agent-memory', 'entity-registry',
+      'git-hooks', 'core-config', 'claude-md', 'ide-sync', 'graph-dashboard',
+      'code-intel', 'node-version', 'npm-packages', 'skills-count',
+      'commands-count', 'hooks-claude-count',
+    ];
+    for (const check of expectedChecks) {
+      expect(yaml).toContain(`${check}:`);
+    }
   });
 });

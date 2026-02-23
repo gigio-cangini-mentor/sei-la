@@ -1,10 +1,10 @@
 /**
  * Doctor Check Registry
  *
- * Exports all 12 check modules in execution order.
+ * Exports all 15 check modules in execution order.
  *
  * @module aios-core/doctor/checks
- * @story INS-4.1
+ * @story INS-4.1, INS-4.8
  */
 
 const settingsJson = require('./settings-json');
@@ -19,6 +19,9 @@ const graphDashboard = require('./graph-dashboard');
 const codeIntel = require('./code-intel');
 const nodeVersion = require('./node-version');
 const npmPackages = require('./npm-packages');
+const skillsCount = require('./skills-count');
+const commandsCount = require('./commands-count');
+const hooksClaudeCount = require('./hooks-claude-count');
 
 function loadChecks() {
   return [
@@ -34,6 +37,9 @@ function loadChecks() {
     codeIntel,
     nodeVersion,
     npmPackages,
+    skillsCount,
+    commandsCount,
+    hooksClaudeCount,
   ];
 }
 
