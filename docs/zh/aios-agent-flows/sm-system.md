@@ -399,7 +399,7 @@ dependencies:
 2. 确认标签：`epic`、`epic-{epicNum}`
 3. 状态应为"规划中"或"进行中"
 4. 必要时手动创建史诗：
-   ```
+   ```text
    名称：'史诗 {epicNum}：{史诗标题}'
    列表：待办
    标签：['epic', 'epic-{epicNum}']

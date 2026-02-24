@@ -884,8 +884,6 @@ flowchart TD
 ### 相关文档
 
 - [ADR-025：文档结构](../../architecture/ADR-025-DOCUMENTATION-STRUCTURE.md)
-- [AIOS工作流指南](../AIOS-WORKFLOWS-GUIDE.md)
-- [故事模式](../templates/STORY-TEMPLATE.md)
 
 ---
 

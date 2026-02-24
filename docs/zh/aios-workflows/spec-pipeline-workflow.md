@@ -660,7 +660,7 @@ flowchart TB
 
 | 输出 | 位置 |
 |-----|------|
-| `plan.json` | `docs/stories/{storyId}/plan/implementation.yaml` |
+| `implementation.yaml` | `docs/stories/{storyId}/plan/implementation.yaml` |
 
 #### 子任务规则
 

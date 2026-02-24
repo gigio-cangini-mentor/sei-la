@@ -80,7 +80,7 @@
 
 ## 相关资源
 
-- 原始英文文档: `/Users/alan/Code/aios-core/docs/aios-agent-flows/`
+- 原始英文文档: `docs/aios-agent-flows/`
 - 产品模板: `.aios-core/product/templates/`
 - 开发任务: `.aios-core/development/tasks/`
 - AIOS工作流: `.aios-core/development/workflows/`

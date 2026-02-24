@@ -147,10 +147,10 @@ PM代理设计用于:
 
 | 变化类型 | 预测代理 |
 |---------|---------|
-| 数据库变化 | @dev、@数据工程师 |
+| 数据库变化 | @dev、@data-engineer |
 | API/后端变化 | @dev、@architect |
-| 前端/UI变化 | @dev、@UX设计专家 |
-| 部署/基础设施 | @dev、@github-devops |
+| 前端/UI变化 | @dev、@ux-design-expert |
+| 部署/基础设施 | @dev、@devops |
 | 安全功能 | @dev(关注OWASP) |
 
 ### Task: correct-course.md
@@ -367,7 +367,7 @@ flowchart TB
 | **检查清单** | 2(PM验证+变化导航) |
 | **工作流** | 1(Brownfield发现 - 第10阶段) |
 | **主要命令** | 7个(`*create-prd`、`*create-epic`、`*research`等) |
-| **协作代理** | @po、@sm、@architect、@analyst、@ux-expert |
+| **协作代理** | @po、@sm、@architect、@analyst、@ux-design-expert |
 | **主要交接** | PM->架构师(批准的PRD) |
 
 ---

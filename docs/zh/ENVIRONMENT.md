@@ -70,7 +70,7 @@ TWITTER_API_KEY=your_twitter_api_key
 
 ### 加载环境变量
 
-Synkra AIOS 使用 `dotenv`（如果已安装）或 Node.js 的本机环境变量支持。环境变量会自动从项目根目录的 `.env` 文件中加载。
+Synkra AIOS 使用 `dotenv`（如果已安装）加载 `.env`。若依赖 Node.js 原生能力，请明确使用 `--env-file` 或等效方式加载。
 
 **重要：** `.env` 文件在 gitignore 中，永远不会被提交到存储库。
 

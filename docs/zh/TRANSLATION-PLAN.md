@@ -1,6 +1,6 @@
 # Synkra AIOS 中文文档翻译计划
 
-> 🌐 [EN](../getting-started.md) | [PT](../pt/getting-started.md) | [ES](../es/getting-started.md) | **ZH**
+> 🌐 [EN](../TRANSLATION-PLAN.md) | [PT](../pt/TRANSLATION-PLAN.md) | [ES](../es/TRANSLATION-PLAN.md) | **ZH**
 
 ---
 

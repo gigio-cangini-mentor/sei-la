@@ -307,7 +307,7 @@ iteration: "{currentIteration}"
 
 **输出:**
 
-- `fix-request.md` - 带优先化问题的文档
+- `QA_FIX_REQUEST.md` - 带优先化问题的文档
 - `prioritizedIssues` - 按优先级排序的问题列表
 
 **成功时:**
@@ -701,7 +701,7 @@ npm run lint    # 应该通过
 |------|------|------|
 | `loop-status.json` | `qa/loop-status.json` | 循环当前状态 |
 | `gate-file.yaml` | `qa/gates/{storyId}.yaml` | 质量网关决策 |
-| `fix-request.md` | `qa/QA_FIX_REQUEST.md` | 修正文档 |
+| `QA_FIX_REQUEST.md` | `qa/QA_FIX_REQUEST.md` | 修正文档 |
 | `fixes-applied.json` | `qa/fixes-applied.json` | 已应用修正记录 |
 | `summary.md` | `qa/summary.md` | 循环最终摘要 |
 
@@ -1006,7 +1006,7 @@ cat qa/fixes-applied.json
 ```
 
 **解决方案:**
-1. 手动审查 fix-request.md
+1. 手动审查 QA_FIX_REQUEST.md
 2. 验证 @dev 更新了正确的文件
 3. 在重新审查前本地运行测试
 

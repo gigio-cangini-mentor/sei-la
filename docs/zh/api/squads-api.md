@@ -38,7 +38,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 将squad定义发送到Synkra。
 
-```
+```http
 POST /api/squads/sync
 ```
 
@@ -111,7 +111,7 @@ curl -X POST https://api.synkra.ai/api/squads/sync \
 
 在一个请求中同步多个squads。
 
-```
+```http
 POST /api/squads/sync/batch
 ```
 
@@ -193,7 +193,7 @@ curl -X POST https://api.synkra.ai/api/squads/sync/batch \
 
 浏览marketplace中可用的squads。
 
-```
+```http
 GET /api/squads
 ```
 
@@ -256,7 +256,7 @@ curl "https://api.synkra.ai/api/squads?tags=devops,automation&search=deploy&offi
 
 列出属于您工作区的squads。
 
-```
+```http
 GET /api/squads/mine
 ```
 
@@ -310,7 +310,7 @@ curl https://api.synkra.ai/api/squads/mine \
 
 获取特定squad的详细信息。
 
-```
+```http
 GET /api/squads/:id
 ```
 
@@ -382,7 +382,7 @@ curl https://api.synkra.ai/api/squads/550e8400-e29b-41d4-a716-446655440000
 
 更新squad的可见性设置。
 
-```
+```http
 PATCH /api/squads/:id
 ```
 
@@ -430,7 +430,7 @@ curl -X PATCH https://api.synkra.ai/api/squads/my-squad \
 
 从Synkra删除squad。
 
-```
+```http
 DELETE /api/squads/:id
 ```
 
@@ -464,7 +464,7 @@ curl -X DELETE https://api.synkra.ai/api/squads/my-old-squad \
 
 验证squad数据而不持久化。
 
-```
+```http
 POST /api/squads/validate
 ```
 

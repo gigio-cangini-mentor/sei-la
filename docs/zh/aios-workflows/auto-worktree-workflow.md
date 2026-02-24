@@ -302,7 +302,7 @@ interface CleanupResult {
 
 **输入:**
 ```typescript
-{ story_id: string }
+{ storyId: string }
 ```
 
 **输出:**

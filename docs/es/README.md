@@ -7,7 +7,6 @@
 # Documentación de Synkra AIOS
 
 > 🌐 [EN](../README.md) | [PT](../pt/README.md) | **ES** | [ZH](../zh/README.md)
-
 > **Sistema Orquestado por IA para Desarrollo Full Stack**
 
 ---

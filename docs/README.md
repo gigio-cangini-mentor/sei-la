@@ -27,8 +27,8 @@ docs/
 ├── architecture/              # English
 ├── framework/                 # English
 ├── platforms/                 # English
-├── aios-agent-flows/          # Detailed agent documentation (PT)
-├── aios-workflows/            # Detailed workflow documentation (PT)
+├── aios-agent-flows/          # Detailed agent documentation (PT) — legacy root location
+├── aios-workflows/            # Detailed workflow documentation (PT) — legacy root location
 │
 ├── pt/                        # Português (translations)
 │   ├── getting-started.md

@@ -62,7 +62,7 @@
 | **@pm** | Morgan | 产品经理 |
 | **@po** | Pax | 产品负责人 |
 | **@sm** | River | Scrum Master |
-| **@analyst** | Alex | 研究分析师 |
+| **@analyst** | Atlas | 研究分析师 |
 | **@data-engineer** | Dara | 数据工程师 |
 | **@ux** | Uma | UX 设计专家 |
 | **@devops** | Gage | DevOps 工程师 |
