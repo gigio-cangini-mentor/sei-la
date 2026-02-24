@@ -7,8 +7,8 @@
 # - SHA256 hashes for change detection
 # - File types for categorization
 #
-version: 4.2.13
-generated_at: "2026-02-24T00:17:49.885Z"
+version: 4.3.0
+generated_at: "2026-02-24T00:45:13.336Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1080
 files:
@@ -1205,13 +1205,13 @@ files:
     type: data
     size: 34235
   - path: data/capability-detection.js
-    hash: sha256:103dd2370d7400d270342c434ef666b84976d8c344a301efe3bdbe3bdd6ef04c
+    hash: sha256:564fe9677277ed50f0393a10ccc3f17263e021d9e4e57b3c4a6005ab3b93f520
     type: data
-    size: 9573
+    size: 9575
   - path: data/entity-registry.yaml
-    hash: sha256:9b756a561f38a756fdd7252a1885ed7dc7794547d4e55923044410d182e300a7
+    hash: sha256:c1b444ca2d8f5a6ab4e9074525c423026271d82661a7384266fe11932759c7fc
     type: data
-    size: 516169
+    size: 516319
   - path: data/learned-patterns.yaml
     hash: sha256:24ac0b160615583a0ff783d3da8af80b7f94191575d6db2054ec8e10a3f945dc
     type: data
@@ -1249,9 +1249,9 @@ files:
     type: data
     size: 15178
   - path: data/tool-search-validation.js
-    hash: sha256:569063d2d48cef7c41d1f62b4541ff5ca31924d9d1af816f0588b39ef25c56ec
+    hash: sha256:8757bf087692f002d67115dbe1c8244bbd869600e4f52c49b0d9b07cb9fbb783
     type: data
-    size: 5752
+    size: 5754
   - path: data/workflow-patterns.yaml
     hash: sha256:3c3625a5d9eb6eca6f33e3ac35d20fa377b44b061dc1dbf6b04116c6c5722834
     type: data

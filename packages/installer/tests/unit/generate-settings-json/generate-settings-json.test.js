@@ -158,6 +158,8 @@ describe('generate-settings-json', () => {
     test('all 9 protected paths from core-config produce deny rules', () => {
       const projectRoot = path.resolve(__dirname, '../../../../..');
       const boundary = readBoundaryConfig(projectRoot);
+      // Force frameworkProtection: true for this test (core-config may have it disabled for contributor mode)
+      boundary.frameworkProtection = true;
       const permissions = generatePermissions(boundary, projectRoot);
 
       // Verify all 9 config paths are covered

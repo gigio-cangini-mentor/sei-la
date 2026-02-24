@@ -141,7 +141,7 @@ function loadToolRegistry() {
 
     // Pass 1: collect all fields
     for (const line of content.split('\n')) {
-      const toolMatch = line.match(/^  ([a-zA-Z0-9_-]+):$/);
+      const toolMatch = line.match(/^ {2}([a-zA-Z0-9_-]+):$/);
       if (toolMatch) {
         currentTool = toolMatch[1];
         tools[currentTool] = {};
