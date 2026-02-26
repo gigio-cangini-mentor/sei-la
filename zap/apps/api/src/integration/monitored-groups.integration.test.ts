@@ -67,7 +67,10 @@ describe('MonitoredGroups Integration (AC-036.5)', () => {
     vi.spyOn(supabaseAdmin, 'rpc').mockResolvedValue({
       data: null,
       error: null,
-    })
+      status: 200,
+      statusText: 'OK',
+      count: null,
+    } as any)
 
     // Spy on queue.add
     const queueSpy = vi.spyOn(offerParserQueue, 'add').mockResolvedValue({ id: 'job-123' } as any)
@@ -140,7 +143,10 @@ describe('MonitoredGroups Integration (AC-036.5)', () => {
     vi.spyOn(supabaseAdmin, 'rpc').mockResolvedValue({
       data: null,
       error: null,
-    })
+      status: 200,
+      statusText: 'OK',
+      count: null,
+    } as any)
 
     const queueSpy = vi.spyOn(offerParserQueue, 'add').mockResolvedValue({ id: 'job-002' } as any)
 
@@ -193,7 +199,10 @@ describe('MonitoredGroups Integration (AC-036.5)', () => {
     vi.spyOn(supabaseAdmin, 'rpc').mockResolvedValue({
       data: null,
       error: null,
-    })
+      status: 200,
+      statusText: 'OK',
+      count: null,
+    } as any)
 
     const queueSpy = vi.spyOn(offerParserQueue, 'add').mockResolvedValue({ id: 'job-003' } as any)
 
