@@ -1,6 +1,29 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { Hono } from 'hono'
-import router from './marketplace-credentials'
+import router from './marketplace-credentials.js'
+
+let mockSupabaseFrom: any
+
+vi.mock('../db/client.js', () => ({
+  supabaseAdmin: {
+    get from() {
+      return mockSupabaseFrom
+    },
+  },
+  supabase: {
+    get from() {
+      return mockSupabaseFrom
+    },
+  },
+}))
+
+vi.mock('../lib/logger.js', () => ({
+  logger: {
+    info: vi.fn(),
+    error: vi.fn(),
+    debug: vi.fn(),
+  },
+}))
 
 describe('Marketplace Credentials API', () => {
   let app: Hono
@@ -14,6 +37,56 @@ describe('Marketplace Credentials API', () => {
     app.use('*', (c, next) => {
       c.set('auth', { tenantId, userId })
       return next()
+    })
+
+    // Store for tracking saved credentials in tests
+    let savedCredentials: any = null
+
+    // Mock Supabase responses
+    const mockUpsert = vi.fn().mockImplementation((data: any) => {
+      savedCredentials = data
+      return {
+        select: vi.fn().mockReturnValue({
+          single: vi.fn().mockResolvedValue({
+            data: { id: 'test-id', tenant_id: tenantId, ...data },
+            error: null,
+          }),
+        }),
+      }
+    })
+
+    const mockSelect = vi.fn().mockReturnValue({
+      eq: vi.fn().mockReturnValue({
+        single: vi.fn().mockResolvedValue({
+          data: savedCredentials
+            ? {
+                shopee_affiliate_id: 'shopee_user_123',
+                shopee_api_key: 'encrypted_key_value',
+                mercadolivre_account_tag: null,
+                mercadolivre_token: null,
+                amazon_associates_id: null,
+              }
+            : null,
+          error: null,
+        }),
+      }),
+    })
+
+    const mockUpdate = vi.fn().mockReturnValue({
+      eq: vi.fn().mockResolvedValue({
+        error: null,
+      }),
+    })
+
+    mockSupabaseFrom = vi.fn((table: string) => {
+      if (table === 'marketplace_credentials') {
+        return {
+          upsert: mockUpsert,
+          select: mockSelect,
+          update: mockUpdate,
+        }
+      }
+      return {}
     })
 
     // Mount router
@@ -110,6 +183,37 @@ describe('Marketplace Credentials API', () => {
 
   describe('AC-043.6: GET endpoint (no exposure)', () => {
     it('returns configuration status only (no plaintext keys)', async () => {
+      // Setup mock to return configured status
+      const mockSelect = vi.fn().mockReturnValue({
+        eq: vi.fn().mockReturnValue({
+          single: vi.fn().mockResolvedValue({
+            data: {
+              shopee_affiliate_id: 'shopee_user_123',
+              shopee_api_key: 'encrypted_key_value',
+              mercadolivre_account_tag: null,
+              mercadolivre_token: null,
+              amazon_associates_id: null,
+            },
+            error: null,
+          }),
+        }),
+      })
+
+      mockSupabaseFrom.mockReturnValue({
+        upsert: vi.fn().mockReturnValue({
+          select: vi.fn().mockReturnValue({
+            single: vi.fn().mockResolvedValue({
+              data: { id: 'test-id', tenant_id: tenantId },
+              error: null,
+            }),
+          }),
+        }),
+        select: mockSelect,
+        update: vi.fn().mockReturnValue({
+          eq: vi.fn().mockResolvedValue({ error: null }),
+        }),
+      })
+
       // First, save credentials
       const saveReq = new Request('http://localhost/api/v1/marketplace-credentials/shopee', {
         method: 'POST',
@@ -140,6 +244,20 @@ describe('Marketplace Credentials API', () => {
     })
 
     it('returns unconfigured status for missing credentials', async () => {
+      // Setup mock to return null (no credentials)
+      const mockSelect = vi.fn().mockReturnValue({
+        eq: vi.fn().mockReturnValue({
+          single: vi.fn().mockResolvedValue({
+            data: null,
+            error: null,
+          }),
+        }),
+      })
+
+      mockSupabaseFrom.mockReturnValue({
+        select: mockSelect,
+      })
+
       const req = new Request('http://localhost/api/v1/marketplace-credentials', {
         method: 'GET',
       })

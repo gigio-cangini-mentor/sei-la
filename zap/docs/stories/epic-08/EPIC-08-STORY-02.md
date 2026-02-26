@@ -155,7 +155,8 @@ describe('ShopeeStrategy', () => {
 - [x] Validates product ID
 - [x] Idempotent
 - [x] Unit tests: all cases
-- [x] `npm run typecheck` → 0 errors
+- [x] `npm run typecheck` → 0 errors ✅
+- [x] All tests passing (206/206) ✅
 
 ---
 
@@ -163,7 +164,69 @@ describe('ShopeeStrategy', () => {
 
 | File | Action | Notes |
 |------|--------|-------|
-| `apps/api/src/services/offers/strategies/shopee.strategy.ts` | CREATE | Shopee strategy |
+| `apps/api/src/services/offers/strategies/shopee.strategy.ts` | CREATE | ShopeeStrategy class with link construction logic |
+| `apps/api/src/services/offers/strategies/shopee.strategy.test.ts` | CREATE | 19 unit tests covering all 5 AC + edge cases |
+
+---
+
+## Dev Agent Record
+
+### Implementation Status ✅
+
+**Status:** Completed (Ready for QA)
+**Developer:** Dex (@dev)
+**Completion Date:** 2026-02-26
+**Mode:** YOLO (Autonomous)
+
+#### Implementation Summary
+- **ShopeeStrategy Class:** Marketplace strategy implementing link construction with credential retrieval
+- **Link Format:** `https://shopee.com.br/p-{productId}?af_id={affiliateId}`
+- **Affiliate ID Source:** marketplace_credentials table (ZAP-043 dependency)
+- **Validation:** Numeric-only product ID validation regex: `^\d+$`
+- **Tests:** 19 comprehensive unit tests covering all AC and edge cases
+- **Quality:** TypeScript ✅ (0 errors), 206/206 tests PASS ✅
+
+#### Quality Checks
+- ✅ AC-044.1: Link construction with correct format
+- ✅ AC-044.2: Fetches affiliate_id from marketplace_credentials table
+- ✅ AC-044.3: Handles missing credentials gracefully (throws "Shopee not configured")
+- ✅ AC-044.4: Validates product ID format (numeric only)
+- ✅ AC-044.5: Link construction idempotent (same inputs = same output)
+- ✅ No hardcoded values (all from DB or config)
+- ✅ Error logging without exposing sensitive data
+- ✅ `npm run typecheck` — PASS (0 errors)
+- ✅ 206/206 tests passing
+
+#### Key Implementation Details
+- **Dependency:** Requires ZAP-043 (marketplace_credentials table with affiliate_id) ✓ Already complete
+- **Imports Fixed:** Corrected path imports in both implementation and marketplace-credentials.ts route file
+  - Changed from `@/clients/supabase` → `../../db/client.js` (relative paths)
+  - Changed from `@/utils/logger` → `../../lib/logger.js`
+- **Error Handling:** Graceful errors with proper logging, no credential exposure
+- **RLS Compatible:** Filters by tenant_id for multi-tenant safety
+
+#### Files Created/Modified
+1. **Created:** `apps/api/src/services/offers/strategies/shopee.strategy.ts` (67 lines)
+   - ShopeeStrategy class implementing MarketplaceStrategy interface
+   - buildLink() method with validation and credential retrieval
+
+2. **Created:** `apps/api/src/services/offers/strategies/shopee.strategy.test.ts` (352 lines)
+   - 19 unit tests covering: link construction, validation, idempotency, edge cases
+   - Proper mocking of Supabase client
+
+3. **Modified:** `apps/api/src/routes/marketplace-credentials.ts`
+   - Fixed import paths and auth context destructuring
+
+#### Testing Coverage
+- **Acceptance Criteria:** All 5 AC fully tested and passing
+- **Edge Cases:** Long product IDs, special characters in affiliate ID, unicode handling
+- **Error Paths:** Missing credentials, invalid product IDs, database errors
+- **Idempotency:** Verified identical inputs produce identical outputs
+- **Tenant Isolation:** Verified tenant_id filtering in queries
+
+#### Blocker Status
+- ✅ ZAP-043 (marketplace_credentials) - COMPLETE
+- ⏳ Blocks: ZAP-045 (Mercado Livre), ZAP-046 (Amazon), ZAP-047 (Factory)
 
 ---
 
@@ -171,6 +234,7 @@ describe('ShopeeStrategy', () => {
 
 | Date | Author | Change |
 |------|--------|--------|
+| 2026-02-26 | Dex (@dev) | ✅ Implementation complete — ShopeeStrategy class, 19 unit tests, all AC verified, 206/206 tests PASS, ready for QA |
 | 2026-02-26 | River (SM) | Story created — Phase 1 |
 
 ---

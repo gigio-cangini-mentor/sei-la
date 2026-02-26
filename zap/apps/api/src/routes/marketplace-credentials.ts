@@ -1,9 +1,9 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import { z } from 'zod'
-import { EncryptionService } from '@/services/encryption.service'
-import { supabaseAdmin, supabase } from '@/clients/supabase'
-import { logger } from '@/utils/logger'
+import { EncryptionService } from '../services/encryption.service.js'
+import { supabaseAdmin, supabase } from '../db/client.js'
+import { logger } from '../lib/logger.js'
 
 const router = new Hono()
 
@@ -39,7 +39,7 @@ router.post(
   '/shopee',
   zValidator('json', shopeeCredentialSchema),
   async (c) => {
-    const { auth } = c.get('auth') as AuthContext
+    const auth = c.get('auth') as AuthContext
     const { affiliate_id, api_key } = c.req.valid('json')
 
     try {
@@ -98,7 +98,7 @@ router.post(
   '/mercadolivre',
   zValidator('json', mercadolivreCredentialSchema),
   async (c) => {
-    const { auth } = c.get('auth') as AuthContext
+    const auth = c.get('auth') as AuthContext
     const { account_tag, token, token_expires_at } = c.req.valid('json')
 
     try {
@@ -157,7 +157,7 @@ router.post(
   '/amazon',
   zValidator('json', amazonCredentialSchema),
   async (c) => {
-    const { auth } = c.get('auth') as AuthContext
+    const auth = c.get('auth') as AuthContext
     const { associates_id, account_id } = c.req.valid('json')
 
     try {
@@ -207,7 +207,7 @@ router.post(
  * Get credential status (no exposure of actual keys/tokens)
  */
 router.get('/', async (c) => {
-  const { auth } = c.get('auth') as AuthContext
+  const auth = c.get('auth') as AuthContext
 
   try {
     // SECURITY: Only select public fields (affiliate IDs)
@@ -258,7 +258,7 @@ router.get('/', async (c) => {
  * Delete credentials for a specific marketplace
  */
 router.delete('/:marketplace', async (c) => {
-  const { auth } = c.get('auth') as AuthContext
+  const auth = c.get('auth') as AuthContext
   const marketplace = c.req.param('marketplace')
 
   if (!['shopee', 'mercadolivre', 'amazon'].includes(marketplace)) {
