@@ -24,11 +24,15 @@ const amazonCredentialSchema = z.object({
   account_id: z.string().optional(),
 })
 
+const chromeExtensionCallbackSchema = z.object({
+  token: z.string().min(1, 'Token required'),
+  accountTag: z.string().min(1, 'Account tag required'),
+  tenantId: z.string().min(1, 'Tenant ID required'),
+})
+
 type AuthContext = {
-  auth: {
-    tenantId: string
-    userId: string
-  }
+  tenantId: string
+  userId: string
 }
 
 /**
@@ -312,5 +316,71 @@ router.delete('/:marketplace', async (c) => {
     )
   }
 })
+
+/**
+ * POST /api/v1/marketplace-credentials/chrome-extension/callback
+ * Chrome extension callback for OAuth flow
+ *
+ * AC-045.2: Receives token + account tag from extension
+ * Encrypts token and stores credentials
+ * Sets expiry to 180 days (typical OAuth refresh window)
+ */
+router.post(
+  '/chrome-extension/callback',
+  zValidator('json', chromeExtensionCallbackSchema),
+  async (c) => {
+    const { token, accountTag, tenantId } = c.req.valid('json')
+
+    try {
+      const encryption = new EncryptionService()
+
+      // Encrypt token for secure storage
+      const encrypted_token = encryption.encrypt(token, tenantId)
+
+      // Calculate expiry: 180 days from now (typical OAuth token refresh window)
+      const expiryDate = new Date()
+      expiryDate.setDate(expiryDate.getDate() + 180)
+
+      // Upsert credentials
+      const { data, error } = await supabaseAdmin
+        .from('marketplace_credentials')
+        .upsert(
+          {
+            tenant_id: tenantId,
+            mercadolivre_account_tag: accountTag,
+            mercadolivre_token: encrypted_token,
+            mercadolivre_token_expires_at: expiryDate.toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'tenant_id' }
+        )
+        .select()
+        .single()
+
+      if (error) throw error
+
+      // SECURITY: Log without exposing token
+      logger.info(`Mercado Livre credentials updated via Chrome extension for tenant ${tenantId}`)
+
+      return c.json(
+        {
+          success: true,
+          configured: true,
+          account_tag: accountTag,
+          expires_at: expiryDate.toISOString(),
+        },
+        201
+      )
+    } catch (error) {
+      logger.error(`Failed to process Chrome extension callback for tenant ${tenantId}`, { error })
+      return c.json(
+        {
+          error: 'Failed to save credentials',
+        },
+        500
+      )
+    }
+  }
+)
 
 export default router
