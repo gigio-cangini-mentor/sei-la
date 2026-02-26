@@ -226,7 +226,7 @@ public final class OrderBuilder {
 
 ## Project Structure
 
-```
+```text
 /src/main/java/com/example
   /orders
     /domain                # Entidades e regras
@@ -321,7 +321,7 @@ spring:
 
 ### Test Pyramid
 
-```
+```text
          /\
         /E2E\           10% - Fluxos externos criticos
        /------\
@@ -351,7 +351,7 @@ spring:
 
 ### Coverage Goals
 
-```
+```text
 - Domain/Application: 90%+
 - Infrastructure adapters: 70%+
 - Overall: 75%+

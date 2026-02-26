@@ -8,7 +8,7 @@
 # - File types for categorization
 #
 version: 4.4.6
-generated_at: "2026-02-26T16:32:59.233Z"
+generated_at: "2026-02-26T16:42:04.252Z"
 generator: scripts/generate-install-manifest.js
 file_count: 1089
 files:
@@ -1249,21 +1249,21 @@ files:
     type: data
     size: 11080
   - path: data/tech-presets/java.md
-    hash: sha256:60acde8147b1038ff5e8fc949e6cc192ad36c2d4bc77f5eb739e7e5a8b22783e
+    hash: sha256:07f19dd559db4f0abeb42ff3bf1cd47e3e80818c1668a0c042f4a28f32b479a8
     type: data
-    size: 11480
+    size: 11492
   - path: data/tech-presets/nextjs-react.md
     hash: sha256:516501997542635f045fe8dc14eadf727f1269611d92d34eb62ba648dbca1e67
     type: data
     size: 22866
   - path: data/tech-presets/php.md
-    hash: sha256:0ff50527391acc0793a9fbb6d8df99380d0c63bd9f597ab8dc69b1a4d616e252
+    hash: sha256:1f819bc6e597ad26bf970bf9af19c46b5b61f23c9573a77727824eb8a9f74cbd
     type: data
-    size: 10163
+    size: 10175
   - path: data/tech-presets/rust.md
-    hash: sha256:37d5f966a6645d4fb7c4e1a15bd66fd78c4eed2a3174edbf27e1ae33cd58459e
+    hash: sha256:ba5d60a2bcc00b1790c538616923a2d3e53e4fe2aeb38dd6e34e48308c5d97f2
     type: data
-    size: 10553
+    size: 10565
   - path: data/technical-preferences.md
     hash: sha256:3b4b2905e2d6a8d68e7bafb981241c561a25e2775d1a3728938d2dc03a001d62
     type: data

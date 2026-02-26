@@ -211,7 +211,7 @@ $command = PlaceOrderData::fromArray([
 
 ## Project Structure
 
-```
+```text
 /app
   /Domain
     /Orders
@@ -305,7 +305,7 @@ php artisan test
 
 ### Test Pyramid
 
-```
+```text
          /\
         /E2E\           10% - Fluxos criticos de API
        /------\
@@ -335,7 +335,7 @@ php artisan test
 
 ### Coverage Goals
 
-```
+```text
 - Domain/Application: 90%+
 - Feature tests: 75%+
 - Overall: 75%+

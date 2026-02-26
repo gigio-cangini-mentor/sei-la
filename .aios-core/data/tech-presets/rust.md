@@ -208,7 +208,7 @@ impl PlaceOrderBuilder {
 
 ## Project Structure
 
-```
+```text
 /src
   /bin                      # Entrypoints (api, worker)
   /orders
@@ -299,7 +299,7 @@ cargo test --all
 
 ### Test Pyramid
 
-```
+```text
          /\
         /E2E\           10% - Endpoints e fluxos criticos
        /------\
@@ -329,7 +329,7 @@ cargo test --all
 
 ### Coverage Goals
 
-```
+```text
 - Domain/Application: 90%+
 - Infrastructure adapters: 70%+
 - Overall: 75%+
