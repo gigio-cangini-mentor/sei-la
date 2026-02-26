@@ -4,7 +4,7 @@
 **Sprint:** 1 | **Phase:** MVP
 **Priority:** 🔴 CRITICAL
 **Story Points:** 2
-**Status:** InReview
+**Status:** Done
 **Assigned to:** @dev (Dex)
 **Prepared by:** River (Scrum Master)
 
@@ -237,6 +237,8 @@ CREATE POLICY "Service role unrestricted"
 
 | Date | Author | Change |
 |------|--------|--------|
+| 2026-02-26 | Pax (@po) | ✅ Story closed and approved — QA PASS (7/7 checks), ready for @devops push |
+| 2026-02-26 | Quinn (@qa) | ✅ QA review complete — PASS verdict, all 5 AC verified, migration ready |
 | 2026-02-26 | Dex (@dev) | Implementation complete — migration created, RLS/indexes validated, ready for QA |
 | 2026-02-26 | River (SM) | Story created — ready for database work |
 
