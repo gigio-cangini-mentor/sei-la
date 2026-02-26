@@ -287,10 +287,53 @@ describe('MarketplaceDetector', () => {
 
 ---
 
+## Dev Agent Record
+
+### Implementation Completed ✅
+
+**Status:** Ready for Review → QA Gate
+**Developer:** @dev (Dex)
+**Completion Date:** 2026-02-26
+
+#### Implementation Summary
+- **Service:** `MarketplaceDetector` with smart confidence scoring
+- **Patterns:** 3 marketplaces (Shopee, Mercado Livre, Amazon)
+- **Confidence Algorithm:**
+  - URL detection: 0.95
+  - Explicit prefix (with colon): 0.85
+  - Word mention with position awareness: 0.7-0.6
+- **Context Awareness:** Position-based confidence reduction for mentions in middle of text
+- **Type Safety:** Full TypeScript support with `Marketplace` union type
+
+#### Test Results
+- ✅ 30/30 tests passing (100%)
+  - AC-037.1: Shopee detection (5 tests)
+  - AC-037.2: Mercado Livre detection (4 tests)
+  - AC-037.3: Amazon detection (3 tests)
+  - AC-037.4: Multiple marketplace handling (1 test)
+  - AC-037.5: Case-insensitive detection (6 tests)
+  - AC-037.6: Confidence scoring (5 tests)
+  - Edge cases (5 tests)
+  - Singleton instance (1 test)
+
+#### Quality Checks
+- ✅ `npm run typecheck` — PASS
+- ✅ `npm run build` — PASS
+- ✅ Git commit: `dd4dc02c` (feat: implement EPIC-07 ZAP-037)
+- ⚠️ Linting: ESLint config issue (--ext flag deprecated, not code issue)
+
+#### Next Steps
+1. @qa: QA gate review (codereabbit auto-scan + manual review)
+2. @devops: Push to remote + create PR
+3. Next story: ZAP-038
+
+---
+
 ## Change Log
 
 | Date | Author | Change |
 |------|--------|--------|
+| 2026-02-26 | Dex (@dev) | Implementation complete — 30/30 tests passing, typecheck+build passed, ready for QA review |
 | 2026-02-26 | River (SM) | Story created — ready for development |
 
 ---
