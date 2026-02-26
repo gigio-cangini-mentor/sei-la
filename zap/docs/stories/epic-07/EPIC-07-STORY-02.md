@@ -4,7 +4,7 @@
 **Sprint:** 1 | **Phase:** MVP
 **Priority:** 🔴 CRITICAL
 **Story Points:** 3
-**Status:** InReview
+**Status:** Done
 **Assigned to:** @dev (Dex)
 **Prepared by:** River (Scrum Master)
 
@@ -308,6 +308,8 @@ describe('URLExtractor - Shopee', () => {
 
 | Date | Author | Change |
 |------|--------|--------|
+| 2026-02-26 | Pax (@po) | ✅ Story closed and approved — QA PASS (7/7 checks), unblocks ZAP-041 + ZAP-042 |
+| 2026-02-26 | Quinn (@qa) | ✅ QA review complete — PASS verdict, all 5 AC verified, 32/32 tests |
 | 2026-02-26 | Dex (@dev) | Implementation complete — 32/32 tests PASS, quality gates passed, ready for QA |
 | 2026-02-26 | River (SM) | Story created — Phase 1 (Shopee only) |
 
