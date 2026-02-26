@@ -382,10 +382,10 @@ export default function MonitoredGroupsPage() {
 
 | File | Action | Notes |
 |------|--------|-------|
-| `apps/web/src/stores/monitored-groups.ts` | CREATE | Zustand store |
-| `apps/web/src/app/(dashboard)/monitored-groups/page.tsx` | CREATE | Main page |
-| `apps/web/src/components/modals/AddMonitoredGroupModal.tsx` | CREATE | Modal form |
-| `apps/web/src/components/tables/MonitoredGroupsTable.tsx` | CREATE | Table component |
+| `apps/web/src/stores/monitored-groups.ts` | CREATE | Zustand store with fetchGroups, addGroup, pauseGroup, resumeGroup, deleteGroup |
+| `apps/web/src/app/(dashboard)/monitored-groups/page.tsx` | CREATE | Main page with filter, sort, polling (10s interval), empty state |
+| `apps/web/src/components/modals/AddMonitoredGroupModal.tsx` | CREATE | Modal form with connection selector, group name, group JID validation, duplicate detection |
+| `apps/web/src/components/tables/MonitoredGroupsTable.tsx` | CREATE | Table with sorting, filtering, status badges, pause/resume/delete actions, confirmations |
 
 ---
 
@@ -401,6 +401,7 @@ export default function MonitoredGroupsPage() {
 | Date | Author | Change |
 |------|--------|--------|
 | 2026-02-26 | River (SM) | Story created — ready for development |
+| 2026-02-26 | Dex (Dev) | Implementation complete: 4 components (store + page + modal + table), form validation, CRUD operations, polling, TypeScript clean |
 
 ---
 
