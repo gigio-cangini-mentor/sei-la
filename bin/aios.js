@@ -66,6 +66,8 @@ USAGE:
   npx aios-core@latest validate     # Validate installation integrity
   npx aios-core@latest info         # Show system info
   npx aios-core@latest doctor       # Run diagnostics
+  npx aios-core@latest jarvis       # Start JARVIS interactive CLI
+  npx aios-core@latest jarvis "cmd" # One-shot JARVIS command
   npx aios-core@latest --version    # Show version
   npx aios-core@latest --version -d # Show detailed version info
   npx aios-core@latest --help       # Show this help
@@ -908,6 +910,20 @@ async function main() {
       // Update to latest version - Epic 7
       await runUpdate();
       break;
+
+    case 'jarvis': {
+      // JARVIS CLI - Intelligent Orchestration Layer
+      const jarvisBootstrapPath = path.join(__dirname, '..', '.aios-core', 'core', 'jarvis', 'jarvis-bootstrap');
+      try {
+        const { bootstrap: jarvisBootstrap } = require(jarvisBootstrapPath);
+        const jarvisArgs = args.slice(1);
+        await jarvisBootstrap({ projectRoot: process.cwd(), argv: jarvisArgs });
+      } catch (error) {
+        console.error(`❌ JARVIS error: ${error.message}`);
+        process.exit(1);
+      }
+      break;
+    }
 
     case '--version':
     case '-v':

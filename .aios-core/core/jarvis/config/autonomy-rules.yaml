@@ -1,0 +1,111 @@
+# ============================================
+# JARVIS Autonomy Rules
+# Story 1.5: Autonomy Controller
+#
+# Defines known-safe patterns for 'assisted' mode
+# and novel decision triggers that require surfacing.
+#
+# @version 1.0.0
+# @story 1.5
+# ============================================
+
+version: "1.0.0"
+description: "Known-safe patterns and novel decision triggers for JARVIS autonomy levels"
+
+# ============================================
+# KNOWN-SAFE PATTERNS (assisted mode)
+# ============================================
+# These patterns auto-execute without user approval
+# in 'assisted' mode. Each pattern defines:
+#   - id: unique identifier
+#   - agent: the agent to activate
+#   - command: the command to execute
+#   - condition: when this pattern is safe to auto-execute
+#   - description: human-readable explanation
+# ============================================
+
+safe_patterns:
+  - id: "safe-dev-develop"
+    agent: "@dev"
+    command: "*develop"
+    condition:
+      story_status: "Approved"
+    description: "Auto-execute @dev *develop when story is approved"
+
+  - id: "safe-qa-review"
+    agent: "@qa"
+    command: "*review"
+    condition:
+      story_status: "InProgress"
+    description: "Auto-execute @qa *review when story is in progress"
+
+  - id: "safe-devops-push"
+    agent: "@devops"
+    command: "*push"
+    condition:
+      qa_verdict: "PASS"
+      qa_concerns: false
+    description: "Auto-execute @devops *push when QA passes with no concerns"
+
+  - id: "safe-sm-draft"
+    agent: "@sm"
+    command: "*draft"
+    condition:
+      epic_has_pending: true
+    description: "Auto-execute @sm *draft when epic has pending stories"
+
+  - id: "safe-po-validate"
+    agent: "@po"
+    command: "*validate-story-draft"
+    condition:
+      story_status: "Draft"
+    description: "Auto-execute @po *validate when story is in draft"
+
+# ============================================
+# NOVEL DECISION TRIGGERS (assisted mode)
+# ============================================
+# These always require surfacing in 'assisted' mode,
+# regardless of context.
+# ============================================
+
+novel_triggers:
+  - id: "novel-architect-delegation"
+    pattern: "@architect"
+    description: "Any @architect delegation (architecture decisions always need review)"
+
+  - id: "novel-qa-concerns"
+    pattern: "qa_concerns"
+    condition:
+      qa_verdict: "CONCERNS"
+    description: "QA CONCERNS verdict (ambiguous result)"
+
+  - id: "novel-scope-drift"
+    pattern: "scope_drift"
+    description: "Scope drift detected in current story"
+
+  - id: "novel-first-time-pattern"
+    pattern: "first_time"
+    description: "Step type not seen before in this project"
+
+# ============================================
+# CONFIDENCE THRESHOLDS PER LEVEL
+# ============================================
+# Minimum confidence to proceed without surfacing
+# at each autonomy level.
+# ============================================
+
+confidence_thresholds:
+  supervised: 1.0       # Always surface (effectively unreachable)
+  assisted: 0.85        # High confidence required for auto-execution
+  autonomous: 0.5       # Lower threshold; only surface when truly uncertain
+
+# ============================================
+# METADATA
+# ============================================
+
+metadata:
+  author: "@dev (Dex)"
+  story: "1.5"
+  epic: "1 - JARVIS"
+  created_date: "2026-02-26"
+  architecture_reference: "docs/stories/jarvis/ARCHITECTURE-JARVIS.md#4.4.2"

@@ -1,0 +1,441 @@
+# Intent Patterns for JARVIS Intent Engine
+# Deterministic Tier 1 pattern matching for natural language classification
+# Loaded at module initialization, not per-call
+#
+# @story 1.2
+# @architecture docs/stories/jarvis/ARCHITECTURE-JARVIS.md#4.1.3
+
+# ---------------------------------------------------------------------------
+# Aliases: expanded during preprocessing to normalize user input
+# ---------------------------------------------------------------------------
+aliases:
+  # Portuguese -> English normalization
+  implementar: implement
+  implementa: implement
+  desenvolver: develop
+  desenvolva: develop
+  construir: build
+  criar: create
+  crie: create
+  validar: validate
+  valide: validate
+  revisar: review
+  revise: review
+  testar: test
+  teste: test
+  enviar: push
+  publicar: deploy
+  status: status
+  ajuda: help
+  proximo: next
+  proxima: next
+  historia: story
+  epico: epic
+  arquitetura: architecture
+  esquema: schema
+  pesquisar: research
+  analisar: analyze
+  configurar: configure
+  mudar: change
+  trocar: switch
+
+# ---------------------------------------------------------------------------
+# Intent Patterns: ordered by priority (higher = checked first)
+# ---------------------------------------------------------------------------
+patterns:
+  # =========================================================================
+  # AGENT DIRECT PASSTHROUGH (highest priority)
+  # =========================================================================
+  - pattern: "@(dev|qa|architect|pm|po|sm|analyst|data-engineer|ux-design-expert|devops|aios-master)\\b"
+    intent: "agent.direct"
+    category: "operations"
+    confidence: 0.98
+    entities:
+      - name: agentHint
+        regex: "@(dev|qa|architect|pm|po|sm|analyst|data-engineer|ux-design-expert|devops|aios-master)"
+
+  # =========================================================================
+  # META CONFIGURATION
+  # =========================================================================
+  - pattern: "\\b(yolo|go autonomous|autonomous mode|full auto)\\b"
+    intent: "mode.yolo"
+    category: "meta_configuration"
+    confidence: 0.95
+
+  - pattern: "\\b(switch to|set|configure|change)\\s+(mode|profile|permission)"
+    intent: "mode.configure"
+    category: "meta_configuration"
+    confidence: 0.90
+
+  - pattern: "\\b(supervised|assisted|ask)\\s+mode\\b"
+    intent: "mode.supervised"
+    category: "meta_configuration"
+    confidence: 0.90
+
+  - pattern: "\\b(explore|exploration)\\s+mode\\b"
+    intent: "mode.explore"
+    category: "meta_configuration"
+    confidence: 0.90
+
+  # =========================================================================
+  # DEVELOPMENT - Story develop/implement
+  # =========================================================================
+  - pattern: "(implement|develop|code|build|work on)\\s+(story\\s+)?(\\d+\\.\\d+)"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.95
+    entities:
+      - name: storyId
+        regex: "(\\d+\\.\\d+)"
+
+  - pattern: "(implement|develop|code|build)\\s+(the\\s+)?(next\\s+)?(story|feature|task)"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.90
+
+  - pattern: "(implement|develop|code|build)\\s+(this|that|the)\\s+"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.85
+    entities:
+      - name: featureName
+        regex: "(this|that|the)\\s+(.+)"
+        group: 2
+
+  - pattern: "\\bstart\\s+(coding|developing|implementing|building)"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.85
+
+  - pattern: "\\bfix\\s+(bug|issue|error|problem)\\s*(in|with|on|for)?"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.85
+    entities:
+      - name: featureName
+        regex: "(bug|issue|error|problem)\\s+(?:in|with|on|for)\\s+(.+)"
+        group: 2
+
+  - pattern: "\\brefactor\\s+"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.85
+    entities:
+      - name: featureName
+        regex: "refactor\\s+(.+)"
+
+  - pattern: "\\bdebug\\s+"
+    intent: "story.develop"
+    category: "development"
+    confidence: 0.80
+
+  # =========================================================================
+  # DEVELOPMENT - Database design
+  # =========================================================================
+  - pattern: "(design|create|draft)\\s+(the\\s+)?(database|db|schema|data model)"
+    intent: "db.design"
+    category: "development"
+    confidence: 0.92
+
+  - pattern: "\\b(migration|migrate|alter table|add column)"
+    intent: "db.design"
+    category: "development"
+    confidence: 0.85
+
+  # =========================================================================
+  # DEVELOPMENT - Full cycle
+  # =========================================================================
+  - pattern: "(full cycle|end to end|start to finish|complete cycle)"
+    intent: "story.full_cycle"
+    category: "development"
+    confidence: 0.92
+
+  - pattern: "(implement|develop|build)\\s+.*(end to end|from scratch|completely)"
+    intent: "story.full_cycle"
+    category: "development"
+    confidence: 0.88
+
+  # =========================================================================
+  # PLANNING - Story creation
+  # =========================================================================
+  - pattern: "(create|draft|write)\\s+(the\\s+)?(next\\s+)?story"
+    intent: "story.create"
+    category: "planning"
+    confidence: 0.95
+    entities:
+      - name: epicId
+        regex: "(?:epic|from epic)\\s+(\\d+)"
+      - name: storyId
+        regex: "story\\s+(\\d+\\.\\d+)"
+
+  - pattern: "(create|draft|write)\\s+(a\\s+)?new\\s+story"
+    intent: "story.create"
+    category: "planning"
+    confidence: 0.93
+    entities:
+      - name: epicId
+        regex: "(?:epic|from epic)\\s+(\\d+)"
+
+  # =========================================================================
+  # PLANNING - Story validation
+  # =========================================================================
+  - pattern: "validate\\s+(story\\s+)?(\\d+\\.\\d+)?"
+    intent: "story.validate"
+    category: "planning"
+    confidence: 0.92
+    entities:
+      - name: storyId
+        regex: "(\\d+\\.\\d+)"
+
+  - pattern: "(review|check)\\s+(story\\s+)?draft"
+    intent: "story.validate"
+    category: "planning"
+    confidence: 0.85
+
+  # =========================================================================
+  # PLANNING - Architecture
+  # =========================================================================
+  - pattern: "(create|design|draft)\\s+(the\\s+)?(full[- ]?stack|system)\\s+architecture"
+    intent: "arch.create_fullstack"
+    category: "planning"
+    confidence: 0.92
+
+  - pattern: "(create|design|draft)\\s+(the\\s+)?backend\\s+architecture"
+    intent: "arch.create_backend"
+    category: "planning"
+    confidence: 0.92
+
+  - pattern: "(create|design|draft)\\s+(the\\s+)?front[- ]?end\\s+architecture"
+    intent: "arch.create_frontend"
+    category: "planning"
+    confidence: 0.92
+
+  - pattern: "(analyze|assess)\\s+(the\\s+)?project\\s+structure"
+    intent: "arch.analyze"
+    category: "planning"
+    confidence: 0.90
+
+  - pattern: "(design|architect)\\s+(the\\s+)?(auth|authentication|payment|api|module|system)"
+    intent: "arch.create_fullstack"
+    category: "planning"
+    confidence: 0.85
+    entities:
+      - name: topic
+        regex: "(auth|authentication|payment|api|module|system)"
+
+  # =========================================================================
+  # PLANNING - Epic management
+  # =========================================================================
+  - pattern: "(create|draft|write)\\s+(a\\s+)?(new\\s+)?epic"
+    intent: "epic.create"
+    category: "planning"
+    confidence: 0.93
+    entities:
+      - name: topic
+        regex: "(?:for|about)\\s+(.+)"
+
+  - pattern: "(execute|run|start)\\s+epic\\s+(\\d+)"
+    intent: "epic.execute"
+    category: "planning"
+    confidence: 0.93
+    entities:
+      - name: epicId
+        regex: "epic\\s+(\\d+)"
+
+  # =========================================================================
+  # PLANNING - Spec pipeline
+  # =========================================================================
+  - pattern: "(spec|specify|specification)\\s+(out|for|the)?"
+    intent: "spec.pipeline"
+    category: "planning"
+    confidence: 0.88
+    entities:
+      - name: topic
+        regex: "(?:out|for|the)\\s+(.+)"
+
+  - pattern: "(create|write|draft)\\s+(a\\s+)?(PRD|prd|product requirements|spec|specification)"
+    intent: "spec.pipeline"
+    category: "planning"
+    confidence: 0.90
+    entities:
+      - name: topic
+        regex: "(?:for|about)\\s+(.+)"
+
+  - pattern: "(gather|collect)\\s+requirements"
+    intent: "spec.pipeline"
+    category: "planning"
+    confidence: 0.85
+
+  # =========================================================================
+  # RESEARCH
+  # =========================================================================
+  - pattern: "(research|investigate|explore|study|look into)\\s+"
+    intent: "research.general"
+    category: "research"
+    confidence: 0.88
+    entities:
+      - name: topic
+        regex: "(?:research|investigate|explore|study|look into)\\s+(.+)"
+
+  - pattern: "(audit|review)\\s+(the\\s+)?(frontend|front[- ]?end|ux|ui|user experience)"
+    intent: "ux.audit"
+    category: "research"
+    confidence: 0.90
+
+  - pattern: "(analyze|assess)\\s+(the\\s+|this\\s+)?(brownfield|legacy|existing)\\s+(codebase|code|project)"
+    intent: "brownfield.discover"
+    category: "research"
+    confidence: 0.90
+
+  - pattern: "(technical debt|tech debt)\\s*(assessment|review|audit)?"
+    intent: "brownfield.discover"
+    category: "research"
+    confidence: 0.85
+
+  # =========================================================================
+  # OPERATIONS - Review / QA
+  # =========================================================================
+  - pattern: "(run|start|do)\\s+(qa|quality|review|test)"
+    intent: "story.review"
+    category: "operations"
+    confidence: 0.88
+    entities:
+      - name: storyId
+        regex: "(\\d+\\.\\d+)"
+
+  - pattern: "(review|qa|test|check quality)\\s+(story\\s+)?(\\d+\\.\\d+)?"
+    intent: "story.review"
+    category: "operations"
+    confidence: 0.85
+    entities:
+      - name: storyId
+        regex: "(\\d+\\.\\d+)"
+
+  - pattern: "(keep reviewing|qa loop|review loop|iterate reviews)"
+    intent: "qa.loop"
+    category: "operations"
+    confidence: 0.88
+
+  # =========================================================================
+  # OPERATIONS - Push / Deploy
+  # =========================================================================
+  - pattern: "(push|deploy|ship|publish)\\s+(the\\s+)?(changes|code|branch)?"
+    intent: "story.push"
+    category: "operations"
+    confidence: 0.90
+
+  - pattern: "(merge|pr|pull request|create pr)"
+    intent: "story.push"
+    category: "operations"
+    confidence: 0.85
+
+  # =========================================================================
+  # STATUS INQUIRY
+  # =========================================================================
+  - pattern: "\\b(status|what.*status)\\b"
+    intent: "status.query"
+    category: "status_inquiry"
+    confidence: 0.92
+
+  - pattern: "what.*(going on|happening|progress|state)"
+    intent: "status.query"
+    category: "status_inquiry"
+    confidence: 0.90
+
+  - pattern: "(how are we|where are we|what's next|what should)"
+    intent: "status.query"
+    category: "status_inquiry"
+    confidence: 0.85
+
+  - pattern: "(show|list|display)\\s+(active\\s+)?(stories|story|tasks|epics)"
+    intent: "status.query"
+    category: "status_inquiry"
+    confidence: 0.85
+
+  # =========================================================================
+  # HELP / GENERAL
+  # =========================================================================
+  - pattern: "\\b(help|what can you do|capabilities|commands|guide)\\b"
+    intent: "help.general"
+    category: "status_inquiry"
+    confidence: 0.90
+
+  - pattern: "(how do I|how to|teach me|explain)"
+    intent: "help.general"
+    category: "status_inquiry"
+    confidence: 0.80
+
+# ---------------------------------------------------------------------------
+# Intent to Agent+Command mapping (used by Router in Story 1.3)
+# ---------------------------------------------------------------------------
+intentMapping:
+  story.create:
+    agent: "@sm"
+    command: "*draft"
+  story.validate:
+    agent: "@po"
+    command: "*validate-story-draft"
+  story.develop:
+    agent: "@dev"
+    command: "*develop"
+  story.review:
+    agent: "@qa"
+    command: "*review"
+  story.push:
+    agent: "@devops"
+    command: "*push"
+  story.full_cycle:
+    workflow: "sdc"
+  arch.create_fullstack:
+    agent: "@architect"
+    command: "*create-full-stack-architecture"
+  arch.create_backend:
+    agent: "@architect"
+    command: "*create-backend-architecture"
+  arch.create_frontend:
+    agent: "@architect"
+    command: "*create-front-end-architecture"
+  arch.analyze:
+    agent: "@architect"
+    command: "*analyze-project-structure"
+  spec.pipeline:
+    workflow: "spec-pipeline"
+  qa.loop:
+    workflow: "qa-loop"
+  brownfield.discover:
+    workflow: "brownfield"
+  db.design:
+    agent: "@data-engineer"
+    command: "*design-schema"
+  ux.audit:
+    agent: "@ux-design-expert"
+    command: "*audit-frontend"
+  epic.create:
+    agent: "@pm"
+    command: "*create-epic"
+  epic.execute:
+    agent: "@pm"
+    command: "*execute-epic"
+  status.query:
+    internal: true
+    handler: "status"
+  help.general:
+    internal: true
+    handler: "help"
+  mode.yolo:
+    internal: true
+    handler: "permission_toggle"
+  mode.configure:
+    internal: true
+    handler: "configuration"
+  mode.supervised:
+    internal: true
+    handler: "permission_toggle"
+  mode.explore:
+    internal: true
+    handler: "permission_toggle"
+  agent.direct:
+    passthrough: true
+  research.general:
+    agent: "@analyst"
+    command: "*research"

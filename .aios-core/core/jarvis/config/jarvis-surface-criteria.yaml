@@ -1,0 +1,140 @@
+# ============================================
+# JARVIS Surface Criteria Extensions
+# Story 1.5: Autonomy Controller
+#
+# Extends bob-surface-criteria.yaml with
+# JARVIS-specific criteria for autonomous mode.
+# These criteria are MERGED with Bob's criteria;
+# either set can trigger surfacing.
+#
+# @version 1.0.0
+# @story 1.5
+# ============================================
+
+version: "1.0.0"
+description: "JARVIS-specific surface criteria extensions for autonomous mode"
+
+# ============================================
+# JARVIS CRITERIA DEFINITIONS
+# ============================================
+# These extend (not replace) the Bob criteria from
+# bob-surface-criteria.yaml. Evaluation order is
+# appended after Bob's criteria.
+# ============================================
+
+criteria:
+  # ----------------------------------------
+  # J001: Architecture Decision Required
+  # confidence < 0.7 on architecture decision
+  # ----------------------------------------
+  architecture_decision:
+    id: "J001"
+    name: "Architecture Decision Required"
+    condition: "architecture_confidence < 0.7"
+    action: "present_and_ask_go_nogo"
+    message: |
+      An architecture decision requires your input.
+      Confidence level: ${architecture_confidence}
+
+      Please review and decide. [GO/NO-GO]
+    severity: "warning"
+    bypass: false
+
+  # ----------------------------------------
+  # J002: Conflicting Agent Outputs
+  # Two or more agents produced conflicting results
+  # ----------------------------------------
+  conflicting_outputs:
+    id: "J002"
+    name: "Conflicting Agent Outputs"
+    condition: "conflicting_agents >= 2"
+    action: "present_options_with_tradeoffs"
+    message: |
+      ${conflicting_agents} agents produced conflicting outputs.
+
+      ${conflict_details}
+
+      Which approach should we follow?
+    severity: "warning"
+    bypass: false
+
+  # ----------------------------------------
+  # J003: Budget Threshold Exceeded
+  # Estimated operation cost exceeds budget
+  # ----------------------------------------
+  budget_exceeded:
+    id: "J003"
+    name: "Budget Threshold Exceeded"
+    condition: "estimated_cost > budget_limit"
+    action: "confirm_before_proceed"
+    message: |
+      Operation cost ($${estimated_cost}) exceeds budget limit ($${budget_limit}).
+
+      Proceed anyway? [YES/NO]
+    severity: "critical"
+    bypass: true
+
+  # ----------------------------------------
+  # J004: Consecutive Step Failures
+  # 3+ consecutive step failures
+  # ----------------------------------------
+  consecutive_failures:
+    id: "J004"
+    name: "Consecutive Step Failures"
+    condition: "consecutive_failures >= 3"
+    action: "pause_and_ask_help"
+    message: |
+      ${consecutive_failures} consecutive step failures detected.
+
+      ${failure_summary}
+
+      How should we proceed?
+      [1] Retry with different approach
+      [2] Skip failing step
+      [3] Abort mission
+    severity: "error"
+    bypass: false
+
+  # ----------------------------------------
+  # J005: User Requested Supervised Confirmation
+  # User explicitly asked to confirm this step
+  # ----------------------------------------
+  user_requested_confirm:
+    id: "J005"
+    name: "User Requested Confirmation"
+    condition: "user_requested_confirm"
+    action: "confirm_before_proceed"
+    message: |
+      You requested confirmation for this step:
+
+      ${step_description}
+
+      Proceed? [YES/NO]
+    severity: "info"
+    bypass: false
+
+# ============================================
+# EVALUATION ORDER
+# ============================================
+# Appended after Bob's evaluation order.
+# First match wins (short-circuit).
+# ============================================
+
+evaluation_order:
+  - consecutive_failures    # J004 - Most critical, check first
+  - architecture_decision   # J001 - Architecture needs review
+  - conflicting_outputs     # J002 - Conflicting results
+  - budget_exceeded         # J003 - Cost overrun
+  - user_requested_confirm  # J005 - Explicit user request
+
+# ============================================
+# METADATA
+# ============================================
+
+metadata:
+  author: "@dev (Dex)"
+  story: "1.5"
+  epic: "1 - JARVIS"
+  created_date: "2026-02-26"
+  extends: "bob-surface-criteria.yaml"
+  architecture_reference: "docs/stories/jarvis/ARCHITECTURE-JARVIS.md#4.4"
