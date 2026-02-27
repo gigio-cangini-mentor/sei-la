@@ -1,10 +1,11 @@
 import { Worker, Job } from 'bullmq'
-import { messageQueue, BroadcastJobData, OfferReplicationJobData, offerReplicationQueue } from '../queues/index.js'
+import { messageQueue, BroadcastJobData, OfferReplicationJobData, offerReplicationQueue, redisConnection } from '../queues/index.js'
 import { supabaseAdmin } from '../db/client.js'
 import { logger } from '../lib/logger.js'
 import { config } from '../lib/config.js'
 import { sessionManager } from '../services/whatsapp/session-manager.js'
 import { formatOfferMessage } from '../services/offers/message-formatter.js'
+import { antiBanEngine } from '../services/offers/anti-ban.engine.js'
 
 function getConnection() {
   try {
@@ -164,6 +165,20 @@ export const offerReplicationWorker = new Worker<OfferReplicationJobData>(
 
     for (const group of targetGroups) {
       try {
+        // AC-050: Calculate anti-ban delay with jitter
+        const { delayMs, multiplier } = await antiBanEngine.calculateDelay(
+          group.groupId,
+          offerId,
+          supabaseAdmin,
+          redisConnection,
+        )
+
+        logger.debug('Applying anti-ban delay', {
+          groupId: group.groupId,
+          delayMs,
+          multiplier,
+        })
+
         // Build message using marketplace and pricing info
         const affiliateUrl = affiliateLinks?.[parsedOffer.marketplace] || parsedOffer.originalUrl
 
@@ -176,6 +191,9 @@ export const offerReplicationWorker = new Worker<OfferReplicationJobData>(
 
         // AC-049.3: Send via SessionManager
         await sessionManager.sendTextToGroup(tenantId, connectionId, group.waGroupId, messageText)
+
+        // AC-050.4: Reset failure counter on successful send
+        await antiBanEngine.resetFailureCount(group.groupId, redisConnection)
 
         // AC-049.4: Update replicated_offers tracking
         // Increment sent_to_count and update timestamps
@@ -197,14 +215,26 @@ export const offerReplicationWorker = new Worker<OfferReplicationJobData>(
             .eq('id', offerId)
         }
 
-        logger.info('Offer sent to group', { offerId, groupId: group.groupId })
+        logger.info('Offer sent to group', { offerId, groupId: group.groupId, delayMs, multiplier })
         results.push({ groupId: group.groupId, success: true })
       } catch (error) {
+        // AC-050.4: Track failure and check circuit breaker
+        const failureCount = await antiBanEngine.trackFailure(group.groupId, redisConnection)
+
+        if (antiBanEngine.isCircuitBreakerTriggered(failureCount)) {
+          await antiBanEngine.markGroupRestricted(
+            group.groupId,
+            `Max failures exceeded (${failureCount})`,
+            supabaseAdmin,
+          )
+        }
+
         // AC-049.5: Error handling with BullMQ retry
         logger.error('Failed to send offer to group', {
           error: error instanceof Error ? error.message : 'Unknown error',
           offerId,
           groupId: group.groupId,
+          failureCount,
           attempt: job.attemptsMade + 1,
           maxAttempts: job.opts.attempts,
         })
