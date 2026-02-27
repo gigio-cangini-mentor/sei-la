@@ -1,7 +1,7 @@
 # ROADMAP MASTER - AIOS + JARVIS
 
 > Documento vivo. Atualizar checkboxes conforme progresso.
-> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W5 100% DONE — Agent Parity completa, 12/12 items)
+> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W6 100% DONE — Intelligence completa, 9/9 items)
 > Referencia cruzada: `docs/stories/backlog.json`, `docs/roadmap.md`
 
 ---
@@ -13,8 +13,8 @@
 | AIOS Core Framework | ~95% | 14 modulos completos, W3 100% gaps resolvidos |
 | JARVIS CLI Engine | ~95% | 7/7 stories DONE, pipeline integrado, 346 testes |
 | JARVIS Voice Hub | ~90% | v6 cockpit + HTTPS + Core integration (W2.1-W2.6 DONE) |
-| JARVIS Cloud Brain | ~90% | W4+W5 DONE, W6 intelligence pendente |
-| Cloud Brain Intelligence | 0% | W6 — multi-agent, memory, voice shortcuts |
+| JARVIS Cloud Brain | ~98% | W4+W5+W6 DONE, W7 hardening pendente |
+| Cloud Brain Intelligence | ~100% | W6 DONE — context, memory, multi-agent, voice, mobile |
 | Hardening & Polish | 0% | W7 — security, tests, cleanup |
 
 ---
@@ -209,21 +209,21 @@
 
 ### Phase 1: Context & Memory
 
-- [ ] W6.1 - Project context injection: injetar CLAUDE.md, constitution, story ativa e git status no system prompt de cada agente
-- [ ] W6.2 - Conversation memory: persistir historico de conversas por sessao no servidor (hoje so localStorage no browser)
-- [ ] W6.3 - Cross-session learning: JARVIS aprende padroes do projeto e preferencias do usuario entre sessoes
+- [x] W6.1 - Project context injection — DONE 2026-02-28 (loadProjectKnowledge(): CLAUDE.md sections, constitution 500ch, roadmap Status Geral table. Injected as ## Project Knowledge no buildSystemPrompt())
+- [x] W6.2 - Conversation memory — DONE 2026-02-28 (server-side persistence em data/conversations/, 5 REST endpoints CRUD, auto-save em /api/brain/execute, conversationId tracking)
+- [x] W6.3 - Cross-session learning — DONE 2026-02-28 (data/learnings.json, loadProjectLearnings/updateProjectLearnings, 2 tools: get_project_learnings + update_project_learnings, ## Project Learnings injected no system prompt)
 
 ### Phase 2: Multi-Agent & Orchestration
 
-- [ ] W6.4 - Multi-agent missions: JARVIS orquestra multiplos agentes em sequencia para uma missao (ex: @sm cria story → @dev implementa → @qa testa)
-- [ ] W6.5 - Parallel agent execution: rodar agentes independentes em paralelo (ex: @qa e @dev em tasks diferentes)
-- [ ] W6.6 - Agent routing inteligente: Opus analisa comando e decide automaticamente qual agente(s) acionar, sem precisar de @mention explicito
+- [x] W6.4 - Multi-agent missions — DONE 2026-02-28 (executeMission() sequential+parallel steps, orchestrate() enhanced para detectar multi-step, POST /api/brain/mission endpoint, WS streaming)
+- [x] W6.5 - Parallel agent execution — DONE 2026-02-28 (executeParallelAgents() via Promise.all, parallel flag em mission steps, POST /api/brain/parallel endpoint)
+- [x] W6.6 - Agent routing inteligente — DONE 2026-02-28 (detectAgent() reescrito com scoring 28 patterns PT-BR, confidence score 0-1, conversation context injection no orchestrate(), project state awareness)
 
 ### Phase 3: Voice & UX
 
-- [ ] W6.7 - Voice command shortcuts: "JARVIS, roda os testes" → detecta intent e executa direto sem confirmar
-- [ ] W6.8 - Voice status reports: JARVIS fala o status do projeto, progresso da story, resultados de teste
-- [ ] W6.9 - Mobile cockpit polish: UX otimizada para uso no celular (gestos, layout responsivo, notificacoes)
+- [x] W6.7 - Voice command shortcuts — DONE 2026-02-28 (VOICE_SHORTCUTS map 14 entries, normalizeVoiceCommand(), matchVoiceShortcut(), intercept em REST e WS, skip Opus quando matched)
+- [x] W6.8 - Voice status reports — DONE 2026-02-28 (generateStatusReport() branch/modified/commit/uptime/agents, GET /api/jarvis/report, voice shortcuts: "status report"/"relatorio de status"/"como vai")
+- [x] W6.9 - Mobile cockpit polish — DONE 2026-02-28 (CSS @media 768px: topbar compact, voice 100px, tabs scroll, sticky input, touch targets 44px+, safe-area-inset. JS: swipe sidebar, pull-to-refresh monitor)
 
 ---
 
@@ -264,9 +264,9 @@
 | W3 Core | 17 | 17 | 100% |
 | W4 Cloud Brain | 18 | 18 | 100% |
 | W5 Agent Parity | 12 | 12 | 100% |
-| W6 Intelligence | 9 | 0 | 0% |
+| W6 Intelligence | 9 | 9 | 100% |
 | W7 Hardening | 12 | 0 | 0% |
-| **TOTAL** | **109** | **87** | **80%** |
+| **TOTAL** | **109** | **96** | **88%** |
 
 ---
 
