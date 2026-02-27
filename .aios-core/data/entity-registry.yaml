@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-02-27T02:50:16.622Z'
+  lastUpdated: '2026-02-27T04:10:06.321Z'
   entityCount: 745
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -8320,6 +8320,7 @@ entities:
         - greeting-builder
         - config-loader
         - bob-orchestrator
+        - core-config
       dependencies:
         - merge-utils
         - env-interpolator
@@ -10777,12 +10778,14 @@ entities:
       path: .aios-core/core/doctor/checks/core-config.js
       layer: L1
       type: module
-      purpose: Entity at .aios-core\core\doctor\checks\core-config.js
+      purpose: '============================================'
       keywords:
         - core
         - config
+        - '============================================'
       usedBy: []
-      dependencies: []
+      dependencies:
+        - config-resolver
       externalDeps: []
       plannedDeps: []
       lifecycle: orphan
@@ -10790,8 +10793,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:fbf07087b997250f1c00a2f698910f0689f82f4a3ddfcc007c084a81a784ef87
-      lastVerified: '2026-02-27T02:30:37.454Z'
+      checksum: sha256:97d5ec2041501e584b5c887987615eb4275f2bf9a625b2adaf455364230b63e4
+      lastVerified: '2026-02-27T04:10:06.316Z'
     entity-registry:
       path: .aios-core/core/doctor/checks/entity-registry.js
       layer: L1
