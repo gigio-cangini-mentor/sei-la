@@ -32,7 +32,12 @@
       "Bash(git status:*)",
       "Bash(sed:*)",
       "Bash(rm:*)",
-      "Bash(git check-ignore:*)"
+      "Bash(git check-ignore:*)",
+      "Bash(ssh-keygen:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(gh auth:*)",
+      "Bash(git:*)"
     ]
   },
   "hooks": {
