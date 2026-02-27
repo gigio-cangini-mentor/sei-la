@@ -1,7 +1,7 @@
 # ROADMAP MASTER - AIOS + JARVIS
 
 > Documento vivo. Atualizar checkboxes conforme progresso.
-> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W5.1-W5.4 DONE — Agent Personas, Authority, Tools, Memory)
+> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W5.1-W5.8 DONE — Agent Parity Phase 1+2 completas)
 > Referencia cruzada: `docs/stories/backlog.json`, `docs/roadmap.md`
 
 ---
@@ -189,10 +189,10 @@
 
 ### Phase 2: Workflows & Tasks (paridade de execucao)
 
-- [ ] W5.5 - Task loader: Cloud Brain carrega e executa tasks de `.aios-core/development/tasks/` (dev-develop-story, qa-gate, create-next-story, etc.)
-- [ ] W5.6 - Story-driven mode: agentes trabalham a partir de stories reais em `docs/stories/`, atualizam checkboxes e file lists
-- [ ] W5.7 - Agent handoff cloud: implementar protocolo de handoff entre agentes no Cloud Brain (compaction artifact, context transfer)
-- [ ] W5.8 - QA Loop cloud: ciclo review-fix automatico via Cloud Brain (qa review → dev fix → re-review, max 5 iteracoes)
+- [x] W5.5 - Task loader — DONE 2026-02-28 (loadTask(), listTasks(), execute_task + list_tasks tools, agent-prefixed matching)
+- [x] W5.6 - Story-driven mode — DONE 2026-02-28 (find_active_story, update_story_progress tools, active story injection no system prompt)
+- [x] W5.7 - Agent handoff cloud — DONE 2026-02-28 (POST/GET /api/brain/handoff, artifact persistence, handoff injection no orchestrate)
+- [x] W5.8 - QA Loop cloud — DONE 2026-02-28 (POST /api/brain/qa-loop, async qa→dev cycle, max 5 iter, WebSocket streaming)
 
 ### Phase 3: Infra & Confiabilidade
 
@@ -263,10 +263,10 @@
 | W2 Integration | 12 | 12 | 100% |
 | W3 Core | 17 | 17 | 100% |
 | W4 Cloud Brain | 18 | 18 | 100% |
-| W5 Agent Parity | 12 | 4 | 33% |
+| W5 Agent Parity | 12 | 8 | 67% |
 | W6 Intelligence | 9 | 0 | 0% |
 | W7 Hardening | 12 | 0 | 0% |
-| **TOTAL** | **109** | **79** | **72%** |
+| **TOTAL** | **109** | **83** | **76%** |
 
 ---
 
