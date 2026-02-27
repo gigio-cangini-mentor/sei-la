@@ -1,7 +1,7 @@
 # ROADMAP MASTER - AIOS + JARVIS
 
 > Documento vivo. Atualizar checkboxes conforme progresso.
-> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-28 (W6 100% DONE — Intelligence completa, 9/9 items)
+> Criado: 2026-02-26 | Ultima atualizacao: 2026-02-27 (W7.13-7.16 DONE — Autonomia Total: terminal, web search, docs, reports)
 > Referencia cruzada: `docs/stories/backlog.json`, `docs/roadmap.md`
 
 ---
@@ -15,7 +15,7 @@
 | JARVIS Voice Hub | ~90% | v6 cockpit + HTTPS + Core integration (W2.1-W2.6 DONE) |
 | JARVIS Cloud Brain | ~98% | W4+W5+W6 DONE, W7 hardening pendente |
 | Cloud Brain Intelligence | ~100% | W6 DONE — context, memory, multi-agent, voice, mobile |
-| Hardening & Polish | 0% | W7 — security, tests, cleanup |
+| Hardening & Polish | 25% | W7 — Phase 4 done (terminal, web, docs, reports). Phases 1-3 pendentes |
 
 ---
 
@@ -252,6 +252,13 @@
 - [ ] W7.11 - Testes para core modules sem coverage (10+ modules)
 - [ ] W7.12 - Performance: cache de agent prompts, connection pooling, lazy loading
 
+### Phase 4: Autonomia Total
+
+- [x] W7.13 - Claude Code VPS + Cockpit Terminal (ttyd Docker + Traefik routing + Terminal tab) — DONE 2026-02-27 (deployed & validated)
+- [x] W7.14 - Web Search & Real-Time Information (web_search DuckDuckGo + web_read tools) — DONE 2026-02-27 (deployed & validated)
+- [x] W7.15 - Document Reader (read_document tool: PDF, CSV, Google Docs/Sheets) — DONE 2026-02-27 (deployed & validated)
+- [x] W7.16 - Report Generator & Data Export (generate_report + export_data + /api/brain/reports) — DONE 2026-02-27 (deployed & validated)
+
 ---
 
 ## Metricas de Progresso
@@ -265,8 +272,8 @@
 | W4 Cloud Brain | 18 | 18 | 100% |
 | W5 Agent Parity | 12 | 12 | 100% |
 | W6 Intelligence | 9 | 9 | 100% |
-| W7 Hardening | 12 | 0 | 0% |
-| **TOTAL** | **109** | **96** | **88%** |
+| W7 Hardening | 16 | 4 | 25% |
+| **TOTAL** | **113** | **100** | **88%** |
 
 ---
 
