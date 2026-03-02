@@ -83,6 +83,7 @@ function parseCliArgs() {
         'dry-run': { type: 'boolean', default: false },
         'no-interactive': { type: 'boolean', default: false },
         'no-resume': { type: 'boolean', default: false },
+        'skip-po': { type: 'boolean', default: false },
         help: { type: 'boolean', default: false },
         verbose: { type: 'boolean', default: false },
       },
@@ -183,6 +184,7 @@ OPTIONS:
   --dry-run               Simulate without calling query()
   --no-interactive        Skip interactive prompts (for systemd)
   --no-resume             Do not resume interrupted workflow, start fresh
+  --skip-po               Skip PO validation (stories already reviewed)
   --verbose               Enable debug logging
   --status                Show current workflow state
   --abort                 Abort active workflow
@@ -880,9 +882,14 @@ async function main() {
           status: 'dry_run_complete',
         };
       } else {
+        const skipPhases = [];
+        if (validatedArgs['skip-po']) {
+          skipPhases.push('SM:CREATE', 'PO:VALIDATE');
+        }
         result = await workflowEngine.runSDC({
           storyFile: validatedArgs._storyPath,
           maxBudgetUsd: validatedArgs._maxBudgetUsd,
+          skipPhases,
         });
       }
     } else if (validatedArgs.workflow === 'qa-loop') {

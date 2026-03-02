@@ -318,10 +318,11 @@ export function createWorkflowEngine({
    * @param {number} [opts.maxBudgetUsd=25] - Maximum budget for the workflow
    * @returns {Promise<WorkflowReport>}
    */
-  async function runSDC({ storyFile, maxBudgetUsd } = {}) {
+  async function runSDC({ storyFile, maxBudgetUsd, skipPhases } = {}) {
     if (!storyFile) throw new Error('storyFile is required');
 
     const budget = maxBudgetUsd ?? DEFAULT_SDC_BUDGET;
+    const phasesToSkip = new Set(skipPhases || []);
     const persistence = getPersistence(storyFile);
 
     // AC10: Check for existing state (crash recovery)
@@ -373,6 +374,21 @@ export function createWorkflowEngine({
     // CP-3 fix: index-based while loop for backward jumps
     while (phaseIndex < phases.length) {
       const phase = phases[phaseIndex];
+
+      // Skip phases explicitly requested via skipPhases option (e.g., --skip-po)
+      if (phasesToSkip.has(phase.id)) {
+        log.info(
+          { event: 'phase_skipped', phase: phase.id, reason: 'skip_requested' },
+          `Phase ${phase.id} skipped (requested)`
+        );
+        state.phaseHistory.push({
+          phase: phase.id,
+          status: 'skipped',
+          completedAt: new Date().toISOString(),
+        });
+        phaseIndex++;
+        continue;
+      }
 
       // AC6: Skip predicate (e.g., SM:CREATE skipped if story exists and not retry)
       // Rebuild skip dynamically since state.retries may have changed

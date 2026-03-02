@@ -18,7 +18,7 @@ I'm writing to apply for the [POSITION TITLE] role at [COMPANY]. I build AI agen
 
 **Why I'm a strong fit:**
 
-I'm the creator of **OpenClaw**, an open-source messaging gateway that connects WhatsApp and Telegram to AI agent orchestration systems. It uses Anthropic's **Model Context Protocol (MCP)** as the communication backbone between channels and agents -- handling bidirectional messaging, session persistence, auto-reconnection, and graceful degradation when LLMs are slow or unavailable.
+I'm a daily production user of **OpenClaw**, an open-source messaging gateway that connects WhatsApp and Telegram to AI agent orchestration systems. It uses Anthropic's **Model Context Protocol (MCP)** as the communication backbone between channels and agents -- handling bidirectional messaging, session persistence, auto-reconnection, and graceful degradation when LLMs are slow or unavailable.
 
 I also built and maintain **Synkra AIOS**, a multi-agent development framework where 10+ specialized AI agents (developer, architect, QA, PM, etc.) collaborate autonomously on software engineering tasks. The system uses **Claude Code** as its execution engine, with MCP servers for tool integration, context management, and cross-agent handoffs.
 

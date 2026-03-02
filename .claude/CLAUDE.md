@@ -447,10 +447,3 @@ sudo /usr/bin/openclaw message send --target +5528999301848 --message "[AIOS-Mas
 ```
 Não espere o Lucas perguntar o status se você finalizar algo importante, envie uma notificação diretamente para ele preenchendo o texto do !
 
-### Canal Bidirecional (Notificacao Ativa)
-Voce (Claude Code / AIOS-Master) tem a obrigaçao de notificar o Lucas (via WhatsApp) de forma proativa.
-Quando terminar uma tarefa longa, ocorrer um erro que bloqueie seu trabalho, ou precisar de aprovacao para continuar, execute o comando abaixo no bash:
-```bash
-sudo /usr/bin/openclaw message send --target +5528999301848 --message "[AIOS-Master] Sua mensagem aqui, resumindo a situacao..."
-```
-Nao espere passivamente! Envie o status ativamente usando esta ferramenta, ela eh o seu canal oficial de retorno assincrono para o mundo externo.
