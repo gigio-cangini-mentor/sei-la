@@ -61,16 +61,15 @@ describe('antigravity-workflows', () => {
 
     it('reports errors in resultFiles when fs operations fail', () => {
         const resultFiles = [];
-        // We pass a bad root that would cause fs.readdirSync to fail, but fs.existsSync passes if we mock it?
-        // Actually, to simulate failure, we can manually change permissions or mock `fs`.
-        // Let's just mock fs.readdirSync temporarily.
-        const originalReaddir = fs.readdirSync;
-        fs.readdirSync = () => { throw new Error('Mocked FS Error'); };
+        // Use jest.spyOn to prevent interference with other tests that might run in parallel
+        const readdirSpy = jest.spyOn(fs, 'readdirSync').mockImplementation(() => {
+            throw new Error('Mocked FS Error');
+        });
 
         try {
             syncAntigravityWorkflows(tmpRoot, false, resultFiles, false);
         } finally {
-            fs.readdirSync = originalReaddir;
+            readdirSpy.mockRestore();
         }
 
         expect(resultFiles.length).toBe(1);
