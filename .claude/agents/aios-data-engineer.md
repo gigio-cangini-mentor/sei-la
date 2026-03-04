@@ -3,7 +3,7 @@ name: aios-data-engineer
 description: |
   AIOS Data Engineer autônomo. Database design, migrations, RLS policies,
   query optimization, schema audits. Usa task files reais do AIOS.
-model: opus
+model: sonnet
 tools:
   - Read
   - Grep

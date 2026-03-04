@@ -3,7 +3,7 @@ name: aios-qa
 description: |
   AIOS QA/Tester autônomo. Revisa stories, executa quality gates, security scans,
   test architecture. Usa task files reais com gate decision (PASS/CONCERNS/FAIL).
-model: opus
+model: sonnet
 tools:
   - Read
   - Grep
