@@ -99,7 +99,7 @@ Roda no VPS via Docker + Traefik.
 - `supabase.ts` — cliente Supabase
 
 ### Frontend (`/opt/meta-ads-dashboard/client/src/pages/`)
-- `Home.tsx` (171K) — dashboard principal com campanhas, KPIs, lead scoring
+- `Home.tsx` (~203K) — dashboard principal com campanhas, KPIs, lead scoring
 - `Funil.tsx` (~1300 linhas) — funil de captacao completo
 - `ProjectLogin.tsx` (5.7K) — login com seletor de projeto + PIN OTP
 
@@ -217,6 +217,44 @@ Click fatia donut → setSurveyAnswerFilter({ question, answer })
   - Painel "Origem dos leads" com campanhas/conjuntos/criativos
   - Click em campanha/conjunto no painel → seleciona na tabela
   - Badge de filtro ativo com X para limpar
+
+### Sessao 3 (Lead Score Creative Fixes):
+- **Triple-Scope Fix (v3)** — Correcao de inflacao de lead scoring no nivel criativo
+  - Root cause: mesmo criativo aparece em multiplas campanhas/adsets. Score era duplicado.
+  - Solucao: adicionado `adsByCampaignAndAdset` com chave composta `campaign::adset`
+  - Arquivos: `score-aggregator.ts` (acumulador), `routers.ts` (enrichScoped), `Home.tsx` (getScopedAdByCampaignAndAdset)
+  - Scripts: `fix-creative-scoring-v3.cjs`, `fix-router-triple-scope.cjs`
+- **Deduplicacao de Criativos Duplicados** — Meta API retorna mesmo nome como multiplos ad IDs
+  - Root cause: MAR_26_CAP_VD_08 aparece 2x no mesmo adset (2 ad IDs). Ambos recebiam score completo.
+  - Solucao: `adDupInfo` useMemo + `adjustAdScore()` distribui leads proporcionalmente por gasto
+  - Criativo com R$ 0 gasto mostra tracos (null)
+  - Script: `fix-dup-creative-scores.cjs`
+  - 3 pontos alterados em Home.tsx: sortedAds, individual row, total row
+- **Override de ConvRate na Total Row** — Exatidao de Fat. Projetado
+  - Root cause: diferentes `expectedConvRate` por criativo vs campanha (MQL distributions). Arredondamento perdia 1 compra (R$ 3.000).
+  - Solucao: total row dos ads usa `expectedConvRate` do pai (campanha ou adset) para override de tCompras/tFat
+  - Script: `fix-convrate-v2.cjs` (v1 inseriu no lugar errado — adset total row; v2 corrigiu)
+  - Resultado: Campanha = 13 compras R$ 39.000 = Total Criativos EXATO
+
+## Home.tsx — Alteracoes Acumuladas (Sessao 3)
+
+### Funcoes/memos adicionados (nivel do modulo, antes de sortedAds):
+- `adDupInfo` useMemo — builds spendMap/countMap por nome de criativo em `filteredAds`
+- `adjustAdScore(ls, adName, adGasto)` — ajusta score de criativo quando nomes duplicados existem
+
+### getScopedAdByCampaignAndAdset — triple-scope lookup
+- Busca score em `adsByCampaignAndAdset` com chave composta `campaign::adset`
+- Usada quando `selectedCampaign && selectedAdset` estao ativos
+
+### 3 pontos de scoring de ads alterados:
+1. **sortedAds useMemo** (~linha 829): `_raw = (scoring...); return adjustAdScore(_raw, nome, gasto)`
+2. **Individual ad row** (~linha 1482): `_rawLs = (scoring...); ls = adjustAdScore(_rawLs, nome, gasto)`
+3. **Total ad row** (~linha 1538): `_rawLsT = (scoring...); ls = adjustAdScore(_rawLsT, nome, gasto)` + override de tCompras/tFat com expectedConvRate do pai
+
+### Anchors unicos para patches futuros:
+- **Ad total row**: contem `_rawLsT` e `adjustAdScore` (unico, nao existe na adset total row)
+- **Adset total row**: contem `getScopedAdsetScore` e `getLeadScoreForAdset` (sem `_rawLsT`)
+- **Cuidado**: ambas total rows compartilham o padrao `if (ls) { tLeads += ...}`; use `_rawLsT` como diferenciador
 
 ## Pendencias (backlog)
 
