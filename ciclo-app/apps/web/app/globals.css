@@ -3,115 +3,96 @@
 @tailwind utilities;
 
 /* ============================================================
-   FREQUENCIA VIOLETA — Design System Tokens
-   Ciclo das Estacoes | Base Triade
+   CICLO DAS ESTACOES — Design System
+   Base Triade | Cores quentes, terrosas, sazonais
    ============================================================ */
 
 @layer base {
   :root {
-    /* === PALETA SAZONAL — Default: Primavera === */
-    --season-primary: #5EA142;
-    --season-secondary: #E089FC;
-    --season-accent: #F5C6D0;
-    --season-glow: #A8E6A1;
-    --season-bg: #F0FFF0;
-    --season-glow-alpha-30: rgba(168, 230, 161, 0.3);
-    --season-glow-alpha-15: rgba(168, 230, 161, 0.15);
+    /* === BASE TRIADE — Identidade Visual Core === */
+    --base-dark: #2d1810;
+    --base-golden: #d4a574;
+    --base-sienna: #8B4513;
+    --base-bg: #fef9f0;
+    --base-cream: #f5e6d3;
 
-    /* === SHADCN/UI BASE TOKENS === */
-    --background: #F5EED4;
-    --foreground: #213B2C;
-    --card: rgba(255, 255, 255, 0.85);
-    --card-foreground: #213B2C;
+    /* === PALETA SAZONAL — Default: Primavera === */
+    --season-primary: #90EE90;
+    --season-secondary: #98D8C8;
+    --season-accent: #F7FFE0;
+    --season-gradient: linear-gradient(135deg, #F7FFE0 0%, #90EE90 50%, #98D8C8 100%);
+
+    /* === SHADCN/UI TOKENS === */
+    --background: #fef9f0;
+    --foreground: #2d1810;
+    --card: #ffffff;
+    --card-foreground: #2d1810;
     --popover: #ffffff;
-    --popover-foreground: #213B2C;
+    --popover-foreground: #2d1810;
     --primary: var(--season-primary);
-    --primary-foreground: #ffffff;
+    --primary-foreground: #2d1810;
     --secondary: var(--season-secondary);
-    --secondary-foreground: #1E0338;
-    --muted: #F5EED4;
-    --muted-foreground: #5F4822;
+    --secondary-foreground: #2d1810;
+    --muted: #f5e6d3;
+    --muted-foreground: #6b5744;
     --accent: var(--season-accent);
-    --accent-foreground: #213B2C;
+    --accent-foreground: #2d1810;
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
-    --border: rgba(147, 46, 136, 0.15);
-    --input: rgba(147, 46, 136, 0.12);
-    --ring: #932E88;
-    --radius: 0.75rem;
-
-    /* === GRADIENTES SAGRADOS === */
-    --gradient-triskle: conic-gradient(from 0deg, #24451F 0deg, #932E88 120deg, #D48113 240deg, #24451F 360deg);
-    --gradient-violet-freq: linear-gradient(135deg, #1E0338 0%, #5C1680 25%, #932E88 50%, #C945E8 75%, #FAE8FF 100%);
-    --gradient-aurora: linear-gradient(180deg, #213B2C 0%, #185474 30%, #7B1FA2 60%, #C945E8 85%, #E089FC 100%);
-    --gradient-mandala: radial-gradient(ellipse at center, #932E88 0%, #5C1680 30%, #213B2C 70%, #24451F 100%);
-    --gradient-crown: radial-gradient(circle at 50% 0%, #FAE8FF 0%, #C945E8 30%, #7B1FA2 60%, transparent 100%);
+    --border: #d4a574;
+    --input: #d4a574;
+    --ring: var(--season-primary);
+    --radius: 0.5rem;
   }
 
-  /* ===== PRIMAVERA — Renascimento (Madeira/Figado) ===== */
+  /* ===== PRIMAVERA — Madeira/Figado ===== */
   [data-season='primavera'] {
-    --season-primary: #5EA142;
-    --season-secondary: #E089FC;
-    --season-accent: #F5C6D0;
-    --season-glow: #A8E6A1;
-    --season-bg: #F0FFF0;
-    --season-glow-alpha-30: rgba(168, 230, 161, 0.3);
-    --season-glow-alpha-15: rgba(168, 230, 161, 0.15);
-    --background: #F5EED4;
-    --primary-foreground: #ffffff;
-    --ring: #5EA142;
+    --season-primary: #90EE90;
+    --season-secondary: #98D8C8;
+    --season-accent: #F7FFE0;
+    --season-gradient: linear-gradient(135deg, #F7FFE0 0%, #90EE90 50%, #98D8C8 100%);
+    --primary-foreground: #1a3a1a;
+    --ring: #90EE90;
   }
 
-  /* ===== VERAO — Plenitude (Fogo/Coracao) ===== */
+  /* ===== VERAO — Fogo/Coracao ===== */
   [data-season='verao'] {
-    --season-primary: #D48113;
-    --season-secondary: #C945E8;
-    --season-accent: #CD684D;
-    --season-glow: #FFD700;
-    --season-bg: #FFFBF0;
-    --season-glow-alpha-30: rgba(255, 215, 0, 0.3);
-    --season-glow-alpha-15: rgba(255, 215, 0, 0.15);
-    --background: #FFFBF0;
-    --primary-foreground: #ffffff;
-    --ring: #D48113;
+    --season-primary: #FFD700;
+    --season-secondary: #FFA500;
+    --season-accent: #FFFACD;
+    --season-gradient: linear-gradient(135deg, #FFFACD 0%, #FFD700 50%, #FFA500 100%);
+    --primary-foreground: #3d2e00;
+    --ring: #FFD700;
   }
 
-  /* ===== OUTONO — Recolhimento (Metal/Pulmao) ===== */
+  /* ===== OUTONO — Metal/Pulmao ===== */
   [data-season='outono'] {
-    --season-primary: #C97A46;
-    --season-secondary: #7B1FA2;
-    --season-accent: #8B4513;
-    --season-glow: #DEB887;
-    --season-bg: #FFF8F0;
-    --season-glow-alpha-30: rgba(222, 184, 135, 0.3);
-    --season-glow-alpha-15: rgba(222, 184, 135, 0.15);
-    --background: #FFF8F0;
+    --season-primary: #D2691E;
+    --season-secondary: #CD853F;
+    --season-accent: #F5DEB3;
+    --season-gradient: linear-gradient(135deg, #F5DEB3 0%, #CD853F 50%, #D2691E 100%);
     --primary-foreground: #ffffff;
-    --ring: #C97A46;
+    --ring: #D2691E;
   }
 
-  /* ===== INVERNO — Introspeccao (Agua/Rins) ===== */
+  /* ===== INVERNO — Agua/Rins ===== */
   [data-season='inverno'] {
-    --season-primary: #185474;
-    --season-secondary: #5C1680;
-    --season-accent: #8DC2DB;
-    --season-glow: #B0C4DE;
-    --season-bg: #F0F8FF;
-    --season-glow-alpha-30: rgba(176, 196, 222, 0.3);
-    --season-glow-alpha-15: rgba(176, 196, 222, 0.15);
-    --background: #F0F8FF;
+    --season-primary: #4682B4;
+    --season-secondary: #5F9EA0;
+    --season-accent: #E0F6FF;
+    --season-gradient: linear-gradient(135deg, #E0F6FF 0%, #5F9EA0 50%, #4682B4 100%);
     --primary-foreground: #ffffff;
-    --ring: #185474;
+    --ring: #4682B4;
   }
 
-  /* ===== TIPOGRAFIA BASE ===== */
+  /* ===== TIPOGRAFIA ===== */
   body {
     @apply bg-background font-body text-foreground antialiased;
-    background-color: var(--season-bg);
   }
 
   h1, h2, h3 {
     @apply font-heading;
+    color: var(--base-dark);
   }
 
   h4, h5, h6 {
@@ -120,211 +101,113 @@
 
   /* ===== FOCUS VISIBLE (WCAG AA) ===== */
   *:focus-visible {
-    outline: 2px solid var(--ring);
+    outline: 2px solid var(--base-golden);
     outline-offset: 2px;
-    border-radius: var(--radius);
   }
 }
-
-/* ============================================================
-   COMPONENT LAYER — Glassmorphism, Mandalas, Effects
-   ============================================================ */
 
 @layer components {
-  /* --- Glassmorphism Mistico --- */
-  .glass-sacred {
-    background: rgba(30, 3, 56, 0.6);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(147, 46, 136, 0.2);
-    box-shadow:
-      0 0 30px rgba(147, 46, 136, 0.1),
-      inset 0 0 30px rgba(147, 46, 136, 0.05);
+  /* --- Seasonal card with gradient border --- */
+  .card-seasonal {
+    background: #ffffff;
+    border: 1px solid var(--base-golden);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(45, 24, 16, 0.08);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
 
-  .glass-nature {
-    background: rgba(33, 59, 44, 0.7);
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(94, 161, 66, 0.15);
-    box-shadow: 0 0 20px rgba(94, 161, 66, 0.08);
+  .card-seasonal:hover {
+    box-shadow: 0 4px 20px rgba(45, 24, 16, 0.12);
+    transform: translateY(-2px);
   }
 
-  .glass-light {
-    background: rgba(245, 238, 212, 0.7);
-    backdrop-filter: blur(16px) saturate(120%);
-    -webkit-backdrop-filter: blur(16px) saturate(120%);
-    border: 1px solid rgba(147, 46, 136, 0.08);
-  }
-
-  .glass-season {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(16px) saturate(150%);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(147, 46, 136, 0.1);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-  }
-
-  /* --- Glow Effects --- */
-  .glow-violet {
-    box-shadow:
-      0 0 10px rgba(147, 46, 136, 0.3),
-      0 0 30px rgba(147, 46, 136, 0.15),
-      0 0 60px rgba(147, 46, 136, 0.05);
-  }
-
-  .glow-violet-sm {
-    box-shadow:
-      0 0 8px rgba(147, 46, 136, 0.25),
-      0 0 20px rgba(147, 46, 136, 0.1);
-  }
-
-  .text-glow-violet {
-    text-shadow:
-      0 0 10px rgba(147, 46, 136, 0.5),
-      0 0 30px rgba(147, 46, 136, 0.3);
-  }
-
-  /* --- Mandala Background Decorativo --- */
-  .mandala-bg {
-    background-image:
-      radial-gradient(circle at 50% 50%, transparent 20%, rgba(147,46,136,0.03) 20.5%, transparent 21%),
-      radial-gradient(circle at 50% 50%, transparent 35%, rgba(147,46,136,0.03) 35.5%, transparent 36%),
-      radial-gradient(circle at 50% 50%, transparent 50%, rgba(147,46,136,0.03) 50.5%, transparent 51%),
-      conic-gradient(from 0deg at 50% 50%,
-        transparent 0deg, rgba(147,46,136,0.02) 15deg,
-        transparent 30deg, rgba(147,46,136,0.02) 45deg,
-        transparent 60deg);
-  }
-
-  .mandala-spin {
-    animation: mandala-slow 30s linear infinite;
-    background: conic-gradient(
-      from 0deg,
-      transparent,
-      rgba(147,46,136,0.1),
-      transparent,
-      rgba(93,22,128,0.1),
-      transparent
-    );
-    border-radius: 50%;
-  }
-
-  /* --- Mandala Layout Grid --- */
-  .mandala-layout {
+  /* --- Mandala layout for seasons --- */
+  .seasons-mandala {
     display: grid;
-    grid-template-columns: 1fr min(90vw, 1200px) 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
   }
 
-  .mandala-layout > * {
-    grid-column: 2;
+  .seasons-mandala::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--base-golden);
+    opacity: 0.3;
   }
 
-  .mandala-layout > .full-bleed {
-    grid-column: 1 / -1;
+  /* --- Season card in mandala --- */
+  .season-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
   }
 
-  /* --- Organic Shapes --- */
-  .shape-organic {
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  .season-card:hover {
+    transform: scale(1.03);
   }
 
-  .shape-petal {
-    border-radius: 50% 0% 50% 0%;
+  .season-card.primavera {
+    background: linear-gradient(135deg, rgba(144,238,144,0.12) 0%, rgba(152,216,200,0.08) 100%);
+    border-color: rgba(144,238,144,0.3);
   }
 
-  /* --- Gradient Text --- */
-  .text-gradient-violet {
-    background: linear-gradient(135deg, #932E88, #C945E8, #E089FC);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .season-card.verao {
+    background: linear-gradient(135deg, rgba(255,215,0,0.12) 0%, rgba(255,165,0,0.08) 100%);
+    border-color: rgba(255,215,0,0.3);
   }
 
-  .text-gradient-triskle {
-    background: conic-gradient(from 0deg, #24451F, #932E88, #D48113, #24451F);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .season-card.outono {
+    background: linear-gradient(135deg, rgba(210,105,30,0.12) 0%, rgba(205,133,63,0.08) 100%);
+    border-color: rgba(210,105,30,0.3);
   }
 
-  .text-gradient-sacred {
-    background: linear-gradient(135deg, var(--season-primary), var(--season-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .season-card.inverno {
+    background: linear-gradient(135deg, rgba(70,130,180,0.12) 0%, rgba(95,158,160,0.08) 100%);
+    border-color: rgba(70,130,180,0.3);
   }
 
-  /* --- Sacred Borders --- */
-  .border-sacred {
-    border: 1px solid rgba(147, 46, 136, 0.2);
-    box-shadow: 0 0 0 1px rgba(147, 46, 136, 0.05);
+  /* --- Golden divider --- */
+  .divider-golden {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--base-golden), transparent);
+    margin: 2rem 0;
   }
 
-  .border-season {
-    border: 1px solid var(--season-primary);
-    box-shadow: 0 0 8px var(--season-glow-alpha-15);
-  }
-}
-
-/* ============================================================
-   UTILITY LAYER
-   ============================================================ */
-
-@layer utilities {
+  /* --- Transition seasonal --- */
   .transition-seasonal {
     transition-property: background-color, border-color, color, fill, stroke, box-shadow;
     transition-duration: 500ms;
     transition-timing-function: ease;
   }
-
-  .animate-in-ethereal {
-    animation: ethereal-in 0.6s ease-out forwards;
-  }
-}
-
-/* ============================================================
-   KEYFRAMES (outside layers for browser compat)
-   ============================================================ */
-
-@keyframes mandala-slow {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes breathe {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
-}
-
-@keyframes ethereal-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-    filter: blur(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-@keyframes sacred-shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-6px); }
 }
 
-/* === REDUCED MOTION (WCAG) === */
+@keyframes watermark-rotate {
+  to { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

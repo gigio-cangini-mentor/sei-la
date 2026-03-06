@@ -15,7 +15,7 @@ const STATUS_CONFIG: Record<EventStatus, { label: string; className: string }> =
   },
   'em-breve': {
     label: 'Em breve',
-    className: 'bg-violet-500/15 text-violet-700 border-violet-500/20',
+    className: 'bg-[#d4a574]/15 text-[#8B4513] border-[#d4a574]/20',
   },
 } as const
 
@@ -59,7 +59,7 @@ const EventCard = React.forwardRef<HTMLDivElement, EventCardProps>(
         ref={ref}
         className={cn(
           'group relative overflow-hidden rounded-lg transition-seasonal',
-          'glass-season hover:glow-violet-sm',
+          'card-seasonal',
           className,
         )}
         {...props}
@@ -68,7 +68,7 @@ const EventCard = React.forwardRef<HTMLDivElement, EventCardProps>(
         <div className="absolute inset-0 bg-gradient-to-br from-seasonal-primary/8 via-transparent to-seasonal-secondary/8 transition-seasonal" />
 
         {/* Borda sacred sutil */}
-        <div className="absolute inset-0 rounded-lg border border-violet-600/8" />
+        <div className="absolute inset-0 rounded-lg border border-[#d4a574]/10" />
 
         {/* Imagem opcional com overlay */}
         {imageUrl && (
@@ -118,7 +118,7 @@ const EventCard = React.forwardRef<HTMLDivElement, EventCardProps>(
           {priceFrom !== undefined && (
             <div className="mt-4 flex items-baseline gap-1">
               <span className="text-xs text-muted-foreground">A partir de</span>
-              <span className="font-heading text-lg font-bold text-gradient-violet">
+              <span className="font-heading text-lg font-bold text-foreground">
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',

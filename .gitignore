@@ -238,6 +238,8 @@ test-sample-*.md
 
 docs/stories/
 docs/research/
+!docs/research/mandala-ui-research.md
+!docs/design/
 docs/qa/
 docs/epics/
 docs/prd/

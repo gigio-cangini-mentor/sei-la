@@ -9,7 +9,7 @@ const seasonalButtonVariants = cva(
       variant: {
         primary: 'bg-seasonal-primary text-white hover:bg-seasonal-primary/90 shadow-sm',
         secondary: 'bg-seasonal-secondary text-white hover:bg-seasonal-secondary/80 shadow-sm',
-        sacred: 'bg-gradient-to-r from-violet-700 to-violet-500 text-white hover:from-violet-800 hover:to-violet-600 shadow-glow-violet-sm',
+        sacred: 'bg-gradient-to-r from-[#8B4513] to-[#D2691E] text-white hover:brightness-90 shadow-glow-golden-sm',
         outline: 'border-2 border-seasonal-primary text-seasonal-primary bg-transparent hover:bg-seasonal-primary/10',
         ghost: 'text-seasonal-primary hover:bg-seasonal-primary/10',
         glass: 'glass-light text-foreground hover:bg-white/50',

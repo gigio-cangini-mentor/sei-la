@@ -127,19 +127,17 @@ const config: Partial<Config> = {
       },
 
       backgroundImage: {
-        'gradient-triskle': 'conic-gradient(from 0deg, #24451F 0deg, #932E88 120deg, #D48113 240deg, #24451F 360deg)',
-        'gradient-violet-freq': 'linear-gradient(135deg, #1E0338 0%, #5C1680 25%, #932E88 50%, #C945E8 75%, #FAE8FF 100%)',
-        'gradient-aurora': 'linear-gradient(180deg, #213B2C 0%, #185474 30%, #7B1FA2 60%, #C945E8 85%, #E089FC 100%)',
-        'gradient-mandala': 'radial-gradient(ellipse at center, #932E88 0%, #5C1680 30%, #213B2C 70%, #24451F 100%)',
-        'gradient-crown': 'radial-gradient(circle at 50% 0%, #FAE8FF 0%, #C945E8 30%, #7B1FA2 60%, transparent 100%)',
+        'gradient-triskle': 'conic-gradient(from 0deg, #24451F 0deg, #D48113 120deg, #8B4513 240deg, #24451F 360deg)',
+        'gradient-mandala': 'radial-gradient(ellipse at center, #d4a574 0%, #8B4513 30%, #2d1810 70%, #1a0e08 100%)',
         'gradient-sacred': 'linear-gradient(135deg, var(--season-primary) 0%, var(--season-secondary) 50%, var(--season-glow) 100%)',
+        'gradient-earth': 'linear-gradient(135deg, #fef9f0 0%, #d4a574 50%, #8B4513 100%)',
       },
 
       boxShadow: {
-        'glow-violet': '0 0 10px rgba(147,46,136,0.3), 0 0 30px rgba(147,46,136,0.15), 0 0 60px rgba(147,46,136,0.05)',
-        'glow-violet-sm': '0 0 8px rgba(147,46,136,0.25), 0 0 20px rgba(147,46,136,0.1)',
+        'glow-golden': '0 0 10px rgba(212,165,116,0.3), 0 0 30px rgba(212,165,116,0.15), 0 0 60px rgba(212,165,116,0.05)',
+        'glow-golden-sm': '0 0 8px rgba(212,165,116,0.25), 0 0 20px rgba(212,165,116,0.1)',
         'glow-season': '0 0 10px var(--season-glow-alpha-30), 0 0 30px var(--season-glow-alpha-15)',
-        sacred: '0 0 30px rgba(147,46,136,0.1), inset 0 0 30px rgba(147,46,136,0.05)',
+        sacred: '0 0 30px rgba(212,165,116,0.1), inset 0 0 30px rgba(212,165,116,0.05)',
       },
 
       keyframes: {

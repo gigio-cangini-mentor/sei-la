@@ -11,16 +11,13 @@ export function BaseTriadeFooter({ variant = 'default', className, ...props }: B
     <footer
       className={cn(
         'relative w-full overflow-hidden border-t py-6 text-center',
-        'border-violet-600/10 bg-base-dark/5',
+        'border-base-gold/20 bg-base-dark/5',
         className,
       )}
       {...props}
     >
-      {/* Pattern organico de fundo */}
-      <div className="mandala-bg absolute inset-0 opacity-30" aria-hidden="true" />
-
       <div className="relative flex flex-col items-center gap-2">
-        <Triskle size={24} color="#932E88" className="opacity-40" />
+        <Triskle size={24} color="#8B4513" className="opacity-40" />
         <p
           className={cn(
             'font-body tracking-wider text-base-dark/50',

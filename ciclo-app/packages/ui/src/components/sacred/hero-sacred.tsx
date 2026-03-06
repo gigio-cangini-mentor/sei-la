@@ -12,8 +12,8 @@ interface HeroSacredProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const GRADIENT_MAP = {
-  violet: 'bg-gradient-violet-freq',
-  aurora: 'bg-gradient-aurora',
+  violet: 'bg-gradient-earth',
+  aurora: 'bg-gradient-earth',
   mandala: 'bg-gradient-mandala',
   triskle: 'bg-gradient-triskle',
 } as const
@@ -47,7 +47,7 @@ export function HeroSacred({
               size={900}
               rings={8}
               petals={16}
-              color="#FAE8FF"
+              color="#d4a574"
               opacity={0.3}
             />
           </div>
@@ -58,7 +58,7 @@ export function HeroSacred({
       <div
         className="pointer-events-none absolute left-0 right-0 top-0 h-40"
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(250,232,255,0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(212,165,116,0.15) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -66,10 +66,10 @@ export function HeroSacred({
       {/* Conteudo */}
       <div className="animate-in-ethereal relative z-10 max-w-4xl">
         <h1 className="font-heading text-hero font-bold tracking-tight text-white">
-          <span className="text-glow-violet">{title}</span>
+          <span>{title}</span>
         </h1>
         {subtitle && (
-          <p className="mt-4 font-accent text-xl text-violet-100/80 sm:text-2xl">
+          <p className="mt-4 font-accent text-xl text-white/80 sm:text-2xl">
             {subtitle}
           </p>
         )}
