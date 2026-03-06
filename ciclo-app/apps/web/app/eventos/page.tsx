@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/eventos`,
     images: [
       {
-        url: `${BASE_URL}/og-default.jpg`,
+        url: `${BASE_URL}/og-default.svg`,
         width: 1200,
         height: 630,
         alt: 'Eventos — Ciclo das Estações',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: 'Eventos — Ciclo das Estações',
     description:
       'Jornadas sazonais de autoconhecimento com MTC, Ayurveda e Yoga.',
-    images: [`${BASE_URL}/og-default.jpg`],
+    images: [`${BASE_URL}/og-default.svg`],
   },
 }
 

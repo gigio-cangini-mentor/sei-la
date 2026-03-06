@@ -85,7 +85,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!event) return { title: 'Evento não encontrado' }
 
   const description = event.subtitle ?? event.description?.slice(0, 160) ?? undefined
-  const ogImage = event.images[0]?.url ?? `${BASE_URL}/og-default.jpg`
+  const ogImage = event.images[0]?.url ?? `${BASE_URL}/og-default.svg`
   const eventUrl = `${BASE_URL}/eventos/${slug}`
 
   return {

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     images: [
       {
-        url: `${BASE_URL}/og-default.jpg`,
+        url: `${BASE_URL}/og-default.svg`,
         width: 1200,
         height: 630,
         alt: 'Ciclo das Estações — Base Tríade',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: 'Ciclo das Estações — Jornadas de Autoconhecimento',
     description:
       'Programa de autocuidado cíclico com MTC, Ayurveda e Yoga. Eventos sazonais em Barra Velha, SC.',
-    images: [`${BASE_URL}/og-default.jpg`],
+    images: [`${BASE_URL}/og-default.svg`],
   },
 }
 
@@ -167,7 +167,7 @@ export default async function HomePage() {
     '@type': 'Organization',
     name: 'Base Tríade',
     url: BASE_URL,
-    logo: `${BASE_URL}/og-default.jpg`,
+    logo: `${BASE_URL}/og-default.svg`,
     sameAs: [
       'https://instagram.com/podprana',
       'https://instagram.com/koch.milenar',
