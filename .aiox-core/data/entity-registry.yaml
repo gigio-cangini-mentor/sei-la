@@ -1,6 +1,6 @@
 metadata:
   version: 1.0.0
-  lastUpdated: '2026-03-11T00:48:55.982Z'
+  lastUpdated: '2026-03-17T15:38:05.676Z'
   entityCount: 745
   checksumAlgorithm: sha256
   resolutionRate: 100
@@ -9030,8 +9030,8 @@ entities:
         score: 0.4
         constraints: []
         extensionPoints: []
-      checksum: sha256:d9108fa47ed7a9131703739befb214b97d5b8e546faf1b49d8ae9d083756c589
-      lastVerified: '2026-03-11T00:48:55.879Z'
+      checksum: sha256:0022cd3c1e9f834be277718ef7edb3378950b568a1a85e24df5ed8a55873098b
+      lastVerified: '2026-03-17T15:38:05.673Z'
     circuit-breaker:
       path: .aiox-core/core/ids/circuit-breaker.js
       layer: L1
