@@ -19,6 +19,18 @@
 
 Cria ou revisa copy de email de vendas aplicando framework de Big Idea, eliminando imperativo e garantindo clareza de objetivo.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| Big Idea definida | Perguntar: "Qual a Big Idea central do produto?" | BLOCK — Execute `*big-idea` primeiro |
+| Produto claro | Perguntar: "Qual produto você está vendendo/promovendo?" | BLOCK — Definir produto antes |
+| Objetivo do email | Perguntar: "Objetivo: venda direta, aquecimento ou recuperação?" | BLOCK — Sem objetivo, não dá para criar copy |
+
 **Framework primário:** Big Idea para E-mail (Aula 21) + Elimine Imperativo (Section 2.10)
 
 **Filosofia:** Email sem objetivo claro = desperdício de envio. Email sem Big Idea = confusão. Email com imperativo = pushy e genérico.

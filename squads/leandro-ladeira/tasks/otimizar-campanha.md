@@ -19,6 +19,18 @@
 
 Otimiza campanha ativa usando framework M.O.E.R (foco na letra "O" — Otimizar) + regra dos 4 dias.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| Campanha ativa | Perguntar: "A campanha está rodando agora?" | BLOCK — Campanha precisa estar ativa |
+| Mínimo 4 dias de dados | Perguntar: "Há quantos dias a campanha está rodando?" | BLOCK se < 4 dias — Decisão sem dados = risco alto |
+| Métricas coletadas | Confirmar: "Você tem métricas dos últimos 4 dias (CPM, CPC, CTR, CPL, ROAS)?" | BLOCK — Sem dados, impossível otimizar |
+
 **Framework primário:** M.O.E.R — O (Section 2.1) + Regras de Timing (Section 3.1) + Regras de Orçamento (Section 3.2)
 
 **VETO CRÍTICO:** Campanha DEVE ter 4+ dias de dados. Se tiver menos, RECUSE e explique por quê.

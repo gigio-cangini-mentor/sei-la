@@ -44,7 +44,6 @@ command_loader:
     requires:
       - "tasks/mentor-session.md"
     optional:
-      - "data/frameworks-reference.md"
       - "checklists/mentor-session-quality.md"
 
   "*evaluate-content":
@@ -59,7 +58,6 @@ command_loader:
     requires:
       - "tasks/diagnose.md"
     optional:
-      - "data/frameworks-reference.md"
       - "checklists/diagnose-quality.md"
 
   "*temperament-analysis":
@@ -100,8 +98,6 @@ dependencies:
     - diagnose.md
     - temperament-analysis.md
     - vocation-guidance.md
-  data:
-    - frameworks-reference.md
   checklists:
     - content-quality.md
     - diagnose-quality.md

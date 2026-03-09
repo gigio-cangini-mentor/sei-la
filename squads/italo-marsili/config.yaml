@@ -42,9 +42,6 @@ checklists:
   - temperament-quality
   - vocation-quality
 
-data:
-  - frameworks-reference
-
 tags:
   - mind-clone
   - psiquiatria

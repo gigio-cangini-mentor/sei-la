@@ -19,6 +19,17 @@
 
 Cria estratégia Stories 10x personalizada para aumentar engajamento, liderança, seguidores, admiração, conversas, oportunidade, profundidade e vendas.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| Big Idea definida | Perguntar ao usuário: "Qual é a Big Idea central do seu produto?" | BLOCK — Execute `*big-idea` primeiro |
+| Produto/marca clara | Perguntar: "Qual produto ou marca você está divulgando?" | BLOCK — Definir produto antes |
+
 **Framework primário:** Stories 10x (Section 2.6) + 38 Dispositivos de Engenharia Social (Section 2.8)
 
 **Filosofia:** Stories 10x NÃO é 10x visualizações. É 10x em TUDO: engajamento, liderança, seguidores, admiração, conversas, oportunidade, profundidade, vendas.

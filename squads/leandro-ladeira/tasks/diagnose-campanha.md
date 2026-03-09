@@ -17,6 +17,18 @@
 
 Diagnosticar campanha de tráfego pago ativa usando o framework **M.O.E.R** (Metrificar, Otimizar, Escalar, Resultados — Section 2.1). Identificar se a campanha está saudável, precisa de otimização ou deve ser escalada. Bloquear otimizações prematuras (antes de 4 dias) para evitar decisões baseadas em emoção ao invés de dados.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| Campanha ativa | Perguntar: "A campanha está rodando agora?" | BLOCK — Campanha precisa estar ativa |
+| Mínimo 4 dias de dados | Perguntar: "Há quantos dias a campanha está rodando?" | BLOCK se < 4 dias — Aguardar dados suficientes |
+| Métricas disponíveis | Confirmar: "Você tem acesso às métricas (CPM, CPC, CTR, CPA, ROAS)?" | BLOCK — Sem dados, impossível diagnosticar |
+
 ## Inputs
 
 | Input | Type | Required | Description |

@@ -17,6 +17,19 @@
 
 Criar estratégia completa de **Venda Todo Santo Dia** (perpétuo) usando os frameworks **5 Fases do Perpétuo** (Section 2.2), **Pirâmide de Prontidão** (Section 2.3) e **VME** (Section 2.5 — se produto não validado). O objetivo é montar um funil que vende TODOS OS DIAS, não apenas em lançamentos pontuais.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| Big Idea definida | Perguntar: "Qual a Big Idea central do produto?" | BLOCK — Execute `*big-idea` primeiro. Perpétuo sem Big Idea = funil desconexo |
+| Produto claro | Perguntar: "Qual produto você quer vender todo dia?" | BLOCK — Definir produto antes |
+| Budget disponível | Perguntar: "Quanto você pode investir por mês em tráfego?" | BLOCK se < 3x preço do produto — Budget insuficiente |
+| Página de vendas | Perguntar: "Já tem página de vendas ou funil de captura?" | WARN — Sugerir criar antes de rodar anúncios |
+
 ## Inputs
 
 | Input | Type | Required | Description |

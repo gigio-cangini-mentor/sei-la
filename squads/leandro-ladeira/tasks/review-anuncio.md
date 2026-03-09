@@ -17,6 +17,18 @@
 
 Revisar anúncio existente ou criar anúncio novo para tráfego pago (Facebook, Instagram, Google) usando os frameworks **Mandala M.T.O** (Section 2.4), **Pirâmide de Prontidão** (Section 2.3) e **Elimine o Imperativo** (Section 2.10). Garantir que o anúncio tem Big Idea clara, público correto e copy persuasiva sem ser pushy.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| Big Idea definida | Perguntar: "Qual a Big Idea central do produto?" | BLOCK — Execute `*big-idea` primeiro. Anúncio sem Big Idea = copy genérica |
+| Anúncio ou brief | Confirmar: "Você quer revisar anúncio existente ou criar novo?" | BLOCK — Precisa de input (anúncio OU brief) |
+| Fase da Pirâmide | Perguntar: "Esse anúncio é para qual fase? Urgência, Consciência ou Oportunidade?" | BLOCK — Definir público antes |
+
 ## Inputs
 
 | Input | Type | Required | Description |

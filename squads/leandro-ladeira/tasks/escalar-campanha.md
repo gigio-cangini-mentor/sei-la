@@ -19,6 +19,19 @@
 
 Escala campanha validada usando framework M.O.E.R (foco na letra "E" — Escalar) + 5 Fases do Perpétuo + Pirâmide de Prontidão.
 
+---
+
+## Pre-Conditions (Poka-Yoke Gate)
+
+Antes de iniciar esta task, VERIFICAR:
+
+| Condição | Verificação | Se falhar |
+|----------|-------------|-----------|
+| ROAS estável 4+ dias | Perguntar: "ROAS está estável por 4+ dias consecutivos?" | BLOCK — Aguardar estabilidade |
+| Campanha validada | Confirmar: "ROAS ≥ 2.0 consistente?" | BLOCK — Campanha não está pronta para escalar |
+| Big Idea clara | Perguntar: "Qual a Big Idea do produto?" | BLOCK — Execute `*big-idea` primeiro |
+| Fase da Pirâmide conhecida | Perguntar: "Está em qual fase? Urgência, Consciência ou Oportunidade?" | BLOCK — Definir fase antes |
+
 **Framework primário:** M.O.E.R — E (Section 2.1) + 5 Fases do Perpétuo (Section 2.2) + Pirâmide de Prontidão (Section 2.3)
 
 **VETO CRÍTICO:** Só escalar campanha com ROAS estável por 4+ dias. Não escalar se pulou fases da Pirâmide.
