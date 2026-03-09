@@ -129,6 +129,7 @@ module.exports = {
   roots: ['<rootDir>'],
   moduleDirectories: ['node_modules', '.'],
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
+  modulePathIgnorePatterns: ['<rootDir>/aios-core/'],
 
   // Cross-platform config from REMOTE
   globals: {
@@ -137,3 +138,4 @@ module.exports = {
     },
   },
 };
+

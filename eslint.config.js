@@ -19,6 +19,7 @@ module.exports = [
       '**/coverage/**',
       '**/build/**',
       '**/dist/**',
+      'aios-core/**',
       '**/.next/**',
       // Dashboard has its own ESLint config
       'apps/dashboard/**',
@@ -165,6 +166,20 @@ module.exports = [
     },
   },
 
+  // Browser app files
+  {
+    files: ['web-app/**/*.js'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        document: 'readonly',
+        window: 'readonly',
+        navigator: 'readonly',
+        fetch: 'readonly',
+        location: 'readonly',
+      },
+    },
+  },
   // Test files - more relaxed rules
   {
     files: ['**/*.test.js', '**/*.spec.js', '**/tests/**/*.js'],
@@ -174,3 +189,5 @@ module.exports = [
     },
   },
 ];
+
+

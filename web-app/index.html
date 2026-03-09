@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIOS Studio Chat</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <aside class="left-rail">
+      <div class="brand">AIOS Studio</div>
+      <button id="newProjectBtn" class="btn btn-primary">Novo Projeto Guiado</button>
+      <button id="clearChatBtn" class="btn btn-ghost">Limpar Chat</button>
+      <div class="hint-box">
+        <h3>Fluxo</h3>
+        <p>Peça um novo projeto para iniciar perguntas classificatórias e gerar documentação antes do código.</p>
+      </div>
+    </aside>
+
+    <main class="workspace">
+      <section class="chat-panel">
+        <header class="panel-head">
+          <h1>Chat de Orquestração</h1>
+          <span class="status">online</span>
+        </header>
+
+        <div id="chatMessages" class="chat-messages"></div>
+        <div id="quickReplies" class="quick-replies"></div>
+
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" type="text" placeholder="Descreva sua solicitação..." autocomplete="off" />
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </section>
+
+      <section class="output-panel">
+        <div class="tabs">
+          <button class="tab active" data-tab="preview">Preview</button>
+          <button class="tab" data-tab="code">Código</button>
+        </div>
+        <div id="previewTab" class="tab-content active">
+          <div id="previewCanvas" class="preview-canvas"></div>
+        </div>
+        <div id="codeTab" class="tab-content">
+          <pre id="codeView" class="code-view"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

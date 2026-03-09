@@ -1,0 +1,275 @@
+:root {
+  --bg: #0b1020;
+  --bg-soft: #121a31;
+  --panel: #17223f;
+  --line: #2d3b67;
+  --text: #f4f7ff;
+  --muted: #a8b4d6;
+  --primary: #2dd4bf;
+  --primary-strong: #14b8a6;
+  --accent: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 20% 0%, #1d2a54 0%, var(--bg) 45%);
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.left-rail {
+  border-right: 1px solid var(--line);
+  padding: 20px;
+  background: rgba(12, 18, 34, 0.9);
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hint-box {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.hint-box h3 {
+  margin: 0 0 8px;
+  color: var(--accent);
+}
+
+.hint-box p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 14px;
+}
+
+.chat-panel,
+.output-panel {
+  background: linear-gradient(180deg, rgba(23, 34, 63, 0.98) 0%, rgba(14, 22, 43, 0.98) 100%);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  min-height: calc(100vh - 28px);
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-head {
+  border-bottom: 1px solid var(--line);
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel-head h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.status {
+  font-size: 12px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  max-width: 85%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.msg-user {
+  margin-left: auto;
+  background: #1b7c72;
+}
+
+.msg-agent {
+  background: #222f55;
+  border: 1px solid #334779;
+}
+
+.quick-replies {
+  padding: 0 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-replies button {
+  border: 1px solid #3e4f83;
+  background: #1d2b50;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.chat-form {
+  border-top: 1px solid var(--line);
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.chat-form input {
+  flex: 1;
+  background: #0f1730;
+  border: 1px solid #2f406d;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.btn {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #052926;
+}
+
+.btn-primary:hover {
+  background: var(--primary-strong);
+}
+
+.btn-ghost {
+  background: #1b294c;
+  color: var(--text);
+  border-color: #314472;
+}
+
+.output-panel {
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  flex: 1;
+  padding: 12px;
+  background: #111b36;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #1a2950;
+  color: var(--text);
+}
+
+.tab-content {
+  display: none;
+  height: calc(100% - 45px);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.preview-canvas,
+.code-view {
+  margin: 0;
+  padding: 16px;
+  height: calc(100vh - 90px);
+  overflow: auto;
+}
+
+.preview-canvas {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.preview-card {
+  border: 1px solid #355287;
+  background: #162344;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.preview-card h3 {
+  margin: 0 0 8px;
+  color: var(--primary);
+}
+
+.code-view {
+  font-family: Consolas, monospace;
+  background: #0d1429;
+  color: #a7ffea;
+}
+
+@media (max-width: 1024px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .left-rail {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-panel,
+  .output-panel {
+    min-height: 460px;
+  }
+
+  .preview-canvas,
+  .code-view {
+    height: 420px;
+  }
+}
