@@ -1,0 +1,74 @@
+name: tathi-deandhela
+version: "2.0.0"
+slashPrefix: tathi
+title: "Tathi Deandhela Method Squad"
+description: >-
+  Squad especializado em estruturação, revisão e otimização de palestras com
+  base no corpus da Tathi Deandhela. v2: 20 frameworks, 17 heurísticas,
+  9 veto conditions, Business DNA, ecossistema proprietário integrado.
+author: "Luiz Fosc"
+icon: "🎤"
+type: specialist
+
+entry_agent: tathi-chief
+
+independence: true
+independence_details: |
+  Squad auto-contido para operação local:
+  - sem dependência de APIs externas
+  - conhecimento derivado de corpus local versionado
+  - exige rastreabilidade de citações [SOURCE:]
+
+agents:
+  - tathi-chief
+  - tathi-voice-dna
+  - tathi-thinking-dna
+  - tathi-talk-diagnostician
+  - tathi-stage-architect
+
+tasks:
+  - diagnose-current-talk
+  - design-memorable-keynote
+  - optimize-persuasion-elements
+  - build-speaker-authority-plan
+
+workflows:
+  - talk-diagnostic-flow
+  - keynote-build-flow
+
+data:
+  - voice-dna-v2
+  - thinking-dna-v2
+  - frameworks-reference
+  - business-dna
+
+tags:
+  - public-speaking
+  - oratoria
+  - storytelling
+  - persuasao
+  - tathi-deandhela
+  - time-management
+  - speaker-canvas
+  - business-dna
+
+changelog:
+  "2.0.0":
+    date: "2026-03-06"
+    changes:
+      - "+14 frameworks (F7-F20) from 21 supplementary MDs"
+      - "+9 signature phrases (total 17)"
+      - "+12 heuristics (total 17)"
+      - "+5 veto conditions (total 9)"
+      - "+Business DNA (6 SOPs, 3 templates, org model)"
+      - "+frameworks-reference.yaml (20 frameworks indexed)"
+      - "Agents enriched with v2 data references"
+      - "Proprietary ecosystem: F17→F7→F15"
+  "1.0.0":
+    date: "2026-02-28"
+    changes:
+      - "Initial squad creation from 79 VPO transcriptions"
+      - "6 frameworks (F1-F6)"
+      - "8 signature phrases"
+      - "5 heuristics"
+      - "4 veto conditions"

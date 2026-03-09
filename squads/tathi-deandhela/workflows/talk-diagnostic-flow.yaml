@@ -1,0 +1,55 @@
+workflow:
+  id: talk-diagnostic-flow
+  purpose: "Diagnosticar e corrigir palestra existente usando ecossistema F17→F7→F15"
+  ecosystem:
+    description: "3 frameworks proprietários formam o fluxo diagnóstico"
+    flow: "F17 (Diagnóstico) → F7 (Priorização) → F15 (Redesign)"
+  phases:
+    - id: phase_1
+      name: "Intake e objetivo"
+      description: "Coletar roteiro, público-alvo e contexto do evento"
+    - id: phase_2
+      name: "Diagnóstico com Roda do Palestrante Notável (F17)"
+      description: "Aplicar F17 — score 0-10 em 10 áreas. Mapear gaps prioritários."
+      framework: F17
+      task: diagnose-current-talk
+    - id: phase_3
+      name: "Priorização via Time Model Canvas (F7)"
+      description: "Usar F7 para priorizar correções — pedras grandes primeiro (F9). Aplicar F11 (Elimination Test) para descartar o irrelevante."
+      frameworks: [F7, F9, F11]
+    - id: phase_4
+      name: "Otimização de persuasão (F5)"
+      description: "Validar ética de influência via F5. Aplicar regra dos 5% (F13) no CTA."
+      frameworks: [F5, F13]
+      task: optimize-persuasion-elements
+    - id: phase_5
+      name: "Plano de correção e próximo passo"
+      description: "Gerar plano em 3 blocos (rápido, médio, avançado). Recomendar F15 (Speaker Canvas) se redesign completo for necessário."
+      next_ecosystem_step: F15
+  checkpoints:
+    - id: cp1
+      name: "Roda F17 preenchida (10 áreas com score)"
+      blocking: true
+    - id: cp2
+      name: "Estrutura validada"
+      blocking: true
+    - id: cp3
+      name: "Persuasão ética validada (F5)"
+      blocking: true
+    - id: cp4
+      name: "Plano de melhoria aprovado"
+      blocking: true
+  veto_conditions:
+    - id: veto_1
+      condition: "mensagem_central_ausente"
+      action: "HALT e redefinir objetivo"
+    - id: veto_2
+      condition: "estrategia_manipulativa_detectada"
+      action: "HALT e refazer bloco de persuasão (viola F5)"
+    - id: veto_3
+      condition: "roda_f17_incompleta"
+      action: "HALT e completar diagnóstico antes de prosseguir"
+  guardrails:
+    idempotency: true
+    audit_log_required: true
+    manual_override: true

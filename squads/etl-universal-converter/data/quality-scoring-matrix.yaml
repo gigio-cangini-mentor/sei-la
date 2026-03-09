@@ -1,0 +1,250 @@
+# Quality Scoring Matrix
+# Weights and criteria for verify-extraction-quality task
+# Version: 1.0.0
+
+scoring:
+  scale: "0-10"
+  threshold_default: 7.0
+  max_retries: 2
+
+  dimensions:
+    fidelity:
+      weight: 0.35
+      description: "How accurately the extracted content matches the source"
+      criteria:
+        - name: "Text accuracy"
+          weight: 0.40
+          scoring: |
+            10: 100% text match (character-level)
+            8-9: >95% match, minor formatting differences
+            6-7: >85% match, some content paraphrased or reordered
+            4-5: >70% match, noticeable omissions
+            2-3: >50% match, significant content missing
+            0-1: <50% match, extraction largely failed
+
+        - name: "Data accuracy"
+          weight: 0.30
+          scoring: |
+            10: All data values exactly preserved
+            8-9: >98% data values correct
+            6-7: >90% data values correct, some rounding/truncation
+            4-5: >75% data values correct
+            2-3: >50% data values correct
+            0-1: Majority of data corrupted or missing
+
+        - name: "Key phrase preservation"
+          weight: 0.30
+          scoring: |
+            10: All top-20 key phrases from source found in output
+            8-9: 18-19 of 20 key phrases present
+            6-7: 15-17 of 20 key phrases present
+            4-5: 10-14 of 20 key phrases present
+            2-3: 5-9 of 20 key phrases present
+            0-1: <5 key phrases present
+
+    completeness:
+      weight: 0.30
+      description: "How much of the source content was captured in the output"
+      criteria:
+        - name: "Content coverage"
+          weight: 0.40
+          scoring: |
+            10: 100% of source content represented
+            8-9: >90% coverage, only boilerplate/headers/footers missing
+            6-7: >75% coverage, some sections omitted
+            4-5: >50% coverage, multiple sections missing
+            2-3: >25% coverage, majority of content lost
+            0-1: <25% coverage, near-total information loss
+
+        - name: "Section coverage"
+          weight: 0.30
+          scoring: |
+            10: All sections/chapters/sheets/slides captured
+            8-9: 1-2 minor sections missing
+            6-7: A few sections missing but core content present
+            4-5: Multiple important sections missing
+            2-3: Most sections missing
+            0-1: No structural sections captured
+
+        - name: "Metadata coverage"
+          weight: 0.15
+          scoring: |
+            10: All extractable metadata in frontmatter
+            8-9: Required fields + most optional fields
+            6-7: All required fields, few optional
+            4-5: Some required fields missing
+            2-3: Minimal frontmatter
+            0-1: No valid frontmatter
+
+        - name: "Information loss detection"
+          weight: 0.15
+          scoring: |
+            10: No detectable information loss
+            8-9: Only decorative elements lost (borders, colors)
+            6-7: Some charts/images not described
+            4-5: Tables truncated or footnotes dropped
+            2-3: Significant structural information lost
+            0-1: Critical data missing
+
+    structure:
+      weight: 0.20
+      description: "How well the original formatting and hierarchy was preserved"
+      criteria:
+        - name: "Heading hierarchy"
+          weight: 0.30
+          scoring: |
+            10: Perfect heading mapping (source → markdown)
+            8-9: Minor heading level adjustments
+            6-7: Some headings flattened or skipped
+            4-5: Heading hierarchy partially broken
+            2-3: Most headings lost or wrong level
+            0-1: No heading structure preserved
+
+        - name: "List preservation"
+          weight: 0.25
+          scoring: |
+            10: All lists preserved with correct nesting
+            8-9: Lists present, minor nesting issues
+            6-7: Lists present but some merged into paragraphs
+            4-5: Some lists lost or converted to plain text
+            2-3: Most lists not preserved
+            0-1: No lists in output despite source having them
+
+        - name: "Table integrity"
+          weight: 0.30
+          scoring: |
+            10: All tables with correct columns, headers, separators
+            8-9: Tables present, minor alignment issues
+            6-7: Tables present but some columns merged/missing
+            4-5: Tables partially converted
+            2-3: Tables mostly lost or corrupted
+            0-1: No tables despite source having them
+
+        - name: "Special content"
+          weight: 0.15
+          scoring: |
+            10: Code blocks, quotes, links all preserved
+            8-9: Minor formatting differences
+            6-7: Some special content converted to plain text
+            4-5: Multiple special elements lost
+            2-3: Most special formatting stripped
+            0-1: All formatting lost
+
+    metadata:
+      weight: 0.10
+      description: "Accuracy and completeness of frontmatter metadata"
+      criteria:
+        - name: "Required fields"
+          weight: 0.50
+          scoring: |
+            10: All 6 required fields present and accurate
+            8: 5 of 6 correct
+            6: 4 of 6 correct
+            4: 3 of 6 correct
+            2: 1-2 correct
+            0: No valid required fields
+
+        - name: "Optional fields"
+          weight: 0.30
+          scoring: |
+            10: All applicable optional fields populated
+            8: Most optional fields populated
+            6: Some optional fields
+            4: Few optional fields
+            2: Only required fields
+            0: Incomplete required fields
+
+        - name: "Value accuracy"
+          weight: 0.20
+          scoring: |
+            10: All values match source (word count, pages, etc.)
+            8: Values within 5% margin
+            6: Values within 15% margin
+            4: Some values clearly wrong
+            2: Multiple incorrect values
+            0: Values mostly fabricated
+
+    readability:
+      weight: 0.05
+      description: "Output quality as a standalone markdown document"
+      criteria:
+        - name: "Clean formatting"
+          weight: 0.50
+          scoring: |
+            10: Clean, consistent markdown with no artifacts
+            8: Minor formatting inconsistencies
+            6: Some raw HTML or conversion artifacts
+            4: Multiple formatting issues
+            2: Heavily cluttered with artifacts
+            0: Unreadable output
+
+        - name: "Logical flow"
+          weight: 0.50
+          scoring: |
+            10: Content flows logically, easy to read
+            8: Mostly logical, minor jumps
+            6: Some sections out of order
+            4: Confusing flow
+            2: Content scrambled
+            0: Incoherent
+
+# Score interpretation thresholds
+thresholds:
+  excellent:
+    min: 9.0
+    action: PASS
+    label: "Excelente — extração quase perfeita"
+
+  good:
+    min: 7.0
+    action: PASS
+    label: "Bom — perdas menores aceitáveis"
+
+  fair:
+    min: 5.0
+    action: CONDITIONAL
+    label: "Razoável — gaps perceptíveis, tentar re-extração"
+
+  poor:
+    min: 3.0
+    action: NEEDS_REVIEW
+    label: "Ruim — perda significativa, revisão humana obrigatória"
+
+  failed:
+    min: 0.0
+    action: FAIL
+    label: "Falha — extração inutilizável"
+
+# Type-specific scoring adjustments
+type_adjustments:
+  image_ocr:
+    description: "OCR is inherently lossy, adjust expectations"
+    threshold_adjustment: -1.0  # 6.0 instead of 7.0
+    notes: "OCR quality depends on image quality, not extraction logic"
+
+  video_audio:
+    description: "Transcription has natural variance"
+    threshold_adjustment: -0.5  # 6.5 instead of 7.0
+    notes: "Whisper/Deepgram transcription accuracy varies by audio quality"
+
+  spreadsheet:
+    description: "Data must be exact"
+    threshold_adjustment: +0.5  # 7.5 instead of 7.0
+    notes: "Spreadsheet data fidelity is critical — truncation is a red flag"
+
+# Retry parameter adjustments per attempt
+retry_adjustments:
+  attempt_1:
+    description: "First retry: increase parser aggressiveness"
+    changes:
+      - "Increase row/slide limits by 2x"
+      - "Enable verbose extraction"
+      - "Apply image preprocessing for OCR"
+
+  attempt_2:
+    description: "Second retry: maximum extraction"
+    changes:
+      - "Remove all limits (full content)"
+      - "Multiple parsing passes"
+      - "Log detailed extraction diagnostics"
+      - "If still fails → mandatory human review"

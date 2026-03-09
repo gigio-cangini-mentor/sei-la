@@ -1,0 +1,17 @@
+# Transcript Sculptor - Python Dependencies
+# Installation: pip3 install -r requirements.txt
+
+# PDF processing with advanced OCR
+docling>=2.0.0
+
+# High-quality OCR engine for scanned documents
+surya-ocr>=0.8.0
+
+# Multi-format document conversion (Microsoft tool)
+markitdown>=0.1.0
+
+# PDF text extraction (for digital PDFs)
+pymupdf>=1.24.0
+
+# YAML parsing for analysis maps
+pyyaml>=6.0

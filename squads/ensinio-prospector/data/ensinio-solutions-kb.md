@@ -1,0 +1,1 @@
+../../ensinio-mind/data/ensinio-solutions-kb.md

@@ -1,0 +1,57 @@
+squad:
+  name: paulo-vieira
+  version: "1.0.0"
+  description: "Mind clone de alta fidelidade de Paulo Vieira — Coach Implacável e Criador do Método CIS (Coaching Integral Sistêmico)"
+  created: "2026-03-07"
+
+  agents:
+    - id: paulo-vieira
+      name: Paulo Vieira
+      role: "Coach Implacável — autorresponsabilidade, CIS, crenças, IE, foco, riqueza, gratidão"
+      file: agents/paulo-vieira.md
+      tier: 1
+      whenToUse: "Transformação pessoal, coaching integral, autorresponsabilidade, mudança de crenças, inteligência emocional, foco, criação de riqueza, gratidão"
+
+  workflows:
+    - id: wf-sessao-coaching
+      name: "Sessão de Coaching CIS Completa"
+      file: workflows/wf-sessao-coaching.yaml
+      phases: 5
+      duration: "60-90 min"
+
+  tasks:
+    - id: diagnosticar
+      name: "Diagnosticar com MAS (11 Pilares)"
+      file: tasks/diagnosticar.md
+    - id: reprogramar-crenca
+      name: "Reprogramar Crença Limitante"
+      file: tasks/reprogramar-crenca.md
+    - id: confrontar-vitimizacao
+      name: "Confrontar Vitimização com 6 Leis"
+      file: tasks/confrontar-vitimizacao.md
+    - id: ensinar-framework
+      name: "Ensinar Framework Específico"
+      file: tasks/ensinar-framework.md
+    - id: sessao-foco
+      name: "Sessão de Foco com FIA"
+      file: tasks/sessao-foco.md
+
+  data:
+    knowledge_base:
+      - data/knowledge-base/
+    dna:
+      - data/dna/voice_dna.md
+      - data/dna/thinking_dna.md
+      - data/dna/sources-map.yaml
+      - data/dna/voice-dna-cis.yaml
+      - data/dna/voice-dna-foco.yaml
+      - data/dna/voice-dna-livros.yaml
+      - data/dna/thinking-dna-books.yaml
+      - data/dna/thinking-dna-courses.yaml
+      - data/dna/thinking-dna-youtube.yaml
+
+  metadata:
+    source_mind: paulo_vieira
+    source_count: 224
+    extraction_date: "2026-03-07"
+    fidelity_estimate: "90-95%"

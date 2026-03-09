@@ -1,0 +1,49 @@
+# CodeRabbit Integration — Shared base config
+# Loaded on demand when CodeRabbit review is triggered
+# Source: AGT-OPT-1 (extracted from individual agent definitions)
+# Agents override: self_healing, severity_handling, workflow as needed
+
+enabled: true
+installation_mode: wsl
+wsl_config:
+  distribution: Ubuntu
+  installation_path: ~/.local/bin/coderabbit
+  working_directory: ${PROJECT_ROOT}
+
+execution_guidelines: |
+  CRITICAL: CodeRabbit CLI is installed in WSL, not Windows.
+
+  **How to Execute:**
+  1. Use 'wsl bash -c' wrapper for all commands
+  2. Navigate to project directory in WSL path format (/mnt/c/...)
+  3. Use full path to coderabbit binary (~/.local/bin/coderabbit)
+
+  **Error Handling:**
+  - If "coderabbit: command not found" → verify wsl_config.installation_path
+  - If timeout → increase timeout, review is still processing
+  - If "not authenticated" → user needs to run: wsl bash -c '~/.local/bin/coderabbit auth status'
+
+commands:
+  uncommitted: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t uncommitted'"
+  committed: "wsl bash -c 'cd ${PROJECT_ROOT} && ~/.local/bin/coderabbit --prompt-only -t committed --base main'"
+
+report_location: docs/qa/coderabbit-reports/
+
+# Default severity handling (agents can override)
+severity_handling:
+  CRITICAL: Block completion, must fix immediately
+  HIGH: Report and recommend fix before merge
+  MEDIUM: Document as technical debt
+  LOW: Optional improvements, note in review
+
+# Default self-healing config (agents override trigger, max_iterations, severity_filter)
+self_healing:
+  enabled: true
+  timeout_minutes: 15
+
+# Agent-specific overrides reference:
+# - dev: type=light, max_iterations=2, trigger=story_completion, filter=[CRITICAL]
+# - qa: type=full, max_iterations=3, trigger=review_start, filter=[CRITICAL, HIGH], timeout=30min
+# - architect: focus on architectural patterns, no self-healing loop
+# - devops: focus on CI/CD patterns and infrastructure
+# - data-engineer: focus on query performance and schema patterns

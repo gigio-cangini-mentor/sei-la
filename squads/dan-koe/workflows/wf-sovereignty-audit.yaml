@@ -1,0 +1,1155 @@
+# Sovereign Business Audit Workflow
+# Based on Dan Koe's One-Person Business methodology
+# Source: One-Person Business Architecture + Traffic + Offers + Leverage Stack
+# Version: 1.0.0
+
+id: wf-sovereignty-audit
+name: "Sovereign Business Audit"
+version: "1.0.0"
+duration: "2-4 horas"
+description: |
+  Workflow de diagnóstico completo para avaliar o nível de soberania do negócio.
+  Audita as 5 dimensões de liberdade e identifica onde o operador está preso
+  em modelos que trocam tempo por dinheiro.
+
+  FILOSOFIA: "Um negócio que exige sua presença constante não é um negócio — é um emprego
+  que você criou para si mesmo. O objetivo é construir sistemas que geram valor
+  enquanto você dorme, pensa, e cria."
+
+  RESULTADO: Scorecard de Soberania completo + Roadmap de Otimização personalizado
+  com prioridades claras para maximizar liberdade criativa e financeira.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Diagnóstico inicial de negócio existente"
+  - "Operador sobrecarregado querendo delegar/automatizar"
+  - "Transição de freelancer/consultor para one-person business"
+  - "Validação periódica (trimestral) de soberania"
+  - "Antes de adicionar nova oferta ou canal ao negócio"
+  - "Quando sente que trabalha mais e ganha menos"
+  - "Após burnout ou perda de motivação no negócio"
+
+decision_matrix_fit:
+  complexity: medium
+  agents_required: 3
+  estimated_duration: "2-4 horas"
+  user_involvement: "high (responde assessments detalhados, aprova roadmap)"
+  prerequisites:
+    - "Negócio existente com pelo menos 3 meses de operação"
+    - "Dados básicos de receita, tempo gasto, e canais de aquisição"
+    - "Disposição para ser honesto sobre limitações atuais"
+  triggers:
+    - "Usuário usa comando *audit"
+    - "koe-chief detecta sinais de sobrecarga operacional"
+    - "Revisão trimestral programada"
+    - "Antes de iniciar wf-offer-creation ou wf-brand-architecture"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orchestração do audit, coleta inicial, visão sistêmica"
+      phases: [0]
+
+    - agent: koe-advisor
+      role: "Análise estratégica do modelo de negócio, recomendações de pivô"
+      phases: [0, 1]
+
+    - agent: koe-offers
+      role: "Otimização de ofertas para maximizar leverage e reduzir esforço operacional"
+      phases: [2]
+
+  synergies:
+    - agents: [koe-chief, koe-advisor]
+      pattern: "Chief coleta dados brutos, Advisor interpreta com lente estratégica de soberania"
+
+    - agents: [koe-advisor, koe-offers]
+      pattern: "Advisor identifica gaps de leverage, Offers redesenha ofertas para fechar gaps"
+
+  integration:
+    thinking_dna: "squads/koe/data/minds/koe-thinking-dna.yaml"
+    voice_dna: "squads/koe/data/minds/koe-voice-dna.yaml"
+    checklists_required:
+      - "checklists/sovereignty-assessment.md"
+    data_required:
+      - "data/leverage-stack-benchmarks.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: SOVEREIGNTY ASSESSMENT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Sovereignty Assessment"
+    duration: "45-60 min"
+    tier: 0  # Foundation — coleta e diagnóstico
+    description: |
+      Avaliação completa das 5 dimensões de soberania. Este é o momento de
+      verdade radical — sem dados honestos, o audit inteiro falha.
+
+      PRINCÍPIO: "Você não pode otimizar o que não mede. E não pode medir
+      o que não admite."
+
+      O Sovereignty Test avalia se o operador realmente tem um negócio soberano
+      ou apenas um emprego glorificado com CNPJ.
+
+    agents:
+      primary: koe-chief
+      secondary: koe-advisor
+
+    tasks:
+      - task_id: T0.1
+        name: "Coletar Dados de Soberania — 5 Dimensões"
+        required: true
+        agent: koe-chief
+        description: |
+          Elicitar dados honestos sobre cada dimensão usando o
+          sovereignty_scorecard_template. Cada dimensão recebe score 0-10.
+          koe-chief conduz as perguntas com empatia mas firmeza.
+        elicit: true
+        output: "sovereignty_raw_data.yaml"
+
+      - task_id: T0.2
+        name: "Calcular Sovereignty Score Composto"
+        required: true
+        agent: koe-advisor
+        description: |
+          Processar dados brutos em score composto ponderado.
+          Identificar dimensão mais fraca (bottleneck de soberania).
+          Comparar com benchmarks de one-person businesses bem-sucedidos.
+        depends_on: [T0.1]
+        output: "sovereignty_score.yaml"
+
+      - task_id: T0.3
+        name: "Mapear Dependências Operacionais"
+        required: true
+        agent: koe-advisor
+        description: |
+          Para cada dimensão abaixo de 7/10, listar exatamente o que
+          prende o operador. Dependências de pessoas, plataformas,
+          processos manuais, clientes específicos.
+        depends_on: [T0.2]
+        output: "dependency_map.yaml"
+
+      - task_id: T0.4
+        name: "Identificar Quick Wins de Soberania"
+        required: true
+        agent: koe-advisor
+        description: |
+          Das dependências mapeadas, quais podem ser eliminadas em < 30 dias
+          com esforço mínimo? Priorizar por impacto em soberania.
+        depends_on: [T0.3]
+        output: "quick_wins.md"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Sovereignty Scorecard Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      sovereignty_scorecard_template:
+        name: "Scorecard de Soberania — 5 Dimensões"
+        source: "Dan Koe — One-Person Business Architecture"
+        description: |
+          Avaliação holística de liberdade no negócio. Cada dimensão é
+          avaliada de 0 a 10. Score composto ponderado determina nível
+          geral de soberania.
+        dimensions:
+          - id: SOV_TIME
+            name: "Soberania de Tempo"
+            weight: 0.25
+            description: "Capacidade de controlar como e quando trabalha"
+            diagnostic_questions:
+              - question: "Quantas horas por semana você PRECISA estar disponível para o negócio funcionar?"
+                interpretation:
+                  ideal: "< 20h — sistemas rodam sozinhos"
+                  warning: "20-40h — operação parcialmente dependente"
+                  critical: "> 40h — você É o negócio"
+              - question: "Se você tirasse 2 semanas de férias AMANHÃ, o que quebraria?"
+                interpretation:
+                  ideal: "Nada — sistemas e equipe cobrem"
+                  warning: "Algumas coisas atrasariam"
+                  critical: "Tudo para"
+              - question: "Quanto da sua semana é trabalho reativo (emails, calls, urgências) vs. proativo (criar, pensar, construir)?"
+                interpretation:
+                  ideal: "> 70% proativo"
+                  warning: "50/50"
+                  critical: "> 70% reativo"
+              - question: "Você tem blocos protegidos de deep work diariamente?"
+                interpretation:
+                  ideal: "4h+ por dia, inegociáveis"
+                  warning: "Alguns dias sim, outros não"
+                  critical: "Raramente ou nunca"
+            scoring:
+              10: "Trabalho completamente por escolha, < 15h/semana obrigatórias"
+              8: "Maioria do tempo é controlada, raras emergências"
+              6: "Mix de controle e obrigações, mas gerenciável"
+              4: "Mais obrigações que escolha, pouco deep work"
+              2: "Agenda dominada por outros, constantemente apagando incêndios"
+              0: "Zero controle — escravo do negócio"
+
+          - id: SOV_LOCATION
+            name: "Soberania de Localização"
+            weight: 0.15
+            description: "Liberdade geográfica — operar de qualquer lugar"
+            diagnostic_questions:
+              - question: "Seu negócio exige presença física em local específico?"
+                interpretation:
+                  ideal: "100% digital/remoto"
+                  warning: "Ocasionalmente presencial"
+                  critical: "Presença diária obrigatória"
+              - question: "Se você se mudasse para outro país, o negócio continuaria igual?"
+                interpretation:
+                  ideal: "Sim, sem nenhum impacto"
+                  warning: "Com ajustes menores"
+                  critical: "Impossível"
+              - question: "Seus clientes/audiência são locais ou globais?"
+                interpretation:
+                  ideal: "Globais — mercado sem fronteiras"
+                  warning: "Mix local/global"
+                  critical: "100% local"
+            scoring:
+              10: "Completamente location-independent, opera de qualquer lugar"
+              8: "Quase total — 1-2 compromissos locais por mês"
+              6: "Flexível mas com base fixa necessária"
+              4: "Parcialmente preso — reuniões presenciais frequentes"
+              2: "Maioria presencial, pouca flexibilidade"
+              0: "Completamente preso a localização"
+
+          - id: SOV_INCOME
+            name: "Soberania de Renda"
+            weight: 0.25
+            description: "Receita previsível, diversificada e desacoplada de tempo"
+            diagnostic_questions:
+              - question: "Qual % da sua receita é recorrente (assinaturas, memberships, etc.)?"
+                interpretation:
+                  ideal: "> 70% recorrente"
+                  warning: "30-70% recorrente"
+                  critical: "< 30% recorrente — vive de 'próxima venda'"
+              - question: "Se você parasse de vender HOJE, por quantos meses a receita continuaria?"
+                interpretation:
+                  ideal: "6+ meses de runway"
+                  warning: "2-6 meses"
+                  critical: "< 2 meses"
+              - question: "Quantas fontes de receita independentes você tem?"
+                interpretation:
+                  ideal: "3+ fontes (produtos, serviços, afiliados)"
+                  warning: "2 fontes"
+                  critical: "1 única fonte"
+              - question: "Seu maior cliente representa que % da receita?"
+                interpretation:
+                  ideal: "< 10% — nenhum cliente é crítico"
+                  warning: "10-30%"
+                  critical: "> 30% — dependência perigosa"
+              - question: "Sua receita está ligada diretamente às horas que trabalha?"
+                interpretation:
+                  ideal: "Completamente desacoplada — products/systems geram receita"
+                  warning: "Parcialmente — mix de serviço e produto"
+                  critical: "1:1 — hora trabalhada = hora paga"
+            scoring:
+              10: "Múltiplas fontes recorrentes, completamente desacoplado de tempo"
+              8: "Predominantemente recorrente, desacoplado com exceções"
+              6: "Mix saudável de recorrente e pontual"
+              4: "Mais pontual que recorrente, parcialmente ligado a tempo"
+              2: "Receita volátil, altamente dependente de esforço ativo"
+              0: "100% troca de tempo por dinheiro, zero previsibilidade"
+
+          - id: SOV_CREATIVE
+            name: "Soberania Criativa"
+            weight: 0.20
+            description: "Liberdade para criar o que quer, como quer, para quem quer"
+            diagnostic_questions:
+              - question: "Que % do seu trabalho é algo que você ESCOLHERIA fazer de graça?"
+                interpretation:
+                  ideal: "> 80% — trabalho alinhado com paixão"
+                  warning: "40-80%"
+                  critical: "< 40% — trabalha por obrigação"
+              - question: "Você precisa adaptar seu conteúdo/produto para agradar alguém específico (chefe, investidor, cliente difícil)?"
+                interpretation:
+                  ideal: "Crio 100% do que acredito"
+                  warning: "Faço concessões ocasionais"
+                  critical: "Constantemente comprometendo visão"
+              - question: "Se pudesse recomeçar do zero, faria o mesmo negócio?"
+                interpretation:
+                  ideal: "Absolutamente sim"
+                  warning: "Com ajustes significativos"
+                  critical: "Não — estou preso por inércia"
+              - question: "Seu negócio permite que você explore novos interesses e temas?"
+                interpretation:
+                  ideal: "Sim — modelo Digital Renaissance em ação"
+                  warning: "Parcialmente — nicho me limita"
+                  critical: "Não — preso em tema que não gosto mais"
+            scoring:
+              10: "Plena liberdade criativa — negócio é extensão da identidade"
+              8: "Alta liberdade com pequenas concessões estratégicas"
+              6: "Liberdade moderada — equilibra paixão e mercado"
+              4: "Mais compromisso que paixão"
+              2: "Pouca liberdade — mercado/clientes ditam tudo"
+              0: "Zero liberdade criativa — trabalho puramente mercenário"
+
+          - id: SOV_GROWTH
+            name: "Soberania de Crescimento"
+            weight: 0.15
+            description: "Capacidade de escalar sem escalar complexidade e estresse"
+            diagnostic_questions:
+              - question: "Se duplicasse a receita, precisaria duplicar as horas trabalhadas?"
+                interpretation:
+                  ideal: "Não — leverage permite crescer sem proporcionalidade"
+                  warning: "Parcialmente — alguma escala é eficiente"
+                  critical: "Sim — modelo linear"
+              - question: "Seu negócio tem custos marginais próximos de zero para cada novo cliente?"
+                interpretation:
+                  ideal: "Sim — produtos digitais, comunidades, automação"
+                  warning: "Baixos mas existentes"
+                  critical: "Altos — cada cliente custa proporcional"
+              - question: "Quantas camadas do Leverage Stack você tem ativas?"
+                interpretation:
+                  ideal: "4/4 (Brand + Digital Products + Content Systems + Automation)"
+                  warning: "2-3/4"
+                  critical: "0-1/4"
+              - question: "Seu funil de aquisição funciona sem sua presença ativa?"
+                interpretation:
+                  ideal: "100% automatizado — content + funnels trabalham 24/7"
+                  warning: "Parcialmente — preciso de esforço intermitente"
+                  critical: "Depende de mim diariamente"
+            scoring:
+              10: "Leverage Stack completo, crescimento exponencial possível"
+              8: "3-4 camadas ativas, crescimento eficiente"
+              6: "2 camadas, crescimento com alguma fricção"
+              4: "1 camada, crescimento majoritariamente linear"
+              2: "Sem leverage — crescer = mais trabalho proporcional"
+              0: "Modelo impossível de escalar — teto de capacidade pessoal"
+
+        composite_score:
+          formula: "SUM(dimension_score × dimension_weight)"
+          interpretation:
+            "9.0-10.0": "SOVEREIGN — Negócio verdadeiramente soberano. Foco em manter e otimizar."
+            "7.0-8.9": "LIBERATED — Alta liberdade com áreas pontuais para melhorar."
+            "5.0-6.9": "TRANSITIONING — Em transição. Progresso visível mas trabalho significativo pela frente."
+            "3.0-4.9": "CONSTRAINED — Significativamente preso. Precisa de mudanças estruturais."
+            "0.0-2.9": "TRAPPED — Emprego glorificado. Reestruturação completa necessária."
+
+          veto_trigger: "Se SOV_INCOME < 3 E SOV_TIME < 3 → negócio em risco existencial"
+
+      dependency_map_template:
+        name: "Mapa de Dependências Operacionais"
+        description: |
+          Para cada dimensão abaixo de 7/10, identificar a raiz da limitação.
+          Sem este mapa, otimizações serão superficiais.
+        categories:
+          - category: "Dependência de Pessoas"
+            examples:
+              - "Só EU sei fazer X"
+              - "Cliente exige falar comigo pessoalmente"
+              - "Equipe não funciona sem microgerenciamento"
+            liberation_pattern: "Documentar → Sistematizar → Delegar ou Automatizar"
+
+          - category: "Dependência de Plataformas"
+            examples:
+              - "100% do tráfego vem do Instagram"
+              - "Software proprietário sem alternativa"
+              - "Marketplace controla acesso aos clientes"
+            liberation_pattern: "Diversificar → Construir ativos próprios → Reduzir concentração"
+
+          - category: "Dependência de Processos Manuais"
+            examples:
+              - "Onboarding manual para cada cliente"
+              - "Criação de conteúdo é ad hoc"
+              - "Financeiro é planilha manual"
+            liberation_pattern: "Mapear → Padronizar → Automatizar (Zapier, Make, custom)"
+
+          - category: "Dependência de Clientes Específicos"
+            examples:
+              - "1 cliente = 40% da receita"
+              - "Modelo depende de renovações individuais"
+              - "Escopo cresce sem reajuste (scope creep)"
+            liberation_pattern: "Diversificar base → Produtizar serviço → Criar recurring revenue"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Sovereignty Assessment Complete"
+      criteria:
+        - "5 dimensões avaliadas com scores 0-10"
+        - "Score composto calculado com pesos"
+        - "Mapa de dependências para dimensões < 7/10"
+        - "Quick wins identificados (mínimo 3)"
+        - "Operador validou honestidade dos dados"
+      human_review: true
+      message: |
+        Revise seu Sovereignty Score antes de prosseguir.
+        Estes dados são a fundação de TODAS as recomendações que virão.
+        Se algo não está correto, agora é a hora de ajustar.
+      veto_conditions:
+        - condition: "Operador se recusa a fornecer dados honestos em qualquer dimensão"
+          action: "HALT — Audit sem dados reais é teatro. Melhor não fazer do que fazer mal feito."
+        - condition: "Score composto < 1.5 com 3+ dimensões em 0-1"
+          action: "ESCALATE — Situação crítica. Encaminhar para koe-advisor com flag de urgência para reestruturação completa."
+        - condition: "SOV_INCOME = 0 e SOV_TIME = 0"
+          action: "HALT — Não há negócio para auditar. Redirecionar para wf-offer-creation do zero."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "raw_elicitation_data"
+      discard:
+        - "partial_sovereignty_scores"
+        - "incomplete_dependency_map"
+        - "draft_quick_wins"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: BUSINESS MODEL ANALYSIS
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Business Model Analysis"
+    duration: "45-60 min"
+    tier: 1  # Análise profunda — requer dados da Phase 0
+    description: |
+      Análise detalhada do modelo de negócio através das lentes de Dan Koe:
+      Traffic + Offers = Business. Avalia cada componente e identifica
+      onde o modelo falha em gerar leverage.
+
+      PRINCÍPIO: "A maioria dos operadores solo tem offers mas não tem systems.
+      Eles trabalham NO negócio ao invés de trabalhar PARA o negócio."
+
+      FRAMEWORK: Leverage Stack Analysis — avalia as 4 camadas
+      (Brand → Digital Products → Content Systems → Automation)
+      e identifica quais estão ausentes ou subdesenvolvidas.
+
+    agent: koe-advisor
+
+    tasks:
+      - task_id: T1.1
+        name: "Audit Traffic Sources"
+        required: true
+        description: |
+          Mapear TODAS as fontes de tráfego atuais. Classificar cada uma
+          por: custo, controle, previsibilidade, escalabilidade.
+          Identificar concentração perigosa (>50% em uma fonte).
+        output: "traffic_audit.yaml"
+
+      - task_id: T1.2
+        name: "Audit Offers Portfolio"
+        required: true
+        description: |
+          Listar todas as ofertas ativas. Para cada uma, avaliar:
+          margem, escalabilidade, alinhamento com soberania, satisfação
+          do operador. Identificar ofertas que roubam soberania.
+        output: "offers_audit.yaml"
+
+      - task_id: T1.3
+        name: "Leverage Stack Assessment"
+        required: true
+        description: |
+          Avaliar presença e maturidade de cada camada do Leverage Stack:
+          Brand, Digital Products, Content Systems, Automation.
+          Score 0-10 por camada. Identificar próxima camada prioritária.
+        output: "leverage_stack_audit.yaml"
+
+      - task_id: T1.4
+        name: "Revenue Architecture Analysis"
+        required: true
+        description: |
+          Analisar a arquitetura de receita: % recurring vs. one-off,
+          ticket médio, LTV, CAC, margem por oferta.
+          Modelar cenário de soberania ideal vs. atual.
+        output: "revenue_architecture.yaml"
+
+      - task_id: T1.5
+        name: "Time Allocation Audit"
+        required: true
+        description: |
+          Mapear como o operador gasta tempo semana típica.
+          Classificar: Criar (high value), Gerenciar (medium), Operar (low),
+          Apagar incêndios (zero). Meta: 70%+ em Criar.
+        output: "time_allocation_audit.yaml"
+
+      - task_id: T1.6
+        name: "Identificar Leverage Gaps Críticos"
+        required: true
+        description: |
+          Cruzar Sovereignty Score com Leverage Stack. Identificar
+          exatamente quais gaps no stack causam quais perdas de soberania.
+          Priorizar gaps por impacto × facilidade de resolução.
+        depends_on: [T1.1, T1.2, T1.3, T1.4, T1.5]
+        output: "leverage_gaps.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Business Model Audit Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      business_model_audit_template:
+        name: "Template de Análise de Modelo de Negócio Koe"
+        description: |
+          Framework estruturado para diagnosticar modelo de negócio
+          através da equação Traffic + Offers = Business com lente
+          de soberania e leverage.
+
+        traffic_analysis:
+          description: "Mapear e classificar fontes de tráfego"
+          per_source_template:
+            fields:
+              - name: "Canal"
+                examples: ["Newsletter", "YouTube", "Twitter/X", "Instagram", "Podcast", "SEO", "Paid Ads", "Referral"]
+              - name: "% do Tráfego Total"
+                format: "X%"
+                danger_threshold: "> 50% em um canal = dependência"
+              - name: "Custo Mensal"
+                format: "R$ X.XXX (inclui tempo)"
+              - name: "Controle"
+                scoring:
+                  alto: "Lista de email, site próprio, SEO"
+                  medio: "YouTube (semi-owned), Newsletter patrocinada"
+                  baixo: "Redes sociais (algoritmo controla)"
+              - name: "Previsibilidade"
+                scoring:
+                  alta: "Tráfego orgânico estável, SEO maduro"
+                  media: "Posts regulares com variação"
+                  baixa: "Viral ou pago com CPM flutuante"
+              - name: "Escalabilidade"
+                scoring:
+                  alta: "Cresce com conteúdo, sem custo marginal"
+                  media: "Cresce com investimento proporcional"
+                  baixa: "Teto de capacidade (ex: calls 1-1)"
+
+          ideal_portfolio:
+            description: "Portfolio de tráfego soberano"
+            rules:
+              - "Nenhum canal > 40% do tráfego"
+              - "Mínimo 1 canal de alto controle (email, site)"
+              - "Mínimo 1 canal de descoberta (YouTube, SEO, social)"
+              - "Email list > 1000 subscribers como safety net"
+
+        offers_analysis:
+          description: "Avaliar cada oferta contra critérios de soberania"
+          per_offer_template:
+            fields:
+              - name: "Nome da Oferta"
+              - name: "Tipo"
+                options: ["Digital Product", "Service (1:1)", "Service (1:Many)", "Community", "Affiliate", "Consulting"]
+              - name: "Ticket Médio"
+                format: "R$ X.XXX"
+              - name: "Margem"
+                format: "X%"
+              - name: "Receita Mensal"
+                format: "R$ X.XXX"
+              - name: "Horas/Mês Necessárias"
+                format: "Xh"
+              - name: "Receita por Hora"
+                format: "R$ X.XXX/h"
+                interpretation:
+                  excellent: "> R$ 500/h"
+                  good: "R$ 200-500/h"
+                  mediocre: "R$ 50-200/h"
+                  trapped: "< R$ 50/h — trocar por produto digital"
+              - name: "Escalabilidade (0-10)"
+                interpretation:
+                  10: "Produto digital — venda infinita sem custo marginal"
+                  5: "Grupo/Community — escala com limite suave"
+                  1: "1:1 Service — limitado pelas suas horas"
+              - name: "Alinhamento Criativo (0-10)"
+                interpretation:
+                  10: "Amo fazer isso, faria de graça"
+                  5: "Neutro — faço pelo dinheiro mas não odeio"
+                  0: "Detesto — drena energia"
+
+          sovereignty_kills:
+            description: "Ofertas que DESTROEM soberania — identificar e eliminar/transformar"
+            patterns:
+              - name: "A Armadilha da Hora"
+                description: "Oferta precificada por hora = teto de renda"
+                signal: "Receita por Hora < R$200 E Escalabilidade < 3"
+                liberation: "Produtizar: criar versão em grupo ou digital do mesmo resultado"
+
+              - name: "O Cliente Vampiro"
+                description: "Oferta que atrai clientes que consomem tempo desproporcional"
+                signal: "Alinhamento < 4 E Horas/Mês > previsão E escopo cresce"
+                liberation: "Aumentar preço 2-3x (filtra clientes) ou eliminar oferta"
+
+              - name: "O Legacy Trap"
+                description: "Oferta antiga que funciona mas não inspira mais"
+                signal: "Alinhamento Criativo < 3 E Receita significativa"
+                liberation: "Automatizar/delegar a entrega ou criar versão 2.0 alinhada"
+
+        leverage_stack_assessment:
+          description: "Avaliação das 4 camadas do Leverage Stack de Dan Koe"
+          layers:
+            - id: LS_BRAND
+              name: "Brand (Autoridade + Confiança)"
+              order: 1
+              description: "Fundação — sem brand, tudo é uphill battle"
+              assessment_questions:
+                - "Pessoas seguem VOCÊ ou apenas seu conteúdo?"
+                - "Você é referência reconhecida no seu nicho?"
+                - "Sua opinião tem peso e gera discussão?"
+                - "Pessoas compartilham seu conteúdo citando seu nome?"
+              scoring:
+                10: "Autoridade estabelecida — nome reconhecido no nicho"
+                7: "Crescendo — audiência engajada mas nicho não te conhece todo"
+                4: "Iniciando — produz conteúdo mas sem autoridade clara"
+                1: "Inexistente — sem presença pública"
+
+            - id: LS_PRODUCTS
+              name: "Digital Products (Ofertas Escaláveis)"
+              order: 2
+              description: "Segundo — produtos digitais desacoplam receita de tempo"
+              assessment_questions:
+                - "Quantos produtos digitais ativos você tem?"
+                - "Qual % da receita vem de produtos (vs. serviços)?"
+                - "Seu produto gera vendas sem seu envolvimento?"
+                - "Existe upgrade path entre produtos?"
+              scoring:
+                10: "Portfolio de produtos com escada de valor automatizada"
+                7: "1-2 produtos que vendem regularmente"
+                4: "1 produto mas vendas dependem de esforço ativo"
+                1: "Nenhum produto digital — 100% serviço"
+
+            - id: LS_CONTENT
+              name: "Content Systems (Criação/Distribuição Automatizada)"
+              order: 3
+              description: "Terceiro — sistema de conteúdo que alimenta brand + vendas"
+              assessment_questions:
+                - "Você tem processo de criação de conteúdo sistematizado?"
+                - "Conteúdo é distribuído em múltiplos canais automaticamente?"
+                - "Existe content cascade (1 peça → múltiplos formatos)?"
+                - "Content calendar planejado com antecedência?"
+              scoring:
+                10: "Sistema completo — cascade, batch, distribuição automática"
+                7: "Processo consistente mas com gaps de automação"
+                4: "Cria conteúdo mas ad hoc, sem sistema"
+                1: "Conteúdo esporádico, sem processo"
+
+            - id: LS_AUTOMATION
+              name: "Automation (Tecnologia Multiplicando Esforço)"
+              order: 4
+              description: "Quarto — automação que remove o operador de tarefas repetitivas"
+              assessment_questions:
+                - "Onboarding de clientes é automatizado?"
+                - "Funis de venda rodam sem intervenção?"
+                - "Email sequences nurture leads automaticamente?"
+                - "Relatórios e métricas são gerados automaticamente?"
+              scoring:
+                10: "Negócio roda no piloto automático — operador foca em criar"
+                7: "Maioria automatizada, intervenção em exceções"
+                4: "Algumas automações mas muito manual"
+                1: "Tudo manual — operador faz tudo"
+
+          stack_score:
+            formula: "AVERAGE(layer_scores)"
+            interpretation:
+              "8-10": "Leverage Stack maduro — foco em otimizar"
+              "5-7": "Stack em construção — próxima camada prioritária identificada"
+              "2-4": "Stack básico — gaps significativos limitam crescimento"
+              "0-1": "Sem stack — negócio é 100% força bruta"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Business Model Analysis Complete"
+      criteria:
+        - "Traffic sources mapeadas e classificadas"
+        - "Ofertas auditadas com receita por hora calculada"
+        - "Leverage Stack scorado (4 camadas)"
+        - "Revenue architecture documentada"
+        - "Time allocation mapeada"
+        - "Leverage gaps priorizados"
+      human_review: true
+      message: |
+        Revise a análise completa do modelo de negócio.
+        Os gaps identificados serão a base do Optimization Roadmap.
+        Confirme se os dados e prioridades fazem sentido antes de prosseguir.
+      veto_conditions:
+        - condition: "Qualquer recomendação que reduza soberania para aumentar receita"
+          action: "HALT — Soberania é inegociável. Receita sem liberdade é prisão dourada."
+        - condition: "Leverage Stack score < 2 e operador quer adicionar mais ofertas"
+          action: "BLOCK — Mais ofertas sem leverage = mais trabalho, não mais liberdade. Construir stack primeiro."
+        - condition: "Traffic 100% concentrado em 1 canal e nenhuma ação de diversificação planejada"
+          action: "WARNING — Risco existencial. Uma mudança de algoritmo pode eliminar o negócio."
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "sovereignty_raw_data"
+        - "sovereignty_score"
+        - "dependency_map"
+        - "quick_wins"
+      discard:
+        - "partial_traffic_audit"
+        - "incomplete_leverage_stack"
+        - "draft_leverage_gaps"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: OFFER OPTIMIZATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Offer Optimization"
+    duration: "45-60 min"
+    tier: 2  # Execução — redesenha ofertas baseado no diagnóstico
+    description: |
+      Redesenho das ofertas para maximizar soberania e leverage.
+      Cada oferta é avaliada contra a questão central:
+      "Esta oferta me aproxima ou afasta da soberania?"
+
+      PRINCÍPIO: "A melhor oferta é aquela que entrega máximo valor ao cliente
+      com mínimo esforço operacional recorrente do operador. Não é preguiça —
+      é engenharia de leverage."
+
+      OUTPUT: Roadmap de otimização priorizado por impacto em soberania,
+      com timeline de implementação e métricas de sucesso.
+
+    agent: koe-offers
+
+    tasks:
+      - task_id: T2.1
+        name: "Redesenhar Ofertas Anti-Soberanas"
+        required: true
+        description: |
+          Para cada oferta identificada como "sovereignty kill" na Phase 1,
+          propor redesenho: produtizar, automatizar, eliminar, ou aumentar preço.
+          Cada redesenho deve vir com plano de transição.
+        output: "offer_redesigns.yaml"
+
+      - task_id: T2.2
+        name: "Projetar Value Ladder Soberana"
+        required: true
+        description: |
+          Criar escada de valor que começa com conteúdo gratuito e sobe
+          até oferta high-ticket, MANTENDO leverage em cada degrau.
+          Regra: nenhum degrau pode ter Escalabilidade < 5/10.
+        output: "sovereign_value_ladder.yaml"
+
+      - task_id: T2.3
+        name: "Calcular Revenue por Hora Projetada"
+        required: true
+        description: |
+          Para cada oferta redesenhada, projetar nova receita por hora.
+          Comparar com cenário atual. Meta: mínimo 3x melhoria em
+          receita por hora total do negócio.
+        depends_on: [T2.1, T2.2]
+        output: "revenue_per_hour_projection.yaml"
+
+      - task_id: T2.4
+        name: "Construir Roadmap de Otimização"
+        required: true
+        description: |
+          Roadmap de 90 dias com 3 fases:
+          Dias 1-30: Quick Wins (eliminar/automatizar o urgente)
+          Dias 31-60: Builds (criar/redesenhar ofertas core)
+          Dias 61-90: Systems (implementar automação e content systems)
+        depends_on: [T2.1, T2.2, T2.3]
+        output: "optimization_roadmap.md"
+
+      - task_id: T2.5
+        name: "Definir Métricas de Soberania"
+        required: true
+        description: |
+          Para cada dimensão de soberania, definir:
+          - Métrica atual (baseline)
+          - Meta em 90 dias
+          - KPI de acompanhamento semanal
+          - Early warning se saindo do trilho
+        depends_on: [T2.4]
+        output: "sovereignty_metrics.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Optimization Roadmap Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      optimization_roadmap_template:
+        name: "Template de Roadmap de Otimização Soberana"
+        description: |
+          Roadmap de 90 dias estruturado em 3 ondas progressivas.
+          Cada onda tem objetivo, ações, métricas e veto conditions.
+
+        wave_1_quick_wins:
+          name: "Onda 1: Quick Wins (Dias 1-30)"
+          objective: "Liberar tempo e energia imediatamente"
+          typical_actions:
+            - action: "Eliminar oferta de menor receita-por-hora"
+              impact: "Libera X horas/semana"
+              effort: "Baixo — comunicar clientes, fechar pipeline"
+            - action: "Automatizar onboarding com sequência de emails"
+              impact: "Reduz Xh/semana de trabalho operacional"
+              effort: "Médio — criar templates, configurar automação"
+            - action: "Aumentar preço em 30-50% nas ofertas restantes"
+              impact: "Mesma receita com menos clientes = menos trabalho"
+              effort: "Baixo — ajustar pricing page, comunicar"
+            - action: "Criar blocos de deep work inegociáveis"
+              impact: "Recupera tempo criativo = mais conteúdo de qualidade"
+              effort: "Baixo — reorganizar agenda"
+          success_criteria:
+            - "Mínimo 5h/semana liberadas"
+            - "SOV_TIME aumenta mínimo 1 ponto"
+            - "Zero tarefas operacionais em horário de deep work"
+
+        wave_2_builds:
+          name: "Onda 2: Builds (Dias 31-60)"
+          objective: "Construir/redesenhar ofertas para leverage"
+          typical_actions:
+            - action: "Produtizar serviço 1:1 mais popular em versão digital"
+              impact: "Desacopla receita de tempo"
+              effort: "Alto — criar curso/produto, gravar, publicar"
+            - action: "Criar community/membership como oferta recorrente"
+              impact: "Receita previsível + escala"
+              effort: "Médio — plataforma, onboarding, conteúdo inicial"
+            - action: "Implementar content cascade system"
+              impact: "1 peça de conteúdo → 5-10 derivados automaticamente"
+              effort: "Médio — definir processo, ferramentas, templates"
+          success_criteria:
+            - "Mínimo 1 nova oferta digital lançada"
+            - "SOV_INCOME aumenta mínimo 1 ponto"
+            - "Content system operacional"
+
+        wave_3_systems:
+          name: "Onda 3: Systems (Dias 61-90)"
+          objective: "Sistematizar e automatizar para rodar sem operador"
+          typical_actions:
+            - action: "Automatizar funil completo de aquisição → venda → entrega"
+              impact: "Negócio gera receita enquanto operador cria"
+              effort: "Alto — integrar ferramentas, testar, otimizar"
+            - action: "Implementar métricas dashboard automatizado"
+              impact: "Decisions baseadas em dados sem esforço de coleta"
+              effort: "Médio — setup inicial, depois automático"
+            - action: "Criar SOP para todas as tarefas operacionais restantes"
+              impact: "Delegáveis se/quando quiser contratar"
+              effort: "Médio — documentar processos"
+          success_criteria:
+            - "Leverage Stack score aumenta mínimo 2 pontos"
+            - "SOV_GROWTH aumenta mínimo 2 pontos"
+            - "Operador reporta > 60% do tempo em modo criativo"
+
+      sovereign_value_ladder_template:
+        name: "Escada de Valor Soberana"
+        description: |
+          Value ladder onde CADA degrau mantém leverage alto.
+          Diferença de value ladder tradicional: aqui o operador
+          NÃO gasta mais tempo nos degraus mais caros.
+        rungs:
+          - level: 0
+            name: "Free Content (Lead Magnet)"
+            price: "R$0"
+            format: "Newsletter, YouTube, Blog, Social"
+            leverage: "10/10 — cria uma vez, distribui infinitamente"
+            purpose: "Atração e construção de audiência"
+
+          - level: 1
+            name: "Low-Ticket Digital"
+            price: "R$27-197"
+            format: "Ebook, Mini-curso, Template Pack"
+            leverage: "10/10 — produto digital, zero custo marginal"
+            purpose: "Converter curiosos em clientes, self-qualifying"
+
+          - level: 2
+            name: "Mid-Ticket Digital"
+            price: "R$297-997"
+            format: "Curso completo, Workshop gravado, Tool Kit"
+            leverage: "9/10 — produto digital com updates periódicos"
+            purpose: "Receita principal escalável"
+
+          - level: 3
+            name: "Community/Membership"
+            price: "R$97-497/mês"
+            format: "Comunidade, Membership, Subscription"
+            leverage: "8/10 — recorrente, requer nurturing leve"
+            purpose: "Receita previsível + retenção + prova social"
+
+          - level: 4
+            name: "High-Ticket Group"
+            price: "R$2.000-10.000"
+            format: "Grupo, Mastermind, Cohort"
+            leverage: "6/10 — presença periódica, alto valor por hora"
+            purpose: "Premium revenue + case studies + intimidade seletiva"
+
+          - level: 5
+            name: "Ultra High-Ticket 1:1"
+            price: "R$10.000+"
+            format: "Advisory, Consulting, Done-With-You"
+            leverage: "3/10 — aceitável se preço justifica e é seletivo"
+            purpose: "Máximo ticket, mínimo volume, máximo aprendizado"
+
+        anti_pattern: |
+          NUNCA construir a ladder de cima para baixo.
+          Operadores que começam com 1:1 e depois tentam produtizar
+          já estão queimados e sem tempo. Construa da base para cima:
+          conteúdo → low ticket → mid ticket → DEPOIS considere high ticket.
+
+      sovereignty_metrics_template:
+        name: "Dashboard de Métricas de Soberania"
+        description: "Acompanhamento semanal para manter accountability"
+        metrics:
+          - dimension: "Tempo"
+            kpi: "Horas semanais em deep work criativo"
+            baseline_format: "Xh/semana"
+            target_format: "Yh/semana (+Zh)"
+            early_warning: "Se cair 2 semanas consecutivas, investigar causa"
+
+          - dimension: "Localização"
+            kpi: "Dias por mês com obrigação presencial"
+            baseline_format: "X dias/mês"
+            target_format: "Y dias/mês (-Z)"
+            early_warning: "Se aumentar, questionar se é escolha ou obrigação"
+
+          - dimension: "Renda"
+            kpi: "% receita recorrente + receita por hora"
+            baseline_format: "X% recorrente, R$Y/h"
+            target_format: "Z% recorrente, R$W/h"
+            early_warning: "Se R$/h cai, nova oferta está roubando tempo"
+
+          - dimension: "Criativa"
+            kpi: "% do trabalho que escolheria fazer de graça"
+            baseline_format: "X%"
+            target_format: "Y% (+Z%)"
+            early_warning: "Se cai abaixo de 50%, burnout iminente"
+
+          - dimension: "Crescimento"
+            kpi: "Leverage Stack score + receita sem esforço ativo"
+            baseline_format: "Stack X/10, R$Y passivo"
+            target_format: "Stack Z/10, R$W passivo"
+            early_warning: "Se stack estagna 30+ dias, prioridade precisa mudar"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Offer Optimization Complete"
+      criteria:
+        - "Todas ofertas anti-soberanas redesenhadas ou com plano de eliminação"
+        - "Value Ladder soberana projetada (mínimo 3 degraus)"
+        - "Revenue por hora projetada mostra mínimo 2x melhoria"
+        - "Roadmap de 90 dias com 3 ondas documentado"
+        - "Métricas de soberania definidas com baselines e targets"
+        - "Operador aprova roadmap e se compromete com implementação"
+      human_review: true
+      message: |
+        Este é o Optimization Roadmap final. Revise cuidadosamente:
+        - As prioridades fazem sentido para sua realidade?
+        - Os timelines são realistas?
+        - Você se compromete com a implementação?
+        Sem comprometimento do operador, o melhor roadmap do mundo é papel bonito.
+      veto_conditions:
+        - condition: "Qualquer recomendação que REDUZ soberania em qualquer dimensão"
+          action: "HALT — Regra de ouro violada. Soberania é o objetivo final, NUNCA o que sacrificamos para crescer."
+        - condition: "Roadmap tem mais de 10 itens na Wave 1"
+          action: "BLOCK — Overload operacional. Quick wins devem ser FEW and IMPACTFUL, não uma lista infinita."
+        - condition: "Nenhuma oferta digital/escalável no redesenho"
+          action: "WARNING — Sem componente digital, soberania de renda e crescimento permanecerão limitadas."
+        - condition: "Operador não se compromete com métricas semanais"
+          action: "WARNING — Sem accountability, implementação tende a falhar. Considere accountability partner."
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "traffic_audit"
+        - "offers_audit"
+        - "leverage_stack_audit"
+        - "revenue_architecture"
+        - "leverage_gaps"
+      discard:
+        - "partial_offer_redesigns"
+        - "incomplete_value_ladder"
+        - "draft_optimization_roadmap"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ROUTING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+routing:
+  on_complete:
+    options:
+      - action: "Implementar Wave 1 (Quick Wins)"
+        workflow: null
+        description: "Operador executa quick wins com check-in em 30 dias"
+
+      - action: "Redesenhar oferta principal"
+        workflow: "wf-offer-creation"
+        description: "Se identificou necessidade de nova oferta"
+
+      - action: "Construir brand architecture"
+        workflow: "wf-brand-architecture"
+        description: "Se Leverage Stack Layer 1 (Brand) está fraco"
+
+      - action: "Implementar content cascade"
+        workflow: "wf-content-cascade"
+        description: "Se Content Systems é o gap prioritário"
+
+      - action: "Re-audit em 90 dias"
+        workflow: "wf-sovereignty-audit"
+        description: "Agendar re-audit para medir progresso"
+
+  on_veto:
+    escalate_to: "koe-advisor"
+    message: "Audit encontrou violação de soberania. Análise estratégica necessária."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-sovereignty-audit"
+      status: "completed"
+      outputs:
+        - "sovereignty_score.yaml"
+        - "optimization_roadmap.md"
+        - "sovereignty_metrics.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "sovereignty_raw_data.yaml"
+    - "sovereignty_score.yaml"
+    - "dependency_map.yaml"
+    - "quick_wins.md"
+
+  phase_1:
+    - "traffic_audit.yaml"
+    - "offers_audit.yaml"
+    - "leverage_stack_audit.yaml"
+    - "revenue_architecture.yaml"
+    - "time_allocation_audit.yaml"
+    - "leverage_gaps.yaml"
+
+  phase_2:
+    - "offer_redesigns.yaml"
+    - "sovereign_value_ladder.yaml"
+    - "revenue_per_hour_projection.yaml"
+    - "optimization_roadmap.md"
+    - "sovereignty_metrics.yaml"
+
+  final_deliverable:
+    name: "Sovereign Business Audit Package"
+    location: "outputs/audits/{business_id}/"
+    contents:
+      - "sovereignty_scorecard.yaml — Score das 5 dimensões"
+      - "business_model_analysis.yaml — Análise completa"
+      - "leverage_stack_report.yaml — Estado das 4 camadas"
+      - "optimization_roadmap.md — Plano de 90 dias"
+      - "sovereignty_metrics.yaml — Dashboard de acompanhamento"
+      - "executive_summary.md — Resumo para o operador"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-advisor"]
+
+  PHASE-1:
+    primary: ["koe-advisor"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["koe-offers"]
+    secondary: []
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] 5 dimensões avaliadas (0-10)"
+    - "[ ] Score composto calculado"
+    - "[ ] Mapa de dependências completo"
+    - "[ ] Quick wins identificados (mínimo 3)"
+    - "[ ] Operador validou dados"
+
+  phase_1:
+    - "[ ] Traffic sources mapeadas"
+    - "[ ] Ofertas auditadas com R$/hora"
+    - "[ ] Leverage Stack scorado"
+    - "[ ] Revenue architecture documentada"
+    - "[ ] Time allocation mapeada"
+    - "[ ] Leverage gaps priorizados"
+
+  phase_2:
+    - "[ ] Ofertas anti-soberanas redesenhadas"
+    - "[ ] Value Ladder com 3+ degraus"
+    - "[ ] Revenue/hora projetada (mínimo 2x)"
+    - "[ ] Roadmap 90 dias (3 ondas)"
+    - "[ ] Métricas definidas com baselines"
+    - "[ ] Operador comprometido"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "ONE_PERSON_BUSINESS_ARCHITECTURE"
+    - "LEVERAGE_STACK"
+    - "TRAFFIC_PLUS_OFFERS"
+    - "SOVEREIGNTY_TEST"
+    - "DIGITAL_RENAISSANCE"
+  source_mind: "dan_koe"
+  lines: 700+
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

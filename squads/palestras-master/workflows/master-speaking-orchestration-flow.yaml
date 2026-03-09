@@ -1,0 +1,37 @@
+workflow:
+  id: master-speaking-orchestration-flow
+  purpose: "Orquestrar demanda de palestra em ambiente multi-squad"
+  phases:
+    - id: phase_1
+      name: "Diagnóstico e roteamento"
+    - id: phase_2
+      name: "Composição de estratégia híbrida"
+    - id: phase_3
+      name: "Validação e liberação"
+  checkpoints:
+    - id: cp1
+      name: "Intenção classificada e roteamento definido"
+      blocking: true
+    - id: cp2
+      name: "Plano híbrido consolidado"
+      blocking: true
+    - id: cp3
+      name: "Quality gate multi-clone aprovado"
+      blocking: true
+  veto_conditions:
+    - id: veto_1
+      condition: "roteamento_sem_justificativa"
+      action: "HALT e refazer fase de diagnóstico"
+    - id: veto_2
+      condition: "estrategia_conflitante_entre_metodos"
+      action: "HALT e acionar mind-assembler (atenção especial: Cinema-Mágica vs Aplauda de Pé devem ser complementares, não competidores)"
+    - id: veto_3
+      condition: "sem_metricas_de_sucesso"
+      action: "HALT e definir critérios de resultado"
+    - id: veto_4
+      condition: "mentoria_duplicada_entre_satelites"
+      action: "HALT e separar: luiz-fosc (cinematográfico) vs renner (transformacional) vs tathi (persuasivo)"
+  guardrails:
+    idempotency: true
+    audit_log_required: true
+    manual_override: true

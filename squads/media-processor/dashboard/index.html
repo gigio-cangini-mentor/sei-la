@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Processor — Pipeline Dashboard</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --purple: #bc8cff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 4px; }
+    .subtitle { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .card-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-value { font-size: 1.75rem; font-weight: 600; margin-top: 4px; }
+    .card-detail { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+    .progress-bar-container {
+      background: var(--border);
+      border-radius: 4px;
+      height: 8px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .progress-bar.ok { background: var(--green); }
+    .progress-bar.warn { background: var(--yellow); }
+    .progress-bar.fail { background: var(--red); }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .status-completed { background: rgba(63,185,80,0.15); color: var(--green); }
+    .status-running { background: rgba(88,166,255,0.15); color: var(--accent); }
+    .status-pending { background: rgba(139,148,158,0.15); color: var(--text-muted); }
+    .status-failed { background: rgba(248,81,73,0.15); color: var(--red); }
+    .status-skipped { background: rgba(210,153,34,0.15); color: var(--yellow); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text-muted); font-weight: 500; }
+    td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .section-title { font-size: 1.1rem; margin: 24px 0 12px; }
+    .phase-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .phase-name { width: 100px; font-size: 0.8rem; color: var(--text-muted); }
+    .phase-bar-container { flex: 1; background: var(--border); border-radius: 4px; height: 24px; overflow: hidden; position: relative; }
+    .phase-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; }
+    .phase-bar.completed { background: var(--green); }
+    .phase-bar.running { background: var(--accent); animation: pulse 1.5s infinite; }
+    .phase-bar.pending { background: var(--border); }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+    .error-list { margin-top: 8px; }
+    .error-item { padding: 8px 12px; border-left: 3px solid var(--red); margin-bottom: 4px; font-size: 0.8rem; background: rgba(248,81,73,0.05); }
+    .timestamp { color: var(--text-muted); font-size: 0.75rem; }
+    .refresh-info { color: var(--text-muted); font-size: 0.75rem; text-align: right; }
+    #no-data { text-align: center; padding: 80px 20px; color: var(--text-muted); }
+    #no-data h2 { font-size: 1.2rem; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Media Processor — Pipeline Dashboard</h1>
+  <p class="subtitle" id="session-info">Waiting for pipeline data...</p>
+
+  <div id="no-data">
+    <h2>No pipeline running</h2>
+    <p>Start a pipeline with <code>*process</code>, <code>*batch</code>, or <code>*download</code></p>
+    <p style="margin-top:8px">The dashboard will auto-refresh every 3 seconds when a pipeline is active.</p>
+  </div>
+
+  <div id="dashboard" style="display:none">
+    <!-- Summary Cards -->
+    <div class="grid" id="summary-cards"></div>
+
+    <!-- Phase Progress -->
+    <h3 class="section-title">Pipeline Phases</h3>
+    <div id="phases-container" class="card" style="padding:16px"></div>
+
+    <!-- Items Table -->
+    <h3 class="section-title">Items</h3>
+    <div class="card" style="padding:0;overflow-x:auto">
+      <table id="items-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item</th>
+            <th>Download</th>
+            <th>Transcribe</th>
+            <th>Sculpt</th>
+            <th>Distill</th>
+          </tr>
+        </thead>
+        <tbody id="items-body"></tbody>
+      </table>
+    </div>
+
+    <!-- Errors -->
+    <div id="errors-section" style="display:none">
+      <h3 class="section-title">Errors</h3>
+      <div class="card" id="errors-container"></div>
+    </div>
+
+    <!-- Footer -->
+    <p class="refresh-info" id="refresh-info"></p>
+  </div>
+
+  <script>
+    const REFRESH_MS = 3000;
+    let statusPath = null;
+
+    // Try to detect pipeline-status.json location
+    // The dashboard reads from a relative path or URL parameter
+    function getStatusUrl() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('status')) return params.get('status');
+      // Default: look for most recent session
+      return '../sessions/latest/pipeline-status.json';
+    }
+
+    function statusBadge(status) {
+      if (!status) return '<span class="status-badge status-pending">pending</span>';
+      const cls = 'status-' + status.replace(/\s/g, '-');
+      return `<span class="status-badge ${cls}">${status}</span>`;
+    }
+
+    function formatDuration(seconds) {
+      if (!seconds || seconds <= 0) return '—';
+      if (seconds < 60) return `${Math.round(seconds)}s`;
+      if (seconds < 3600) return `${Math.floor(seconds/60)}m ${Math.round(seconds%60)}s`;
+      return `${Math.floor(seconds/3600)}h ${Math.floor((seconds%3600)/60)}m`;
+    }
+
+    function renderSummary(data) {
+      const p = data.progress || {};
+      const total = (data.source || {}).total_items || 0;
+      const pct = p.percentage || 0;
+      const barClass = pct >= 80 ? 'ok' : pct >= 50 ? 'warn' : 'fail';
+
+      document.getElementById('summary-cards').innerHTML = `
+        <div class="card">
+          <div class="card-label">Progress</div>
+          <div class="card-value">${pct}%</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar ${barClass}" style="width:${pct}%"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">Completed</div>
+          <div class="card-value" style="color:var(--green)">${p.items_completed || 0}</div>
+          <div class="card-detail">of ${total} items</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Failed</div>
+          <div class="card-value" style="color:${(p.items_failed||0) > 0 ? 'var(--red)' : 'var(--text-muted)'}">${p.items_failed || 0}</div>
+          <div class="card-detail">${p.items_skipped || 0} skipped</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Current Phase</div>
+          <div class="card-value" style="font-size:1.2rem">${(data.pipeline || {}).current_phase || '—'}</div>
+          <div class="card-detail">${(data.pipeline || {}).current_item || ''}</div>
+        </div>
+        <div class="card">
+          <div class="card-label">ETA</div>
+          <div class="card-value" style="font-size:1.2rem">${formatDuration(data.eta_seconds)}</div>
+          <div class="card-detail">${statusBadge((data.pipeline||{}).status)}</div>
+        </div>
+      `;
+    }
+
+    function renderPhases(data) {
+      const phases = data.phases_status || {};
+      const phaseNames = ['classify','download','transcribe','sculpt','distill','build_kb'];
+      const displayNames = ['Classify','Download','Transcribe','Sculpt','Distill','Build KB'];
+      const total = (data.source||{}).total_items || 1;
+
+      let html = '';
+      phaseNames.forEach((name, i) => {
+        const phase = phases[name] || {};
+        const st = phase.status || 'pending';
+        const ok = phase.items_ok || 0;
+        const pct = st === 'completed' ? 100 : (name === 'classify' || name === 'build_kb') ? (st === 'running' ? 50 : 0) : Math.round((ok / total) * 100);
+        html += `
+          <div class="phase-row">
+            <div class="phase-name">${displayNames[i]}</div>
+            <div class="phase-bar-container">
+              <div class="phase-bar ${st}" style="width:${Math.max(pct,2)}%">${pct > 10 ? pct+'%' : ''}</div>
+            </div>
+            ${statusBadge(st)}
+          </div>
+        `;
+      });
+      document.getElementById('phases-container').innerHTML = html;
+    }
+
+    function renderItems(data) {
+      // Items come from manifest, not status. For now show recent completions.
+      const recent = data.recent_completions || [];
+      const tbody = document.getElementById('items-body');
+      if (recent.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">No items processed yet</td></tr>';
+        return;
+      }
+      tbody.innerHTML = recent.map((item, i) => `
+        <tr>
+          <td>${i+1}</td>
+          <td>${item.name || item.id || '—'}</td>
+          <td>${statusBadge(item.download)}</td>
+          <td>${statusBadge(item.transcribe)}</td>
+          <td>${statusBadge(item.sculpt)}</td>
+          <td>${statusBadge(item.distill)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderErrors(data) {
+      const errors = data.errors || [];
+      const section = document.getElementById('errors-section');
+      const container = document.getElementById('errors-container');
+      if (errors.length === 0) { section.style.display = 'none'; return; }
+      section.style.display = 'block';
+      container.innerHTML = errors.map(e => `
+        <div class="error-item">
+          <strong>${e.item || 'Pipeline'}</strong> — ${e.phase || ''}: ${e.message || e.error || 'Unknown error'}
+          <span class="timestamp">${e.timestamp || ''}</span>
+        </div>
+      `).join('');
+    }
+
+    async function refresh() {
+      try {
+        const url = getStatusUrl();
+        const res = await fetch(url + '?t=' + Date.now());
+        if (!res.ok) throw new Error('Not found');
+        const data = await res.json();
+
+        document.getElementById('no-data').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+
+        const src = data.source || {};
+        const pipe = data.pipeline || {};
+        document.getElementById('session-info').textContent =
+          `${src.platform || '?'} — ${src.name || 'Unknown'} | Session: ${data.session_id || '?'} | Status: ${pipe.status || '?'}`;
+
+        renderSummary(data);
+        renderPhases(data);
+        renderItems(data);
+        renderErrors(data);
+        document.getElementById('refresh-info').textContent = `Last refresh: ${new Date().toLocaleTimeString()} (auto-refresh every ${REFRESH_MS/1000}s)`;
+      } catch (e) {
+        // No data available yet — show waiting state
+        document.getElementById('no-data').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
+      }
+    }
+
+    refresh();
+    setInterval(refresh, REFRESH_MS);
+  </script>
+</body>
+</html>

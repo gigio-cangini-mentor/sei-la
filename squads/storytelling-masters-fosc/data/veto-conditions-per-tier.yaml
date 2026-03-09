@@ -1,0 +1,543 @@
+# Veto Conditions Per Tier — Storytelling Masters FOSC Squad
+# Defines quality gates and blocking conditions for all 4 tiers + orchestration
+# Version: 1.0.0
+# Last Updated: 2026-03-03
+
+# Veto Philosophy:
+# - VETO = Non-negotiable blocker. Task CANNOT proceed until condition resolved.
+# - Categories: input, process, output, ethical, performance
+# - Each veto includes: condition, severity (CRITICAL/HIGH/MEDIUM), resolution_action
+# - Veto authority: Primary agent can veto own work, Secondary/Approver can veto primary's output
+
+# Tier 0: Story Structure Foundations
+# Agents: robert-mckee, joseph-campbell
+# Focus: Core narrative arc, controlling idea, inciting incident, climax, transformation
+
+tier_0_vetos:
+  structure:
+    missing_story_arc:
+      condition: "No identifiable beginning-middle-end structure"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Identify inciting incident and climax before proceeding."
+      detecting_agent: robert-mckee
+      override_authority: user_only
+
+    no_controlling_idea:
+      condition: "Story lacks clear controlling idea (theme expressed through climax)"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Define what story is ABOUT (not just what happens)."
+      detecting_agent: robert-mckee
+      override_authority: user_only
+      example: "Events happen but no clear philosophical stance or truth emerges"
+
+    missing_inciting_incident:
+      condition: "No clear event that disrupts protagonist's balance and triggers quest"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Identify the moment that starts the story engine."
+      detecting_agent: robert-mckee
+      override_authority: storytelling-masters-chief
+
+    no_climax:
+      condition: "Story lacks irreversible change moment or final confrontation"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Story must reach maximum charge and resolve."
+      detecting_agent: robert-mckee
+      override_authority: user_only
+
+    no_transformation:
+      condition: "Protagonist unchanged from beginning to end (no character arc)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Define internal change or validate flat-arc justification."
+      detecting_agent: robert-mckee
+      override_authority: storytelling-masters-chief
+      exception: "Flat arcs valid if world transforms around unchanging protagonist (e.g., Sherlock Holmes)"
+
+    missing_gap:
+      condition: "No clear gap between expectation and result (source of story energy)"
+      category: process
+      severity: HIGH
+      resolution_action: "Return to primary. Every beat needs expectation → surprise dynamic."
+      detecting_agent: robert-mckee
+      override_authority: storytelling-masters-chief
+
+    wrong_genre_conventions:
+      condition: "Genre promises made but not kept (breaks audience contract)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Honor genre or subvert consciously with new promise."
+      detecting_agent: robert-mckee
+      override_authority: storytelling-masters-chief
+      example: "Comedy setup but no payoff laugh, thriller without suspense escalation"
+
+  monomyth:
+    missing_call_to_adventure:
+      condition: "Hero's journey lacks clear call or supernatural aid (if monomyth detected)"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Define threshold crossing moment."
+      detecting_agent: joseph-campbell
+      override_authority: storytelling-masters-chief
+      applicability: "Only if narrative diagnosed as monomyth structure"
+
+    no_threshold_guardian:
+      condition: "Hero crosses into special world without obstacle or test"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Add threshold guardian or justify direct crossing."
+      detecting_agent: joseph-campbell
+      override_authority: storytelling-masters-chief
+
+    missing_abyss:
+      condition: "No clear death-and-rebirth moment (literal or metaphorical)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Monomyth requires transformation through abyss."
+      detecting_agent: joseph-campbell
+      override_authority: storytelling-masters-chief
+      applicability: "Only if full monomyth structure promised"
+
+# Tier 1: Presentation & Personal Stories
+# Agents: nancy-duarte, carmine-gallo, matthew-dicks
+# Focus: Sparkline, TED principles, Storyworthy methodology, audience analysis
+
+tier_1_vetos:
+  presentation:
+    no_sparkline:
+      condition: "Keynote lacks what-is/what-could-be rhythm (Duarte sparkline)"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Design contrast between current reality and future vision."
+      detecting_agent: nancy-duarte
+      override_authority: storytelling-masters-chief
+      applicability: "Only for keynote/presentation tasks"
+
+    missing_star_moment:
+      condition: "No S.T.A.R. moment (Something They'll Always Remember) in TED-style talk"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Identify jaw-drop, ah-ha, or emotionally charged moment."
+      detecting_agent: carmine-gallo
+      override_authority: storytelling-masters-chief
+      example: "Bill Gates releasing mosquitos, Jill Bolte Taylor's stroke story"
+
+    no_audience_analysis:
+      condition: "Presentation designed without clear audience context (knowledge, pain points, aspirations)"
+      category: input
+      severity: CRITICAL
+      resolution_action: "Return to primary. Cannot design without knowing who we're serving."
+      detecting_agent: nancy-duarte
+      override_authority: user_only
+
+    missing_visual_strategy:
+      condition: "Keynote uses text-heavy slides or no visual metaphor system"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Apply 1 visual per concept rule or justify text-only approach."
+      detecting_agent: nancy-duarte
+      override_authority: storytelling-masters-chief
+
+    no_opening_hook:
+      condition: "Presentation starts with throat-clearing, agenda, or self-introduction (not story/question/stat)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. First 30 seconds must grab attention."
+      detecting_agent: carmine-gallo
+      override_authority: storytelling-masters-chief
+      example: "Bad: 'Hi I'm X, today I'll talk about Y.' Good: 'Imagine waking up unable to speak...'"
+
+  personal_story:
+    no_five_second_moment:
+      condition: "Personal story lacks clear 5-second moment of change (Storyworthy core)"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Story must build toward single transformative instant."
+      detecting_agent: matthew-dicks
+      override_authority: storytelling-masters-chief
+
+    stakes_missing:
+      condition: "Story has events but no clear what's-at-risk emotional core"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Define what protagonist stands to lose or gain."
+      detecting_agent: matthew-dicks
+      override_authority: storytelling-masters-chief
+
+    no_vulnerability:
+      condition: "Personal story lacks authentic vulnerability or emotional exposure"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Audience connects through shared humanity, not perfection."
+      detecting_agent: matthew-dicks
+      override_authority: user_only
+      ethical_note: "Must balance vulnerability with dignity. No trauma porn."
+
+    wrong_starting_point:
+      condition: "Story starts too early (context dump) or too late (missing setup)"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Start as close to 5-second moment as possible while maintaining clarity."
+      detecting_agent: matthew-dicks
+      override_authority: storytelling-masters-chief
+
+    public_speaking_mismatch:
+      condition: "Story designed for written medium but delivered verbally (or vice versa)"
+      category: process
+      severity: MEDIUM
+      resolution_action: "Return to primary. Optimize for delivery medium (spoken = shorter sentences, active voice)."
+      detecting_agent: dale-carnegie
+      override_authority: storytelling-masters-chief
+
+# Tier 2: Persuasion & Rhetoric
+# Agents: robert-cialdini, chip-dan-heath, jay-heinrichs
+# Focus: Influence principles, SUCCESs framework, classical rhetoric
+
+tier_2_vetos:
+  persuasion:
+    manipulation_intent:
+      condition: "Influence strategy designed to manipulate rather than serve audience"
+      category: ethical
+      severity: CRITICAL
+      resolution_action: "STOP. Escalate to user. Reframe with ethical persuasion or abandon."
+      detecting_agent: robert-cialdini
+      override_authority: user_only
+      examples:
+        - "Dark patterns (fake scarcity, false authority)"
+        - "Exploiting cognitive biases for profit over value"
+        - "Persuading toward harmful action"
+
+    no_audience_context:
+      condition: "Persuasive talk lacks audience belief map (what they currently believe vs. what we need them to believe)"
+      category: input
+      severity: CRITICAL
+      resolution_action: "Return to primary. Cannot persuade without knowing current mental models."
+      detecting_agent: robert-cialdini
+      override_authority: storytelling-masters-chief
+
+    conflicting_principles:
+      condition: "Multiple influence principles applied but create cognitive dissonance"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Audit for principle conflicts (e.g., scarcity + social proof both high = skepticism trigger)."
+      detecting_agent: robert-cialdini
+      override_authority: storytelling-masters-chief
+      example: "Authority + Liking both pushed hard = feels sales-y"
+
+    no_ethical_check:
+      condition: "Persuasive strategy lacks 'would I want this used on me?' validation"
+      category: ethical
+      severity: HIGH
+      resolution_action: "Return to primary. Apply reciprocity test: is this fair exchange of value?"
+      detecting_agent: robert-cialdini
+      override_authority: user_only
+
+    emotional_appeal_overload:
+      condition: "Persuasion relies >70% on pathos without logos/ethos foundation"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Balance emotional appeal with logic and credibility."
+      detecting_agent: jay-heinrichs
+      override_authority: storytelling-masters-chief
+      rationale: "Pure emotional manipulation is unethical and fragile (wears off fast)"
+
+  stickiness:
+    too_abstract:
+      condition: "SUCCESs application lacks concrete examples (fails Concrete test)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Replace abstract language with sensory, tangible examples."
+      detecting_agent: chip-dan-heath
+      override_authority: storytelling-masters-chief
+      example: "Bad: 'better customer experience.' Good: 'respond in 2 minutes, not 2 days.'"
+
+    no_unexpected_moment:
+      condition: "Message lacks surprise or gap-opening moment (fails Unexpected test)"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Violate audience expectation early, then resolve."
+      detecting_agent: chip-dan-heath
+      override_authority: storytelling-masters-chief
+
+    curse_of_knowledge:
+      condition: "Message assumes expert-level knowledge audience doesn't have"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Simplify or scaffold knowledge gaps."
+      detecting_agent: chip-dan-heath
+      override_authority: storytelling-masters-chief
+
+    no_story_anchor:
+      condition: "SUCCESs framework applied but no narrative container (fails Story test)"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Wrap principles in story structure for retention."
+      detecting_agent: chip-dan-heath
+      override_authority: storytelling-masters-chief
+
+  rhetoric:
+    ethos_not_established:
+      condition: "Rhetorical argument lacks credibility foundation (no ethos)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Establish speaker credibility before persuasion."
+      detecting_agent: jay-heinrichs
+      override_authority: storytelling-masters-chief
+
+    logos_gaps:
+      condition: "Logical argument contains fallacies or unsupported claims"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Audit for logical fallacies (ad hominem, false dichotomy, etc.)."
+      detecting_agent: jay-heinrichs
+      override_authority: storytelling-masters-chief
+
+    pathos_without_purpose:
+      condition: "Emotional appeal used but disconnected from logical argument"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Emotion should amplify logic, not replace it."
+      detecting_agent: jay-heinrichs
+      override_authority: storytelling-masters-chief
+
+# Tier 3: Specialized Frameworks
+# Agents: donald-miller, blake-snyder, dale-carnegie
+# Focus: StoryBrand, Save the Cat, Public Speaking
+
+tier_3_vetos:
+  storybrand:
+    no_brand_differentiation:
+      condition: "StoryBrand BrandScript lacks clear differentiation (sounds like every competitor)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Define unique guide positioning or unique plan."
+      detecting_agent: donald-miller
+      override_authority: storytelling-masters-chief
+
+    hero_not_customer:
+      condition: "Brand positioned as hero instead of guide (StoryBrand violation)"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Customer is hero. Brand is guide. Always."
+      detecting_agent: donald-miller
+      override_authority: storytelling-masters-chief
+      example: "Bad: 'We are the best.' Good: 'We help you become the best.'"
+
+    no_clear_villain:
+      condition: "StoryBrand lacks external, internal, or philosophical villain"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Define what customer is fighting against."
+      detecting_agent: donald-miller
+      override_authority: storytelling-masters-chief
+
+    stakes_unclear:
+      condition: "Success and failure outcomes not defined (no clear stakes)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Paint picture of life after success AND cost of inaction."
+      detecting_agent: donald-miller
+      override_authority: storytelling-masters-chief
+
+    plan_too_complex:
+      condition: "StoryBrand plan has >3 steps (violates simplicity principle)"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Reduce to 3-step process or agreement plan."
+      detecting_agent: donald-miller
+      override_authority: storytelling-masters-chief
+
+  beat_sheet:
+    missing_catalyst:
+      condition: "Save the Cat beat sheet lacks clear Catalyst (beat 3) that disrupts status quo"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Identify event at 10% mark that starts story engine."
+      detecting_agent: blake-snyder
+      override_authority: storytelling-masters-chief
+
+    no_fun_and_games:
+      condition: "Beat sheet missing Fun & Games (beat 7) - the 'promise of the premise' section"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. This is where audience gets what poster promised."
+      detecting_agent: blake-snyder
+      override_authority: storytelling-masters-chief
+      example: "Legally Blonde: Elle thriving at Harvard. Liar Liar: Jim unable to lie causing chaos."
+
+    missing_dark_night:
+      condition: "No All Is Lost moment (beat 9) before Break Into Three"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Hero must hit bottom before final transformation."
+      detecting_agent: blake-snyder
+      override_authority: storytelling-masters-chief
+
+    beat_timing_off:
+      condition: "Beats not hitting structural percentages (Catalyst at 10%, Midpoint at 50%, All Is Lost at 75%)"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Adjust pacing to match audience expectations."
+      detecting_agent: blake-snyder
+      override_authority: storytelling-masters-chief
+
+    genre_mismatch:
+      condition: "Save the Cat genre (10 types) misidentified, leading to wrong beat application"
+      category: process
+      severity: HIGH
+      resolution_action: "Return to primary. Re-diagnose genre (Monster in the House, Golden Fleece, etc.)."
+      detecting_agent: blake-snyder
+      override_authority: storytelling-masters-chief
+
+  public_speaking:
+    no_audience_adaptation:
+      condition: "Speech not adapted for live delivery (reading essay vs. conversational tone)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Rewrite for spoken word (contractions, shorter sentences, active voice)."
+      detecting_agent: dale-carnegie
+      override_authority: storytelling-masters-chief
+
+    missing_gestures_notes:
+      condition: "Public speaking deliverable lacks physicality/gesture suggestions"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Add blocking notes for key moments."
+      detecting_agent: dale-carnegie
+      override_authority: storytelling-masters-chief
+
+    no_rehearsal_guidance:
+      condition: "Speech deliverable lacks rehearsal instructions or timing marks"
+      category: output
+      severity: MEDIUM
+      resolution_action: "Return to primary. Add estimated timing and practice tips."
+      detecting_agent: dale-carnegie
+      override_authority: storytelling-masters-chief
+
+# Orchestration-Level Vetos
+# Agent: storytelling-masters-chief
+# Focus: Cross-tier coordination, quality gates, constitutional compliance
+
+orchestration_vetos:
+  diagnostic:
+    unclear_input:
+      condition: "User input too vague to diagnose narrative type or required tasks"
+      category: input
+      severity: CRITICAL
+      resolution_action: "STOP. Request clarification from user before task delegation."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+    conflicting_requirements:
+      condition: "User requests violate each other (e.g., 'persuasive but no influence principles')"
+      category: input
+      severity: HIGH
+      resolution_action: "STOP. Clarify priority with user or propose hybrid approach."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+  quality_gate:
+    tier_conflict_unresolved:
+      condition: "T0 vetos T2 output but no resolution path identified"
+      category: process
+      severity: CRITICAL
+      resolution_action: "Escalate to user. Chief cannot override tier authority conflicts."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+      example: "McKee vetos Cialdini's persuasion strategy due to story structure violation"
+
+    multiple_vetos_same_dimension:
+      condition: "3+ vetos on same output dimension (e.g., structure, ethics, persuasion)"
+      category: output
+      severity: CRITICAL
+      resolution_action: "STOP. Full task re-execution required. Original approach fundamentally flawed."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+    sla_violation_chronic:
+      condition: "Agent exceeds max_duration 3+ times in 10 tasks"
+      category: performance
+      severity: HIGH
+      resolution_action: "Agent performance review. Identify root cause (veto conditions too strict, task complexity underestimated, knowledge gap)."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+    output_generic:
+      condition: "Final deliverable could apply to any project (lacks specificity to user's context)"
+      category: output
+      severity: HIGH
+      resolution_action: "Return to primary. Output must be hyper-contextualized to user's audience, brand, goals."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+    no_framework_application:
+      condition: "Task completed but specialized framework not visibly applied (e.g., 'build-storybrand' output lacks BrandScript structure)"
+      category: output
+      severity: CRITICAL
+      resolution_action: "Return to primary. Framework application must be explicit and traceable."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+  ethical:
+    manipulation_risk_high:
+      condition: "Output crosses ethical line into manipulation territory (dark patterns, deception, exploitation)"
+      category: ethical
+      severity: CRITICAL
+      resolution_action: "STOP. Escalate to user. Do not proceed with unethical persuasion."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+      examples:
+        - "Fake scarcity countdown timers"
+        - "False authority claims"
+        - "Exploiting fear without offering real solution"
+        - "Persuading toward harmful action for profit"
+
+    vulnerability_exploitation:
+      condition: "Personal story or persuasive talk exploits trauma/vulnerability without dignity"
+      category: ethical
+      severity: CRITICAL
+      resolution_action: "STOP. Reframe with consent, dignity, and purpose or abandon."
+      detecting_agent: storytelling-masters-chief
+      override_authority: user_only
+
+# Veto Override Process
+veto_override:
+  requester: primary_agent
+  approver: user_only
+  process:
+    - "Primary documents why veto is blocking valid output"
+    - "Primary proposes alternative approach OR justification for override"
+    - "Chief reviews and escalates to user"
+    - "User approves override with documented rationale OR rejects and requires compliance"
+
+  override_tracking:
+    location: "squads/storytelling-masters-fosc/data/veto-overrides.json"
+    fields:
+      - task_id
+      - veto_condition
+      - detecting_agent
+      - override_requester
+      - override_rationale
+      - user_decision
+      - timestamp
+
+# Veto Metrics & Review
+veto_metrics:
+  tracked:
+    - "Veto rate per tier"
+    - "Veto rate per agent"
+    - "Veto rate per task"
+    - "Override request rate"
+    - "Override approval rate"
+
+  review_frequency: "Monthly"
+
+  review_triggers:
+    - "Veto rate >30% for any agent (too strict or task mismatch)"
+    - "Override approval rate >50% (veto conditions need calibration)"
+    - "Tier conflict rate >10% (authority boundaries unclear)"
+
+  dashboard_location: "squads/storytelling-masters-fosc/data/veto-metrics.json"

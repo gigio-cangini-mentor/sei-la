@@ -1,0 +1,139 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://synkra.ai/schemas/session-state/v1.0.0",
+  "title": "AIOS Session State",
+  "description": "Schema for Magic Bob session state persistence",
+  "type": "object",
+  "required": ["session_state"],
+  "additionalProperties": false,
+  "properties": {
+    "session_state": {
+      "type": "object",
+      "required": [
+        "version",
+        "last_updated",
+        "epic",
+        "progress",
+        "workflow",
+        "last_action",
+        "context_snapshot",
+        "resume_instructions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Schema version (X.Y format)"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of last update"
+        },
+        "epic": {
+          "type": "object",
+          "required": ["id", "title", "total_stories"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "title": { "type": "string", "minLength": 1 },
+            "total_stories": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "progress": {
+          "type": "object",
+          "required": ["current_story", "stories_done", "stories_pending"],
+          "additionalProperties": false,
+          "properties": {
+            "current_story": { "type": ["string", "null"] },
+            "stories_done": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "stories_pending": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "workflow": {
+          "type": "object",
+          "required": ["current_phase", "attempt_count", "phase_results", "started_at"],
+          "additionalProperties": false,
+          "properties": {
+            "current_phase": {
+              "type": ["string", "null"],
+              "enum": [null, "validation", "development", "self_healing", "quality_gate", "push", "checkpoint"]
+            },
+            "attempt_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "phase_results": {
+              "type": "object"
+            },
+            "started_at": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "last_action": {
+          "type": "object",
+          "required": ["type", "timestamp"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "GO", "PAUSE", "REVIEW", "ABORT", "PHASE_CHANGE",
+                "EPIC_STARTED", "STORY_STARTED", "STORY_COMPLETED",
+                "CHECKPOINT_REACHED", "ERROR_OCCURRED"
+              ]
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "story": { "type": ["string", "null"] },
+            "phase": {
+              "type": ["string", "null"],
+              "enum": [null, "validation", "development", "self_healing", "quality_gate", "push", "checkpoint"]
+            }
+          }
+        },
+        "context_snapshot": {
+          "type": "object",
+          "required": ["files_modified"],
+          "additionalProperties": false,
+          "properties": {
+            "files_modified": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "executor_distribution": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "last_executor": { "type": ["string", "null"] },
+            "branch": { "type": "string" }
+          }
+        },
+        "resume_instructions": {
+          "type": "string"
+        },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "educational_mode": { "type": ["boolean", "null"] }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+# SLA Matrix — Storytelling Masters FOSC Squad
+# Defines execution time budgets and escalation thresholds for all 9 tasks
+# Version: 1.0.0
+# Last Updated: 2026-03-03
+
+# SLA Philosophy:
+# - expected_duration: Target completion time for 80% of executions
+# - max_duration: Hard timeout - task MUST complete or escalate
+# - warning_threshold: Percentage of max_duration that triggers warning
+# - escalation_action: What happens when max_duration is exceeded
+
+tasks:
+  diagnose-narrative:
+    expected_duration: "7 minutes"
+    max_duration: "10 minutes"
+    warning_threshold: 70
+    warning_at: "7 minutes"
+    escalation_action: "escalate_to_user"
+    complexity_factors:
+      - "Input clarity (clear, unclear, ambiguous)"
+      - "Narrative type identification (simple, hybrid, complex)"
+      - "Required transformations (1-2, 3-4, 5+)"
+    notes: "Chief must identify narrative type and required tasks. Delay usually means unclear input."
+
+  build-story-structure:
+    expected_duration: "25 minutes"
+    max_duration: "30 minutes"
+    warning_threshold: 70
+    warning_at: "21 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "Story length (short <5min, medium 5-20min, long >20min)"
+      - "Arc complexity (single arc, dual arc, multi-threaded)"
+      - "Transformation depth (surface, moderate, profound)"
+    sla_by_complexity:
+      simple_arc: "20 minutes"
+      dual_arc: "30 minutes"
+      multi_threaded: "45 minutes (requires chief approval)"
+    notes: "McKee builds 5-act structure. Campbell validates hero's journey if applicable. Delays mean unclear controlling idea or inciting incident."
+
+  design-keynote-sparkline:
+    expected_duration: "32 minutes"
+    max_duration: "40 minutes"
+    warning_threshold: 65
+    warning_at: "26 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "Presentation length (5min, 10min, 20min, 60min)"
+      - "Audience analysis depth (basic, detailed, multi-segment)"
+      - "Visual strategy complexity (text-only, simple visuals, rich media)"
+    sla_by_complexity:
+      lightning_talk: "20 minutes (5min presentation)"
+      standard_keynote: "40 minutes (20min presentation)"
+      extended_keynote: "60 minutes (60min presentation, requires chief approval)"
+    notes: "Duarte designs sparkline with what-is/what-could-be rhythm. Gallo validates TED-style S.T.A.R. moment. Delays mean unclear audience or missing transformation."
+
+  engineer-personal-story:
+    expected_duration: "20 minutes"
+    max_duration: "25 minutes"
+    warning_threshold: 70
+    warning_at: "17.5 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "Story mining depth (single story, story bank, full autobiography)"
+      - "5-second moment clarity (obvious, requires digging, hidden)"
+      - "Delivery context (written, spoken, hybrid)"
+    sla_by_complexity:
+      single_story: "20 minutes"
+      story_bank: "40 minutes (5-10 stories)"
+      full_mining: "90 minutes (requires chief approval, batch mode)"
+    notes: "Dicks mines 5-second moment and builds backward/forward. Carnegie validates delivery. Delays mean no clear transformation or stakes missing."
+
+  make-it-stick:
+    expected_duration: "25 minutes"
+    max_duration: "30 minutes"
+    warning_threshold: 70
+    warning_at: "21 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "SUCCESs dimensions to apply (2-3, 4-5, all 6)"
+      - "Abstract concept complexity (concrete, moderate, highly abstract)"
+      - "Audience familiarity (expert, general, novice)"
+    sla_by_complexity:
+      light_application: "20 minutes (2-3 SUCCESs dimensions)"
+      full_application: "30 minutes (all 6 dimensions)"
+      deep_transformation: "45 minutes (requires chief approval)"
+    notes: "Heath brothers apply SUCCESs framework. Focus on concrete examples and unexpected moments. Delays mean too abstract or no clear villain/gap."
+
+  craft-persuasive-talk:
+    expected_duration: "37 minutes"
+    max_duration: "45 minutes"
+    warning_threshold: 65
+    warning_at: "29 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "Influence principles applied (1-2, 3-4, 5-6)"
+      - "Rhetorical complexity (pathos-only, ethos+pathos, full triad)"
+      - "Audience resistance level (receptive, neutral, hostile)"
+    sla_by_complexity:
+      simple_persuasion: "30 minutes (2-3 principles, receptive audience)"
+      complex_persuasion: "45 minutes (5+ principles, neutral/hostile audience)"
+      ethical_concern: "60 minutes (requires ethical review, chief approval)"
+    notes: "Cialdini engineers influence strategy. Heinrichs validates rhetorical balance. Delays mean manipulation risk or ethical flags."
+
+  build-storybrand:
+    expected_duration: "30 minutes"
+    max_duration: "35 minutes"
+    warning_threshold: 70
+    warning_at: "24.5 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "Brand clarity (clear positioning, unclear positioning, no positioning)"
+      - "Guide definition (obvious, requires discovery, missing)"
+      - "Transformation depth (functional, social, aspirational)"
+    sla_by_complexity:
+      clear_brand: "25 minutes (brand positioning already clear)"
+      discovery_needed: "35 minutes (requires guide discovery)"
+      full_clarification: "50 minutes (requires chief approval)"
+    notes: "Miller applies StoryBrand BrandScript. McKee validates story structure. Delays mean no clear villain or stakes missing."
+
+  design-beat-sheet:
+    expected_duration: "35 minutes"
+    max_duration: "40 minutes"
+    warning_threshold: 70
+    warning_at: "28 minutes"
+    escalation_action: "escalate_to_chief"
+    complexity_factors:
+      - "Narrative length (short film <15min, feature 90-120min, epic >120min)"
+      - "Genre complexity (single genre, hybrid, subversion)"
+      - "B-story integration (no B-story, simple B-story, complex B-story)"
+    sla_by_complexity:
+      short_form: "30 minutes (<15min narrative)"
+      feature_length: "40 minutes (90-120min narrative)"
+      epic_form: "60 minutes (>120min, requires chief approval)"
+    notes: "Snyder applies 15-beat Save the Cat structure. McKee validates controlling idea. Campbell validates mythic resonance. Delays mean missing fun & games or dark night."
+
+  validate-storytelling-quality:
+    expected_duration: "12 minutes"
+    max_duration: "15 minutes"
+    warning_threshold: 60
+    warning_at: "9 minutes"
+    escalation_action: "escalate_to_user"
+    complexity_factors:
+      - "Dimensions validated (structure, persuasion, presentation, all)"
+      - "Veto triggers (0 vetos, 1-2 vetos, 3+ vetos)"
+      - "Revision depth (minor tweaks, moderate revision, full redo)"
+    sla_by_outcome:
+      clean_pass: "10 minutes (0-1 minor issues)"
+      minor_revision: "15 minutes (2-3 fixable issues)"
+      major_revision: "20 minutes + re-execution of failed task"
+    notes: "Chief runs 10-point quality checklist. User approves final. Delays mean multiple vetos or unresolved tier conflicts."
+
+# Global SLA Rules
+global_rules:
+  concurrent_task_penalty:
+    description: "Add 30% to expected_duration per additional concurrent task"
+    example: "Chief handling 2 tasks simultaneously: 7min → 9.1min expected"
+
+  batch_mode_bonus:
+    description: "Reduce expected_duration by 15% for batches of 3+ similar tasks"
+    example: "Engineering 5 personal stories: 20min → 17min per story after first"
+
+  cold_start_penalty:
+    description: "First task execution after agent activation: add 20%"
+    example: "McKee's first structure build: 25min → 30min expected"
+
+  escalation_cooldown:
+    description: "After escalation, agent must complete 3 successful tasks before SLA reset"
+    notes: "Prevents chronic escalators from gaming the system"
+
+# SLA Violation Handling
+violations:
+  warning_threshold_exceeded:
+    action: "Log warning to chief"
+    notification: "Agent + Chief"
+    retry: false
+
+  max_duration_exceeded:
+    action: "Trigger escalation_action"
+    notification: "Agent + Chief + Escalation Target"
+    retry: false
+    post_mortem_required: true
+
+  chronic_violations:
+    threshold: "3 violations in 10 tasks"
+    action: "Agent performance review by chief"
+    notification: "Chief + User"
+    remediation:
+      - "Review veto conditions (too strict?)"
+      - "Review task complexity (underestimated?)"
+      - "Review agent training (knowledge gap?)"
+
+# Monitoring & Reporting
+monitoring:
+  metrics_tracked:
+    - "Actual duration vs expected_duration"
+    - "Warning threshold triggers per agent"
+    - "Escalation frequency per task"
+    - "Veto rate per tier"
+    - "Revision cycles per task"
+
+  reporting_frequency: "Weekly"
+
+  report_recipients:
+    - storytelling-masters-chief
+    - user
+
+  dashboard_location: "squads/storytelling-masters-fosc/data/sla-metrics.json"

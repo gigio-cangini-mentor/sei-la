@@ -1,0 +1,47 @@
+{
+  "$schema": "Pipeline Status Template — media-processor squad",
+  "$version": "1.0.0",
+  "$description": "Real-time pipeline status for dashboard consumption. Written by update-status task, read by dashboard.",
+
+  "session_id": "mp-YYYY-MMDD-NNN",
+  "source": {
+    "platform": "hotmart|cademi|youtube|local",
+    "url": "",
+    "name": "",
+    "total_items": 0
+  },
+  "pipeline": {
+    "type": "full|download-only|transcribe-only|batch",
+    "status": "initializing|running|paused|completed|failed",
+    "started_at": "2026-01-01T00:00:00Z",
+    "updated_at": "2026-01-01T00:00:00Z",
+    "completed_at": null,
+    "current_phase": "classify|download|transcribe|sculpt|distill|build_kb",
+    "current_item": "",
+    "current_item_index": 0
+  },
+  "progress": {
+    "items_completed": 0,
+    "items_failed": 0,
+    "items_skipped": 0,
+    "items_running": 0,
+    "items_pending": 0,
+    "percentage": 0
+  },
+  "phases_status": {
+    "classify": { "status": "pending", "started_at": null, "completed_at": null },
+    "download": { "status": "pending", "started_at": null, "completed_at": null, "items_ok": 0, "items_fail": 0 },
+    "transcribe": { "status": "pending", "started_at": null, "completed_at": null, "items_ok": 0, "items_fail": 0 },
+    "sculpt": { "status": "pending", "started_at": null, "completed_at": null, "items_ok": 0, "items_fail": 0 },
+    "distill": { "status": "pending", "started_at": null, "completed_at": null, "items_ok": 0, "items_fail": 0 },
+    "build_kb": { "status": "pending", "started_at": null, "completed_at": null }
+  },
+  "quality_gates": {
+    "QG-001": { "runs": 0, "pass": 0, "warn": 0, "fail": 0 },
+    "QG-002": { "runs": 0, "pass": 0, "warn": 0, "fail": 0 },
+    "QG-003": { "run": false, "verdict": null }
+  },
+  "recent_completions": [],
+  "errors": [],
+  "eta_seconds": null
+}

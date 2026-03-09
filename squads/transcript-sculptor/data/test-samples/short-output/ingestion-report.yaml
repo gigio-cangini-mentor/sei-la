@@ -1,0 +1,30 @@
+ingestion_report:
+  source_file: "short-sample.md"
+  ingestion_date: "2026-02-22T10:30:00Z"
+  conversion_type: "passthrough"
+  conversion_details:
+    input_format: "markdown"
+    output_format: "markdown"
+    source_path: "<PROJECT_ROOT>/squads/transcript-sculptor/data/test-samples/short-output/raw/short-sample.md"
+    destination_path: "<PROJECT_ROOT>/squads/transcript-sculptor/data/test-samples/short-output/raw/short-sample.md"
+    conversion_method: "copy"
+    processing_time_ms: 12
+  file_stats:
+    total_lines: 70
+    total_words: 950
+    total_characters: 5847
+    file_size_bytes: 5847
+  metadata_extracted:
+    title: "Transcrição de Teste — Workshop de Produtividade"
+    duration: "8 minutos"
+    date: "2026-02-22"
+    speaker: "Carlos Mendes"
+  validation:
+    encoding: "UTF-8"
+    format_valid: true
+    metadata_complete: true
+    ready_for_analysis: true
+  notes:
+    - "File was already in markdown format - passthrough conversion applied"
+    - "Metadata extracted from document header"
+    - "File structure validated successfully"

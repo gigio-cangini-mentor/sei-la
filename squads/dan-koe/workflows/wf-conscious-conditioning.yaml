@@ -1,0 +1,1282 @@
+# Conscious Conditioning Protocol Workflow
+# Based on Dan Koe's Conscious Conditioning Process + Habit Loop Mastery
+# Source: CONSCIOUS_CONDITIONING_PROCESS + POLARITY_PRINCIPLE + AUTOPROGRAMMING
+# Version: 1.0.0
+
+id: wf-conscious-conditioning
+name: "Conscious Conditioning Protocol"
+version: "1.0.0"
+duration: "3-5 dias (com prática diária)"
+description: |
+  Protocolo completo para reprogramação consciente de padrões mentais, hábitos
+  e identidade. Usa o framework de Dan Koe para identificar condicionamentos
+  inconscientes que limitam o operador e substituí-los por padrões alinhados
+  com a vida e o negócio que deseja construir.
+
+  FILOSOFIA: "Você não é seus hábitos. Você é a consciência que pode OBSERVAR
+  seus hábitos e ESCOLHER mudá-los. O primeiro passo é reconhecer que toda
+  crença, todo comportamento, todo padrão foi PROGRAMADO — e pode ser
+  REPROGRAMADO conscientemente."
+
+  RESULTADO: Pattern Audit completo + Conditioning Plan personalizado +
+  Habit Architecture de 21 dias + Integration Plan com accountability.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Operador travado em padrões improdutivos reconhecidos"
+  - "Transição de identidade (empregado → empreendedor, freelancer → creator)"
+  - "Resistência persistente a hábitos que 'sabe que deveria fazer'"
+  - "Após burnout ou período de estagnação"
+  - "Sabotagem inconsciente em áreas específicas (vendas, exposição, disciplina)"
+  - "Quando técnicas de produtividade sozinhas não funcionam (o problema é mais fundo)"
+  - "Início de nova fase do negócio que exige nova versão de si mesmo"
+
+decision_matrix_fit:
+  complexity: high
+  agents_required: 3
+  estimated_duration: "3-5 dias (sessões de 60-90 min + prática diária)"
+  user_involvement: "very high (introspecção profunda, prática diária, journaling)"
+  prerequisites:
+    - "Disposição para introspecção honesta e vulnerabilidade"
+    - "Comprometimento com prática diária por mínimo 21 dias"
+    - "Ambiente seguro (sem pressão de terceiros durante sessões)"
+    - "Padrão limitante específico identificado (não vago)"
+  triggers:
+    - "Usuário usa comando *rewire"
+    - "koe-mindset identifica padrão limitante recorrente"
+    - "Sovereignty Audit revela SOV_CREATIVE < 4 por bloqueio interno"
+    - "Operador relata auto-sabotagem ou estagnação inexplicável"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Triagem inicial, identificação do padrão-alvo, contexto"
+      phases: [0]
+
+    - agent: koe-mindset
+      role: "Condução das sessões de conditioning, habit architecture"
+      phases: [1, 2]
+
+    - agent: koe-advisor
+      role: "Integração estratégica, alinhamento com objetivos de negócio/vida"
+      phases: [3]
+
+  synergies:
+    - agents: [koe-chief, koe-mindset]
+      pattern: "Chief identifica o padrão no contexto do negócio, Mindset trata na raiz psicológica"
+
+    - agents: [koe-mindset, koe-advisor]
+      pattern: "Mindset faz o trabalho interno, Advisor conecta com resultados externos tangíveis"
+
+  integration:
+    thinking_dna: "squads/koe/data/minds/koe-thinking-dna.yaml"
+    voice_dna: "squads/koe/data/minds/koe-voice-dna.yaml"
+    frameworks_required:
+      - "Conscious Conditioning Process"
+      - "Habit Loop Mastery (DF-002)"
+      - "Polarity Principle"
+      - "Autoprogramming"
+    data_required:
+      - "data/conditioning-patterns-library.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: PATTERN RECOGNITION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Pattern Recognition"
+    duration: "45-60 min"
+    tier: 0  # Foundation — sem reconhecimento do padrão, nada funciona
+    description: |
+      Identificação precisa dos padrões inconscientes que estão limitando
+      o operador. Diferente de "coaching" superficial, aqui buscamos a RAIZ.
+
+      PRINCÍPIO: "Todo comportamento indesejado é uma solução para um problema
+      que você não sabe que tem. O comportamento não é o problema — é o sintoma.
+      Se você trata o sintoma sem entender a causa, ele volta com outro rosto."
+
+      O processo usa perguntas provocativas para mover além das respostas
+      prontas e chegar no padrão real.
+
+    agent: koe-chief
+
+    tasks:
+      - task_id: T0.1
+        name: "Identificar o Padrão-Alvo"
+        required: true
+        description: |
+          Conversa guiada para identificar o padrão limitante específico.
+          Não aceitar respostas vagas. O padrão deve ser:
+          - Específico ("procrastino ao criar conteúdo de vídeo")
+          - Observável ("fico scrollando redes quando deveria escrever")
+          - Recorrente ("acontece toda vez que sento para gravar")
+        elicit: true
+        output: "target_pattern.yaml"
+
+      - task_id: T0.2
+        name: "Arqueologia do Padrão"
+        required: true
+        description: |
+          Escavar as camadas do padrão:
+          Camada 1 — O Comportamento (o que faz)
+          Camada 2 — O Gatilho (o que dispara)
+          Camada 3 — A Emoção (o que sente antes)
+          Camada 4 — A Crença (o que acredita por baixo)
+          Camada 5 — A Identidade (quem acredita ser)
+        depends_on: [T0.1]
+        elicit: true
+        output: "pattern_archaeology.yaml"
+
+      - task_id: T0.3
+        name: "Mapear Função Protetora do Padrão"
+        required: true
+        description: |
+          Todo padrão limitante TEM uma função. Geralmente é proteção:
+          - Contra rejeição ("se não tento, não falho")
+          - Contra exposição ("se não apareço, não me criticam")
+          - Contra mudança ("o familiar é seguro mesmo sendo ruim")
+          Identificar a função para não criar vácuo ao remover o padrão.
+        depends_on: [T0.2]
+        output: "protective_function.yaml"
+
+      - task_id: T0.4
+        name: "Avaliar Custo do Padrão"
+        required: true
+        description: |
+          Quantificar o que o padrão custa:
+          - Em dinheiro (receita perdida, oportunidades não capturadas)
+          - Em tempo (horas gastas em comportamento compensatório)
+          - Em energia (desgaste emocional, culpa, frustração)
+          - Em soberania (qual dimensão mais afetada)
+          O objetivo é tornar o custo visceral, não abstrato.
+        depends_on: [T0.2]
+        output: "pattern_cost_analysis.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Pattern Audit Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      pattern_audit_template:
+        name: "Template de Auditoria de Padrão"
+        source: "Dan Koe — Conscious Conditioning Process"
+        description: |
+          Framework para identificar e documentar padrões limitantes
+          com precisão cirúrgica. Superficialidade aqui = fracasso adiante.
+
+        pattern_identification:
+          description: "Identificação do padrão-alvo com máxima especificidade"
+          questions:
+            - id: PAT_001
+              question: "Que comportamento específico você quer mudar?"
+              bad_answer: "Quero ser mais produtivo"
+              good_answer: "Quero parar de procrastinar ao gravar vídeos para YouTube"
+              coaching_if_vague: "Me dê um exemplo específico da última semana onde isso aconteceu."
+
+            - id: PAT_002
+              question: "Com que frequência isso acontece?"
+              options: ["Diário", "Vários dias/semana", "Semanal", "Situacional"]
+              coaching: "Quanto mais frequente, maior a urgência de rewiring."
+
+            - id: PAT_003
+              question: "Há quanto tempo esse padrão existe?"
+              interpretation:
+                "< 6 meses": "Padrão recente — mais fácil de rewire"
+                "6 meses - 2 anos": "Padrão estabelecido — requer esforço consistente"
+                "> 2 anos": "Padrão profundo — pode estar ligado a identidade"
+                "> 10 anos": "Padrão foundational — provavelmente vem de condicionamento antigo"
+
+            - id: PAT_004
+              question: "Você já tentou mudar isso antes? O que fez?"
+              purpose: "Entender tentativas anteriores para não repetir abordagens que falharam"
+              common_failed_approaches:
+                - "Pura força de vontade (willpower depletion)"
+                - "App de produtividade (trata sintoma, não causa)"
+                - "Compromisso público sem estrutura (vergonha não sustenta mudança)"
+                - "Ler sobre o assunto sem praticar (intelectualização)"
+
+        archaeology_layers:
+          description: "5 camadas de escavação do padrão — da superfície à raiz"
+          layers:
+            - layer: 1
+              name: "Comportamento"
+              question: "O que exatamente você FAZ?"
+              example: "Abro Instagram quando deveria abrir o editor de vídeo"
+
+            - layer: 2
+              name: "Gatilho"
+              question: "O que acontece IMEDIATAMENTE ANTES?"
+              example: "Sento na cadeira, abro o computador, vejo o ícone do software de edição"
+              sub_questions:
+                - "Há um gatilho ambiental (lugar, hora, objeto)?"
+                - "Há um gatilho emocional (sentimento que aparece)?"
+                - "Há um gatilho social (presença/ausência de pessoas)?"
+
+            - layer: 3
+              name: "Emoção"
+              question: "O que você SENTE nos 5 segundos antes do comportamento?"
+              common_emotions:
+                - "Ansiedade/Medo (de não ser bom o suficiente)"
+                - "Overwhelm (não sei por onde começar)"
+                - "Tédio (não quero fazer isso agora)"
+                - "Resistência difusa (algo puxa para longe)"
+              coaching: "Feche os olhos. Imagine-se naquele momento. O que aparece no corpo?"
+
+            - layer: 4
+              name: "Crença"
+              question: "O que você acredita que é verdade quando sente isso?"
+              common_beliefs:
+                - "Não sou bom o suficiente para isso"
+                - "Vão me julgar/criticar"
+                - "Isso não vai funcionar para mim"
+                - "Eu não sou esse tipo de pessoa"
+                - "Preciso saber mais antes de agir"
+              coaching: "Complete a frase: 'No fundo, acredito que...'"
+
+            - layer: 5
+              name: "Identidade"
+              question: "Que tipo de pessoa manteria esse padrão?"
+              examples:
+                - "Uma pessoa que não se sente merecedora de sucesso"
+                - "Alguém que se define como procrastinador"
+                - "Uma pessoa que prioriza conforto sobre crescimento"
+              coaching: "Essa identidade foi ESCOLHIDA ou ABSORVIDA? De quem/onde?"
+
+        protective_function_analysis:
+          description: "Identificar o benefício oculto do padrão"
+          principle: |
+            Se o padrão não tivesse algum benefício (mesmo que distorcido),
+            seu cérebro já teria parado. Todo padrão persiste porque serve algo.
+          common_functions:
+            - function: "Proteção contra falha"
+              description: "Se não tento, não falho (preservação do ego)"
+              signal: "Padrão aparece antes de tarefas com risco de julgamento"
+              healthy_replacement: "Redefinir falha como feedback + criar safe space para tentar"
+
+            - function: "Regulação emocional"
+              description: "O comportamento é um anestésico (scroll, food, distraction)"
+              signal: "Padrão aparece quando emoções desconfortáveis surgem"
+              healthy_replacement: "Mindfulness + journaling + physical movement"
+
+            - function: "Manutenção de identidade"
+              description: "Mudar significaria não ser mais 'eu' (terror existencial)"
+              signal: "Padrão está há anos, tentativas de mudança geram ansiedade"
+              healthy_replacement: "Identity bridging — 'sou eu E estou evoluindo'"
+
+            - function: "Conformidade social"
+              description: "Mudar significaria desapontar/diferir do grupo"
+              signal: "Padrão alinhado com expectativas de família/amigos/cultura"
+              healthy_replacement: "Encontrar nova tribo alinhada + comunicação assertiva"
+
+        cost_quantification:
+          description: "Tornar o custo do padrão concreto e visceral"
+          dimensions:
+            - dimension: "Financeiro"
+              question: "Quanto dinheiro este padrão te custou nos últimos 12 meses?"
+              calculation_help: |
+                - Clientes perdidos × ticket médio
+                - Conteúdo não criado × receita estimada por peça
+                - Oportunidades recusadas por medo
+                - Produtos não lançados × projeção conservadora
+
+            - dimension: "Temporal"
+              question: "Quantas horas por semana este padrão consome (direta e indiretamente)?"
+              calculation_help: |
+                - Horas no comportamento em si
+                - Horas de culpa/ruminação depois
+                - Horas de procrastinação que ele causa
+                - × 52 semanas = horas por ano
+
+            - dimension: "Energético"
+              question: "Quanta energia mental este padrão drena? (0-10)"
+              calculation_help: |
+                - Desgaste emocional da auto-crítica
+                - Fadiga de decisão (deveria? não deveria?)
+                - Energia gasta em compensação
+
+            - dimension: "Soberania"
+              question: "Qual dimensão de soberania este padrão mais afeta?"
+              link_to: "wf-sovereignty-audit → sovereignty_scorecard"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Pattern Recognition Complete"
+      criteria:
+        - "Padrão-alvo identificado com especificidade (comportamento + frequência)"
+        - "5 camadas escavadas (comportamento → identidade)"
+        - "Função protetora mapeada"
+        - "Custo quantificado em pelo menos 3 dimensões"
+        - "Operador reconhece o padrão como verdadeiro (validação emocional)"
+      human_review: true
+      message: |
+        Revise a auditoria do padrão. O mais importante:
+        Você se RECONHECE neste retrato? Se sim, podemos prosseguir.
+        Se algo não ressoa, ajustamos agora — trabalhar com retrato errado é desperdício.
+      veto_conditions:
+        - condition: "Padrão identificado é vago ou genérico"
+          action: "BLOCK — Não é possível rewire algo que não foi nomeado com precisão."
+        - condition: "Operador não reconhece as 5 camadas como verdadeiras"
+          action: "HALT — Retornar à escavação. Sem reconhecimento, conditioning será superficial."
+        - condition: "Padrão indica possível questão clínica (depressão, ansiedade severa, trauma)"
+          action: "HALT — Encaminhar para profissional de saúde mental. Este workflow não substitui terapia."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "raw_elicitation_data"
+      discard:
+        - "partial_target_pattern"
+        - "incomplete_pattern_archaeology"
+        - "draft_protective_function"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: CONSCIOUS CONDITIONING SESSION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Conscious Conditioning Session"
+    duration: "60-90 min"
+    tier: 1  # Core — o trabalho de reprogramação propriamente dito
+    description: |
+      Sessão central de Conscious Conditioning usando o framework de Dan Koe.
+      5 etapas: Recognize → Reframe → Design → Repeat → Reward.
+
+      PRINCÍPIO: "Você não elimina um padrão. Você SUBSTITUI.
+      O cérebro não aceita vácuo. Se remover algo, precisa colocar
+      algo no lugar — ou o padrão antigo volta."
+
+      FRAMEWORK: Polarity Principle — toda crença limitante tem um
+      polo oposto potencializador. Não buscamos "pensamento positivo"
+      (que é falso), buscamos o POLO VERDADEIRO que coexiste com
+      a limitação e é igualmente real.
+
+    agent: koe-mindset
+
+    tasks:
+      - task_id: T1.1
+        name: "Etapa 1: RECOGNIZE (Reconhecer)"
+        required: true
+        description: |
+          Sessão guiada de reconhecimento consciente do padrão.
+          O operador observa o padrão EM TEMPO REAL (ou via recall guiado)
+          SEM JULGAMENTO. Objetivo: despersonalizar o padrão.
+          "Eu NÃO SOU este padrão. Eu OBSERVO este padrão."
+        elicit: true
+        output: "conditioning_recognize.yaml"
+
+      - task_id: T1.2
+        name: "Etapa 2: REFRAME (Reenquadrar)"
+        required: true
+        description: |
+          Aplicar Polarity Principle: encontrar o polo oposto verdadeiro
+          da crença limitante. NÃO é "pensamento positivo" — é encontrar
+          a verdade que coexiste com a limitação.
+          Ex: "Não sou bom o suficiente" → "Ninguém começa bom. Expertise vem de repetição."
+        depends_on: [T1.1]
+        output: "conditioning_reframe.yaml"
+
+      - task_id: T1.3
+        name: "Etapa 3: DESIGN (Projetar)"
+        required: true
+        description: |
+          Projetar o novo padrão que substituirá o antigo:
+          - Novo comportamento (o que fará no lugar)
+          - Novo gatilho (como acessar o novo padrão)
+          - Nova recompensa (como reforçar)
+          - Nova identidade (quem está se tornando)
+        depends_on: [T1.2]
+        output: "conditioning_design.yaml"
+
+      - task_id: T1.4
+        name: "Etapa 4: REPEAT (Protocolo de Repetição)"
+        required: true
+        description: |
+          Criar protocolo de repetição diária que fortalece o novo padrão:
+          - Morning Protocol (5 min — intention setting)
+          - Trigger Protocol (no momento — micro-prática)
+          - Evening Protocol (5 min — review e reforço)
+          21 dias mínimo para instalação inicial.
+        depends_on: [T1.3]
+        output: "conditioning_repeat_protocol.yaml"
+
+      - task_id: T1.5
+        name: "Etapa 5: REWARD (Sistema de Recompensa)"
+        required: true
+        description: |
+          Projetar sistema de recompensa que sustenta o novo padrão:
+          - Recompensas intrínsecas (como se sentirá)
+          - Recompensas extrínsecas (milestones com rewards)
+          - Tracking visual (streak counter, journal)
+          - Accountability structure (quem sabe, quem cobra)
+        depends_on: [T1.4]
+        output: "conditioning_reward_system.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Conditioning Session Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      conditioning_session_template:
+        name: "Template de Sessão de Conscious Conditioning"
+        source: "Dan Koe — Conscious Conditioning + Polarity Principle"
+        description: |
+          Framework completo de 5 etapas para reprogramação consciente.
+          Cada etapa constrói sobre a anterior. Não pular etapas.
+
+        step_1_recognize:
+          name: "RECOGNIZE — Reconhecimento Consciente"
+          duration: "15-20 min"
+          objective: "Separar VOCÊ do PADRÃO. Criar distância observacional."
+          protocol:
+            preparation:
+              - "Ambiente quieto, sem interrupções"
+              - "Posição confortável, olhos fechados ou abertos suavemente"
+              - "3 respirações profundas para centrar"
+
+            guided_observation:
+              - step: 1
+                instruction: "Relembre a última vez que o padrão ocorreu. Observe como um filme."
+                duration: "2-3 min"
+              - step: 2
+                instruction: "Note onde no corpo você sente o padrão. Peito? Estômago? Ombros?"
+                duration: "1-2 min"
+              - step: 3
+                instruction: "Observe a emoção sem nomeá-la. Apenas sinta."
+                duration: "1-2 min"
+              - step: 4
+                instruction: "Agora nomeie: 'Estou observando [padrão]. Ele não é eu. É algo que acontece em mim.'"
+                duration: "1 min"
+              - step: 5
+                instruction: "Repita internamente: 'Eu sou a consciência que observa. O padrão é apenas um programa.'"
+                duration: "1 min"
+
+            completion_indicators:
+              - "Sensação de distanciamento do padrão (não sou isso)"
+              - "Redução de auto-julgamento"
+              - "Curiosidade substituindo vergonha"
+
+        step_2_reframe:
+          name: "REFRAME — Reenquadramento via Polarity Principle"
+          duration: "15-20 min"
+          objective: "Encontrar verdade oposta que é igualmente real."
+          principle: |
+            O Polarity Principle diz: toda verdade tem um polo oposto
+            igualmente verdadeiro. "Não sou bom" e "Estou aprendendo e
+            melhorando a cada tentativa" coexistem. A questão não é qual
+            é verdade — ambas são. A questão é qual ESCOLHO alimentar.
+
+          protocol:
+            - step: 1
+              instruction: |
+                Escreva a crença limitante (Camada 4 da archaeology):
+                "[CRENÇA LIMITANTE]"
+              example: "Meus vídeos não são bons o suficiente para publicar"
+
+            - step: 2
+              instruction: |
+                Pergunte: "Isso é 100% verdade, sem exceção, para sempre?"
+                (Sempre a resposta é não — encontre as exceções)
+              purpose: "Criar fissura na certeza absoluta da crença"
+
+            - step: 3
+              instruction: |
+                Aplique Polarity: "Qual é a verdade oposta igualmente real?"
+                NÃO é pensamento positivo. É verdade observável.
+              bad_reframe: "Meus vídeos são incríveis!" (falso positivo, cérebro rejeita)
+              good_reframe: "Meus vídeos vão melhorar com prática, como aconteceu com todo creator que admiro. Os primeiros 100 vídeos de todo YouTuber são ruins."
+              principle_applied: "Polo oposto verdadeiro, não fantasia"
+
+            - step: 4
+              instruction: |
+                Encontre EVIDÊNCIA para o polo positivo:
+                - Quem começou ruim e melhorou?
+                - Quando VOCÊ já melhorou em algo pela prática?
+                - Que feedback positivo você já recebeu?
+              purpose: "Ancorar o reframe em realidade observável"
+
+            - step: 5
+              instruction: |
+                Formule a NOVA CRENÇA (polar bridge):
+                "Embora [crença antiga] às vezes pareça real,
+                eu ESCOLHO focar em [crença nova] porque [evidência]."
+              example: |
+                "Embora 'não sou bom o suficiente' às vezes apareça,
+                eu ESCOLHO focar em 'estou melhorando a cada vídeo'
+                porque já vi isso acontecer comigo em [skill X]
+                e com creators que admiro como [nome]."
+
+        step_3_design:
+          name: "DESIGN — Projetar Novo Padrão"
+          duration: "15 min"
+          objective: "Criar blueprint do comportamento substituto."
+          template:
+            old_pattern:
+              trigger: "[gatilho que disparava o padrão antigo]"
+              emotion: "[emoção que surgia]"
+              behavior: "[comportamento que seguia]"
+              result: "[consequência negativa]"
+
+            new_pattern:
+              trigger: "[MESMO gatilho — não muda o gatilho, muda a resposta]"
+              pause: "3 respirações conscientes (implementação interrupt)"
+              choice_point: "Lembrar: 'Eu sou a consciência que escolhe.'"
+              new_behavior: "[novo comportamento projetado]"
+              new_reward: "[recompensa imediata planejada]"
+              identity_affirmation: "'Eu sou alguém que [nova identidade].'"
+
+            example:
+              old_pattern:
+                trigger: "Abro computador para gravar vídeo"
+                emotion: "Ansiedade, medo de julgamento"
+                behavior: "Abro Instagram para scrollar"
+                result: "Perda de 2h, culpa, nenhum vídeo gravado"
+
+              new_pattern:
+                trigger: "Abro computador para gravar vídeo"
+                pause: "3 respirações. Mãos no teclado. Olhos fechados."
+                choice_point: "'Eu sou a consciência que escolhe. Este medo é normal e não me define.'"
+                new_behavior: "Gravar primeiros 30 segundos SEM julgamento (lixo é permitido)"
+                new_reward: "Fazer X que gosto após 15 min de gravação"
+                identity_affirmation: "'Eu sou um creator que publica. Imperfeição é progresso.'"
+
+          implementation_intention:
+            format: "QUANDO [gatilho], ENTÃO [pausa] → [novo comportamento]"
+            example: "QUANDO abrir o computador para gravar, ENTÃO respiro 3x → gravo 30s sem julgamento"
+            research: "Implementation intentions aumentam probabilidade de execução em 2-3x (Gollwitzer, 1999)"
+
+        step_4_repeat:
+          name: "REPEAT — Protocolo de Repetição (21 dias)"
+          duration: "Ongoing — 15 min/dia"
+          objective: "Instalar novo padrão via repetição consciente até automatização."
+          principle: |
+            Neuroplasticidade: Neurons that fire together wire together.
+            21 dias é o mínimo para instalação. 66 dias para automatização.
+            Consistência > intensidade.
+
+          daily_protocol:
+            morning_5min:
+              name: "Morning Intention Setting"
+              time: "Primeiros 15 min do dia"
+              steps:
+                - "1 min — Respiração consciente (grounding)"
+                - "1 min — Relembrar nova crença (reframe)"
+                - "1 min — Visualizar novo padrão em ação"
+                - "1 min — Afirmação de identidade em voz alta"
+                - "1 min — Definir implementation intention para hoje"
+
+            trigger_moment:
+              name: "Trigger Protocol (No Momento)"
+              time: "Quando o gatilho aparecer"
+              steps:
+                - "PAUSAR — 3 respirações (interrupt padrão antigo)"
+                - "RECONHECER — 'O padrão antigo está aparecendo. Normal.'"
+                - "ESCOLHER — 'Eu sou a consciência que escolhe.'"
+                - "AGIR — Executar novo comportamento projetado"
+                - "CELEBRAR — Reconhecer a escolha (mesmo se imperfeita)"
+
+            evening_5min:
+              name: "Evening Review & Reinforcement"
+              time: "Últimos 15 min do dia"
+              steps:
+                - "1 min — Respiração para desacelerar"
+                - "1 min — Review: onde o padrão apareceu hoje?"
+                - "1 min — Celebrar: onde ESCOLHI diferente?"
+                - "1 min — Aprender: onde voltei ao padrão antigo? (sem julgamento)"
+                - "1 min — Journaling rápido: 1 frase sobre o dia"
+
+          tracking:
+            method: "Streak tracking — cada dia bem-sucedido = 1 link na corrente"
+            success_definition: "Dia bem-sucedido = fez o protocolo (morning + evening). O trigger moment é bônus."
+            break_protocol: "Se quebrar streak, NÃO se punir. Retomar no dia seguinte. O único fracasso é abandonar."
+
+        step_5_reward:
+          name: "REWARD — Sistema de Recompensa"
+          duration: "Configuração: 10 min | Ongoing: automático"
+          objective: "Criar loop de reforço positivo que sustenta o novo padrão."
+          types:
+            intrinsic:
+              description: "Recompensas internas (mais poderosas a longo prazo)"
+              examples:
+                - "Sensação de controle ('eu ESCOLHI')"
+                - "Orgulho silencioso ('estou evoluindo')"
+                - "Energia/humor melhor após novo comportamento"
+                - "Confiança crescente a cada repetição"
+
+            extrinsic:
+              description: "Recompensas externas (importantes no início)"
+              milestones:
+                - days: 7
+                  reward: "Milestone 1 — celebração pequena (café especial, compra pequena)"
+                  message: "7 dias = padrão novo está sendo instalado"
+                - days: 21
+                  reward: "Milestone 2 — celebração média (experiência, presente)"
+                  message: "21 dias = instalação básica completa"
+                - days: 66
+                  reward: "Milestone 3 — celebração grande (experiência significativa)"
+                  message: "66 dias = automatização. Novo padrão é default."
+
+            social:
+              description: "Accountability social amplifica poder da recompensa"
+              options:
+                - "Accountability partner (1 pessoa que sabe e pergunta)"
+                - "Small group (3-5 pessoas no mesmo processo)"
+                - "Public commitment (post sobre a jornada)"
+              warning: "Accountability funciona APENAS se o grupo é supportive, não punitivo"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Conditioning Session Complete"
+      criteria:
+        - "5 etapas completadas (Recognize → Reframe → Design → Repeat → Reward)"
+        - "Nova crença formulada via Polarity Principle (não é pensamento positivo)"
+        - "Novo padrão projetado com implementation intention"
+        - "Protocolo de 21 dias configurado (morning + trigger + evening)"
+        - "Sistema de recompensa com 3 milestones definidos"
+        - "Operador se sente ENERGIZADO (não exausto) pela sessão"
+      human_review: true
+      message: |
+        O protocolo de conditioning está pronto. Antes de prosseguir:
+        - A nova crença ressoa como VERDADEIRA (não como fantasia)?
+        - O novo comportamento é REALISTA para amanhã?
+        - Você está disposto a fazer 15 min/dia por 21 dias?
+        Se qualquer resposta é "não", ajustamos agora.
+      veto_conditions:
+        - condition: "Nova crença formulada como pensamento positivo vazio"
+          action: "BLOCK — Polarity Principle exige verdade, não fantasia. Reformular com evidência."
+        - condition: "Novo comportamento requer willpower heroica"
+          action: "BLOCK — Se é difícil demais, não será sustentável. Simplificar: qual a menor versão possível?"
+        - condition: "Sessão cria dependência do agente/processo para funcionar"
+          action: "HALT — O objetivo é AUTONOMIA. Se operador precisa de nós para executar, falhamos. Redesenhar para self-sufficiency."
+        - condition: "Operador sai da sessão pior do que entrou (mais ansioso, culpado, overwhelmed)"
+          action: "HALT — Sessão deve ser empowering. Investigar se tocou em algo que precisa de profissional."
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "target_pattern"
+        - "pattern_archaeology"
+        - "protective_function"
+        - "pattern_cost_analysis"
+      discard:
+        - "partial_conditioning_reframe"
+        - "incomplete_conditioning_design"
+        - "draft_repeat_protocol"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: HABIT ARCHITECTURE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Habit Architecture"
+    duration: "30-45 min"
+    tier: 1  # Core — estrutura o ambiente para sustentar a mudança
+    description: |
+      Construção da arquitetura ambiental e sistêmica que SUSTENTA o novo padrão.
+      Conditioning sozinho não basta — o ambiente precisa ser redesenhado
+      para FACILITAR o novo comportamento e DIFICULTAR o antigo.
+
+      PRINCÍPIO: "Disciplina é o que você faz quando a motivação some.
+      Mas design de ambiente é o que torna a disciplina desnecessária.
+      Redesenhe o ambiente para que a escolha certa seja a mais fácil."
+
+    agent: koe-mindset
+
+    tasks:
+      - task_id: T2.1
+        name: "Audit Ambiental"
+        required: true
+        description: |
+          Mapear todos os gatilhos ambientais que reforçam o padrão antigo.
+          Físicos (layout da mesa, objetos), digitais (apps, notificações),
+          sociais (pessoas, conversas), temporais (horários, rotinas).
+        output: "environmental_audit.yaml"
+
+      - task_id: T2.2
+        name: "Redesenhar Ambiente Físico"
+        required: true
+        description: |
+          Para cada gatilho ambiental: eliminar, modificar, ou adicionar
+          contra-gatilho. Friction engineering: tornar padrão antigo
+          DIFÍCIL e novo padrão FÁCIL.
+        depends_on: [T2.1]
+        output: "physical_environment_redesign.yaml"
+
+      - task_id: T2.3
+        name: "Redesenhar Ambiente Digital"
+        required: true
+        description: |
+          Configurar dispositivos para suportar novo padrão:
+          - Remover/bloquear apps que alimentam padrão antigo
+          - Configurar lembretes para novo padrão
+          - Criar shortcuts para comportamento desejado
+          - Screen time limits onde necessário
+        depends_on: [T2.1]
+        output: "digital_environment_redesign.yaml"
+
+      - task_id: T2.4
+        name: "Construir Habit Loop Blueprint"
+        required: true
+        description: |
+          Integrar todos os redesigns em um Habit Loop Blueprint:
+          Cue (redesenhado) → Craving (nova identidade) →
+          Response (novo comportamento) → Reward (sistema de recompensa).
+          Deve ser simples o suficiente para caber em 1 página.
+        depends_on: [T2.2, T2.3]
+        output: "habit_loop_blueprint.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Habit Loop Blueprint
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      habit_loop_blueprint:
+        name: "Blueprint de Habit Loop (Koe + Clear)"
+        source: "Dan Koe Habit Loop Mastery (DF-002) + Atomic Habits framework"
+        description: |
+          Framework para redesenhar o loop de hábito completo,
+          integrando condicionamento consciente com design ambiental.
+
+        loop_components:
+          cue:
+            name: "CUE — Gatilho Redesenhado"
+            principle: "Tornar o novo hábito ÓBVIO e o antigo INVISÍVEL"
+            strategies:
+              make_obvious:
+                - "Colocar triggers visuais do novo hábito em locais frequentes"
+                - "Associar novo hábito a rotina existente (habit stacking)"
+                - "Configurar alarmes/lembretes nos momentos-chave"
+                - "Preparar ambiente na noite anterior"
+              make_invisible:
+                - "Remover triggers visuais do hábito antigo"
+                - "Bloquear acesso fácil (app limits, logout, distância física)"
+                - "Evitar contextos que disparam padrão antigo (temporariamente)"
+
+          craving:
+            name: "CRAVING — Desejo Reconfigurado"
+            principle: "Associar novo hábito com IDENTIDADE, não apenas resultado"
+            strategies:
+              identity_based:
+                - "Pergunta: 'O que uma pessoa que [identidade desejada] faria agora?'"
+                - "Cada execução do novo hábito = voto a favor da nova identidade"
+                - "Tracking como evidência de identidade ('5 dias = sou alguém que faz isso')"
+              temptation_bundling:
+                - "Combinar novo hábito com algo prazeroso"
+                - "Ex: 'Só posso ouvir podcast favorito enquanto faço [hábito]'"
+
+          response:
+            name: "RESPONSE — Ação Simplificada"
+            principle: "Tornar novo hábito FÁCIL e antigo DIFÍCIL"
+            strategies:
+              two_minute_rule:
+                description: "Novo hábito deve caber em 2 minutos na versão mínima"
+                examples:
+                  - "Gravar vídeo → 'Ligar câmera e falar 30 segundos'"
+                  - "Escrever artigo → 'Abrir documento e escrever 1 frase'"
+                  - "Exercitar → 'Vestir roupa de academia'"
+                rationale: "A resistência é no INÍCIO. Uma vez começado, momentum carrega."
+
+              friction_engineering:
+                increase_friction_old:
+                  - "Deletar app, não apenas fechar"
+                  - "Logout de todas as contas tentadoras"
+                  - "Mover fisicamente para longe do gatilho"
+                  - "Adicionar etapas entre impulso e ação"
+                decrease_friction_new:
+                  - "Preparar tudo na noite anterior"
+                  - "Reduzir etapas ao mínimo (1-click)"
+                  - "Ter ferramentas sempre à mão"
+                  - "Eliminar decisões (roupa, comida, ordem)"
+
+          reward:
+            name: "REWARD — Reforço Imediato"
+            principle: "Tornar novo hábito SATISFATÓRIO imediatamente"
+            strategies:
+              immediate_rewards:
+                - "Celebração física (fist pump, smile, 'yes!')"
+                - "Check-mark visual (X no calendário, app tracker)"
+                - "Permissão para algo prazeroso APÓS completar"
+              never_break_chain:
+                - "Tracking visual diário (corrente de Xs)"
+                - "Regra: nunca faltar 2 dias seguidos"
+                - "Ter versão MÍNIMA para dias difíceis (ex: 2 min)"
+
+        blueprint_template:
+          format: |
+            === HABIT LOOP BLUEPRINT ===
+
+            IDENTIDADE: "Eu sou alguém que [nova identidade]"
+
+            CUE: [gatilho redesenhado]
+            → PAUSE: 3 respirações conscientes
+            → CRAVING: "O que [nova identidade] faria agora?"
+
+            RESPONSE: [ação mínima — versão 2 minutos]
+            → EXPANSION: Se energy > 5/10, continuar para versão completa
+
+            REWARD: [celebração imediata] + [tracking visual]
+            → IDENTITY VOTE: "Mais um voto a favor de quem estou me tornando"
+
+            DAILY PROTOCOL:
+            - AM: Intention setting (5 min)
+            - TRIGGER: Pause → Choose → Act (in the moment)
+            - PM: Review & Celebrate (5 min)
+
+            MILESTONES: 7d → 21d → 66d
+            ACCOUNTABILITY: [quem/como]
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Habit Architecture Complete"
+      criteria:
+        - "Audit ambiental completo (físico + digital + social + temporal)"
+        - "Ambiente redesenhado para facilitar novo padrão"
+        - "Habit Loop Blueprint em 1 página"
+        - "Versão 2 minutos definida (para dias difíceis)"
+        - "Tracking system configurado"
+        - "Operador confirma que redesigns são implementáveis AMANHÃ"
+      human_review: true
+      message: |
+        O Blueprint está pronto. Última verificação:
+        - Os redesigns ambientais são possíveis HOJE?
+        - A versão 2 minutos é realmente fácil o suficiente?
+        - O tracking é algo que vai REALMENTE usar?
+        Simplicidade > Complexidade. Se parece complicado, simplifique.
+      veto_conditions:
+        - condition: "Blueprint tem mais de 5 ações diárias"
+          action: "BLOCK — Complexo demais para ser sustentável. Reduzir para máximo 3 ações core."
+        - condition: "Nenhum redesign ambiental concreto"
+          action: "BLOCK — Conditioning sem environment design é willpower pura. Não funciona."
+        - condition: "Tracking requer mais de 2 min/dia para atualizar"
+          action: "WARNING — Tracking deve ser frictionless ou será abandonado. Simplificar."
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "conditioning_recognize"
+        - "conditioning_reframe"
+        - "conditioning_design"
+        - "conditioning_repeat_protocol"
+        - "conditioning_reward_system"
+      discard:
+        - "partial_environmental_audit"
+        - "incomplete_environment_redesign"
+        - "draft_habit_loop_blueprint"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 3: INTEGRATION COUNSEL
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Integration Counsel"
+    duration: "30-45 min"
+    tier: 2  # Integration — conectar mudança interna com vida/negócio
+    description: |
+      Integração da mudança de padrão com objetivos maiores de vida e negócio.
+      Esta fase conecta o trabalho interno com resultados externos tangíveis.
+
+      PRINCÍPIO: "Mudança interna sem impacto externo é masturbação intelectual.
+      Mudança externa sem mudança interna é insustentável.
+      O objetivo é alinhar QUEM VOCÊ É com COMO VOCÊ VIVE e TRABALHA."
+
+    agent: koe-advisor
+
+    tasks:
+      - task_id: T3.1
+        name: "Conectar Mudança com Objetivos de Negócio"
+        required: true
+        description: |
+          Mapear como a mudança de padrão impacta diretamente nos
+          objetivos de negócio. Qual dimensão de soberania melhora?
+          Qual oferta/canal será desbloqueado? Qual receita é liberada?
+        output: "business_integration.yaml"
+
+      - task_id: T3.2
+        name: "Identificar Efeitos Cascata"
+        required: true
+        description: |
+          Quando um padrão muda, outros áreas são afetadas.
+          Mapear efeitos positivos esperados (confidence → mais conteúdo → mais leads)
+          e possíveis efeitos negativos (mudar → desconforto → resistência de outros).
+        depends_on: [T3.1]
+        output: "cascade_effects.yaml"
+
+      - task_id: T3.3
+        name: "Criar Safety Net"
+        required: true
+        description: |
+          Plano para quando (não SE) o padrão antigo voltar:
+          - Protocolo de recaída (não é fracasso, é dado)
+          - Pessoa/recurso para acionar
+          - Versão mínima para dias extremos
+          - Critério para buscar ajuda profissional
+        output: "safety_net.yaml"
+
+      - task_id: T3.4
+        name: "Construir Integration Plan"
+        required: true
+        description: |
+          Plano de integração de 90 dias:
+          Dias 1-21: Instalação (foco total no protocolo)
+          Dias 22-45: Expansão (aplicar em contextos adicionais)
+          Dias 46-66: Automatização (reduzir protocolo consciente)
+          Dias 67-90: Consolidação (o novo padrão é o novo normal)
+        depends_on: [T3.1, T3.2, T3.3]
+        output: "integration_plan.md"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Integration Plan Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      integration_plan_template:
+        name: "Template de Plano de Integração (90 dias)"
+        description: |
+          Plano de longo prazo para consolidar a mudança de padrão
+          e integrá-la com todos os aspectos da vida e negócio.
+
+        phases:
+          installation:
+            name: "Fase 1: Instalação (Dias 1-21)"
+            focus: "Construir o novo hábito com máxima consciência"
+            protocol:
+              - "Seguir protocolo diário religiosamente (morning + trigger + evening)"
+              - "Não adicionar outros hábitos novos (foco = 1)"
+              - "Journaling diário sobre experiência (1-2 frases)"
+              - "Check-in semanal com accountability partner"
+            success_markers:
+              - "Completou 15+ dos 21 dias"
+              - "Reconhece gatilho ANTES de agir automaticamente"
+              - "Novo comportamento é executado mesmo que com esforço"
+            warning_signs:
+              - "3+ dias consecutivos sem protocolo"
+              - "Voltou ao padrão antigo sem perceber"
+              - "Sensação de que é inútil ou impossível"
+
+          expansion:
+            name: "Fase 2: Expansão (Dias 22-45)"
+            focus: "Aplicar o novo padrão em contextos variados"
+            protocol:
+              - "Manter protocolo mas reduzir para 10 min/dia"
+              - "Identificar outros contextos onde mesmo padrão aparece"
+              - "Generalizar a nova crença para situações adjacentes"
+              - "Começar a ver impactos no negócio (métricas)"
+            success_markers:
+              - "Novo comportamento aparece em contextos não treinados"
+              - "Impacto mensurável em pelo menos 1 métrica de negócio"
+              - "Resistência diminui significativamente"
+
+          automatization:
+            name: "Fase 3: Automatização (Dias 46-66)"
+            focus: "Reduzir esforço consciente — tornar automático"
+            protocol:
+              - "Reduzir protocolo para evening review apenas (5 min)"
+              - "Observar se comportamento acontece sem esforço"
+              - "Ajustar tracking para semanal ao invés de diário"
+              - "Celebrar milestone de 66 dias"
+            success_markers:
+              - "Executa novo comportamento sem pensar"
+              - "Padrão antigo sente estranho quando aparece"
+              - "Identidade nova é como se descreve naturalmente"
+
+          consolidation:
+            name: "Fase 4: Consolidação (Dias 67-90)"
+            focus: "Solidificar e preparar para próximo nível"
+            protocol:
+              - "Remover protocolo formal — manter apenas awareness"
+              - "Documentar transformação (antes/depois)"
+              - "Identificar PRÓXIMO padrão para work (se desejado)"
+              - "Compartilhar aprendizados (ensinar consolida)"
+            success_markers:
+              - "Padrão novo é o default sem esforço"
+              - "Operador se identifica com nova versão de si"
+              - "Métricas de negócio refletem a mudança"
+              - "Sovereignty score da dimensão afetada melhorou"
+
+        relapse_protocol:
+          name: "Protocolo de Recaída — Quando o Padrão Antigo Volta"
+          principle: |
+            Recaída NÃO é fracasso. É dado. É informação.
+            O único fracasso é abandonar o processo.
+            Treat yourself like someone you're responsible for helping.
+          steps:
+            - step: 1
+              action: "PARAR — Não se punir. Respirar. Reconhecer."
+              self_talk: "'O padrão antigo apareceu. Normal. Não apaga o progresso.'"
+            - step: 2
+              action: "INVESTIGAR — O que disparou? Estresse? Cansaço? Gatilho ambiental?"
+              purpose: "Entender, não julgar"
+            - step: 3
+              action: "RETOMAR — Fazer versão mínima do protocolo HOJE MESMO"
+              principle: "Quanto mais rápido retoma, menor o dano"
+            - step: 4
+              action: "AJUSTAR — Se padrão volta frequentemente, o design precisa de update"
+              options:
+                - "Simplificar ainda mais"
+                - "Mudar ambiente adicional"
+                - "Aumentar accountability"
+                - "Buscar ajuda profissional se necessário"
+          escalation:
+            mild: "1-2 recaídas em 21 dias → Normal, ajustar e continuar"
+            moderate: "3-5 recaídas → Revisar design do environment e do habit loop"
+            severe: "Volta completa ao padrão → Pausar, reconhecer, refazer Phase 1"
+            clinical: "Padrão envolve abuso de substâncias ou auto-dano → Profissional de saúde mental"
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Integration Complete"
+      criteria:
+        - "Conexão com objetivos de negócio documentada"
+        - "Efeitos cascata mapeados (positivos e negativos)"
+        - "Safety net configurado com protocolo de recaída"
+        - "Integration Plan de 90 dias completo (4 fases)"
+        - "Operador sai com clareza e energia para começar amanhã"
+      human_review: true
+      message: |
+        O Conscious Conditioning Protocol está completo.
+        Você tem tudo que precisa para começar amanhã.
+        Lembre-se: o objetivo não é perfeição, é progresso.
+        Cada dia que pratica é um voto a favor de quem está se tornando.
+      veto_conditions:
+        - condition: "Integration plan não conecta mudança com resultado tangível de negócio"
+          action: "WARNING — Sem conexão prática, motivação pode diminuir. Adicionar pelo menos 1 métrica de negócio."
+        - condition: "Safety net depende exclusivamente do operador"
+          action: "WARNING — Accountability externa aumenta sucesso significativamente. Sugerir partner."
+        - condition: "Plano depende de condições externas que operador não controla"
+          action: "BLOCK — Plano deve ser 100% executável independente de circunstâncias externas."
+        - condition: "Processo criou dependência do agente para continuar"
+          action: "HALT — Autonomia é o objetivo. Se operador não pode executar sozinho, redesenhar."
+    recovery:
+      rollback_to: "phase_2_checkpoint"
+      preserve:
+        - "environmental_audit"
+        - "physical_environment_redesign"
+        - "digital_environment_redesign"
+        - "habit_loop_blueprint"
+      discard:
+        - "partial_business_integration"
+        - "incomplete_cascade_effects"
+        - "draft_integration_plan"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ROUTING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+routing:
+  on_complete:
+    options:
+      - action: "Iniciar protocolo de 21 dias"
+        workflow: null
+        description: "Operador executa sozinho com check-in em 7 dias"
+
+      - action: "Sovereignty Audit (se padrão impactava soberania)"
+        workflow: "wf-sovereignty-audit"
+        description: "Re-avaliar soberania após instalação do novo padrão"
+
+      - action: "Brand Architecture (se padrão bloqueava exposição)"
+        workflow: "wf-brand-architecture"
+        description: "Se o bloqueio era sobre se expor publicamente"
+
+      - action: "Content Cascade (se padrão bloqueava criação)"
+        workflow: "wf-content-cascade"
+        description: "Se o bloqueio era sobre criar conteúdo"
+
+  on_veto:
+    escalate_to: "koe-chief"
+    message: "Conditioning protocol encontrou limitação que requer atenção especial."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-conscious-conditioning"
+      status: "completed"
+      outputs:
+        - "habit_loop_blueprint.yaml"
+        - "integration_plan.md"
+        - "safety_net.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "target_pattern.yaml"
+    - "pattern_archaeology.yaml"
+    - "protective_function.yaml"
+    - "pattern_cost_analysis.yaml"
+
+  phase_1:
+    - "conditioning_recognize.yaml"
+    - "conditioning_reframe.yaml"
+    - "conditioning_design.yaml"
+    - "conditioning_repeat_protocol.yaml"
+    - "conditioning_reward_system.yaml"
+
+  phase_2:
+    - "environmental_audit.yaml"
+    - "physical_environment_redesign.yaml"
+    - "digital_environment_redesign.yaml"
+    - "habit_loop_blueprint.yaml"
+
+  phase_3:
+    - "business_integration.yaml"
+    - "cascade_effects.yaml"
+    - "safety_net.yaml"
+    - "integration_plan.md"
+
+  final_deliverable:
+    name: "Conscious Conditioning Package"
+    location: "outputs/conditioning/{pattern_id}/"
+    contents:
+      - "pattern_audit.yaml — Diagnóstico completo do padrão"
+      - "conditioning_session.yaml — Sessão de 5 etapas"
+      - "habit_loop_blueprint.yaml — Blueprint de 1 página"
+      - "daily_protocol.md — Protocolo diário (morning/trigger/evening)"
+      - "integration_plan.md — Plano de 90 dias"
+      - "safety_net.yaml — Protocolo de recaída"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: []
+
+  PHASE-1:
+    primary: ["koe-mindset"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["koe-mindset"]
+    secondary: []
+
+  PHASE-3:
+    primary: ["koe-advisor"]
+    secondary: []
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] Padrão-alvo específico e observável"
+    - "[ ] 5 camadas escavadas"
+    - "[ ] Função protetora identificada"
+    - "[ ] Custo quantificado (3+ dimensões)"
+    - "[ ] Operador valida como verdadeiro"
+
+  phase_1:
+    - "[ ] 5 etapas completadas sequencialmente"
+    - "[ ] Reframe via Polarity (não pensamento positivo)"
+    - "[ ] Implementation intention formulada"
+    - "[ ] Protocolo de 21 dias configurado"
+    - "[ ] 3 milestones de recompensa definidos"
+
+  phase_2:
+    - "[ ] Audit ambiental (4 categorias)"
+    - "[ ] Redesign físico E digital"
+    - "[ ] Blueprint em 1 página"
+    - "[ ] Versão 2 minutos existe"
+    - "[ ] Tracking configurado"
+
+  phase_3:
+    - "[ ] Conexão com negócio documentada"
+    - "[ ] Efeitos cascata mapeados"
+    - "[ ] Safety net com protocolo de recaída"
+    - "[ ] Integration plan 90 dias (4 fases)"
+    - "[ ] Operador sai energizado"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "CONSCIOUS_CONDITIONING_PROCESS"
+    - "HABIT_LOOP_MASTERY"
+    - "POLARITY_PRINCIPLE"
+    - "AUTOPROGRAMMING"
+    - "ICEBERG_MODEL"
+  source_mind: "dan_koe"
+  lines: 750+
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

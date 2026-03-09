@@ -1,0 +1,475 @@
+workflow:
+  id: wf-create-big-idea
+  name: "Criação de Big Idea Completa"
+  version: "1.0.0"
+  duration: "1 sessão (30-45 min)"
+
+  description: |
+    Workflow focado em criar Big Idea forte desde zero.
+
+    Processo completo:
+    - Discovery profundo do produto e transformação
+    - Craft da Big Idea usando framework específico
+    - Derivação nos 3 ângulos da Pirâmide (Urgência, Consciência, Oportunidade)
+    - Validação com aplicações concretas (headlines, hooks)
+
+    FILOSOFIA: "A Big Idea é o ponto central que você vai partir pra começar a derivar os seus anúncios."
+
+  best_for:
+    - "Produto novo sem posicionamento claro"
+    - "Produto existente sem Big Idea definida"
+    - "Reposicionamento de produto (mudança de mercado)"
+    - "Big Idea antiga fraca ou genérica"
+
+  prerequisites:
+    required:
+      - "Produto digital definido (curso, mentoria, consultoria, infoproduto)"
+      - "Clareza mínima sobre a transformação que o produto entrega"
+
+    optional:
+      - "Conhecimento dos concorrentes principais"
+      - "Histórico de tentativas anteriores de posicionamento"
+
+  phases:
+    - id: PHASE-1
+      name: "Discovery do Produto"
+      duration: "10-15 min"
+      description: "Entender profundamente o produto e a transformação central"
+
+      objective: |
+        Extrair essência do produto:
+        - Qual é a transformação CENTRAL? (não 10, apenas 1)
+        - Quem é o público? (específico, não genérico)
+        - Quem são os concorrentes? (o que eles dizem?)
+        - Quais são os diferenciais REAIS? (não inventados)
+
+      tasks:
+        - type: elicitation
+          description: "Perguntas estratégicas para discovery profundo"
+
+          questions:
+            core_transformation:
+              - "Qual é o resultado FINAL que seu produto entrega?"
+              - "Se tivesse que resumir em 1 frase, qual seria a transformação?"
+              - "O que muda na vida da pessoa DEPOIS do produto?"
+
+            audience:
+              - "Quem é o público? Seja específico (não 'empreendedores', mas 'infoprodutores com produto validado que querem escalar')."
+              - "Qual é a DOR principal que esse público sente?"
+              - "Qual é o DESEJO principal que esse público tem?"
+
+            competitive_landscape:
+              - "Quem são seus 3 principais concorrentes?"
+              - "O que ELES dizem? (Big Idea deles, se tiver)"
+              - "O que você faz DIFERENTE? (único, não melhor)"
+
+            differentiators:
+              - "Por que alguém deveria comprar de VOCÊ e não do concorrente?"
+              - "Você tem método/framework proprietário?"
+              - "Tem case de sucesso único? História fundadora forte?"
+
+      checkpoint:
+        criteria:
+          - "Transformação central identificada (1 frase clara)"
+          - "Público descrito com especificidade (não genérico)"
+          - "Concorrentes mapeados (mínimo 2)"
+          - "Diferenciais identificados (reais, não inventados)"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Transformação genérica ou múltiplas transformações"
+            action: "PARAR — Refinar até ter 1 transformação clara"
+            severity: "BLOCKER"
+            message: |
+              Cara, você tá me dando 5 transformações diferentes.
+
+              Precisa ser 1 só. Qual é O ponto central?
+              Por quê? Porque se você não consegue resumir em 1 frase,
+              seu cliente não vai entender o que você faz. E confusão não vende.
+
+              Vamos refinar até ficar cristalino. Beleza?
+
+          - condition: "Público muito genérico (ex: 'empreendedores')"
+            action: "REFINAR — Pedir especificidade"
+            severity: "WARNING"
+            message: "'Empreendedores' é muito genérico, cara. Empreendedor de quê? Qual fase? Qual problema específico? Vamos detalhar."
+
+    - id: PHASE-2
+      name: "Construção da Big Idea"
+      duration: "15-20 min"
+      description: "Craft da frase central usando Framework Big Idea"
+
+      objective: |
+        Criar Big Idea forte:
+        - Gerar 3-5 candidatas
+        - Avaliar cada uma (memorável? específica? diferenciada?)
+        - Selecionar a melhor (ou combinar elementos)
+
+        CRITÉRIOS DE BIG IDEA FORTE:
+        1. É uma FRASE (não parágrafo, não palavra solta)
+        2. É MEMORÁVEL (gruda na cabeça)
+        3. É ESPECÍFICA (não genérica tipo 'transforme sua vida')
+        4. É DIFERENTE (não cópia de concorrente)
+        5. COMUNICA a transformação central
+
+      tasks:
+        - task_file: tasks/create-big-idea.md
+          input:
+            - produto_descricao
+            - transformacao_central
+            - publico_especifico
+            - diferenciais
+            - concorrentes_big_ideas
+
+          process:
+            - step: "Gerar 5 candidatas iniciais"
+              method: "Brainstorm usando transformação + diferencial + metáfora"
+
+            - step: "Avaliar cada candidata"
+              criteria:
+                - "Memorável? (sim/não)"
+                - "Específica? (sim/não)"
+                - "Diferente? (sim/não)"
+                - "Comunica transformação? (sim/não)"
+              passing_score: "4/4 critérios"
+
+            - step: "Refinar top 2"
+              method: "Combinar elementos fortes, eliminar palavras genéricas"
+
+            - step: "Selecionar 1 final"
+              method: "Teste de pitch: consegue explicar em 10 segundos?"
+
+      checkpoint:
+        criteria:
+          - "3-5 candidatas geradas"
+          - "Cada candidata avaliada com critérios objetivos"
+          - "1 Big Idea selecionada como principal"
+          - "Big Idea passa nos 5 critérios (frase, memorável, específica, diferente, comunica)"
+
+        human_review: true
+        auto_advance: false
+
+        review_prompt: |
+          Revise as Big Ideas candidatas. Para cada uma, pergunte:
+
+          1. MEMORÁVEL? — Gruda na cabeça? Você lembra depois de 1 dia?
+          2. ESPECÍFICA? — É concreta ou genérica tipo 'transforme sua vida'?
+          3. DIFERENTE? — Parece cópia de algum concorrente?
+          4. COMUNICA? — Só de ler, entende a transformação?
+          5. FRASE? — É 1 frase completa (não palavra solta, não parágrafo)?
+
+          Escolha a que passar em TODOS os 5 critérios.
+          Se nenhuma passar, refine até ter pelo menos 1 que passa.
+
+        veto_conditions:
+          - condition: "Todas as candidatas são genéricas"
+            action: "REFINAR — Forçar especificidade"
+            severity: "CRITICAL"
+            message: |
+              Olha só, todas essas Big Ideas estão genéricas demais.
+
+              'Transforme sua vida', 'Seja livre', 'Conquiste seus sonhos'...
+              isso qualquer um fala, cara. Não diferencia.
+
+              Vamos usar o seu diferencial. O que VOCÊ faz que ninguém mais faz?
+              Tem método proprietário? Case único? História fundadora?
+
+              Usa isso na Big Idea. Aí sim vai ser memorável. Concorda?
+
+          - condition: "Big Idea é parágrafo (não frase)"
+            action: "REFINAR — Comprimir em 1 frase"
+            severity: "WARNING"
+            message: "Tá muito longo, cara. Precisa ser 1 frase só. Pronto, é só isso. Vamos comprimir."
+
+          - condition: "Big Idea é cópia evidente de concorrente"
+            action: "VETAR — Forçar diferenciação"
+            severity: "BLOCKER"
+            message: "Isso aí é muito parecido com [concorrente]. Você não quer ser cópia, quer? Vamos criar algo SEU."
+
+    - id: PHASE-3
+      name: "Derivação nos 3 Ângulos"
+      duration: "10-15 min"
+      description: "Derivar Big Idea para os 3 momentos da Pirâmide de Prontidão"
+
+      objective: |
+        Criar 3 ângulos da mesma Big Idea:
+        - URGÊNCIA: Para quem JÁ está procurando (curso de X)
+        - CONSCIÊNCIA: Para quem sabe do problema (como resolver Y)
+        - OPORTUNIDADE: Para quem nem sabe que precisa (público frio)
+
+        TODOS conectam à Big Idea central.
+
+      tasks:
+        - type: angle_derivation
+          description: "Derivar Big Idea nos 3 momentos de compra"
+
+          inputs:
+            - big_idea_central
+
+          outputs:
+            urgencia:
+              description: "Ângulo para público quente (buscando ativamente)"
+              format: "Big Idea + 'curso de [tema]'"
+              example: "Ansiedade não é normal — Curso de Hipnose para Ansiedade"
+
+            consciencia:
+              description: "Ângulo para público morno (sabe do problema)"
+              format: "Big Idea + problema específico"
+              example: "Você acha normal ter crise de ansiedade? NÃO é. Descubra como resolver."
+
+            oportunidade:
+              description: "Ângulo para público frio (nem sabe que precisa)"
+              format: "Big Idea + contexto amplo + curiosidade"
+              example: "E se eu te contar que ansiedade não precisa ser normal na sua vida? (história/caso)"
+
+        - type: validation
+          description: "Validar conexão entre ângulos e Big Idea"
+          criteria:
+            - "Todos os 3 ângulos CONECTAM à Big Idea central?"
+            - "Ângulos são DISTINTOS entre si? (não repetem a mesma coisa)"
+            - "Ângulo de Urgência é direto e objetivo?"
+            - "Ângulo de Consciência foca em problema específico?"
+            - "Ângulo de Oportunidade gera curiosidade/contexto?"
+
+      checkpoint:
+        criteria:
+          - "Ângulo de URGÊNCIA criado e validado"
+          - "Ângulo de CONSCIÊNCIA criado e validado"
+          - "Ângulo de OPORTUNIDADE criado e validado"
+          - "Todos conectam à Big Idea central (coerência)"
+          - "Ângulos são distintos entre si (não repetição)"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Ângulos muito parecidos (sem distinção clara)"
+            action: "REFINAR — Forçar diferenciação entre ângulos"
+            severity: "WARNING"
+            message: |
+              Cara, os 3 ângulos estão falando basicamente a mesma coisa.
+
+              URGÊNCIA = direto, produto
+              CONSCIÊNCIA = problema específico
+              OPORTUNIDADE = contexto amplo, curiosidade
+
+              Vamos diferenciar. Beleza?
+
+          - condition: "Ângulos desconectados da Big Idea central"
+            action: "REFINAR — Reconectar à Big Idea"
+            severity: "CRITICAL"
+            message: "Esses ângulos não conectam com a Big Idea que você criou. Tudo tem que girar em torno do ponto central. Vamos ajustar."
+
+    - id: PHASE-4
+      name: "Validação e Aplicação"
+      duration: "10-15 min"
+      description: "Testar Big Idea em contextos reais — headlines e hooks"
+
+      objective: |
+        Provar que Big Idea funciona na prática:
+        - Criar 1 headline por ângulo (Urgência, Consciência, Oportunidade)
+        - Criar 1 ad hook por ângulo (primeiras 3 linhas de anúncio)
+
+        CRITÉRIO: Se consegue criar aplicações fortes, Big Idea está sólida.
+        Se trava, Big Idea precisa de refinamento.
+
+      tasks:
+        - type: application_test
+          description: "Criar aplicações concretas da Big Idea"
+
+          outputs:
+            headlines:
+              - name: "Headline Urgência"
+                format: "[Big Idea] — [Produto específico]"
+                example: "Ansiedade não é normal — Curso de Hipnose em 7 Dias"
+
+              - name: "Headline Consciência"
+                format: "[Problema específico] — [Big Idea]"
+                example: "Crise de ansiedade todo dia? Isso NÃO é normal. Descubra como resolver."
+
+              - name: "Headline Oportunidade"
+                format: "[Curiosidade/Contexto] + [Big Idea]"
+                example: "90% das pessoas acham que ansiedade é normal. E se eu te contar que NÃO é?"
+
+            ad_hooks:
+              - name: "Hook Urgência"
+                format: "3 primeiras linhas do anúncio (direto ao ponto)"
+                example: |
+                  Ansiedade não é normal.
+                  Se você tem crise todo dia, isso não deveria ser sua realidade.
+                  Meu curso de Hipnose ensina como eliminar ansiedade em 7 dias.
+
+              - name: "Hook Consciência"
+                format: "3 primeiras linhas (problema + solução)"
+                example: |
+                  Você acha normal acordar com coração acelerado?
+                  Acha normal evitar lugares por medo de crise?
+                  Isso NÃO é normal. E tem solução.
+
+              - name: "Hook Oportunidade"
+                format: "3 primeiras linhas (curiosidade + contexto)"
+                example: |
+                  A maioria das pessoas vive com ansiedade achando que é normal.
+                  Mas não é. Ansiedade crônica é um estado alterado.
+                  E existe um método simples para reverter isso.
+
+        - type: quality_check
+          description: "Avaliar qualidade das aplicações"
+          criteria:
+            - "Headlines são específicas (não genéricas)?"
+            - "Hooks capturam atenção nas 3 primeiras linhas?"
+            - "Aplicações conectam claramente à Big Idea?"
+            - "Cada ângulo tem voz distinta (Urgência ≠ Consciência ≠ Oportunidade)?"
+
+      checkpoint:
+        criteria:
+          - "3 headlines criadas (1 por ângulo)"
+          - "3 ad hooks criadas (1 por ângulo)"
+          - "Todas as aplicações conectam à Big Idea"
+          - "Aplicações são concretas (não genéricas)"
+          - "Consegue usar HOJE em campanha real"
+
+        human_review: true
+        auto_advance: false
+
+        review_prompt: |
+          Revise as aplicações criadas. Perguntas críticas:
+
+          1. Se você visse essa headline no feed, CLICARIA?
+          2. Se você lesse esse hook, CONTINUARIA lendo?
+          3. Cada ângulo tem IDENTIDADE própria? (Urgência ≠ Consciência ≠ Oportunidade)
+          4. Big Idea está PRESENTE em todas as aplicações?
+
+          Se SIM para todas: Big Idea está validada e pronta para uso.
+          Se NÃO para qualquer uma: refine as aplicações (ou a Big Idea se necessário).
+
+        veto_conditions:
+          - condition: "Aplicações genéricas (poderiam ser de qualquer produto)"
+            action: "REFINAR — Forçar especificidade"
+            severity: "CRITICAL"
+            message: |
+              Essas aplicações estão muito genéricas, cara.
+              Poderiam ser de qualquer produto. Não vendem.
+
+              Big Idea forte = aplicações específicas.
+              Vamos refinar até ficar único. Concorda?
+
+          - condition: "Não consegue criar aplicações (trava)"
+            action: "VOLTAR à PHASE-2 — Big Idea precisa refinamento"
+            severity: "BLOCKER"
+            message: |
+              Se você não consegue criar headline/hook com essa Big Idea,
+              é porque ela ainda não tá sólida o suficiente.
+
+              Vamos voltar, refinar a Big Idea, e aí sim criar aplicações. Beleza?
+
+  outputs:
+    primary:
+      - name: "big-idea-kit.md"
+        description: "Big Idea + 3 ângulos + 6 aplicações (headlines + hooks)"
+        template: "templates/big-idea-kit-tmpl.md"
+        location: "squads/leandro-ladeira/sessions/{session_id}/"
+        content_structure: |
+          # BIG IDEA KIT — [Nome do Produto]
+
+          ## BIG IDEA CENTRAL
+          [Frase única e memorável]
+
+          ## 3 ÂNGULOS (Pirâmide de Prontidão)
+
+          ### Ângulo URGÊNCIA
+          [Derivação para público quente]
+
+          ### Ângulo CONSCIÊNCIA
+          [Derivação para público morno]
+
+          ### Ângulo OPORTUNIDADE
+          [Derivação para público frio]
+
+          ## APLICAÇÕES (Prontas para Uso)
+
+          ### Headlines
+          - **Urgência:** [headline]
+          - **Consciência:** [headline]
+          - **Oportunidade:** [headline]
+
+          ### Ad Hooks
+          - **Urgência:** [3 primeiras linhas]
+          - **Consciência:** [3 primeiras linhas]
+          - **Oportunidade:** [3 primeiras linhas]
+
+    secondary:
+      - name: "big-idea-candidatas.yaml"
+        description: "5 candidatas iniciais + avaliações"
+        location: "squads/leandro-ladeira/sessions/{session_id}/"
+
+  agents_by_phase:
+    PHASE-1: "leandro-ladeira (discovery mode)"
+    PHASE-2: "leandro-ladeira (Big Idea craftsman)"
+    PHASE-3: "leandro-ladeira (angle strategist)"
+    PHASE-4: "leandro-ladeira (copywriting validator)"
+
+  quality_checklist:
+    pre_execution:
+      - "Produto está claramente definido?"
+      - "Transformação central está clara?"
+
+    during_execution:
+      - "Big Idea passa nos 5 critérios? (frase, memorável, específica, diferente, comunica)"
+      - "Ângulos são DISTINTOS entre si?"
+      - "Aplicações conectam à Big Idea?"
+
+    post_execution:
+      - "Big Idea Kit está completo? (Big Idea + 3 ângulos + 6 aplicações)"
+      - "Cliente consegue USAR hoje em campanha?"
+      - "Big Idea é proprietária (não cópia)?"
+
+  error_handling:
+    - error: "Cliente não consegue definir transformação central"
+      action: "Fazer discovery mais profundo — perguntar sobre cases de sucesso, depoimentos"
+
+    - error: "Todas as candidatas de Big Idea são genéricas"
+      action: "Forçar uso de método proprietário, história fundadora, ou case único"
+
+    - error: "Cliente quer Big Idea igual ao concorrente"
+      action: "VETAR — Explicar importância de diferenciação, mostrar exemplos de Big Ideas únicas"
+
+    - error: "Big Idea muito longa (parágrafo)"
+      action: "Comprimir em 1 frase — eliminar palavras desnecessárias"
+
+    - error: "Não consegue criar aplicações (trava)"
+      action: "VOLTAR à construção da Big Idea — sinal de que não está sólida"
+
+  completion_signals:
+    workflow_complete:
+      - "Arquivo 'big-idea-kit.md' gerado"
+      - "Big Idea passa nos 5 critérios"
+      - "3 ângulos derivados e validados"
+      - "6 aplicações criadas (3 headlines + 3 hooks)"
+      - "Cliente validou e aprovou Big Idea"
+
+    follow_up_needed:
+      - condition: "Big Idea criada mas cliente inseguro"
+        action: "Agendar teste A/B com 2 candidatas de Big Idea"
+
+      - condition: "Big Idea forte mas aplicações fracas"
+        action: "Sessão de copywriting focada em hooks e headlines"
+
+      - condition: "Produto muito novo sem histórico"
+        action: "Recomendar VME (Validação por Menor Esforço) antes de escalar"
+
+  metadata:
+    created: "2026-03-08"
+    author: "AIOS Squad Creator"
+    version: "1.0.0"
+    framework_version: "AIOS 4.0"
+    persona_fidelity: "90-93%"
+    source_agent: "leandro-ladeira v2.0.0"
+    voice_dna_compliance: true
+    thinking_dna_compliance: true
+    frameworks_used:
+      - "Big Idea Framework (Leandro Ladeira)"
+      - "Pirâmide de Prontidão (3 fases)"
+      - "Framework M.T.O (Mandala — Momento, Tipo, Objetivo)"

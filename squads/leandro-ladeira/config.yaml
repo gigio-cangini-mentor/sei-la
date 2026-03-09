@@ -1,0 +1,102 @@
+squad:
+  name: leandro-ladeira
+  version: "2.0.0"
+  description: "Squad especializado em tráfego pago, vendas perpétuas e estratégia de anúncios de alta conversão"
+  created: "2026-03-07"
+  updated: "2026-03-08"
+
+  agents:
+    - id: leandro-ladeira-chief
+      name: Leandro Ladeira Chief
+      role: "Orchestrator — Roteamento e Diagnóstico"
+      file: agents/leandro-ladeira-chief.md
+      tier: orchestrator
+      whenToUse: "Ponto de entrada do squad. Roteia requests para tasks/workflows/clone."
+
+    - id: leandro-ladeira
+      name: Leandro Ladeira
+      role: "Especialista em Tráfego Pago e Vendas Perpétuas"
+      file: agents/leandro-ladeira.md
+      tier: 0
+      whenToUse: "Tráfego pago, anúncios, Stories estratégicos, Big Ideas, otimização de campanhas, vendas perpétuas"
+
+  tasks:
+    - id: create-big-idea
+      name: "Definir Big Idea"
+      file: tasks/create-big-idea.md
+      agent: leandro-ladeira
+      command: "*big-idea"
+
+    - id: diagnose-campanha
+      name: "Diagnosticar Campanha (M.O.E.R)"
+      file: tasks/diagnose-campanha.md
+      agent: leandro-ladeira
+      command: "*diagnose-campanha"
+
+    - id: review-anuncio
+      name: "Revisar/Criar Anúncio"
+      file: tasks/review-anuncio.md
+      agent: leandro-ladeira
+      command: "*review-anuncio"
+
+    - id: estrategia-perpetuo
+      name: "Estratégia Venda Todo Santo Dia"
+      file: tasks/estrategia-perpetuo.md
+      agent: leandro-ladeira
+      command: "*estrategia-perpetuo"
+
+    - id: stories-10x
+      name: "Estratégia Stories 10x"
+      file: tasks/stories-10x.md
+      agent: leandro-ladeira
+      command: "*stories-10x"
+
+    - id: copy-email
+      name: "Copy de Email de Vendas"
+      file: tasks/copy-email.md
+      agent: leandro-ladeira
+      command: "*copy-email"
+
+    - id: otimizar-campanha
+      name: "Otimizar Campanha Ativa"
+      file: tasks/otimizar-campanha.md
+      agent: leandro-ladeira
+      command: "*otimizar-campanha"
+
+    - id: escalar-campanha
+      name: "Escalar Campanha Validada"
+      file: tasks/escalar-campanha.md
+      agent: leandro-ladeira
+      command: "*escalar-campanha"
+
+  workflows:
+    - id: wf-diagnostico-completo
+      name: "Diagnóstico Completo de Negócio Digital"
+      file: workflows/wf-diagnostico-completo.yaml
+      phases: 5
+      duration: "60-90 min"
+
+    - id: wf-create-big-idea
+      name: "Criação de Big Idea Completa"
+      file: workflows/wf-create-big-idea.yaml
+      phases: 4
+      duration: "30-45 min"
+
+  data:
+    knowledge_base:
+      - data/knowledge-base/
+      - data/dna/voice_dna_raw.md
+      - data/dna/thinking_dna_raw.md
+      - data/dna/EXTRACTION_REPORT.md
+
+  metadata:
+    source_mind: leandro_ladeira
+    source_count: 251
+    extraction_date: "2026-03-07"
+    enrichment_date: "2026-03-08"
+    fidelity_estimate: "90-93%"
+    coverage:
+      courses: ["Venda Todo Santo Dia", "Stories 10x", "CPLs Lightcopy"]
+      youtube: "56 vídeos (2M+ palavras)"
+      frameworks: ["M.O.E.R", "5 Fases do Perpétuo", "Pirâmide de Prontidão", "Mandala", "VME", "Stories 10x", "Big Idea", "38 Dispositivos", "Descoberta-Relacionamento-Conversão", "Elimine Imperativo", "Método Empírico→Documentado", "Low Ticket Utilitário", "Sistema Coprodutor"]
+      total_lines_analyzed: "~6000+ cursos + 2M palavras YouTube"

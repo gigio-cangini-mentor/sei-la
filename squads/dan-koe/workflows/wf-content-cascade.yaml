@@ -1,0 +1,1089 @@
+# Content Cascade Engine Workflow
+# Based on Dan Koe's Content Cascade + APAG Structure + Social Matrix
+# Source: CONTENT_CASCADE + APAG_STRUCTURE + SOCIAL_MATRIX + 1H_TO_10H_DISTRIBUTION
+# Version: 1.0.0
+
+id: wf-content-cascade
+name: "Content Cascade Engine"
+version: "1.0.0"
+duration: "4-8 horas (ciclo completo de produção + distribuição)"
+description: |
+  Engine completa para transformar UMA Big Idea em cascata de conteúdo
+  multi-plataforma. Segue o modelo 1h→10h: 1 hora de deep thinking gera
+  10+ horas de conteúdo distribuído em múltiplos formatos e plataformas.
+
+  FILOSOFIA: "Não crie mais conteúdo. Crie MELHOR conteúdo UMA VEZ e
+  distribua mais. O Creator moderno não é quem produz mais — é quem
+  tem o MELHOR sistema de cascade e distribuição. A Big Idea no centro
+  garante que tudo é coerente, não genérico."
+
+  RESULTADO: 1 Big Idea → Newsletter + YouTube/Blog + 5-10 peças sociais,
+  tudo conectado e coerente, com calendar de distribuição.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Produção semanal de conteúdo multi-plataforma"
+  - "Creator com Big Idea desenvolvida que precisa distribuir"
+  - "Operador que cria pouco porque 'não tem tempo'"
+  - "Maximizar alcance sem aumentar tempo de produção"
+  - "Manter coerência entre plataformas"
+  - "Alimentar funil de vendas com conteúdo de autoridade"
+  - "Ciclo semanal ou quinzenal de conteúdo"
+
+decision_matrix_fit:
+  complexity: medium
+  agents_required: 3
+  estimated_duration: "4-8 horas por ciclo"
+  user_involvement: "high na Big Idea, medium na arquitetura, low na distribuição"
+  prerequisites:
+    - "Big Idea desenvolvida (use wf-big-idea se não tiver)"
+    - "Presença em pelo menos 2 plataformas"
+    - "Template de newsletter/blog configurado"
+    - "Calendar/scheduling tool configurado"
+  triggers:
+    - "Usuário usa comando *cascade"
+    - "Início do ciclo semanal de conteúdo"
+    - "Big Idea aprovada no wf-big-idea"
+    - "koe-arquiteto completa deep writing session"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Seleção da Big Idea, validação de alinhamento com brand, aprovação"
+      phases: [0]
+
+    - agent: koe-arquiteto
+      role: "Arquitetura do conteúdo: newsletter, long-form, estrutura APAG"
+      phases: [0, 1]
+
+    - agent: koe-distribuidor
+      role: "Adaptação multi-plataforma, scheduling, optimization, analytics"
+      phases: [2]
+
+  synergies:
+    - agents: [koe-chief, koe-arquiteto]
+      pattern: "Chief valida Big Idea estrategicamente, Arquiteto desenvolve em profundidade"
+
+    - agents: [koe-arquiteto, koe-distribuidor]
+      pattern: "Arquiteto cria a peça-mãe, Distribuidor fragmenta e adapta para cada plataforma"
+
+  integration:
+    thinking_dna: "squads/koe/data/minds/koe-thinking-dna.yaml"
+    voice_dna: "squads/koe/data/minds/koe-voice-dna.yaml"
+    frameworks_required:
+      - "Content Cascade"
+      - "APAG Structure (Attention-Perspective-Advantage-Gamify)"
+      - "Social Matrix"
+      - "1h→10h Distribution"
+      - "Creative Workflow Framework (DF-001)"
+    data_required:
+      - "data/content-templates-library.yaml"
+      - "data/platform-specs.yaml"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: BIG IDEA SELECTION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Big Idea Selection"
+    duration: "30-60 min"
+    tier: 0  # Foundation — sem Big Idea forte, cascade gera lixo distribuído
+    description: |
+      Seleção e validação da Big Idea que será o NÚCLEO de toda a cascata.
+      Sem Big Idea forte, o cascade apenas distribui mediocridade mais rápido.
+
+      PRINCÍPIO: "Uma Big Idea medíocre distribuída em 10 plataformas é 10x
+      mais medíocre. Uma Big Idea poderosa distribuída em 10 plataformas
+      é 10x mais impactante. O cascade AMPLIFICA — bom ou ruim."
+
+      A Big Idea deve passar no Sovereignty Content Test: "Este conteúdo
+      constrói minha autoridade, atrai meu público ideal, e me diferencia
+      de todo mundo que fala sobre o mesmo tema?"
+
+    agents:
+      primary: koe-chief
+      secondary: koe-arquiteto
+
+    tasks:
+      - task_id: T0.1
+        name: "Selecionar Big Idea da Queue"
+        required: true
+        agent: koe-chief
+        description: |
+          Revisar queue de ideias (wf-queue-mastery output) e selecionar
+          a Big Idea mais promissora para este ciclo. Se não há queue,
+          elicitar ideia diretamente.
+        elicit: true
+        output: "selected_big_idea.yaml"
+
+      - task_id: T0.2
+        name: "Validar Big Idea contra Critérios"
+        required: true
+        agent: koe-chief
+        description: |
+          Validar a ideia usando big_idea_selection_criteria.
+          Score mínimo de 7/10 para prosseguir. Se < 7, selecionar outra
+          ou refinar a ideia atual.
+        depends_on: [T0.1]
+        output: "big_idea_validation.yaml"
+
+      - task_id: T0.3
+        name: "Definir Ângulo Único"
+        required: true
+        agent: koe-arquiteto
+        description: |
+          Mesmo Big Ideas boas precisam de ângulo único.
+          Perguntas: "O que EU penso diferente sobre isso?"
+          "Que experiência MINHA torna isso autêntico?"
+          "Qual CONTRADIÇÃO posso explorar?"
+        depends_on: [T0.2]
+        output: "unique_angle.md"
+
+      - task_id: T0.4
+        name: "Mapear Content Cascade Skeleton"
+        required: true
+        agent: koe-arquiteto
+        description: |
+          Antes de criar qualquer conteúdo, mapear toda a cascade:
+          Big Idea → Newsletter angle → YouTube/Blog angle →
+          5-10 social pieces → Call-to-actions → Offer connection.
+          Este skeleton guia toda a produção.
+        depends_on: [T0.3]
+        output: "cascade_skeleton.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Big Idea Selection Criteria
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      big_idea_selection_criteria:
+        name: "Critérios de Seleção de Big Idea"
+        source: "Dan Koe — Creative Workflow Framework + Big Idea Development"
+        description: |
+          Framework para avaliar e selecionar Big Ideas que merecem
+          o investimento de um cascade completo. Nem toda ideia
+          merece cascade — apenas as que passam nestes critérios.
+
+        criteria:
+          - id: BIC_001
+            name: "Relevância para Audiência"
+            weight: 0.20
+            question: "Meu público-alvo se importa PROFUNDAMENTE com isso?"
+            scoring:
+              10: "Dor/desejo ativo que não dorme enquanto não resolve"
+              7: "Interesse forte, buscam ativamente"
+              4: "Curiosidade passiva, pararia para ler"
+              1: "Indiferente — não é prioridade para eles"
+            veto_at: 3
+
+          - id: BIC_002
+            name: "Originalidade do Ângulo"
+            weight: 0.20
+            question: "Minha perspectiva traz algo NOVO ao assunto?"
+            scoring:
+              10: "Perspectiva que ninguém mais oferece — contrarian verdadeiro"
+              7: "Framework ou síntese original de ideias existentes"
+              4: "Boa curadoria mas sem insight original"
+              1: "Repetição do que todo mundo diz"
+            veto_at: 3
+
+          - id: BIC_003
+            name: "Experiência Pessoal"
+            weight: 0.15
+            question: "Tenho experiência REAL para falar sobre isso com autenticidade?"
+            scoring:
+              10: "Vivi isso profundamente, resultados concretos"
+              7: "Experiência significativa, aprendizados claros"
+              4: "Experiência parcial, complemento com pesquisa"
+              1: "Teórico — nunca apliquei"
+            minimum: 4
+
+          - id: BIC_004
+            name: "Potencial de Cascade"
+            weight: 0.15
+            question: "Esta ideia pode ser fragmentada em múltiplos ângulos?"
+            scoring:
+              10: "Facilmente gera 10+ sub-temas e ângulos"
+              7: "5-10 fragmentos naturais"
+              4: "2-4 fragmentos com esforço"
+              1: "Ideia atômica — difícil fragmentar"
+            minimum: 5
+
+          - id: BIC_005
+            name: "Conexão com Oferta"
+            weight: 0.15
+            question: "Este conteúdo naturalmente leva à minha oferta?"
+            scoring:
+              10: "Bridge direta — quem concorda com a ideia quer a oferta"
+              7: "Bridge indireta — constrói autoridade na área da oferta"
+              4: "Conexão tênue — requer segue-up para conectar"
+              1: "Desconectado — não ajuda a vender nada"
+            minimum: 4
+
+          - id: BIC_006
+            name: "Evergreen Potential"
+            weight: 0.15
+            question: "Este conteúdo será relevante daqui 6-12 meses?"
+            scoring:
+              10: "Princípio atemporal — relevante por anos"
+              7: "Relevante por 6-12 meses"
+              4: "Relevante por 1-3 meses"
+              1: "Apenas agora — news/trend"
+            note: "Content cascade funciona melhor com evergreen. Trend content é one-shot."
+
+        composite_score:
+          formula: "SUM(criterion_score × criterion_weight)"
+          threshold:
+            proceed: ">= 7.0 — Big Idea pronta para cascade"
+            refine: "5.0-6.9 — Boa base mas precisa de refinamento"
+            reject: "< 5.0 — Não vale o investimento de um cascade completo"
+          veto: "Qualquer critério com veto_at atingido → REJEITAR independente do score total"
+
+      cascade_skeleton_template:
+        name: "Template de Esqueleto do Cascade"
+        description: |
+          Mapa visual de como a Big Idea se fragmenta em peças.
+          Criar ANTES de escrever qualquer coisa.
+        structure:
+          core:
+            name: "BIG IDEA (Núcleo)"
+            format: "1 frase: [A ideia central em máximo 15 palavras]"
+            example: "A maioria das pessoas está presa porque confunde consumo com criação"
+
+          long_form:
+            newsletter:
+              name: "Newsletter (Peça-Mãe)"
+              format: "1500-3000 palavras"
+              angle: "Deep dive completo na Big Idea"
+              structure: "APAG completo"
+            youtube_or_blog:
+              name: "YouTube/Blog (Pilar)"
+              format: "10-20 min vídeo OU 2000-4000 palavras"
+              angle: "Versão expandida com exemplos e storytelling"
+              structure: "APAG + visual aids + CTA"
+
+          social_fragments:
+            description: "5-10 peças derivadas da Big Idea"
+            types:
+              - type: "Thread/Carousel"
+                format: "5-10 slides/posts conectados"
+                angle: "Breakdown passo-a-passo da Big Idea"
+                quantity: 1
+
+              - type: "Hot Take"
+                format: "1-3 frases provocativas"
+                angle: "A versão mais polarizante/contrarian da Big Idea"
+                quantity: 2
+
+              - type: "Story/Reel"
+                format: "15-60 segundos"
+                angle: "Exemplo pessoal ou analogia visual"
+                quantity: 2
+
+              - type: "Quote Card"
+                format: "Imagem com frase de impacto"
+                angle: "A frase mais compartilhável da Big Idea"
+                quantity: 2
+
+              - type: "Question/Poll"
+                format: "1 pergunta engajante"
+                angle: "Desafiar a audiência a pensar sobre a Big Idea"
+                quantity: 1
+
+              - type: "Micro-Story"
+                format: "3-5 frases — início, meio, fim"
+                angle: "Experiência pessoal que ilustra a Big Idea"
+                quantity: 1
+
+          cta_mapping:
+            description: "Cada peça leva a algum lugar"
+            options:
+              - destination: "Newsletter signup"
+                when: "Social posts para audiência fria"
+              - destination: "Long-form content"
+                when: "Social posts para audiência morna"
+              - destination: "Oferta/Produto"
+                when: "Newsletter/Blog para audiência quente"
+              - destination: "Outro social post"
+                when: "Quando quer manter engajamento na plataforma"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Big Idea Selection Complete"
+      criteria:
+        - "Big Idea selecionada e validada (score >= 7/10)"
+        - "Ângulo único definido com experiência pessoal"
+        - "Cascade skeleton completo (long-form + 5-10 social pieces mapeadas)"
+        - "CTA mapping definido para cada peça"
+        - "Operador aprova Big Idea e ângulo"
+      human_review: true
+      message: |
+        A Big Idea e o esqueleto do cascade estão prontos.
+        Antes de investir horas na produção, confirme:
+        - A Big Idea é forte o suficiente para carregar 10+ peças de conteúdo?
+        - O ângulo é autenticamente SEU?
+        - O cascade skeleton faz sentido para suas plataformas?
+      veto_conditions:
+        - condition: "Big Idea score < 5.0"
+          action: "HALT — Ideia fraca demais para cascade. Selecionar outra da queue ou usar wf-big-idea."
+        - condition: "Nenhum ângulo original identificado"
+          action: "BLOCK — Sem ângulo único, o conteúdo será genérico. Melhor não publicar do que publicar mais do mesmo."
+        - condition: "Distribuição sem Big Idea no centro"
+          action: "HALT — O cascade AMPLIFICA. Sem Big Idea forte, amplifica mediocridade. Esta é a regra de ouro do workflow."
+        - condition: "Zero conexão com oferta"
+          action: "WARNING — Conteúdo sem bridge para oferta é branding puro. Válido ocasionalmente, mas não como padrão semanal."
+      recovery:
+        rollback_to: "fresh_start"
+        preserve:
+          - "queue_source_data"
+        discard:
+          - "partial_selected_big_idea"
+          - "incomplete_big_idea_validation"
+          - "draft_unique_angle"
+          - "draft_cascade_skeleton"
+        max_retries: 2
+        retry_strategy: "rollback_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: CONTENT ARCHITECTURE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Content Architecture"
+    duration: "2-4 horas"
+    tier: 1  # Core — produção do conteúdo propriamente dita
+    description: |
+      Arquitetura e produção do conteúdo long-form (peça-mãe) e derivados.
+      A peça-mãe é a newsletter ou artigo central. Todas as outras peças
+      derivam dela — por isso deve ser a melhor versão possível.
+
+      PRINCÍPIO: "Invista 80% do tempo na peça-mãe. Se ela for excelente,
+      os fragmentos serão naturalmente bons. Se ela for medíocre,
+      nenhum truque de distribuição salva."
+
+      ESTRUTURA: Usa APAG (Attention-Perspective-Advantage-Gamify) como
+      framework de estrutura para o conteúdo principal.
+
+    agent: koe-arquiteto
+
+    tasks:
+      - task_id: T1.1
+        name: "Escrever Newsletter (Peça-Mãe)"
+        required: true
+        description: |
+          Produzir a newsletter/artigo central usando estrutura APAG:
+          A = Attention (hook que para o scroll)
+          P = Perspective (ângulo único que muda visão)
+          A = Advantage (framework/método que entrega valor)
+          G = Gamify (CTA que gamifica a ação)
+          1500-3000 palavras, voice DNA do Koe.
+        output: "newsletter_draft.md"
+
+      - task_id: T1.2
+        name: "Expandir para YouTube/Blog"
+        required: true
+        description: |
+          Adaptar newsletter para formato long-form expandido:
+          - Adicionar storytelling e exemplos
+          - Incluir visual aids/diagramas
+          - Expandir para 10-20 min de conteúdo falado ou 2000-4000 palavras
+          - Manter estrutura APAG mas com mais profundidade
+        depends_on: [T1.1]
+        output: "longform_draft.md"
+
+      - task_id: T1.3
+        name: "Extrair Fragmentos Sociais"
+        required: true
+        description: |
+          Do conteúdo long-form, extrair os fragmentos mapeados no skeleton:
+          - Threads/Carousels
+          - Hot Takes
+          - Stories/Reels scripts
+          - Quote Cards
+          - Questions/Polls
+          Cada fragmento deve ser STANDALONE — funcionar sem o contexto original.
+        depends_on: [T1.1, T1.2]
+        output: "social_fragments/"
+
+      - task_id: T1.4
+        name: "Adicionar CTAs em Cada Peça"
+        required: true
+        description: |
+          Inserir calls-to-action apropriados em cada peça conforme
+          CTA mapping do skeleton. Cada CTA deve ser:
+          - Natural (não forçado)
+          - Congruente com o conteúdo
+          - Claro sobre o que acontece ao clicar
+        depends_on: [T1.3]
+        output: "content_with_ctas/"
+
+      - task_id: T1.5
+        name: "Quality Review — Voice & Coherence"
+        required: true
+        description: |
+          Revisar TODA a cascade contra:
+          - Voice DNA: soa como Dan Koe? (ou como a persona do operador)
+          - Coerência: todas as peças contam a mesma história?
+          - Valor: cada peça entrega algo útil standalone?
+          - CTA: flui naturalmente?
+        depends_on: [T1.4]
+        output: "quality_review.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Content Architecture Blueprint
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      content_architecture_blueprint:
+        name: "Blueprint de Arquitetura de Conteúdo — Formato APAG"
+        source: "Dan Koe — APAG Structure + Content Cascade"
+        description: |
+          Framework para produzir conteúdo estruturado que ENSINA,
+          ENGAJA e CONVERTE. APAG é a espinha dorsal.
+
+        apag_structure:
+          description: "Attention-Perspective-Advantage-Gamify"
+          components:
+            A_attention:
+              name: "ATTENTION — Hook Inicial"
+              objective: "Parar o scroll, capturar atenção em 3 segundos"
+              percentage_of_content: "5-10%"
+              techniques:
+                - name: "Contrarian Opening"
+                  template: "A maioria das pessoas acredita [crença comum]. Elas estão erradas."
+                  example: "A maioria das pessoas acha que precisa de mais disciplina. O problema não é disciplina."
+                  when: "Quando vai desafiar uma crença popular"
+
+                - name: "Curiosity Gap"
+                  template: "Descobri algo sobre [tema] que mudou como [resultado]. Aqui está o que aprendi."
+                  example: "Descobri algo sobre produtividade que mudou como trabalho. Fui de 60h para 25h/semana."
+                  when: "Quando tem experiência pessoal forte"
+
+                - name: "Bold Claim"
+                  template: "[Resultado surpreendente] é possível quando você [ação não-óbvia]."
+                  example: "Ganhar mais trabalhando menos é possível quando você para de vender seu tempo."
+                  when: "Quando tem prova/evidência para sustentar"
+
+                - name: "Story Opening"
+                  template: "Há [tempo], eu estava [situação]. Hoje, [transformação]. Aqui está o que mudou."
+                  example: "Há 2 anos, eu era um freelancer esgotado. Hoje faturo 6 cifras trabalhando 20h/semana."
+                  when: "Quando a história pessoal é o hook mais forte"
+
+                - name: "Pattern Interrupt"
+                  template: "[Afirmação inesperada que quebra padrão mental]"
+                  example: "Não leia newsletters. A maioria é perda de tempo. Exceto se..."
+                  when: "Quando quer causar choque produtivo"
+
+              rules:
+                - "Máximo 3 linhas para o hook"
+                - "Primeira frase é a mais importante"
+                - "Deve criar tensão ou curiosidade que só resolve lendo"
+                - "NUNCA clickbait — sempre entregue o que o hook promete"
+
+            P_perspective:
+              name: "PERSPECTIVE — Ângulo Único"
+              objective: "Mudar como o leitor vê o problema. Reframe."
+              percentage_of_content: "20-30%"
+              technique: |
+                O objetivo não é informar — é TRANSFORMAR a perspectiva.
+                O leitor deve pensar: "Nunca tinha visto assim."
+              elements:
+                - "Identificar a crença limitante sobre o tema"
+                - "Apresentar contradição ou paradoxo"
+                - "Dar framework de pensamento alternativo"
+                - "Usar analogia memorável para ancorar"
+              example_flow:
+                problem: "A maioria pensa que precisa criar mais conteúdo"
+                reframe: "O problema não é quantidade — é que criam conteúdo que NINGUÉM pediu"
+                new_lens: "Em vez de 'o que postar', pergunte 'que problema meu público não consegue resolver sozinho?'"
+                anchor: "É como um restaurante que faz 50 pratos medianos vs. 5 pratos excepcionais"
+
+            A_advantage:
+              name: "ADVANTAGE — Framework/Método Acionável"
+              objective: "Dar vantagem prática ao leitor. ENSINAR algo aplicável."
+              percentage_of_content: "40-50%"
+              technique: |
+                Aqui é onde entrega VALOR REAL. Não é inspiração vazia —
+                é framework, método, passo-a-passo que o leitor pode
+                aplicar HOJE e ver resultado.
+              structures:
+                - name: "Step-by-Step"
+                  format: "Passo 1 → Passo 2 → Passo 3"
+                  when: "Processo linear claro"
+
+                - name: "Framework Named"
+                  format: "Apresentar framework com nome memorável (ex: APAG)"
+                  when: "Conceito que pode ser empacotado"
+
+                - name: "Before/After Matrix"
+                  format: "Antes: [situação] → Depois: [resultado] | Mudança: [o que fez]"
+                  when: "Transformação com contraste forte"
+
+                - name: "Mistake + Fix"
+                  format: "Erro comum: [X] → Fix: [Y] → Resultado: [Z]"
+                  when: "Lista de erros com soluções"
+
+              rules:
+                - "Cada ponto deve ser ACIONÁVEL (o que fazer, não apenas o que pensar)"
+                - "Usar exemplos concretos (não abstratos)"
+                - "Incluir 'como eu faço' — experiência pessoal aumenta credibilidade"
+                - "Numerar quando possível — frameworks numerados são mais memoráveis"
+
+            G_gamify:
+              name: "GAMIFY — Call-to-Action Gamificado"
+              objective: "Transformar CTA em desafio/jogo que o leitor QUER fazer"
+              percentage_of_content: "5-10%"
+              technique: |
+                Em vez de "se inscreva" ou "compre", criar um micro-desafio
+                que o leitor pode fazer AGORA e ver resultado.
+                Gamificação transforma passivo em ativo.
+              templates:
+                - name: "Challenge CTA"
+                  format: "Desafio: faça [ação específica] nos próximos [tempo]. Compartilhe o resultado."
+                  example: "Desafio: liste 3 ideias da sua Queue nos próximos 5 minutos. Responda este email com elas."
+
+                - name: "Implementation CTA"
+                  format: "Passo imediato: abra [ferramenta] e [ação de 2 min]."
+                  example: "Agora mesmo: abra seu Notes e escreva 1 Big Idea que você tem adiado."
+
+                - name: "Share CTA"
+                  format: "Se isso ressoou, compartilhe com [pessoa específica] que precisa ouvir."
+                  example: "Envie para aquele amigo que reclama de falta de tempo mas nunca mudou nada."
+
+                - name: "Bridge CTA"
+                  format: "Se quer ir mais fundo nisso, [link para oferta/conteúdo]."
+                  example: "Se quer o sistema completo de Content Cascade, conheça o [produto]."
+
+              rules:
+                - "CTA deve ser congruente com o conteúdo (não forçar venda)"
+                - "Prefira micro-ação (2 min) a big ask"
+                - "Gamify = elemento de desafio, progresso ou comunidade"
+                - "Máximo 1 CTA primário por peça"
+
+        platform_adaptation:
+          name: "Adaptação por Plataforma"
+          description: |
+            Cada plataforma tem regras, formatos e audiências diferentes.
+            O CONTEÚDO é o mesmo (Big Idea), a EMBALAGEM muda.
+          platforms:
+            newsletter:
+              format: "1500-3000 palavras"
+              tone: "Conversacional, íntimo, como carta para amigo inteligente"
+              structure: "APAG completo"
+              cta: "Reply email, share, bridge para produto"
+              frequency: "1x/semana (mínimo)"
+              best_for: "Deep relationship + nurture + sell"
+
+            youtube:
+              format: "10-20 min vídeo"
+              tone: "Educacional + personal, talking head ou visual"
+              structure: "Hook (15s) → Context (1 min) → APAG core → CTA"
+              cta: "Subscribe, comment, link na descrição"
+              frequency: "1-2x/semana"
+              best_for: "Discovery + authority + long-tail SEO"
+
+            blog:
+              format: "2000-4000 palavras"
+              tone: "Mais formal que newsletter, mais casual que acadêmico"
+              structure: "APAG + headings + images + internal links"
+              cta: "Newsletter signup, related posts, produto"
+              frequency: "1x/semana"
+              best_for: "SEO + evergreen + portfolio"
+
+            twitter_x:
+              format: "1 tweet (280 chars) ou thread (5-15 tweets)"
+              tone: "Punchy, direto, sem rodeios"
+              structure: "Hook tweet → Value tweets → CTA tweet"
+              cta: "Follow, retweet, reply, newsletter link"
+              frequency: "1-3x/dia"
+              best_for: "Discovery + viral + networking"
+
+            instagram:
+              format: "Carousel (5-10 slides) ou Reel (15-60s)"
+              tone: "Visual, aspiracional, story-driven"
+              structure: "Hook slide → Value slides → CTA slide"
+              cta: "Save, share, link na bio"
+              frequency: "3-5x/semana"
+              best_for: "Visual brand + engagement + broad reach"
+
+            linkedin:
+              format: "Post (1300 chars) ou article"
+              tone: "Profissional mas pessoal, insights de negócio"
+              structure: "Hook line → Story/insight → Takeaway → CTA"
+              cta: "Connect, comment, newsletter"
+              frequency: "3-5x/semana"
+              best_for: "B2B authority + professional network"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Content Architecture Complete"
+      criteria:
+        - "Newsletter (peça-mãe) completa com APAG structure"
+        - "Long-form (YouTube/Blog) expandido"
+        - "5-10 fragmentos sociais extraídos (cada um standalone)"
+        - "CTAs inseridos e congruentes"
+        - "Quality review aprovado (voice + coherence + value)"
+        - "Todas as peças contam a mesma história da Big Idea"
+      human_review: true
+      message: |
+        O conteúdo está produzido. Revise a peça-mãe (newsletter) cuidadosamente —
+        ela é a base de tudo. Se algo não soa certo na newsletter, NÃO distribua.
+        Ajuste primeiro, distribua depois.
+      veto_conditions:
+        - condition: "Newsletter sem estrutura APAG identificável"
+          action: "BLOCK — Sem APAG, conteúdo perde impacto. Reestruturar antes de fragmentar."
+        - condition: "Fragmentos sociais não funcionam standalone"
+          action: "BLOCK — Cada peça social deve ter valor próprio. Se só faz sentido com contexto da newsletter, reescrever."
+        - condition: "Voice inconsistente entre peças"
+          action: "WARNING — Audiência percebe inconsistência. Normalizar voice antes de publicar."
+        - condition: "Nenhum CTA para oferta em nenhuma peça"
+          action: "WARNING — Conteúdo sem bridge para oferta é hobby, não negócio. Adicionar pelo menos 1 bridge CTA."
+      recovery:
+        rollback_to: "phase_0_checkpoint"
+        preserve:
+          - "selected_big_idea"
+          - "big_idea_validation"
+          - "unique_angle"
+          - "cascade_skeleton"
+        discard:
+          - "partial_newsletter_draft"
+          - "incomplete_longform_draft"
+          - "draft_social_fragments"
+          - "draft_content_with_ctas"
+        max_retries: 3
+        retry_strategy: "fix_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: MULTI-PLATFORM DISTRIBUTION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Multi-Platform Distribution"
+    duration: "1-2 horas"
+    tier: 2  # Execution — distribuição e scheduling
+    description: |
+      Distribuição estratégica do conteúdo em múltiplas plataformas
+      com timing otimizado e scheduling automatizado.
+
+      PRINCÍPIO: "Distribuição não é 'postar em tudo ao mesmo tempo'.
+      É orquestração estratégica — cada plataforma recebe a versão
+      certa, no momento certo, para a audiência certa."
+
+      MODELO: 1h→10h — 1 hora de deep work gera 10+ horas de conteúdo
+      distribuído. O multiplicador está no SISTEMA, não no esforço.
+
+    agent: koe-distribuidor
+
+    tasks:
+      - task_id: T2.1
+        name: "Adaptar Conteúdo por Plataforma"
+        required: true
+        description: |
+          Para cada plataforma ativa, adaptar formato, tom e comprimento:
+          - Newsletter: enviar como está
+          - YouTube: adaptar para script de vídeo
+          - Blog: adaptar para SEO (headings, keywords, internal links)
+          - Social: ajustar formato específico (carousel, thread, reel)
+          Cada adaptação respeita a cultura da plataforma.
+        output: "platform_adapted_content/"
+
+      - task_id: T2.2
+        name: "Criar Distribution Calendar"
+        required: true
+        description: |
+          Mapear QUANDO cada peça será publicada na semana.
+          Seguir o cascade flow: Newsletter primeiro → Long-form → Social derivados.
+          Espaçar para manter presença contínua sem flooding.
+        depends_on: [T2.1]
+        output: "distribution_calendar.yaml"
+
+      - task_id: T2.3
+        name: "Configurar Scheduling"
+        required: true
+        description: |
+          Agendar todas as peças nas ferramentas de scheduling:
+          - Email: programar newsletter para horário de pico
+          - YouTube: agendar upload + thumbnail + description
+          - Social: agendar via scheduling tool (Buffer, Hypefury, etc.)
+        depends_on: [T2.2]
+        output: "scheduling_confirmation.yaml"
+
+      - task_id: T2.4
+        name: "Preparar Engagement Protocol"
+        required: true
+        description: |
+          Para cada plataforma, definir:
+          - Primeiros 60 min após publicação: engagement ativo (responder comments)
+          - Dias seguintes: monitorar e responder
+          - Identificar top comments para repurposing
+          - Notar perguntas frequentes para futuras Big Ideas
+        depends_on: [T2.2]
+        output: "engagement_protocol.md"
+
+      - task_id: T2.5
+        name: "Definir Métricas de Performance"
+        required: true
+        description: |
+          Para este ciclo de cascade, definir:
+          - Métricas por plataforma (views, engagement, clicks)
+          - Métricas de funil (newsletter signups, product views)
+          - Aprendizados para próximo ciclo
+          - Benchmark contra ciclos anteriores
+        output: "performance_metrics.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Distribution Calendar Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      distribution_calendar_template:
+        name: "Template de Calendário de Distribuição Semanal"
+        source: "Dan Koe — 1h→10h Distribution + Social Matrix"
+        description: |
+          Calendário padrão para distribuição de uma cascade semanal.
+          A ordem importa: long-form primeiro (mais valor) → social derivados.
+
+        weekly_cascade_flow:
+          principle: "Conteúdo flui de DEEP para SURFACE, de OWNED para RENTED"
+          flow:
+            - day: "Dia 1 (Terça)"
+              action: "Newsletter enviada"
+              platform: "Email (owned)"
+              reasoning: "Audiência mais quente recebe primeiro. Base para tudo."
+
+            - day: "Dia 2 (Quarta)"
+              action: "YouTube/Blog publicado"
+              platform: "YouTube ou Blog (semi-owned)"
+              reasoning: "Long-form para discovery. Referencia newsletter."
+
+            - day: "Dia 3 (Quinta)"
+              action: "Thread/Carousel — breakdown da Big Idea"
+              platform: "Twitter/X + Instagram"
+              reasoning: "Fragmento mais substantivo. Conduz para newsletter."
+
+            - day: "Dia 4 (Sexta)"
+              action: "Hot Take 1 + Quote Card"
+              platform: "Twitter/X + Instagram + LinkedIn"
+              reasoning: "Peças de alto engajamento. Provocar discussão."
+
+            - day: "Dia 5 (Sábado)"
+              action: "Story/Reel + Micro-Story"
+              platform: "Instagram + TikTok"
+              reasoning: "Conteúdo leve de fim de semana. Mantém presença."
+
+            - day: "Dia 6 (Domingo)"
+              action: "Hot Take 2 + Question/Poll"
+              platform: "Twitter/X + LinkedIn"
+              reasoning: "Engajamento + coletar input para próxima semana."
+
+            - day: "Dia 7 (Segunda)"
+              action: "Repurpose best performer + preparar próximo ciclo"
+              platform: "Varies"
+              reasoning: "Amplificar o que funcionou. Planejar próxima Big Idea."
+
+        timing_guidelines:
+          email:
+            best_times: ["Terça 7-9h", "Quinta 7-9h"]
+            avoid: ["Segunda manhã", "Sexta tarde"]
+          youtube:
+            best_times: ["Quarta 12-14h", "Sábado 10-12h"]
+            note: "Algoritmo prioriza early engagement"
+          twitter:
+            best_times: ["8-9h", "12-13h", "17-18h"]
+            note: "Teste seus horários — varia por audiência"
+          instagram:
+            best_times: ["11-13h", "19-21h"]
+            note: "Stories qualquer hora, Posts/Reels em horário de pico"
+          linkedin:
+            best_times: ["Terça-Quinta 8-10h"]
+            note: "Profissional — horário de café/início de dia"
+
+        repurposing_rules:
+          description: "Regras para maximizar conteúdo existente"
+          rules:
+            - rule: "Top performer da semana ganha boost na semana seguinte"
+              example: "Thread que performou bem → transformar em Reel"
+            - rule: "Perguntas recebidas → content para próxima semana"
+              example: "5 perguntas sobre tema → FAQ post ou mini-thread"
+            - rule: "Todo conteúdo evergreen pode ser re-publicado em 90 dias"
+              example: "Newsletter de Janeiro → social post em Abril"
+            - rule: "Cross-postar com adaptação, não copy-paste"
+              example: "Thread do Twitter → Carousel do Instagram (redesenhar visual)"
+
+      performance_metrics_template:
+        name: "Template de Métricas de Performance do Cascade"
+        description: |
+          Acompanhamento de performance para otimizar ciclos futuros.
+          Não precisa ser complexo — 5 métricas core são suficientes.
+        metrics:
+          reach:
+            name: "Alcance Total"
+            description: "Quantas pessoas viram o conteúdo no total"
+            platforms_sum: true
+            benchmark: "Crescimento de 5-10% por ciclo"
+
+          engagement:
+            name: "Taxa de Engajamento"
+            description: "Likes + Comments + Shares + Saves / Reach"
+            target: "> 3% (varies by platform)"
+            learning: "Qual peça engajou mais? Por quê?"
+
+          newsletter_growth:
+            name: "Crescimento de Lista"
+            description: "Novos subscribers neste ciclo"
+            target: "Definir baseado em tamanho atual"
+            learning: "Qual CTA converteu melhor?"
+
+          traffic_to_offer:
+            name: "Tráfego para Oferta"
+            description: "Clicks em links de produto/oferta"
+            target: "Crescimento constante"
+            learning: "Qual bridge CTA funcionou?"
+
+          content_roi:
+            name: "ROI de Conteúdo"
+            description: "Tempo investido vs. resultados obtidos"
+            calculation: "(Receita atribuível + Valor de lista crescida) / Horas investidas"
+            target: "Crescer ROI por ciclo via eficiência do cascade"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Distribution Complete"
+      criteria:
+        - "Conteúdo adaptado para todas as plataformas ativas"
+        - "Distribution calendar definido (7 dias)"
+        - "Scheduling configurado e confirmado"
+        - "Engagement protocol pronto"
+        - "Métricas de performance definidas"
+        - "Operador aprova calendário e está pronto para engajar"
+      human_review: true
+      message: |
+        O cascade está pronto para lançamento. Revise o calendário:
+        - Os horários de publicação fazem sentido para sua audiência?
+        - Você pode estar presente nos primeiros 60 min após cada publicação?
+        - O scheduling está configurado corretamente?
+        Uma vez aprovado, o cascade roda praticamente sozinho pela semana.
+      veto_conditions:
+        - condition: "Distribuição sem Big Idea no centro de toda peça"
+          action: "HALT — Regra de ouro: NENHUMA distribuição sem Big Idea forte como núcleo. Voltar para Phase 0."
+        - condition: "Publicação simultânea em todas as plataformas (flood)"
+          action: "BLOCK — Flood diminui percepção de valor. Espaçar conforme calendar template."
+        - condition: "Nenhuma adaptação entre plataformas (copy-paste)"
+          action: "BLOCK — Cada plataforma tem linguagem própria. Copy-paste é preguiça que a audiência percebe."
+        - condition: "Zero engagement protocol"
+          action: "WARNING — Publicar sem engajar é megafone sem ouvidos. Definir mínimo 30 min/dia de engagement."
+      recovery:
+        rollback_to: "phase_1_checkpoint"
+        preserve:
+          - "newsletter_draft"
+          - "longform_draft"
+          - "social_fragments"
+          - "content_with_ctas"
+          - "quality_review"
+        discard:
+          - "partial_platform_adapted_content"
+          - "incomplete_distribution_calendar"
+          - "draft_scheduling_confirmation"
+          - "draft_engagement_protocol"
+        max_retries: 2
+        retry_strategy: "fix_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ROUTING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+routing:
+  on_complete:
+    options:
+      - action: "Executar engajamento durante a semana"
+        workflow: null
+        description: "Operador segue engagement protocol"
+
+      - action: "Iniciar próximo ciclo"
+        workflow: "wf-content-cascade"
+        description: "Na semana seguinte, com nova Big Idea"
+
+      - action: "Analisar performance"
+        workflow: null
+        description: "No final da semana, revisar métricas e aprender"
+
+      - action: "Desenvolver nova Big Idea"
+        workflow: "wf-big-idea"
+        description: "Se queue está vazia, alimentar com novas ideias"
+
+  on_veto:
+    escalate_to: "koe-chief"
+    message: "Content cascade bloqueado — provavelmente Big Idea insuficiente."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-content-cascade"
+      status: "completed"
+      outputs:
+        - "newsletter_draft.md"
+        - "longform_draft.md"
+        - "social_fragments/"
+        - "distribution_calendar.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "selected_big_idea.yaml"
+    - "big_idea_validation.yaml"
+    - "unique_angle.md"
+    - "cascade_skeleton.yaml"
+
+  phase_1:
+    - "newsletter_draft.md"
+    - "longform_draft.md"
+    - "social_fragments/"
+    - "content_with_ctas/"
+    - "quality_review.yaml"
+
+  phase_2:
+    - "platform_adapted_content/"
+    - "distribution_calendar.yaml"
+    - "scheduling_confirmation.yaml"
+    - "engagement_protocol.md"
+    - "performance_metrics.yaml"
+
+  final_deliverable:
+    name: "Content Cascade Package"
+    location: "outputs/cascades/{cascade_id}/"
+    contents:
+      - "big_idea.yaml — Big Idea selecionada e validada"
+      - "newsletter.md — Peça-mãe completa"
+      - "longform.md — YouTube/Blog expandido"
+      - "social/ — Fragmentos por plataforma"
+      - "calendar.yaml — Calendário de distribuição"
+      - "metrics.yaml — Métricas de acompanhamento"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-arquiteto"]
+
+  PHASE-1:
+    primary: ["koe-arquiteto"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["koe-distribuidor"]
+    secondary: []
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] Big Idea score >= 7/10"
+    - "[ ] Ângulo único definido"
+    - "[ ] Cascade skeleton com 5+ fragmentos"
+    - "[ ] CTA mapping completo"
+    - "[ ] Operador aprova ideia"
+
+  phase_1:
+    - "[ ] Newsletter com APAG structure"
+    - "[ ] Long-form expandido"
+    - "[ ] 5-10 fragmentos standalone"
+    - "[ ] CTAs congruentes"
+    - "[ ] Quality review aprovado"
+
+  phase_2:
+    - "[ ] Conteúdo adaptado por plataforma"
+    - "[ ] Calendar de 7 dias"
+    - "[ ] Scheduling configurado"
+    - "[ ] Engagement protocol pronto"
+    - "[ ] Métricas definidas"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "CONTENT_CASCADE"
+    - "APAG_STRUCTURE"
+    - "SOCIAL_MATRIX"
+    - "1H_TO_10H_DISTRIBUTION"
+    - "CREATIVE_WORKFLOW_FRAMEWORK"
+    - "QUEUE_SYSTEM"
+  source_mind: "dan_koe"
+  lines: 700+
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

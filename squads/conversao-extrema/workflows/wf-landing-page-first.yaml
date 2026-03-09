@@ -1,0 +1,775 @@
+# Landing Page First Workflow
+# Based on Thiago Tessman's "LP Before Traffic" principle
+# Source: Conversão Extrema + Cabeça-Corpo-Pernas structure
+# Version: 1.0.0
+
+id: wf-landing-page-first
+name: "Landing Page First — LP Quality Before Traffic"
+version: "1.0.0"
+duration: "2-3 days"
+description: |
+  Workflow que garante qualidade mínima da landing page ANTES de investir em tráfego pago.
+
+  PRINCÍPIO TESSMAN: "Tráfego em LP ruim = queimar dinheiro. LP boa converte 3-5x mais."
+
+  FILOSOFIA: Nunca lançar campanha antes de validar LP contra benchmarks de conversão.
+
+  ESTRUTURA VALIDADA:
+  - Cabeça (50%): Promessa + CTA acima da dobra (INEGOCIÁVEL)
+  - Corpo (30%): Benefícios + Prova Social
+  - Pernas (20%): Garantia + Urgência + FAQ
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Validar LP antes de investir em tráfego pago"
+  - "Auditar LP existente com baixa conversão (<10%)"
+  - "Garantir estrutura Cabeça-Corpo-Pernas antes de escalar"
+  - "Otimizar velocidade de carregamento (meta <2s)"
+  - "Implementar tracking ANTES de tráfego (Pixel + GTM)"
+
+not_for:
+  - "Criar LP do zero (use design squad para isso)"
+  - "LP para captura de e-mail simples (newsletter)"
+  - "Páginas institucionais (sobre, contato)"
+
+decision_matrix_fit:
+  complexity: medium
+  agents_required: 3
+  estimated_duration: "2-3 days"
+  user_involvement: "high (approval required at each gate)"
+  prerequisites:
+    - "Landing page existente (pelo menos rascunho)"
+    - "Oferta definida (produto/serviço claro)"
+    - "Público-alvo mapeado"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: tessman-copy
+      role: "LP audit, copy optimization, Cabeça-Corpo-Pernas structure"
+      phases: [1]
+
+    - agent: tessman-remarketing
+      role: "Tracking setup, Pixel validation, GTM configuration"
+      phases: [2]
+
+    - agent: traffic-masters-chief
+      role: "Platform routing (Google vs Meta), campaign readiness check"
+      phases: [3]
+
+  synergies:
+    - agents: [tessman-copy, tessman-remarketing]
+      pattern: "Copy validates structure, Remarketing validates tracking"
+
+    - agents: [tessman-remarketing, traffic-masters-chief]
+      pattern: "Remarketing confirms tracking OK, Chief routes to specialist"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: LP QUALITY AUDIT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-1
+    name: "LP Quality Audit"
+    days: "Day 1"
+    tier: 0  # Foundation - must complete first
+    description: |
+      Auditoria completa da landing page contra estrutura Cabeça-Corpo-Pernas
+      e benchmarks de conversão do Tessman.
+
+      VETO CRÍTICO: CTA não está acima da dobra → BLOCK imediato.
+
+      SCORE MÍNIMO: 7/10 para prosseguir com tráfego pago.
+
+    agent: tessman-copy
+
+    tasks:
+      - task_id: T1.1
+        name: "Auditar Estrutura Cabeça-Corpo-Pernas"
+        required: true
+        description: "Validar proporção 50-30-20 e elementos obrigatórios"
+        output: "lp_structure_audit.yaml"
+
+      - task_id: T1.2
+        name: "Verificar CTA Acima da Dobra"
+        required: true
+        description: "INEGOCIÁVEL: botão visível sem scroll"
+        output: "cta_position_check.yaml"
+
+      - task_id: T1.3
+        name: "Validar Clareza de Proposta"
+        required: true
+        description: "Headline comunica benefício em 3 segundos?"
+        output: "headline_clarity_report.yaml"
+
+      - task_id: T1.4
+        name: "Auditar Prova Social"
+        required: true
+        description: "Depoimentos, cases, números presentes?"
+        output: "social_proof_audit.yaml"
+
+      - task_id: T1.5
+        name: "Testar Velocidade de Carregamento"
+        required: true
+        description: "Meta: <2s mobile, <1.5s desktop"
+        output: "speed_test_report.yaml"
+
+      - task_id: T1.6
+        name: "Score Final da LP"
+        required: true
+        description: "Nota 0-10 baseada em checklist Tessman"
+        output: "lp_quality_score.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: LP Quality Checklist (Tessman)
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      lp_quality_checklist:
+        description: "Checklist de qualidade LP Tessman (10 pontos)"
+        items:
+          - id: C1
+            criterion: "CTA acima da dobra"
+            weight: 2
+            veto_if_fail: true
+            why: "Sem CTA visível = perda imediata de 30-50% conversões"
+
+          - id: C2
+            criterion: "Headline clara (benefício específico)"
+            weight: 1.5
+            veto_if_fail: false
+            why: "Headline genérica = baixo CTR"
+
+          - id: C3
+            criterion: "Estrutura Cabeça-Corpo-Pernas (50-30-20)"
+            weight: 1
+            veto_if_fail: false
+            why: "Estrutura testada e validada"
+
+          - id: C4
+            criterion: "Prova social presente (mín. 2 depoimentos)"
+            weight: 1
+            veto_if_fail: false
+            why: "Prova social aumenta confiança"
+
+          - id: C5
+            criterion: "Velocidade <2s (mobile)"
+            weight: 1.5
+            veto_if_fail: true
+            why: "-6% conversão por segundo de atraso"
+
+          - id: C6
+            criterion: "Objetivo único (não mistura captura + venda)"
+            weight: 1
+            veto_if_fail: true
+            why: "Página confusa = conversão baixa (TT-V09)"
+
+          - id: C7
+            criterion: "Garantia ou reversal de risco"
+            weight: 0.5
+            veto_if_fail: false
+            why: "Reduz objeção de compra"
+
+          - id: C8
+            criterion: "Urgência ou escassez (se aplicável)"
+            weight: 0.5
+            veto_if_fail: false
+            why: "Aumenta conversão imediata"
+
+          - id: C9
+            criterion: "Responsiva (mobile-first)"
+            weight: 1
+            veto_if_fail: true
+            why: "60-70% tráfego vem de mobile"
+
+          - id: C10
+            criterion: "FAQ ou objeções respondidas"
+            weight: 0.5
+            veto_if_fail: false
+            why: "Reduz dúvidas de última hora"
+
+        scoring:
+          formula: "Soma ponderada dos itens aprovados"
+          max_score: 10
+          passing_score: 7
+          excellent_score: 9
+
+      cabeca_corpo_pernas_structure:
+        description: "Estrutura detalhada Cabeça-Corpo-Pernas"
+        sections:
+          cabeca:
+            name: "CABEÇA (50% espaço vertical)"
+            position: "Acima da dobra (above the fold)"
+            elements:
+              - "Headline (promessa específica, 1 linha)"
+              - "Subheadline (ampliação, 2-3 linhas)"
+              - "CTA principal (botão contraste, acima da dobra)"
+              - "Imagem/vídeo de impacto"
+            veto_conditions:
+              - "CTA NÃO visível sem scroll → BLOCK"
+              - "Headline genérica → REWORK"
+
+          corpo:
+            name: "CORPO (30% espaço vertical)"
+            position: "Imediatamente após a dobra"
+            elements:
+              - "Benefícios (3-5 principais, ícones + texto)"
+              - "Prova social (2-4 depoimentos com foto/nome)"
+              - "Como funciona (3 passos simples)"
+              - "CTA secundário (repetir botão)"
+            veto_conditions:
+              - "Sem prova social → WARNING"
+              - "Mais de 5 benefícios → SIMPLIFICAR"
+
+          pernas:
+            name: "PERNAS (20% espaço vertical)"
+            position: "Final da página"
+            elements:
+              - "Garantia (30 dias dinheiro de volta, etc.)"
+              - "Urgência/Escassez (se legítima)"
+              - "FAQ (3-5 perguntas principais)"
+              - "CTA final (último empurrão)"
+            veto_conditions:
+              - "Urgência falsa → REMOVER"
+
+      conversion_benchmarks:
+        description: "Benchmarks de conversão por tipo de negócio"
+        by_business_type:
+          servicos:
+            name: "Serviços (consultoria, mentoria, agências)"
+            excellent: "25-35%"
+            good: "15-25%"
+            acceptable: "8-15%"
+            poor: "<8%"
+            action_if_poor: "Otimizar LP antes de escalar tráfego"
+
+          infoprodutos:
+            name: "Infoprodutos (cursos, ebooks)"
+            excellent: "20-30%"
+            good: "10-20%"
+            acceptable: "5-10%"
+            poor: "<5%"
+            action_if_poor: "Revisar proposta de valor"
+
+          ecommerce:
+            name: "Produtos físicos (e-commerce)"
+            excellent: "10-15%"
+            good: "5-10%"
+            acceptable: "3-5%"
+            poor: "<3%"
+            action_if_poor: "Revisar preço, prova social, garantia"
+
+      speed_optimization_guide:
+        description: "Guia de otimização de velocidade"
+        impact: "-6% conversão por segundo de atraso (Amazon)"
+        target:
+          mobile: "<2s"
+          desktop: "<1.5s"
+        optimization_steps:
+          - step: 1
+            action: "Comprimir imagens (WebP, <200KB)"
+            impact: "30-50% redução tempo carregamento"
+
+          - step: 2
+            action: "Lazy load imagens abaixo da dobra"
+            impact: "20-30% redução tempo inicial"
+
+          - step: 3
+            action: "Minimizar CSS/JS"
+            impact: "10-20% redução tempo"
+
+          - step: 4
+            action: "Usar CDN para hospedagem"
+            impact: "Variável (pode reduzir 50% em alguns casos)"
+
+          - step: 5
+            action: "Evitar vídeos em autoplay (usar thumbnail)"
+            impact: "40-60% redução tempo inicial"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "LP Quality Gate"
+      criteria:
+        - "Score LP >= 7/10"
+        - "CTA acima da dobra (INEGOCIÁVEL)"
+        - "Velocidade <2s mobile"
+        - "Objetivo único (não mistura captura + venda)"
+        - "Conversão esperada >= benchmark do nicho"
+      human_review: true
+      message: "Revise o relatório de auditoria antes de prosseguir para tracking."
+      veto_conditions:
+        - condition: "CTA NÃO está acima da dobra"
+          action: "BLOCK - Reposicionar CTA antes de continuar"
+          severity: "CRITICAL"
+          reference: "TT-V08"
+
+        - condition: "Múltiplos objetivos na mesma página (ex: captura lead + venda direta)"
+          action: "BLOCK - Separar em LPs distintas"
+          severity: "CRITICAL"
+          reference: "TT-V09"
+
+        - condition: "Velocidade >3s (mobile)"
+          action: "BLOCK - Otimizar velocidade antes de tráfego"
+          severity: "CRITICAL"
+          reference: "TT-H32 (Amazon -6%/s)"
+
+        - condition: "Score LP <7/10"
+          action: "REWORK - Corrigir itens faltantes antes de continuar"
+          severity: "HIGH"
+
+        - condition: "Conversão histórica <benchmark do nicho (se LP já existe)"
+          action: "REWORK - LP abaixo do padrão, otimizar antes de escalar"
+          severity: "HIGH"
+          reference: "TT-H34"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: TRACKING SETUP
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Tracking Setup & Validation"
+    days: "Day 2"
+    tier: 1  # Core execution
+    description: |
+      Validação de tracking completo (Pixel Meta + Google Tag + GTM).
+
+      VETO CRÍTICO: Sem tracking = sem dados = sem otimização.
+
+      REGRA: NUNCA investir em tráfego sem tracking validado.
+
+    agent: tessman-remarketing
+
+    tasks:
+      - task_id: T2.1
+        name: "Verificar Pixel Meta Instalado"
+        required: true
+        description: "Pixel Meta disparando PageView e eventos customizados"
+        output: "pixel_meta_check.yaml"
+
+      - task_id: T2.2
+        name: "Verificar Google Tag / GA4"
+        required: true
+        description: "Google Tag instalado e eventos configurados"
+        output: "google_tag_check.yaml"
+
+      - task_id: T2.3
+        name: "Verificar GTM (se aplicável)"
+        required: false
+        description: "Google Tag Manager configurado corretamente"
+        output: "gtm_check.yaml"
+
+      - task_id: T2.4
+        name: "Testar Eventos de Conversão"
+        required: true
+        description: "Simular conversão e validar disparo de eventos"
+        output: "conversion_events_test.yaml"
+
+      - task_id: T2.5
+        name: "Criar Públicos de Remarketing Base"
+        required: true
+        description: "Público de visitantes da LP (30 dias)"
+        output: "remarketing_audiences.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Tracking Validation Checklist
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      tracking_checklist:
+        description: "Checklist de tracking obrigatório"
+        meta_pixel:
+          - "Pixel Meta instalado no <head> da LP"
+          - "Evento PageView disparando ao carregar LP"
+          - "Evento Lead ou Purchase configurado (conversão)"
+          - "Validado via Meta Events Manager (últimas 24h)"
+
+        google_tag:
+          - "Google Tag (gtag.js) instalado no <head>"
+          - "GA4 recebendo pageviews"
+          - "Evento de conversão configurado (lead/purchase)"
+          - "Validado via Google Tag Assistant"
+
+        gtm_optional:
+          - "GTM container instalado (se usar GTM)"
+          - "Tags disparando corretamente (preview mode)"
+          - "DataLayer configurado para eventos customizados"
+
+        remarketing_audiences:
+          - "Público 'Visitantes LP' (30 dias) criado no Meta Ads"
+          - "Público 'Visitantes LP' (30 dias) criado no Google Ads"
+          - "Público mínimo esperado: 100 pessoas em 7 dias"
+
+      conversion_events_by_type:
+        description: "Eventos de conversão por tipo de negócio"
+        lead_generation:
+          meta_event: "Lead"
+          google_event: "generate_lead"
+          trigger: "Formulário enviado ou botão WhatsApp clicado"
+
+        ecommerce:
+          meta_event: "Purchase"
+          google_event: "purchase"
+          trigger: "Checkout finalizado (página de confirmação)"
+
+        webinar_registration:
+          meta_event: "CompleteRegistration"
+          google_event: "sign_up"
+          trigger: "Cadastro no webinar confirmado"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Tracking Validation Gate"
+      criteria:
+        - "Pixel Meta instalado e disparando eventos"
+        - "Google Tag instalado e disparando eventos"
+        - "Evento de conversão testado e validado"
+        - "Públicos de remarketing criados"
+      human_review: true
+      message: "Valide que tracking está funcionando antes de lançar campanha."
+      veto_conditions:
+        - condition: "Pixel Meta NÃO instalado ou eventos não disparando"
+          action: "BLOCK - Instalar Pixel antes de tráfego"
+          severity: "CRITICAL"
+          reference: "TT-V12"
+
+        - condition: "Nenhum evento de conversão configurado"
+          action: "BLOCK - Sem evento de conversão = sem otimização"
+          severity: "CRITICAL"
+          reference: "TT-V01"
+
+        - condition: "Google Tag não instalado (se campanha Google Ads planejada)"
+          action: "BLOCK - Instalar Google Tag antes de Google Ads"
+          severity: "HIGH"
+
+        - condition: "Eventos disparando mas não aparecendo no Events Manager (Meta)"
+          action: "BLOCK - Validar instalação do Pixel"
+          severity: "HIGH"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 3: CAMPAIGN LAUNCH READINESS
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Campaign Launch Readiness"
+    days: "Day 3"
+    tier: 2  # Execution
+    description: |
+      Roteamento para especialista correto (Google vs Meta) e validação final
+      antes de lançar campanhas.
+
+      DECISÃO: Google (necessidade) vs Meta (desejo) vs Ambos.
+
+      GATE FINAL: LP aprovada + Tracking OK = READY TO LAUNCH.
+
+    agent: traffic-masters-chief
+
+    tasks:
+      - task_id: T3.1
+        name: "Decidir Plataforma (Google vs Meta)"
+        required: true
+        description: "Produto = necessidade (Google) ou desejo (Meta)?"
+        output: "platform_decision.yaml"
+
+      - task_id: T3.2
+        name: "Validação Final Pre-Launch"
+        required: true
+        description: "Checklist final antes de investir"
+        output: "pre_launch_checklist.yaml"
+
+      - task_id: T3.3
+        name: "Criar Estrutura de Campanha Básica"
+        required: true
+        description: "Estrutura mínima para lançamento"
+        output: "campaign_structure.yaml"
+
+      - task_id: T3.4
+        name: "Definir Budget e Meta de CPA"
+        required: true
+        description: "Budget inicial e CPA target baseado em margem"
+        output: "budget_and_cpa.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Platform Decision Tree
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      platform_decision_tree:
+        description: "Árvore de decisão Google vs Meta"
+        decision_logic:
+          question: "Produto/serviço resolve NECESSIDADE ou DESEJO?"
+
+          necessidade:
+            definition: "Problema urgente, cliente procura solução ativamente"
+            platform: "GOOGLE ADS"
+            examples: ["Encanador", "Advogado", "Conserto", "Curso técnico"]
+            why: "Cliente BUSCA no Google quando tem necessidade"
+
+          desejo:
+            definition: "Aspiracional, cliente não está procurando ainda"
+            platform: "META ADS"
+            examples: ["Desenvolvimento pessoal", "Produto beleza", "Infoproduto"]
+            why: "Cliente descobre no feed, não estava buscando"
+
+          ambos:
+            recommendation: "Ideal usar AMBOS se budget permite (R$3.000+/mês)"
+            allocation: "60% Google (conversão) + 40% Meta (awareness + remarketing)"
+
+      pre_launch_checklist:
+        description: "Checklist final antes de lançar campanha"
+        items:
+          lp_quality:
+            - "[ ] Score LP >= 7/10"
+            - "[ ] CTA acima da dobra validado"
+            - "[ ] Velocidade <2s mobile"
+            - "[ ] Conversão esperada >= benchmark"
+
+          tracking:
+            - "[ ] Pixel Meta instalado e testado"
+            - "[ ] Google Tag instalado e testado"
+            - "[ ] Evento de conversão disparando"
+            - "[ ] Públicos de remarketing criados"
+
+          campaign_readiness:
+            - "[ ] Plataforma escolhida (Google/Meta/Ambos)"
+            - "[ ] Budget definido (mín. R$1.500/mês por plataforma)"
+            - "[ ] CPA target calculado baseado em margem"
+            - "[ ] Copy de anúncios rascunhada (será refinada pelo especialista)"
+
+          business_fundamentals:
+            - "[ ] Oferta validada (vendeu organicamente)"
+            - "[ ] Margem permite CPA (mín. 30%)"
+            - "[ ] Estrutura de atendimento/entrega pronta"
+
+      budget_and_cpa_calculation:
+        description: "Cálculo de budget e CPA target"
+        cpa_formula:
+          input:
+            - "LTV (Lifetime Value do cliente)"
+            - "Margem líquida (%)"
+            - "% Investimento aceitável em aquisição"
+          formula: "CPA Target = LTV × Margem × % Investimento"
+          example:
+            ltv: "R$ 997 (curso)"
+            margem: "70% (R$ 698 lucro)"
+            investimento_aceitavel: "30% do lucro"
+            cpa_target: "R$ 698 × 30% = R$ 209"
+
+        budget_minimum:
+          google_ads: "R$ 1.500/mês (R$ 50/dia)"
+          meta_ads: "R$ 1.200/mês (R$ 40/dia)"
+          total_recommended: "R$ 3.000/mês para stack completo"
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Launch Readiness Gate"
+      criteria:
+        - "LP aprovada (Phase 1)"
+        - "Tracking validado (Phase 2)"
+        - "Plataforma escolhida"
+        - "Budget e CPA target definidos"
+        - "Oferta validada organicamente"
+      human_review: true
+      message: "Última validação antes de investir em tráfego pago."
+      veto_conditions:
+        - condition: "LP não aprovada em Phase 1"
+          action: "BLOCK - Retornar a Phase 1 e corrigir LP"
+          severity: "CRITICAL"
+
+        - condition: "Tracking não validado em Phase 2"
+          action: "BLOCK - Retornar a Phase 2 e configurar tracking"
+          severity: "CRITICAL"
+
+        - condition: "Budget <R$1.000/mês"
+          action: "BLOCK - Budget insuficiente para validação"
+          severity: "HIGH"
+
+        - condition: "CPA target >50% da margem líquida"
+          action: "WARNING - Margem apertada, risco de prejuízo"
+          severity: "MEDIUM"
+
+        - condition: "Oferta não vendeu organicamente"
+          action: "HALT - Validar oferta antes de investir em tráfego"
+          severity: "CRITICAL"
+          reference: "TT-V02"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  QG-001:
+    name: "LP Quality Gate"
+    transition: "Start → LP Audit"
+    conditions:
+      - "Score LP >= 7/10"
+      - "CTA acima da dobra (INEGOCIÁVEL)"
+      - "Velocidade <2s mobile"
+    type: "blocking"
+
+  QG-002:
+    name: "Tracking Validation Gate"
+    transition: "LP Audit → Tracking Setup"
+    conditions:
+      - "Pixel Meta + Google Tag instalados"
+      - "Eventos de conversão testados"
+      - "Públicos de remarketing criados"
+    type: "blocking"
+
+  QG-003:
+    name: "Launch Readiness Gate"
+    transition: "Tracking Setup → Campaign Launch"
+    conditions:
+      - "LP aprovada (QG-001)"
+      - "Tracking validado (QG-002)"
+      - "Budget e CPA definidos"
+    type: "blocking"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - notify_user: true
+    - create_remediation_task: true
+    - halt_workflow: false
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_previous_phase: true
+    - max_retries: 2
+
+  on_veto_triggered:
+    - halt_immediately: true
+    - escalate_to: "traffic-masters-chief"
+    - document_reason: true
+    - require_human_override: true
+
+  common_failures:
+    - failure: "CTA não está acima da dobra"
+      phase: 1
+      resolution: "Reposicionar CTA no topo da LP, acima da dobra"
+
+    - failure: "Velocidade >3s (mobile)"
+      phase: 1
+      resolution: "Comprimir imagens, lazy load, CDN, minimizar CSS/JS"
+
+    - failure: "Pixel Meta não instalado"
+      phase: 2
+      resolution: "Instalar Pixel Meta no <head> da LP e testar eventos"
+
+    - failure: "Evento de conversão não dispara"
+      phase: 2
+      resolution: "Validar código do evento, testar via Events Manager"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-landing-page-first"
+      status: "completed"
+      outputs:
+        - "lp_audit_report/"
+        - "tracking_validation/"
+        - "launch_readiness_package/"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_1:
+    - "lp_structure_audit.yaml"
+    - "cta_position_check.yaml"
+    - "headline_clarity_report.yaml"
+    - "social_proof_audit.yaml"
+    - "speed_test_report.yaml"
+    - "lp_quality_score.yaml"
+
+  phase_2:
+    - "pixel_meta_check.yaml"
+    - "google_tag_check.yaml"
+    - "gtm_check.yaml (optional)"
+    - "conversion_events_test.yaml"
+    - "remarketing_audiences.yaml"
+
+  phase_3:
+    - "platform_decision.yaml"
+    - "pre_launch_checklist.yaml"
+    - "campaign_structure.yaml"
+    - "budget_and_cpa.yaml"
+
+  final_deliverable:
+    name: "Landing Page First Package"
+    location: "outputs/lp-first/{lp_id}/"
+    contents:
+      - "README.md - Overview da validação"
+      - "lp_audit/ - Relatório completo de auditoria"
+      - "tracking/ - Validação de Pixel + Google Tag"
+      - "launch_readiness/ - Checklist final + plataforma escolhida"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_1:
+    - "[ ] Score LP >= 7/10"
+    - "[ ] CTA acima da dobra (INEGOCIÁVEL)"
+    - "[ ] Velocidade <2s mobile"
+    - "[ ] Estrutura Cabeça-Corpo-Pernas validada"
+    - "[ ] Prova social presente"
+
+  phase_2:
+    - "[ ] Pixel Meta instalado e testado"
+    - "[ ] Google Tag instalado e testado"
+    - "[ ] Evento de conversão disparando"
+    - "[ ] Públicos de remarketing criados"
+
+  phase_3:
+    - "[ ] Plataforma escolhida (Google/Meta/Ambos)"
+    - "[ ] Budget mínimo disponível (R$1.500+/mês)"
+    - "[ ] CPA target calculado"
+    - "[ ] Oferta validada organicamente"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-03-06"
+  author: "claude-sonnet-4.5"
+  source_frameworks:
+    - "CONVERSAO_EXTREMA"
+    - "CABECA_CORPO_PERNAS"
+    - "LP_BEFORE_TRAFFIC"
+  source_mind: "thiago_tessman"
+  lines: 700+
+  quality_gate: "PENDING"
+  quality_score: "PENDING"
+  dependencies: []
+
+# Criado com AIOS Core Framework | 2026-03-06

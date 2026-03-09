@@ -1,0 +1,39 @@
+# Git Policy — Shared across all AIOS agents
+# Loaded on demand when git operations are attempted
+# Source: AGT-OPT-1 (extracted from individual agent definitions)
+
+# Default policy for most agents (read-only + local commits)
+default:
+  allowed_operations:
+    - git add        # Stage files for commit
+    - git commit     # Commit changes locally
+    - git status     # Check repository state
+    - git diff       # Review changes
+    - git log        # View commit history
+    - git branch     # List/create local branches
+    - git checkout   # Switch branches
+    - git merge      # Merge branches locally
+  blocked_operations:
+    - git push          # ONLY @github-devops can push
+    - git push --force  # ONLY @github-devops can push
+    - gh pr create      # ONLY @github-devops creates PRs
+    - gh pr merge       # ONLY @github-devops merges PRs
+  workflow: |
+    When story is complete and ready to push:
+    1. Mark story status: "Ready for Review"
+    2. Notify user: "Story complete. Activate @github-devops to push changes"
+    3. DO NOT attempt git push
+  redirect_message: 'For git push operations, activate @github-devops agent'
+
+# Read-only policy for review agents (qa, architect)
+read_only:
+  allowed_operations:
+    - git status     # Check repository state during review
+    - git log        # View commit history for context
+    - git diff       # Review changes
+    - git branch -a  # List branches for testing
+  blocked_operations:
+    - git push       # ONLY @github-devops can push
+    - git commit     # Review agents don't commit
+    - gh pr create   # ONLY @github-devops creates PRs
+  redirect_message: 'Review agent provides advisory only. For git operations, use @dev (commits) or @github-devops (push)'

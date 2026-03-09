@@ -1,0 +1,49 @@
+name: palestras-master
+version: "1.0.0"
+slashPrefix: palestras
+title: "Palestras Master Federator"
+description: >-
+  Meta-squad federador para orquestrar criação e evolução de palestras usando
+  4 squads satélites: tathi-deandhela (persuasão/palco), renner-silva (transformação/mentoria),
+  storytelling-masters-fosc (frameworks teóricos), luiz-fosc (storytelling cinematográfico/ilusionismo).
+author: "Luiz Fosc"
+icon: "🎙️"
+type: orchestrator
+
+entry_agent: palestras-master-chief
+
+independence: true
+independence_details: |
+  Squad auto-contido para orquestração local.
+  Não duplica DNA dos squads satélite; roteia por intenção e compõe saídas.
+
+agents:
+  - palestras-master-chief
+  - palestras-diagnostician
+  - palestras-method-router
+  - palestras-mind-assembler
+  - palestras-quality-gate
+
+tasks:
+  - route-speaking-demand
+  - build-hybrid-keynote-plan
+  - assemble-multi-clone-playbook
+  - validate-final-speaking-strategy
+
+workflows:
+  - master-speaking-orchestration-flow
+
+checklists:
+  - multi-clone-quality-checklist
+
+data:
+  - README
+
+tags:
+  - palestras
+  - storytelling
+  - oratoria
+  - keynote
+  - mind-cloning
+  - federated-squad
+  - persuasion

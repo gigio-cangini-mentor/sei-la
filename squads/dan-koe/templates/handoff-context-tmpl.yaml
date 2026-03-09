@@ -1,0 +1,208 @@
+# Koe Squad — Handoff Context Template
+# MANDATORY for agent-to-agent transfers within the Koe creative pipeline
+# Version: 1.0.0
+# Created: 2026-02-14
+# Pattern: KOE-TMPL-HANDOFF-001
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PURPOSE: Ensure context is preserved across the Koe creative pipeline
+# RULE: This template MUST be completed before any agent-to-agent handoff
+# PIPELINE: Coletor → Sintetizador → Arquiteto → Distribuidor (core flow)
+# VETO: Handoff without this template = blocked by quality gate
+# ═══════════════════════════════════════════════════════════════════════════════
+
+handoff:
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 1: TRANSFER INFO (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  transfer:
+    source_agent: ""          # Ex: koe-coletor
+    target_agent: ""          # Ex: koe-sintetizador
+    timestamp: ""             # YYYY-MM-DD HH:MM
+    workflow_id: ""           # Ex: wf-content-pipeline
+    current_phase: ""         # Ex: FILL → SYNTHESIZE → CREATE → DISTRIBUTE
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 2: CREATIVE PIPELINE STATUS (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  creative_pipeline_status:
+    queue_items_processed: ""           # Number of ideas processed from The Queue
+    queue_items_remaining: ""           # Number of ideas still in queue
+    big_idea_identified: false          # true/false — has a Big Idea been named?
+    big_idea_name: ""                   # The named Big Idea (if identified)
+    big_idea_domains: []                # Domains synthesized (e.g., ["psychology", "marketing"])
+    apag_drafted: false                 # true/false — has APAG structure been drafted?
+    apag_completeness:
+      attention: ""                     # COMPLETE/PARTIAL/NOT_STARTED
+      perspective: ""                   # COMPLETE/PARTIAL/NOT_STARTED
+      advantage: ""                     # COMPLETE/PARTIAL/NOT_STARTED
+      gamify: ""                        # COMPLETE/PARTIAL/NOT_STARTED
+    distribution_planned: false         # true/false — has cascade been mapped?
+    cascade_formats_planned: []         # Ex: ["newsletter", "youtube", "twitter_thread"]
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 3: KEY DECISIONS (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  key_decisions:
+    - decision: ""
+      rationale: ""
+      decided_by: ""          # agent or user
+    # Add more as needed
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 4: ARTIFACTS PRODUCED (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  artifacts:
+    - name: ""                # Ex: "big-idea-scaffold.md"
+      location: ""            # Relative path
+      status: ""              # COMPLETE/PARTIAL/DRAFT
+    # Add more as needed
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 5: BLOCKERS & OPEN QUESTIONS (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  blockers:
+    - blocker: ""
+      severity: ""            # HIGH/MEDIUM/LOW
+      proposed_resolution: ""
+    # Add more as needed
+
+  open_questions:
+    - question: ""
+      requires_user_input: false
+    # Add more as needed
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 6: CONTEXT FOR TARGET AGENT (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  context_for_target:
+    primary_objective: ""     # What the target agent must do
+    constraints: []           # Identified constraints
+    user_preferences: []      # User-expressed preferences
+    dont_repeat: []           # What does NOT need to be redone
+    voice_notes: ""           # Any voice/tone observations from this phase
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 7: VETO CONDITIONS CHECK (Mandatory)
+  # ───────────────────────────────────────────────────────────────────────────
+  veto_check:
+    all_phase_vetos_passed: false  # true/false
+    vetos_triggered: []            # List of vetos triggered (if any)
+    vetos_resolved: []             # List of vetos resolved
+    sovereignty_check_passed: false # true/false — does output increase sovereignty?
+    immune_system_clean: false      # true/false — no immune system violations
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDATION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+validation:
+  mandatory_fields:
+    - "transfer.source_agent"
+    - "transfer.target_agent"
+    - "transfer.current_phase"
+    - "creative_pipeline_status.queue_items_processed"
+    - "key_decisions"                # At least 1
+    - "context_for_target.primary_objective"
+    - "veto_check.all_phase_vetos_passed"
+    - "veto_check.sovereignty_check_passed"
+    - "veto_check.immune_system_clean"
+
+  conditional_fields:
+    - field: "creative_pipeline_status.big_idea_name"
+      required_if: "big_idea_identified == true"
+    - field: "creative_pipeline_status.apag_completeness"
+      required_if: "apag_drafted == true"
+    - field: "creative_pipeline_status.cascade_formats_planned"
+      required_if: "distribution_planned == true"
+
+  veto_on_failure:
+    id: "KOE-VT-HANDOFF-001"
+    message: "Handoff without context. Complete handoff template before transferring."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXAMPLE (For reference)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+example:
+  transfer:
+    source_agent: "koe-sintetizador"
+    target_agent: "koe-arquiteto"
+    timestamp: "2026-02-14 10:30"
+    workflow_id: "wf-content-pipeline"
+    current_phase: "SYNTHESIZE → CREATE"
+
+  creative_pipeline_status:
+    queue_items_processed: 12
+    queue_items_remaining: 3
+    big_idea_identified: true
+    big_idea_name: "The Compound Creation Framework"
+    big_idea_domains: ["finance (compound interest)", "content creation", "neuroscience (myelination)"]
+    apag_drafted: false
+    apag_completeness:
+      attention: "NOT_STARTED"
+      perspective: "NOT_STARTED"
+      advantage: "NOT_STARTED"
+      gamify: "NOT_STARTED"
+    distribution_planned: false
+    cascade_formats_planned: []
+
+  key_decisions:
+    - decision: "Big Idea synthesized from 3 domains: finance + content + neuroscience"
+      rationale: "Compound interest metaphor maps perfectly to content creation and skill development"
+      decided_by: "koe-sintetizador"
+    - decision: "Primary format: Newsletter (2000-word deep dive)"
+      rationale: "User preference + aligns with Content Cascade primary format"
+      decided_by: "user"
+
+  artifacts:
+    - name: "compound-creation-iceberg.md"
+      location: "outputs/content/compound-creation/iceberg-map.md"
+      status: "COMPLETE"
+    - name: "cross-domain-synthesis.md"
+      location: "outputs/content/compound-creation/synthesis.md"
+      status: "COMPLETE"
+
+  blockers:
+    - blocker: "Need real example from user's own content history"
+      severity: "MEDIUM"
+      proposed_resolution: "Ask user for their best-performing piece to use as case study"
+
+  open_questions:
+    - question: "Should the newsletter include a downloadable template?"
+      requires_user_input: true
+
+  context_for_target:
+    primary_objective: "Create APAG-structured newsletter from the Compound Creation Framework Big Idea"
+    constraints:
+      - "2000-2500 words for newsletter"
+      - "Must include cross-domain synthesis (finance + content + neuroscience)"
+    user_preferences:
+      - "Prefers practical frameworks over philosophical depth"
+      - "Wants actionable challenge at the end"
+    dont_repeat:
+      - "Domain research already completed"
+      - "Big Idea already named and validated"
+    voice_notes: "User responds well to Dan Koe's 'Here's how I do it' pattern"
+
+  veto_check:
+    all_phase_vetos_passed: true
+    vetos_triggered: []
+    vetos_resolved:
+      - "Initial synthesis lacked cross-domain depth — added neuroscience angle"
+    sovereignty_check_passed: true
+    immune_system_clean: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "koe-squad"
+  purpose: "Preserve context across Koe creative pipeline handoffs"
+  linked_veto: "KOE-VT-HANDOFF-001"
+  enforcement: "mandatory"
+  pipeline_agents: ["koe-coletor", "koe-sintetizador", "koe-arquiteto", "koe-distribuidor"]
+  support_agents: ["koe-offers", "koe-brand", "koe-mindset", "koe-advisor"]

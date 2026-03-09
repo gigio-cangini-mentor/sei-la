@@ -1,0 +1,663 @@
+# ETL Universal Converter — Veto Conditions Registry
+# Central source of truth for all veto conditions across the squad
+# Version: 1.0.0
+#
+# Each veto condition has:
+#   - code: Unique identifier (VETO_XXX or special codes)
+#   - severity: SKIP | WARN | FAIL | ERROR (determines behavior)
+#   - message: Human-readable description of the condition
+#   - action: What to do when condition is encountered
+#   - tasks: List of tasks where this veto applies
+
+veto_conditions:
+
+  # ===================================================================
+  # Core File Validation Vetos
+  # ===================================================================
+
+  VETO_EMPTY:
+    code: VETO_EMPTY
+    severity: SKIP
+    message: "File is 0 bytes or contains no data"
+    action: "Skip file with warning about empty content"
+    tasks:
+      - classify-file
+      - convert-spreadsheet
+      - convert-presentation
+      - validate-output
+    examples:
+      - "Empty CSV file"
+      - "Excel sheet with 0 rows"
+
+  VETO_ENCRYPTED:
+    code: VETO_ENCRYPTED
+    severity: SKIP
+    message: "File is password-protected or encrypted"
+    action: "Skip file — cannot process encrypted content without decryption key"
+    tasks:
+      - classify-file
+      - convert-spreadsheet
+      - convert-presentation
+      - convert-image-ocr
+    examples:
+      - "Password-protected Excel file"
+      - "Encrypted PDF"
+
+  VETO_TOO_LARGE:
+    code: VETO_TOO_LARGE
+    severity: SKIP
+    message: |
+      File exceeds size limits:
+      - Non-media: 500MB
+      - Spreadsheet: 200MB
+      - Image: 100MB
+      - Data file: 50MB
+    action: "Skip file — include actual size in error message"
+    tasks:
+      - classify-file
+      - convert-spreadsheet
+      - convert-image-ocr
+      - convert-data-file
+      - convert-text
+    examples:
+      - "CSV file 300MB"
+      - "PNG image 150MB"
+
+  VETO_BINARY:
+    code: VETO_BINARY
+    severity: SKIP
+    message: "Binary file with no known converter (.exe, .zip, .dmg, .so, .dll)"
+    action: "Skip file — no converter available for this binary type"
+    tasks:
+      - classify-file
+      - convert-text
+    examples:
+      - "Windows executable file"
+      - "Compiled library"
+
+  VETO_OVERWRITE:
+    code: VETO_OVERWRITE
+    severity: SKIP
+    message: "Output .md file already exists and --overwrite flag not set"
+    action: "Skip conversion — user must use --overwrite flag to replace existing file"
+    tasks:
+      - classify-file
+      - validate-output
+    examples:
+      - "Converting document.docx but document.md exists"
+
+  VETO_CORRUPT:
+    code: VETO_CORRUPT
+    severity: SKIP
+    message: "File cannot be opened, parsed, or is damaged/corrupted"
+    action: "Skip file — include parse error details in error message"
+    tasks:
+      - classify-file
+      - convert-image-ocr
+      - convert-data-file
+    examples:
+      - "PNG with corrupted header"
+      - "JSON with broken structure"
+
+  VETO_SYMLINK:
+    code: VETO_SYMLINK
+    severity: WARN
+    message: "File is a symbolic link"
+    action: "Resolve symlink to target. If broken symlink: skip. If valid: process target."
+    tasks:
+      - classify-file
+    examples:
+      - "Link to actual file (process target)"
+      - "Broken link (skip)"
+
+  VETO_NESTED_ARCHIVE:
+    code: VETO_NESTED_ARCHIVE
+    severity: SKIP
+    message: "File is a compressed archive (.zip, .tar, .gz, .rar, .7z, .bz2)"
+    action: |
+      Skip file — suggest user extract archive first, then run *batch on extracted directory.
+      Do not attempt decompression.
+    tasks:
+      - classify-file
+    examples:
+      - "archive.zip"
+      - "backup.tar.gz"
+
+  # ===================================================================
+  # Spreadsheet-Specific Vetos
+  # ===================================================================
+
+  VETO_SPREADSHEET_TOO_LARGE:
+    code: VETO_SPREADSHEET_TOO_LARGE
+    severity: SKIP
+    message: "CSV/Excel file has more than 1,000,000 rows"
+    action: "Skip — too large for markdown table conversion without sampling"
+    tasks:
+      - convert-spreadsheet
+    examples:
+      - "2M row CSV export"
+
+  # ===================================================================
+  # Presentation-Specific Vetos
+  # ===================================================================
+
+  VETO_PRESENTATION_TOO_LARGE:
+    code: VETO_PRESENTATION_TOO_LARGE
+    severity: SKIP
+    message: "Presentation has more than 200 slides"
+    action: "Skip — too large for practical markdown conversion"
+    tasks:
+      - convert-presentation
+    examples:
+      - "300-slide PowerPoint deck"
+
+  # ===================================================================
+  # Image/OCR-Specific Vetos
+  # ===================================================================
+
+  VETO_IMAGE_TOO_LARGE:
+    code: VETO_IMAGE_TOO_LARGE
+    severity: SKIP
+    message: "Image resolution exceeds 20000x20000 pixels"
+    action: "Skip — too large for OCR processing"
+    tasks:
+      - convert-image-ocr
+    examples:
+      - "30000x30000 PNG image"
+
+  VETO_LOW_OCR_CONFIDENCE:
+    code: VETO_LOW_OCR_CONFIDENCE
+    severity: SKIP
+    message: "OCR average confidence score below 30%"
+    action: |
+      Skip file — output would be unreliable. Suggest:
+      1. Improving image quality/resolution
+      2. Cleaning up the image (remove blur, noise)
+      3. Converting to grayscale before re-attempting
+    tasks:
+      - convert-image-ocr
+    examples:
+      - "Blurry photograph with 20% confidence"
+      - "Very low-resolution scanned document"
+
+  # ===================================================================
+  # Text Encoding Vetos
+  # ===================================================================
+
+  VETO_MIXED_ENCODING:
+    code: VETO_MIXED_ENCODING
+    severity: SKIP
+    message: "File has mixed encodings that cannot be resolved"
+    action: |
+      Attempt encoding cascade:
+      1. UTF-8 (strict)
+      2. UTF-8 with errors='replace'
+      3. Latin-1 / ISO-8859-1
+      4. CP1252 (Windows)
+      5. ISO-8859-1
+
+      If all produce garbage or unmappable chars exceed 5%: skip with encoding details
+    tasks:
+      - convert-text
+      - normalize-output
+    examples:
+      - "File with mixed UTF-8 and Latin-1 sequences"
+
+  VETO_WHITESPACE_ONLY:
+    code: VETO_WHITESPACE_ONLY
+    severity: SKIP
+    message: "File contains only whitespace characters (spaces, tabs, newlines)"
+    action: "Skip — no meaningful content to convert"
+    tasks:
+      - convert-text
+      - convert-image-ocr
+    examples:
+      - "File with only blank lines"
+      - "Text file with only spaces"
+
+  # ===================================================================
+  # Validation and Output Vetos
+  # ===================================================================
+
+  VETO_DUPLICATE_OUTPUT:
+    code: VETO_DUPLICATE_OUTPUT
+    severity: WARN
+    message: "Output filename collision in batch mode"
+    action: |
+      Automatically rename with numeric suffix:
+      - {filename}_2.md
+      - {filename}_3.md
+      - Continue incrementing until unique name found
+    tasks:
+      - validate-output
+    examples:
+      - "Converting file1.pdf and file2.pdf both producing 'output.md'"
+
+  VETO_TIMEOUT:
+    code: VETO_TIMEOUT
+    severity: FAIL
+    message: "Processing exceeds per-file timeout (default: 300 seconds)"
+    action: |
+      Abort current file conversion.
+      Mark file as FAILED with timeout reason.
+      Continue batch processing remaining files.
+    tasks:
+      - classify-file
+      - convert-spreadsheet
+      - convert-presentation
+      - convert-image-ocr
+      - convert-data-file
+      - convert-text
+      - normalize-output
+      - validate-output
+      - enrich-metadata
+    examples:
+      - "Large OCR job exceeds 5 minute limit"
+      - "Complex spreadsheet conversion stalls"
+
+  # ===================================================================
+  # Pre-flight/Dependency Vetos
+  # ===================================================================
+
+  PREFLIGHT_MISSING_TESSERACT:
+    code: PREFLIGHT_MISSING_TESSERACT
+    severity: ERROR
+    message: "Tesseract OCR not installed or not in PATH"
+    action: |
+      Abort pipeline with installation instructions:
+      - macOS: brew install tesseract tesseract-lang
+      - Linux: apt-get install tesseract-ocr tesseract-ocr-por tesseract-ocr-eng
+      - Windows: Download installer from https://github.com/UB-Mannheim/tesseract/wiki
+    tasks:
+      - convert-image-ocr
+    only_if: "Task attempts to use pytesseract"
+
+  PREFLIGHT_MISSING_PYTHON:
+    code: PREFLIGHT_MISSING_PYTHON
+    severity: ERROR
+    message: "Python 3.10+ not available in environment"
+    action: |
+      Abort pipeline with error.
+      ETL Universal Converter requires Python 3.10 or newer.
+      Check PATH and python/python3 symlinks.
+    tasks:
+      - all
+    only_if: "CLI executed without Python available"
+
+  # ===================================================================
+  # Content Quality Vetos (informational)
+  # ===================================================================
+
+  WARNING_OCR_CONFIDENCE_MEDIUM:
+    code: WARNING_OCR_CONFIDENCE_MEDIUM
+    severity: WARN
+    message: "OCR confidence between 30-50%"
+    action: |
+      Process file but add warning to frontmatter:
+      ocr_confidence_warning: "Medium confidence (30-50%). Output may contain errors."
+    tasks:
+      - convert-image-ocr
+    examples:
+      - "Decent quality scan at 45% confidence"
+
+  WARNING_LARGE_TEXT_FILE:
+    code: WARNING_LARGE_TEXT_FILE
+    severity: WARN
+    message: "Text file exceeds 10MB"
+    action: "Process file with warning in output. Note: processing may be slow."
+    tasks:
+      - convert-text
+    examples:
+      - "Large log file"
+
+  WARNING_WIDE_SPREADSHEET:
+    code: WARNING_WIDE_SPREADSHEET
+    severity: WARN
+    message: "Spreadsheet has > 100 columns"
+    action: |
+      Process file but add warning to output:
+      "Wide table will be truncated for readability. View in separate tool for full data."
+    tasks:
+      - convert-spreadsheet
+    examples:
+      - "CSV with 150 columns"
+
+  WARNING_LEGACY_POWERPOINT:
+    code: WARNING_LEGACY_POWERPOINT
+    severity: WARN
+    message: "File is .ppt (legacy binary PowerPoint format)"
+    action: |
+      Process with limited support. Some formatting may be lost.
+      Recommend converting to .pptx in PowerPoint first.
+    tasks:
+      - convert-presentation
+    examples:
+      - "Old .ppt file from Office 97"
+
+  WARNING_STALE_CONVERSION:
+    code: WARNING_STALE_CONVERSION
+    severity: WARN
+    message: "Output date_processed is not today (stale conversion)"
+    action: "Include warning in validation report. Ask user to confirm intended behavior."
+    tasks:
+      - validate-output
+    examples:
+      - "Re-running old conversion batch"
+
+  WARNING_SOURCE_FILE_MOVED:
+    code: WARNING_SOURCE_FILE_MOVED
+    severity: WARN
+    message: "Original source file no longer exists at source_path"
+    action: "Include warning in validation report. Output is still valid but cannot trace back to source."
+    tasks:
+      - validate-output
+    examples:
+      - "File was moved or deleted after conversion"
+
+  # ===================================================================
+  # Metadata Generation Vetos (non-blocking)
+  # ===================================================================
+
+  VETO_LANGUAGE_DETECTION_FAILED:
+    code: VETO_LANGUAGE_DETECTION_FAILED
+    severity: WARN
+    message: "Language detection fails (content too short < 20 chars)"
+    action: "Use default language from config (typically pt-BR or en-US)"
+    tasks:
+      - normalize-output
+      - enrich-metadata
+    examples:
+      - "Very short document with only 5 words"
+
+  VETO_TITLE_DERIVATION_FAILED:
+    code: VETO_TITLE_DERIVATION_FAILED
+    severity: WARN
+    message: "Cannot derive title from filename (hash/UUID/non-descriptive)"
+    action: "Use fallback title: 'Untitled — {YYYY-MM-DD}'"
+    tasks:
+      - normalize-output
+    examples:
+      - "File named: a1b2c3d4e5f6.pdf"
+      - "File named: 550e8400-e29b-41d4-a716-446655440000.docx"
+
+  VETO_WORD_COUNT_ZERO:
+    code: VETO_WORD_COUNT_ZERO
+    severity: WARN
+    message: "Word count returns 0 despite non-empty content"
+    action: |
+      Investigate encoding issues. Re-count after cleanup.
+      If still 0: flag as suspicious in validation report.
+    tasks:
+      - normalize-output
+    examples:
+      - "Binary content parsed as text"
+
+  VETO_FRONTMATTER_SPECIAL_CHARS:
+    code: VETO_FRONTMATTER_SPECIAL_CHARS
+    severity: WARN
+    message: "Title contains YAML-unsafe special characters"
+    action: "Escape title properly (quote or use block scalar). Log warning about sanitization."
+    tasks:
+      - normalize-output
+    examples:
+      - "Title: 'Product & Service: Full Stack Developer'"
+
+  VETO_TAGS_ALL_STOPWORDS:
+    code: VETO_TAGS_ALL_STOPWORDS
+    severity: WARN
+    message: "All extracted tags are Portuguese stopwords (de, do, da, que, em, para, com)"
+    action: "Return empty tags list. This is acceptable for short content."
+    tasks:
+      - enrich-metadata
+    examples:
+      - "Document containing only: 'de acordo com a informação'"
+
+  VETO_TAG_EXTRACTION_PRODUCES_TOO_MANY:
+    code: VETO_TAG_EXTRACTION_PRODUCES_TOO_MANY
+    severity: WARN
+    message: "Tag extraction produces > 10 candidates"
+    action: "Select top 5 by frequency. Include "..."' marker if truncated."
+    tasks:
+      - enrich-metadata
+    examples:
+      - "Very diverse content touching 20+ topics"
+
+  # ===================================================================
+  # Frontmatter/Validation Vetos (blocking)
+  # ===================================================================
+
+  VETO_FRONTMATTER_MISSING_FIELDS:
+    code: VETO_FRONTMATTER_MISSING_FIELDS
+    severity: FAIL
+    message: |
+      Frontmatter missing required fields.
+      Required: title, source_type, source_format, source_path, date_processed, word_count
+    action: "Fail validation. List all missing fields. Do NOT save file."
+    tasks:
+      - validate-output
+    examples:
+      - "Missing source_type field"
+      - "Missing word_count"
+
+  VETO_FRONTMATTER_MALFORMED:
+    code: VETO_FRONTMATTER_MALFORMED
+    severity: FAIL
+    message: "Frontmatter YAML is not parseable"
+    action: "Fail validation with YAML parse error details. Do NOT save file."
+    tasks:
+      - validate-output
+    examples:
+      - "Invalid YAML indentation"
+      - "Unclosed quote in title"
+
+  VETO_CONTENT_EMPTY:
+    code: VETO_CONTENT_EMPTY
+    severity: FAIL
+    message: "Markdown content body is empty (nothing after frontmatter)"
+    action: "Fail validation. Do NOT save file."
+    tasks:
+      - validate-output
+    examples:
+      - "Frontmatter exists but no content"
+
+  VETO_WORD_COUNT_INVALID:
+    code: VETO_WORD_COUNT_INVALID
+    severity: FAIL
+    message: "word_count field is 0, negative, or not an integer"
+    action: "Fail validation. Do NOT save file."
+    tasks:
+      - validate-output
+    examples:
+      - "word_count: 0"
+      - "word_count: -5"
+      - "word_count: 'abc'"
+
+  VETO_OUTPUT_PATH_NOT_WRITABLE:
+    code: VETO_OUTPUT_PATH_NOT_WRITABLE
+    severity: FAIL
+    message: "Output directory does not exist or lacks write permissions"
+    action: "Fail validation with permission/path details. Do NOT create parent directories."
+    tasks:
+      - validate-output
+    examples:
+      - "Directory is read-only"
+      - "Permission denied"
+
+  VETO_OUTPUT_ALREADY_EXISTS:
+    code: VETO_OUTPUT_ALREADY_EXISTS
+    severity: FAIL
+    message: "Output file already exists and --overwrite flag not provided"
+    action: "Fail validation. User must re-run with --overwrite flag."
+    tasks:
+      - validate-output
+    examples:
+      - "output.md exists from previous run"
+
+  VETO_DISK_SPACE_INSUFFICIENT:
+    code: VETO_DISK_SPACE_INSUFFICIENT
+    severity: FAIL
+    message: "Remaining disk space < 10MB"
+    action: "Fail validation with disk space details. Do NOT attempt write."
+    tasks:
+      - validate-output
+    examples:
+      - "Only 5MB free on disk"
+
+  VETO_SOURCE_PATH_INVALID:
+    code: VETO_SOURCE_PATH_INVALID
+    severity: WARN
+    message: "source_path in frontmatter does not point to existing file"
+    action: |
+      Include warning in output.
+      Source file may have been moved/deleted after conversion.
+      Output is still valid but cannot trace back to original.
+    tasks:
+      - validate-output
+    examples:
+      - "Original document was deleted"
+
+  # ===================================================================
+  # Quality Verification Vetos (v1.1.0)
+  # ===================================================================
+
+  VETO_QA_BYPASS_UNLOGGED:
+    code: VETO_QA_BYPASS_UNLOGGED
+    severity: FAIL
+    message: "--no-qa used without logging qa_skipped in frontmatter"
+    action: "BLOCK: Add qa_skipped: true + qa_skipped_at to frontmatter before proceeding"
+    tasks:
+      - verify-extraction-quality
+    examples:
+      - "User runs *convert --no-qa but frontmatter has no qa_skipped field"
+
+  VETO_QA_QUEUE_EXPIRED:
+    code: VETO_QA_QUEUE_EXPIRED
+    severity: WARN
+    message: "Review queue item older than max_age_days (7 days)"
+    action: |
+      Auto-reject with status AUTO_REJECTED_STALE.
+      Move output to .qa/expired/.
+      Log expiration in review-history.yaml.
+    tasks:
+      - human-review-extraction
+    examples:
+      - "Document queued on March 1st, still unreviewed on March 8th"
+
+  VETO_QA_RE_EXTRACTION_CAP:
+    code: VETO_QA_RE_EXTRACTION_CAP
+    severity: FAIL
+    message: "File has reached maximum total re-extractions (5)"
+    action: "BLOCK re-extraction. Only allow: approve, manual edit, or reject."
+    tasks:
+      - human-review-extraction
+      - verify-extraction-quality
+    examples:
+      - "2 auto-retries + 3 human re-extractions = 5 total"
+
+  VETO_QA_NOT_ETL_FILE:
+    code: VETO_QA_NOT_ETL_FILE
+    severity: FAIL
+    message: "*verify executed on .md file without source_path in frontmatter"
+    action: "ABORT: Not an ETL-generated file. Only ETL outputs can be quality-verified."
+    tasks:
+      - verify-extraction-quality
+    examples:
+      - "User runs *verify on a manually created README.md"
+
+# ===================================================================
+# Metadata: Severity Levels
+# ===================================================================
+
+severity_levels:
+  SKIP:
+    description: "File is skipped from processing"
+    behavior: "Log warning, continue batch"
+    count: 12
+
+  WARN:
+    description: "File is processed with warning in output"
+    behavior: "Add warning to frontmatter/report, continue"
+    count: 9
+
+  FAIL:
+    description: "File marked as failed, batch continues"
+    behavior: "Do NOT save file, continue batch, report error"
+    count: 5
+
+  ERROR:
+    description: "Pipeline aborts immediately"
+    behavior: "Stop all processing, show error to user"
+    count: 2
+
+# ===================================================================
+# Statistics
+# ===================================================================
+
+statistics:
+  total_veto_conditions: 50
+  by_severity:
+    SKIP: 12
+    WARN: 15
+    FAIL: 10
+    ERROR: 2
+  by_task:
+    classify-file: 9
+    convert-spreadsheet: 5
+    convert-presentation: 4
+    convert-image-ocr: 6
+    convert-data-file: 3
+    convert-text: 6
+    normalize-output: 7
+    validate-output: 11
+    enrich-metadata: 4
+  blocking_conditions: 12
+  non_blocking_conditions: 38
+
+# ===================================================================
+# Configuration
+# ===================================================================
+
+configuration:
+  encoding_cascade_order:
+    - utf-8_strict
+    - utf-8_with_replace
+    - latin1_iso_8859_1
+    - windows_cp1252
+    - iso_8859_1
+
+  default_ocr_language: "por+eng"
+  default_output_language: "pt-BR"
+
+  size_limits:
+    non_media_mb: 500
+    spreadsheet_mb: 200
+    image_mb: 100
+    data_file_mb: 50
+
+  row_limits:
+    spreadsheet_max_rows: 1000000
+    presentation_max_slides: 200
+    image_max_resolution: 20000
+
+  timeout_seconds: 300
+
+# ===================================================================
+# Version History
+# ===================================================================
+
+version: "1.1.0"
+created: "2026-03-05"
+last_updated: "2026-03-07"
+maintainer: "etl-chief agent"
+source_tasks:
+  - classify-file
+  - convert-spreadsheet
+  - convert-presentation
+  - convert-image-ocr
+  - convert-data-file
+  - convert-text
+  - normalize-output
+  - enrich-metadata
+  - validate-output
+  - verify-extraction-quality
+  - human-review-extraction

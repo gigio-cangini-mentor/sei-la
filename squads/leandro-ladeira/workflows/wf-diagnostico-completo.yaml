@@ -1,0 +1,382 @@
+workflow:
+  id: wf-diagnostico-completo
+  name: "Diagnóstico Completo de Negócio Digital"
+  version: "1.0.0"
+  duration: "1 sessão (60-90 min)"
+
+  description: |
+    Workflow completo de diagnóstico para alunos que já têm produto/campanhas rodando.
+
+    Analisa:
+    - Big Idea (existe? está forte?)
+    - Posicionamento na Pirâmide (Urgência/Consciência/Oportunidade)
+    - Campanhas ativas (análise M.O.E.R completa)
+    - Produz plano de ação prioritizado com 3-5 ações específicas
+
+    FILOSOFIA: "Estratégia antes de técnica. Big Idea antes de copy. Dados antes de achismo."
+
+  best_for:
+    - "Aluno que já tem produto e campanhas rodando"
+    - "Negócio que não está crescendo como esperado"
+    - "Quem quer otimizar antes de escalar"
+    - "Cliente quer entender onde está na jornada e o que fazer"
+
+  prerequisites:
+    required:
+      - "Produto digital definido (curso, mentoria, consultoria, etc.)"
+      - "Acesso a métricas (mesmo que básicas)"
+    optional:
+      - "Campanhas ativas rodando (se não tiver, pula Fase 4)"
+      - "Histórico de vendas ou tentativas anteriores"
+
+  phases:
+    - id: PHASE-1
+      name: "Levantamento Inicial"
+      duration: "10-15 min"
+      description: "Coletar dados do negócio, produto, campanhas e contexto"
+
+      objective: |
+        Entender profundamente o estado atual:
+        - Qual é o produto?
+        - Quanto tempo está no mercado?
+        - Tem Big Idea definida?
+        - Tem campanhas rodando? (se sim, há quanto tempo?)
+        - Métricas atuais (mesmo que incompletas)
+
+      tasks:
+        - type: elicitation
+          description: "Perguntas estratégicas para coletar contexto"
+          questions:
+            - "Qual é o seu produto? Qual transformação ele entrega?"
+            - "Há quanto tempo você está vendendo?"
+            - "Você tem uma Big Idea definida? Se sim, qual?"
+            - "Tem campanhas de tráfego pago rodando? Há quanto tempo?"
+            - "Quais métricas você tem? (CPM, CPC, CTR, CPL, vendas, etc.)"
+            - "Quanto você está investindo por dia/semana?"
+            - "Quantas vendas fez nos últimos 7 dias?"
+
+      checkpoint:
+        criteria:
+          - "Produto claramente descrito (transformação identificada)"
+          - "Tempo de mercado conhecido"
+          - "Status de campanhas conhecido (ativa/parada/nunca rodou)"
+          - "Métricas coletadas (mesmo que parciais)"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Produto não está claro ou não existe"
+            action: "PARAR — Antes de diagnosticar, precisa definir produto"
+            severity: "BLOCKER"
+
+    - id: PHASE-2
+      name: "Diagnóstico de Big Idea"
+      duration: "15-20 min"
+      description: "Verificar se Big Idea existe e está forte o suficiente"
+
+      objective: |
+        Avaliar a Big Idea:
+        - Existe? Se sim, está clara e memorável?
+        - Se não existe, criar agora
+        - Big Idea é o ponto central para TODOS os anúncios
+
+      tasks:
+        - task_file: tasks/create-big-idea.md
+          condition: "Se Big Idea não existe OU está fraca"
+          input:
+            - produto_descricao
+            - transformacao_central
+            - publico_descrito
+
+        - type: validation
+          description: "Validar força da Big Idea existente"
+          condition: "Se Big Idea já existe"
+          criteria:
+            - "É uma frase única e memorável?"
+            - "É específica (não genérica)?"
+            - "Comunica a transformação central?"
+            - "É diferente dos concorrentes?"
+
+      checkpoint:
+        criteria:
+          - "Big Idea definida (nova ou validada)"
+          - "Big Idea é memorável (1 frase)"
+          - "Big Idea é específica (não genérica tipo 'transforme sua vida')"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Big Idea genérica ou inexistente"
+            action: "VETAR avanço — criar Big Idea forte antes de continuar"
+            severity: "CRITICAL"
+            message: "Cara, sem Big Idea clara você vai se perder. Vamos definir isso agora antes de qualquer coisa. Por quê? Porque a Big Idea é o ponto central que você vai partir pra começar a derivar os seus anúncios. Beleza?"
+
+    - id: PHASE-3
+      name: "Posicionamento na Pirâmide"
+      duration: "10-15 min"
+      description: "Identificar em qual fase da Pirâmide de Prontidão o aluno está"
+
+      objective: |
+        Determinar a fase correta:
+        - URGÊNCIA (pessoas prontas, buscam 'curso de X')
+        - CONSCIÊNCIA (sabem do problema, buscam 'como resolver Y')
+        - OPORTUNIDADE (não sabem que precisam, público frio)
+
+        REGRA: SEMPRE começar por Urgência. Nunca pular etapas.
+
+      tasks:
+        - type: phase_identification
+          description: "Mapear para qual fase o produto/campanha está direcionado"
+          framework: "Pirâmide de Prontidão (3 fases)"
+
+          decision_tree:
+            - question: "Seu público está BUSCANDO ativamente o produto?"
+              yes: "URGÊNCIA (Fase 1) — Aquário, pescando com anzol"
+              no: next_question
+
+            - question: "Seu público SABE que tem um problema específico?"
+              yes: "CONSCIÊNCIA (Fase 2) — Pesque-pague, mais difícil"
+              no: "OPORTUNIDADE (Fase 3) — Oceano, muito mais desafiador"
+
+        - type: validation
+          description: "Verificar se pulou etapas (erro comum)"
+          checks:
+            - "Se está em Consciência: já dominou Urgência?"
+            - "Se está em Oportunidade: já dominou Urgência E Consciência?"
+
+      checkpoint:
+        criteria:
+          - "Fase atual identificada com clareza"
+          - "Sequência validada (não pulou etapas)"
+          - "Se pulou etapa, reconhece o risco"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Está em Oportunidade SEM dominar Urgência"
+            action: "VETAR — Recomendar voltar para Urgência"
+            severity: "CRITICAL"
+            message: |
+              Calma aí, cara. Você tá tentando pescar no oceano sem ter aprendido a pescar no aquário.
+
+              Por quê? Porque Oportunidade é público frio, custo alto, conversão baixa.
+              Sem ter dados de quem converte (que você só ganha em Urgência),
+              você vai queimar orçamento sem retorno.
+
+              Vamos começar certo: Urgência primeiro. Concorda?
+
+          - condition: "Está em Consciência SEM dominar Urgência"
+            action: "AVISAR — Pode continuar mas recomendar teste em Urgência também"
+            severity: "WARNING"
+            message: "Você pode continuar em Consciência, mas recomendo rodar Urgência em paralelo pra ganhar dados mais rápido. Faz sentido?"
+
+    - id: PHASE-4
+      name: "Análise M.O.E.R (se campanha ativa)"
+      duration: "20-30 min"
+      description: "Diagnosticar campanhas ativas usando framework M.O.E.R"
+      condition: "Só roda se tem campanha ativa rodando"
+
+      objective: |
+        Aplicar M.O.E.R completo:
+        - M = METRIFICAR (CPM, CPC, CTR, CPL, CPA, ROAS, ROI)
+        - O = OTIMIZAR (timing correto — a cada 4 dias)
+        - E = ESCALAR (quando dados estáveis + ROAS positivo)
+        - R = RESULTADOS (vendas, não métricas de vaidade)
+
+      tasks:
+        - task_file: tasks/diagnose-campanha.md
+          input:
+            - metricas_coletadas
+            - dias_rodando
+            - investimento_total
+            - vendas_realizadas
+
+          output:
+            - metricas_analisadas
+            - otimizacoes_identificadas
+            - timing_recomendado
+            - decisao_escalar_ou_pausar
+
+      checkpoint:
+        criteria:
+          - "Métricas analisadas (mesmo que incompletas)"
+          - "Otimizações identificadas (se aplicável)"
+          - "Timing validado (não otimizar antes de 4 dias)"
+          - "Decisão clara: otimizar / escalar / pausar / aguardar"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Campanha com menos de 4 dias rodando"
+            action: "VETAR análise profunda — aguardar dados"
+            severity: "WARNING"
+            message: |
+              Cara, calma. Sua campanha tem menos de 4 dias.
+
+              Normalmente eu faço as minhas otimizações de 4 em 4 dias,
+              justamente pra que a minha alteração surta efeito,
+              e só depois eu faça uma próxima alteração.
+
+              Você precisa de dados pra tomar decisão assertiva.
+              Aguarda mais uns dias, aí a gente analisa de verdade. Beleza?
+
+          - condition: "ROAS negativo consistente após 7+ dias"
+            action: "ALERTAR — Campanha queimando dinheiro"
+            severity: "CRITICAL"
+            message: "Olha só, tá queimando dinheiro aqui. Vamos pausar e repensar a estratégia antes de continuar investindo. Concorda?"
+
+    - id: PHASE-5
+      name: "Plano de Ação Prioritizado"
+      duration: "15-20 min"
+      description: "Produzir recomendações priorizadas e próximos passos imediatos"
+
+      objective: |
+        Consolidar diagnóstico em plano executável:
+        - 3-5 ações prioritárias (não 20)
+        - Cada ação é ESPECÍFICA (não genérica tipo 'melhorar anúncios')
+        - Timeline definida (o que fazer hoje, essa semana, próximo mês)
+        - Próximo passo IMEDIATO claro (o que fazer agora)
+
+      tasks:
+        - type: synthesis
+          description: "Sintetizar diagnóstico em ações concretas"
+
+          inputs:
+            - big_idea_status
+            - fase_piramide_identificada
+            - metricas_campanha
+            - gaps_identificados
+
+          output_format: |
+            ## DIAGNÓSTICO COMPLETO — [Nome do Produto]
+
+            ### 1. SITUAÇÃO ATUAL
+            - Big Idea: [definida/indefinida/fraca]
+            - Fase da Pirâmide: [Urgência/Consciência/Oportunidade]
+            - Campanhas: [ativa há X dias / pausada / nunca rodou]
+            - Principais gaps: [lista]
+
+            ### 2. PLANO DE AÇÃO (3-5 prioridades)
+
+            **PRIORIDADE 1: [Ação específica]**
+            - Por quê: [razão estratégica]
+            - Como: [passos concretos]
+            - Quando: [hoje/essa semana/próximo mês]
+            - Resultado esperado: [métrica ou outcome]
+
+            **PRIORIDADE 2: [Ação específica]**
+            - Por quê: [razão estratégica]
+            - Como: [passos concretos]
+            - Quando: [timeline]
+            - Resultado esperado: [métrica]
+
+            [... até 5 prioridades]
+
+            ### 3. PRÓXIMO PASSO IMEDIATO
+            [O que fazer AGORA — 1 ação clara]
+
+            ### 4. MÉTRICAS DE SUCESSO
+            - Curto prazo (7 dias): [métrica]
+            - Médio prazo (30 dias): [métrica]
+            - Longo prazo (90 dias): [métrica]
+
+      checkpoint:
+        criteria:
+          - "3-5 ações definidas (não mais, não menos)"
+          - "Cada ação é específica (não genérica)"
+          - "Timeline definida para cada ação"
+          - "Próximo passo imediato claro (1 ação)"
+          - "Métricas de sucesso definidas"
+
+        human_review: true
+        auto_advance: false
+
+        review_prompt: |
+          Revise o plano de ação. Perguntas críticas:
+
+          1. As ações são ESPECÍFICAS o suficiente? (não genéricas tipo 'melhorar copy')
+          2. Você consegue EXECUTAR cada ação? (passos claros)
+          3. O próximo passo imediato está cristalino?
+          4. As prioridades fazem sentido estratégico? (Big Idea antes de técnica)
+
+          Se SIM para todas: aprove.
+          Se NÃO para qualquer uma: peça refinamento.
+
+  outputs:
+    primary:
+      - name: "diagnostico-completo.md"
+        description: "Documento com diagnóstico e plano de ação"
+        template: "templates/diagnostico-report-tmpl.md"
+        location: "squads/leandro-ladeira/sessions/{session_id}/"
+
+    secondary:
+      - name: "metricas-campanha.yaml"
+        description: "Métricas estruturadas para tracking"
+        condition: "Se campanha ativa"
+        location: "squads/leandro-ladeira/sessions/{session_id}/"
+
+  agents_by_phase:
+    PHASE-1: "leandro-ladeira (elicitation mode)"
+    PHASE-2: "leandro-ladeira (Big Idea expert)"
+    PHASE-3: "leandro-ladeira (strategy mode)"
+    PHASE-4: "leandro-ladeira (M.O.E.R analyst)"
+    PHASE-5: "leandro-ladeira (synthesis mode)"
+
+  quality_checklist:
+    pre_execution:
+      - "Produto está claramente definido?"
+      - "Cliente tem acesso a métricas (mesmo básicas)?"
+
+    during_execution:
+      - "Big Idea foi validada ou criada?"
+      - "Fase da Pirâmide identificada corretamente?"
+      - "Vetos foram respeitados? (timing, sequência)"
+
+    post_execution:
+      - "Plano tem 3-5 ações (não mais, não menos)?"
+      - "Ações são específicas (não genéricas)?"
+      - "Próximo passo imediato está claro?"
+      - "Cliente consegue executar sozinho ou sabe o que precisa?"
+
+  error_handling:
+    - error: "Cliente não tem métricas nenhuma"
+      action: "Pular PHASE-4, focar em Big Idea e estratégia inicial"
+
+    - error: "Cliente tem muitas campanhas rodando (5+)"
+      action: "Priorizar top 2 campanhas com mais investimento"
+
+    - error: "Big Idea impossível de definir na sessão"
+      action: "Agendar follow-up focado só em Big Idea, pausar diagnóstico"
+
+    - error: "Cliente insiste em pular etapas (ir pra Oportunidade sem Urgência)"
+      action: "VETAR com explicação transparente, oferecer começar por Urgência em paralelo"
+
+  completion_signals:
+    workflow_complete:
+      - "Documento 'diagnostico-completo.md' gerado"
+      - "Cliente validou plano de ação"
+      - "Próximo passo imediato acordado"
+
+    follow_up_needed:
+      - condition: "Big Idea fraca mas cliente quer avançar"
+        action: "Agendar sessão de Big Idea aprofundada"
+
+      - condition: "Campanha queimando dinheiro"
+        action: "Pausar campanha, agendar sessão de refatoração"
+
+      - condition: "Cliente sem clareza do produto"
+        action: "Antes de diagnóstico, fazer discovery de produto"
+
+  metadata:
+    created: "2026-03-08"
+    author: "AIOS Squad Creator"
+    version: "1.0.0"
+    framework_version: "AIOS 4.0"
+    persona_fidelity: "90-93%"
+    source_agent: "leandro-ladeira v2.0.0"
+    voice_dna_compliance: true
+    thinking_dna_compliance: true

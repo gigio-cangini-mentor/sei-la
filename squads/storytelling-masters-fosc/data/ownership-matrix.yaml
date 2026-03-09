@@ -1,0 +1,198 @@
+# Ownership Matrix — Storytelling Masters FOSC Squad
+# Defines ownership hierarchy for all 9 tasks across 12 agents
+# Version: 1.0.0
+# Last Updated: 2026-03-03
+
+# Agent Tier Reference:
+# Tier 0: robert-mckee, joseph-campbell (Story Structure Foundations)
+# Tier 1: nancy-duarte, carmine-gallo, matthew-dicks (Presentation & Personal Stories)
+# Tier 2: robert-cialdini, chip-dan-heath, jay-heinrichs (Persuasion & Rhetoric)
+# Tier 3: donald-miller, blake-snyder, dale-carnegie (Specialized Frameworks)
+# Orchestrator: storytelling-masters-chief
+
+tasks:
+  diagnose-narrative:
+    primary: storytelling-masters-chief
+    secondary: null
+    fallback: robert-mckee
+    approver: user
+    escalation_to: user
+    tier: orchestration
+    description: "Initial diagnostic to determine narrative type and required transformations"
+    delegation_notes: "Chief handles all diagnostics. Escalates to user only if input is completely unclear."
+
+  build-story-structure:
+    primary: robert-mckee
+    secondary: joseph-campbell
+    fallback: storytelling-masters-chief
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 0
+    description: "Core story arc development using McKee's Story principles"
+    delegation_notes: "McKee owns structure. Campbell validates hero's journey compliance if monomyth is detected."
+
+  design-keynote-sparkline:
+    primary: nancy-duarte
+    secondary: carmine-gallo
+    fallback: matthew-dicks
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 1
+    description: "Keynote presentation design using Sparkline and TED principles"
+    delegation_notes: "Duarte owns sparkline. Gallo validates TED-style moments. Dicks as fallback for personal story elements."
+
+  engineer-personal-story:
+    primary: matthew-dicks
+    secondary: dale-carnegie
+    fallback: joseph-campbell
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 1
+    description: "Craft personal stories using Storyworthy methodology"
+    delegation_notes: "Dicks owns personal story mining and 5-second moment. Carnegie validates public speaking delivery. Campbell validates archetypal resonance."
+
+  make-it-stick:
+    primary: chip-dan-heath
+    secondary: null
+    fallback: carmine-gallo
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 2
+    description: "Apply SUCCESs framework for maximum retention and impact"
+    delegation_notes: "Heath brothers own SUCCESs application. Gallo validates against TED principles for concrete examples."
+
+  craft-persuasive-talk:
+    primary: robert-cialdini
+    secondary: jay-heinrichs
+    fallback: chip-dan-heath
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 2
+    description: "Engineer persuasive talk using influence principles and classical rhetoric"
+    delegation_notes: "Cialdini owns influence strategy. Heinrichs validates rhetorical structure (ethos/pathos/logos). Heath as fallback for simplicity."
+
+  build-storybrand:
+    primary: donald-miller
+    secondary: null
+    fallback: robert-mckee
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 3
+    description: "Apply StoryBrand framework for brand messaging and clarification"
+    delegation_notes: "Miller owns StoryBrand BrandScript. McKee validates story structure underneath brand narrative."
+
+  design-beat-sheet:
+    primary: blake-snyder
+    secondary: robert-mckee
+    fallback: joseph-campbell
+    approver: storytelling-masters-chief
+    escalation_to: user
+    tier: 3
+    description: "Create Save the Cat beat sheet for screenplay-style narratives"
+    delegation_notes: "Snyder owns 15-beat structure. McKee validates dramatic tension and controlling idea. Campbell validates mythic resonance."
+
+  validate-storytelling-quality:
+    primary: storytelling-masters-chief
+    secondary: null
+    fallback: robert-mckee
+    approver: user
+    escalation_to: user
+    tier: orchestration
+    description: "Final quality gate across all storytelling dimensions"
+    delegation_notes: "Chief runs 10-point validation checklist. User approves final deliverable. McKee as fallback for structure validation."
+
+# Ownership Rules
+ownership_rules:
+  primary_responsibilities:
+    - "Execute task end-to-end"
+    - "Validate all inputs against veto conditions"
+    - "Produce deliverable per task specification"
+    - "Report blockers to approver"
+
+  secondary_responsibilities:
+    - "Review primary's output"
+    - "Provide domain-specific validation"
+    - "Flag concerns to primary before approver review"
+    - "Act as fallback if primary unavailable"
+
+  fallback_responsibilities:
+    - "Execute task if primary AND secondary unavailable"
+    - "Maintain minimum quality threshold"
+    - "Escalate to approver immediately upon activation"
+
+  approver_responsibilities:
+    - "Final quality gate before deliverable release"
+    - "Resolve primary/secondary conflicts"
+    - "Approve escalations"
+    - "Trigger veto if quality gate fails"
+
+  escalation_to_responsibilities:
+    - "Handle unresolvable blockers"
+    - "Approve veto overrides"
+    - "Resolve inter-tier conflicts"
+    - "Handle ethical concerns"
+
+# Conflict Resolution
+conflict_resolution:
+  primary_secondary_conflict:
+    handler: approver
+    sla: "5 minutes"
+    escalation: escalation_to
+
+  approver_veto:
+    handler: primary
+    action: "Revise deliverable per feedback"
+    max_iterations: 3
+    escalation_trigger: "3 vetos on same dimension"
+
+  tier_boundary_conflict:
+    handler: storytelling-masters-chief
+    escalation: user
+    example: "T0 agent vetoes T2 agent's persuasion strategy due to story structure violation"
+
+# Availability Matrix
+availability:
+  storytelling-masters-chief:
+    status: always_available
+    max_concurrent_tasks: 3
+
+  tier_0_agents:
+    robert-mckee:
+      status: available
+      max_concurrent_tasks: 2
+    joseph-campbell:
+      status: available
+      max_concurrent_tasks: 2
+
+  tier_1_agents:
+    nancy-duarte:
+      status: available
+      max_concurrent_tasks: 1
+    carmine-gallo:
+      status: available
+      max_concurrent_tasks: 1
+    matthew-dicks:
+      status: available
+      max_concurrent_tasks: 1
+
+  tier_2_agents:
+    robert-cialdini:
+      status: available
+      max_concurrent_tasks: 1
+    chip-dan-heath:
+      status: available
+      max_concurrent_tasks: 1
+    jay-heinrichs:
+      status: available
+      max_concurrent_tasks: 1
+
+  tier_3_agents:
+    donald-miller:
+      status: available
+      max_concurrent_tasks: 1
+    blake-snyder:
+      status: available
+      max_concurrent_tasks: 1
+    dale-carnegie:
+      status: available
+      max_concurrent_tasks: 1

@@ -1,0 +1,1224 @@
+# Full Campaign Launch Workflow
+# Based on Thiago Tessman's Conversão Extrema methodology
+# Source: Conversão Extrema (204 lições, 15 módulos) + Círculo 6V Framework
+# Version: 1.0.0
+
+id: wf-full-campaign-launch
+name: "Full Campaign Launch"
+version: "1.0.0"
+duration: "7-10 days"
+description: |
+  Workflow completo para lançar uma campanha de tráfego pago do zero até
+  otimização, usando a metodologia Círculo 6V do Thiago Tessman.
+
+  FILOSOFIA: "Não existe falta de tráfego. Existe falta de comunicação persuasiva."
+
+  RESULTADO: Campanha validada e otimizada em Google Ads + Meta Ads + Remarketing.
+
+  CÍRCULO 6V:
+  1. Validação (negócio tem base?)
+  2. Vocabulário (palavras do público)
+  3. Campanha Google (intenção de busca)
+  4. Campanha Meta (awareness + remarketing)
+  5. Remarketing (recuperação de leads)
+  6. Auditoria e Escala
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Lançar campanhas de tráfego pago do zero"
+  - "Estruturar Google Ads + Facebook/Instagram Ads + Remarketing"
+  - "Validar Base da Multiplicação (oferta + mensagem + público)"
+  - "Escalar investimento em tráfego com segurança"
+  - "Implementar metodologia Tessman completa"
+
+not_for:
+  - "Negócios sem oferta validada (ticket <R$100)"
+  - "Sem budget mínimo (mín. R$3.000/mês total)"
+  - "Sem landing page ou estrutura de captura"
+  - "Produtos que não vendem nem organicamente"
+
+decision_matrix_fit:
+  complexity: high
+  agents_required: 5
+  estimated_duration: "7-10 days (setup) + ongoing optimization"
+  user_involvement: "high (checkpoints require approval and data collection)"
+  prerequisites:
+    - "Oferta validada (produto/serviço vendendo organicamente)"
+    - "Budget mínimo: R$3.000/mês (Google + Meta + Remarketing)"
+    - "Landing page funcional (conversão mínima 2%)"
+    - "Pixel instalado (Google + Meta)"
+    - "Conta de anúncios ativa e aprovada"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: traffic-masters-chief
+      role: "Orchestration, routing, quality control"
+      phases: [0, 5]
+
+    - agent: tessman-strategist
+      role: "Círculo 6V diagnostic, business stage assessment, growth plan"
+      phases: [0]
+
+    - agent: tessman-copy
+      role: "Word mapping, ad copy, landing page copy, triggers"
+      phases: [1]
+
+    - agent: tessman-google-ads
+      role: "Google Search/Display/YouTube campaigns"
+      phases: [2]
+
+    - agent: tessman-meta-ads
+      role: "Facebook/Instagram campaigns (P1 + P2)"
+      phases: [3]
+
+    - agent: tessman-remarketing
+      role: "Cross-platform remarketing strategy"
+      phases: [4]
+
+  synergies:
+    - agents: [tessman-strategist, tessman-copy]
+      pattern: "Strategist diagnoses stage, Copy maps vocabulary from diagnosis"
+
+    - agents: [tessman-copy, tessman-google-ads]
+      pattern: "Copy provides word mapping, Google Ads uses for keyword research"
+
+    - agents: [tessman-copy, tessman-meta-ads]
+      pattern: "Copy provides triggers, Meta Ads uses for ad creative"
+
+    - agents: [tessman-google-ads, tessman-remarketing]
+      pattern: "Google Ads creates audience lists, Remarketing activates them"
+
+    - agents: [tessman-meta-ads, tessman-remarketing]
+      pattern: "Meta Ads creates pixel events, Remarketing uses for segmentation"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: DIAGNÓSTICO CÍRCULO 6V
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Diagnóstico Círculo 6V"
+    days: "Day 0-1"
+    tier: 0  # Foundation - must complete first
+    description: |
+      Diagnóstico completo usando o framework Círculo 6V do Tessman para avaliar
+      se o negócio tem base mínima para investir em tráfego pago.
+
+      PRINCÍPIO: "Tráfego é o acelerador. Se o carro não funciona, não adianta acelerar."
+
+      BASE DA MULTIPLICAÇÃO:
+      - Oferta clara e validada
+      - Mensagem alinhada ao público
+      - Público definido e acessível
+
+    agent: tessman-strategist
+
+    tasks:
+      - task_id: T0.1
+        name: "Executar Diagnóstico Círculo 6V"
+        required: true
+        description: "Avaliar estágio do negócio nas 6 variáveis"
+        output: "diagnostico_6v.yaml"
+
+      - task_id: T0.2
+        name: "Validar Base da Multiplicação"
+        required: true
+        description: "Oferta + Mensagem + Público validados?"
+        output: "base_validation.yaml"
+
+      - task_id: T0.3
+        name: "Definir Alocação de Budget"
+        required: true
+        description: "% Google vs % Facebook vs % Remarketing"
+        output: "budget_allocation.yaml"
+
+      - task_id: T0.4
+        name: "Mapear Estágio e Meta"
+        required: true
+        description: "Onde está agora → onde quer chegar"
+        output: "growth_roadmap.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Círculo 6V Diagnostic
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      circulo_6v_framework:
+        description: "Framework de diagnóstico do Tessman"
+        variables:
+          - id: V1
+            name: "Valor"
+            question: "O que você entrega?"
+            validation: "Oferta clara, diferenciada, com resultado específico"
+
+          - id: V2
+            name: "Vantagem"
+            question: "Por que escolher você?"
+            validation: "Diferencial competitivo tangível"
+
+          - id: V3
+            name: "Vocabulário"
+            question: "Você usa as palavras do cliente?"
+            validation: "Mapa das Palavras executado"
+
+          - id: V4
+            name: "Vulnerabilidade"
+            question: "Você reconhece a dor do cliente?"
+            validation: "Problema específico mapeado e validado"
+
+          - id: V5
+            name: "Velocidade"
+            question: "Há urgência na oferta?"
+            validation: "Escassez ou urgência genuína"
+
+          - id: V6
+            name: "Verdade"
+            question: "Você prova o que promete?"
+            validation: "Prova social, cases, depoimentos"
+
+      base_da_multiplicacao:
+        description: "Validação da base antes de tráfego pago"
+        components:
+          - component: "Oferta"
+            criteria:
+              - "Produto/serviço validado (vendeu organicamente)"
+              - "Ticket médio >R$100"
+              - "Margem permite CPA (mín. 30% margem)"
+              - "Resultado claro e mensurável"
+            blocker_if_fail: true
+
+          - component: "Mensagem"
+            criteria:
+              - "Copy da landing page existe"
+              - "Promessa clara e específica"
+              - "CTA (call-to-action) definido"
+              - "Prova social disponível"
+            blocker_if_fail: true
+
+          - component: "Público"
+            criteria:
+              - "Avatar definido (idade, dor, desejo)"
+              - "Público tem poder de compra"
+              - "Público é acessível via Google/Facebook"
+              - "Estimativa de tamanho (mín. 10k pessoas)"
+            blocker_if_fail: true
+
+      budget_allocation_matrix:
+        description: "Alocação recomendada por estágio"
+        stages:
+          - stage: "Validação (0-10k/mês)"
+            google_ads: "50%"
+            meta_ads: "30%"
+            remarketing: "20%"
+            rationale: "Google captura intenção de busca (mais quente)"
+
+          - stage: "Crescimento (10k-50k/mês)"
+            google_ads: "40%"
+            meta_ads: "40%"
+            remarketing: "20%"
+            rationale: "Equilibrar busca + awareness"
+
+          - stage: "Escala (50k-100k+/mês)"
+            google_ads: "35%"
+            meta_ads: "45%"
+            remarketing: "20%"
+            rationale: "Meta escala melhor em volumes grandes"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Base Validation Gate"
+      criteria:
+        - "Círculo 6V completo (todas 6 variáveis validadas)"
+        - "Base da Multiplicação validada (oferta + mensagem + público)"
+        - "Budget mínimo disponível (R$3.000/mês)"
+        - "Estrutura técnica pronta (landing page + pixels)"
+      human_review: true
+      message: "Revise o diagnóstico antes de prosseguir com campanhas."
+      veto_conditions:
+        - condition: "Oferta não validada (não vendeu organicamente)"
+          action: "HALT - Valide oferta antes de investir em tráfego"
+        - condition: "Budget <R$3.000/mês"
+          action: "BLOCK - Budget insuficiente para teste válido"
+        - condition: "Margem <30%"
+          action: "WARNING - CPA precisará ser muito baixo"
+        - condition: "Landing page não existe ou conversão <2%"
+          action: "BLOCK - Corrija funil antes de trazer tráfego"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: COMUNICAÇÃO PERSUASIVA (MAPA DAS PALAVRAS)
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Mapa das Palavras"
+    days: "Day 2"
+    tier: 1  # Core execution
+    description: |
+      Mapeamento das palavras, gatilhos e objeções do público-alvo para criar
+      comunicação persuasiva que ressoa.
+
+      PRINCÍPIO: "A comunicação perfeita é aquela que usa as palavras do cliente,
+      não as suas. O cliente precisa se reconhecer na mensagem."
+
+      OUTPUT: Vocabulário validado para copy de anúncios e landing pages.
+
+    agent: tessman-copy
+
+    tasks:
+      - task_id: T1.1
+        name: "Executar Mapa das Palavras"
+        required: true
+        description: "Mapear gatilhos, objeções e desejos do público"
+        output: "word_mapping.yaml"
+
+      - task_id: T1.2
+        name: "Identificar Gatilhos Mentais"
+        required: true
+        description: "Listar gatilhos aplicáveis ao público"
+        output: "mental_triggers.yaml"
+
+      - task_id: T1.3
+        name: "Mapear Objeções"
+        required: true
+        description: "Antecipar objeções e criar respostas"
+        output: "objection_map.yaml"
+
+      - task_id: T1.4
+        name: "Criar Headlines Persuasivas"
+        required: true
+        description: "3-5 headlines testáveis"
+        output: "headlines.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Word Mapping Process
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      word_mapping_sources:
+        description: "Fontes para mapear vocabulário do cliente"
+        sources:
+          - source: "Comentários em posts/anúncios"
+            what_to_extract: "Dores, desejos, linguagem exata"
+
+          - source: "Reviews de produtos similares"
+            what_to_extract: "Elogios, reclamações, expectativas"
+
+          - source: "Conversas de venda (gravações, WhatsApp)"
+            what_to_extract: "Perguntas frequentes, objeções"
+
+          - source: "Grupos de Facebook/comunidades"
+            what_to_extract: "Problemas recorrentes, discussões"
+
+          - source: "Google Search (autocomplete)"
+            what_to_extract: "Como as pessoas buscam soluções"
+
+      gatilhos_mentais_tessman:
+        description: "Gatilhos mentais principais do Tessman"
+        triggers:
+          - trigger: "Escassez"
+            when_use: "Oferta limitada, poucos spots"
+            example: "Últimas 5 vagas disponíveis"
+
+          - trigger: "Urgência"
+            when_use: "Prazo real para decisão"
+            example: "Bônus expira em 48h"
+
+          - trigger: "Prova Social"
+            when_use: "Cases, depoimentos, números"
+            example: "347 alunos aprovados em 2025"
+
+          - trigger: "Autoridade"
+            when_use: "Credenciais, experiência"
+            example: "15 anos de experiência em X"
+
+          - trigger: "Reciprocidade"
+            when_use: "Dar antes de pedir"
+            example: "Ebook grátis antes da oferta"
+
+          - trigger: "Simplicidade"
+            when_use: "Processo complexo precisa parecer fácil"
+            example: "3 passos simples para resultado X"
+
+      objection_mapping_framework:
+        description: "Framework para mapear e responder objeções"
+        common_objections:
+          - objection: "É caro"
+            response_strategy: "Mostrar valor > preço (ROI, economia de tempo)"
+            example: "Investimento de R$X retorna R$Y em Z meses"
+
+          - objection: "Não tenho tempo"
+            response_strategy: "Mostrar que tomar decisão economiza tempo"
+            example: "15min/dia vs. meses tentando sozinho"
+
+          - objection: "Não vai funcionar pra mim"
+            response_strategy: "Cases de pessoas similares"
+            example: "João tinha mesma dúvida, veja resultado dele"
+
+          - objection: "Preciso pensar"
+            response_strategy: "Criar urgência genuína"
+            example: "Entendo. Oferta válida até sexta às 23h59"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Communication Validated"
+      criteria:
+        - "Mapa das Palavras completo (mín. 20 palavras/expressões)"
+        - "Gatilhos mentais identificados (mín. 3)"
+        - "Objeções mapeadas (mín. 5)"
+        - "Headlines criadas (mín. 3 variações)"
+      human_review: true
+      message: "Valide se o vocabulário ressoa com o cliente antes de criar anúncios."
+      veto_conditions:
+        - condition: "Vocabulário genérico (não vem do cliente)"
+          action: "BLOCK - Refazer mapeamento com fontes reais"
+        - condition: "Sem gatilhos mentais aplicáveis"
+          action: "WARNING - Copy pode não converter"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: CAMPANHA GOOGLE ADS
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Campanha Google Ads"
+    days: "Days 3-4"
+    tier: 1  # Core execution
+    description: |
+      Criação e configuração de campanha Google Ads (Search) estruturada segundo
+      a metodologia Tessman: 1 campanha = 1 produto, grupos por intenção,
+      10-30 palavras-chave por grupo.
+
+      PRINCÍPIO: "Google Ads captura quem já está procurando. É tráfego quente.
+      Comece por aqui para validar interesse antes de Facebook."
+
+      ESTRUTURA: Campanha → Grupos de Anúncios → Palavras-chave (10-30) → Anúncios (mín. 3)
+
+    agent: tessman-google-ads
+
+    tasks:
+      - task_id: T2.1
+        name: "Pesquisa de Palavras-Chave"
+        required: true
+        description: "10-30 palavras por grupo de anúncios"
+        output: "keyword_research.yaml"
+
+      - task_id: T2.2
+        name: "Criar Estrutura de Campanha"
+        required: true
+        description: "Campanha + Grupos + Anúncios + Landing Pages"
+        output: "campaign_structure.yaml"
+
+      - task_id: T2.3
+        name: "Escrever Anúncios"
+        required: true
+        description: "Mín. 3 anúncios por grupo (headlines + descrições)"
+        output: "google_ads_copy.yaml"
+
+      - task_id: T2.4
+        name: "Configurar Lances e Budget"
+        required: true
+        description: "Estratégia de lance + budget diário"
+        output: "bidding_strategy.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Google Ads Best Practices (Tessman)
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      google_ads_structure_rules:
+        description: "Regras de estruturação Tessman"
+        rules:
+          - rule: "1 campanha = 1 produto/serviço"
+            why: "Evitar mistura de intenções e orçamentos"
+
+          - rule: "Grupos de anúncios por intenção"
+            why: "Mensagem específica para cada busca"
+            example: "Grupo 'Comprar X' vs. Grupo 'Melhor X'"
+
+          - rule: "10-30 palavras-chave por grupo"
+            why: "Suficiente para volume, não demais para controle"
+
+          - rule: "Mínimo 3 anúncios por grupo"
+            why: "Google otimiza melhor com variações"
+
+          - rule: "Landing page específica por grupo"
+            why: "Match de mensagem aumenta conversão"
+
+      keyword_research_methodology:
+        description: "Método Tessman para pesquisa de palavras-chave"
+        steps:
+          - step: 1
+            action: "Usar Google Keyword Planner"
+            target: "Volume, CPC, concorrência"
+
+          - step: 2
+            action: "Analisar termos de busca de campanhas existentes"
+            target: "Descobrir long-tails que convertem"
+
+          - step: 3
+            action: "Pesquisar autocomplete do Google"
+            target: "Como pessoas realmente buscam"
+
+          - step: 4
+            action: "Mapear intenções de busca"
+            categories:
+              - "Transacional (comprar, contratar)"
+              - "Informacional (como fazer, melhor)"
+              - "Comparação (vs., comparar)"
+
+          - step: 5
+            action: "Criar lista de palavras negativas"
+            target: "Evitar cliques irrelevantes (grátis, barato, etc.)"
+
+      bidding_strategy_by_stage:
+        description: "Estratégia de lance por estágio"
+        stages:
+          - stage: "Teste (primeiras 2 semanas)"
+            strategy: "CPC Manual ou CPC Otimizado"
+            rationale: "Controle total para aprendizado"
+            budget: "R$50-100/dia mínimo"
+
+          - stage: "Otimização (semanas 3-8)"
+            strategy: "CPA Desejado"
+            rationale: "Google otimiza para custo por conversão"
+            budget: "Aumentar 20% se CPA <target"
+
+          - stage: "Escala (após validação)"
+            strategy: "Maximizar Conversões"
+            rationale: "Deixar Google escalar automaticamente"
+            budget: "Sem limite se ROAS >3:1"
+
+      google_ads_copy_formula:
+        description: "Fórmula de copy para anúncios Google"
+        components:
+          - element: "Headline 1"
+            content: "Palavra-chave + Benefício"
+            example: "Curso de Marketing Digital — Aumente Vendas"
+
+          - element: "Headline 2"
+            content: "Diferencial ou Prova Social"
+            example: "347 Alunos Aprovados em 2025"
+
+          - element: "Headline 3"
+            content: "Urgência ou Escassez"
+            example: "Últimas Vagas Disponíveis"
+
+          - element: "Descrição 1"
+            content: "Problema + Solução"
+            example: "Cansado de não vender? Aprenda estratégias validadas."
+
+          - element: "Descrição 2"
+            content: "CTA + Garantia"
+            example: "Inscreva-se agora. Garantia de 7 dias."
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Google Ads Structure Approved"
+      criteria:
+        - "Estrutura de campanha completa (campanha + grupos + anúncios)"
+        - "Pesquisa de palavras-chave (mín. 10-30 por grupo)"
+        - "Anúncios escritos (mín. 3 por grupo)"
+        - "Estratégia de lance definida"
+        - "Landing pages específicas mapeadas"
+      human_review: true
+      message: "Aprove a estrutura antes de criar no Google Ads."
+      veto_conditions:
+        - condition: "Misturando produtos na mesma campanha"
+          action: "BLOCK - Separar em campanhas distintas"
+        - condition: "Menos de 10 palavras-chave por grupo"
+          action: "WARNING - Volume pode ser insuficiente"
+        - condition: "Landing page genérica para múltiplas intenções"
+          action: "BLOCK - Criar landing pages específicas"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 3: CAMPANHA FACEBOOK/INSTAGRAM ADS
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Campanha Meta Ads (P1 + P2)"
+    days: "Days 5-6"
+    tier: 1  # Core execution
+    description: |
+      Criação de campanhas Facebook/Instagram usando a metodologia P1 vs P2
+      do Tessman: P1 para públicos quentes, P2 para públicos frios.
+
+      PRINCÍPIO: "P1 antes de P2. Sempre valide com quem já está pronto para
+      comprar antes de gastar com awareness geral."
+
+      ESTRUTURA:
+      - P1: Remarketing, engajados, visitantes do site (CBO)
+      - P2: Interesses, lookalike (ABO, 1 interesse por conjunto)
+
+    agent: tessman-meta-ads
+
+    tasks:
+      - task_id: T3.1
+        name: "Criar Campanha P1 (Públicos Quentes)"
+        required: true
+        description: "CBO, públicos personalizados"
+        output: "p1_campaign.yaml"
+
+      - task_id: T3.2
+        name: "Criar Campanha P2 (Públicos Frios)"
+        required: false
+        description: "ABO, teste de interesses (1 por conjunto)"
+        output: "p2_campaign.yaml"
+
+      - task_id: T3.3
+        name: "Criar Públicos Personalizados"
+        required: true
+        description: "Pixel, engajamento, lista de clientes"
+        output: "custom_audiences.yaml"
+
+      - task_id: T3.4
+        name: "Criar Criativos (Feed + Stories)"
+        required: true
+        description: "Imagens/vídeos 1:1 (feed) + 9:16 (stories)"
+        output: "ad_creatives.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: P1 vs P2 Methodology
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      p1_vs_p2_framework:
+        description: "Metodologia P1 vs P2 do Tessman"
+        comparison:
+          P1:
+            name: "Públicos Quentes"
+            audiences:
+              - "Remarketing (visitantes do site)"
+              - "Engajamento (interagiram com posts/anúncios)"
+              - "Lista de clientes (lookalike 1%)"
+              - "Vídeo (assistiram 50%+)"
+            strategy: "CBO (Campaign Budget Optimization)"
+            budget_allocation: "60-70% do total"
+            message: "Direta, oferta clara, CTA forte"
+            expected_cpa: "Menor (público mais pronto)"
+
+          P2:
+            name: "Públicos Frios"
+            audiences:
+              - "Interesses específicos"
+              - "Lookalike 3-5%"
+              - "Demográfico + comportamento"
+            strategy: "ABO (Ad Set Budget Optimization) — 1 interesse por conjunto"
+            budget_allocation: "30-40% do total"
+            message: "Educação, awareness, benefícios"
+            expected_cpa: "Maior (público precisa ser educado)"
+
+      audience_creation_checklist:
+        description: "Checklist de públicos personalizados"
+        audiences:
+          - audience: "Pixel — Visitantes do Site (30 dias)"
+            size_expected: "Mín. 1.000 pessoas"
+            use: "P1 — Remarketing"
+
+          - audience: "Pixel — Visitantes Página de Vendas (30 dias)"
+            size_expected: "Mín. 500 pessoas"
+            use: "P1 — Alta intenção"
+
+          - audience: "Engajamento — Instagram/Facebook (365 dias)"
+            size_expected: "Mín. 1.000 pessoas"
+            use: "P1 — Interação"
+
+          - audience: "Vídeo — Assistiram 50%+ (90 dias)"
+            size_expected: "Variável"
+            use: "P1 — Interesse validado"
+
+          - audience: "Lista de Clientes (upload CSV)"
+            size_expected: "Mín. 100 pessoas"
+            use: "Criar lookalike 1%"
+
+          - audience: "Lookalike 1% (de clientes)"
+            size_expected: "Automático"
+            use: "P1 — Semelhantes aos compradores"
+
+      creative_positioning_rules:
+        description: "Regras de posicionamento e formato"
+        rules:
+          - rule: "Feed (1:1) — Imagem quadrada ou landscape"
+            specs: "1080x1080px (quadrado) ou 1200x628px (landscape)"
+
+          - rule: "Stories (9:16) — Vídeo/imagem vertical"
+            specs: "1080x1920px"
+
+          - rule: "Sempre personalizar por posicionamento"
+            why: "Stories precisa de formato vertical, feed aceita quadrado"
+
+          - rule: "Testar imagem vs. vídeo"
+            rationale: "Vídeo gera mais engajamento, imagem pode ter CPC menor"
+
+      meta_ads_copy_formula:
+        description: "Fórmula de copy para Meta Ads"
+        structure:
+          - element: "Primeira Linha (Hook)"
+            content: "Chamar atenção + prometer benefício"
+            example: "Descubra como 347 pessoas dobraram vendas em 30 dias"
+
+          - element: "Corpo (2-3 linhas)"
+            content: "Problema + Solução + Prova"
+            example: "Se você está cansado de investir em tráfego sem resultado, este método validado pode mudar isso. Veja depoimentos no link."
+
+          - element: "CTA (Call-to-Action)"
+            content: "Ação específica + urgência"
+            example: "Clique para garantir sua vaga. Últimos dias."
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Meta Ads Campaigns Ready"
+      criteria:
+        - "Campanha P1 criada (públicos quentes, CBO)"
+        - "Públicos personalizados criados (mín. 3)"
+        - "Criativos criados (feed 1:1 + stories 9:16)"
+        - "Copy dos anúncios aprovada"
+        - "Pixel instalado e validado"
+      human_review: true
+      message: "Aprove campanhas antes de lançar no Meta Ads."
+      veto_conditions:
+        - condition: "P2 sendo lançado antes de P1"
+          action: "BLOCK - P1 primeiro, sempre"
+        - condition: "Públicos personalizados <500 pessoas"
+          action: "WARNING - Volume pode ser insuficiente"
+        - condition: "Pixel não instalado ou eventos não disparando"
+          action: "BLOCK - Instalar e validar pixel antes de lançar"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 4: REMARKETING CROSS-PLATFORM
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-4
+    name: "Remarketing 2.0 (Google + Meta)"
+    days: "Day 7"
+    tier: 2  # Execution
+    description: |
+      Configuração de estratégia de remarketing cross-platform (Google + Facebook)
+      usando ultra-segmentação por temperatura e controle de frequência.
+
+      PRINCÍPIO: "Remarketing não é spam. É lembrar quem já demonstrou interesse.
+      A chave é temperatura + frequência adequadas."
+
+      REGRA DE OURO: Sempre exclua quem converteu de todas as listas de remarketing.
+
+    agent: tessman-remarketing
+
+    tasks:
+      - task_id: T4.1
+        name: "Criar Listas por Temperatura"
+        required: true
+        description: "Quente, Morno, Frio (Google + Meta)"
+        output: "remarketing_audiences.yaml"
+
+      - task_id: T4.2
+        name: "Definir Frequência por Temperatura"
+        required: true
+        description: "3-5x/semana (quente), 1-2x/semana (morno), <1x/semana (frio)"
+        output: "frequency_strategy.yaml"
+
+      - task_id: T4.3
+        name: "Criar Listas de Exclusão"
+        required: true
+        description: "Conversões, clientes, cancelados"
+        output: "exclusion_lists.yaml"
+
+      - task_id: T4.4
+        name: "Sincronizar Google + Facebook"
+        required: true
+        description: "Estratégia cross-platform coordenada"
+        output: "cross_platform_strategy.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Remarketing by Temperature
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      remarketing_temperature_matrix:
+        description: "Segmentação por temperatura"
+        segments:
+          - temperature: "Quente"
+            definition: "Visitou página de vendas, adicionou ao carrinho, assistiu webinar"
+            frequency: "3-5x por semana"
+            message: "Direta, oferta, urgência"
+            budget: "50% do remarketing"
+
+          - temperature: "Morno"
+            definition: "Visitou site, leu blog, engajou com conteúdo"
+            frequency: "1-2x por semana"
+            message: "Educação, cases, depoimentos"
+            budget: "30% do remarketing"
+
+          - temperature: "Frio"
+            definition: "Interagiu há 60+ dias, não avançou no funil"
+            frequency: "Máx. 1x por semana"
+            message: "Novidade, conteúdo novo, oferta especial"
+            budget: "20% do remarketing"
+
+      exclusion_lists_mandatory:
+        description: "Listas de exclusão obrigatórias (Tessman)"
+        lists:
+          - list: "Conversões (compraram)"
+            why: "Não gastar com quem já é cliente"
+            platforms: ["Google", "Facebook"]
+
+          - list: "Leads qualificados (em negociação)"
+            why: "Evitar saturação durante vendas"
+            platforms: ["Google", "Facebook"]
+
+          - list: "Cancelados/Reembolsados"
+            why: "Não insistir com quem teve experiência ruim"
+            platforms: ["Google", "Facebook"]
+
+          - list: "Blacklist (emails de teste, funcionários)"
+            why: "Não contaminar dados"
+            platforms: ["Google", "Facebook"]
+
+      cross_platform_coordination:
+        description: "Coordenação Google + Facebook Remarketing"
+        strategy:
+          - platform: "Google Display Network"
+            focus: "Remarketing visual (banners, imagens)"
+            advantage: "Alcance maior (network de sites)"
+
+          - platform: "Facebook/Instagram"
+            focus: "Remarketing social (feed, stories)"
+            advantage: "Formatos nativos, engajamento"
+
+          - coordination_rule: "Mensagens complementares, não repetidas"
+            example: "Google mostra benefício A, Facebook mostra benefício B"
+
+    checkpoint:
+      id: CP_PHASE_4
+      name: "Remarketing Configured"
+      criteria:
+        - "Listas por temperatura criadas (quente, morno, frio)"
+        - "Frequência definida por temperatura"
+        - "Listas de exclusão implementadas (mín. conversões)"
+        - "Estratégia cross-platform sincronizada"
+      human_review: true
+      message: "Valide configuração de remarketing antes de ativar."
+      veto_conditions:
+        - condition: "Sem lista de exclusão de conversões"
+          action: "BLOCK - OBRIGATÓRIO excluir quem já comprou"
+        - condition: "Frequência >10x/semana em qualquer temperatura"
+          action: "BLOCK - Risco de saturação e ad fatigue"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 5: AUDITORIA E OTIMIZAÇÃO
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-5
+    name: "Auditoria e Otimização"
+    days: "Day 8-10 + Ongoing"
+    tier: 2  # Execution
+    description: |
+      Auditoria completa das campanhas após primeiros 7 dias de rodagem.
+      Identificar o que otimizar, pausar ou escalar.
+
+      PRINCÍPIO: "Otimize diariamente, ajuste semanalmente, escale mensalmente."
+
+      VETO CRÍTICO: Se CPA >3x meta após 7 dias, pausar e revisar estratégia.
+
+    agents:
+      primary: traffic-masters-chief
+      secondary: [tessman-google-ads, tessman-meta-ads, tessman-remarketing]
+
+    tasks:
+      - task_id: T5.1
+        name: "Auditar Performance (7 dias)"
+        required: true
+        description: "CPA, ROAS, CTR, conversões por campanha"
+        output: "audit_report.yaml"
+
+      - task_id: T5.2
+        name: "Identificar Oportunidades de Otimização"
+        required: true
+        description: "Palavras negativas, pausar baixa performance, escalar vencedores"
+        output: "optimization_plan.yaml"
+
+      - task_id: T5.3
+        name: "Criar Plano de Escala"
+        required: true
+        description: "Escalar +20% campanhas vencedoras"
+        output: "scaling_plan.yaml"
+
+      - task_id: T5.4
+        name: "Implementar Rotina de Otimização"
+        required: true
+        description: "Checklist diário, semanal, mensal"
+        output: "optimization_routine.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Audit & Optimization
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      kpis_primarios:
+        description: "KPIs principais para auditoria"
+        metrics:
+          - metric: "CPA (Custo por Aquisição)"
+            target: "Definido pela margem (geralmente <30% do LTV)"
+            action_if_high: "Pausar e revisar copy/oferta/público"
+
+          - metric: "ROAS (Return on Ad Spend)"
+            target: "Mín. 3:1 (ideal 5:1+)"
+            action_if_low: "Revisar funil de conversão"
+
+          - metric: "CTR (Click-Through Rate)"
+            target: "Google: >3%, Facebook: >1%"
+            action_if_low: "Revisar copy/criativo"
+
+          - metric: "Taxa de Conversão"
+            target: "Google: >5%, Facebook: >3%"
+            action_if_low: "Revisar landing page"
+
+          - metric: "Frequência (Facebook)"
+            target: "<3 (primeiras 2 semanas)"
+            action_if_high: "Expandir público ou pausar"
+
+      optimization_decision_matrix:
+        description: "Matriz de decisão de otimização"
+        scenarios:
+          - scenario: "CPA <target e ROAS >3:1"
+            action: "ESCALAR (+20% budget)"
+
+          - scenario: "CPA >target mas conversões acontecem"
+            action: "OTIMIZAR (testar copy, público, lance)"
+
+          - scenario: "CPA >3x target após 7 dias"
+            action: "PAUSAR e revisar estratégia completa"
+
+          - scenario: "CTR <1% (Facebook) ou <2% (Google)"
+            action: "TROCAR criativo/copy"
+
+          - scenario: "Conversão alta mas volume baixo"
+            action: "EXPANDIR público ou aumentar budget"
+
+      scaling_rules_tessman:
+        description: "Regras de escala do Tessman"
+        rules:
+          - rule: "Nunca escalar mais de 20% por ajuste"
+            why: "Risco de desestabilizar algoritmo"
+
+          - rule: "Esperar mín. 48h após escalar antes de novo ajuste"
+            why: "Dar tempo para algoritmo se adaptar"
+
+          - rule: "Escalar apenas campanhas com mín. 50 conversões"
+            why: "Dados insuficientes = decisões erradas"
+
+          - rule: "Escalar vertical (budget) antes de horizontal (novos públicos)"
+            why: "Validar performance antes de expandir"
+
+      daily_weekly_monthly_routine:
+        description: "Rotina de otimização Tessman"
+        daily:
+          duration: "15-30 min"
+          tasks:
+            - "Verificar CPA e ROAS de ontem"
+            - "Pausar anúncios com CPA >150% do target"
+            - "Verificar termos de pesquisa (Google)"
+            - "Responder comentários em anúncios (Facebook)"
+
+        weekly:
+          duration: "1-2h"
+          tasks:
+            - "Analisar performance por grupo de anúncios"
+            - "Adicionar palavras-chave negativas (Google)"
+            - "Ajustar lances se necessário"
+            - "Criar novas variações de anúncios vencedores"
+            - "Revisar públicos (Facebook)"
+
+        monthly:
+          duration: "3-4h"
+          tasks:
+            - "Revisar estratégia completa"
+            - "Escalar campanhas vencedoras (+20%)"
+            - "Pausar campanhas com CPA consistentemente alto"
+            - "Testar novos públicos/interesses"
+            - "Criar campanhas sazonais/promocionais"
+
+    checkpoint:
+      id: CP_PHASE_5
+      name: "Optimization Strategy Approved"
+      criteria:
+        - "Audit report completo (mín. 7 dias de dados)"
+        - "Plano de otimização definido"
+        - "Plano de escala aprovado (se aplicável)"
+        - "Rotina de otimização implementada"
+      human_review: true
+      message: "Revise o relatório de auditoria antes de implementar mudanças."
+      veto_conditions:
+        - condition: "CPA >3x meta após 7 dias"
+          action: "HALT - Pausar campanhas e revisar estratégia completa (oferta, mensagem, público)"
+        - condition: "Zero conversões após 7 dias com budget adequado"
+          action: "HALT - Revisar funil completo (landing page, pixel, oferta)"
+        - condition: "ROAS <1:1 após 14 dias"
+          action: "BLOCK - Modelo não é viável com tráfego pago"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY GATES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_gates:
+  QG-001:
+    name: "Base Validation Gate"
+    transition: "Start → Diagnosis"
+    conditions:
+      - "Oferta validada (vendeu organicamente)"
+      - "Budget mínimo R$3.000/mês"
+      - "Landing page com conversão >2%"
+    type: "blocking"
+
+  QG-002:
+    name: "Communication Validated Gate"
+    transition: "Diagnosis → Word Mapping"
+    conditions:
+      - "Círculo 6V completo"
+      - "Mapa das Palavras com vocabulário do cliente"
+      - "Gatilhos mentais identificados"
+    type: "blocking"
+
+  QG-003:
+    name: "Google Ads Structure Gate"
+    transition: "Word Mapping → Google Ads"
+    conditions:
+      - "Estrutura completa (campanha + grupos + anúncios)"
+      - "Mín. 10-30 palavras-chave por grupo"
+      - "Landing pages específicas mapeadas"
+    type: "blocking"
+
+  QG-004:
+    name: "Meta Ads Campaigns Gate"
+    transition: "Google Ads → Meta Ads"
+    conditions:
+      - "P1 criado (públicos quentes)"
+      - "Públicos personalizados criados"
+      - "Pixel instalado e validado"
+    type: "blocking"
+
+  QG-005:
+    name: "Remarketing Configuration Gate"
+    transition: "Meta Ads → Remarketing"
+    conditions:
+      - "Listas por temperatura criadas"
+      - "Lista de exclusão de conversões implementada"
+      - "Estratégia cross-platform sincronizada"
+    type: "blocking"
+
+  QG-006:
+    name: "Performance Validation Gate"
+    transition: "Launch → Continue"
+    conditions:
+      - "CPA <3x meta (após 7 dias)"
+      - "ROAS >1:1 (break-even mínimo)"
+    type: "warning"
+    action_if_fail: "Revisar estratégia antes de continuar investindo"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - notify_user: true
+    - create_remediation_task: true
+    - halt_workflow: false
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - return_to_previous_phase: true
+    - max_retries: 2
+
+  on_veto_triggered:
+    - halt_immediately: true
+    - escalate_to: "traffic-masters-chief"
+    - document_reason: true
+    - require_human_override: true
+
+  common_failures:
+    - failure: "Oferta não validada"
+      phase: 0
+      resolution: "Validar oferta organicamente antes de tráfego pago"
+
+    - failure: "CPA muito alto (>3x meta)"
+      phase: 5
+      resolution: "Pausar campanhas, revisar oferta/mensagem/público"
+
+    - failure: "Landing page conversão <2%"
+      phase: 0
+      resolution: "Otimizar landing page antes de trazer tráfego"
+
+    - failure: "Pixel não instalado ou eventos não disparando"
+      phase: 3
+      resolution: "Instalar e validar pixel antes de lançar Meta Ads"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-full-campaign-launch"
+      status: "completed"
+      outputs:
+        - "campaign_package/"
+        - "optimization_routine.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "diagnostico_6v.yaml"
+    - "base_validation.yaml"
+    - "budget_allocation.yaml"
+    - "growth_roadmap.yaml"
+
+  phase_1:
+    - "word_mapping.yaml"
+    - "mental_triggers.yaml"
+    - "objection_map.yaml"
+    - "headlines.yaml"
+
+  phase_2:
+    - "keyword_research.yaml"
+    - "campaign_structure.yaml"
+    - "google_ads_copy.yaml"
+    - "bidding_strategy.yaml"
+
+  phase_3:
+    - "p1_campaign.yaml"
+    - "p2_campaign.yaml"
+    - "custom_audiences.yaml"
+    - "ad_creatives.yaml"
+
+  phase_4:
+    - "remarketing_audiences.yaml"
+    - "frequency_strategy.yaml"
+    - "exclusion_lists.yaml"
+    - "cross_platform_strategy.yaml"
+
+  phase_5:
+    - "audit_report.yaml"
+    - "optimization_plan.yaml"
+    - "scaling_plan.yaml"
+    - "optimization_routine.yaml"
+
+  final_deliverable:
+    name: "Full Campaign Launch Package"
+    location: "outputs/campaigns/{campaign_id}/"
+    contents:
+      - "README.md - Overview da campanha"
+      - "circulo_6v_diagnosis/ - Diagnóstico completo"
+      - "word_mapping/ - Mapa das Palavras e gatilhos"
+      - "google_ads/ - Estrutura completa Google Ads"
+      - "meta_ads/ - Campanhas P1 e P2"
+      - "remarketing/ - Estratégia cross-platform"
+      - "optimization/ - Plano de otimização e escala"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["tessman-strategist"]
+    secondary: ["traffic-masters-chief"]
+
+  PHASE-1:
+    primary: ["tessman-copy"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["tessman-google-ads"]
+    secondary: []
+
+  PHASE-3:
+    primary: ["tessman-meta-ads"]
+    secondary: []
+
+  PHASE-4:
+    primary: ["tessman-remarketing"]
+    secondary: []
+
+  PHASE-5:
+    primary: ["traffic-masters-chief"]
+    secondary: ["tessman-google-ads", "tessman-meta-ads", "tessman-remarketing"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] Círculo 6V completo (6 variáveis validadas)"
+    - "[ ] Base da Multiplicação validada"
+    - "[ ] Budget mínimo disponível (R$3.000/mês)"
+    - "[ ] Landing page conversão >2%"
+
+  phase_1:
+    - "[ ] Mapa das Palavras completo (mín. 20 expressões)"
+    - "[ ] Gatilhos mentais identificados (mín. 3)"
+    - "[ ] Objeções mapeadas (mín. 5)"
+    - "[ ] Headlines criadas (mín. 3)"
+
+  phase_2:
+    - "[ ] Estrutura Google Ads completa"
+    - "[ ] Pesquisa de palavras-chave (10-30 por grupo)"
+    - "[ ] Anúncios escritos (mín. 3 por grupo)"
+    - "[ ] Estratégia de lance definida"
+
+  phase_3:
+    - "[ ] Campanha P1 criada (públicos quentes)"
+    - "[ ] Públicos personalizados criados (mín. 3)"
+    - "[ ] Criativos criados (feed + stories)"
+    - "[ ] Pixel instalado e validado"
+
+  phase_4:
+    - "[ ] Listas por temperatura criadas"
+    - "[ ] Lista de exclusão de conversões implementada"
+    - "[ ] Frequência definida por temperatura"
+    - "[ ] Estratégia cross-platform sincronizada"
+
+  phase_5:
+    - "[ ] Audit report completo (7 dias de dados)"
+    - "[ ] Plano de otimização definido"
+    - "[ ] Plano de escala aprovado (se aplicável)"
+    - "[ ] Rotina de otimização implementada"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-03-02"
+  author: "squad-architect"
+  source_frameworks:
+    - "CONVERSAO_EXTREMA"
+    - "CIRCULO_6V"
+    - "P1_VS_P2_METHODOLOGY"
+    - "MAPA_DAS_PALAVRAS"
+  source_mind: "thiago_tessman"
+  lines: 1100+
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+  dependencies: []
+
+# Criado com AIOS Core Framework | 2026-03-02

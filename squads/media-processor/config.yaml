@@ -1,0 +1,168 @@
+# Media Processor Squad Configuration
+# Version: 1.0.0
+# Created: 2026-02-23
+
+pack:
+  name: media-processor
+  title: "Media Processor — Unified Pipeline Orchestrator"
+  version: "1.0.1"
+  author: luiz-fosc
+  description: >
+    Meta-orchestrator that unifies hotmart-downloader, cademi-downloader,
+    video-transcriber, transcript-sculptor, video-content-distillery, and
+    knowledge-base-builder into a single automated pipeline. Supports
+    Hotmart, Cademi, and YouTube platforms. Downloads, transcribes, sculpts,
+    distills, and builds knowledge bases from video/audio content.
+    Features real-time dashboard monitoring and resume support.
+  slash_prefix: mp
+  pattern_prefix: MP
+  category: media-processing
+  icon: null
+  type: orchestrator
+  entry_agent: media-chief
+
+tags:
+  - media-processing
+  - orchestration
+  - hotmart
+  - cademi
+  - youtube
+  - transcription
+  - knowledge-base
+  - pipeline
+  - dashboard
+  - batch-processing
+
+activation:
+  slash_command: mp
+  aliases:
+    - media-processor
+    - media
+  example_activation: "@media-chief"
+
+agents:
+  orchestrator:
+    - media-chief
+
+workflows:
+  - id: wf-full-pipeline
+    name: "Full Media Processing Pipeline"
+    phases: 6
+    quality_gates: 3
+    duration: "30min - 4h"
+
+  - id: wf-download-only
+    name: "Download Only"
+    phases: 2
+    quality_gates: 1
+    duration: "5min - 2h"
+
+  - id: wf-transcribe-only
+    name: "Transcribe Only"
+    phases: 2
+    quality_gates: 1
+    duration: "5min - 1h"
+
+  - id: wf-batch-process
+    name: "Batch Processing Pipeline"
+    phases: 6
+    quality_gates: 3
+    duration: "1h - 8h"
+
+tasks:
+  - classify-request
+  - download-hotmart
+  - download-cademi
+  - download-youtube
+  - transcribe-media
+  - sculpt-transcript
+  - distill-content
+  - build-knowledge-base
+  - validate-download
+  - validate-transcription
+  - validate-pipeline
+  - update-status
+
+quality_gates:
+  - id: QG-001
+    name: Download Validation
+    type: blocking
+    checks:
+      - "Files exist and size > threshold"
+      - "Format valid (mp4/mkv/webm/m4a/mp3/wav)"
+      - "ffprobe returns valid metadata"
+
+  - id: QG-002
+    name: Transcription Quality
+    type: blocking
+    checks:
+      - "Word count > 100 per minute of audio"
+      - "Language match (detected == expected)"
+      - "Chunks directory non-empty"
+      - "transcription_clean.md exists and non-empty"
+
+  - id: QG-003
+    name: Pipeline Completion
+    type: blocking
+    checks:
+      - "All items processed or skipped"
+      - "No critical failures unresolved"
+      - "Masterpieces exist for all processed items"
+      - "Manifest consistent with filesystem"
+
+dependencies:
+  tools:
+    - name: hotmart-downloader
+      path: tools/hotmart-downloader/
+      cli: hotmart-dl
+      venv: tools/hotmart-downloader/.venv/bin/hotmart-dl
+      capabilities:
+        - "Hotmart course download"
+        - "Video + subtitles + materials"
+
+    - name: cademi-downloader
+      path: tools/cademi-downloader/
+      cli: cademi-dl
+      venv: tools/cademi-downloader/.venv/bin/cademi-dl
+      capabilities:
+        - "Cademi course download"
+        - "Batch mode + audio-only"
+
+    - name: video-transcriber
+      path: tools/video-transcriber/
+      cli: video-transcriber
+      venv: tools/video-transcriber/.venv/bin/video-transcriber
+      capabilities:
+        - "YouTube download"
+        - "Whisper transcription (mlx/faster/openai)"
+        - "Cleaning + chunking"
+        - "Batch playlist"
+
+  squads:
+    - name: transcript-sculptor
+      path: squads/transcript-sculptor/
+      purpose: "Transform raw transcripts into editorial masterpieces"
+
+    - name: video-content-distillery
+      path: squads/video-content-distillery/
+      purpose: "Extract frameworks and generate content pieces"
+
+    - name: knowledge-base-builder
+      path: squads/knowledge-base-builder/
+      purpose: "Build structured knowledge bases"
+
+  skills:
+    - name: groq-transcriber
+      path: .aios/skills/groq-transcriber/
+      purpose: "Batch transcription via Groq Whisper (free, rate-limited)"
+
+    - name: deepgram-transcriber
+      path: .aios/skills/deepgram-transcriber/
+      purpose: "Batch transcription via Deepgram Nova-3 (paid, fast, parallel)"
+
+  system:
+    - ffmpeg
+    - ffprobe
+    - yt-dlp
+    - whisper
+    - playwright

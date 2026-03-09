@@ -1,0 +1,60 @@
+name: ensinio-mind
+version: 1.1.0
+description: "Ensinio Knowledge Hub — Source of truth centralizada sobre a plataforma Ensinio. Alimenta todos os squads ensinio-*. Incluí sales, ICP, red flags, ciclo de venda."
+type: knowledge-hub
+
+entry_agent: ensinio-expert
+
+agents:
+  - ensinio-expert
+
+data:
+  # Identidade & Posicionamento
+  - ensinio-identity.md
+  # Ecossistema de Produtos (Club, Pay, Stream, AI, Engage, Chat)
+  - ensinio-product-ecosystem.md
+  # KB Completo — 5 pilares, 67+ features com keywords
+  - ensinio-solutions-kb.md
+  # Pricing, planos, taxas, add-ons
+  - ensinio-pricing.md
+  # Matriz competitiva detalhada
+  - ensinio-competitors.md
+  # Cases, depoimentos, prova social
+  - ensinio-cases.md
+  # Mercado: TAM/SAM/SOM, receita histórica, milestones
+  - ensinio-market.md
+  # Critérios de qualificação de leads
+  - scoring-criteria.md
+  # Regras de comunicação (tom Antonio/Fosc)
+  - message-rules.md
+  # ICP detalhado — Perfis demográfico + comportamental de clientes que fecham
+  - ensinio-icps.md
+  # Red flags — Sinais de alerta e perfis a evitar
+  - ensinio-red-flags.md
+  # Sales playbook — 5 objeções principais + respostas
+  - ensinio-sales-playbook.md
+  # Sales cycle — Timeline, etapas do funil, aceleradores e atrasos
+  - ensinio-sales-cycle.md
+  # Argumentos de venda — 3 principais argumentos + como usar em cada fase
+  - ensinio-arguments.md
+
+settings:
+  language: pt-BR
+  model_tier: sonnet
+  activation_protocol: base
+
+metadata:
+  created: "2026-03-02"
+  created_by: squad-chief
+  sources:
+    - "ensinio.com (site oficial)"
+    - "Pitch Deck Ensinio 2026 (52 slides)"
+    - "ensinio-whatsapp-prospector/data/ (KB v2.0.0)"
+  consumers:
+    - ensinio-prospector
+    - ensinio-whatsapp-prospector
+    - "(futuros squads ensinio-*)"
+  pending_data:
+    - "ensinio-onboarding.md — Processo de onboarding de clientes (v2.0)"
+    - "ensinio-partnership-program.md — Programa de parceiros/revendedores (v2.0)"
+    - "ensinio-content-strategy.md — Estratégia de conteúdo (v2.0)"

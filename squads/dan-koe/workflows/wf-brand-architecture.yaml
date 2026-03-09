@@ -1,0 +1,1396 @@
+# Personal Brand Architecture Workflow
+# Based on Dan Koe's "You Are The Niche" + Personal Monopoly + Leverage Stack
+# Source: BRAND_ARCHITECTURE_SYSTEM + PERSONAL_MONOPOLY_ENGINE + LEVERAGE_STACK
+# Version: 1.0.0
+
+id: wf-brand-architecture
+name: "Personal Brand Architecture"
+version: "1.0.0"
+duration: "5-7 days"
+trigger: "*brand"
+description: |
+  Workflow completo para construir arquitetura de marca pessoal usando
+  a filosofia Dan Koe. Não é branding superficial (cores, logo, fontes) —
+  é a construção do SISTEMA que transforma identidade em autoridade,
+  autoridade em audiência, e audiência em negócio.
+
+  FILOSOFIA: "You Are The Niche — seu nicho não é um mercado, é VOCÊ.
+  Ninguém pode competir com quem você é."
+
+  PRINCÍPIO CENTRAL: Brand = Lead Generation. Se a marca não gera leads,
+  é vaidade. Se gera leads mas não reflete quem você é, é insustentável.
+
+  RESULTADO: Marca pessoal que funciona como máquina de aquisição orgânica,
+  com Personal Monopoly definido, Leverage Stack construído, e integração
+  completa com sistema de ofertas.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Construir marca pessoal do zero como one-person business"
+  - "Reposicionar marca existente que virou commodity"
+  - "Definir Personal Monopoly (interseção única de skills)"
+  - "Criar sistema de conteúdo que gera leads organicamente"
+  - "Transicionar de funcionário/freelancer para criador/educador"
+  - "Alinhar marca pessoal com ecossistema de ofertas"
+  - "Construir autoridade em novo mercado/domínio"
+  - "Aumentar valor percebido para justificar premium pricing"
+
+decision_matrix_fit:
+  complexity: high
+  agents_required: 5
+  estimated_duration: "5-7 days"
+  user_involvement: "very high (marca pessoal requer introspecção profunda)"
+  prerequisites:
+    - "Expertise profunda em pelo menos 1 domínio (2+ anos)"
+    - "Disposição para vulnerabilidade e exposição pública"
+    - "Clareza sobre transformação pessoal vivida"
+    - "Tempo para criação de conteúdo regular (mínimo 3h/semana)"
+  mental_models_required:
+    - "You Are The Niche"
+    - "Personal Monopoly"
+    - "The Leverage Stack"
+    - "Digital Renaissance"
+    - "Iceberg Model"
+    - "Content Cascade"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orquestração, brand audit, validação estratégica"
+      phases: [0]
+
+    - agent: koe-brand
+      role: "Personal Monopoly Design, brand system, messaging"
+      phases: [1, 2]
+
+    - agent: koe-offers
+      role: "Integração oferta-marca, monetização da autoridade"
+      phases: [3]
+
+    - agent: koe-mindset
+      role: "Alinhamento mindset, Conscious Conditioning, identidade"
+      phases: [4]
+
+  secondary:
+    - agent: koe-sintetizador
+      role: "Síntese de padrões da audiência, análise de conteúdo existente"
+      phases: [0, 1]
+
+    - agent: koe-distribuidor
+      role: "Content Cascade setup, estratégia de distribuição"
+      phases: [2]
+
+    - agent: koe-advisor
+      role: "Validação de direção estratégica, alinhamento de longo prazo"
+      phases: [0, 3, 4]
+
+    - agent: koe-coletor
+      role: "Captura de inputs, Queue System para ideias de conteúdo"
+      phases: [1, 2]
+
+  synergies:
+    - agents: [koe-brand, koe-offers]
+      pattern: "Brand posiciona e atrai. Offers converte e monetiza."
+
+    - agents: [koe-brand, koe-mindset]
+      pattern: "Brand é a expressão externa. Mindset é o alicerce interno."
+
+    - agents: [koe-brand, koe-distribuidor]
+      pattern: "Brand define O QUE comunicar. Distribuidor define COMO e ONDE."
+
+    - agents: [koe-mindset, koe-advisor]
+      pattern: "Mindset protege identidade. Advisor valida direção."
+
+    - agents: [koe-sintetizador, koe-coletor]
+      pattern: "Coletor captura inputs brutos. Sintetizador encontra padrões."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: BRAND AUDIT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Brand Audit"
+    days: "Day 0"
+    tier: 0
+    description: |
+      Auditoria completa da marca pessoal atual (ou diagnóstico para nova marca).
+      Avalia TODOS os touchpoints: presença online, conteúdo, percepção,
+      posicionamento, e alinhamento com identidade real.
+
+      PRINCÍPIO: "Você não pode construir uma marca que não entende.
+      Primeiro diagnosticamos, depois arquitetamos."
+
+      FRAMEWORK: Iceberg Model — 90% da marca é o que está ABAIXO
+      da superfície (valores, crenças, expertise). Só 10% é visível
+      (conteúdo, visual, presença).
+
+    agent: koe-chief
+
+    tasks:
+      - task_id: T0.1
+        name: "Inventário de Presença Digital"
+        required: true
+        description: |
+          Mapear TODA a presença online atual:
+          - Plataformas ativas (seguidores, engajamento, frequência)
+          - Conteúdo existente (temas, formato, performance)
+          - Percepção atual (como as pessoas descrevem você)
+        output: "digital_presence_inventory.yaml"
+
+      - task_id: T0.2
+        name: "Análise de Conteúdo Top-Performing"
+        required: true
+        description: |
+          Identificar os 10-20 conteúdos com melhor performance.
+          Extrair: tema, formato, ângulo, engajamento.
+          PADRÕES revelam o que a audiência REALMENTE quer.
+        output: "top_content_analysis.yaml"
+
+      - task_id: T0.3
+        name: "Brand Perception Assessment"
+        required: true
+        description: |
+          Descobrir como a audiência PERCEBE a marca:
+          - Perguntar diretamente (DMs, stories, pesquisa)
+          - Analisar comentários e menções
+          - Gap: percepção atual vs. percepção desejada
+        output: "brand_perception.yaml"
+
+      - task_id: T0.4
+        name: "Iceberg Model Deep Dive"
+        required: true
+        description: |
+          Mapear o iceberg completo:
+          - ACIMA: conteúdo, visual, presença (10%)
+          - ABAIXO: valores, crenças, experiências, expertise, perspectiva (90%)
+          O que está ABAIXO é o que torna a marca impossível de copiar.
+        output: "iceberg_model.yaml"
+
+      - task_id: T0.5
+        name: "Competitive Brand Landscape"
+        required: true
+        description: |
+          Mapear 5-10 criadores no mesmo espaço:
+          - Posicionamento de cada um
+          - Gaps não cobertos
+          - Onde há saturação vs. oportunidade
+        output: "competitive_brands.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Brand Audit Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      brand_audit_template:
+        description: "Template completo de auditoria de marca pessoal"
+        sections:
+          digital_footprint:
+            title: "Pegada Digital"
+            fields:
+              - id: DF_001
+                name: "Plataformas Ativas"
+                format: "Tabela: [Plataforma | Seguidores | Engajamento | Frequência | Tema Principal]"
+                minimum: "Pelo menos 1 plataforma com presença consistente"
+
+              - id: DF_002
+                name: "Consistência de Conteúdo"
+                question: "Há quanto tempo publica consistentemente?"
+                scoring:
+                  3: "12+ meses de publicação regular"
+                  2: "6-12 meses com algumas pausas"
+                  1: "3-6 meses ou muito irregular"
+                  0: "Menos de 3 meses ou sem consistência"
+
+              - id: DF_003
+                name: "Coerência de Mensagem"
+                question: "Seus conteúdos seguem temas conectados ou são aleatórios?"
+                scoring:
+                  3: "Temas claros e conectados — audiência sabe o que esperar"
+                  2: "Majoritariamente coerente, alguns desvios"
+                  1: "Mistura de temas sem fio condutor"
+                  0: "Aleatório — cada post é sobre algo diferente"
+
+              - id: DF_004
+                name: "Diferenciação Visual"
+                question: "Sua marca é visualmente reconhecível no feed?"
+                scoring:
+                  3: "Identidade visual forte e consistente"
+                  2: "Alguma consistência mas não memorável"
+                  1: "Visual genérico"
+                  0: "Sem identidade visual"
+
+          iceberg_mapping:
+            title: "Mapeamento do Iceberg"
+            visible_layer:
+              name: "Camada Visível (10%)"
+              components:
+                - "Conteúdo publicado"
+                - "Identidade visual"
+                - "Bio e headlines"
+                - "Produtos/ofertas"
+                - "Presença em plataformas"
+
+            hidden_layer:
+              name: "Camada Oculta (90%)"
+              components:
+                - id: HL_001
+                  name: "Valores Fundamentais"
+                  question: "Quais são os 3-5 valores inegociáveis que guiam suas decisões?"
+                  why: "Valores atraem pessoas que compartilham as mesmas crenças"
+
+                - id: HL_002
+                  name: "Crenças Contrárias"
+                  question: "Em que você acredita que a MAIORIA do seu mercado discorda?"
+                  why: "Crenças contrárias = diferenciação = atenção"
+
+                - id: HL_003
+                  name: "Experiências Formadoras"
+                  question: "Quais experiências moldaram sua perspectiva de forma irreversível?"
+                  why: "Experiências são impossíveis de copiar"
+
+                - id: HL_004
+                  name: "Expertise Stack"
+                  question: "Quais domínios de conhecimento você domina? (2+ anos de prática)"
+                  why: "A INTERSEÇÃO de expertises cria o Personal Monopoly"
+
+                - id: HL_005
+                  name: "Perspectiva Única"
+                  question: "Se pudesse ensinar UMA coisa ao mundo, o que seria?"
+                  why: "Esta é a semente da sua mensagem central"
+
+          brand_health_score:
+            title: "Score de Saúde da Marca"
+            dimensions:
+              - id: BHS_001
+                name: "Awareness"
+                question: "Pessoas no seu mercado sabem que você existe?"
+                weight: 20
+
+              - id: BHS_002
+                name: "Trust"
+                question: "As pessoas confiam na sua expertise?"
+                weight: 30
+
+              - id: BHS_003
+                name: "Differentiation"
+                question: "Você é claramente diferente dos competidores?"
+                weight: 25
+
+              - id: BHS_004
+                name: "Monetization"
+                question: "A marca gera receita direta ou indiretamente?"
+                weight: 25
+
+            scoring_guide:
+              3: "Excelente — benchmark no espaço"
+              2: "Bom — acima da média"
+              1: "Mediano — na média do mercado"
+              0: "Fraco — abaixo do aceitável"
+            total_max: 12
+            minimum_to_proceed: 4
+            veto_condition: "Se total < 4, marca precisa de fundação básica antes de arquitetura"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Brand Audit Complete"
+      criteria:
+        - "Inventário digital completo (todas plataformas mapeadas)"
+        - "Top 10-20 conteúdos analisados com padrões extraídos"
+        - "Percepção atual vs. desejada documentada"
+        - "Iceberg Model mapeado (visível + oculto)"
+        - "Landscape competitivo com 5+ criadores"
+        - "Brand Health Score calculado"
+      human_review: true
+      message: "Revise a auditoria completa da marca antes de desenhar o Personal Monopoly."
+      veto_conditions:
+        - condition: "Iceberg oculto incompleto (< 3/5 componentes)"
+          action: "BLOCK — Sem fundação oculta, marca será superficial e copiável"
+        - condition: "Brand Health Score < 4/12"
+          action: "WARNING — Marca precisa de fundação básica. Considere iniciar com consistência de conteúdo antes de arquitetura completa."
+        - condition: "Zero presença digital"
+          action: "REDIRECT — Começar com conteúdo mínimo (30 dias de publicação) antes deste workflow"
+        - condition: "Expertise Stack com < 2 domínios"
+          action: "WARNING — Personal Monopoly requer interseção. Considere desenvolver segundo domínio."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "raw_elicitation_data"
+      discard:
+        - "partial_digital_inventory"
+        - "incomplete_iceberg_model"
+        - "draft_brand_perception"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: PERSONAL MONOPOLY DESIGN
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Personal Monopoly Design"
+    days: "Days 1-2"
+    tier: 1
+    description: |
+      Desenho do Personal Monopoly — a interseção única que faz de VOCÊ
+      a única opção no seu espaço. Não é nicho tradicional.
+
+      PRINCÍPIO: "You Are The Niche. Seu nicho não é 'marketing digital'.
+      Seu nicho é a interseção ÚNICA entre suas habilidades, experiências,
+      interesses e perspectivas que ninguém mais possui."
+
+      FRAMEWORK: Digital Renaissance — o mundo não precisa de mais
+      especialistas estreitos. Precisa de GENERALISTAS INTEGRADOS
+      que conectam pontos que ninguém mais conecta.
+
+      RESULTADO: Declaração de Personal Monopoly + mapa visual da interseção.
+
+    agent: koe-brand
+
+    tasks:
+      - task_id: T1.1
+        name: "Mapear Skills Stack"
+        required: true
+        description: |
+          Listar TODAS as habilidades em 3 categorias:
+          1. Technical Skills (hard skills, certificações, ferramentas)
+          2. Human Skills (comunicação, liderança, empatia)
+          3. Life Skills (experiências únicas, viagens, superações)
+          A mágica está na INTERSEÇÃO.
+        output: "skills_stack.yaml"
+
+      - task_id: T1.2
+        name: "Identificar Interseção Única"
+        required: true
+        description: |
+          Encontrar o ponto onde 2-3 skills se cruzam de forma INÉDITA.
+          Ex: "Programação + Psicologia + Paternidade" = "Como criar apps
+          que ensinam crianças a lidar com emoções."
+          Se a interseção é fácil de copiar, não é monopoly.
+        output: "unique_intersection.yaml"
+
+      - task_id: T1.3
+        name: "Definir Mensagem Central"
+        required: true
+        description: |
+          Uma frase que encapsula TUDO:
+          Template: "Eu ajudo [AVATAR] a [RESULTADO] através de [PERSPECTIVA ÚNICA]."
+          Teste: Se trocar seu nome por outro, a frase ainda funciona?
+          Se sim, não é monopoly suficiente.
+        output: "core_message.md"
+
+      - task_id: T1.4
+        name: "Criar Brand Pillars"
+        required: true
+        description: |
+          Definir 3-5 pilares de conteúdo que sustentam o Personal Monopoly.
+          Cada pilar é um TEMA recorrente que reforça a marca.
+          Ex: Pilar 1 = Filosofia de vida, Pilar 2 = Criação de conteúdo,
+          Pilar 3 = Negócios solo, Pilar 4 = Design de vida.
+        output: "brand_pillars.yaml"
+
+      - task_id: T1.5
+        name: "Declaração de Personal Monopoly"
+        required: true
+        description: |
+          Documento formal que captura o Personal Monopoly:
+          - Quem você é
+          - O que você conecta que ninguém mais conecta
+          - Quem você serve
+          - Qual a transformação que só VOCÊ pode entregar
+        output: "personal_monopoly_declaration.md"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Personal Monopoly Canvas
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      personal_monopoly_canvas:
+        description: "Canvas visual para design do Personal Monopoly"
+        quadrants:
+          expertise:
+            name: "O Que Você SABE (Expertise)"
+            prompt: "Quais domínios você domina com profundidade?"
+            minimum: 2
+            format: "Lista com tempo de experiência e nível de profundidade"
+            examples:
+              - "Marketing digital (8 anos, expert)"
+              - "Filosofia estoica (5 anos, avançado)"
+              - "Design thinking (3 anos, intermediário avançado)"
+
+          experience:
+            name: "O Que Você VIVEU (Experiência)"
+            prompt: "Quais experiências únicas moldaram sua visão de mundo?"
+            minimum: 3
+            format: "Narrativa breve de cada experiência + impacto"
+            examples:
+              - "Burnout severo aos 28 → aprendi sobre sustentabilidade de performance"
+              - "Larguei carreira corporativa → aprendi sobre coragem e liberdade"
+              - "Morei em 4 países → aprendi sobre adaptabilidade e perspectiva"
+
+          interest:
+            name: "O Que FASCINA Você (Interesse)"
+            prompt: "O que você pesquisa, lê, discute VOLUNTARIAMENTE?"
+            minimum: 3
+            format: "Lista de interesses com intensidade e tempo investido"
+            examples:
+              - "Neurociência do aprendizado (leio 2h/semana)"
+              - "Sistemas e automação (pratico diariamente)"
+              - "Filosofia oriental (medito 30min/dia + estudo semanal)"
+
+          perspective:
+            name: "O Que Você VÊ (Perspectiva Única)"
+            prompt: "Que conexões você faz que NINGUÉM MAIS faz?"
+            minimum: 1
+            format: "Declaração de perspectiva + por que é única"
+            examples:
+              - "Aplico princípios estoicos ao marketing digital — ninguém faz isso com profundidade"
+              - "Conecto design thinking com criação de conteúdo — muda a abordagem completamente"
+
+        intersection_test:
+          questions:
+            - "Se trocar meu nome por outro, o Personal Monopoly ainda funciona? → Se SIM, não é monopoly."
+            - "Alguém pode copiar EXATAMENTE esta combinação? → Se SIM, não é monopoly."
+            - "Consigo falar sobre isto por 10 anos sem ficar entediado? → Se NÃO, não é sustentável."
+            - "Existe demanda real para esta interseção? → Se NÃO, é hobby."
+          minimum_yes: 3
+
+      brand_pillars_template:
+        description: "Template para definição de pilares de conteúdo"
+        structure:
+          recommended_count: "3-5 pilares (mais que 5 dilui a marca)"
+          per_pillar:
+            - field: "Nome do Pilar"
+              example: "Filosofia de Vida"
+            - field: "Descrição"
+              example: "Como princípios filosóficos aplicados ao dia-a-dia criam uma vida intencional"
+            - field: "Subtemas"
+              example: ["Estoicismo prático", "Minimalismo intencional", "Propósito vs. produtividade"]
+            - field: "Frequência"
+              example: "2x por semana"
+            - field: "Formato Preferencial"
+              example: "Newsletter + threads"
+            - field: "Conexão com Oferta"
+              example: "Atrai pessoas que querem vida intencional → curso de Design de Vida"
+
+        distribution_rule: |
+          Distribua conteúdo entre pilares:
+          - Pilar 1 (core): 40% do conteúdo
+          - Pilar 2: 25%
+          - Pilar 3: 20%
+          - Pilar 4-5: 15% combinados
+          NUNCA publique 100% sobre um só pilar — monotonia mata engajamento.
+
+      digital_renaissance_framework:
+        description: "Framework da Digital Renaissance — generalista integrado > especialista estreito"
+        principle: |
+          Dan Koe: "O futuro pertence aos generalistas que conseguem INTEGRAR
+          múltiplos domínios. O especialista resolve um problema.
+          O generalista integrado REDEFINE o problema."
+        application:
+          step_1: "Identifique 2-3 domínios de expertise"
+          step_2: "Encontre o THREAD que os conecta"
+          step_3: "Crie conteúdo na INTERSEÇÃO (não em cada domínio isolado)"
+          step_4: "O thread vira sua mensagem central"
+          step_5: "A mensagem central vira seu Personal Monopoly"
+        examples:
+          - domains: ["Programação", "Filosofia", "Escrita"]
+            thread: "Sistemas de pensamento"
+            message: "Como pensar em sistemas para resolver qualquer problema"
+            monopoly: "O programador-filósofo que ensina pensamento sistemático"
+
+          - domains: ["Design", "Psicologia", "Negócios"]
+            thread: "Experiência humana"
+            message: "Como criar produtos que as pessoas AMAM usar"
+            monopoly: "O designer-psicólogo que cria experiências transformadoras"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Personal Monopoly Designed"
+      criteria:
+        - "Skills Stack mapeado (3 categorias, mínimo 2 por categoria)"
+        - "Interseção única identificada e testada (3/4 perguntas = SIM)"
+        - "Mensagem Central escrita e validada (teste de substituição)"
+        - "3-5 Brand Pillars definidos com conexão à oferta"
+        - "Declaração de Personal Monopoly formalizada"
+      human_review: true
+      message: "Confirme o Personal Monopoly. Esta é a base de TODA a marca."
+      veto_conditions:
+        - condition: "Interseção que pode ser facilmente copiada"
+          action: "BLOCK — Refinar até que a combinação seja genuinamente única"
+        - condition: "Mensagem Central genérica (passa no teste de substituição)"
+          action: "BLOCK — Reescrever com especificidade e autenticidade"
+        - condition: "Nenhum pilar conecta com monetização"
+          action: "WARNING — Brand sem lead gen é vaidade. Adicione conexão com oferta."
+        - condition: "Menos de 2 domínios no expertise stack"
+          action: "BLOCK — Personal Monopoly requer interseção. 1 domínio = commodity."
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "digital_presence_inventory"
+        - "top_content_analysis"
+        - "brand_perception"
+        - "iceberg_model"
+        - "competitive_brands"
+      discard:
+        - "partial_skills_stack"
+        - "incomplete_unique_intersection"
+        - "draft_personal_monopoly"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: LEVERAGE STACK
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Leverage Stack"
+    days: "Days 3-4"
+    tier: 1
+    description: |
+      Construção do Leverage Stack — o sistema que transforma tempo
+      em alcance exponencial. Cada camada MULTIPLICA o impacto.
+
+      PRINCÍPIO: "O one-person business escala com leverage, não com headcount.
+      Cada camada do stack multiplica o impacto do seu tempo."
+
+      FRAMEWORK: The Leverage Stack
+      Layer 1: Code/Software (automação, templates)
+      Layer 2: Content (conteúdo que trabalha enquanto você dorme)
+      Layer 3: Capital (investimento em amplificação)
+      Layer 4: Collaboration (parcerias estratégicas)
+
+      RESULTADO: Sistema de leverage que desacopla tempo de receita.
+
+    agent: koe-brand
+
+    tasks:
+      - task_id: T2.1
+        name: "Definir Content Leverage System"
+        required: true
+        description: |
+          Conteúdo é a base do leverage. Definir:
+          - Formato longo semanal (newsletter, YouTube, podcast)
+          - Sistema de derivação (Content Cascade)
+          - Conteúdo evergreen vs. time-sensitive
+          - Biblioteca de assets reutilizáveis
+        output: "content_leverage.yaml"
+
+      - task_id: T2.2
+        name: "Construir Automation Stack"
+        required: true
+        description: |
+          Identificar TUDO que pode ser automatizado:
+          - Email sequences
+          - Social media scheduling
+          - Lead capture → nurture → offer
+          - Onboarding de clientes
+          Cada automação = mais tempo para criação.
+        output: "automation_stack.yaml"
+
+      - task_id: T2.3
+        name: "Mapear Collaboration Opportunities"
+        required: true
+        description: |
+          Identificar 10-20 potenciais parceiros estratégicos:
+          - Criadores com audiência complementar
+          - Podcasts/newsletters para guest
+          - Joint ventures possíveis
+          Collaboration = acesso a audiências existentes.
+        output: "collaboration_map.yaml"
+
+      - task_id: T2.4
+        name: "Criar Knowledge Product Blueprint"
+        required: true
+        description: |
+          Blueprint para transformar expertise em produto digital:
+          - Curso (transformação estruturada)
+          - Templates/frameworks (ferramentas)
+          - Comunidade (network effect)
+          - Mentoria (high-touch, premium)
+        output: "knowledge_product_blueprint.yaml"
+
+      - task_id: T2.5
+        name: "Definir Time-to-Leverage Roadmap"
+        required: true
+        description: |
+          Roadmap de 90 dias para ativar cada camada do stack:
+          - Dias 1-30: Content system (fundamental)
+          - Dias 31-60: Automation + primeiro produto
+          - Dias 61-90: Collaboration + scaling
+        output: "leverage_roadmap.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Leverage Stack Builder
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      leverage_stack_builder:
+        description: "Builder completo do Leverage Stack de Dan Koe"
+        principle: |
+          "Leverage é a ponte entre onde você está e liberdade.
+          Sem leverage, você troca tempo por dinheiro para sempre."
+        layers:
+          content_leverage:
+            name: "Content Leverage (Layer 1 — Fundamental)"
+            description: "Conteúdo trabalha enquanto você dorme. É o primeiro leverage."
+            components:
+              long_form:
+                name: "Conteúdo Longo (Âncora)"
+                frequency: "1x por semana"
+                formats: ["Newsletter", "YouTube video", "Podcast episode", "Blog post"]
+                purpose: "Profundidade, autoridade, SEO, base para derivação"
+                time_investment: "4-6 horas/semana"
+                leverage_multiplier: "1 peça → 8-15 derivados"
+
+              short_form:
+                name: "Conteúdo Curto (Distribuição)"
+                frequency: "4-7x por semana"
+                formats: ["Tweets/threads", "Reels/shorts", "Carousels", "Quotes"]
+                purpose: "Alcance, discovery, top-of-funnel"
+                time_investment: "1-2 horas/semana (derivado do longo)"
+                leverage_multiplier: "Alcance 10x maior que long-form"
+
+              evergreen:
+                name: "Conteúdo Evergreen (Biblioteca)"
+                update_frequency: "Mensal"
+                formats: ["Guias completos", "Frameworks", "Resources pages"]
+                purpose: "SEO, lead magnet perpétuo, autoridade"
+                time_investment: "2-4 horas/mês"
+                leverage_multiplier: "Gera leads 24/7 sem esforço adicional"
+
+          automation_leverage:
+            name: "Automation Leverage (Layer 2 — Escala)"
+            description: "Sistemas que fazem o trabalho repetitivo por você"
+            components:
+              email_automation:
+                name: "Email Sequences"
+                types:
+                  - "Welcome sequence (5-7 emails)"
+                  - "Nurture sequence (semanal)"
+                  - "Launch sequence (7-10 emails)"
+                  - "Post-purchase onboarding (5 emails)"
+                leverage: "Uma vez criado, converte automaticamente"
+
+              social_automation:
+                name: "Social Media Scheduling"
+                tools: ["Buffer", "Hypefury", "Publer", "Typefully"]
+                leverage: "Batch create → auto-publish → engage"
+
+              funnel_automation:
+                name: "Funil Automatizado"
+                flow: "Lead magnet → Email capture → Nurture → Offer → Purchase → Onboarding"
+                leverage: "0 intervenção manual do capture ao onboarding"
+
+          collaboration_leverage:
+            name: "Collaboration Leverage (Layer 3 — Multiplicação)"
+            description: "Acesso a audiências existentes via parcerias"
+            components:
+              guest_appearances:
+                name: "Guest Appearances"
+                types: ["Podcasts", "Newsletters", "YouTube colabs", "Lives conjuntas"]
+                target: "2-4 por mês"
+                leverage: "Acesso a 100% da audiência do parceiro"
+
+              cross_promotions:
+                name: "Cross Promotions"
+                types: ["Newsletter swaps", "Social media shoutouts", "Joint webinars"]
+                leverage: "Crescimento mútuo sem custo"
+
+              joint_ventures:
+                name: "Joint Ventures"
+                types: ["Produto conjunto", "Afiliação mútua", "Bundle de ofertas"]
+                leverage: "Combina expertises + audiências para resultado exponencial"
+
+          capital_leverage:
+            name: "Capital Leverage (Layer 4 — Amplificação)"
+            description: "Investimento financeiro para amplificar o que já funciona"
+            components:
+              paid_amplification:
+                name: "Amplificação Paga"
+                rule: "SÓ amplifique conteúdo que já performou organicamente"
+                types: ["Boost de posts top-performing", "Retargeting de visitantes"]
+                budget: "5-10% da receita em amplificação"
+
+              team_leverage:
+                name: "Micro-Team"
+                roles: ["VA para operações", "Editor de vídeo", "Designer"]
+                rule: "Delegue execução, NUNCA delegue criação e estratégia"
+
+            warning: "Capital leverage SÓ funciona se Layers 1-3 já estão ativas. Nunca comece aqui."
+
+      content_system_template:
+        description: "Template de sistema de conteúdo semanal"
+        weekly_rhythm:
+          monday:
+            activity: "Content Strategy (30min)"
+            details: "Revisar Queue, escolher tema da semana, planejar ângulo"
+
+          tuesday_wednesday:
+            activity: "Long-form Creation (4h total)"
+            details: "Escrever/gravar conteúdo âncora da semana"
+
+          thursday:
+            activity: "Derivation (1h)"
+            details: "Extrair 5-8 peças curtas do conteúdo longo"
+
+          friday:
+            activity: "Scheduling + Engagement (1h)"
+            details: "Agendar posts da semana seguinte + responder comentários"
+
+          total_time: "6-7 horas/semana"
+          leverage_output: "1 long-form + 8-15 short-form + email"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Leverage Stack Complete"
+      criteria:
+        - "Content Leverage System definido (long-form + short-form + evergreen)"
+        - "Automation Stack com 3+ automações mapeadas"
+        - "10+ Collaboration opportunities identificadas"
+        - "Knowledge Product Blueprint com 1+ produto definido"
+        - "Roadmap de 90 dias com milestones claros"
+      human_review: true
+      message: "Revise o Leverage Stack — cada camada deve multiplicar as anteriores."
+      veto_conditions:
+        - condition: "Sem Content Leverage definido"
+          action: "HALT — Content é a base de TODO leverage. Sem conteúdo, nada funciona."
+        - condition: "Capital Leverage sem Layers 1-3"
+          action: "BLOCK — Investir dinheiro sem fundação orgânica é queimar capital"
+        - condition: "Nenhum produto digital no blueprint"
+          action: "WARNING — Marca sem produto = trabalho voluntário. Definir caminho de monetização."
+        - condition: "Weekly time commitment > 20h"
+          action: "WARNING — Revisitar automações. One-person business ≠ one-person burnout."
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "skills_stack"
+        - "unique_intersection"
+        - "core_message"
+        - "brand_pillars"
+        - "personal_monopoly_declaration"
+      discard:
+        - "partial_content_leverage"
+        - "incomplete_automation_stack"
+        - "draft_leverage_roadmap"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 3: OFFER INTEGRATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Offer Integration"
+    days: "Day 5"
+    tier: 2
+    description: |
+      Integração da marca com ecossistema de ofertas.
+      A marca NÃO existe para ser bonita — existe para gerar leads e vendas.
+      Cada pilar de conteúdo deve ter caminho claro para monetização.
+
+      PRINCÍPIO: "Brand = Lead Gen. Se sua marca não gera leads,
+      é um hobby caro. Se gera leads sem autenticidade, é insustentável."
+
+      FRAMEWORK: Content → Trust → Offer → Delivery → Referral → Content
+      O ciclo é PERPÉTUO. Cada cliente alimenta o próximo ciclo.
+
+    agent: koe-offers
+
+    tasks:
+      - task_id: T3.1
+        name: "Mapear Brand → Offer Pathways"
+        required: true
+        description: |
+          Para cada pilar de conteúdo, mapear:
+          - Qual oferta ele alimenta?
+          - Qual é o CTA natural?
+          - Qual é a jornada do leitor → cliente?
+        output: "brand_offer_pathways.yaml"
+
+      - task_id: T3.2
+        name: "Definir Offer Ecosystem"
+        required: true
+        description: |
+          Criar ecossistema de ofertas alinhado à marca:
+          - Free (lead magnet, newsletter)
+          - Low-ticket (ebook, mini-curso, template pack)
+          - Mid-ticket (curso completo, comunidade)
+          - High-ticket (mentoria, consultoria, DFY)
+        output: "offer_ecosystem.yaml"
+
+      - task_id: T3.3
+        name: "Criar Brand-Led Sales Page Framework"
+        required: true
+        description: |
+          Framework de página de vendas que reflete a marca:
+          - Hero: narrativa de origem
+          - Problem: baseado no conteúdo
+          - Solution: extensão natural do conteúdo
+          - Proof: resultados do conteúdo gratuito
+          - Offer: Godfather Statement
+        output: "sales_page_framework.md"
+
+      - task_id: T3.4
+        name: "Definir Referral Engine"
+        required: true
+        description: |
+          Sistema de indicação baseado na marca:
+          - Como clientes se tornam embaixadores?
+          - Incentivos para referral?
+          - Como o resultado do cliente vira conteúdo?
+        output: "referral_engine.yaml"
+
+    inline_structures:
+      offer_brand_alignment_matrix:
+        description: "Matriz de alinhamento entre ofertas e pilares de marca"
+        template:
+          headers:
+            - "Pilar de Conteúdo"
+            - "Oferta Conectada"
+            - "CTA Natural"
+            - "Jornada (Tempo Médio)"
+            - "Revenue Potential"
+          example:
+            - pilar: "Filosofia de Vida"
+              oferta: "Curso Design de Vida (R$497)"
+              cta: "Se você quer estruturar isto, criei algo para você"
+              jornada: "2-4 semanas de conteúdo → compra"
+              revenue: "R$10k-30k/lançamento"
+
+            - pilar: "Criação de Conteúdo"
+              oferta: "Template Pack (R$97)"
+              cta: "Baixe os templates que uso"
+              jornada: "1-2 semanas → compra"
+              revenue: "R$5k-15k/mês (evergreen)"
+
+            - pilar: "Negócios Solo"
+              oferta: "Mentoria 1-on-1 (R$3.000/mês)"
+              cta: "Aplique para mentoria"
+              jornada: "1-3 meses de conteúdo → aplicação"
+              revenue: "R$15k-30k/mês (5-10 clientes)"
+
+        validation_rule: "Cada pilar DEVE ter pelo menos 1 oferta conectada. Pilar sem monetização = pilar a eliminar ou reformular."
+
+      offer_ecosystem_template:
+        description: "Template de ecossistema de ofertas com escada de valor"
+        tiers:
+          free:
+            name: "Free Tier (Lead Capture)"
+            purpose: "Capturar email e demonstrar expertise"
+            examples: ["Lead magnet PDF", "Mini-curso grátis", "Newsletter", "Checklist"]
+            metrics: "Email capture rate > 5%"
+
+          low_ticket:
+            name: "Low Ticket (R$27-197)"
+            purpose: "Converter frio em quente. Prova que a pessoa PAGA por você."
+            examples: ["Ebook", "Template pack", "Workshop gravado", "Mini-curso"]
+            metrics: "Conversão > 3% da lista"
+
+          mid_ticket:
+            name: "Mid Ticket (R$297-1.497)"
+            purpose: "Transformação core. Onde a maioria da receita vem."
+            examples: ["Curso completo", "Comunidade premium", "Cohort", "Masterclass"]
+            metrics: "Conversão > 5% de low-ticket buyers"
+
+          high_ticket:
+            name: "High Ticket (R$2.000+)"
+            purpose: "Implementação personalizada. Alto valor, poucos clientes."
+            examples: ["Mentoria 1-on-1", "Consultoria", "DFY service", "Mastermind"]
+            metrics: "5-15 clientes/mês máximo"
+
+        flow_rule: "Free → Low → Mid → High. NUNCA venda high-ticket para quem nunca comprou de você."
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Offer Integration Complete"
+      criteria:
+        - "Cada pilar tem pelo menos 1 oferta conectada"
+        - "Ecossistema de ofertas com 3+ tiers definidos"
+        - "Sales Page Framework escrito"
+        - "Referral Engine mapeado"
+        - "Revenue projections para cada tier"
+      human_review: true
+      message: "Confirme que a marca GERA receita, não apenas seguidores."
+      veto_conditions:
+        - condition: "Marca sem caminho de monetização"
+          action: "HALT — Brand = Lead Gen. Sem monetização, é vaidade. Inegociável."
+        - condition: "Oferta desalinhada com pilares de conteúdo"
+          action: "BLOCK — Oferta deve ser extensão natural do conteúdo gratuito"
+        - condition: "Apenas high-ticket sem base de low/mid"
+          action: "WARNING — Escada de valor incompleta. Conversão será difícil sem steps intermediários."
+    recovery:
+      rollback_to: "phase_2_checkpoint"
+      preserve:
+        - "content_leverage"
+        - "automation_stack"
+        - "collaboration_map"
+        - "knowledge_product_blueprint"
+        - "leverage_roadmap"
+      discard:
+        - "partial_brand_offer_pathways"
+        - "incomplete_offer_ecosystem"
+        - "draft_sales_page_framework"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 4: MINDSET ALIGNMENT
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-4
+    name: "Mindset Alignment"
+    days: "Days 6-7"
+    tier: 2
+    description: |
+      Alinhamento do mindset do criador com a marca construída.
+      A marca mais bonita do mundo FALHA se o criador tem sabotadores internos.
+
+      PRINCÍPIO: "A marca é um reflexo. Se o interior está desalinhado,
+      a audiência sente. Autenticidade não é estratégia — é pré-requisito."
+
+      FRAMEWORK: Conscious Conditioning Process — recondicionamento
+      consciente de crenças e padrões que sabotam a marca.
+
+      Dan Koe: "O maior obstáculo do one-person business não é estratégia.
+      É a mente do criador."
+
+    agent: koe-mindset
+
+    tasks:
+      - task_id: T4.1
+        name: "Identificar Sabotadores de Marca"
+        required: true
+        description: |
+          Mapear crenças limitantes que podem sabotar a marca:
+          - "Quem sou eu para ensinar isto?"
+          - "Se eu cobrar caro, vão me rejeitar"
+          - "Não sou bom o suficiente para me expor"
+          - "Outros são melhores que eu"
+        output: "brand_saboteurs.yaml"
+
+      - task_id: T4.2
+        name: "Aplicar Conscious Conditioning"
+        required: true
+        description: |
+          Para cada sabotador, criar o recondicionamento:
+          1. Identificar a crença limitante
+          2. Questionar: isto é fato ou narrativa?
+          3. Criar crença substituta baseada em evidência
+          4. Definir prática diária de reforço
+        output: "conscious_conditioning.yaml"
+
+      - task_id: T4.3
+        name: "Definir Identity-Brand Contract"
+        required: true
+        description: |
+          Contrato consigo mesmo sobre a marca:
+          - O que eu NUNCA farei pela marca (limites éticos)
+          - O que eu SEMPRE farei (compromissos de autenticidade)
+          - Quando eu vou parar de iterar e LANÇAR
+          - Como lidar com críticas e hate
+        output: "identity_brand_contract.md"
+
+      - task_id: T4.4
+        name: "Criar Sustainability Check"
+        required: true
+        description: |
+          Verificar que a marca é sustentável no longo prazo:
+          - Você aguenta fazer isto por 10 anos?
+          - A marca serve à vida que você quer?
+          - O time commitment é realista?
+          - Há espaço para evolução e crescimento?
+        output: "sustainability_check.yaml"
+
+      - task_id: T4.5
+        name: "Compilar Brand Architecture Document"
+        required: true
+        description: |
+          Documento final que consolida TUDO:
+          - Personal Monopoly
+          - Brand Pillars
+          - Leverage Stack
+          - Offer Ecosystem
+          - Mindset Foundation
+          - 90-Day Action Plan
+        output: "brand_architecture_final.md"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Mindset Alignment
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      conscious_conditioning_template:
+        description: "Template do Conscious Conditioning Process de Dan Koe"
+        principle: |
+          "Sua mente é condicionada por padrões antigos. Para construir algo novo,
+          você precisa CONSCIENTEMENTE recondicioná-la. Não é autoajuda.
+          É engenharia mental deliberada."
+        process:
+          step_1:
+            name: "Identify (Identificar)"
+            instruction: "Liste TODAS as crenças que aparecem quando pensa em se expor publicamente"
+            template: "Quando penso em [ação da marca], sinto [emoção] porque acredito que [crença]."
+            examples:
+              - action: "publicar conteúdo polêmico"
+                emotion: "medo"
+                belief: "vão me cancelar ou criticar"
+              - action: "cobrar premium"
+                emotion: "culpa"
+                belief: "não mereço cobrar tanto"
+              - action: "me posicionar como autoridade"
+                emotion: "vergonha"
+                belief: "outros sabem mais que eu"
+
+          step_2:
+            name: "Question (Questionar)"
+            instruction: "Para cada crença, aplique o teste de evidência"
+            questions:
+              - "Isto é um FATO verificável ou uma NARRATIVA que criei?"
+              - "Tenho evidência CONCRETA de que isto é verdade?"
+              - "O que aconteceria se eu agisse COMO SE esta crença fosse falsa?"
+              - "Quem EU ADMIRO também teve esta crença? O que fizeram?"
+
+          step_3:
+            name: "Replace (Substituir)"
+            instruction: "Crie crença substituta BASEADA em evidência real"
+            template: "Antes: [crença limitante]. Evidência: [fato concreto]. Nova crença: [crença empowering]."
+            examples:
+              - old: "Vão me criticar"
+                evidence: "Todo criador que admiro recebe críticas E continua"
+                new: "Críticas são evidência de que estou alcançando pessoas. Silêncio é pior."
+
+              - old: "Não mereço cobrar tanto"
+                evidence: "Pessoas já pagaram por minha ajuda e tiveram resultados"
+                new: "Cobrar pouco desvaloriza o resultado que entrego. Premium = compromisso."
+
+          step_4:
+            name: "Practice (Praticar)"
+            instruction: "Defina prática diária de reforço (5-10 min)"
+            practices:
+              - "Journaling matinal com nova crença"
+              - "Publicar 1 conteúdo desconfortável por semana (exposure therapy)"
+              - "Revisar resultados de clientes quando dúvida aparecer"
+              - "Manter arquivo de wins (depoimentos, métricas, conquistas)"
+
+      polarity_principle_template:
+        description: "Template do Polarity Principle — polarize para atrair os certos"
+        principle: |
+          "Se todo mundo gosta de você, ninguém se importa com você.
+          Polaridade é pré-requisito para marca forte."
+        application:
+          step_1: "Identifique 3 posições FORTES que você tem no seu mercado"
+          step_2: "Para cada posição, identifique quem vai CONCORDAR e quem vai DISCORDAR"
+          step_3: "Os que concordam = seu público. Os que discordam = não são seu público."
+          step_4: "Publique conteúdo que REFORCE suas posições (não diluia para agradar todos)"
+        examples:
+          - position: "Faculdade é desnecessária para a maioria das carreiras digitais"
+            agree: "Autodidatas, criadores, empreendedores digitais"
+            disagree: "Acadêmicos, pais tradicionais"
+            content: "Thread detalhando como aprendeu mais em 6 meses online que em 4 anos de faculdade"
+
+          - position: "Produtividade sem propósito é apenas velocidade na direção errada"
+            agree: "Pessoas buscando significado, minimalistas"
+            disagree: "Hustle culture, produtividade-porn"
+            content: "Post contrário ao 'work 80h/week' com dados sobre sustentabilidade"
+
+        warning: "Polaridade NÃO é ser tóxico. É ter convicções fortes E respeitar quem discorda."
+
+      sustainability_assessment:
+        description: "Avaliação de sustentabilidade da marca no longo prazo"
+        dimensions:
+          energy:
+            question: "Criar conteúdo sobre isto me energiza ou drena?"
+            scoring:
+              3: "Energiza — faria de graça"
+              2: "Neutro — trabalho que tolero"
+              1: "Drena — preciso me forçar"
+              0: "Detesto — só faço pelo dinheiro"
+            minimum: 2
+
+          evolution:
+            question: "Há espaço para eu EVOLUIR dentro deste tema por 10+ anos?"
+            scoring:
+              3: "Infinito — campo em constante expansão"
+              2: "Bom — 5-10 anos de material"
+              1: "Limitado — 2-3 anos antes de esgotar"
+              0: "Estagnado — já sei tudo"
+            minimum: 2
+
+          lifestyle:
+            question: "A marca serve ao estilo de vida que quero?"
+            scoring:
+              3: "Perfeito — totalmente alinhado"
+              2: "Bom — pequenos trade-offs aceitáveis"
+              1: "Mediano — sacrifícios significativos"
+              0: "Contrário — a marca me escraviza"
+            minimum: 2
+
+          income:
+            question: "O caminho de monetização é realista e suficiente?"
+            scoring:
+              3: "Claro e abundante — múltiplos streams"
+              2: "Possível — requer esforço mas viável"
+              1: "Incerto — talvez funcione"
+              0: "Improvável — mercado não paga por isto"
+            minimum: 1
+
+        total_max: 12
+        minimum_to_launch: 8
+        veto_condition: "Se qualquer dimensão = 0, PARAR e repensar esse aspecto da marca"
+
+    checkpoint:
+      id: CP_PHASE_4
+      name: "Mindset Alignment Complete"
+      criteria:
+        - "Sabotadores mapeados e conditioning criado para cada"
+        - "Conscious Conditioning com prática diária definida"
+        - "Identity-Brand Contract assinado"
+        - "Sustainability Check >= 8/12"
+        - "Brand Architecture Document final compilado"
+      human_review: true
+      message: "Última revisão. A marca está pronta para lançamento público?"
+      veto_conditions:
+        - condition: "Sustainability Score < 8/12"
+          action: "BLOCK — Marca insustentável vai gerar burnout. Ajustar antes de lançar."
+        - condition: "Qualquer dimensão de sustentabilidade = 0"
+          action: "HALT — Risco sério identificado. Resolver ANTES de investir energia na marca."
+        - condition: "Identity-Brand Contract sem limites éticos"
+          action: "WARNING — Sem limites, pressão do mercado vai corromper a autenticidade."
+        - condition: "Nenhuma prática de conditioning definida"
+          action: "BLOCK — Sabotadores vão voltar. Prática diária é inegociável."
+    recovery:
+      rollback_to: "phase_3_checkpoint"
+      preserve:
+        - "brand_offer_pathways"
+        - "offer_ecosystem"
+        - "sales_page_framework"
+        - "referral_engine"
+      discard:
+        - "partial_brand_saboteurs"
+        - "incomplete_conscious_conditioning"
+        - "draft_brand_architecture_final"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-brand-architecture"
+      status: "completed"
+      outputs:
+        - "brand_architecture_final.md"
+        - "personal_monopoly_declaration.md"
+        - "leverage_roadmap.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "digital_presence_inventory.yaml"
+    - "top_content_analysis.yaml"
+    - "brand_perception.yaml"
+    - "iceberg_model.yaml"
+    - "competitive_brands.yaml"
+
+  phase_1:
+    - "skills_stack.yaml"
+    - "unique_intersection.yaml"
+    - "core_message.md"
+    - "brand_pillars.yaml"
+    - "personal_monopoly_declaration.md"
+
+  phase_2:
+    - "content_leverage.yaml"
+    - "automation_stack.yaml"
+    - "collaboration_map.yaml"
+    - "knowledge_product_blueprint.yaml"
+    - "leverage_roadmap.yaml"
+
+  phase_3:
+    - "brand_offer_pathways.yaml"
+    - "offer_ecosystem.yaml"
+    - "sales_page_framework.md"
+    - "referral_engine.yaml"
+
+  phase_4:
+    - "brand_saboteurs.yaml"
+    - "conscious_conditioning.yaml"
+    - "identity_brand_contract.md"
+    - "sustainability_check.yaml"
+    - "brand_architecture_final.md"
+
+  final_deliverable:
+    name: "Personal Brand Architecture Package"
+    location: "outputs/brand/{brand_id}/"
+    contents:
+      - "README.md — Overview da marca"
+      - "personal_monopoly.md — Declaração de monopoly"
+      - "brand_pillars.yaml — Pilares de conteúdo"
+      - "leverage_stack.yaml — Stack de leverage"
+      - "offer_ecosystem.yaml — Ecossistema de ofertas"
+      - "content_system.md — Sistema de conteúdo"
+      - "mindset_foundation.md — Alicerce mental"
+      - "90_day_plan.md — Plano de ação"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-sintetizador", "koe-advisor"]
+
+  PHASE-1:
+    primary: ["koe-brand"]
+    secondary: ["koe-sintetizador", "koe-coletor"]
+
+  PHASE-2:
+    primary: ["koe-brand"]
+    secondary: ["koe-distribuidor", "koe-coletor"]
+
+  PHASE-3:
+    primary: ["koe-offers"]
+    secondary: ["koe-advisor"]
+
+  PHASE-4:
+    primary: ["koe-mindset"]
+    secondary: ["koe-advisor"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] Presença digital inventariada"
+    - "[ ] Top 10-20 conteúdos analisados"
+    - "[ ] Gap percepção atual vs. desejada"
+    - "[ ] Iceberg Model completo"
+    - "[ ] 5+ competidores mapeados"
+    - "[ ] Brand Health Score >= 4/12"
+
+  phase_1:
+    - "[ ] Skills Stack com 3 categorias"
+    - "[ ] Interseção testada (3/4 SIM)"
+    - "[ ] Mensagem Central validada"
+    - "[ ] 3-5 Brand Pillars definidos"
+    - "[ ] Personal Monopoly declarado"
+
+  phase_2:
+    - "[ ] Content Leverage System"
+    - "[ ] 3+ automações mapeadas"
+    - "[ ] 10+ collaboration opportunities"
+    - "[ ] Knowledge Product Blueprint"
+    - "[ ] 90-day Roadmap"
+
+  phase_3:
+    - "[ ] Cada pilar → oferta conectada"
+    - "[ ] 3+ tiers no ecossistema"
+    - "[ ] Sales Page Framework"
+    - "[ ] Referral Engine"
+
+  phase_4:
+    - "[ ] Sabotadores mapeados"
+    - "[ ] Conditioning com prática diária"
+    - "[ ] Identity-Brand Contract"
+    - "[ ] Sustainability >= 8/12"
+    - "[ ] Brand Architecture Document final"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "BRAND_ARCHITECTURE_SYSTEM"
+    - "PERSONAL_MONOPOLY_ENGINE"
+    - "LEVERAGE_STACK"
+    - "DIGITAL_RENAISSANCE"
+    - "CONSCIOUS_CONDITIONING_PROCESS"
+    - "ICEBERG_MODEL"
+    - "POLARITY_PRINCIPLE"
+    - "CONTENT_CASCADE"
+  source_mind: "dan_koe"
+  lines: "800+"
+  quality_gate: "SC_WFL_KOE_002"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

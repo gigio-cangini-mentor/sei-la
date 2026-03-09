@@ -1,0 +1,479 @@
+workflow:
+  id: wf-sessao-coaching
+  name: "Sessão de Coaching CIS Completa"
+  version: "1.0.0"
+  duration: "1 sessão (75-90 min)"
+
+  description: |
+    Workflow completo de sessão de coaching usando metodologia CIS (Coaching Integral Sistêmico).
+
+    Analisa:
+    - MAS (Mapa de Autorresponsabilidade Sistêmica) — 11 pilares (0-10 cada)
+    - Bloqueios principais (mágoas, crenças limitantes, falta de foco)
+    - Aplica framework correto baseado no diagnóstico
+    - Exercício prático (obrigatório)
+    - Compromisso e plano de ação (30 dias)
+
+    FILOSOFIA: "Mudanças acontecem rápido. Aonde foca, expande. Tudo começa com autorresponsabilidade."
+
+  best_for:
+    - "Pessoa que quer mudança real (não teórica)"
+    - "Cliente com bloqueio emocional ou mental específico"
+    - "Quem precisa sair da zona de vítima"
+    - "Quem está preso em crenças limitantes"
+    - "Cliente que quer resultado tangível em 30 dias"
+
+  prerequisites:
+    required:
+      - "Pessoa disposta a se permitir mudar (pré-requisito absoluto)"
+      - "Abertura para confronto amoroso (Paulo é direto)"
+    optional:
+      - "Conhecimento prévio de CIS (facilita, mas não é obrigatório)"
+      - "Ter identificado área de vida que quer transformar"
+
+  phases:
+    - id: PHASE-1
+      name: "Diagnóstico com MAS"
+      duration: "15-20 min"
+      description: "Aplicar MAS (Mapa de Autorresponsabilidade Sistêmica) — 11 pilares"
+
+      objective: |
+        Mapear situação atual em 11 áreas de vida (0-10 cada):
+        1. Saúde física
+        2. Saúde mental
+        3. Relacionamento amoroso
+        4. Relacionamentos familiares
+        5. Vida social
+        6. Vida financeira
+        7. Vida profissional
+        8. Desenvolvimento pessoal
+        9. Espiritualidade
+        10. Lazer/Diversão
+        11. Contribuição/Legado
+
+        + 3 perguntas iniciais obrigatórias:
+        - O que você quer mudar? (específico)
+        - Por que você quer mudar isso? (razão profunda)
+        - O que você tem feito até agora? (padrões atuais)
+
+      tasks:
+        - type: assessment
+          description: "Aplicar MAS completo (11 pilares, escala 0-10)"
+          framework: "MAS (Mapa de Autorresponsabilidade Sistêmica)"
+
+          questions:
+            - "De 0 a 10, como está sua saúde física hoje? Sim ou não?"
+            - "De 0 a 10, como está sua saúde mental? Sim ou não?"
+            - "De 0 a 10, como está seu relacionamento amoroso? Sim ou não?"
+            - "De 0 a 10, como estão seus relacionamentos familiares? Sim ou não?"
+            - "De 0 a 10, como está sua vida social? Sim ou não?"
+            - "De 0 a 10, como está sua vida financeira? Sim ou não?"
+            - "De 0 a 10, como está sua vida profissional? Sim ou não?"
+            - "De 0 a 10, como está seu desenvolvimento pessoal? Sim ou não?"
+            - "De 0 a 10, como está sua espiritualidade? Sim ou não?"
+            - "De 0 a 10, como está seu lazer/diversão? Sim ou não?"
+            - "De 0 a 10, como está sua contribuição/legado? Sim ou não?"
+
+        - type: elicitation
+          description: "3 perguntas estratégicas obrigatórias"
+          questions:
+            - "O que você quer mudar? (específico, não genérico)"
+            - "Por que você quer mudar isso? (razão profunda, não superficial)"
+            - "O que você tem feito até agora? (padrões, resultados)"
+
+      checkpoint:
+        criteria:
+          - "MAS completo (11 pilares, todos com nota 0-10)"
+          - "3 perguntas respondidas com clareza"
+          - "Área de maior urgência identificada (nota mais baixa)"
+          - "Padrões atuais mapeados (o que tem feito)"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Pessoa não se permite mudar"
+            action: "PARAR — Coaching não funciona sem permissão interna"
+            severity: "BLOCKER"
+            message: |
+              Amigo/amiga, vou ser transparente contigo:
+
+              Se você não se permitir mudar, nenhum coaching funciona.
+              Mudanças acontecem rápido — mas só quando você DECIDE mudar de verdade.
+
+              Você está disposto(a) a se permitir mudar? Sim ou não?
+
+    - id: PHASE-2
+      name: "Identificação de Bloqueios"
+      duration: "10-15 min"
+      description: "Identificar bloqueios principais (mágoas, crenças, foco)"
+
+      objective: |
+        Mapear bloqueios que impedem mudança:
+        - Mágoas (passado não resolvido)
+        - Crenças limitantes ("eu não consigo", "eu não mereço")
+        - Falta de foco (dispersão mental)
+        - Falta de autorresponsabilidade (vítima)
+        - Falta de plasticidade neural ("eu sou assim mesmo")
+
+        Identificar qual framework aplicar na próxima fase.
+
+      tasks:
+        - type: blocker_identification
+          description: "Identificar bloqueios principais baseado no MAS e respostas"
+
+          decision_tree:
+            - question: "Pessoa culpa terceiros ou circunstâncias?"
+              yes: "BLOQUEIO: Falta de Autorresponsabilidade → Framework: Autorresponsabilidade"
+              no: next_question
+
+            - question: "Pessoa tem crenças limitantes claras? ('eu não consigo', 'eu não mereço')"
+              yes: "BLOQUEIO: Crenças Limitantes → Framework: Matriz de Crenças"
+              no: next_question
+
+            - question: "Pessoa está dispersa, sem foco claro?"
+              yes: "BLOQUEIO: Falta de Foco → Framework: FIA (Foco, Intenção, Ação)"
+              no: next_question
+
+            - question: "Pessoa acredita que não pode mudar? ('eu sou assim')"
+              yes: "BLOQUEIO: Falta de plasticidade → Framework: Plasticidade Neural"
+              no: next_question
+
+            - question: "Pessoa tem mágoas não resolvidas?"
+              yes: "BLOQUEIO: Mágoas do passado → Framework: Perdão/Gratidão"
+              no: "BLOQUEIO: Múltiplos ou indefinido → Priorizar UM"
+
+      checkpoint:
+        criteria:
+          - "Bloqueio principal identificado (1 bloqueio, não múltiplos)"
+          - "Framework correto mapeado para próxima fase"
+          - "Pessoa reconhece o bloqueio (awareness)"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Múltiplos bloqueios severos simultaneamente"
+            action: "VETAR dispersão — priorizar UM bloqueio crítico"
+            severity: "CRITICAL"
+            message: |
+              Amigo/amiga, você tem vários bloqueios.
+
+              Mas vou te dizer uma coisa: aonde foca, expande.
+              Se você tentar resolver tudo ao mesmo tempo, não resolve nada.
+
+              Vamos escolher UM bloqueio — o mais urgente — e trabalhar nele agora.
+              Os outros vêm depois. Concorda? Sim ou não?
+
+    - id: PHASE-3
+      name: "Aplicação de Framework"
+      duration: "20-30 min"
+      description: "Aplicar framework correto baseado no bloqueio identificado"
+
+      objective: |
+        Aplicar UM framework do CIS conforme bloqueio:
+
+        - **Autorresponsabilidade:** Se vítima → Princípio 10-90 (10% o que acontece, 90% como reage)
+        - **Matriz de Crenças:** Se crenças limitantes → Identificar crença + ressignificar
+        - **FIA:** Se falta de foco → Foco (onde), Intenção (por quê), Ação (como)
+        - **Plasticidade Neural:** Se "eu sou assim" → Neurociência da mudança
+        - **Perdão/Gratidão:** Se mágoas → Liberação emocional + gratidão ativa
+
+      tasks:
+        - task_file: tasks/aplicar-autorresponsabilidade.md
+          condition: "Se bloqueio = Falta de Autorresponsabilidade"
+          input:
+            - situacao_vitima
+            - quem_culpa
+          output:
+            - reconhecimento_responsabilidade
+            - novo_mindset
+
+        - task_file: tasks/aplicar-matriz-crencas.md
+          condition: "Se bloqueio = Crenças Limitantes"
+          input:
+            - crenca_limitante_identificada
+          output:
+            - crenca_ressignificada
+            - nova_crenca_instalada
+
+        - task_file: tasks/aplicar-fia.md
+          condition: "Se bloqueio = Falta de Foco"
+          input:
+            - areas_dispersao
+          output:
+            - foco_definido
+            - intencao_clara
+            - acoes_especificas
+
+        - task_file: tasks/aplicar-plasticidade.md
+          condition: "Se bloqueio = 'Eu sou assim'"
+          input:
+            - crenca_identidade
+          output:
+            - entendimento_neuroplasticidade
+            - novo_padrao_possivel
+
+        - task_file: tasks/aplicar-perdao-gratidao.md
+          condition: "Se bloqueio = Mágoas"
+          input:
+            - magoa_identificada
+            - pessoa_ou_situacao
+          output:
+            - liberacao_emocional
+            - gratidao_ativa
+
+      checkpoint:
+        criteria:
+          - "Framework aplicado corretamente (não genérico)"
+          - "Pessoa teve insight claro (não teórico)"
+          - "Confronto amoroso presente (Paulo é direto)"
+          - "Conexão emocional estabelecida (não só racional)"
+
+        human_review: false
+        auto_advance: true
+
+        veto_conditions:
+          - condition: "Framework aplicado de forma teórica (sem conexão emocional)"
+            action: "VETAR avanço — reaplicar com confronto amoroso"
+            severity: "CRITICAL"
+            message: |
+              Não, não, não. Isso aqui não é aula teórica, amigo/amiga.
+
+              Coaching é TRANSFORMAÇÃO. É você se conectar com a DOR e com a SOLUÇÃO.
+              Não adianta só entender — você precisa SENTIR.
+
+              Vamos de novo, mas agora com verdade. Sim ou não?
+
+    - id: PHASE-4
+      name: "Exercício Prático"
+      duration: "10-15 min"
+      description: "Exercício prático obrigatório — Paulo SEMPRE inclui exercícios"
+
+      objective: |
+        Consolidar insight com AÇÃO prática:
+        - Nunca pular exercício (Paulo sempre inclui)
+        - Tipos: fill-in-the-blank, escalas 0-10, compromissos escritos, declarações
+        - Exercício DEVE ser específico (não genérico)
+        - Pessoa DEVE executar durante a sessão (não "depois")
+
+      tasks:
+        - type: practical_exercise
+          description: "Exercício prático tied ao framework aplicado"
+
+          exercise_types:
+            - "Autorresponsabilidade: Reescrever história de vítima → protagonista"
+            - "Crenças: Completar frase 'Eu mereço... porque...'"
+            - "FIA: Listar 3 ações específicas para os próximos 7 dias"
+            - "Plasticidade: Declarar novo padrão ('Eu decido que...')"
+            - "Perdão: Escrever carta de perdão (não precisa enviar)"
+
+          mandatory:
+            - "Exercício DEVE ser feito DURANTE a sessão"
+            - "Exercício DEVE ser específico (não genérico)"
+            - "Paulo DEVE validar resposta (não aceitar superficial)"
+
+      checkpoint:
+        criteria:
+          - "Exercício executado (não só planejado)"
+          - "Pessoa se conectou emocionalmente (não teórico)"
+          - "Resposta específica (não genérica tipo 'vou melhorar')"
+          - "Paulo validou resposta (confrontou se superficial)"
+
+        human_review: true
+        auto_advance: false
+
+        review_prompt: |
+          Revise o exercício prático. Perguntas críticas:
+
+          1. A pessoa REALMENTE fez o exercício? (não só pensou)
+          2. A resposta é ESPECÍFICA? (não genérica)
+          3. Houve conexão EMOCIONAL? (não só racional)
+          4. Paulo confrontou se superficial? (confronto amoroso)
+
+          Se SIM para todas: aprove.
+          Se NÃO para qualquer uma: refaça exercício com confronto amoroso.
+
+        veto_conditions:
+          - condition: "Exercício não foi feito"
+            action: "VETAR avanço — exercício é obrigatório"
+            severity: "BLOCKER"
+            message: "Amigo/amiga, sem exercício não tem transformação. Vamos fazer agora. Sim ou não?"
+
+          - condition: "Resposta genérica ou superficial"
+            action: "CONFRONTAR — exigir resposta específica"
+            severity: "WARNING"
+            message: "Não, não. Isso é resposta de internet, não é sua verdade. Vamos de novo: o QUE especificamente você vai fazer? Fala pra mim."
+
+    - id: PHASE-5
+      name: "Compromisso e Plano de Ação"
+      duration: "10 min"
+      description: "Compromisso público + plano de ação específico (30 dias)"
+
+      objective: |
+        Consolidar mudança com compromisso:
+        - Compromisso público ("Sim ou não?")
+        - Plano de ação específico (não genérico)
+        - Prazo definido (30 dias, não "algum dia")
+        - Data de reassessment (próxima sessão ou check-in)
+
+      tasks:
+        - type: commitment_ceremony
+          description: "Compromisso público usando estrutura 'Sim ou não?'"
+
+          steps:
+            - "Resumir transformação da sessão (insight principal)"
+            - "Paulo pergunta: 'Você está comprometido(a) com isso? Sim ou não?'"
+            - "Se sim: avançar. Se não: identificar resistência"
+            - "Declaração de compromisso específica (não genérica)"
+
+        - type: action_plan
+          description: "Plano de ação para próximos 30 dias"
+
+          format: |
+            ### PLANO DE AÇÃO — [Nome da Pessoa]
+
+            **INSIGHT PRINCIPAL:**
+            [Insight da sessão em 1 frase]
+
+            **COMPROMISSO:**
+            [Compromisso específico que a pessoa assumiu]
+
+            **AÇÕES ESPECÍFICAS (próximos 30 dias):**
+
+            **Semana 1:**
+            - [Ação específica 1]
+            - [Ação específica 2]
+
+            **Semana 2:**
+            - [Ação específica 3]
+            - [Ação específica 4]
+
+            **Semana 3-4:**
+            - [Ação específica 5]
+            - [Ação específica 6]
+
+            **DATA DE REASSESSMENT:**
+            [Data específica para próxima sessão ou check-in]
+
+            **MÉTRICA DE SUCESSO:**
+            [Como vamos medir se funcionou? Nota MAS no pilar trabalhado]
+
+      checkpoint:
+        criteria:
+          - "Compromisso assumido publicamente ('Sim' dado)"
+          - "Plano tem 5-7 ações específicas (não genéricas)"
+          - "Timeline definida (30 dias)"
+          - "Data de reassessment agendada"
+          - "Métrica de sucesso definida (nota MAS)"
+
+        human_review: true
+        auto_advance: false
+
+        review_prompt: |
+          Revise o plano de ação. Perguntas críticas:
+
+          1. A pessoa disse "SIM" com convicção? (não hesitante)
+          2. As ações são ESPECÍFICAS? (não genéricas tipo "vou melhorar")
+          3. O prazo é REALISTA? (30 dias é suficiente)
+          4. A métrica de sucesso está CLARA? (nota MAS no pilar trabalhado)
+
+          Se SIM para todas: aprove e finalize sessão.
+          Se NÃO para qualquer uma: confronte e refaça compromisso.
+
+        veto_conditions:
+          - condition: "Pessoa não disse 'Sim' com convicção"
+            action: "CONFRONTAR — identificar resistência antes de avançar"
+            severity: "BLOCKER"
+            message: |
+              Amigo/amiga, percebi hesitação.
+
+              Coaching não funciona se você não está 100% comprometido(a).
+              O que está te segurando? Vamos falar sobre isso agora.
+
+              Porque se você não acredita que pode, NADA vai funcionar.
+              Você está comprometido(a) ou não? Sim ou não?
+
+  outputs:
+    primary:
+      - name: "coaching-session-report.md"
+        description: "Relatório completo da sessão de coaching"
+        template: "templates/coaching-session-report-tmpl.md"
+        location: "squads/paulo-vieira/sessions/{session_id}/"
+
+    secondary:
+      - name: "plano-acao-30dias.md"
+        description: "Plano de ação específico para 30 dias"
+        location: "squads/paulo-vieira/sessions/{session_id}/"
+
+      - name: "mas-assessment.yaml"
+        description: "MAS completo estruturado (11 pilares)"
+        location: "squads/paulo-vieira/sessions/{session_id}/"
+
+  agents_by_phase:
+    PHASE-1: "paulo-vieira (assessment mode)"
+    PHASE-2: "paulo-vieira (diagnostic mode)"
+    PHASE-3: "paulo-vieira (framework application mode)"
+    PHASE-4: "paulo-vieira (exercise facilitation mode)"
+    PHASE-5: "paulo-vieira (commitment ceremony mode)"
+
+  quality_checklist:
+    pre_execution:
+      - "Pessoa está disposta a se permitir mudar?"
+      - "Pessoa entende que Paulo é direto (confronto amoroso)?"
+
+    during_execution:
+      - "MAS completo aplicado (11 pilares)?"
+      - "Bloqueio principal identificado (1 bloqueio)?"
+      - "Framework aplicado com conexão emocional (não teórico)?"
+      - "Exercício prático executado (não só planejado)?"
+      - "Confronto amoroso presente (Paulo direto mas com amor)?"
+
+    post_execution:
+      - "Compromisso assumido com 'Sim' (não hesitante)?"
+      - "Plano tem 5-7 ações específicas (não genéricas)?"
+      - "Data de reassessment agendada?"
+      - "Pessoa saiu com clareza e ação (não confusa)?"
+
+  error_handling:
+    - error: "Pessoa não se permite mudar"
+      action: "PARAR sessão — coaching não funciona sem permissão interna"
+
+    - error: "Múltiplos bloqueios severos simultaneamente"
+      action: "Priorizar UM bloqueio crítico, agendar follow-up para outros"
+
+    - error: "Pessoa resistente ao exercício prático"
+      action: "Confronto amoroso — 'Sem ação não tem transformação. Vamos fazer agora.'"
+
+    - error: "Compromisso hesitante (não disse 'Sim' com convicção)"
+      action: "Identificar resistência, trabalhar bloqueio antes de avançar"
+
+    - error: "Plano de ação genérico"
+      action: "Confrontar — exigir ações específicas, não 'vou melhorar'"
+
+  completion_signals:
+    workflow_complete:
+      - "Relatório 'coaching-session-report.md' gerado"
+      - "Compromisso assumido com 'Sim'"
+      - "Plano de ação 30 dias validado"
+      - "Data de reassessment agendada"
+
+    follow_up_needed:
+      - condition: "Múltiplos bloqueios identificados"
+        action: "Agendar sessão focada no bloqueio secundário"
+
+      - condition: "Pessoa hesitante no compromisso"
+        action: "Check-in em 7 dias para validar se está executando"
+
+      - condition: "Bloqueio profundo (trauma, mágoa severa)"
+        action: "Recomendar acompanhamento psicológico paralelo"
+
+  metadata:
+    created: "2026-03-08"
+    author: "AIOS Squad Creator"
+    version: "1.0.0"
+    framework_version: "AIOS 4.0"
+    persona_fidelity: "90-95%"
+    source_agent: "paulo-vieira v1.0.0"
+    voice_dna_compliance: true
+    thinking_dna_compliance: true

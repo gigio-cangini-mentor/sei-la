@@ -1,0 +1,176 @@
+# Workflow: Quality Review Pipeline
+# Post-extraction quality verification with human review
+
+workflow:
+  id: wf-quality-review
+  name: "Quality Review Pipeline"
+  trigger: "*verify {path} | *review {path} | *qa-batch {directory}"
+  executor: etl-chief
+
+  description: |
+    Two-stage quality assurance workflow for extracted documents.
+    Stage 1: Automated quality scoring with source comparison.
+    Stage 2: Human review for documents that don't meet threshold.
+
+    Can run on single files or entire batch directories.
+
+  modes:
+    single:
+      trigger: "*verify {path}"
+      description: "Run quality check on one extracted .md file"
+    review:
+      trigger: "*review {path}"
+      description: "Direct human review for a specific file"
+    batch:
+      trigger: "*qa-batch {directory}"
+      description: "Quality check all .md files in directory"
+
+  phases:
+    - phase: 1
+      name: "Identify Targets"
+      action: |
+        Single mode:
+          1. Verify {path} is a .md file
+          2. Parse frontmatter — check for `source_path` field
+          3. If NO `source_path` in frontmatter:
+             → ABORT: "Not an ETL-generated file. Missing source_path in frontmatter."
+             → VETO: Only ETL-converted files can be quality-verified.
+             → Suggest: "Run *convert {source} first, then *verify the output."
+          4. Locate original source file from frontmatter
+          5. If source not found: WARN (score metadata only)
+
+        Batch mode:
+          1. Scan {directory} for .md files with ETL frontmatter
+          2. Filter: only files with source_path in frontmatter
+          3. Filter: skip files already with qa_status: PASS|APPROVED_MANUAL
+          4. Sort by date_processed (oldest first)
+          5. Display: "Found {N} documents to verify"
+
+        Review mode:
+          1. Load existing quality report for {path}
+          2. If no report exists: run Phase 2 first, then proceed to Phase 4
+          3. Skip directly to Phase 4 (Human Review)
+
+    - phase: 2
+      name: "Automated Quality Scoring"
+      task: verify-extraction-quality
+      action: |
+        For each target file:
+        1. Load source and output
+        2. Run 5-dimension quality assessment
+        3. Calculate weighted score
+        4. Generate quality report
+        5. Update frontmatter with qa_ fields
+
+        Progress display:
+        ```
+        Verifying quality...
+        [=========>     ] {done}/{total}
+        Current: {filename} — Score: {score}/10
+        ```
+
+      checkpoint:
+        condition: "All files scored"
+        on_fail: "Report which files could not be scored and why"
+
+    - phase: 3
+      name: "Triage"
+      action: |
+        Sort scored documents into categories:
+
+        ```
+        ═══════════════════════════════════════════════════
+        📊 QUALITY TRIAGE
+        ═══════════════════════════════════════════════════
+
+        ✅ PASS ({N} files, avg {X}/10):
+           {file1}: {score}
+           {file2}: {score}
+
+        🔄 CONDITIONAL ({N} files, avg {X}/10):
+           {file3}: {score} — auto-retrying...
+           {file4}: {score} — auto-retrying...
+
+        ⚠️  NEEDS REVIEW ({N} files, avg {X}/10):
+           {file5}: {score} — queued for human review
+           {file6}: {score} — queued for human review
+
+        ❌ FAILED ({N} files, avg {X}/10):
+           {file7}: {score} — queued for human review (mandatory)
+        ```
+
+        Auto-retry CONDITIONAL files:
+        - Run verify-extraction-quality with retry params
+        - If score improves above threshold → move to PASS
+        - If still below after max_retries → move to NEEDS_REVIEW
+
+    - phase: 4
+      name: "Human Review"
+      task: human-review-extraction
+      condition: "NEEDS_REVIEW or FAILED files exist"
+      action: |
+        For each file in review queue:
+        1. Present review dashboard
+        2. Collect reviewer decision
+        3. Execute decision (approve/reject/re-extract/edit)
+        4. Update quality history
+
+        If no files need review:
+        → Skip to Phase 5
+
+    - phase: 5
+      name: "Final Report"
+      action: |
+        Generate comprehensive quality summary:
+
+        ```
+        ═══════════════════════════════════════════════════
+        📋 QUALITY REVIEW — FINAL REPORT
+        ═══════════════════════════════════════════════════
+
+        Total documents: {N}
+        Average score: {X}/10
+
+        By status:
+          ✅ PASS (automated):      {N} ({pct}%)
+          ✅ APPROVED (human):      {N} ({pct}%)
+          🔄 RE-EXTRACTED:          {N} ({pct}%, avg improvement +{X})
+          ✏️  MANUALLY EDITED:      {N} ({pct}%)
+          ❌ REJECTED:              {N} ({pct}%)
+          ⏭️  PENDING REVIEW:       {N} ({pct}%)
+
+        Score distribution:
+          9-10: {N} ████████
+          7-8:  {N} ██████
+          5-6:  {N} ████
+          3-4:  {N} ██
+          0-2:  {N} █
+
+        Quality by source type:
+          Spreadsheet:  avg {X}/10
+          Presentation: avg {X}/10
+          Image (OCR):  avg {X}/10
+          Text:         avg {X}/10
+          Data:         avg {X}/10
+          Delegated:    avg {X}/10
+
+        Reports saved to: {directory}/.qa/
+        ```
+
+      save_report:
+        path: "{directory}/.qa/qa-summary-{date}.md"
+        format: "markdown"
+
+  settings:
+    qa_directory: ".qa"
+    create_qa_dir: true
+    gitignore_qa: false  # Quality reports are valuable to keep
+    history_file: "review-history.yaml"
+    queue_file: "review-queue.yaml"
+
+  error_handling:
+    source_missing: "Score based on output-only analysis, WARN about incomplete check"
+    output_corrupt: "Mark as FAIL, flag for manual investigation"
+    qa_dir_not_writable: "Save reports to /tmp/.etl-qa/ as fallback"
+    not_etl_file: "ABORT with clear message — only ETL-generated files accepted"
+    expired_queue_items: "Auto-reject with WARN, move to .qa/expired/"

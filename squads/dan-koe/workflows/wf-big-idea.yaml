@@ -1,0 +1,1121 @@
+# Big Idea Development Workflow
+# Based on Dan Koe's Digital Renaissance & Iceberg Model
+# Source: DIGITAL_RENAISSANCE + ICEBERG_MODEL + CROSS_DOMAIN_SYNTHESIS + APAG
+# Version: 1.0.0
+
+id: wf-big-idea
+name: "Big Idea Development"
+version: "1.0.0"
+duration: "2-3 dias"
+trigger: "*big-idea"
+description: |
+  Workflow para desenvolver um insight bruto em uma Big Idea nomeada,
+  profunda e pronta para se tornar conteudo de alto impacto.
+
+  FILOSOFIA: "Uma Big Idea nao e uma opiniao — e uma interseccao. E o ponto
+  onde dois ou mais dominios se encontram de forma nao obvia e criam algo novo."
+
+  O MODELO ICEBERG: Na superficie, a Big Idea parece simples — uma frase,
+  um nome, um conceito elegante. Abaixo da superficie, existe pesquisa massiva,
+  experiencia vivida, e conexoes entre sistemas complexos.
+
+  RESULTADO: Framework nomeado com profundidade de iceberg, pronto para
+  alimentar o Content Pipeline (wf-content-pipeline) ou criacao de curso/produto.
+
+  QUANDO NAO USAR: Se voce tem uma ideia rasa que nao conecta dominios,
+  use o Queue System para capturar e esperar maturacao. Nao force Big Ideas.
+
+# ===============================================================================
+# QUANDO USAR ESTE WORKFLOW
+# ===============================================================================
+
+best_for:
+  - "Desenvolver um insight bruto em framework nomeado"
+  - "Criar conteudo cornerstone (pilar) para o brand"
+  - "Preparar base conceitual para curso ou produto digital"
+  - "Explorar interseccao entre dominios de forma sistematica"
+  - "Aprofundar ideia que ja mostrou alto signal na Queue"
+
+decision_matrix_fit:
+  complexity: high
+  agents_required: 3
+  estimated_duration: "2-3 dias"
+  user_involvement: "high (elicitacao e validacao em cada fase)"
+  prerequisites:
+    - "Insight bruto capturado na Queue com signal_strength = high"
+    - "Minimo 2 dominios de conhecimento identificados"
+    - "Disponibilidade para sessao de elicitacao (30-60 min)"
+    - "Acesso a fontes de pesquisa (livros, artigos, experiencias)"
+
+# ===============================================================================
+# AGENTS ENVOLVIDOS
+# ===============================================================================
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orquestracao, selecao de ideia, validacao de profundidade"
+      phases: [0]
+
+    - agent: koe-sintetizador
+      role: "Sintese cross-domain, pattern recognition, iceberg depth"
+      phases: [1, 2]
+
+    - agent: koe-arquiteto
+      role: "Arquitetura de conteudo, nomeacao de framework, estruturacao final"
+      phases: [3]
+
+  synergies:
+    - agents: [koe-chief, koe-sintetizador]
+      pattern: "Chief valida potencial da ideia, Sintetizador aprofunda com cross-domain"
+
+    - agents: [koe-sintetizador, koe-arquiteto]
+      pattern: "Sintetizador entrega mapa de profundidade, Arquiteto transforma em estrutura publicavel"
+
+# ===============================================================================
+# PHASE 0: RAW MATERIAL COLLECTION
+# ===============================================================================
+
+phases:
+  - id: PHASE-0
+    name: "Raw Material Collection"
+    days: "Dia 1 (manhã)"
+    tier: 0
+    description: |
+      Coleta e validacao do material bruto que alimentara a Big Idea.
+      Nao se trata de pesquisa exaustiva — e sobre reunir os ingredientes
+      certos para a sintese.
+
+      PRINCIPIO: "Uma Big Idea nasce da colisao entre experiencia pessoal
+      e conhecimento de multiplos dominios. Sem experiencia, e academia.
+      Sem conhecimento, e achismo."
+
+      METRICA: Material bruto deve cobrir minimo 3 fontes de 2+ dominios.
+
+    agent: koe-chief
+
+    tasks:
+      - task_id: T0.1
+        name: "Selecionar Insight Semente"
+        required: true
+        description: |
+          Identificar o insight bruto que sera desenvolvido. Pode vir da Queue,
+          de uma conversa, de um livro, de uma experiencia. O importante
+          e que provoque uma reacao: "isso conecta com aquilo de forma
+          que ninguem percebeu."
+        output: "seed_insight.md"
+
+      - task_id: T0.2
+        name: "Mapear Dominios Envolvidos"
+        required: true
+        description: |
+          Listar todos os dominios que o insight toca ou poderia tocar.
+          Para cada dominio: qual o conceito relevante? Qual a conexao?
+          Qual evidencia suporta? Quem e referencia nesse dominio?
+        output: "domain_map.yaml"
+
+      - task_id: T0.3
+        name: "Coletar Material de Suporte"
+        required: true
+        description: |
+          Para cada dominio mapeado, reunir material de suporte:
+          citacoes, dados, estudos, exemplos historicos, analogias,
+          experiencias pessoais. Minimo 3 pecas de evidencia por dominio.
+        output: "support_material.yaml"
+
+      - task_id: T0.4
+        name: "Validar Potencial de Big Idea"
+        required: true
+        description: |
+          Aplicar teste de potencial: a ideia e contraintuitiva?
+          Conecta 2+ dominios? Tem experiencia pessoal como ancora?
+          Pode ser nomeada como framework? Gera "nunca pensei nisso assim"?
+        output: "potential_validation.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Raw Idea Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      raw_idea_template:
+        description: "Template para captura e validacao do insight semente"
+        fields:
+          - id: RI_001
+            name: "insight_bruto"
+            type: "text"
+            instruction: "Descreva o insight em 1-3 frases. Nao policie — seja bruto."
+            example: "A procrastinacao nao e preguica — e um problema de clareza. Quando voce sabe exatamente o que fazer, voce nao procrastina."
+
+          - id: RI_002
+            name: "trigger"
+            type: "text"
+            instruction: "O que disparou este insight? Contexto da descoberta."
+            example: "Li sobre o modelo de Clareza de Metas no livro do Csikszentmihalyi (Flow) e conectei com minha experiencia de procrastinar em projetos vagos mas nunca em projetos claros."
+
+          - id: RI_003
+            name: "dominios_iniciais"
+            type: "list"
+            instruction: "Quais dominios este insight toca? (minimo 2)"
+            example: ["psicologia (Flow/Csikszentmihalyi)", "produtividade", "neurociencia (dopamina e clareza)"]
+
+          - id: RI_004
+            name: "experiencia_pessoal"
+            type: "text"
+            instruction: "Qual experiencia pessoal ancora este insight? Sem experiencia nao e Big Idea — e citacao."
+            example: "Toda vez que eu defino com precisao o primeiro passo de um projeto, a resistencia desaparece. Nao e sobre motivacao — e sobre granularidade."
+
+          - id: RI_005
+            name: "contraintuitivo"
+            type: "boolean"
+            instruction: "Este insight desafia uma crenca popular? Se nao, pode nao ser Big Idea — pode ser informacao."
+            test: "Se 80% das pessoas concordam imediatamente, nao e contraintuitivo o suficiente."
+
+          - id: RI_006
+            name: "teste_de_reacao"
+            type: "text"
+            instruction: "Imagine compartilhando isso com alguem. Qual seria a reacao?"
+            ideal_reactions:
+              - "Nunca pensei nisso assim"
+              - "Isso explica algo que eu sentia mas nao conseguia articular"
+              - "Espera, se isso e verdade, entao..."
+            bad_reactions:
+              - "Sim, obvio"
+              - "Todo mundo sabe disso"
+              - "Interessante, mas e dai?"
+
+      domain_mapping_template:
+        description: "Template para mapeamento de dominios envolvidos"
+        per_domain:
+          name: "[Nome do dominio]"
+          key_concept: "[Conceito central deste dominio que conecta com o insight]"
+          reference_thinker: "[Quem e referencia neste dominio?]"
+          evidence:
+            - type: "[estudo/dado/exemplo/analogia/experiencia]"
+              content: "[Descricao da evidencia]"
+              strength: "[strong/moderate/weak]"
+          connection_to_insight: "[Como este dominio se conecta com o insight semente?]"
+
+        example:
+          - name: "Psicologia (Flow State)"
+            key_concept: "O estado de Flow requer objetivos claros e feedback imediato"
+            reference_thinker: "Mihaly Csikszentmihalyi"
+            evidence:
+              - type: "estudo"
+                content: "Flow: The Psychology of Optimal Experience — clareza de objetivos e pre-condicao"
+                strength: "strong"
+            connection_to_insight: "Procrastinacao e o oposto do Flow — ambas sao funcao da clareza"
+
+          - name: "Neurociencia (Dopamina)"
+            key_concept: "Dopamina nao e a molecula do prazer — e a molecula da ANTECIPACAO"
+            reference_thinker: "Andrew Huberman / Anna Lembke"
+            evidence:
+              - type: "dado"
+                content: "Dopamina aumenta quando o cerebro PREVE recompensa, nao quando recebe"
+                strength: "strong"
+            connection_to_insight: "Sem clareza, o cerebro nao consegue prever recompensa — logo nao libera dopamina para agir"
+
+      potential_validation_scorecard:
+        description: "Scorecard para validar se o insight merece tratamento de Big Idea"
+        criteria:
+          - id: PV_001
+            name: "Contraintuitividade"
+            weight: 0.25
+            question: "Este insight desafia uma crenca amplamente aceita?"
+            scoring:
+              3: "Desafia diretamente — a maioria acredita no oposto"
+              2: "Oferece angulo novo para algo parcialmente conhecido"
+              1: "Reafirma o que a maioria ja sente/sabe"
+              0: "Lugar-comum, sem novidade"
+
+          - id: PV_002
+            name: "Profundidade Cross-Domain"
+            weight: 0.25
+            question: "Quantos dominios diferentes se conectam de forma nao obvia?"
+            scoring:
+              3: "3+ dominios com conexoes nao obvias"
+              2: "2 dominios com ponte clara"
+              1: "1 dominio com profundidade"
+              0: "Observacao superficial"
+
+          - id: PV_003
+            name: "Ancora de Experiencia"
+            weight: 0.20
+            question: "Existe experiencia pessoal vivida que sustenta este insight?"
+            scoring:
+              3: "Experiencia profunda e transformadora"
+              2: "Experiencia relevante mas nao central"
+              1: "Observacao de terceiros"
+              0: "Puramente teorico"
+
+          - id: PV_004
+            name: "Potencial de Framework"
+            weight: 0.15
+            question: "Este insight revela um padrao repetivel que pode ser nomeado?"
+            scoring:
+              3: "Padrao claro com etapas nomeavel"
+              2: "Padrao parcial, precisa desenvolvimento"
+              1: "Insight pontual, sem padrao"
+              0: "Observacao isolada"
+
+          - id: PV_005
+            name: "Potencial Viral/Compartilhavel"
+            weight: 0.15
+            question: "As pessoas compartilhariam isso? Gera 'tenho que contar pra alguem'?"
+            scoring:
+              3: "Altamente compartilhavel — provoca reacao emocional"
+              2: "Interessante para audiencia nichada"
+              1: "Informativo mas nao compartilhavel"
+              0: "Sem impulso de compartilhamento"
+
+        minimum_weighted_score: 2.0
+        veto: "Se weighted score < 2.0, guardar na Queue para maturacao. Nao forcar Big Idea."
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Raw Material Complete"
+      criteria:
+        - "Insight semente documentado com trigger e experiencia pessoal"
+        - "Minimo 2 dominios mapeados com evidencias (3+ por dominio)"
+        - "Scorecard de potencial >= 2.0 weighted score"
+        - "Material de suporte coletado e organizado"
+      human_review: true
+      message: "Revise o material bruto. A qualidade da Big Idea depende da qualidade dos ingredientes."
+      veto_conditions:
+        - condition: "Insight sem componente contraintuitivo (PV_001 = 0)"
+          action: "HALT - Sem contraintuitividade, nao e Big Idea. Voltar para Queue."
+        - condition: "Apenas 1 dominio identificado"
+          action: "BLOCK - Digital Renaissance requer 2+ dominios. Pesquisar mais."
+        - condition: "0 experiencia pessoal como ancora"
+          action: "WARNING - Sem experiencia, sera conteudo teorico. Considerar substituir."
+        - condition: "Weighted score < 1.5"
+          action: "HALT - Potencial insuficiente. Arquivar e selecionar outro insight."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "queue_source_data"
+      discard:
+        - "partial_seed_insight"
+        - "incomplete_domain_map"
+        - "draft_support_material"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 1: CROSS-DOMAIN SYNTHESIS
+  # =============================================================================
+
+  - id: PHASE-1
+    name: "Cross-Domain Synthesis"
+    days: "Dia 1 (tarde) - Dia 2 (manhã)"
+    tier: 1
+    description: |
+      A fase mais criativa do workflow. Aqui o Sintetizador conecta os dominios
+      mapeados de forma nao obvia e revela os padroes escondidos.
+
+      PRINCIPIO DIGITAL RENAISSANCE: "O generalista criativo ve o que o
+      especialista nao pode ver. A vantagem competitiva do seculo 21
+      nao e saber mais sobre uma coisa — e conectar coisas que ninguem conectou."
+
+      PROCESSO: Para cada par de dominios, pergunte: "O que e verdade em AMBOS
+      que ninguem percebeu?" A resposta e o nucleo da Big Idea.
+
+      METRICA: Minimo 3 pontes cross-domain com exemplos concretos.
+
+    agent: koe-sintetizador
+
+    tasks:
+      - task_id: T1.1
+        name: "Criar Matriz de Sintese"
+        required: true
+        description: |
+          Para cada par de dominios, mapear as conexoes. Se 3 dominios
+          foram mapeados (A, B, C), criar 3 pares: A-B, A-C, B-C.
+          Para cada par: qual padrao e verdade em ambos?
+        output: "synthesis_matrix.yaml"
+
+      - task_id: T1.2
+        name: "Identificar Padrao Central"
+        required: true
+        description: |
+          Das conexoes mapeadas, qual e o padrao CENTRAL que unifica tudo?
+          Este padrao e o nucleo da Big Idea. Deve ser expressavel em 1 frase.
+          Teste: se voce explicar em 10 segundos, a pessoa entende?
+        output: "central_pattern.md"
+
+      - task_id: T1.3
+        name: "Desenvolver Analogias de Profundidade"
+        required: true
+        description: |
+          Criar 3-5 analogias que tornam o padrao central acessivel.
+          Cada analogia deve vir de um dominio diferente e iluminar
+          um aspecto diferente do padrao.
+        output: "depth_analogies.yaml"
+
+      - task_id: T1.4
+        name: "Mapear Contra-Argumentos"
+        required: true
+        description: |
+          Listar os 3-5 contra-argumentos mais fortes contra a Big Idea.
+          Para cada um: qual e o argumento? E valido? Como respondemos?
+          Big Ideas que nao sobrevivem a contra-argumentos sao frageis.
+        output: "counter_arguments.yaml"
+
+      - task_id: T1.5
+        name: "Teste de Transferencia"
+        required: true
+        description: |
+          A Big Idea se aplica a dominios que NAO foram usados na sintese?
+          Se sim, e um sinal forte de universalidade. Testar em 2-3 dominios
+          novos como validacao de robustez.
+        output: "transfer_test.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Synthesis Matrix
+    # -------------------------------------------------------------------------
+    inline_structures:
+      synthesis_matrix:
+        description: "Matriz para mapear conexoes entre pares de dominios"
+        pair_template:
+          domain_a: "[Nome do dominio A]"
+          domain_b: "[Nome do dominio B]"
+          shared_pattern: "[O que e verdade em AMBOS que ninguem percebeu?]"
+          evidence_a: "[Evidencia do padrao no dominio A]"
+          evidence_b: "[Evidencia do padrao no dominio B]"
+          novelty_score: "[1-5] Quao surpreendente e esta conexao?"
+          example: "[Exemplo concreto que ilustra a conexao]"
+
+        example_filled:
+          domain_a: "Escultura (Michelangelo)"
+          domain_b: "Produtividade (Essencialismo)"
+          shared_pattern: "Excelencia vem de SUBTRACAO, nao de adicao"
+          evidence_a: "Michelangelo removia pedra para revelar a forma — 'Eu vi o anjo no marmore e esculpi ate liberta-lo'"
+          evidence_b: "Greg McKeown (Essencialismo): 'Se voce nao prioriza sua vida, alguem vai priorizar por voce'"
+          novelty_score: 4
+          example: "Warren Buffett mantem 90% da agenda vazia. Steve Jobs eliminava 90% dos produtos. Ambos subtraem."
+
+        scoring_guide:
+          novelty:
+            5: "Ninguem fez esta conexao antes — potencial viral"
+            4: "Conexao rara e surpreendente"
+            3: "Conexao interessante mas ja parcialmente explorada"
+            2: "Conexao obvia para quem conhece ambos os dominios"
+            1: "Conexao superficial ou forcada"
+
+      analogy_development_template:
+        description: "Template para desenvolvimento de analogias de profundidade"
+        per_analogy:
+          domain_source: "[De onde vem a analogia]"
+          analogy: "[A analogia em 1-2 frases]"
+          illuminates: "[Que aspecto da Big Idea esta analogia revela?]"
+          accessible_to: "[Que audiencia vai entender esta analogia?]"
+          emotional_impact: "[Que emocao esta analogia provoca?]"
+
+        quality_test:
+          - "A analogia funciona sem explicacao? (Se precisa explicar, nao e boa)"
+          - "A analogia e visual? (Pessoas pensam em imagens)"
+          - "A analogia provoca um 'aha'? (Momento de conexao)"
+          - "A analogia e memoravel? (Repetiria em conversa?)"
+
+        example:
+          domain_source: "Escultura Classica"
+          analogy: "Produtividade e como esculpir: voce nao constroi a estátua — voce remove tudo que nao e a estatua."
+          illuminates: "O paradigma de subtracao vs. adicao"
+          accessible_to: "Qualquer pessoa (referencia visual universal)"
+          emotional_impact: "Clareza — 'entao eu nao preciso fazer MAIS?'"
+
+      counter_argument_protocol:
+        description: "Protocolo para mapear e responder contra-argumentos"
+        template:
+          argument: "[O contra-argumento em 1-2 frases]"
+          source: "[Quem defenderia esta posicao?]"
+          validity: "[valid/partially_valid/invalid]"
+          response: "[Como a Big Idea responde a este argumento?]"
+          concession: "[O que concedemos? (admissoes danosas aumentam credibilidade)]"
+
+        example:
+          argument: "Mas adicionar TAMBEM e necessario — voce precisa aprender coisas novas, adquirir skills."
+          source: "Defensores de lifelong learning, growth mindset"
+          validity: "partially_valid"
+          response: "Verdade — mas a SEQUENCIA importa. Primeiro subtraia (limpe o ruido), depois adicione com intencao. A maioria faz ao contrario."
+          concession: "Concordo que subtracao pura leva a estagnacao. O ponto nao e nunca adicionar — e adicionar DEPOIS de subtrair."
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Cross-Domain Synthesis Complete"
+      criteria:
+        - "Matriz de sintese com minimo 3 pares de dominios analisados"
+        - "Padrao central identificado e expressavel em 1 frase"
+        - "3-5 analogias de profundidade desenvolvidas"
+        - "Contra-argumentos mapeados e respondidos"
+        - "Teste de transferencia aprovado (funciona em 2+ dominios novos)"
+      human_review: true
+      message: "Revise a sintese cross-domain. O padrao central e a alma da Big Idea."
+      veto_conditions:
+        - condition: "Padrao central nao expressavel em 1 frase"
+          action: "BLOCK - Complexidade sem clareza nao e profundidade — e confusao. Simplificar."
+        - condition: "0 analogias acessiveis"
+          action: "BLOCK - Sem analogias, a Big Idea nao escala. Criar minimo 3."
+        - condition: "Contra-argumentos invalidam a tese"
+          action: "HALT - Big Idea nao sobrevive a critica. Reformular ou descartar."
+        - condition: "Teste de transferencia falhou em todos os dominios novos"
+          action: "WARNING - Big Idea pode ser observacao local, nao padrao universal."
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "seed_insight"
+        - "domain_map"
+        - "support_material"
+        - "potential_validation"
+      discard:
+        - "partial_synthesis_matrix"
+        - "incomplete_central_pattern"
+        - "draft_analogies"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 2: ICEBERG DEPTH TEST
+  # =============================================================================
+
+  - id: PHASE-2
+    name: "Iceberg Depth Test"
+    days: "Dia 2 (tarde)"
+    tier: 1
+    description: |
+      Validacao de que a Big Idea tem profundidade de Iceberg:
+      simples na superficie, massiva por baixo.
+
+      O MODELO ICEBERG: "O que as pessoas veem e a ponta.
+      O que sustenta e 10x maior e invisivel. Se a parte invisivel
+      nao existir, o iceberg afunda."
+
+      TESTE: Se voce consegue explicar a Big Idea em 1 minuto
+      MAS tambem pode falar sobre ela por 3 horas sem repetir — passou.
+
+      METRICA: Iceberg Depth Score >= 7/10
+
+    agent: koe-sintetizador
+
+    tasks:
+      - task_id: T2.1
+        name: "Definir Camada de Superficie"
+        required: true
+        description: |
+          A versao mais simples e acessivel da Big Idea.
+          Deve caber em 1 tweet (280 caracteres).
+          E o que as pessoas compartilham e lembram.
+        output: "surface_layer.md"
+
+      - task_id: T2.2
+        name: "Mapear Camadas de Profundidade"
+        required: true
+        description: |
+          Abaixo da superficie, mapear 4-6 camadas de profundidade crescente.
+          Cada camada revela mais complexidade, nuance, e aplicacao.
+          Camada 1: Expansao basica. Camada 6: Implicacoes filosoficas profundas.
+        output: "depth_layers.yaml"
+
+      - task_id: T2.3
+        name: "Teste do Jantar"
+        required: true
+        description: |
+          Simular explicacao da Big Idea em 3 contextos:
+          1) Tweet (30 seg) — hook puro
+          2) Conversa de jantar (5 min) — com exemplos
+          3) Palestra (45 min) — com profundidade completa
+          Se funciona nos 3, a Big Idea tem profundidade real.
+        output: "dinner_test.md"
+
+      - task_id: T2.4
+        name: "Aplicar Iceberg Depth Scorecard"
+        required: true
+        description: |
+          Avaliar a Big Idea contra 10 criterios do Iceberg Depth Scorecard.
+          Cada criterio vale 0-1 ponto. Score minimo: 7/10.
+        output: "iceberg_score.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Iceberg Depth Scorecard
+    # -------------------------------------------------------------------------
+    inline_structures:
+      iceberg_depth_scorecard:
+        description: "Scorecard de profundidade do Iceberg Model"
+        criteria:
+          - id: ICE_001
+            name: "Simplicidade de Superficie"
+            question: "Cabe em 1 tweet (280 chars)?"
+            pass: "Sim, e faz sentido sozinho"
+            fail: "Precisa de contexto para fazer sentido"
+
+          - id: ICE_002
+            name: "Profundidade Expandivel"
+            question: "Pode ser expandida para 3+ horas de conteudo sem repeticao?"
+            pass: "Sim, com novas camadas de nuance"
+            fail: "Esgota em minutos"
+
+          - id: ICE_003
+            name: "Ancora de Experiencia"
+            question: "Tem experiencia pessoal vivida como fundacao?"
+            pass: "Experiencia concreta e transformadora"
+            fail: "Puramente teorica/abstrata"
+
+          - id: ICE_004
+            name: "Evidencia Multi-Dominio"
+            question: "Tem evidencia de 2+ dominios diferentes?"
+            pass: "3+ dominios com dados concretos"
+            fail: "1 dominio ou sem evidencia"
+
+          - id: ICE_005
+            name: "Contra-Argumentos Respondidos"
+            question: "Sobrevive aos 3 contra-argumentos mais fortes?"
+            pass: "Responde a todos com nuance (nao rigidez)"
+            fail: "Invalidada por critica basica"
+
+          - id: ICE_006
+            name: "Transferibilidade"
+            question: "Aplica-se a dominios NAO usados na sintese?"
+            pass: "Funciona em 2+ dominios novos"
+            fail: "Limitada ao contexto original"
+
+          - id: ICE_007
+            name: "Nomeabilidade"
+            question: "Pode ser nomeada como framework com estrutura?"
+            pass: "Nome memoravel + passos/componentes claros"
+            fail: "Insight pontual sem padrao repetivel"
+
+          - id: ICE_008
+            name: "Compartilhabilidade"
+            question: "Provoca 'tenho que contar pra alguem'?"
+            pass: "Gera impulso de compartilhamento"
+            fail: "Informativo mas nao compartilhavel"
+
+          - id: ICE_009
+            name: "Potencial de Cascade"
+            question: "Gera 20+ pecas de conteudo via Content Cascade?"
+            pass: "Multiplos angulos e formatos possiveis"
+            fail: "Peca unica, dificil fragmentar"
+
+          - id: ICE_010
+            name: "Alinhamento com Brand Narrative"
+            question: "Reforca a narrativa central do brand?"
+            pass: "Conecta com tese de soberania/criacao/simplicidade"
+            fail: "Tangencial ou desconectada"
+
+        scoring:
+          "10/10": "Iceberg Perfeito — Big Idea cornerstone. Prioridade maxima."
+          "8-9/10": "Iceberg Forte — pronta para desenvolvimento completo."
+          "7/10": "Iceberg Viavel — pode prosseguir com ajustes menores."
+          "5-6/10": "Iceberg Raso — precisa de mais pesquisa ou maturacao na Queue."
+          "< 5/10": "Nao e Big Idea — arquivar e esperar maturacao."
+        minimum_score: 7
+
+      depth_layers_template:
+        description: "Template para mapeamento de camadas de profundidade"
+        layers:
+          - layer: 0
+            name: "Superficie (Tweet)"
+            depth: "Minima"
+            audience: "Qualquer pessoa"
+            format: "280 caracteres"
+            purpose: "Hook, curiosidade, compartilhamento"
+            example: "Produtividade e subtracao, nao adicao. Os mais produtivos fazem menos."
+
+          - layer: 1
+            name: "Expansao Basica (Post)"
+            depth: "Leve"
+            audience: "Interessados"
+            format: "300-500 palavras"
+            purpose: "Explicar o conceito com 1 exemplo"
+            example: "Explicacao do conceito + analogia de Michelangelo"
+
+          - layer: 2
+            name: "Desenvolvimento (Thread/Newsletter)"
+            depth: "Media"
+            audience: "Engajados"
+            format: "1000-2000 palavras"
+            purpose: "Framework + multiplos exemplos + aplicacao"
+            example: "Os 3 Filtros da Subtracao com passo-a-passo"
+
+          - layer: 3
+            name: "Profundidade (Long-form/YouTube)"
+            depth: "Alta"
+            audience: "Dedicados"
+            format: "2000-5000 palavras / 20+ min"
+            purpose: "Nuances, contra-argumentos, estudos, historia"
+            example: "Deep dive com neurociencia, filosofia, e estudos de caso"
+
+          - layer: 4
+            name: "Mestria (Curso/Livro)"
+            depth: "Maxima"
+            audience: "Practitioners"
+            format: "Modular, 5+ horas"
+            purpose: "Implementacao completa, exercicios, transformacao"
+            example: "Modulo completo com exercicios de auditoria de subtracao"
+
+          - layer: 5
+            name: "Filosofica (Worldview)"
+            depth: "Existencial"
+            audience: "Pensadores profundos"
+            format: "Ensaio/palestra"
+            purpose: "Implicacoes para vida, sociedade, consciencia"
+            example: "A cultura do 'mais' como doenca civilizacional — conexao com budismo e estoicismo"
+
+      dinner_test_template:
+        description: "Template para simulacao do Teste do Jantar"
+        contexts:
+          tweet_30_seconds:
+            format: "1 frase (max 280 chars)"
+            instruction: "Capture a essencia em 1 frase que faz a pessoa parar"
+            success_criteria: "Provoca curiosidade ou reflexao imediata"
+
+          dinner_5_minutes:
+            format: "Explicacao conversacional"
+            instruction: "Explique como se um amigo perguntasse 'o que voce esta trabalhando?'"
+            structure:
+              - "Hook (10 seg)"
+              - "Contexto pessoal (30 seg)"
+              - "Conceito central (1 min)"
+              - "2-3 exemplos (2 min)"
+              - "Implicacao pratica (1 min)"
+            success_criteria: "Amigo diz 'nossa, nunca pensei nisso' ou 'me conta mais'"
+
+          talk_45_minutes:
+            format: "Palestra estruturada"
+            instruction: "Estruture uma palestra completa sem repeticao"
+            structure:
+              - "Abertura impactante (3 min)"
+              - "Problema estabelecido (5 min)"
+              - "Historia pessoal (5 min)"
+              - "Reframe / Big Idea (5 min)"
+              - "Evidencia cross-domain (10 min)"
+              - "Framework pratico (10 min)"
+              - "Implicacoes maiores (5 min)"
+              - "CTA / Fechamento (2 min)"
+            success_criteria: "Audiencia engajada do inicio ao fim, sem queda de atencao"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Iceberg Depth Test Complete"
+      criteria:
+        - "Camada de superficie definida (tweet-size)"
+        - "4-6 camadas de profundidade mapeadas"
+        - "Teste do Jantar aprovado nos 3 contextos"
+        - "Iceberg Depth Score >= 7/10"
+      human_review: true
+      message: "Revise o teste de profundidade. Se o iceberg e raso, o conteudo sera raso."
+      veto_conditions:
+        - condition: "Iceberg Depth Score < 5/10"
+          action: "HALT - Profundidade insuficiente. Arquivar na Queue para maturacao."
+        - condition: "Iceberg Depth Score 5-6/10"
+          action: "BLOCK - Precisa mais pesquisa ou dominio adicional. Voltar para PHASE-0."
+        - condition: "Teste do Jantar falhou no contexto de 5 min"
+          action: "BLOCK - Se nao funciona em conversa, nao funciona em conteudo."
+        - condition: "0 camadas abaixo da superficie"
+          action: "HALT - Nao e Big Idea — e observacao. Arquivar."
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "synthesis_matrix"
+        - "central_pattern"
+        - "depth_analogies"
+        - "counter_arguments"
+        - "transfer_test"
+      discard:
+        - "partial_surface_layer"
+        - "incomplete_depth_layers"
+        - "draft_dinner_test"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 3: CONTENT ARCHITECTURE
+  # =============================================================================
+
+  - id: PHASE-3
+    name: "Content Architecture"
+    days: "Dia 3"
+    tier: 2
+    description: |
+      Transformacao da Big Idea validada em arquitetura de conteudo
+      pronta para execucao. Nomeacao de framework, estruturacao para
+      multiplos formatos, e preparacao para o Content Pipeline.
+
+      PRINCIPIO: "Uma Big Idea sem arquitetura e uma ideia perdida.
+      Arquitetura e o que transforma insight em sistema."
+
+      RESULTADO: Framework nomeado + Big Idea Package pronto para
+      alimentar wf-content-pipeline ou criacao de produto.
+
+    agent: koe-arquiteto
+
+    tasks:
+      - task_id: T3.1
+        name: "Nomear Framework"
+        required: true
+        description: |
+          Criar nome memoravel para o framework da Big Idea.
+          Regras: numero especifico + metafora visual + conceito core.
+          Ex: "Os 3 Filtros da Subtracao", "O Efeito Iceberg".
+          Nome deve ser compartilhavel verbalmente em 3 segundos.
+        output: "framework_name.md"
+
+      - task_id: T3.2
+        name: "Estruturar Framework"
+        required: true
+        description: |
+          Definir componentes/passos do framework com clareza.
+          Cada componente deve ter: nome, descricao, exemplo, anti-pattern.
+          O framework deve ser implementavel (nao apenas conceitual).
+        output: "framework_structure.yaml"
+
+      - task_id: T3.3
+        name: "Criar Content Map"
+        required: true
+        description: |
+          Mapear todos os conteudos possiveis derivados desta Big Idea.
+          Organizar por camada do iceberg e por plataforma.
+          Este mapa alimentara o wf-content-pipeline.
+        output: "content_map.yaml"
+
+      - task_id: T3.4
+        name: "Definir Cornerstone Piece"
+        required: true
+        description: |
+          Qual sera a PECA DEFINITIVA desta Big Idea?
+          Newsletter longform? YouTube deep dive? Capitulo de livro?
+          A cornerstone piece e a referencia — tudo mais e derivado.
+        output: "cornerstone_definition.md"
+
+      - task_id: T3.5
+        name: "Compilar Big Idea Package"
+        required: true
+        description: |
+          Compilar todos os artefatos em pacote final estruturado.
+          Este pacote e a entrega do workflow — pronto para uso.
+        output: "big_idea_package/"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Framework Naming Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      framework_naming_template:
+        description: "Template para nomeacao de frameworks"
+        patterns:
+          - pattern: "Numero + Conceito"
+            template: "Os [N] [CONCEITO]s de [TEMA]"
+            examples:
+              - "Os 3 Filtros da Subtracao"
+              - "As 5 Camadas do Iceberg"
+              - "Os 7 Pilares da Soberania"
+
+          - pattern: "Metafora + Conceito"
+            template: "O [METAFORA] de [TEMA]"
+            examples:
+              - "O Efeito Iceberg"
+              - "A Cascata de Conteudo"
+              - "O Principio da Subtracao"
+
+          - pattern: "Acao + Resultado"
+            template: "O [ACAO] [RESULTADO]"
+            examples:
+              - "A Regra do Esvaziamento"
+              - "O Protocolo de Foco"
+              - "O Ciclo de Clareza"
+
+          - pattern: "Anti-Pattern"
+            template: "O Paradoxo do [TEMA]"
+            examples:
+              - "O Paradoxo da Produtividade"
+              - "A Armadilha do Mais"
+              - "O Mito da Especializacao"
+
+        naming_rules:
+          - "Maximo 6 palavras no nome do framework"
+          - "Deve ser pronunciavel em 3 segundos"
+          - "Evite jargao tecnico — use linguagem visual"
+          - "Teste: alguem repetiria este nome em conversa?"
+          - "Se tem numero, seja especifico (nao '3-5' — escolha '3' ou '5')"
+
+      framework_structure_template:
+        description: "Template para estruturacao do framework"
+        component_schema:
+          id: "[COMP_001, COMP_002, ...]"
+          name: "[Nome do componente/passo]"
+          description: "[O que e e por que importa — 2-3 frases]"
+          action: "[O que a pessoa faz neste passo — acao especifica]"
+          example: "[Exemplo concreto de aplicacao]"
+          anti_pattern: "[Erro comum neste passo]"
+          time_estimate: "[Quanto tempo leva tipicamente]"
+
+        example:
+          framework_name: "Os 3 Filtros da Subtracao"
+          tagline: "Faca menos para fazer melhor."
+          components:
+            - id: COMP_001
+              name: "Filtro 1: Eliminar"
+              description: "Remova tudo que nao contribui diretamente para seu objetivo principal. Nao otimize — elimine."
+              action: "Liste tudo que voce faz em uma semana. Risque tudo que nao gera resultado direto."
+              example: "Cancelar reunioes recorrentes que nao tem agenda. Sair de grupos que nao geram valor."
+              anti_pattern: "Otimizar ao inves de eliminar ('vou fazer essa reuniao mais curta' em vez de cancela-la)"
+              time_estimate: "30 minutos para auditoria"
+
+            - id: COMP_002
+              name: "Filtro 2: Automatizar"
+              description: "O que sobrou e nao pode ser eliminado, automatize. Sistemas fazem o trabalho por voce."
+              action: "Para cada tarefa restante, pergunte: 'Um sistema pode fazer isso?'"
+              example: "Automatizar email com templates. Automatizar agendamento com Calendly."
+              anti_pattern: "Automatizar coisas que deveriam ser eliminadas (automatizar uma reuniao inutil)"
+              time_estimate: "1-2 horas de setup"
+
+            - id: COMP_003
+              name: "Filtro 3: Delegar"
+              description: "O que nao pode ser eliminado nem automatizado, delegue. Seu tempo e para criacao, nao execucao."
+              action: "Para cada tarefa restante, pergunte: 'Alguem pode fazer isso tao bem quanto eu?'"
+              example: "Delegar edicao de video. Delegar gestao de redes sociais."
+              anti_pattern: "Delegar sem sistema (delegar e depois microgerenciar)"
+              time_estimate: "Variavel — setup de delegacao"
+
+      content_map_template:
+        description: "Mapa de conteudos derivados da Big Idea"
+        by_depth:
+          surface:
+            pieces: ["Tweets (5-10)", "Stories (3-5)", "Quotes cards (3-5)"]
+            total: "11-20 pecas"
+          medium:
+            pieces: ["Threads (1-2)", "LinkedIn posts (3-5)", "Reels/Clips (3-5)"]
+            total: "7-12 pecas"
+          deep:
+            pieces: ["Newsletter (1)", "YouTube video (1)", "Blog post (1)"]
+            total: "3 pecas"
+          cornerstone:
+            pieces: ["Long-form cornerstone (1)", "Podcast episode (1)"]
+            total: "1-2 pecas"
+
+        by_platform:
+          newsletter: ["Cornerstone piece adaptada"]
+          youtube: ["Deep dive video (20+ min)"]
+          twitter: ["Thread principal + 5-10 tweets avulsos"]
+          linkedin: ["3-5 posts profissionais"]
+          instagram: ["3-5 reels + 3-5 stories"]
+          blog: ["Artigo SEO otimizado"]
+          podcast: ["Episodio dedicado (se aplicavel)"]
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Content Architecture Complete"
+      criteria:
+        - "Framework nomeado (max 6 palavras, pronunciavel em 3 seg)"
+        - "Framework estruturado com componentes/passos claros"
+        - "Content Map com 20+ pecas organizadas por profundidade e plataforma"
+        - "Cornerstone piece definida com formato e escopo"
+        - "Big Idea Package compilado e pronto para uso"
+      human_review: true
+      message: "Aprovacao final da Big Idea. Este pacote alimentara todo o conteudo derivado."
+      veto_conditions:
+        - condition: "Framework sem nome memoravel"
+          action: "BLOCK - Sem nome, nao e compartilhavel. Nao escala."
+        - condition: "Framework sem componentes/passos claros"
+          action: "BLOCK - Insight sem estrutura nao e implementavel."
+        - condition: "Content Map < 15 pecas"
+          action: "WARNING - Big Idea pode nao ter cascade suficiente."
+        - condition: "Framework viola immune system (hack, atalho, vaidade)"
+          action: "HALT - Conteudo nao alinhado. Reformular ou descartar."
+    recovery:
+      rollback_to: "phase_2_checkpoint"
+      preserve:
+        - "surface_layer"
+        - "depth_layers"
+        - "dinner_test"
+        - "iceberg_score"
+      discard:
+        - "partial_framework_name"
+        - "incomplete_framework_structure"
+        - "draft_content_map"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ===============================================================================
+# ERROR HANDLING
+# ===============================================================================
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ===============================================================================
+# SIGNALS
+# ===============================================================================
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-big-idea"
+      status: "completed"
+      outputs:
+        - "big_idea_package/"
+        - "iceberg_score.yaml"
+        - "framework_structure.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ===============================================================================
+# OUTPUTS
+# ===============================================================================
+
+outputs:
+  phase_0:
+    - "seed_insight.md"
+    - "domain_map.yaml"
+    - "support_material.yaml"
+    - "potential_validation.yaml"
+
+  phase_1:
+    - "synthesis_matrix.yaml"
+    - "central_pattern.md"
+    - "depth_analogies.yaml"
+    - "counter_arguments.yaml"
+    - "transfer_test.yaml"
+
+  phase_2:
+    - "surface_layer.md"
+    - "depth_layers.yaml"
+    - "dinner_test.md"
+    - "iceberg_score.yaml"
+
+  phase_3:
+    - "framework_name.md"
+    - "framework_structure.yaml"
+    - "content_map.yaml"
+    - "cornerstone_definition.md"
+    - "big_idea_package/"
+
+  final_deliverable:
+    name: "Big Idea Package"
+    location: "outputs/big_ideas/{idea_id}/"
+    contents:
+      - "README.md - Overview da Big Idea"
+      - "framework_structure.yaml - Framework completo"
+      - "iceberg_score.yaml - Validacao de profundidade"
+      - "content_map.yaml - Mapa de conteudos derivados"
+      - "synthesis_matrix.yaml - Conexoes cross-domain"
+      - "cornerstone_definition.md - Peca cornerstone"
+
+# ===============================================================================
+# AGENTS BY PHASE
+# ===============================================================================
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: []
+
+  PHASE-1:
+    primary: ["koe-sintetizador"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["koe-sintetizador"]
+    secondary: []
+
+  PHASE-3:
+    primary: ["koe-arquiteto"]
+    secondary: []
+
+# ===============================================================================
+# QUALITY CHECKLIST
+# ===============================================================================
+
+quality_checklist:
+  phase_0:
+    - "[ ] Insight semente documentado com trigger"
+    - "[ ] 2+ dominios mapeados com evidencias"
+    - "[ ] Experiencia pessoal como ancora"
+    - "[ ] Scorecard >= 2.0 weighted"
+
+  phase_1:
+    - "[ ] Matriz de sintese 3+ pares"
+    - "[ ] Padrao central em 1 frase"
+    - "[ ] 3-5 analogias de profundidade"
+    - "[ ] Contra-argumentos respondidos"
+    - "[ ] Transferencia testada"
+
+  phase_2:
+    - "[ ] Superficie definida (tweet-size)"
+    - "[ ] 4-6 camadas de profundidade"
+    - "[ ] Teste do Jantar 3/3"
+    - "[ ] Iceberg Score >= 7/10"
+
+  phase_3:
+    - "[ ] Framework nomeado (<= 6 palavras)"
+    - "[ ] Componentes/passos estruturados"
+    - "[ ] Content Map 20+ pecas"
+    - "[ ] Cornerstone piece definida"
+    - "[ ] Big Idea Package compilado"
+
+# ===============================================================================
+# METADATA
+# ===============================================================================
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "DIGITAL_RENAISSANCE"
+    - "ICEBERG_MODEL"
+    - "CROSS_DOMAIN_PATTERN_RECOGNITION"
+    - "APAG_STRUCTURE"
+    - "CONTENT_CASCADE"
+  source_mind: "dan_koe"
+  lines: "700+"
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

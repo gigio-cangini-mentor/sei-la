@@ -1,0 +1,138 @@
+name: luiz-fosc
+version: "3.0.0"
+slashPrefix: luiz-fosc
+title: "Luiz Fosc - Mind Clone | Palestras, Ilusionismo, Empreendedorismo, MBTI & IA Builder"
+description: >-
+  Clone mental de Luiz Fosc — ilusionista profissional, recordista do Guinness,
+  palestrante com 500+ palestras, co-founder Ensinio, mentor de palestrantes,
+  polímata neurodivergente (TDAH + AHSD, QI 146, MENSA Brasil),
+  expert em IA aplicada (top 0,0004% global). DNA extraído de 62 fontes (~265K words)
+  + 16 perfis MBTI Premium (~860K words). Fidelidade estimada ~95%.
+  Criador da Mentoria Palestra de Elite. Especialista em Método FOSC,
+  Framework Cinema-Mágica, MBTI aplicado a liderança (certificação Fellipelli Step I e II),
+  pensamento de ilusionista, antifragilidade aplicada e construção de sistemas de IA
+  (agentes autônomos, squads, aplicativos). Produtividade 50x com IA avançada.
+  Inclui módulo MBTI completo com 15 tasks especializadas, 4 templates de análise,
+  2 workflows e base de conhecimento de 16 tipos de personalidade.
+author: "AIOS Mind Cloning"
+icon: "🎩"
+type: specialist
+
+entry_agent: luiz-fosc
+
+independence: true
+independence_details: |
+  Squad 100% independente e auto-contido:
+  - Não requer banco de dados
+  - Não requer APIs externas
+  - Todo conhecimento está no DNA extraído (voice_dna.yaml + thinking_dna.yaml)
+  - Base MBTI completa com 16 perfis Premium (~860K words) em data/mbti/
+  - Funciona offline com base de conhecimento local
+  - DNA source: squads/luiz-fosc/data/dna/
+
+agents:
+  - luiz-fosc
+
+tasks:
+  # Core Luiz Fosc
+  - mentor-session
+  - review-palestra
+  - create-content
+  - diagnose-narrative
+  - benchmark-positioning
+  # MBTI - Core Analysis
+  - mbti-identify-type
+  - mbti-type-profile
+  - mbti-compare-types
+  # MBTI - Relationships
+  - mbti-compatibility-analysis
+  - mbti-relationship-dynamics
+  # MBTI - Career & Development
+  - mbti-career-guidance
+  - mbti-personal-growth
+  # MBTI - Parenting & Education
+  - mbti-parenting-guide
+  - mbti-academic-path
+  # MBTI - Team & Organization
+  - mbti-team-dynamics
+  - mbti-leadership-style
+  # MBTI - Deep Analysis
+  - mbti-cognitive-functions
+  - mbti-temperament-analysis
+  # MBTI - Utilities
+  - mbti-type-summary
+  - mbti-polarities-explainer
+
+templates:
+  - mbti-type-report-tmpl
+  - mbti-compatibility-report-tmpl
+  - mbti-team-analysis-tmpl
+  - mbti-career-report-tmpl
+
+data:
+  - mind-dna-reference
+  - facts-reference
+  # MBTI reference data
+  - mbti/brazilian-statistics
+  - mbti/career-map
+  - mbti/cognitive-functions-reference
+  - mbti/compatibility-matrix
+  - mbti/parenting-stages
+  - mbti/personal-growth-framework
+  - mbti/polarities-summary
+  - mbti/temperaments-and-strategies
+  - mbti/type-profiles-overview
+  # MBTI source profiles (16 types + theoretical framework)
+  # Located at: data/mbti/sources/personalities/*.md (~860K words)
+
+checklists:
+  - mentor-quality-checklist
+  - mbti-type-identification-checklist
+
+workflows:
+  - mbti-full-type-analysis
+  - mbti-team-composition
+
+collaborates_with:
+  - squad: palestras-master
+    role: satellite
+    intents:
+      - storytelling_cinematografico
+      - mentoria_palestrante_iniciante
+      - engenharia_reversa_criativa
+      - magia_como_ferramenta_palco
+      - superacao_antifragilidade
+      - calibracao_conteudo_multicanal
+      - diagnostico_narrativo_profundo
+  - squad: renner-silva
+    role: peer
+    synergy: "Mentoria Palestra de Elite (luiz-fosc, cinematográfico) + renner (transformacional)"
+  - squad: tathi-deandhela
+    role: peer
+    synergy: "Keynote complementar — luiz-fosc (roteiro/impacto) + tathi (persuasão/autoridade)"
+  - squad: storytelling-masters-fosc
+    role: peer
+    synergy: "Teoria+prática — storytelling-masters (frameworks) + luiz-fosc (execução cinematográfica)"
+
+tags:
+  - mind-clone
+  - palestras
+  - ilusionismo
+  - empreendedorismo
+  - storytelling
+  - mentoria
+  - luiz-fosc
+  - guinness
+  - metodo-fosc
+  - mbti
+  - 16personalities
+  - cognitive-functions
+  - personality
+  - cinema-magica
+  - ia-builder
+  - ai-agents
+  - produtividade-50x
+  - neurodivergente
+  - ahsd
+  - tdah
+  - mensa

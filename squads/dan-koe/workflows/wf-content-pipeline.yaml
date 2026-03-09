@@ -1,0 +1,1125 @@
+# Weekly Content Pipeline Workflow
+# Based on Dan Koe's One-Person Business Content System
+# Source: Queue System + Fill/Empty/Use Cycle + APAG + Content Cascade
+# Version: 1.0.0
+
+id: wf-content-pipeline
+name: "Weekly Content Pipeline"
+version: "1.0.0"
+duration: "1 semana (recorrente)"
+trigger: "*pipeline"
+description: |
+  Workflow semanal completo para transformar ideias brutas capturadas na Queue
+  em conteudo distribuido em multiplas plataformas usando o Content Cascade.
+
+  CICLO CENTRAL: Fill (consumo curado) -> Empty (processamento) -> Use (criacao profunda)
+
+  FILOSOFIA: "1 hora de criacao profunda = 10 horas de conteudo distribuido.
+  A alavanca nao esta em criar mais — esta em distribuir melhor."
+
+  RESULTADO: Pipeline semanal consistente que transforma 1 Big Idea em 20+ pecas
+  de conteudo distribuidas em todas as plataformas relevantes.
+
+  FREQUENCIA: Executar toda segunda-feira para ciclo semanal.
+  Pode ser executado sob demanda quando ha acumulo na Queue.
+
+# ===============================================================================
+# QUANDO USAR ESTE WORKFLOW
+# ===============================================================================
+
+best_for:
+  - "Ciclo semanal recorrente de producao de conteudo"
+  - "Transformar ideias acumuladas na Queue em conteudo publicavel"
+  - "Manter consistencia de publicacao em multiplas plataformas"
+  - "Aplicar o Content Cascade para maximizar alavancagem de 1 ideia"
+  - "Treinar o ciclo Fill/Empty/Use como habito criativo"
+
+decision_matrix_fit:
+  complexity: medium
+  agents_required: 5
+  estimated_duration: "5-7 dias (ciclo semanal)"
+  user_involvement: "medium (checkpoints de aprovacao em cada fase)"
+  prerequisites:
+    - "Queue com minimo 10 itens capturados na semana"
+    - "Plataformas de distribuicao definidas (newsletter, YouTube, Twitter, etc.)"
+    - "Big Idea semanal selecionada ou a ser selecionada"
+    - "Bloco de 2-4h disponivel para Deep Work (PHASE-2)"
+
+# ===============================================================================
+# AGENTS ENVOLVIDOS
+# ===============================================================================
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orquestracao geral, selecao de Big Idea semanal, quality gates"
+      phases: [0]
+
+    - agent: koe-coletor
+      role: "Harvest da Queue, triagem, priorizacao de itens para a semana"
+      phases: [0]
+
+    - agent: koe-sintetizador
+      role: "Sintese cross-domain, identificacao de padroes, nomeacao de frameworks"
+      phases: [1]
+
+    - agent: koe-arquiteto
+      role: "Deep Work — transformacao da Big Idea em peca-mae usando APAG"
+      phases: [2]
+
+    - agent: koe-distribuidor
+      role: "Content Cascade — fragmentacao e distribuicao omnichannel"
+      phases: [3]
+
+  synergies:
+    - agents: [koe-chief, koe-coletor]
+      pattern: "Chief define criterios de selecao, Coletor executa harvest da Queue"
+
+    - agents: [koe-sintetizador, koe-arquiteto]
+      pattern: "Sintetizador entrega Big Idea sintetizada, Arquiteto transforma em peca-mae"
+
+    - agents: [koe-arquiteto, koe-distribuidor]
+      pattern: "Arquiteto cria peca-mae profunda, Distribuidor fragmenta em cascade"
+
+# ===============================================================================
+# PHASE 0: QUEUE HARVEST
+# ===============================================================================
+
+phases:
+  - id: PHASE-0
+    name: "Queue Harvest"
+    days: "Dia 1 (Segunda-feira)"
+    tier: 0
+    description: |
+      Coleta e triagem de todos os itens acumulados na Queue durante a semana.
+      Este e o momento de ESVAZIAR a Queue de captura e organizar o material bruto.
+
+      PRINCIPIO: "A Queue e o sistema nervoso do criador soberano.
+      Nada de valor se perde. Tudo e capturado, tagueado, priorizado."
+
+      PROCESSO QUEUE: Captura -> Tag -> Priorizar -> Desenvolver -> Arquivar
+      Itens com mais de 7 dias sem processamento sao sinalizados como stale.
+
+      METRICA DE SAUDE: Queue saudavel = 0 itens stale + 10-30 itens frescos/semana.
+
+    agent: koe-chief
+    secondary_agent: koe-coletor
+
+    tasks:
+      - task_id: T0.1
+        name: "Exportar Queue Completa"
+        required: true
+        description: |
+          Coletor exporta todos os itens da Queue de captura acumulados desde
+          o ultimo harvest. Inclui notas rapidas, screenshots, bookmarks,
+          trechos de conversa, ideias de banho, insights de leitura.
+        output: "queue_export_raw.yaml"
+
+      - task_id: T0.2
+        name: "Triagem e Tagging"
+        required: true
+        description: |
+          Classificar cada item com tags de dominio (filosofia, psicologia,
+          negocios, tecnologia, criatividade) e tags de potencial
+          (high-signal, medium-signal, noise). Marcar itens stale (>7 dias).
+        output: "queue_triaged.yaml"
+
+      - task_id: T0.3
+        name: "Priorizacao Semanal"
+        required: true
+        description: |
+          Selecionar os 3-5 itens de maior potencial para a semana.
+          Aplicar criterio: interseccao de dominios + relevancia temporal
+          + conexao com Big Ideas anteriores.
+        output: "weekly_priorities.yaml"
+
+      - task_id: T0.4
+        name: "Selecao de Big Idea Semanal"
+        required: true
+        description: |
+          Chief seleciona a Big Idea principal da semana entre os itens
+          priorizados. Criterio: qual insight tem maior potencial de
+          ressonancia cross-domain E conexao com a narrativa do brand?
+        output: "big_idea_selection.md"
+
+      - task_id: T0.5
+        name: "Arquivar Itens Processados"
+        required: false
+        description: |
+          Mover itens processados para arquivo. Mover itens noise para
+          descarte. Manter Queue limpa para proxima semana.
+        output: "queue_archived.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Queue Harvest Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      queue_harvest_template:
+        description: "Template para exportacao e triagem da Queue semanal"
+        item_schema:
+          fields:
+            - id: QH_001
+              name: "item_id"
+              type: "string"
+              description: "Identificador unico do item (auto-gerado)"
+
+            - id: QH_002
+              name: "raw_capture"
+              type: "text"
+              description: "O conteudo bruto capturado — frase, link, screenshot, insight"
+
+            - id: QH_003
+              name: "capture_date"
+              type: "date"
+              description: "Data de captura original"
+
+            - id: QH_004
+              name: "source_context"
+              type: "string"
+              description: "De onde veio? Livro, conversa, banho, caminhada, tweet, video"
+
+            - id: QH_005
+              name: "domain_tags"
+              type: "list"
+              description: "Dominios relevantes: filosofia, psicologia, negocios, tech, criatividade"
+              examples: ["filosofia", "psicologia", "negocios", "tecnologia", "criatividade", "ciencia", "arte"]
+
+            - id: QH_006
+              name: "signal_strength"
+              type: "enum"
+              options: ["high-signal", "medium-signal", "noise"]
+              description: "Potencial do insight para gerar conteudo de impacto"
+              scoring:
+                high-signal: "Insight original, cross-domain, provoca reacao emocional"
+                medium-signal: "Observacao valida mas sem angulo unico ainda"
+                noise: "Repetitivo, superficial, sem potencial de desenvolvimento"
+
+            - id: QH_007
+              name: "cross_domain_score"
+              type: "integer"
+              range: "1-5"
+              description: "Quantos dominios diferentes este insight conecta?"
+              scoring:
+                5: "Conecta 4+ dominios — potencial de Big Idea"
+                4: "Conecta 3 dominios — forte potencial"
+                3: "Conecta 2 dominios — potencial medio"
+                2: "Dominio unico com profundidade"
+                1: "Observacao superficial de dominio unico"
+
+            - id: QH_008
+              name: "stale_flag"
+              type: "boolean"
+              description: "Item com mais de 7 dias sem processamento"
+              rule: "Se stale=true E signal_strength != 'high-signal', mover para arquivo"
+
+        weekly_health_metrics:
+          total_captured: "Quantos itens entraram na Queue esta semana?"
+          high_signal_ratio: "Porcentagem de itens high-signal (ideal: >30%)"
+          stale_count: "Itens nao processados >7 dias (ideal: 0)"
+          cross_domain_avg: "Media de score cross-domain (ideal: >3.0)"
+          domains_covered: "Quantos dominios diferentes na semana? (ideal: 4+)"
+
+      big_idea_selection_criteria:
+        description: "Criterios para selecao da Big Idea semanal pelo Chief"
+        criteria:
+          - id: BSC_001
+            name: "Potencial de Ressonancia"
+            weight: 0.30
+            question: "Este insight fara as pessoas pararem o scroll e pensarem?"
+            scoring:
+              3: "Provoca 'nunca pensei nisso assim' — insight contraintuitivo"
+              2: "Interessante mas nao surpreendente"
+              1: "Informacao util mas sem angulo unico"
+
+          - id: BSC_002
+            name: "Profundidade Cross-Domain"
+            weight: 0.25
+            question: "Quantos dominios diferentes este insight conecta de forma nao obvia?"
+            scoring:
+              3: "3+ dominios conectados — Digital Renaissance puro"
+              2: "2 dominios com ponte clara"
+              1: "Dominio unico, sem sintese"
+
+          - id: BSC_003
+            name: "Potencial de Cascade"
+            weight: 0.25
+            question: "Este insight pode gerar 20+ pecas de conteudo via Content Cascade?"
+            scoring:
+              3: "Newsletter + YouTube + 10 tweets + blog + clips — cascade completo"
+              2: "Newsletter + alguns tweets — cascade parcial"
+              1: "Dificil de fragmentar — peca unica"
+
+          - id: BSC_004
+            name: "Alinhamento com Brand Narrative"
+            weight: 0.20
+            question: "Este insight reforca a narrativa central do brand?"
+            scoring:
+              3: "Conecta diretamente com tese central (soberania, criacao, simplicidade)"
+              2: "Relacionado mas tangencial"
+              1: "Desconectado da narrativa"
+
+        minimum_score: 7
+        veto: "Se score < 7/12, nenhum item da Queue e forte o suficiente. Acionar FILL phase adicional."
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Queue Harvest Complete"
+      criteria:
+        - "Queue exportada e triada (100% dos itens classificados)"
+        - "Minimo 3 itens high-signal identificados"
+        - "Big Idea semanal selecionada com score >= 7/12"
+        - "Itens stale processados (arquivados ou reativados)"
+        - "Health metrics da Queue documentados"
+      human_review: true
+      message: "Revise a Big Idea selecionada e as prioridades da semana antes da sintese."
+      veto_conditions:
+        - condition: "Queue vazia (0 itens capturados na semana)"
+          action: "HALT - Ativar FILL phase de emergencia. Sem input nao ha output."
+        - condition: "0 itens high-signal na Queue"
+          action: "BLOCK - Qualidade de captura insuficiente. Revisar fontes de consumo."
+        - condition: "Big Idea score < 7/12"
+          action: "WARNING - Big Idea fraca. Considerar combinar 2+ itens ou adiar para proxima semana."
+        - condition: "Mais de 50% dos itens sao stale"
+          action: "WARNING - Queue negligenciada. Processar backlog antes de novo ciclo."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "queue_raw_data"
+      discard:
+        - "partial_triagem"
+        - "incomplete_priorities"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 1: SYNTHESIS
+  # =============================================================================
+
+  - id: PHASE-1
+    name: "Synthesis"
+    days: "Dia 2 (Terca-feira)"
+    tier: 1
+    description: |
+      Transformacao dos itens priorizados em material sintetizado.
+      A Big Idea semanal e desenvolvida com profundidade cross-domain
+      e recebe nomeacao de framework se aplicavel.
+
+      PRINCIPIO DIGITAL RENAISSANCE: "A inovacao vive na interseccao de dominios.
+      Quanto mais dominios voce domina, mais conexoes unicas voce ve."
+
+      PROCESSO: Raw insights -> Pattern recognition -> Cross-domain bridges ->
+      Framework naming -> Big Idea sintetizada pronta para Deep Work.
+
+      METRICA: Big Idea deve ter minimo 2 dominios conectados e 1 nome de framework.
+
+    agent: koe-sintetizador
+
+    tasks:
+      - task_id: T1.1
+        name: "Expandir Big Idea com Pesquisa"
+        required: true
+        description: |
+          Pegar a Big Idea selecionada e expandir com pesquisa complementar.
+          Buscar: estudos academicos, exemplos historicos, analogias de outros
+          dominios, contra-argumentos, dados quantitativos.
+        output: "big_idea_expanded.md"
+
+      - task_id: T1.2
+        name: "Mapear Pontes Cross-Domain"
+        required: true
+        description: |
+          Identificar conexoes nao obvias entre a Big Idea e pelo menos
+          2 outros dominios. Cada ponte deve ter: dominio de origem,
+          dominio de destino, insight de conexao, exemplo concreto.
+        output: "cross_domain_bridges.yaml"
+
+      - task_id: T1.3
+        name: "Nomear Framework (se aplicavel)"
+        required: false
+        description: |
+          Se a Big Idea revela um padrao repetivel, nomea-lo como framework.
+          Usar convencao: nome memoravel + estrutura numerada (ex: "Os 3 Filtros",
+          "O Ciclo de 4 Fases", "A Escada de 5 Niveis").
+        output: "framework_naming.md"
+
+      - task_id: T1.4
+        name: "Criar Big Idea Synthesis Document"
+        required: true
+        description: |
+          Compilar tudo em documento unico de sintese que sera o brief
+          para o Arquiteto na PHASE-2. Inclui: tese central, pontes
+          cross-domain, framework nomeado, exemplos, contra-argumentos.
+        output: "big_idea_synthesis.md"
+
+      - task_id: T1.5
+        name: "Definir Angulos de Conteudo"
+        required: true
+        description: |
+          A partir da sintese, definir 5-10 angulos diferentes para conteudo.
+          Cada angulo e um ponto de entrada diferente para a mesma Big Idea
+          (controverso, educacional, pessoal, tecnico, filosofico).
+        output: "content_angles.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Big Idea Synthesis Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      big_idea_synthesis_template:
+        description: "Template para sintese completa de Big Idea semanal"
+        sections:
+          - id: BIS_001
+            name: "Tese Central"
+            instruction: "Declare a Big Idea em 1-2 frases. Deve ser contraintuitiva ou provocativa."
+            format: |
+              TESE: [Afirmacao contraintuitiva em 1 frase]
+              PORQUE: [Explicacao em 2-3 frases]
+              IMPLICACAO: [O que muda se isso for verdade?]
+            example:
+              tese: "Produtividade e um problema de subtracao, nao de adicao."
+              porque: "As pessoas mais produtivas nao fazem mais — fazem menos. A alavanca esta em eliminar, nao em adicionar ferramentas, habitos ou sistemas."
+              implicacao: "Toda a industria de produtividade esta vendendo o oposto do que funciona."
+
+          - id: BIS_002
+            name: "Pontes Cross-Domain"
+            instruction: "Minimo 2 conexoes com dominios diferentes"
+            format:
+              bridge:
+                from_domain: "[dominio de origem]"
+                to_domain: "[dominio de destino]"
+                insight: "[o que conecta os dois]"
+                example: "[exemplo concreto]"
+            example:
+              - from_domain: "Escultura (Michelangelo)"
+                to_domain: "Produtividade"
+                insight: "Michelangelo removia o que nao era Davi. Produtividade e remover o que nao e essencial."
+                example: "Warren Buffett mantem 90% do dia vazio. Seu superpoder e o que ele NAO faz."
+
+          - id: BIS_003
+            name: "Framework Nomeado"
+            instruction: "Se aplicavel, criar nome memoravel para o padrao identificado"
+            naming_rules:
+              - "Use numeros especificos (3 Filtros, 5 Camadas, 7 Leis)"
+              - "Use metaforas visuais (Escada, Iceberg, Piramide, Cascata)"
+              - "Evite jargao tecnico — deve ser compartilhavel verbalmente"
+              - "Teste: se voce nao consegue explicar em 10 segundos, simplifique"
+            example:
+              name: "O Principio da Subtracao"
+              structure: "3 filtros: Eliminar → Automatizar → Delegar. Nesta ordem."
+              tagline: "Faca menos para fazer melhor."
+
+          - id: BIS_004
+            name: "Angulos de Conteudo"
+            instruction: "5-10 angulos para fragmentar a Big Idea"
+            angle_types:
+              - type: "controversial"
+                template: "[Afirmacao forte que desafia status quo]"
+                example: "Pare de ler livros de produtividade. Eles sao o problema."
+              - type: "educational"
+                template: "[Explicacao de como funciona + framework]"
+                example: "Os 3 Filtros da Subtracao: como eliminar 80% do que voce faz"
+              - type: "personal"
+                template: "[Historia pessoal que ilustra o ponto]"
+                example: "Eu cancelei 47 compromissos em 1 semana. Isso aconteceu..."
+              - type: "tactical"
+                template: "[Passo-a-passo implementavel]"
+                example: "Faca isso amanha: abra sua agenda e delete 3 coisas"
+              - type: "philosophical"
+                template: "[Reflexao profunda sobre implicacoes maiores]"
+                example: "A sociedade moderna e viciada em adicao. Isso explica tudo."
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Synthesis Complete"
+      criteria:
+        - "Big Idea articulada com tese contraintuitiva em 1-2 frases"
+        - "Minimo 2 pontes cross-domain documentadas com exemplos"
+        - "Framework nomeado (se padrao repetivel identificado)"
+        - "5+ angulos de conteudo definidos com templates"
+        - "Synthesis document completo e pronto para handoff ao Arquiteto"
+      human_review: true
+      message: "Revise a sintese da Big Idea. Esta e a fundacao de todo o conteudo da semana."
+      veto_conditions:
+        - condition: "Big Idea sem componente contraintuitivo ou provocativo"
+          action: "BLOCK - Conteudo generico nao gera engagement. Reformular tese."
+        - condition: "0 pontes cross-domain"
+          action: "BLOCK - Sem sintese cross-domain, nao e Digital Renaissance. Aprofundar."
+        - condition: "Menos de 5 angulos de conteudo"
+          action: "WARNING - Content Cascade sera limitado. Considerar mais angulos."
+        - condition: "Sintese viola immune system (hack, atalho, vanity metrics)"
+          action: "HALT - Conteudo nao alinhado com principios de soberania. Descartar."
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "queue_export_raw"
+        - "queue_triaged"
+        - "weekly_priorities"
+        - "big_idea_selection"
+      discard:
+        - "partial_synthesis"
+        - "incomplete_bridges"
+        - "draft_content_angles"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 2: DEEP WORK CREATION
+  # =============================================================================
+
+  - id: PHASE-2
+    name: "Deep Work Creation"
+    days: "Dia 3-4 (Quarta-Quinta)"
+    tier: 1
+    description: |
+      Criacao da peca-mae usando a estrutura APAG em sessao de Deep Work.
+      A peca-mae e a ancora — todo o Content Cascade nasce dela.
+
+      PROTOCOLO DEEP WORK: Bloco de 2-4 horas ininterruptas.
+      Sem notificacoes, sem multitasking, sem distracoess.
+
+      ESTRUTURA APAG:
+      A - Attention: Hook que para o scroll (controversia, dado chocante, historia)
+      P - Perspective: Reframe que muda como a pessoa ve o problema
+      A - Advantage: O que ganham ao adotar esta perspectiva
+      G - Gamify: CTA que torna acao irresistivel (desafio, template, quiz)
+
+      PECA-MAE: Newsletter longform (1500-3000 palavras) ou YouTube script (15-25 min)
+
+    agent: koe-arquiteto
+
+    tasks:
+      - task_id: T2.1
+        name: "Definir Formato da Peca-Mae"
+        required: true
+        description: |
+          Decidir se a peca-mae sera newsletter longform ou YouTube script.
+          Criterio: se a Big Idea e mais visual/demonstrativa -> YouTube.
+          Se e mais conceitual/reflexiva -> Newsletter.
+        output: "format_decision.md"
+
+      - task_id: T2.2
+        name: "Construir Outline APAG"
+        required: true
+        description: |
+          Criar outline completo usando estrutura APAG.
+          Cada secao deve ter: objetivo, key points, transicao para proxima.
+          O outline e o esqueleto — sem ele, a escrita sera dispersa.
+        output: "apag_outline.yaml"
+
+      - task_id: T2.3
+        name: "Escrever Peca-Mae (Deep Work)"
+        required: true
+        description: |
+          Sessao de Deep Work de 2-4 horas para escrever a peca-mae completa.
+          Seguir outline APAG rigorosamente. Usar voz Dan Koe:
+          em-dashes, perguntas retoricas, alternancia entre filosofico e tatico.
+        output: "masterpiece_draft.md"
+
+      - task_id: T2.4
+        name: "Revisao de Qualidade"
+        required: true
+        description: |
+          Revisar peca-mae contra checklist de qualidade:
+          APAG completo, cross-domain presente, Big Idea clara,
+          voz autenticada, CTA forte, sem jargao desnecessario.
+        output: "quality_review.yaml"
+
+      - task_id: T2.5
+        name: "Extrair Fragmentos para Cascade"
+        required: true
+        description: |
+          Antes de finalizar, marcar trechos da peca-mae que serao
+          fragmentados na PHASE-3. Cada trecho deve funcionar
+          de forma autonoma (fora de contexto) E como parte do todo.
+        output: "cascade_fragments.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: APAG Content Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      apag_content_template:
+        description: "Template de estrutura APAG para peca-mae"
+        sections:
+          attention:
+            id: APAG_A
+            name: "Attention"
+            purpose: "Para o scroll. Faz a pessoa decidir que PRECISA ler/assistir."
+            duration: "Primeiros 10% da peca (150-300 palavras / 1-2 min)"
+            techniques:
+              - id: ATT_001
+                name: "Hook de Controversia"
+                template: "[Afirmacao que desafia crenca popular]"
+                example: "Tudo o que voce aprendeu sobre produtividade esta errado."
+                when_use: "Quando Big Idea contraria senso comum"
+
+              - id: ATT_002
+                name: "Hook de Dado Chocante"
+                template: "[Estatistica ou fato que surpreende]"
+                example: "95% das pessoas que comecam um negocio online desistem em 90 dias. O motivo nao e o que voce pensa."
+                when_use: "Quando ha dados que suportam a tese"
+
+              - id: ATT_003
+                name: "Hook de Historia"
+                template: "[Narrativa pessoal que cria curiosidade]"
+                example: "Em 2019, eu ganhava R$0 online. Hoje, faco R$50k/mes trabalhando 4 horas por dia. Mas nao foi por causa do que voce imagina."
+                when_use: "Quando ha experiencia pessoal relevante"
+
+              - id: ATT_004
+                name: "Hook de Pergunta Retorica"
+                template: "[Pergunta que forca reflexao imediata]"
+                example: "E se tudo que voce esta fazendo para crescer online esta na verdade te impedindo de crescer?"
+                when_use: "Quando o reframe e poderoso"
+
+            rules:
+              - "NUNCA comece com introducao generica ('Hoje vou falar sobre...')"
+              - "NUNCA use clickbait sem substancia — o hook deve ser a tese"
+              - "A primeira frase decide se a pessoa continua ou sai"
+
+          perspective:
+            id: APAG_P
+            name: "Perspective"
+            purpose: "Muda como a pessoa VE o problema. Reframe profundo."
+            duration: "30-40% da peca (500-1000 palavras / 5-8 min)"
+            structure:
+              - step: 1
+                name: "Diagnose a Crenca Atual"
+                instruction: "Articule o que a maioria PENSA que e verdade"
+                example: "A maioria acredita que precisa postar mais, aprender mais ferramentas, ter mais disciplina..."
+
+              - step: 2
+                name: "Revele o Problema Invisivel"
+                instruction: "Mostre POR QUE essa crenca e limitante"
+                example: "Mas adicionar mais coisas a um sistema quebrado so amplifica o que nao funciona."
+
+              - step: 3
+                name: "Entregue o Reframe"
+                instruction: "Apresente a nova perspectiva com pontes cross-domain"
+                example: "Michelangelo nao adicionou pedra para criar o Davi — ele removeu. A produtividade funciona igual."
+
+              - step: 4
+                name: "Prove com Evidencia"
+                instruction: "Dados, estudos, exemplos historicos, experiencia pessoal"
+                example: "Warren Buffett, Steve Jobs, Dieter Rams — os mestres da subtracao em dominos diferentes."
+
+          advantage:
+            id: APAG_ADV
+            name: "Advantage"
+            purpose: "Mostra O QUE a pessoa ganha ao adotar essa perspectiva."
+            duration: "20-30% da peca (400-700 palavras / 3-5 min)"
+            structure:
+              - step: 1
+                name: "Beneficio Imediato"
+                instruction: "O que muda HOJE se a pessoa adotar este mindset?"
+                example: "Amanha, voce pode cancelar 3 coisas da sua agenda e sentir mais progresso do que em uma semana cheia."
+
+              - step: 2
+                name: "Beneficio Composto"
+                instruction: "O que muda em 90 dias, 1 ano, 5 anos?"
+                example: "Em 90 dias, voce tera menos projetos mas mais resultado. Em 1 ano, um negocio radicalmente mais simples."
+
+              - step: 3
+                name: "Framework/Tatico"
+                instruction: "Se houver framework, apresente aqui com passos claros"
+                example: "Os 3 Filtros da Subtracao: 1) Eliminar tudo que nao gera resultado direto..."
+
+          gamify:
+            id: APAG_G
+            name: "Gamify"
+            purpose: "CTA irresistivel que transforma insight em ACAO."
+            duration: "Ultimos 10% da peca (150-300 palavras / 1-2 min)"
+            techniques:
+              - id: GAM_001
+                name: "Desafio Especifico"
+                template: "Nos proximos [TEMPO], faca [ACAO ESPECIFICA]. Depois me conta o que aconteceu."
+                example: "Nos proximos 7 dias, cancele 3 compromissos. Substitua por nada. Observe o que acontece."
+
+              - id: GAM_002
+                name: "Template/Ferramenta"
+                template: "Use este [TEMPLATE/CHECKLIST] para aplicar hoje."
+                example: "Baixe o template dos 3 Filtros e aplique na sua agenda esta semana."
+
+              - id: GAM_003
+                name: "Pergunta de Reflexao"
+                template: "Responda honestamente: [PERGUNTA PROVOCATIVA]"
+                example: "Responda honestamente: das 10 coisas que voce faz todo dia, quantas realmente movem o ponteiro?"
+
+            rules:
+              - "CTA deve ser ESPECIFICO e ACIONAVEL (nao 'reflita sobre isso')"
+              - "Incluir timeline (proximos 7 dias, amanha, agora)"
+              - "Conectar de volta com a Big Idea — fechar o loop"
+
+      voice_checklist:
+        description: "Checklist de voz Dan Koe para revisao de qualidade"
+        items:
+          - id: VC_001
+            check: "Em-dashes usados para enfase e ritmo?"
+            example: "A maioria quer mais — mais ferramentas, mais cursos, mais horas. O segredo e o oposto."
+
+          - id: VC_002
+            check: "Perguntas retoricas presentes?"
+            example: "Mas o que acontece quando voce para de adicionar?"
+
+          - id: VC_003
+            check: "Alternancia entre filosofico e tatico?"
+            rule: "A cada bloco conceitual, um exemplo pratico. Nunca mais de 3 paragrafos sem aterrissar."
+
+          - id: VC_004
+            check: "Linguagem direta, sem jargao?"
+            rule: "Se uma crianca de 12 anos nao entende a frase, reescreva."
+
+          - id: VC_005
+            check: "Ritmo de frases variado (curta, media, longa)?"
+            rule: "Frases curtas para impacto. Longas para contexto. Nunca monotono."
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Deep Work Creation Complete"
+      criteria:
+        - "Peca-mae escrita com estrutura APAG completa (4 secoes)"
+        - "Minimo 1500 palavras (newsletter) ou 15 min de script (YouTube)"
+        - "Cross-domain presente (2+ dominios referenciados)"
+        - "Voice checklist 5/5 aprovado"
+        - "Fragmentos para cascade marcados (minimo 10)"
+      human_review: true
+      message: "Revise a peca-mae antes da distribuicao. Esta e a ancora de todo o conteudo."
+      veto_conditions:
+        - condition: "Estrutura APAG incompleta (faltando secao)"
+          action: "BLOCK - Peca sem APAG nao e conteudo Koe. Completar estrutura."
+        - condition: "Peca-mae < 1000 palavras"
+          action: "BLOCK - Conteudo raso demais para gerar cascade de qualidade."
+        - condition: "0 fragmentos extraidos para cascade"
+          action: "BLOCK - Sem fragmentos, PHASE-3 nao pode executar."
+        - condition: "Voice checklist < 3/5"
+          action: "WARNING - Voz nao autenticada. Revisar com voice_dna."
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "big_idea_synthesis"
+        - "content_angles"
+        - "cross_domain_bridges"
+      discard:
+        - "partial_masterpiece_draft"
+        - "incomplete_apag_outline"
+        - "draft_cascade_fragments"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 3: DISTRIBUTION CASCADE
+  # =============================================================================
+
+  - id: PHASE-3
+    name: "Distribution Cascade"
+    days: "Dia 5-7 (Sexta-Domingo)"
+    tier: 1
+    description: |
+      Fragmentacao da peca-mae em 20+ pecas de conteudo distribuidas
+      em todas as plataformas relevantes usando o Content Cascade.
+
+      PRINCIPIO: "1 hora de criacao profunda = 10 horas de conteudo distribuido.
+      A alavanca nao esta em criar mais — esta em DISTRIBUIR melhor."
+
+      CONTENT CASCADE: 1 Big Idea -> Newsletter -> YouTube -> Blog ->
+      Tweets -> Threads -> LinkedIn -> Clips -> Reels -> Stories
+
+      REGRA DE OURO: Cada peca fragmentada deve funcionar AUTONOMAMENTE.
+      Quem vê um tweet deve entender sem ler a newsletter.
+
+    agent: koe-distribuidor
+
+    tasks:
+      - task_id: T3.1
+        name: "Mapear Plataformas Ativas"
+        required: true
+        description: |
+          Listar todas as plataformas onde o conteudo sera distribuido.
+          Para cada uma: formato ideal, tamanho, tom, frequencia.
+        output: "platform_map.yaml"
+
+      - task_id: T3.2
+        name: "Fragmentar Peca-Mae"
+        required: true
+        description: |
+          Transformar os fragmentos marcados na PHASE-2 em pecas autonomas.
+          Cada fragmento e adaptado para o formato da plataforma destino.
+          Manter Big Idea como fio condutor mas ajustar angulo.
+        output: "fragments_by_platform.yaml"
+
+      - task_id: T3.3
+        name: "Criar Thread de Twitter/X"
+        required: true
+        description: |
+          Transformar a Big Idea em thread de 7-15 tweets.
+          Tweet 1: hook (mesma energia do Attention APAG).
+          Tweet 2-N: desenvolvimento progressivo.
+          Tweet final: CTA + link para peca-mae.
+        output: "twitter_thread.md"
+
+      - task_id: T3.4
+        name: "Criar Posts LinkedIn"
+        required: true
+        description: |
+          3-5 posts LinkedIn derivados da Big Idea.
+          Formato: hook curto -> desenvolvimento -> insight -> CTA.
+          Tom: mais profissional que Twitter, mesmo conteudo core.
+        output: "linkedin_posts.md"
+
+      - task_id: T3.5
+        name: "Criar Clips/Reels (Scripts)"
+        required: false
+        description: |
+          Scripts de 30-60 segundos para clips verticais.
+          Extrair os momentos mais impactantes da peca-mae.
+          Cada clip = 1 insight autonomo com hook proprio.
+        output: "short_form_scripts.md"
+
+      - task_id: T3.6
+        name: "Montar Calendario de Publicacao"
+        required: true
+        description: |
+          Distribuir todas as pecas no calendario semanal.
+          Regra: nunca publicar tudo no mesmo dia.
+          Espacar para maximizar exposure e engagement.
+        output: "publication_calendar.yaml"
+
+      - task_id: T3.7
+        name: "Preparar Pacote de Distribuicao Final"
+        required: true
+        description: |
+          Compilar todos os assets em pacote organizado por plataforma.
+          Incluir: texto final, imagens necessarias (briefs), links,
+          hashtags, horarios recomendados.
+        output: "distribution_package/"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Distribution Matrix Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      distribution_matrix_template:
+        description: "Matriz de distribuicao por plataforma"
+        platforms:
+          - id: DIST_001
+            platform: "Newsletter (Email)"
+            format: "Longform (1500-3000 palavras)"
+            frequency: "1x/semana"
+            tone: "Intimo, reflexivo, profundo"
+            from_masterpiece: "Peca-mae completa ou adaptada"
+            cascade_priority: 1
+            notes: "A newsletter E a peca-mae na maioria dos casos"
+
+          - id: DIST_002
+            platform: "YouTube"
+            format: "Video longo (15-25 min)"
+            frequency: "1x/semana"
+            tone: "Conversacional, educacional, visual"
+            from_masterpiece: "Script adaptado da peca-mae"
+            cascade_priority: 2
+            notes: "Adaptar para formato visual — adicionar exemplos na tela"
+
+          - id: DIST_003
+            platform: "Twitter/X"
+            format: "Thread (7-15 tweets) + tweets avulsos"
+            frequency: "3-5x/semana"
+            tone: "Direto, provocativo, conciso"
+            from_masterpiece: "Fragmentos mais impactantes"
+            cascade_priority: 3
+            notes: "Cada tweet deve funcionar sozinho no timeline"
+
+          - id: DIST_004
+            platform: "LinkedIn"
+            format: "Posts longos (300-600 palavras)"
+            frequency: "2-3x/semana"
+            tone: "Profissional, reflexivo, com dados"
+            from_masterpiece: "Angulos educacionais e de carreira"
+            cascade_priority: 4
+            notes: "Mais estruturado que Twitter, menos intimo que newsletter"
+
+          - id: DIST_005
+            platform: "Instagram/TikTok (Reels)"
+            format: "Video curto (30-60 seg)"
+            frequency: "3-5x/semana"
+            tone: "Energetico, direto, visual"
+            from_masterpiece: "Insights mais quotable em formato de script"
+            cascade_priority: 5
+            notes: "Hook nos primeiros 3 segundos — ou perde"
+
+          - id: DIST_006
+            platform: "Blog/SEO"
+            format: "Artigo otimizado (1500-2500 palavras)"
+            frequency: "1x/semana"
+            tone: "Educacional, estruturado, keyword-oriented"
+            from_masterpiece: "Peca-mae adaptada com H2s, bullet points, meta description"
+            cascade_priority: 6
+            notes: "Investimento de longo prazo — rankeamento organico"
+
+      cascade_ratio_guide:
+        description: "Guia de proporcao ideal do Content Cascade"
+        from_one_big_idea:
+          newsletter: 1
+          youtube_video: 1
+          twitter_threads: "1-2"
+          standalone_tweets: "5-10"
+          linkedin_posts: "3-5"
+          short_form_clips: "3-5"
+          blog_articles: 1
+          stories_ephemeral: "3-5"
+        total_minimum: 20
+        total_ideal: "30-40"
+        principle: "Se voce nao consegue extrair 20+ pecas, a Big Idea nao e profunda o suficiente."
+
+      publication_calendar_template:
+        description: "Template de calendario de publicacao semanal"
+        schedule:
+          monday:
+            primary: "Newsletter enviada (peca-mae)"
+            secondary: "Tweet de antecipacao / behind the scenes"
+
+          tuesday:
+            primary: "YouTube video publicado"
+            secondary: "Thread Twitter resumindo a Big Idea"
+
+          wednesday:
+            primary: "LinkedIn post #1 (angulo educacional)"
+            secondary: "2-3 tweets avulsos"
+
+          thursday:
+            primary: "Reels/Clips (2-3 publicados)"
+            secondary: "LinkedIn post #2 (angulo pessoal)"
+
+          friday:
+            primary: "Twitter thread #2 (angulo diferente)"
+            secondary: "Blog article publicado"
+
+          saturday:
+            primary: "Reels/Clips batch #2"
+            secondary: "Engagement/resposta a comentarios"
+
+          sunday:
+            primary: "Descanso criativo (FILL phase)"
+            secondary: "Planejamento da proxima semana"
+
+        rules:
+          - "NUNCA publique tudo no mesmo dia — espacar maximiza alcance"
+          - "Newsletter e YouTube sempre nos primeiros dias (ancora)"
+          - "Fragmentos menores distribuidos ao longo da semana"
+          - "Domingo e para FILL — consumo curado para encher a Queue"
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Distribution Cascade Complete"
+      criteria:
+        - "Minimo 20 pecas de conteudo criadas a partir da peca-mae"
+        - "Conteudo adaptado para cada plataforma (formato, tom, tamanho)"
+        - "Calendario de publicacao montado para a semana"
+        - "Pacote de distribuicao compilado e organizado"
+        - "Cada peca funciona autonomamente (teste: faz sentido sem contexto?)"
+      human_review: true
+      message: "Revise o pacote de distribuicao antes de publicar. Ultima chance de ajustes."
+      veto_conditions:
+        - condition: "Menos de 15 pecas no cascade"
+          action: "WARNING - Cascade sub-otimo. Big Idea pode nao ter profundidade suficiente."
+        - condition: "Pecas nao funcionam autonomamente"
+          action: "BLOCK - Fragmentos dependentes do contexto original nao funcionam em feed."
+        - condition: "Calendario de publicacao nao definido"
+          action: "BLOCK - Sem calendario, conteudo sera publicado de forma desorganizada."
+        - condition: "Plataforma principal sem conteudo (newsletter ou YouTube)"
+          action: "HALT - A ancora do cascade esta faltando. Voltar para PHASE-2."
+    recovery:
+      rollback_to: "phase_2_checkpoint"
+      preserve:
+        - "masterpiece_draft"
+        - "cascade_fragments"
+        - "quality_review"
+      discard:
+        - "partial_distribution_package"
+        - "incomplete_publication_calendar"
+        - "draft_platform_content"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ===============================================================================
+# ERROR HANDLING
+# ===============================================================================
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ===============================================================================
+# SIGNALS
+# ===============================================================================
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-content-pipeline"
+      status: "completed"
+      outputs:
+        - "distribution_package/"
+        - "publication_calendar.yaml"
+        - "masterpiece_draft.md"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ===============================================================================
+# OUTPUTS
+# ===============================================================================
+
+outputs:
+  phase_0:
+    - "queue_export_raw.yaml"
+    - "queue_triaged.yaml"
+    - "weekly_priorities.yaml"
+    - "big_idea_selection.md"
+    - "queue_archived.yaml"
+
+  phase_1:
+    - "big_idea_expanded.md"
+    - "cross_domain_bridges.yaml"
+    - "framework_naming.md"
+    - "big_idea_synthesis.md"
+    - "content_angles.yaml"
+
+  phase_2:
+    - "format_decision.md"
+    - "apag_outline.yaml"
+    - "masterpiece_draft.md"
+    - "quality_review.yaml"
+    - "cascade_fragments.yaml"
+
+  phase_3:
+    - "platform_map.yaml"
+    - "fragments_by_platform.yaml"
+    - "twitter_thread.md"
+    - "linkedin_posts.md"
+    - "short_form_scripts.md"
+    - "publication_calendar.yaml"
+    - "distribution_package/"
+
+  final_deliverable:
+    name: "Weekly Content Package"
+    location: "outputs/content/{week_id}/"
+    contents:
+      - "masterpiece_draft.md - Peca-mae (newsletter ou YouTube script)"
+      - "distribution_package/ - Todas as pecas por plataforma"
+      - "publication_calendar.yaml - Calendario de publicacao"
+      - "big_idea_synthesis.md - Documentacao da Big Idea"
+      - "quality_review.yaml - Resultados de validacao"
+
+# ===============================================================================
+# AGENTS BY PHASE
+# ===============================================================================
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-coletor"]
+
+  PHASE-1:
+    primary: ["koe-sintetizador"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["koe-arquiteto"]
+    secondary: []
+
+  PHASE-3:
+    primary: ["koe-distribuidor"]
+    secondary: []
+
+# ===============================================================================
+# QUALITY CHECKLIST
+# ===============================================================================
+
+quality_checklist:
+  phase_0:
+    - "[ ] Queue 100% triada e classificada"
+    - "[ ] 3+ itens high-signal identificados"
+    - "[ ] Big Idea semanal score >= 7/12"
+    - "[ ] Itens stale processados"
+
+  phase_1:
+    - "[ ] Tese contraintuitiva articulada"
+    - "[ ] 2+ pontes cross-domain"
+    - "[ ] Framework nomeado (se aplicavel)"
+    - "[ ] 5+ angulos de conteudo"
+
+  phase_2:
+    - "[ ] APAG completo (4 secoes)"
+    - "[ ] 1500+ palavras (newsletter) ou 15+ min (script)"
+    - "[ ] Voice checklist 5/5"
+    - "[ ] 10+ fragmentos para cascade"
+
+  phase_3:
+    - "[ ] 20+ pecas de conteudo"
+    - "[ ] Adaptado por plataforma"
+    - "[ ] Calendario montado"
+    - "[ ] Pacote compilado"
+
+# ===============================================================================
+# METADATA
+# ===============================================================================
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "QUEUE_SYSTEM"
+    - "FILL_EMPTY_USE_CYCLE"
+    - "APAG_STRUCTURE"
+    - "CONTENT_CASCADE"
+    - "DIGITAL_RENAISSANCE"
+  source_mind: "dan_koe"
+  lines: "700+"
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

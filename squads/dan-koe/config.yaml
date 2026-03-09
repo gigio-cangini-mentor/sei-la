@@ -1,0 +1,478 @@
+# Koe Squad — The One-Person Business System v1.0
+# One mind, multiple specialties. Sovereign creation with radical simplicity.
+
+pack:
+  name: koe
+  title: "Koe Squad — The One-Person Business System"
+  version: "1.0.0"
+  author: "AIOS Team"
+  description: "9 specialized Dan Koe agents covering idea creation, content systems, offers, brand, and sovereign business architecture"
+  icon: "🧠"
+  slash_prefix: "koe"
+  pattern_prefix: "*"
+  entry_agent: koe-chief
+
+metadata:
+  created: 2026-02-14
+  source_mind: dan_koe
+  fidelity_target: 0.85
+  total_source_files: 14
+  total_source_size_mb: 50
+  mental_models: 13
+  mmos_artifacts: 14
+  books:
+    - "The Art of Focus (2024)"
+  courses:
+    - "Modern Mastery"
+    - "Mental Monetization"
+    - "2 Hour Writer"
+    - "Digital Economics"
+  newsletters:
+    - "Koe Letter (weekly)"
+  youtube_channel: "Dan Koe (2M+ subscribers)"
+
+# MMOS Integration
+mmos_integration:
+  enabled: true
+  log_source: true
+  fallback_behavior: "graceful"
+  mind_mapping:
+    koe-chief: dan_koe
+    koe-coletor: dan_koe
+    koe-sintetizador: dan_koe
+    koe-arquiteto: dan_koe
+    koe-distribuidor: dan_koe
+    koe-offers: dan_koe
+    koe-brand: dan_koe
+    koe-mindset: dan_koe
+    koe-advisor: dan_koe
+
+# Agents — Organized by Tier
+agents:
+  # Tier 0: Orchestrator
+  - id: koe-chief
+    name: "Koe Chief"
+    role: "Master orchestrator — routing, creative diagnosis, sovereign business coordination"
+    tier: 0
+    primary_frameworks:
+      - "Traffic + Offers = Business"
+      - "Fill/Empty/Use Brain Cycle"
+      - "The Queue System"
+      - "APAG Structure (Attention-Perspective-Advantage-Gamify)"
+
+  # Tier 1: Core Specialists (Dan Koe's Own 4 Agents)
+  - id: koe-coletor
+    name: "Koe Coletor"
+    role: "The Queue Manager — ubiquitous idea capture, tagging, prioritization"
+    tier: 1
+    primary_frameworks:
+      - "The Queue System"
+      - "Fill Phase (Curated Consumption)"
+      - "Active Recovery Processing"
+
+  - id: koe-sintetizador
+    name: "Koe Sintetizador"
+    role: "Pattern Recognition Engine — cross-domain synthesis, Big Idea generation, framework naming"
+    tier: 1
+    primary_frameworks:
+      - "Digital Renaissance Framework"
+      - "Iceberg Model (Depth Through Simplicity)"
+      - "Cross-Domain Pattern Recognition"
+
+  - id: koe-arquiteto
+    name: "Koe Arquiteto"
+    role: "Deep Work Executor — Big Ideas to digital assets, APAG writing, newsletter/course creation"
+    tier: 1
+    primary_frameworks:
+      - "APAG Structure"
+      - "Content Cascade (1 idea → 20+ pieces)"
+      - "2-4h Deep Work Protocol"
+
+  - id: koe-distribuidor
+    name: "Koe Distribuidor"
+    role: "Content Ecosystem Architect — repurposing, omnichannel distribution, content calendar"
+    tier: 1
+    primary_frameworks:
+      - "Content Cascade Leverage"
+      - "Social Matrix"
+      - "1h Creation → 10h Distribution"
+
+  # Tier 2: Execution Specialists
+  - id: koe-offers
+    name: "Koe Offers"
+    role: "Offer architect — irresistible offers, risk reversal, pricing, funnels"
+    tier: 2
+    primary_frameworks:
+      - "Traffic + Offers = Business"
+      - "Risk Reversal (Secret Weapon)"
+      - "Value Hierarchy (Entertainment → Transformation → Implementation)"
+      - "Godfather Offer Construction"
+
+  - id: koe-brand
+    name: "Koe Brand"
+    role: "Personal brand architect — You Are The Niche, personal monopoly, authority building"
+    tier: 2
+    primary_frameworks:
+      - "You Are The Niche"
+      - "Personal Monopoly"
+      - "The Leverage Stack"
+      - "Brand = Lead Generation System"
+
+  - id: koe-mindset
+    name: "Koe Mindset"
+    role: "Conscious conditioning, habit engineering, anti-conformity, focus management, sovereign mindset"
+    tier: 2
+    primary_frameworks:
+      - "Conscious Conditioning Process"
+      - "Habit Loop Reengineering"
+      - "Polarity Principle (Vision vs Anti-Vision)"
+      - "Autoprogramming Protocol"
+      - "Focus Funnel (Art of Focus)"
+      - "Attention Spectrum"
+      - "Creative Energy Management"
+
+  # Tier 3: Strategic Advisor
+  - id: koe-advisor
+    name: "Koe Advisor"
+    role: "One-Person Business sovereignty counsel, life design, long-term strategy"
+    tier: 3
+    primary_frameworks:
+      - "One-Person Business Architecture"
+      - "Sovereignty Test"
+      - "Future-Present Integration"
+      - "Paradox of the Entrepreneur"
+
+# Tier Architecture
+tier_architecture:
+  tier_0:
+    name: "Orchestrator"
+    agents: 1
+    agents_list: [koe-chief]
+    responsibility: "Master routing, creative diagnosis, sovereign business coordination"
+    activation_model: "Direct user interaction"
+  tier_1:
+    name: "Core Specialists (Dan Koe's 4 Agents)"
+    agents: 4
+    agents_list: [koe-coletor, koe-sintetizador, koe-arquiteto, koe-distribuidor]
+    responsibility: "The creative pipeline — capture, synthesize, create, distribute"
+    activation_model: "Called by Chief or user request"
+  tier_2:
+    name: "Execution Specialists"
+    agents: 3
+    agents_list: [koe-offers, koe-brand, koe-mindset]
+    responsibility: "Tactical execution — offers, branding, mindset engineering"
+    activation_model: "Called by Chief or Tier 1 agents"
+  tier_3:
+    name: "Strategic Advisor"
+    agents: 1
+    agents_list: [koe-advisor]
+    responsibility: "Strategic counsel, life design, sovereignty assessment"
+    activation_model: "Called by Chief for strategic decisions"
+
+# Use Cases
+use_cases:
+  - id: uc-001
+    name: "Weekly Content Pipeline"
+    description: "Full cycle from idea capture to distributed content across platforms"
+    primary_agent: koe-chief
+    supporting_agents: [koe-coletor, koe-sintetizador, koe-arquiteto, koe-distribuidor]
+    framework: "Fill/Empty/Use Cycle + Content Cascade"
+    duration: "1 week (recurring)"
+
+  - id: uc-002
+    name: "Big Idea Development"
+    description: "Develop a raw insight into a named framework with deep content"
+    primary_agent: koe-chief
+    supporting_agents: [koe-sintetizador, koe-arquiteto]
+    framework: "Digital Renaissance + Iceberg Model"
+    duration: "2-3 days"
+
+  - id: uc-003
+    name: "Irresistible Offer Creation"
+    description: "Design and validate a digital product offer with risk reversal"
+    primary_agent: koe-chief
+    supporting_agents: [koe-offers, koe-brand, koe-distribuidor]
+    framework: "Traffic + Offers + Risk Reversal"
+    duration: "2-3 days"
+
+  - id: uc-004
+    name: "Personal Brand Architecture"
+    description: "Build or audit personal brand as a lead generation system"
+    primary_agent: koe-chief
+    supporting_agents: [koe-brand, koe-offers, koe-mindset]
+    framework: "You Are The Niche + Leverage Stack"
+    duration: "3-5 days"
+
+  - id: uc-005
+    name: "Sovereign Business Audit"
+    description: "Assess business against sovereignty, simplicity, and leverage criteria"
+    primary_agent: koe-chief
+    supporting_agents: [koe-advisor, koe-offers]
+    framework: "Sovereignty Test + Traffic + Offers Diagnosis"
+    duration: "1-2 days"
+
+  - id: uc-006
+    name: "Mindset Reset"
+    description: "Apply Conscious Conditioning to break limiting patterns"
+    primary_agent: koe-chief
+    supporting_agents: [koe-mindset, koe-advisor]
+    framework: "Conscious Conditioning + Polarity Principle"
+    duration: "1-3 days"
+
+# Quality Gates
+quality_gates:
+  content_quality:
+    name: "Content Quality Standards"
+    checks:
+      - "Big Idea identified and named"
+      - "APAG structure present (Attention-Perspective-Advantage-Gamify)"
+      - "Cross-domain synthesis (2+ domains connected)"
+      - "Em-dash rhythm present"
+      - "Rhetorical questions used for engagement"
+    validators: []
+
+  offer_quality:
+    name: "Offer Irresistibility Check"
+    checks:
+      - "Risk Reversal present (guarantee)"
+      - "Value hierarchy clear (entertainment → transformation)"
+      - "Traffic + Offers equation balanced"
+      - "Sovereignty test passed (increases user control)"
+    validators: []
+
+  sovereignty_check:
+    name: "Sovereignty Validation"
+    checks:
+      - "Does this increase control over time?"
+      - "Does this reduce external dependencies?"
+      - "Is this radically simple (80/20)?"
+      - "Does this amplify (not replace) human creativity?"
+    validators: []
+
+  handoff:
+    name: "Agent Handoff Validation"
+    checks:
+      - "Previous agent output verified"
+      - "Handoff context complete"
+      - "No immune system violations"
+      - "Next agent context clear"
+    validators: []
+
+# Shared Data Files
+shared_data:
+  voice_dna: data/minds/koe-voice-dna.yaml
+  thinking_dna: data/minds/koe-thinking-dna.yaml
+
+# Mental Models (10 confirmed)
+mental_models:
+  - id: MM_001
+    name: "Traffic + Offers = Business"
+    formula: "Business = Traffic (right people seeing) + Offers (right thing offered)"
+    type: universal
+    transferability: 0.95
+
+  - id: MM_002
+    name: "The Queue System"
+    insight: "Ubiquitous capture → tagging → prioritization → development → archive. Nothing stays 7+ days."
+    type: domain
+    transferability: 0.90
+
+  - id: MM_003
+    name: "Fill/Empty/Use Brain Cycle"
+    insight: "Fill (afternoon consumption) → Empty (evening walks/meditation) → Use (morning deep work)"
+    type: universal
+    transferability: 0.85
+
+  - id: MM_004
+    name: "APAG Structure"
+    insight: "Attention → Perspective → Advantage → Gamify — the content architecture for every piece"
+    type: domain
+    transferability: 0.90
+
+  - id: MM_005
+    name: "Digital Renaissance"
+    insight: "Become the niche through multi-domain mastery. Innovation lives at the intersection."
+    type: universal
+    transferability: 0.85
+
+  - id: MM_006
+    name: "Conscious Conditioning Process"
+    insight: "Recognize → Reframe → Design Response → Repeat → Reward — transmute negativity into fuel"
+    type: universal
+    transferability: 0.80
+
+  - id: MM_007
+    name: "The Leverage Stack"
+    insight: "Personal Brand (trust) + Digital Products (scale) + Content Systems (marketing) + Automation (time)"
+    type: domain
+    transferability: 0.90
+
+  - id: MM_008
+    name: "Iceberg Model"
+    insight: "Surface: simple Big Ideas. Depth: massive research, experience, interconnected systems"
+    type: universal
+    transferability: 0.85
+
+  - id: MM_009
+    name: "Polarity Principle"
+    insight: "Define anti-vision (what you reject) to create productive tension toward your vision"
+    type: universal
+    transferability: 0.80
+
+  - id: MM_010
+    name: "Content Cascade"
+    insight: "1 Big Idea → Newsletter → YouTube script → Blog → Tweets → Clips. 1h creation = 10h content"
+    type: domain
+    transferability: 0.90
+
+  - id: MM_011
+    name: "Focus Funnel"
+    insight: "Eliminate → Automate → Delegate → Focus. What survives the funnel is your real work."
+    type: universal
+    transferability: 0.90
+
+  - id: MM_012
+    name: "Attention Spectrum"
+    insight: "Map attention across 3 dimensions: Consumption/Creation, Reactive/Proactive, Shallow/Deep"
+    type: universal
+    transferability: 0.85
+
+  - id: MM_013
+    name: "Creative Energy Management"
+    insight: "Align work to energy cycles: Peak (creation), Sustained (structure), Low (maintenance). Energy > Time."
+    type: universal
+    transferability: 0.85
+
+# Workflows
+workflows:
+  - id: wf-content-pipeline
+    name: "Weekly Content Pipeline"
+    duration: "recurring weekly"
+    phases: 4
+    agents_involved: [koe-chief, koe-coletor, koe-sintetizador, koe-arquiteto, koe-distribuidor]
+
+  - id: wf-big-idea
+    name: "Big Idea Development"
+    duration: "2-3 days"
+    phases: 4
+    agents_involved: [koe-chief, koe-sintetizador, koe-arquiteto]
+
+  - id: wf-offer-creation
+    name: "Irresistible Offer Creation"
+    duration: "2-3 days"
+    phases: 4
+    agents_involved: [koe-chief, koe-offers, koe-brand, koe-distribuidor]
+
+  - id: wf-brand-architecture
+    name: "Personal Brand Architecture"
+    duration: "3-5 days"
+    phases: 5
+    agents_involved: [koe-chief, koe-brand, koe-offers, koe-mindset]
+
+  - id: wf-sovereignty-audit
+    name: "Sovereign Business Audit"
+    duration: "1-2 days"
+    phases: 3
+    agents_involved: [koe-chief, koe-advisor, koe-offers]
+
+  - id: wf-content-cascade
+    name: "Content Cascade Execution"
+    duration: "1-2 days"
+    phases: 3
+    agents_involved: [koe-chief, koe-arquiteto, koe-distribuidor]
+
+  - id: wf-conscious-conditioning
+    name: "Conscious Conditioning Reset"
+    duration: "1-3 days"
+    phases: 4
+    agents_involved: [koe-chief, koe-mindset, koe-advisor]
+
+  - id: wf-queue-mastery
+    name: "Queue Mastery & Capture Optimization"
+    duration: "1-2 days"
+    phases: 3
+    agents_involved: [koe-chief, koe-coletor, koe-sintetizador]
+
+  - id: wf-digital-economics
+    name: "Digital Economics Blueprint"
+    duration: "2-3 days"
+    phases: 4
+    agents_involved: [koe-chief, koe-offers, koe-brand, koe-distribuidor]
+
+# Component Inventory
+inventory:
+  agents: 9
+  workflows: 9
+  tasks: 59
+  checklists: 26
+  templates: 4
+  data_files: 4
+  dna_files: 9
+  smoke_tests: 12
+  total_files: 137
+
+# Dependencies
+dependencies:
+  - aios-core
+
+tags:
+  - dan-koe
+  - one-person-business
+  - sovereign-creator
+  - content-systems
+  - big-ideas
+  - digital-economics
+  - personal-brand
+  - radical-simplicity
+
+# Immune System (Centralized)
+immune_system:
+  level_0_preconscious:
+    - "Short-term hacks and growth tricks"
+    - "Passive victims who blame external factors"
+    - "Find your passion before starting"
+  level_1_visceral:
+    - "Quick fix mentality"
+    - "Get rich quick schemes"
+    - "Hustle culture (more hours = more success)"
+  level_2_dismissive:
+    - "Vanity metrics as goals (likes, followers)"
+    - "Academic jargon without frameworks"
+    - "Premature specialization (niche down too early)"
+  level_3_combative:
+    - "Threats to personal sovereignty"
+    - "Anti-creation / anti-money philosophy"
+    - "Gatekeeping creativity behind credentials"
+
+# Veto Conditions (Centralized)
+veto_conditions:
+  universal:
+    - "Output increases dependency instead of sovereignty"
+    - "Advice contradicts radical simplicity principle"
+    - "Content lacks a Big Idea at its core"
+  workflow:
+    - "Content piece has no APAG structure"
+    - "Offer has no Risk Reversal"
+    - "Brand advice disconnects from lead generation"
+  handoff:
+    - "Previous agent output violates immune system"
+
+# Conflict Resolution — handles when multiple workflows compete for the same agent
+conflict_resolution:
+  strategy: priority_queue
+  priority_order:
+    - wf-content-pipeline       # Primary workflow — weekly recurring, highest priority
+    - wf-offer-creation         # Revenue-generating workflows
+    - wf-brand-architecture     # Brand building supports offers
+    - wf-conscious-conditioning # Mindset unlocks execution
+    - wf-big-idea               # Idea development feeds pipeline
+    - wf-sovereignty-audit      # Periodic audit, can wait
+    - wf-queue-mastery          # Queue management is background work
+    - wf-content-cascade        # Distribution is last-mile, lowest urgency
+    - wf-digital-economics      # Blueprint work can be deferred
+  agent_lock_policy: exclusive  # Agent handles one workflow at a time
+  on_conflict:
+    action: queue               # Lower-priority workflow enters wait queue
+    notify: koe-chief           # Chief is always notified of conflicts
+  max_queue_depth: 3            # Max 3 workflows waiting per agent
+  timeout_minutes: 60           # Auto-release agent lock after 60 min of inactivity

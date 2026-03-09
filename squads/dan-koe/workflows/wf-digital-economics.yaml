@@ -1,0 +1,1540 @@
+# Digital Economics System Workflow
+# Based on Dan Koe's Digital Economics course + One-Person Business methodology
+# Source: DIGITAL_ECONOMICS_SYSTEM + LEVERAGE_STACK + CONTENT_CASCADE + TRAFFIC_OFFERS
+# Version: 1.0.0
+
+id: wf-digital-economics
+name: "Digital Economics System"
+version: "1.0.0"
+duration: "4-7 days"
+trigger: "*economics"
+description: |
+  Workflow completo para construir um Digital Economics System — o modelo de negócio
+  que Dan Koe ensina e pratica: um one-person business que gera R$100k+/mês
+  com leverage máximo e dependência mínima de fatores externos.
+
+  FILOSOFIA: "O futuro do trabalho é o indivíduo soberano.
+  Um cérebro, um laptop, um sistema. Sem chefe, sem investidores,
+  sem equipe de 50 pessoas. Apenas leverage inteligente."
+
+  PRINCÍPIO CENTRAL: Soberania > Escala. Um negócio de R$50k/mês com 95%
+  de margem e 4h/dia de trabalho é SUPERIOR a R$500k/mês com 50 funcionários,
+  20% margem e 80h/semana.
+
+  RESULTADO: Business model completo com Offer Architecture, Brand-Led Distribution,
+  Leverage Automation e roadmap de soberania financeira e de tempo.
+
+  MENTAL MODEL: Traffic + Offers = Business × Leverage = Digital Economics.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Construir one-person business do zero"
+  - "Redesenhar negócio existente para soberania (menos dependência)"
+  - "Transicionar de freelancer/consultor para modelo escalável"
+  - "Criar sistema de receita recorrente baseado em conhecimento"
+  - "Otimizar negócio para máxima liberdade com receita sustentável"
+  - "Sair do trade de tempo-por-dinheiro"
+  - "Construir 'negócio de estilo de vida' sem perder ambição"
+  - "Monetizar expertise acumulada de anos de carreira"
+
+decision_matrix_fit:
+  complexity: very_high
+  agents_required: 4
+  estimated_duration: "4-7 days"
+  user_involvement: "very high (redesenho completo do modelo de negócio)"
+  prerequisites:
+    - "Expertise profunda em pelo menos 1 domínio monetizável"
+    - "Disposição para construir presença pública (conteúdo)"
+    - "Visão clara do estilo de vida desejado"
+    - "Disponibilidade de 10-20h/semana para construção inicial"
+    - "Capital de reserva para 3-6 meses (período de construção)"
+  mental_models_required:
+    - "Traffic + Offers = Business"
+    - "The Leverage Stack"
+    - "Content Cascade"
+    - "Digital Renaissance"
+    - "Fill/Empty/Use Brain Cycle"
+    - "The Queue System"
+    - "Conscious Conditioning Process"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orquestração, diagnóstico de business model, validação estratégica"
+      phases: [0]
+
+    - agent: koe-offers
+      role: "Offer Architecture, revenue streams, pricing strategy"
+      phases: [1]
+
+    - agent: koe-brand
+      role: "Brand-Led Distribution, content system, audience building"
+      phases: [2]
+
+    - agent: koe-distribuidor
+      role: "Leverage Automation, systems design, scaling without headcount"
+      phases: [3]
+
+  secondary:
+    - agent: koe-advisor
+      role: "Validação estratégica, alinhamento com visão de soberania"
+      phases: [0, 1, 3]
+
+    - agent: koe-mindset
+      role: "Mindset de soberania, conditioning contra mentalidade de empregado"
+      phases: [0, 3]
+
+    - agent: koe-sintetizador
+      role: "Síntese de padrões de mercado, análise competitiva"
+      phases: [0, 1]
+
+    - agent: koe-coletor
+      role: "Queue System para captura de inputs e ideias"
+      phases: [1, 2]
+
+    - agent: koe-arquiteto
+      role: "Escrita de conteúdo profundo, frameworks, deep work"
+      phases: [2]
+
+  synergies:
+    - agents: [koe-chief, koe-advisor]
+      pattern: "Chief orquestra execução diária. Advisor valida direção de longo prazo."
+
+    - agents: [koe-offers, koe-brand]
+      pattern: "Offers define o que monetizar. Brand define como atrair compradores."
+
+    - agents: [koe-brand, koe-distribuidor]
+      pattern: "Brand cria conteúdo. Distribuidor automatiza e escala a distribuição."
+
+    - agents: [koe-distribuidor, koe-advisor]
+      pattern: "Distribuidor cria sistemas. Advisor garante que sistemas servem à soberania."
+
+    - agents: [koe-mindset, koe-advisor]
+      pattern: "Mindset protege contra mentalidade de empregado. Advisor contra decisões de curto prazo."
+
+    - agents: [koe-arquiteto, koe-brand]
+      pattern: "Arquiteto produz deep content. Brand posiciona e distribui."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: BUSINESS MODEL DIAGNOSIS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Business Model Diagnosis"
+    days: "Day 0-1"
+    tier: 0
+    description: |
+      Diagnóstico completo do modelo de negócio atual (ou design do zero).
+      Avalia CADA dimensão contra o padrão Digital Economics de Dan Koe.
+
+      PRINCÍPIO: "Antes de construir, diagnostique. A maioria dos negócios
+      falha não por falta de tráfego, mas por modelo de negócio quebrado."
+
+      FRAMEWORK: Soberania = Receita × Margem × Liberdade de Tempo.
+      Se qualquer fator é zero, o resultado é zero.
+
+      DIAGNÓSTICO: Onde estamos? Para onde vamos? Qual o gap?
+
+    agent: koe-chief
+
+    tasks:
+      - task_id: T0.1
+        name: "Diagnóstico de Modelo Atual"
+        required: true
+        description: |
+          Mapear o modelo de negócio atual em todas as dimensões:
+          - Fontes de receita (o que vende, para quem, por quanto)
+          - Estrutura de custos (fixos, variáveis, margem)
+          - Time investment (horas/semana dedicadas)
+          - Dependências (clientes, plataformas, fornecedores)
+          - Satisfação pessoal (energia, motivação, alinhamento)
+        output: "current_model_diagnosis.yaml"
+
+      - task_id: T0.2
+        name: "Sovereignty Score Assessment"
+        required: true
+        description: |
+          Calcular o Sovereignty Score — medida única que captura
+          quão soberano é o negócio. Score composto de:
+          - Income Freedom (diversificação de receita)
+          - Time Freedom (horas trabalhadas vs. desejadas)
+          - Location Freedom (pode trabalhar de qualquer lugar?)
+          - Creative Freedom (faz o que quer vs. o que precisa)
+          - Dependency Freedom (quão dependente de fatores externos)
+        output: "sovereignty_score.yaml"
+
+      - task_id: T0.3
+        name: "Gap Analysis: Atual vs. Digital Economics"
+        required: true
+        description: |
+          Comparar modelo atual com o ideal Digital Economics:
+          - Ideal: 70%+ margem, 20-25h/semana, múltiplos streams,
+            conteúdo como motor, audiência própria, ofertas escaláveis.
+          - Gap: o que falta para chegar lá?
+        output: "gap_analysis.yaml"
+
+      - task_id: T0.4
+        name: "Definir Visão de Lifestyle Design"
+        required: true
+        description: |
+          Antes de construir o negócio, definir a VIDA que o negócio serve:
+          - Receita mensal desejada (líquido)
+          - Horas de trabalho por semana (máximo)
+          - Onde quer morar/trabalhar
+          - O que quer fazer com o tempo livre
+          - Que tipo de trabalho te energiza
+          O negócio é FERRAMENTA para a vida, não o contrário.
+        output: "lifestyle_vision.yaml"
+
+      - task_id: T0.5
+        name: "Identificar Quick Wins Imediatos"
+        required: true
+        description: |
+          O que pode ser feito HOJE para melhorar o modelo atual?
+          - Revenue: existe oferta não-lançada? Preço pode subir?
+          - Leverage: existe processo manual que pode ser automatizado?
+          - Time: existe atividade drenando tempo sem retorno?
+          Quick wins mantêm momentum enquanto construímos o sistema.
+        output: "quick_wins.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Business Model Canvas
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      business_model_canvas:
+        description: "Canvas de Business Model adaptado para Digital Economics de Dan Koe"
+        sections:
+          revenue_streams:
+            title: "Fontes de Receita"
+            fields:
+              - id: RS_001
+                name: "Receita Ativa"
+                description: "Revenue que requer presença ativa (calls, consultoria, serviço)"
+                question: "Quanto da receita exige que você esteja presente?"
+                ideal: "< 30% do total"
+                red_flag: "> 80% = negócio depende inteiramente de você"
+
+              - id: RS_002
+                name: "Receita Passiva/Semi-Passiva"
+                description: "Revenue de produtos digitais, cursos, templates"
+                question: "Quanto da receita vem de assets que trabalham sozinhos?"
+                ideal: "> 50% do total"
+                red_flag: "0% = nenhum leverage"
+
+              - id: RS_003
+                name: "Receita Recorrente"
+                description: "Revenue previsível (assinaturas, memberships, retainers)"
+                question: "Quanto da receita é recorrente/previsível?"
+                ideal: "> 40% do total"
+                red_flag: "0% = sem previsibilidade"
+
+              - id: RS_004
+                name: "Diversificação"
+                description: "Número de fontes de receita independentes"
+                question: "Quantas fontes de receita independentes existem?"
+                ideal: "3-5 fontes"
+                red_flag: "1 fonte = risco extremo"
+
+          sovereignty_dimensions:
+            title: "Dimensões de Soberania"
+            fields:
+              - id: SOV_001
+                name: "Income Freedom"
+                question: "Sua receita é diversificada e crescente?"
+                scoring:
+                  3: "3+ streams, crescendo >10%/mês"
+                  2: "2 streams, estável"
+                  1: "1 stream, dependente"
+                  0: "Sem receita ou completamente dependente de 1 cliente"
+
+              - id: SOV_002
+                name: "Time Freedom"
+                question: "Quanto tempo trabalha vs. quanto gostaria?"
+                scoring:
+                  3: "Trabalha horas desejadas (tipicamente 20-30h/semana)"
+                  2: "Ligeiramente acima do desejado (30-40h)"
+                  1: "Significativamente acima (40-60h)"
+                  0: "Completamente preso (60h+ ou sem controle de agenda)"
+
+              - id: SOV_003
+                name: "Location Freedom"
+                question: "Pode trabalhar de qualquer lugar?"
+                scoring:
+                  3: "100% remoto, qualquer fuso horário"
+                  2: "Remoto mas com restrições de horário"
+                  1: "Parcialmente remoto"
+                  0: "Preso a local físico"
+
+              - id: SOV_004
+                name: "Creative Freedom"
+                question: "Faz o trabalho que QUER fazer?"
+                scoring:
+                  3: "100% do tempo em atividades energizantes"
+                  2: "70%+ energizante, 30% necessário"
+                  1: "50/50"
+                  0: "Maioria do tempo em trabalho que drena"
+
+              - id: SOV_005
+                name: "Dependency Freedom"
+                question: "Quão dependente de fatores externos?"
+                scoring:
+                  3: "Controla 90%+ do negócio (audiência própria, múltiplos canais)"
+                  2: "Alguma dependência controlável"
+                  1: "Dependência significativa (1 plataforma, 1 cliente grande)"
+                  0: "Totalmente dependente (1 cliente = 50%+ receita)"
+
+            total_max: 15
+            zones:
+              sovereign: "12-15 — Negócio soberano. Otimize e proteja."
+              building: "8-11 — Em construção. Continue investindo em leverage."
+              trapped: "4-7 — Preso. Priorize libertação urgente."
+              crisis: "0-3 — Crise de soberania. Ação imediata necessária."
+
+          cost_structure:
+            title: "Estrutura de Custos"
+            fields:
+              - id: CS_001
+                name: "Custos Fixos Mensais"
+                question: "Quanto gasta todo mês independente de receita?"
+                ideal: "< 20% da receita média"
+
+              - id: CS_002
+                name: "Margem Líquida"
+                question: "Quanto sobra depois de TODOS os custos?"
+                ideal: "> 70% para digital, > 40% para serviços"
+
+              - id: CS_003
+                name: "Custo de Aquisição (CAC)"
+                question: "Quanto custa trazer um novo cliente?"
+                ideal: "Orgânico = R$0 direto (investimento é tempo de conteúdo)"
+
+          lifestyle_design:
+            title: "Design de Vida"
+            fields:
+              - id: LD_001
+                name: "Income Target"
+                question: "Qual receita líquida mensal te dá TRANQUILIDADE?"
+                format: "R$ X.XXX"
+                note: "Não o máximo. O suficiente para viver SEM ANSIEDADE."
+
+              - id: LD_002
+                name: "Time Target"
+                question: "Quantas horas por semana quer TRABALHAR (não precisa)?"
+                format: "X horas/semana"
+                note: "Inclua tempo de criação, calls, admin. Seja honesto."
+
+              - id: LD_003
+                name: "Freedom Target"
+                question: "Que liberdades são INEGOCIÁVEIS para você?"
+                format: "Lista priorizada"
+                examples:
+                  - "Nunca ter call antes das 10h"
+                  - "Sexta livre"
+                  - "Poder viajar 2 meses/ano"
+                  - "Não trabalhar no fim de semana"
+
+        veto_condition: "Se Sovereignty Score < 4/15, negócio está em crise. Quick wins urgentes antes de arquitetura."
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Business Model Diagnosis Complete"
+      criteria:
+        - "Modelo atual diagnosticado em todas dimensões"
+        - "Sovereignty Score calculado (5 dimensões)"
+        - "Gap Analysis Atual vs. Digital Economics"
+        - "Lifestyle Vision definida com targets concretos"
+        - "Quick Wins identificados (mínimo 3)"
+      human_review: true
+      message: "Revise o diagnóstico completo. O negócio será redesenhado baseado nestes dados."
+      veto_conditions:
+        - condition: "Sovereignty Score < 4/15"
+          action: "HALT — Negócio em crise de soberania. Executar quick wins de sobrevivência antes de arquitetura."
+        - condition: "Sem expertise monetizável identificada"
+          action: "BLOCK — Digital Economics requer expertise. Desenvolver primeiro via estudo + prática."
+        - condition: "Lifestyle Vision ausente"
+          action: "BLOCK — Sem visão de vida, o negócio será construído no vácuo e causará burnout."
+        - condition: "Zero receita e zero audiência"
+          action: "REDIRECT — Começar com wf-brand-architecture para construir base antes de Digital Economics."
+      recovery:
+        rollback_to: "fresh_start"
+        preserve:
+          - "raw_elicitation_data"
+        discard:
+          - "partial_model_diagnosis"
+          - "incomplete_sovereignty_score"
+          - "draft_gap_analysis"
+          - "draft_lifestyle_vision"
+          - "draft_quick_wins"
+        max_retries: 2
+        retry_strategy: "rollback_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: OFFER ARCHITECTURE
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Offer Architecture"
+    days: "Days 2-3"
+    tier: 1
+    description: |
+      Arquitetura do ecossistema de ofertas para Digital Economics.
+      NÃO é uma oferta única — é um SISTEMA de ofertas que se alimentam,
+      com escada de valor, revenue streams múltiplos e leverage máximo.
+
+      PRINCÍPIO: "Um negócio com 1 oferta é frágil.
+      Um ecossistema de ofertas é antifrágil."
+
+      FRAMEWORK: Traffic + Offers = Business.
+      Cada oferta deve ter seu sistema de tráfego.
+      Cada oferta deve alimentar a próxima na escada.
+
+      RESULTADO: Ecossistema de 3-5 ofertas com revenue projection.
+
+    agent: koe-offers
+
+    tasks:
+      - task_id: T1.1
+        name: "Definir Core Offer (Flagship)"
+        required: true
+        description: |
+          A oferta principal — a que gera a maior parte da receita.
+          Deve ser: escalável, baseada em expertise, com margem >70%.
+          Formatos: curso, membership, cohort-based course, comunidade premium.
+        output: "core_offer.yaml"
+
+      - task_id: T1.2
+        name: "Construir Offer Ecosystem"
+        required: true
+        description: |
+          Ecossistema completo de ofertas:
+          - Lead Magnet (free → email capture)
+          - Entry Offer (low-ticket → qualificar compradores)
+          - Core Offer (mid-ticket → transformação principal)
+          - Premium Offer (high-ticket → implementação personalizada)
+          - Ascension Path (como cliente sobe de tier)
+        output: "offer_ecosystem.yaml"
+
+      - task_id: T1.3
+        name: "Revenue Architecture"
+        required: true
+        description: |
+          Projeção financeira detalhada:
+          - Revenue por tier (pessimista/realista/otimista)
+          - Custo de entrega por tier
+          - Margem por tier
+          - Caminho para income target (definido na Phase 0)
+          - Break-even timeline
+        output: "revenue_architecture.yaml"
+
+      - task_id: T1.4
+        name: "Pricing Strategy por Tier"
+        required: true
+        description: |
+          Estratégia de pricing para cada tier do ecossistema:
+          - Psicologia de preço (anchoring, framing, decoy)
+          - Comparação com mercado
+          - Value-based pricing (não cost-based)
+          - Testes A/B planejados
+        output: "pricing_strategy.yaml"
+
+      - task_id: T1.5
+        name: "Delivery System Design"
+        required: true
+        description: |
+          Como ENTREGAR cada oferta com leverage máximo:
+          - Que % é conteúdo gravado (1-to-many)?
+          - Que % é interação ao vivo?
+          - Que % é automatizado?
+          - Qual a carga de trabalho semanal por 100 clientes?
+        output: "delivery_system.yaml"
+
+      - task_id: T1.6
+        name: "Anti-Fragility Check"
+        required: true
+        description: |
+          Verificar que o ecossistema sobrevive a choques:
+          - E se uma plataforma cair?
+          - E se o core offer parar de converter?
+          - E se um competidor copiar a oferta?
+          - E se precisar ficar 1 mês sem trabalhar?
+        output: "antifragility_check.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Revenue Architecture Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      revenue_architecture_template:
+        description: "Template de arquitetura de receita para Digital Economics"
+        principle: |
+          "Receita previsível vem de SISTEMA, não de hustle.
+          Cada tier tem seu papel no ecossistema."
+        tiers:
+          lead_magnet:
+            name: "Lead Magnet (R$0)"
+            purpose: "Capturar email. Demonstrar expertise. Iniciar relacionamento."
+            formats:
+              - "PDF guide (10-20 páginas)"
+              - "Mini-curso grátis (3-5 lições)"
+              - "Template/framework"
+              - "Checklist/cheat sheet"
+              - "Webinar gravado"
+            metrics:
+              target_conversion: "5-15% dos visitantes"
+              kpi: "Email capture rate"
+            time_to_create: "1-2 dias"
+            maintenance: "Quase zero (evergreen)"
+
+          entry_offer:
+            name: "Entry Offer (R$27-197)"
+            purpose: "Qualificar compradores. Provar que a pessoa PAGA."
+            formats:
+              - "Ebook premium"
+              - "Template pack"
+              - "Workshop gravado (2-4h)"
+              - "Mini-curso focado (1 problema específico)"
+            metrics:
+              target_conversion: "3-8% da lista de email"
+              kpi: "Buyer conversion rate"
+              revenue_role: "10-15% do total"
+            time_to_create: "3-5 dias"
+            maintenance: "Mínimo (atualização trimestral)"
+
+          core_offer:
+            name: "Core Offer (R$297-1.997)"
+            purpose: "Transformação principal. Onde a maior parte da receita vem."
+            formats:
+              - "Curso completo (8-12 módulos)"
+              - "Cohort-based course (turmas)"
+              - "Comunidade premium com conteúdo"
+              - "Programa de implementação grupal"
+            metrics:
+              target_conversion: "5-15% dos entry buyers OU 1-3% direto da lista"
+              kpi: "Revenue per customer"
+              revenue_role: "50-60% do total"
+            time_to_create: "2-4 semanas"
+            maintenance: "Moderado (atualizações mensais, community management)"
+
+          premium_offer:
+            name: "Premium Offer (R$3.000-10.000+)"
+            purpose: "Implementação personalizada. Menos clientes, mais valor."
+            formats:
+              - "Mentoria 1-on-1"
+              - "Consultoria de implementação"
+              - "Mastermind (grupo pequeno)"
+              - "Done-With-You service"
+            metrics:
+              target_conversion: "5-10% dos core buyers"
+              kpi: "Client lifetime value"
+              revenue_role: "25-35% do total"
+            time_to_create: "1 semana (framework + booking system)"
+            maintenance: "Alto (tempo do criador, mas receita alta)"
+
+        revenue_projection_template:
+          headers:
+            - "Tier"
+            - "Preço"
+            - "Conversão Estimada"
+            - "Volume Mensal"
+            - "Revenue Mensal"
+            - "Margem"
+            - "Revenue Líquido"
+          example:
+            - tier: "Lead Magnet"
+              price: "R$0"
+              conversion: "10% dos 5000 visitantes"
+              volume: "500 leads/mês"
+              revenue: "R$0"
+              margin: "N/A"
+              net: "R$0 (investimento em trust)"
+
+            - tier: "Entry"
+              price: "R$97"
+              conversion: "5% da lista de 2000"
+              volume: "100 vendas/mês"
+              revenue: "R$9.700"
+              margin: "95%"
+              net: "R$9.215"
+
+            - tier: "Core"
+              price: "R$997"
+              conversion: "10% dos entry buyers"
+              volume: "10 vendas/mês"
+              revenue: "R$9.970"
+              margin: "85%"
+              net: "R$8.475"
+
+            - tier: "Premium"
+              price: "R$5.000"
+              conversion: "5% dos core buyers"
+              volume: "2 clientes/mês"
+              revenue: "R$10.000"
+              margin: "90%"
+              net: "R$9.000"
+
+            - tier: "TOTAL"
+              price: "-"
+              conversion: "-"
+              volume: "-"
+              revenue: "R$29.670"
+              margin: "~90%"
+              net: "R$26.690"
+
+      delivery_leverage_matrix:
+        description: "Matriz de leverage na entrega — quanto mais automatizado, mais escala"
+        quadrants:
+          one_to_many_async:
+            name: "1-to-Many Assíncrono (Leverage Máximo)"
+            description: "Conteúdo gravado, templates, automações"
+            examples:
+              - "Curso gravado em plataforma"
+              - "Email sequences automatizadas"
+              - "Templates e frameworks"
+              - "FAQ database / knowledge base"
+            leverage_score: 10
+            time_per_100_clients: "0h/semana (pós-criação)"
+            ideal_for: "Entry e Core offers"
+
+          one_to_many_sync:
+            name: "1-to-Many Síncrono (Alto Leverage)"
+            description: "Calls ao vivo com muitos, webinars, Q&A"
+            examples:
+              - "Group coaching calls (semanal)"
+              - "Webinars ao vivo"
+              - "Community office hours"
+              - "AMAs (Ask Me Anything)"
+            leverage_score: 7
+            time_per_100_clients: "2-4h/semana"
+            ideal_for: "Core e Premium offers"
+
+          one_to_few_sync:
+            name: "1-to-Few Síncrono (Médio Leverage)"
+            description: "Pequenos grupos, masterminds"
+            examples:
+              - "Mastermind (5-10 pessoas)"
+              - "Hot seats rotativos"
+              - "Workshops exclusivos"
+            leverage_score: 4
+            time_per_100_clients: "8-12h/semana (com wait list)"
+            ideal_for: "Premium offers"
+
+          one_to_one_sync:
+            name: "1-to-1 Síncrono (Zero Leverage)"
+            description: "Calls individuais, consultoria"
+            examples:
+              - "Mentoria 1-on-1"
+              - "Consultoria personalizada"
+              - "DFY service"
+            leverage_score: 1
+            time_per_100_clients: "Impossível — cap de 5-15 clientes"
+            ideal_for: "Premium premium (R$5k+)"
+            warning: "Use com PARCIMÔNIA. Não mais que 30% da receita deve vir daqui."
+
+        optimization_rule: |
+          REGRA DE OURO: 70%+ do revenue deve vir de formatos com leverage_score >= 7.
+          Se mais de 30% vem de 1-to-1, o negócio está trocando tempo por dinheiro.
+
+      antifragility_template:
+        description: "Template de verificação de anti-fragilidade do negócio"
+        scenarios:
+          platform_collapse:
+            scenario: "A principal plataforma de tráfego cai (Instagram, Twitter, etc.)"
+            question: "O negócio sobrevive?"
+            mitigation:
+              - "Email list como asset próprio (não depende de plataforma)"
+              - "Presença em 2+ plataformas"
+              - "Website próprio como hub central"
+            score:
+              3: "Email list robusta + multi-platform"
+              2: "Email list + 1 plataforma dominante"
+              1: "Só plataformas sociais, sem email"
+              0: "100% dependente de 1 plataforma"
+
+          offer_saturation:
+            scenario: "O core offer para de converter (mercado saturou, cópia por competidores)"
+            question: "Existem offers alternativos?"
+            mitigation:
+              - "Ecossistema com 3+ offers"
+              - "Brand forte que transcende qualquer offer"
+              - "Pipeline de novos produtos"
+            score:
+              3: "Ecossistema diversificado + pipeline"
+              2: "2-3 offers, alguma diversificação"
+              1: "1 offer, sem alternativa"
+              0: "1 offer que já está saturando"
+
+          creator_absence:
+            scenario: "Você precisa ficar 1 mês sem trabalhar"
+            question: "O negócio continua gerando receita?"
+            mitigation:
+              - "Conteúdo evergreen + automações"
+              - "Produtos digitais que vendem sozinhos"
+              - "Comunidade self-sustaining"
+            score:
+              3: "90%+ da receita continua automaticamente"
+              2: "50-89% continua"
+              1: "10-49% continua"
+              0: "Receita para completamente"
+
+          market_shift:
+            scenario: "O mercado muda drasticamente (nova tecnologia, regulação, crise)"
+            question: "Quão rápido pode pivotar?"
+            mitigation:
+              - "Skills transferíveis"
+              - "Audiência leal (segue VOCÊ, não o tópico)"
+              - "Modelo adaptável"
+            score:
+              3: "Pode pivotar em < 30 dias"
+              2: "Pode pivotar em 1-3 meses"
+              1: "Pivotagem levaria 6+ meses"
+              0: "Negócio é inflexível"
+
+        total_max: 12
+        minimum: 6
+        veto_condition: "Se qualquer cenário = 0, o negócio tem vulnerabilidade crítica que DEVE ser resolvida."
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Offer Architecture Complete"
+      criteria:
+        - "Core Offer definida com transformação clara"
+        - "Ecossistema com 3+ tiers (free → premium)"
+        - "Revenue projection com 3 cenários"
+        - "Pricing strategy per tier documentada"
+        - "Delivery system com leverage score >= 7 médio"
+        - "Anti-fragility score >= 6/12"
+      human_review: true
+      message: "Revise a arquitetura de ofertas. Este é o motor financeiro do negócio."
+      veto_conditions:
+        - condition: "Apenas 1 oferta no ecossistema"
+          action: "BLOCK — Negócio com 1 oferta é frágil. Mínimo 3 tiers."
+        - condition: "70%+ receita de 1-to-1 (leverage_score 1)"
+          action: "HALT — Não é Digital Economics, é trabalho freelancer. Redesenhar delivery."
+        - condition: "Anti-fragility < 6/12"
+          action: "WARNING — Negócio vulnerável a choques. Resolver cenários críticos."
+        - condition: "Revenue projection não atinge income target"
+          action: "BLOCK — Revisitar pricing ou volume. O modelo precisa ser viável."
+        - condition: "Margem < 50%"
+          action: "WARNING — Margem baixa para digital. Revisar custos de entrega."
+      recovery:
+        rollback_to: "phase_0_checkpoint"
+        preserve:
+          - "current_model_diagnosis"
+          - "sovereignty_score"
+          - "gap_analysis"
+          - "lifestyle_vision"
+          - "quick_wins"
+        discard:
+          - "partial_core_offer"
+          - "incomplete_offer_ecosystem"
+          - "draft_revenue_architecture"
+          - "draft_pricing_strategy"
+          - "draft_delivery_system"
+        max_retries: 3
+        retry_strategy: "fix_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: BRAND-LED DISTRIBUTION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Brand-Led Distribution"
+    days: "Days 4-5"
+    tier: 1
+    description: |
+      Sistema de distribuição liderado por marca — conteúdo é o motor
+      de aquisição. NENHUM ad pago é necessário (mas pode amplificar).
+
+      PRINCÍPIO: "Conteúdo é o novo cold call. Mas infinitamente melhor:
+      é escalável, assíncrono, constrói autoridade, e atrai em vez de perseguir."
+
+      FRAMEWORK: Fill/Empty/Use Brain Cycle
+      1. FILL: Consuma conteúdo de qualidade (input)
+      2. EMPTY: Processe e sintetize (Queue System)
+      3. USE: Crie conteúdo original (output)
+
+      RESULTADO: Sistema de conteúdo sustentável que gera tráfego qualificado.
+
+    agent: koe-brand
+
+    tasks:
+      - task_id: T2.1
+        name: "Ativar Queue System"
+        required: true
+        description: |
+          Configurar o Queue System — o banco de ideias perpétuo:
+          - Ferramenta de captura (Notion, Apple Notes, etc.)
+          - Categorias alinhadas com Brand Pillars
+          - Ritual de revisão semanal
+          - Processo de seleção para criação
+          Koe: "O Queue System é o cérebro do negócio."
+        output: "queue_system_setup.yaml"
+
+      - task_id: T2.2
+        name: "Definir Content Engine"
+        required: true
+        description: |
+          Motor de conteúdo completo:
+          - Formato âncora semanal (newsletter/YouTube/podcast)
+          - Content Cascade (1 longo → N curtos)
+          - Calendário editorial mensal
+          - Templates de conteúdo por pilar
+          - Métricas de performance
+        output: "content_engine.yaml"
+
+      - task_id: T2.3
+        name: "Construir Funil de Conteúdo"
+        required: true
+        description: |
+          Funil de 3 estágios via conteúdo:
+          TOFU (Awareness): conteúdo curto nas redes (alcance)
+          MOFU (Consideration): newsletter/long-form (trust)
+          BOFU (Decision): webinar/case study (conversão)
+          Cada pilar alimenta todos os 3 estágios.
+        output: "content_funnel.yaml"
+
+      - task_id: T2.4
+        name: "Email System Architecture"
+        required: true
+        description: |
+          Email é o ASSET mais importante (você controla):
+          - Lead magnet → Welcome sequence (5-7 emails)
+          - Newsletter semanal (nurture perpétuo)
+          - Launch sequences (por oferta)
+          - Segmentação por interesse/tier
+        output: "email_architecture.yaml"
+
+      - task_id: T2.5
+        name: "Distribution Calendar (90 dias)"
+        required: true
+        description: |
+          Calendário de distribuição para os primeiros 90 dias:
+          - Mês 1: Construir fundação (consistência + voz)
+          - Mês 2: Otimizar (double down no que funciona)
+          - Mês 3: Monetizar (launch + conversion)
+        output: "distribution_calendar.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Distribution Leverage Matrix
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      distribution_leverage_matrix:
+        description: "Matriz de leverage de distribuição — onde investir tempo para máximo alcance"
+        principle: |
+          "Distribua onde a ATENÇÃO está. Mas sempre traga para TERRENO PRÓPRIO (email)."
+        channels:
+          owned_media:
+            name: "Mídia Própria (Controle Total)"
+            channels:
+              - channel: "Email List"
+                leverage: 10
+                reach: "Médio (lista)"
+                control: "Total"
+                priority: "OBRIGATÓRIO"
+
+              - channel: "Website/Blog"
+                leverage: 8
+                reach: "Baixo-Médio (SEO lento)"
+                control: "Total"
+                priority: "Importante"
+
+              - channel: "Newsletter"
+                leverage: 9
+                reach: "Médio (lista)"
+                control: "Total"
+                priority: "OBRIGATÓRIO"
+
+          rented_media:
+            name: "Mídia Alugada (Controle Parcial)"
+            channels:
+              - channel: "X/Twitter"
+                leverage: 7
+                reach: "Alto (viral)"
+                control: "Parcial"
+                best_for: "Threads, insights, networking"
+                priority: "Recomendado"
+
+              - channel: "YouTube"
+                leverage: 9
+                reach: "Alto (search + suggest)"
+                control: "Parcial"
+                best_for: "Long-form, tutorials, authority"
+                priority: "Alto (se tiver aptidão para vídeo)"
+
+              - channel: "Instagram"
+                leverage: 5
+                reach: "Médio"
+                control: "Baixo (algoritmo)"
+                best_for: "Visual, stories, lifestyle"
+                priority: "Secundário"
+
+              - channel: "TikTok"
+                leverage: 6
+                reach: "Alto (viral)"
+                control: "Baixo"
+                best_for: "Short-form, discovery"
+                priority: "Secundário"
+
+              - channel: "LinkedIn"
+                leverage: 6
+                reach: "Médio"
+                control: "Parcial"
+                best_for: "B2B, profissionais"
+                priority: "Se público é B2B"
+
+          earned_media:
+            name: "Mídia Conquistada (Zero Controle)"
+            channels:
+              - channel: "Guest Podcasts"
+                leverage: 8
+                reach: "Médio-Alto"
+                control: "Zero"
+                best_for: "Authority building, new audiences"
+                priority: "2-4x por mês"
+
+              - channel: "Guest Posts"
+                leverage: 6
+                reach: "Médio"
+                control: "Zero"
+                best_for: "SEO backlinks, authority"
+                priority: "1-2x por mês"
+
+              - channel: "Collabs"
+                leverage: 7
+                reach: "Alto"
+                control: "Parcial"
+                best_for: "Cross-audience growth"
+                priority: "1-2x por mês"
+
+        strategy_rule: |
+          REGRA: Priorize owned media SEMPRE. Use rented para atrair.
+          Use earned para multiplicar. NUNCA dependa 100% de rented.
+          META: 50% do tráfego deve vir de owned + earned em 12 meses.
+
+      fill_empty_use_cycle:
+        description: "Ciclo Fill/Empty/Use — o motor intelectual do criador"
+        principle: |
+          "Você não pode criar no vazio. O ciclo Fill/Empty/Use garante
+          que sempre tem inputs frescos e outputs originais."
+        phases:
+          fill:
+            name: "FILL (Encher o Cérebro)"
+            time: "30-60min/dia"
+            activities:
+              - "Ler livros e artigos no seu domínio"
+              - "Consumir conteúdo de criadores que admira"
+              - "Estudar domínios FORA do seu (cross-pollination)"
+              - "Observar o mundo com curiosidade intencional"
+            rule: "FILL sem EMPTY vira acumulação. Defina limite diário."
+
+          empty:
+            name: "EMPTY (Processar e Sintetizar)"
+            time: "15-30min/dia"
+            activities:
+              - "Journaling sobre o que consumiu"
+              - "Adicionar ao Queue System com annotations"
+              - "Conectar novos inputs com conhecimento existente"
+              - "Identificar padrões e insights originais"
+            rule: "EMPTY é onde a ORIGINALIDADE nasce. Nunca pule."
+
+          use:
+            name: "USE (Criar e Publicar)"
+            time: "1-3h/dia"
+            activities:
+              - "Transformar insights do Queue em conteúdo"
+              - "Escrever/gravar conteúdo âncora semanal"
+              - "Derivar conteúdo curto via Content Cascade"
+              - "Publicar e engajar com audiência"
+            rule: "USE sem FILL vira repetição. O ciclo é PERPÉTUO."
+
+        daily_rhythm:
+          morning: "FILL (30min leitura + 15min empty/journaling)"
+          focused_block: "USE (2-3h deep work de criação)"
+          evening: "FILL (30min + Queue review)"
+          total: "3-4h/dia dedicadas ao ciclo"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Brand-Led Distribution Complete"
+      criteria:
+        - "Queue System configurado e operacional"
+        - "Content Engine definido (âncora + cascade + calendário)"
+        - "Funil de conteúdo com 3 estágios mapeados"
+        - "Email Architecture com sequences definidas"
+        - "Distribution Calendar de 90 dias"
+        - "Fill/Empty/Use cycle com ritmo diário definido"
+      human_review: true
+      message: "Revise o sistema de distribuição. Conteúdo é o MOTOR de aquisição."
+      veto_conditions:
+        - condition: "Sem email system"
+          action: "HALT — Email é o asset mais importante. SEM email list = SEM negócio soberano. Inegociável."
+        - condition: "100% dependente de 1 plataforma de rented media"
+          action: "BLOCK — Diversificar OU ter email list robusta como safety net."
+        - condition: "Sem Content Engine definido"
+          action: "BLOCK — Sem sistema de conteúdo, distribuição é aleatória e insustentável."
+        - condition: "Queue System ausente"
+          action: "WARNING — Criação sem Queue vira repetitiva. Implementar mesmo que simples."
+      recovery:
+        rollback_to: "phase_1_checkpoint"
+        preserve:
+          - "core_offer"
+          - "offer_ecosystem"
+          - "revenue_architecture"
+          - "pricing_strategy"
+          - "delivery_system"
+          - "antifragility_check"
+        discard:
+          - "partial_queue_system_setup"
+          - "incomplete_content_engine"
+          - "draft_content_funnel"
+          - "draft_email_architecture"
+          - "draft_distribution_calendar"
+        max_retries: 2
+        retry_strategy: "fix_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 3: LEVERAGE AUTOMATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Leverage Automation"
+    days: "Days 6-7"
+    tier: 2
+    description: |
+      Automação e leverage — onde o negócio deixa de depender do seu
+      tempo diário e começa a operar como SISTEMA.
+
+      PRINCÍPIO: "O one-person business não significa fazer tudo sozinho.
+      Significa ORQUESTRAR sistemas que fazem por você."
+
+      FRAMEWORK: Automate → Delegate → Eliminate.
+      1. AUTOMATE: tudo que é repetitivo e previsível
+      2. DELEGATE: tudo que outros podem fazer melhor/mais barato
+      3. ELIMINATE: tudo que não contribui para o resultado
+
+      RESULTADO: Sistema que gera revenue com mínima intervenção diária.
+      META: negócio funciona com 4h/dia de deep work do criador.
+
+      REGRA ABSOLUTA: Automação deve AUMENTAR soberania, não criar
+      novas dependências. Se um tool ou serviço te prende, é anti-leverage.
+
+    agent: koe-distribuidor
+
+    tasks:
+      - task_id: T3.1
+        name: "Audit de Atividades (Time Study)"
+        required: true
+        description: |
+          Mapear TODAS as atividades do negócio em 3 categorias:
+          A (Automate): repetitivo, previsível, rule-based
+          D (Delegate): requer skill humana mas não a SUA skill
+          E (Eliminate): não contribui para resultado, ou vaidade
+          K (Keep): requer SUA expertise e criatividade — o 20% que gera 80%
+        output: "activity_audit.yaml"
+
+      - task_id: T3.2
+        name: "Automation Stack Design"
+        required: true
+        description: |
+          Definir stack de automações:
+          - Email automation (welcome, nurture, launch, onboarding)
+          - Social media scheduling + cross-posting
+          - Payment + delivery automation
+          - Analytics + reporting automation
+          - Lead scoring + segmentation
+        output: "automation_stack.yaml"
+
+      - task_id: T3.3
+        name: "Delegation Playbook"
+        required: true
+        description: |
+          Se/quando delegar, criar playbook:
+          - O que delegar primeiro (maior ROI de tempo)
+          - Perfil do contractor/VA ideal
+          - SOPs para cada atividade delegável
+          - Budget allocation
+          REGRA: Só delegue após automatizar. Pessoas são caras, sistemas não.
+        output: "delegation_playbook.yaml"
+
+      - task_id: T3.4
+        name: "Creator's 4-Hour Day Design"
+        required: true
+        description: |
+          Desenhar o dia ideal de 4h do criador:
+          - Hora 1: FILL (input + processing)
+          - Horas 2-3: USE (deep work de criação)
+          - Hora 4: Strategic (revisão, decisões, otimização)
+          TUDO que está FORA dessas 4h deve ser automatizado, delegado ou eliminado.
+        output: "four_hour_day.yaml"
+
+      - task_id: T3.5
+        name: "Sovereignty Roadmap Final"
+        required: true
+        description: |
+          Roadmap completo de 12 meses para Digital Economics:
+          - Q1: Foundation (content system + first offer)
+          - Q2: Growth (audience + ecosystem + launch)
+          - Q3: Optimize (double down + automate + delegate)
+          - Q4: Sovereign (4h/day + income target)
+        output: "sovereignty_roadmap.yaml"
+
+      - task_id: T3.6
+        name: "Compilar Digital Economics Blueprint"
+        required: true
+        description: |
+          Documento final que consolida TUDO:
+          - Business Model
+          - Offer Ecosystem
+          - Distribution System
+          - Automation Stack
+          - 12-Month Roadmap
+          - KPIs e Milestones
+        output: "digital_economics_blueprint.md"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Automation Roadmap
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      automation_roadmap:
+        description: "Roadmap de automação em 3 fases — do manual ao sistema"
+        principle: |
+          "Primeiro faça manualmente para entender o processo.
+          Depois automatize o que funciona. Nunca automatize o que não testou."
+        phases:
+          phase_1_manual:
+            name: "Phase 1: Manual mas Estruturado (Mês 1-2)"
+            description: "Fazer tudo manualmente MAS com processo documentado"
+            actions:
+              - activity: "Email"
+                manual: "Enviar manualmente, mas com templates"
+                document: "SOP de qual email enviar quando"
+
+              - activity: "Social Media"
+                manual: "Publicar manualmente nos horários certos"
+                document: "SOP de horários, formatos, copy structure"
+
+              - activity: "Vendas"
+                manual: "Responder DMs e emails manualmente"
+                document: "Scripts de vendas + objeções + follow-up"
+
+              - activity: "Onboarding"
+                manual: "Onboardar cada cliente pessoalmente"
+                document: "SOP de cada passo do onboarding"
+
+            purpose: "Entender o processo antes de automatizar. NÃO pule esta fase."
+
+          phase_2_semi_auto:
+            name: "Phase 2: Semi-Automatizado (Mês 3-4)"
+            description: "Automatizar o repetitivo, manter controle do estratégico"
+            actions:
+              - activity: "Email"
+                auto: "Sequences automatizadas (welcome, nurture)"
+                human: "Newsletter semanal (criação de conteúdo)"
+                tools: ["ConvertKit", "Beehiiv", "Substack"]
+
+              - activity: "Social Media"
+                auto: "Scheduling + cross-posting"
+                human: "Criação de conteúdo + engagement"
+                tools: ["Buffer", "Hypefury", "Typefully"]
+
+              - activity: "Vendas"
+                auto: "Funil + checkout + delivery"
+                human: "Calls para high-ticket"
+                tools: ["Stripe", "Hotmart", "Gumroad"]
+
+              - activity: "Onboarding"
+                auto: "Email sequence + acesso automático"
+                human: "Welcome call para premium"
+                tools: ["Memberful", "Teachable", "Circle"]
+
+          phase_3_full_system:
+            name: "Phase 3: Sistema Completo (Mês 5+)"
+            description: "Sistema rodando com mínima intervenção"
+            actions:
+              - activity: "Aquisição"
+                system: "Conteúdo → Funil → Email → Oferta (automático)"
+                creator_time: "Criação de conteúdo apenas (2h/dia)"
+
+              - activity: "Conversão"
+                system: "Landing page → Checkout → Delivery (automático)"
+                creator_time: "Otimização mensal (2h/mês)"
+
+              - activity: "Entrega"
+                system: "Plataforma + automações + comunidade"
+                creator_time: "1 group call/semana + community engagement"
+
+              - activity: "Operações"
+                system: "Analytics dashboard + alertas automáticos"
+                creator_time: "Review semanal (30min)"
+
+            target: "80% do negócio rodando sem intervenção diária do criador"
+
+      four_hour_day_template:
+        description: "Template do dia de 4h do criador soberano"
+        principle: |
+          "4 horas de deep work > 12 horas de shallow work.
+          O criador deve gastar tempo APENAS no que só ele pode fazer."
+        schedule:
+          block_1:
+            name: "FILL Block"
+            time: "1 hora"
+            activities:
+              - "Leitura intencional (30min)"
+              - "Queue processing (15min)"
+              - "Journaling/ideation (15min)"
+            output: "Inputs frescos para criação"
+
+          block_2:
+            name: "CREATE Block (Deep Work)"
+            time: "2 horas"
+            activities:
+              - "Conteúdo âncora semanal"
+              - "Produto/oferta development"
+              - "Escrita profunda"
+            rules:
+              - "ZERO distrações (phone off, notifications off)"
+              - "Timer de 25min (Pomodoro) ou flow contínuo"
+              - "Este é o bloco SAGRADO — nunca agende calls aqui"
+            output: "1 peça de conteúdo significativa"
+
+          block_3:
+            name: "STRATEGIC Block"
+            time: "1 hora"
+            activities:
+              - "Review de métricas e KPIs (15min)"
+              - "Community engagement (15min)"
+              - "Decisões estratégicas e planejamento (15min)"
+              - "Admin inevitável (15min)"
+            output: "Negócio orientado e otimizado"
+
+        non_negotiables:
+          - "Bloco CREATE é sagrado — NENHUMA call ou reunião"
+          - "Email e DMs apenas no bloco STRATEGIC"
+          - "Fim de semana OFF (sustentabilidade)"
+          - "1 dia por mês para review estratégico profundo"
+
+      sovereignty_milestones:
+        description: "Milestones de soberania para os primeiros 12 meses"
+        milestones:
+          month_1:
+            name: "Foundation"
+            targets:
+              - "Content system ativo (1 long-form/semana + 5 short-form)"
+              - "Email list started (primeiro lead magnet)"
+              - "Queue System operacional"
+            sovereignty_score_target: 3
+
+          month_3:
+            name: "Traction"
+            targets:
+              - "500+ email subscribers"
+              - "First revenue (entry offer launched)"
+              - "Content consistency 12/12 semanas"
+              - "Core offer em desenvolvimento"
+            sovereignty_score_target: 5
+
+          month_6:
+            name: "Momentum"
+            targets:
+              - "2000+ email subscribers"
+              - "Core offer launched + selling"
+              - "R$5k-15k/mês revenue"
+              - "Email automations running"
+              - "Content Cascade operacional"
+            sovereignty_score_target: 8
+
+          month_9:
+            name: "System"
+            targets:
+              - "5000+ email subscribers"
+              - "Full offer ecosystem (3+ tiers)"
+              - "R$15k-30k/mês revenue"
+              - "80% automation achieved"
+              - "First delegation (VA ou editor)"
+            sovereignty_score_target: 11
+
+          month_12:
+            name: "Sovereign"
+            targets:
+              - "10000+ email subscribers"
+              - "R$30k-50k+/mês revenue"
+              - "4h/day creator schedule"
+              - "Business survives 1 month absence"
+              - "Multiple revenue streams"
+            sovereignty_score_target: 13
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Leverage Automation Complete"
+      criteria:
+        - "Activity audit completo (A/D/E/K categorizado)"
+        - "Automation stack com 5+ automações definidas"
+        - "Delegation playbook (mesmo se não delegando agora)"
+        - "4-Hour Day Design com 3 blocos"
+        - "Sovereignty Roadmap de 12 meses"
+        - "Digital Economics Blueprint compilado"
+      human_review: true
+      message: "Revisão final. O sistema está pronto para implementação?"
+      veto_conditions:
+        - condition: "Automação cria nova dependência de vendor (lock-in)"
+          action: "HALT — Automação deve AUMENTAR soberania, não criar nova prisão. Trocar por alternativa open/portável."
+        - condition: "4-Hour Day não é alcançável com modelo atual"
+          action: "BLOCK — Revisitar delivery leverage. Se precisa de 8h+/dia, não é Digital Economics."
+        - condition: "Sovereignty Roadmap sem milestones mensais"
+          action: "BLOCK — Roadmap vago = zero accountability. Definir targets concretos."
+        - condition: "Nenhuma automação de email"
+          action: "HALT — Email automation é o mínimo absoluto. Sem isso, o sistema não escala."
+        - condition: "Creator time > 6h/dia no design final"
+          action: "WARNING — Revisar o que pode ser automatizado ou eliminado. Target é 4h."
+      recovery:
+        rollback_to: "phase_2_checkpoint"
+        preserve:
+          - "queue_system_setup"
+          - "content_engine"
+          - "content_funnel"
+          - "email_architecture"
+          - "distribution_calendar"
+        discard:
+          - "partial_activity_audit"
+          - "incomplete_automation_stack"
+          - "draft_delegation_playbook"
+          - "draft_four_hour_day"
+          - "draft_sovereignty_roadmap"
+        max_retries: 3
+        retry_strategy: "fix_and_retry"
+        escalate_to: "koe-chief"
+        escalation_context:
+          - "phase_name"
+          - "failure_reason"
+          - "retry_count"
+          - "preserved_state"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-digital-economics"
+      status: "completed"
+      outputs:
+        - "digital_economics_blueprint.md"
+        - "sovereignty_roadmap.yaml"
+        - "offer_ecosystem.yaml"
+        - "automation_stack.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "current_model_diagnosis.yaml"
+    - "sovereignty_score.yaml"
+    - "gap_analysis.yaml"
+    - "lifestyle_vision.yaml"
+    - "quick_wins.yaml"
+
+  phase_1:
+    - "core_offer.yaml"
+    - "offer_ecosystem.yaml"
+    - "revenue_architecture.yaml"
+    - "pricing_strategy.yaml"
+    - "delivery_system.yaml"
+    - "antifragility_check.yaml"
+
+  phase_2:
+    - "queue_system_setup.yaml"
+    - "content_engine.yaml"
+    - "content_funnel.yaml"
+    - "email_architecture.yaml"
+    - "distribution_calendar.yaml"
+
+  phase_3:
+    - "activity_audit.yaml"
+    - "automation_stack.yaml"
+    - "delegation_playbook.yaml"
+    - "four_hour_day.yaml"
+    - "sovereignty_roadmap.yaml"
+    - "digital_economics_blueprint.md"
+
+  final_deliverable:
+    name: "Digital Economics Blueprint Package"
+    location: "outputs/economics/{project_id}/"
+    contents:
+      - "README.md — Overview do sistema"
+      - "business_model.yaml — Modelo de negócio"
+      - "offer_ecosystem.yaml — Ecossistema de ofertas"
+      - "revenue_projections.yaml — Projeções financeiras"
+      - "distribution_system.md — Sistema de distribuição"
+      - "automation_stack.yaml — Stack de automações"
+      - "sovereignty_roadmap.md — Roadmap 12 meses"
+      - "four_hour_day.md — Design do dia ideal"
+      - "kpis_dashboard.yaml — KPIs e métricas"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-advisor", "koe-mindset", "koe-sintetizador"]
+
+  PHASE-1:
+    primary: ["koe-offers"]
+    secondary: ["koe-advisor", "koe-sintetizador"]
+
+  PHASE-2:
+    primary: ["koe-brand"]
+    secondary: ["koe-coletor", "koe-arquiteto", "koe-distribuidor"]
+
+  PHASE-3:
+    primary: ["koe-distribuidor"]
+    secondary: ["koe-advisor", "koe-mindset"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] Modelo atual diagnosticado"
+    - "[ ] Sovereignty Score calculado (5 dimensões)"
+    - "[ ] Gap Analysis completo"
+    - "[ ] Lifestyle Vision com targets"
+    - "[ ] Quick Wins identificados (3+)"
+
+  phase_1:
+    - "[ ] Core Offer definida"
+    - "[ ] Ecossistema com 3+ tiers"
+    - "[ ] Revenue projection (3 cenários)"
+    - "[ ] Pricing per tier"
+    - "[ ] Delivery leverage score >= 7"
+    - "[ ] Anti-fragility >= 6/12"
+
+  phase_2:
+    - "[ ] Queue System configurado"
+    - "[ ] Content Engine definido"
+    - "[ ] Funil de conteúdo 3 estágios"
+    - "[ ] Email Architecture completa"
+    - "[ ] Distribution Calendar 90 dias"
+
+  phase_3:
+    - "[ ] Activity Audit (A/D/E/K)"
+    - "[ ] 5+ automações definidas"
+    - "[ ] Delegation Playbook"
+    - "[ ] 4-Hour Day Design"
+    - "[ ] Sovereignty Roadmap 12 meses"
+    - "[ ] Blueprint final compilado"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CROSS-WORKFLOW DEPENDENCIES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+cross_workflow_dependencies:
+  inputs_from:
+    - workflow: "wf-brand-architecture"
+      artifacts:
+        - "personal_monopoly_declaration.md → usado em Phase 1 para alinhar ofertas"
+        - "brand_pillars.yaml → usado em Phase 2 para content engine"
+        - "leverage_stack.yaml → usado em Phase 3 para automation design"
+      note: "Se wf-brand-architecture já foi executado, importar artefatos. Caso contrário, Phase 0 cobre o essencial."
+
+    - workflow: "wf-offer-creation"
+      artifacts:
+        - "offer_architecture.yaml → usado em Phase 1 como base para ecossistema"
+        - "risk_reversal.yaml → integrado em cada tier"
+        - "content_cascade.yaml → usado em Phase 2 para distribution"
+      note: "Se já existe oferta criada, integrar. Caso contrário, Phase 1 cria do zero."
+
+  outputs_to:
+    - workflow: "wf-offer-creation"
+      provides: "Business model context e revenue targets para engenharia de oferta"
+
+    - workflow: "wf-brand-architecture"
+      provides: "Monetization requirements para validar que brand gera revenue"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "DIGITAL_ECONOMICS_SYSTEM"
+    - "LEVERAGE_STACK"
+    - "CONTENT_CASCADE"
+    - "TRAFFIC_OFFERS"
+    - "QUEUE_SYSTEM"
+    - "FILL_EMPTY_USE_BRAIN_CYCLE"
+    - "CONSCIOUS_CONDITIONING_PROCESS"
+    - "FOUR_HOUR_DAY"
+  source_mind: "dan_koe"
+  lines: "800+"
+  quality_gate: "SC_WFL_KOE_003"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

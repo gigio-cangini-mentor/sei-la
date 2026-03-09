@@ -1,0 +1,370 @@
+# Conversão Extrema Squad — Thiago Tessman Paid Traffic System v1.0
+# Strategic paid traffic and conversion optimization based on Tessman methodology
+
+pack:
+  name: conversao-extrema
+  title: "Conversão Extrema — Thiago Tessman Paid Traffic System"
+  version: "1.0.0"
+  author: "AIOS Team"
+  description: "6 specialized agents for paid traffic conversion based on Thiago Tessman's Conversão Extrema methodology + 21 YouTube transcriptions"
+  icon: "🎯"
+  slash_prefix: "conversao-extrema"
+  entry_agent: traffic-masters-chief
+
+metadata:
+  created: 2026-03-02
+  source_mind: thiago_tessman
+  domain: paid_traffic_conversion
+  methodology: conversao_extrema
+  fidelity_target: 0.95
+  total_source_files: 43
+  total_source_size_mb: 45
+
+# Mind Integration
+mind_integration:
+  enabled: true
+  source_mind: thiago_tessman
+  mind_dna_file: minds/thiago-tessman/mind_dna_complete.yaml
+  log_source: true
+  fallback_behavior: "graceful"
+  mind_mapping:
+    traffic-masters-chief: thiago_tessman
+    tessman-strategist: thiago_tessman
+    tessman-google-ads: thiago_tessman
+    tessman-meta-ads: thiago_tessman
+    tessman-copy: thiago_tessman
+    tessman-remarketing: thiago_tessman
+
+# Agents — Organized by Tier
+agents:
+  # Tier 0: Orchestrator
+  - id: traffic-masters-chief
+    name: "Traffic Masters Chief"
+    role: "Master orchestrator — routing paid traffic requests using Círculo 6V diagnostic"
+    tier: 0
+    primary_sources:
+      - minds/thiago-tessman/mind_dna_complete.yaml
+      - minds/thiago-tessman/sources/Conversao_Extrema_Overview.md
+
+  # Tier 0: Strategic Advisor
+  - id: tessman-strategist
+    name: "Tessman Strategist"
+    role: "Strategic advisor — Círculo 6V diagnostics, growth planning, Base da Multiplicação"
+    tier: 0
+    primary_sources:
+      - minds/thiago-tessman/mind_dna_complete.yaml
+      - minds/thiago-tessman/sources/Circulo_6V.md
+      - minds/thiago-tessman/sources/Base_da_Multiplicacao.md
+
+  # Tier 1: Core Specialists (Platforms)
+  - id: tessman-google-ads
+    name: "Tessman Google Ads"
+    role: "Google Ads specialist — Search, Display, YouTube campaigns with ultra-specific methodology"
+    tier: 1
+    primary_sources:
+      - minds/thiago-tessman/sources/Google_Ads_Search.md
+      - minds/thiago-tessman/sources/Google_Ads_Display.md
+      - minds/thiago-tessman/sources/YouTube_Ads.md
+
+  - id: tessman-meta-ads
+    name: "Tessman Meta Ads"
+    role: "Meta Ads specialist — Facebook/Instagram campaigns, single interest stacking"
+    tier: 1
+    primary_sources:
+      - minds/thiago-tessman/sources/Facebook_Ads.md
+      - minds/thiago-tessman/sources/Instagram_Ads.md
+      - minds/thiago-tessman/sources/Meta_Targeting.md
+
+  - id: tessman-copy
+    name: "Tessman Copy"
+    role: "Persuasive communication specialist — PAS framework, Word Mapping, problem/solution copy"
+    tier: 1
+    primary_sources:
+      - minds/thiago-tessman/sources/Comunicacao_Persuasiva.md
+      - minds/thiago-tessman/sources/Word_Mapping.md
+      - minds/thiago-tessman/sources/PAS_Framework.md
+
+  # Tier 2: Advanced Specialist
+  - id: tessman-remarketing
+    name: "Tessman Remarketing"
+    role: "Remarketing 2.0 specialist — multi-platform follow-up, retargeting audiences"
+    tier: 2
+    primary_sources:
+      - minds/thiago-tessman/sources/Remarketing_20.md
+      - minds/thiago-tessman/sources/Retargeting_Audiences.md
+
+# Sources
+sources:
+  minds_path: minds/thiago-tessman
+  mind_dna: minds/thiago-tessman/mind_dna_complete.yaml
+  artifacts_path: minds/thiago-tessman/artifacts
+
+# Core Mental Models (Tessman Methodology)
+mental_models:
+  - id: MM_001
+    name: "Círculo 6V"
+    insight: "6 business stages: Atrair (Visitar) → Conectar → Relacionar → Vender → Surpreender → Testemunhar"
+    type: domain
+    transferability: 0.80
+
+  - id: MM_002
+    name: "Base da Multiplicação"
+    formula: "OFERTA + MENSAGEM + PÚBLICO = Base sólida para multiplicar"
+    type: domain
+    transferability: 0.85
+
+  - id: MM_003
+    name: "Ultra-Especificidade"
+    insight: "Quanto mais específico, mais resultado (10-30 palavras/grupo, single interest, etc.)"
+    type: universal
+    transferability: 0.90
+
+  - id: MM_004
+    name: "Progressão de Plataformas"
+    insight: "Google Search → Facebook/Instagram → Remarketing → Display → YouTube"
+    type: domain
+    transferability: 0.75
+
+  - id: MM_005
+    name: "ROI-Driven Decision Making"
+    insight: "Toda decisão de tráfego baseada em ROI positivo, não em vaidade"
+    type: universal
+    transferability: 0.95
+
+  - id: MM_006
+    name: "PAS Framework"
+    insight: "Problem → Agitate → Solution (estrutura de copy persuasiva)"
+    type: domain
+    transferability: 0.85
+
+  - id: MM_007
+    name: "Remarketing 2.0"
+    insight: "Follow-up multi-plataforma baseado em comportamento do usuário"
+    type: domain
+    transferability: 0.70
+
+  - id: MM_008
+    name: "Word Mapping"
+    insight: "Mapear palavras-chave emocionais do público usando linguagem deles"
+    type: domain
+    transferability: 0.80
+
+# Workflows
+workflows:
+  - id: wf-full-campaign-launch
+    name: "Full Campaign Launch"
+    version: "1.0.0"
+    duration: "5-7 days"
+    phases: 6
+    description: "Complete campaign launch from diagnostic to live ads across Google + Meta"
+    agents_involved:
+      - traffic-masters-chief
+      - tessman-strategist
+      - tessman-google-ads
+      - tessman-meta-ads
+      - tessman-copy
+      - tessman-remarketing
+    source_frameworks:
+      - "CIRCULO_6V"
+      - "BASE_DA_MULTIPLICACAO"
+      - "ULTRA_ESPECIFICIDADE"
+    quality_score: "PENDING"
+    status: "to_be_created"
+
+  - id: wf-landing-page-first
+    name: "Landing Page First"
+    version: "1.0.0"
+    duration: "2-3 days"
+    phases: 3
+    description: "Ensures LP quality before investing in paid traffic (LP audit → tracking → campaign)"
+    agents_involved:
+      - tessman-copy
+      - tessman-remarketing
+      - traffic-masters-chief
+    source_frameworks:
+      - "CABECA_CORPO_PERNAS"
+      - "DSOD"
+      - "FUNIL_METRICAS"
+    quality_score: "PENDING"
+    status: "active"
+
+# Tasks (Available in squads/conversao-extrema/tasks/)
+tasks:
+  - id: diagnose-business
+    name: "Diagnose Business Stage"
+    description: "Run Círculo 6V diagnostic to identify current business stage"
+    agent: tessman-strategist
+    file: tasks/diagnose-business.md
+
+  - id: create-search-campaign
+    name: "Create Google Search Campaign"
+    description: "Setup Google Search campaign with 10-30 keywords per group"
+    agent: tessman-google-ads
+    file: tasks/create-search-campaign.md
+
+  - id: create-meta-campaign
+    name: "Create Meta Ads Campaign"
+    description: "Setup Facebook/Instagram campaign with single interest stacking"
+    agent: tessman-meta-ads
+    file: tasks/create-meta-campaign.md
+
+  - id: design-remarketing-strategy
+    name: "Design Remarketing 2.0 Strategy"
+    description: "Plan multi-platform remarketing based on user behavior"
+    agent: tessman-remarketing
+    file: tasks/design-remarketing-strategy.md
+
+  - id: word-mapping
+    name: "Word Mapping Exercise"
+    description: "Map emotional keywords using audience's natural language"
+    agent: tessman-copy
+    file: tasks/word-mapping.md
+
+  - id: audit-campaigns
+    name: "Audit Running Campaigns"
+    description: "Analyze Google + Meta campaigns, identify optimization opportunities"
+    agent: tessman-strategist
+    file: tasks/audit-campaigns.md
+
+  - id: create-landing-page
+    name: "Create Landing Page"
+    description: "Create LP using Cabeça-Corpo-Pernas structure + DSOD formula"
+    agent: tessman-copy
+    file: tasks/create-landing-page.md
+
+  - id: diagnose-funnel
+    name: "Diagnose Funnel Problems"
+    description: "Diagnose funnel using Funil de Métricas + Decision Trees"
+    agent: tessman-strategist
+    file: tasks/diagnose-funnel.md
+
+  - id: black-friday-campaign
+    name: "Black Friday Campaign"
+    description: "Plan 3-phase Black Friday campaign: Captura → Aquecimento → Venda"
+    agent: tessman-strategist
+    file: tasks/black-friday-campaign.md
+
+  - id: optimize-landing-page
+    name: "Optimize Landing Page"
+    description: "Audit existing LP against Tessman benchmarks and Cabeça-Corpo-Pernas"
+    agent: tessman-copy
+    file: tasks/optimize-landing-page.md
+
+  - id: creative-audit
+    name: "Creative Audit"
+    description: "Audit ad creatives against H28 (50% resultado) and Ugly Ads concept"
+    agent: tessman-meta-ads
+    file: tasks/creative-audit.md
+
+  - id: platform-selection
+    name: "Platform Selection"
+    description: "Decision tree for Google vs Meta based on business type"
+    agent: tessman-strategist
+    file: tasks/platform-selection.md
+
+# Shared Data Files (Knowledge Base)
+shared_data:
+  knowledge_base: data/conversao-extrema-kb.md
+  voice_dna: minds/thiago-tessman/voice_dna.yaml
+  thinking_dna: minds/thiago-tessman/thinking_dna.yaml
+
+  # Per-agent specialized data
+  agent_dna:
+    tessman-strategist: minds/thiago-tessman/strategist_dna.yaml
+    tessman-google-ads: minds/thiago-tessman/google_ads_dna.yaml
+    tessman-meta-ads: minds/thiago-tessman/meta_ads_dna.yaml
+    tessman-copy: minds/thiago-tessman/copy_dna.yaml
+    tessman-remarketing: minds/thiago-tessman/remarketing_dna.yaml
+
+# Checklists
+checklists:
+  - id: campaign-launch-checklist
+    name: "Campaign Launch Checklist"
+    file: checklists/campaign-launch-checklist.md
+    description: "Pre-flight checklist before launching any paid traffic campaign"
+
+# Quality Standards
+quality_standards:
+  # Veto Conditions (Campaign-Level)
+  veto_conditions:
+    - name: "No Base da Multiplicação"
+      rule: "Campaign MUST have validated offer + message + audience before spending"
+      severity: "BLOCKER"
+
+    - name: "Budget Too Low"
+      rule: "Minimum R$500/month for testing Google Search, R$1000/month for Meta"
+      severity: "BLOCKER"
+
+    - name: "No Keyword Specificity"
+      rule: "Google Search campaigns MUST have 10-30 keywords per group (ultra-specific)"
+      severity: "BLOCKER"
+
+    - name: "Facebook Generic Interests"
+      rule: "Facebook campaigns MUST use single interest stacking, not broad interests"
+      severity: "BLOCKER"
+
+  # Acceptance Criteria
+  acceptance_criteria:
+    google_search:
+      - "10-30 keywords per ad group"
+      - "Negative keywords list (min 50 words)"
+      - "Maximizar Conversões SEM LIMITE (0-15 conv) → CPA Desejado +20% (15-30 conv) → Controle fino (30+)"
+      - "Search terms reviewed daily (first 2 weeks)"
+
+    meta_ads:
+      - "Single interest per ad set (no stacking during testing)"
+      - "Problem-focused creative (PAS framework)"
+      - "Audience size 500k-2M (Brazil targeting)"
+      - "Daily budget min R$30-50 per ad set"
+
+    copy:
+      - "PAS framework applied"
+      - "Word Mapping from audience research"
+      - "Problem → Solution flow clear"
+      - "CTA specific and measurable"
+
+# Validation Scripts
+validation_scripts:
+  campaign_validator:
+    path: scripts/validate-campaign.py
+    usage: "python squads/conversao-extrema/scripts/validate-campaign.py --type [google|meta] --config campaign.yaml"
+    trigger: "Before launching any campaign"
+    returns: "PASS (exit 0) or FAIL (exit 1)"
+
+  roi_calculator:
+    path: scripts/calculate-roi.py
+    usage: "python squads/conversao-extrema/scripts/calculate-roi.py --spend X --revenue Y"
+    trigger: "Before scaling decisions"
+    returns: "ROI metrics + recommendation"
+
+# Dependencies
+dependencies:
+  - aios-core
+
+# Settings
+settings:
+  greeting_style: full
+  language: pt-BR
+  model_routing:
+    diagnostic: sonnet
+    campaign_creation: sonnet
+    optimization: sonnet
+    validation: haiku
+
+tags:
+  - conversao-extrema
+  - thiago-tessman
+  - paid-traffic
+  - google-ads
+  - facebook-ads
+  - instagram-ads
+  - remarketing
+  - conversion-optimization
+  - cpc
+  - cpa
+  - display-ads
+  - youtube-ads
+  - traffic-optimization
+  - roi-optimization
+
+# Criado com AIOS Core | 2026-03-02

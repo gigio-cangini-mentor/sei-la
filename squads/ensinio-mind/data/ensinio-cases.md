@@ -1,0 +1,121 @@
+# Ensinio — Cases de Sucesso & Prova Social
+
+> Source of Truth para todos os squads ensinio-*
+> Atualizado: 2026-03-02
+> Fontes: ensinio.com, Pitch Deck 2026
+
+---
+
+## Métricas de Tração
+
+| Métrica | Valor | Fonte |
+|---------|-------|-------|
+| Áreas de membros ativas | 2.240+ | Website |
+| Usuários consumindo conteúdo | 340.000+ | Website |
+| Alunos cadastrados (empresas) | 500.000+ | Pitch Deck |
+| Empresas clientes | 100+ | Pitch Deck |
+| NPS (recomendação) | 94% | Website |
+
+---
+
+## Depoimentos (Infoprodutores)
+
+### Roberth Resende
+- **Quem:** Fundador da AllpHome, influencer com 4+ milhões de seguidores no Instagram, especialista em emagrecimento saudável e mentor de experts do mercado digital
+- **Depoimento:** "Deixo aqui os meus parabéns pelo desenvolvimento do app. Estamos recebendo muitos elogios do público! Superaram minhas expectativas e estou feliz com o que vi! Obrigado Ensinio pelo suporte prestado e pela vontade em resolver os problemas que surgiram. Faremos uma linda jornada juntos!"
+
+### Rafa Marks
+- **Quem:** Número 1 em funis do Brasil, fundador do Hackers do Marketing e mentor de centenas de infoprodutores que faturam de 7 a 8 dígitos
+- **Depoimento:** "Eu estou emocionado! Estou apaixonado pela plataforma, tá um absurdo! De longe vocês são o projeto de tecnologia mais brutal que eu já vi na minha vida."
+
+### Fernando Brasão
+- **Quem:** CEO Marketing Brasil e fundador do maior MasterMind do mercado digital com 200+ negócios que faturam até 8 dígitos
+- **Depoimento:** "MEU DEUS DO CÉU!! Que produto fantástico, de coração! Vocês são imbatíveis! Estou completamente ENSINIONIZADO!"
+
+### Elton Luiz
+- **Quem:** Infoprodutor e YouTuber com mais de 150K inscritos
+- **Depoimento:** "Estou muito feliz, a plataforma é absurdamente boa! De verdade, muito obrigado!"
+
+---
+
+## Nomes Notáveis (Clientes Infoprodutores)
+
+| Nome | Descrição |
+|------|-----------|
+| Edmilson Cruz | Mestre em História com mais de 12.500 alunos em 22 países diferentes |
+| Henrique Caldeira | Doutor em História pela UFMG com mais de 1 milhão de inscritos (religiões, mitologias, civilizações antigas) |
+| Bruno de Castro | Especialista em endodontia e mentor de milhares de colegas que querem viver da odontologia |
+| Elton Luiz | Infoprodutor e YouTuber com mais de 150K inscritos |
+| Noslen Borges (Prof. Noslen) | Fundador do maior canal de educação do Brasil, com mais de 18 milhões de inscritos no YouTube |
+| Dayse Paparoto | Especialista em gastronomia, empreendedora e vencedora do 1º MasterChef Profissionais Brasil |
+| Roberth Resende | Fundador da AllpHome, influencer com 4+ milhões de seguidores no Instagram |
+| Prof. Frederico Torres | Infoprodutor na área de educação e co-fundador do Mente Matemática |
+| Augustto Leão | CMO Luci Luci Academy, plataforma de networking e treinamento para vendedores e líderes |
+| Ronei Vinagre | Organizador da Growth Conference e CEO da EventPlay, a maior plataforma de streaming de eventos do Brasil |
+| Fernando Brasão | CEO Marketing Brasil, fundador do maior MasterMind do mercado digital com 200+ negócios |
+| Shirlei Rescarolli | Especialista em liderança, fundadora da Modhu, escola que treina novos líderes em empresas como Havan, Cooper e Max Mohr |
+| Natalia Arcuri | (Mencionada no website) |
+
+---
+
+## Empresas Corporativas (Ensinio Corporate)
+
+| Empresa | Setor |
+|---------|-------|
+| AMCHAM | Câmara de Comércio |
+| Vale | Mineração |
+| CI&T | Tecnologia |
+| Serasa Experian | Dados/Crédito |
+| AllpFit | Fitness |
+| Minerva | - |
+| Grupo Pailon | - |
+| TranspoTech | Logística |
+| Nuvva | Universidade Corporativa as a Service |
+
+---
+
+## Cases Detalhados (Como resolvemos as dores)
+
+### Aforismos (Clube de estudo)
+- **Problema:** Usabilidade com público 50+, dificuldades em acessar e navegar pelo conteúdo
+- **Solução:** Após migrar para Ensinio, a quantidade de suporte relacionado a recursos básicos da plataforma **diminuiu significativamente**
+
+### Modhu (Escola de liderança — Shirlei Rescarolli)
+- **Problema:** Falta de escala e dificuldade em acompanhar o progresso dos alunos (colaboradores de grandes empresas como Havan, Max Mohr, Cooper)
+- **Solução:** Toda a formação e avaliação dos colaboradores é feita pela plataforma, resultando na possibilidade de **escalar as operações e otimizar o dia a dia**
+
+### Universidade Multimarcas
+- **Problema:** Não conseguiam compreender o comportamento de acesso dos alunos
+- **Solução:** Após migrar para Ensinio, conseguem **melhor monitoramento e direcionamento** da liberação de novos conteúdos com base nos dados
+
+### Educação Real
+- **Problema:** Comunidade de diversos nichos agrupados (mercado financeiro, desenvolvimento pessoal, macroeconômica)
+- **Solução:** Com a Ensinio, foi possível ter **diferentes comunidades integradas ao conteúdo** em um só lugar
+
+---
+
+## Prova Social via WhatsApp (do Pitch Deck)
+
+O pitch deck inclui múltiplas capturas de tela de conversas WhatsApp mostrando:
+- Clientes elogiando transição tranquila
+- Feedback positivo sobre sistema de vendas e controle financeiro
+- Atendente Bhrenda sendo elogiada pela atenção
+- Clientes mencionando "a plataforma mais simples" que já usaram
+- Cultura de evolução constante reconhecida pelos clientes
+- Cliente fitness no Box de CrossFit lançando primeiro produto na Ensinio
+
+### Frases reais de clientes (WhatsApp):
+- "Até hoje eu não tive uma plataforma TÃO SIMPLES de mexer nos dados dos alunos. Parabéns!"
+- "Vocês são rápidos em 1k" (sobre velocidade de evolução)
+- "Estou super empolgada, já levei várias ideias tb pro time"
+- "A migração menos traumática da vida toda. Amém!"
+- "Muito massa tá? De os meus parabéns pra todos aí... quero que jogo logo estejamos com 1000 matrículas ativas!"
+
+---
+
+## Perguntas Pendentes (para enriquecer v2.0)
+
+- [ ] Resultados quantitativos dos cases (aumento de vendas, retenção, etc.)
+- [ ] Quantos clientes ativos exatamente (não "100+")
+- [ ] GMV processado total pelo Ensinio Pay
+- [ ] Depoimentos em vídeo (links YouTube)

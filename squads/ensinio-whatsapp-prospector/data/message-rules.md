@@ -1,0 +1,1 @@
+../../ensinio-mind/data/message-rules.md

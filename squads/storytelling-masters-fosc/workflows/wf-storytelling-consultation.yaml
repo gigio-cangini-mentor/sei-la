@@ -1,0 +1,112 @@
+name: wf-storytelling-consultation
+title: "Storytelling Consultation Workflow"
+description: >-
+  Workflow de consulta do squad storytelling-masters-fosc.
+  Diagnostica necessidade, roteia para expert(s), compõe estratégia.
+version: "1.0.0"
+squad: storytelling-masters-fosc
+
+phases:
+  - id: diagnose
+    name: "Diagnóstico"
+    agent: storytelling-masters-chief
+    description: "Classificar tipo de necessidade narrativa e determinar roteamento"
+    inputs:
+      - user_request: "Descrição da necessidade do usuário"
+    outputs:
+      - intent_type: "STRUCTURE | PRESENTATION | PERSUASION | SPECIALIZED"
+      - primary_agent: "Agent recomendado"
+      - secondary_agent: "Agent complementar (opcional)"
+      - complexity: "single | dual | multi"
+    checkpoint:
+      question: "Diagnóstico correto? Agents adequados?"
+      veto_if: "Necessidade não envolve storytelling/narrativa/persuasão"
+    sla_check:
+      target: "5 min"
+      max: "10 min"
+      warning: "8 min"
+    on_complete:
+      - action: "notify_orchestrator"
+        data: "Diagnostic complete, routing to {primary_agent}"
+    handoff_validation:
+      required_outputs: ["intent_type", "primary_agent", "complexity"]
+
+  - id: consult
+    name: "Consulta Especialista"
+    agent: "{primary_agent}"
+    description: "Agent especialista aplica seu framework à necessidade"
+    inputs:
+      - user_request: "Necessidade original"
+      - diagnostic: "Output do diagnóstico"
+    outputs:
+      - analysis: "Análise usando framework do expert"
+      - recommendations: "Recomendações específicas"
+      - artifacts: "Estruturas, scripts, planos gerados"
+    checkpoint:
+      question: "Output atende a necessidade? Framework aplicado corretamente?"
+      veto_if: "Framework aplicado incorretamente ou output genérico"
+    sla_check:
+      target: "20-40 min"
+      max: "60 min"
+      warning: "50 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["analysis", "recommendations", "artifacts"]
+      - action: "notify_orchestrator"
+        data: "Expert consultation complete"
+    handoff_validation:
+      required_outputs: ["analysis", "recommendations"]
+
+  - id: enrich
+    name: "Enriquecimento (opcional)"
+    agent: "{secondary_agent}"
+    condition: "complexity == 'dual' or complexity == 'multi'"
+    description: "Agent complementar adiciona camada ao output"
+    inputs:
+      - primary_output: "Output da consulta principal"
+      - user_request: "Necessidade original"
+    outputs:
+      - enriched_output: "Output enriquecido com segundo framework"
+    checkpoint:
+      question: "Frameworks são complementares? Não há conflito?"
+      veto_if: "Frameworks conflitam ou output ficou confuso"
+    sla_check:
+      target: "15-25 min"
+      max: "40 min"
+      warning: "35 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["enriched_output"]
+      - action: "notify_orchestrator"
+        data: "Enrichment complete"
+    handoff_validation:
+      required_outputs: ["enriched_output"]
+
+  - id: validate
+    name: "Validação de Qualidade"
+    agent: storytelling-masters-chief
+    description: "Validar output final contra checklist de qualidade"
+    inputs:
+      - final_output: "Output final (enriquecido ou simples)"
+    outputs:
+      - quality_score: "Score de qualidade (0-10)"
+      - checklist_results: "Itens do checklist aprovados/reprovados"
+      - final_delivery: "Output validado para o usuário"
+    checkpoint:
+      question: "Quality score >= 7? Checklist aprovado?"
+      veto_if: "Score < 7 ou itens críticos reprovados"
+    sla_check:
+      target: "10-15 min"
+      max: "20 min"
+      warning: "18 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["quality_score", "final_delivery"]
+      - action: "notify_orchestrator"
+        data: "Validation complete, score: {quality_score}"
+    handoff_validation:
+      required_outputs: ["quality_score", "checklist_results", "final_delivery"]
+
+flow: "diagnose → consult → [enrich] → validate"
+unidirectional: true
+max_experts_per_consultation: 3

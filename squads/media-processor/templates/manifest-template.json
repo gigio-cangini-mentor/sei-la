@@ -1,0 +1,74 @@
+{
+  "$schema": "Processing Manifest Template — media-processor squad",
+  "$version": "1.0.0",
+  "$description": "Per-item tracking for resume support. Each item tracks phase-by-phase progress independently.",
+
+  "session_id": "mp-YYYY-MMDD-NNN",
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z",
+  "source": {
+    "platform": "hotmart|cademi|youtube|local",
+    "url": "",
+    "name": ""
+  },
+  "pipeline_type": "full|download-only|transcribe-only|batch",
+  "items": [
+    {
+      "id": "m1-lesson-name-sanitized",
+      "name": "Lesson Name (original)",
+      "module": "Module Name (if applicable)",
+      "index": 0,
+      "source_url": "",
+      "phases": {
+        "download": {
+          "status": "pending|running|completed|failed|skipped",
+          "started_at": null,
+          "completed_at": null,
+          "output_path": null,
+          "file_size_bytes": null,
+          "duration_seconds": null,
+          "gate": { "id": "QG-001", "verdict": null, "details": null },
+          "error": null,
+          "retries": 0
+        },
+        "transcribe": {
+          "status": "pending",
+          "started_at": null,
+          "completed_at": null,
+          "output_path": null,
+          "model_used": null,
+          "word_count": null,
+          "chunk_count": null,
+          "gate": { "id": "QG-002", "verdict": null, "details": null },
+          "error": null,
+          "retries": 0
+        },
+        "sculpt": {
+          "status": "pending",
+          "started_at": null,
+          "completed_at": null,
+          "output_path": null,
+          "masterpiece_word_count": null,
+          "error": null
+        },
+        "distill": {
+          "status": "pending",
+          "started_at": null,
+          "completed_at": null,
+          "output_path": null,
+          "frameworks_extracted": 0,
+          "content_pieces": 0,
+          "error": null
+        }
+      }
+    }
+  ],
+  "statistics": {
+    "total_items": 0,
+    "items_completed": 0,
+    "items_failed": 0,
+    "items_skipped": 0,
+    "total_word_count": 0,
+    "total_duration_seconds": 0
+  }
+}

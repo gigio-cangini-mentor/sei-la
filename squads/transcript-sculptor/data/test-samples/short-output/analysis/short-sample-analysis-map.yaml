@@ -1,0 +1,184 @@
+analysis_map:
+  source: "short-sample.md"
+  analyzed_at: "2026-02-22T10:31:00Z"
+  word_count: 950
+  estimated_reading_time_minutes: 4
+
+  speakers:
+    - id: speaker_1
+      name: "Carlos Mendes"
+      role: "Palestrante principal"
+      speaking_percentage: 82
+      lines_count: 55
+      characteristics:
+        - "Uso frequente de catchphrases informais"
+        - "Tom energético e coloquial"
+        - "Engajamento direto com audiência"
+
+    - id: speaker_2
+      name: "Participante 1"
+      role: "Audiência"
+      speaking_percentage: 11
+      lines_count: 8
+      characteristics:
+        - "Perguntas estratégicas"
+        - "Follow-up contextual"
+
+    - id: speaker_3
+      name: "Participante 2"
+      role: "Audiência"
+      speaking_percentage: 7
+      lines_count: 5
+      characteristics:
+        - "Questionamento prático"
+        - "Foco em aplicação real"
+
+  zones:
+    - type: "lecture"
+      start_line: 11
+      end_line: 28
+      duration_percentage: 40
+      title_suggestion: "O Método da Tarefa Única"
+      topics:
+        - "Definição de produtividade real"
+        - "Armadilha das tarefas fáceis"
+        - "Método da tarefa única matinal"
+        - "Proteção de foco profundo"
+      speaker_dominant: "Carlos Mendes"
+
+    - type: "qa"
+      start_line: 29
+      end_line: 48
+      duration_percentage: 35
+      title_suggestion: "Perguntas e Respostas — Matriz de Eisenhower"
+      topics:
+        - "Urgente vs. Importante"
+        - "Matriz de Eisenhower"
+        - "Evitar modo crise"
+        - "Educação de clientes"
+      interaction_type: "Q&A dinâmico"
+      question_count: 3
+
+    - type: "practical_exercise"
+      start_line: 49
+      end_line: 60
+      duration_percentage: 20
+      title_suggestion: "Exercício Prático — Três Perguntas"
+      instruction_type: "Individual reflection"
+      exercise_duration: "5 minutos"
+      questions_posed: 3
+
+    - type: "break"
+      start_line: 61
+      end_line: 63
+      duration_percentage: 5
+      title_suggestion: "Intervalo de Reflexão"
+      content_type: "Música instrumental + conversas paralelas"
+
+  noise_markers:
+    - line: 17
+      content: "[murmúrios inaudíveis de concordância]"
+      type: "background_audio"
+      action: "preserve_as_context"
+
+    - line: 23
+      content: "[Interrupção — porta abrindo]"
+      type: "environmental"
+      action: "preserve_as_context"
+
+    - line: 25
+      content: "...tá, pessoal, desculpa a interrupção... [inaudível]... alguém pode fechar a porta?"
+      type: "interruption"
+      action: "preserve_as_context"
+
+    - line: 45
+      content: "[murmúrios — alguns risos]"
+      type: "audience_reaction"
+      action: "preserve_as_context"
+
+    - line: 57
+      content: "[pausa — ruído de pessoas escrevendo]"
+      type: "activity_marker"
+      action: "preserve_as_context"
+
+    - line: 61
+      content: "[música instrumental de fundo durante o intervalo]"
+      type: "break_marker"
+      action: "preserve_as_context"
+
+    - line: 63
+      content: "[ruído de conversas paralelas]"
+      type: "background_activity"
+      action: "preserve_as_context"
+
+  chunks:
+    - id: "chunk-001"
+      start_line: 1
+      end_line: 70
+      word_count: 950
+      zones_included:
+        - "lecture"
+        - "qa"
+        - "practical_exercise"
+        - "break"
+      split_reason: "single_chunk"
+      title: "Workshop de Produtividade — Completo"
+
+  dna_indicators:
+    catchphrases:
+      - phrase: "galera"
+        occurrences: 7
+        context: "Direct audience engagement"
+      - phrase: "olha só"
+        occurrences: 4
+        context: "Attention grabber / emphasis"
+      - phrase: "sacou"
+        occurrences: 2
+        context: "Confirmation check"
+      - phrase: "tá ligado"
+        occurrences: 1
+        context: "Understanding check"
+      - phrase: "percebam"
+        occurrences: 1
+        context: "Call to awareness"
+      - phrase: "beleza"
+        occurrences: 3
+        context: "Transition marker / agreement"
+
+    tone: "informal-energético"
+    formality: "baixa"
+    engagement_style: "conversacional-direto"
+    rhetorical_devices:
+      - "Perguntas retóricas"
+      - "Exemplos práticos"
+      - "Metáforas do cotidiano"
+      - "Provocações leves"
+
+    personality_markers:
+      - "Autêntico e sem filtros"
+      - "Desafiador de status quo"
+      - "Orientado à ação prática"
+      - "Crítico de 'coach motivacional'"
+
+  structural_recommendations:
+    - action: "Add H2 headings for major zones"
+      reason: "Improve navigability"
+
+    - action: "Format speaker dialogues consistently"
+      reason: "Clear attribution in Q&A section"
+
+    - action: "Preserve all noise markers as context brackets"
+      reason: "Maintain authenticity and atmosphere"
+
+    - action: "Keep all catchphrases intact"
+      reason: "DNA preservation critical"
+
+    - action: "Add section markers for zone transitions"
+      reason: "Clear structure for reader"
+
+  quality_notes:
+    - "Single chunk due to short length (~950 words)"
+    - "High DNA concentration - strong personality presence"
+    - "Clear zone boundaries - easy to structure"
+    - "No ambiguous content requiring [REVISAR] flags"
+    - "Noise markers add authenticity - should be preserved"

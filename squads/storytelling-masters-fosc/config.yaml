@@ -1,0 +1,85 @@
+name: storytelling-masters-fosc
+version: "2.0.0"
+slashPrefix: storytelling-masters-fosc
+title: "Storytelling Masters — Elite Minds Collection"
+description: >-
+  Squad de elite minds reais de storytelling, oratória, persuasão e narrativa,
+  extraídos de 68 livros (31MB de source material). Satélite do palestras-master.
+  Agents com Voice + Thinking DNA extraídos de livros em QUALITY mode (~90% fidelidade).
+  OalaNicolas validated 9.2/10 (2026-03-03). Frameworks compatibility matrix + Lindy scoring + failure modes.
+author: "Luiz Fosc"
+icon: "📖"
+type: specialist
+quality_score: 9.2
+validated_by: "OalaNicolas"
+validated_date: "2026-03-03"
+
+entry_agent: storytelling-masters-chief
+
+independence: true
+independence_details: |
+  Squad auto-contido com 11 agents baseados em elite minds reais.
+  Atua como satélite do palestras-master (federador).
+  Cada agent tem Voice DNA + Thinking DNA extraídos diretamente dos livros originais.
+
+agents:
+  - storytelling-masters-chief
+  # Tier 0 — Diagnosis & Structure
+  - robert-mckee
+  - joseph-campbell
+  # Tier 1 — Presentation Masters
+  - nancy-duarte
+  - carmine-gallo
+  - matthew-dicks
+  # Tier 2 — Persuasion & Influence
+  - robert-cialdini
+  - chip-dan-heath
+  - jay-heinrichs
+  # Tier 3 — Specialized
+  - donald-miller
+  - blake-snyder
+  - dale-carnegie
+
+tasks:
+  - diagnose-narrative
+  - build-story-structure
+  - design-keynote-sparkline
+  - make-it-stick
+  - craft-persuasive-talk
+  - build-storybrand
+  - engineer-personal-story
+  - design-beat-sheet
+  - validate-storytelling-quality
+
+workflows:
+  - wf-storytelling-consultation
+  - wf-multi-expert-consultation
+
+checklists:
+  - storytelling-quality-checklist
+  - tier-validation-checklist
+
+templates:
+  - story-spine-tmpl
+  - keynote-sparkline-tmpl
+  - success-diagnostic-tmpl
+  - storybrand-brandscript-tmpl
+  - beat-sheet-tmpl
+
+data:
+  - source-mapping
+  - frameworks-reference
+  - frameworks-compatibility-matrix  # NEW v2.0.0 — GAP 1
+  - framework-selection-matrix       # NEW v2.0.0 — GAP 4
+  - README
+
+tags:
+  - storytelling
+  - palestras
+  - oratoria
+  - narrative
+  - persuasion
+  - public-speaking
+  - rhetoric
+  - story-structure
+  - mind-cloning

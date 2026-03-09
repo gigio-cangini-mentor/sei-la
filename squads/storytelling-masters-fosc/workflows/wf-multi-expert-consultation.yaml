@@ -1,0 +1,171 @@
+name: wf-multi-expert-consultation
+title: "Multi-Expert Storytelling Consultation"
+description: >-
+  Workflow para consultas que envolvem 2-3 experts de diferentes tiers.
+  Orquestrado pelo storytelling-masters-chief. Produz deliverable
+  combinado com validação de coerência entre frameworks.
+version: "1.0.0"
+squad: storytelling-masters-fosc
+
+trigger:
+  - "storytelling-masters-chief diagnoses complexity == 'dual' or 'multi'"
+  - "User explicitly requests multi-expert consultation"
+
+phases:
+  - id: diagnose-and-route
+    name: "Diagnóstico e Roteamento"
+    agent: storytelling-masters-chief
+    task: diagnose-narrative
+    description: "Classificar necessidade, determinar experts e ordem de execução"
+    inputs:
+      - user_request: "Descrição completa da necessidade"
+    outputs:
+      - primary_agent: "Expert 1 (líder)"
+      - secondary_agent: "Expert 2 (complementar)"
+      - tertiary_agent: "Expert 3 (opcional, máximo)"
+      - execution_order: "Sequência de consulta"
+      - integration_points: "Onde os frameworks se conectam"
+    checkpoint:
+      question: "Roteamento correto? Experts complementares (não conflitantes)?"
+      veto_if: "Experts têm frameworks incompatíveis"
+    sla_check:
+      target: "5-10 min"
+      max: "15 min"
+      warning: "12 min"
+    on_complete:
+      - action: "notify_orchestrator"
+        data: "Routing complete: {primary_agent} → {secondary_agent}"
+    handoff_validation:
+      required_outputs: ["primary_agent", "secondary_agent", "execution_order", "integration_points"]
+
+  - id: primary-consultation
+    name: "Consulta Primária"
+    agent: "{primary_agent}"
+    task: "{primary_task}"
+    description: "Expert principal aplica seu framework core"
+    inputs:
+      - user_request: "Necessidade original"
+      - routing_context: "Output do diagnóstico"
+    outputs:
+      - primary_output: "Deliverable principal (story spine, sparkline, diagnostic, etc.)"
+      - handoff_notes: "O que o próximo expert precisa saber"
+    checkpoint:
+      question: "Framework aplicado corretamente? Output atende a necessidade primária?"
+      veto_if: "Output genérico ou framework aplicado superficialmente"
+    sla_check:
+      target: "20-40 min"
+      max: "60 min"
+      warning: "50 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["primary_output", "handoff_notes"]
+      - action: "notify_orchestrator"
+        data: "Primary consultation complete, passing to {secondary_agent}"
+    handoff_validation:
+      required_outputs: ["primary_output", "handoff_notes"]
+
+  - id: secondary-enrichment
+    name: "Enriquecimento Secundário"
+    agent: "{secondary_agent}"
+    task: "{secondary_task}"
+    description: "Expert complementar adiciona camada ao output primário"
+    inputs:
+      - primary_output: "Output da consulta primária"
+      - handoff_notes: "Notas de integração"
+    outputs:
+      - enriched_output: "Output enriquecido com segundo framework"
+      - coherence_notes: "Onde os frameworks reforçam ou divergem"
+    checkpoint:
+      question: "Frameworks são complementares? Não há conflito?"
+      veto_if: "Segundo framework contradiz ou confunde o primeiro"
+    sla_check:
+      target: "15-30 min"
+      max: "45 min"
+      warning: "40 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["enriched_output", "handoff_notes", "coherence_notes"]
+      - action: "notify_orchestrator"
+        data: "Secondary enrichment complete"
+    handoff_validation:
+      required_outputs: ["enriched_output", "coherence_notes"]
+
+  - id: tertiary-layer
+    name: "Camada Terciária (opcional)"
+    agent: "{tertiary_agent}"
+    condition: "tertiary_agent is defined AND complexity == 'multi'"
+    description: "Terceiro expert adiciona camada final"
+    inputs:
+      - enriched_output: "Output enriquecido"
+    outputs:
+      - final_output: "Output com 3 camadas integradas"
+    checkpoint:
+      question: "Terceira camada agrega valor? Não há overload?"
+      veto_if: "Overload de frameworks (máximo 3)"
+    sla_check:
+      target: "15-25 min"
+      max: "40 min"
+      warning: "35 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["final_output"]
+      - action: "notify_orchestrator"
+        data: "Tertiary layer complete"
+    handoff_validation:
+      required_outputs: ["final_output"]
+
+  - id: coherence-validation
+    name: "Validação de Coerência"
+    agent: storytelling-masters-chief
+    description: "Verificar que os frameworks combinados são coerentes e não conflitantes"
+    inputs:
+      - final_output: "Output final (2 ou 3 camadas)"
+    outputs:
+      - coherence_score: "0-10"
+      - conflicts_resolved: "Lista de conflitos resolvidos"
+      - final_delivery: "Output final validado"
+    checkpoint:
+      question: "Coherence score >= 7? Nenhum conflito não resolvido?"
+      veto_if: "Score < 7 ou conflitos abertos"
+    sla_check:
+      target: "10-15 min"
+      max: "20 min"
+      warning: "18 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["coherence_score", "final_delivery"]
+      - action: "notify_orchestrator"
+        data: "Coherence validation complete, score: {coherence_score}"
+    handoff_validation:
+      required_outputs: ["coherence_score", "final_delivery"]
+
+  - id: quality-gate
+    name: "Quality Gate Final"
+    agent: storytelling-masters-chief
+    task: validate-storytelling-quality
+    description: "Validar output final contra checklist de qualidade"
+    inputs:
+      - final_delivery: "Output validado por coerência"
+    outputs:
+      - quality_score: "0-10"
+      - checklist_results: "Itens aprovados/reprovados"
+      - approved_delivery: "Output final aprovado"
+    checkpoint:
+      question: "Quality score >= 7?"
+      veto_if: "Score < 7"
+    sla_check:
+      target: "10-15 min"
+      max: "20 min"
+      warning: "18 min"
+    on_complete:
+      - action: "auto_pass"
+        outputs: ["quality_score", "approved_delivery"]
+      - action: "notify_orchestrator"
+        data: "Quality gate complete, final score: {quality_score}"
+    handoff_validation:
+      required_outputs: ["quality_score", "checklist_results", "approved_delivery"]
+
+flow: "diagnose-and-route → primary-consultation → secondary-enrichment → [tertiary-layer] → coherence-validation → quality-gate"
+unidirectional: true
+max_experts: 3
+max_iterations: 2

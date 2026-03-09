@@ -1,0 +1,56 @@
+name: italo-marsili
+version: "1.2.0"
+slashPrefix: italo
+title: "Italo Marsili - Mind Clone | Psiquiatria & Filosofia Aplicada"
+description: >-
+  Clone mental de Italo Marsili — psiquiatra tomista, criador do Guerrilha Way.
+  Ativado com mind_dna_complete.yaml (fidelidade Elite 95%).
+  Especialista em diagnóstico de maturidade (12 Camadas), análise de temperamento,
+  orientação vocacional e mentoria ao estilo consultório.
+author: "Luiz Fosc"
+icon: "🔥"
+type: specialist
+
+entry_agent: italo-marsili
+
+independence: true
+independence_details: |
+  Squad 100% independente e auto-contido:
+  - Não requer banco de dados
+  - Não requer APIs externas
+  - Todo conhecimento está inline no agent file
+  - Mind DNA source: outputs/minds/italo-marsili/mind_dna_complete.yaml
+  - Funciona offline com base de conhecimento fornecida
+
+agents:
+  - italo-marsili
+
+tasks:
+  - mentor-session
+  - diagnose
+  - temperament-analysis
+  - vocation-guidance
+  - evaluate-content
+
+workflows:
+  - mentoring-flow
+
+checklists:
+  - content-quality
+  - diagnose-quality
+  - mentor-session-quality
+  - temperament-quality
+  - vocation-quality
+
+data:
+  - frameworks-reference
+
+tags:
+  - mind-clone
+  - psiquiatria
+  - filosofia
+  - mentoria
+  - temperamentos
+  - italo-marsili
+  - guerrilha-way
+  - tomismo

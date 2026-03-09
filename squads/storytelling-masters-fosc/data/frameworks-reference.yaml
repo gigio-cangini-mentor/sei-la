@@ -1,0 +1,376 @@
+# Frameworks Reference — storytelling-masters-fosc
+# Quick lookup for all frameworks available in this squad
+# v2.0.0 — Added Lindy Effect scoring + Failure Modes (OalaNicolas GAP 3 + GAP 5)
+
+frameworks:
+
+  # ── Tier 0: Diagnosis & Structure ──
+
+  story_principles:
+    agent: robert-mckee
+    source: "Story (Robert McKee)"
+    core: "Inciting incident → Progressive complications → Crisis → Climax → Resolution"
+    key_concepts:
+      - "The Gap: difference between expectation and result"
+      - "Value changes: every scene must turn"
+      - "Controlling idea: one sentence that expresses meaning"
+      - "4 levels of conflict: inner, personal, social, extra-personal"
+      - "No scene that doesn't turn"
+    use_when: "Story doesn't work structurally, needs diagnosis"
+    lindy_score: 9.8  # Based on Aristotelian poetics (2300+ years)
+    proven_since: "335 BCE (Aristotle's Poetics)"
+    evidence_base: "Analyzed in millions of films, plays, novels since McKee 1997. Principles predate McKee by 2300 years."
+    survival_test: "Survived transition from Greek theater → Shakespeare → cinema → streaming"
+    failure_modes:
+      - condition: "Pure comedy without transformation arc"
+        symptom: "No value changes = no story (per McKee). Comedy often repeats status quo."
+        pivot_to: "Use Snyder 'Fool Triumphant' genre OR accept McKee doesn't apply to all comedy"
+      - condition: "Abstract/experimental narratives (antiplot)"
+        symptom: "McKee's causality requirement conflicts with coincidence-driven or nonlinear stories"
+        pivot_to: "McKee explicitly addresses Miniplot and Antiplot as alternatives — use those sections"
+      - condition: "Marketing copy (not narrative)"
+        symptom: "No protagonist, no scene structure"
+        pivot_to: "Use McKee's Storynomics framework instead (purpose-told stories)"
+
+  storynomics:
+    agent: robert-mckee
+    source: "Storynomics (Robert McKee & Thomas Gerace)"
+    core: "Story structure applied to marketing — replace ads with stories"
+    key_concepts:
+      - "Purpose-told story vs ads"
+      - "Storified branding"
+      - "Data tells what happened; story tells how and why"
+    use_when: "Marketing narrative needs story architecture"
+    lindy_score: 7.0  # McKee principles (ancient) applied to marketing (2018)
+    proven_since: "2018 (book), but principles are McKee Story (1997) + Aristotle (335 BCE)"
+    evidence_base: "Case studies from Super Bowl ads, Nike, GE. Principles = ancient, application = modern."
+    survival_test: "Story principles survived 2300 years. Marketing application is new but built on Lindy foundation."
+    failure_modes:
+      - condition: "Performance marketing (direct response, A/B tested ads)"
+        symptom: "Story takes too long, conversion drops"
+        pivot_to: "Storynomics works for brand building, NOT performance marketing. Use Miller SB7 for conversion-focused copy."
+      - condition: "Complex B2B with long sales cycles"
+        symptom: "Story oversimplifies the decision process"
+        pivot_to: "Layer multiple mini-stories (one per stakeholder/objection) instead of one hero journey"
+
+  monomyth:
+    agent: joseph-campbell
+    source: "The Hero with a Thousand Faces (Joseph Campbell)"
+    core: "Hero's Journey — 17 stages of departure, initiation, return"
+    key_concepts:
+      - "Call to Adventure"
+      - "Threshold crossing"
+      - "Road of Trials"
+      - "Apotheosis / Transformation"
+      - "Return with the Elixir"
+      - "Archetypes: hero, mentor, shadow, trickster, threshold guardian"
+    use_when: "Narrative needs mythic resonance, transformation arc, archetypal depth"
+    lindy_score: 10.0  # Mythological patterns (50,000+ years across all cultures)
+    proven_since: "~50,000 BCE (oldest known oral myths and cave paintings)"
+    evidence_base: "Cross-cultural analysis of 1000+ myths, religions, fairy tales. Present in every civilization."
+    survival_test: "Survived oral tradition → written epics → religious texts → novels → cinema → video games → modern blockbusters"
+    failure_modes:
+      - condition: "Non-transformation stories (comedy, satire, slice-of-life)"
+        symptom: "No hero journey = story doesn't fit Monomyth template"
+        pivot_to: "Monomyth is about CHANGE. If story has no transformation, use McKee (other archetypes) or Snyder genres."
+      - condition: "Multiple protagonists (ensemble cast)"
+        symptom: "Monomyth assumes single hero — can't map cleanly to ensemble"
+        pivot_to: "Use McKee's multi-protagonist structure OR apply Monomyth to each character's arc separately"
+      - condition: "Modern ironic/postmodern narratives"
+        symptom: "Story intentionally subverts hero journey expectations"
+        pivot_to: "Campbell is the BASE to subvert. Understand it first, then break it deliberately."
+
+  # ── Tier 1: Presentation Masters ──
+
+  sparkline:
+    agent: nancy-duarte
+    source: "Resonate (Nancy Duarte)"
+    core: "'What is' vs 'What could be' oscillation — audience is the hero"
+    key_concepts:
+      - "Sparkline (Presentation Form)"
+      - "Audience as hero, presenter as mentor"
+      - "S.T.A.R. moments (Something They'll Always Remember)"
+      - "New Bliss — the world after adoption"
+      - "'Slideuments' are the enemy"
+    use_when: "Designing a keynote, restructuring a presentation"
+    lindy_score: 6.5  # Book published 2010, but built on Aristotle + Campbell + cinema structure
+    proven_since: "2010 (Resonate book), principles from Aristotle/Campbell/cinema (ancient-modern blend)"
+    evidence_base: "Reverse-engineered from Steve Jobs, MLK, Reagan speeches. Used by Fortune 500 presenters since 2010."
+    survival_test: "Framework is new (16 years), but COMPONENTS are Lindy (story structure, hero's journey, contrast)"
+    failure_modes:
+      - condition: "Audience already agrees (preaching to converted)"
+        symptom: "'What is' vs 'what could be' tension feels forced — no gap to bridge"
+        pivot_to: "McKee Story Principles (find INTERNAL conflict) OR Dicks (vulnerability/personal story)"
+      - condition: "Pure entertainment (no call to action)"
+        symptom: "'New Bliss' feels tacked on — story doesn't naturally lead to transformation"
+        pivot_to: "Campbell Monomyth OR Snyder Beat Sheet (cinematic structure without business CTA)"
+      - condition: "Short format (<10min)"
+        symptom: "Not enough time for oscillation — Sparkline needs 20+ minutes to breathe"
+        pivot_to: "Dicks 'Start at the End' OR Gallo (TED opening secrets for short talks)"
+
+  ted_mastery:
+    agent: carmine-gallo
+    source: "Talk Like TED (Carmine Gallo)"
+    core: "9 secrets of world's greatest presentations"
+    key_concepts:
+      - "18-minute rule"
+      - "Rule of Three"
+      - "Jaw-Dropping Moment"
+      - "Master the opening (first 18 seconds)"
+      - "Passion + novelty + memorable"
+    use_when: "Talk delivery optimization, TED-style impact"
+    lindy_score: 6.0  # Book 2014, reverse-engineered from TED talks (2006+)
+    proven_since: "2006 (TED.com launch), book 2014. Framework = recent, but COMPONENTS are ancient (rule of 3, passion, etc.)"
+    evidence_base: "Analysis of 500+ TED talks. Gallo reverse-engineered patterns from top performers."
+    survival_test: "TED format is only 20 years old. Principles (storytelling, passion, simplicity) are ancient."
+    failure_modes:
+      - condition: "Non-TED contexts (corporate, technical, sales)"
+        symptom: "TED-style passion/novelty feels out of place in conservative environments"
+        pivot_to: "Use Carnegie (fundamentals) OR Heinrichs (rhetoric for debate/persuasion)"
+      - condition: "Longer formats (60+ minutes)"
+        symptom: "9 secrets optimize for 18min — don't scale to workshop/training"
+        pivot_to: "Duarte Sparkline (keynote structure) OR Carnegie + Heath Power of Moments (workshop design)"
+      - condition: "Highly technical audiences (engineers, scientists)"
+        symptom: "Emotional appeal and jaw-dropping moments may alienate technical purists"
+        pivot_to: "Heath Concrete + Credible (data-first) OR McKee Storynomics (story for data)"
+
+  storyworthy:
+    agent: matthew-dicks
+    source: "Storyworthy (Matthew Dicks)"
+    core: "5-Second Moment — the instant of change that IS the story"
+    key_concepts:
+      - "5-Second Moment (the real story)"
+      - "Homework for Life (daily story mining)"
+      - "Start as close to the end as possible"
+      - "But/Therefore, not And/Then"
+      - "Stakes: emotional, relational, identity"
+    use_when: "Crafting personal stories, vulnerability moments, openings"
+    lindy_score: 6.0  # Book 2018, method refined over 20 years of storytelling competitions
+    proven_since: "~1998 (Dicks won first Moth competition), formalized 2018"
+    evidence_base: "56-time Moth champion, 1000+ story performances, tested in live storytelling competitions"
+    survival_test: "Method is recent (28 years), but built on ancient oral storytelling traditions (vulnerability, stakes, transformation)"
+    failure_modes:
+      - condition: "Longer formats (20+ min presentations)"
+        symptom: "'Start at the end' works for 5-10min stories, but longer talks need build-up"
+        pivot_to: "Duarte Sparkline (gradual tension) OR McKee progressive complications"
+      - condition: "Non-personal stories (brand, product, data-driven)"
+        symptom: "5-Second Moment requires personal vulnerability — doesn't map to corporate narratives"
+        pivot_to: "Miller StoryBrand (brand stories) OR McKee Storynomics (data into story)"
+      - condition: "Low-stakes topics"
+        symptom: "Dicks requires EMOTIONAL stakes (life-changing moments). Mundane topics fall flat."
+        pivot_to: "Heath SUCCESs (make mundane sticky via other levers) OR Gallo (novelty over stakes)"
+
+  # ── Tier 2: Persuasion & Influence ──
+
+  influence_principles:
+    agent: robert-cialdini
+    source: "Influence (Robert Cialdini)"
+    core: "7 principles of ethical persuasion"
+    key_concepts:
+      - "Reciprocity"
+      - "Commitment/Consistency"
+      - "Social Proof"
+      - "Authority"
+      - "Liking"
+      - "Scarcity"
+      - "Unity"
+      - "Pre-Suasion (priming context before the ask)"
+    use_when: "Need to persuade ethically, build influence architecture"
+    lindy_score: 7.5  # Book 1984 (42 years), but principles are evolutionary psychology (ancient)
+    proven_since: "1984 (Influence 1st edition), but principles predate humans (reciprocity in primates, social proof in herds)"
+    evidence_base: "40+ years of social psychology research (Cialdini + predecessors). Replicated across cultures."
+    survival_test: "Book survived 42 years, still bestseller. Principles are evolutionary (100,000+ years of human behavior)"
+    failure_modes:
+      - condition: "Low-trust environments (audience is cynical/skeptical)"
+        symptom: "Influence tactics feel manipulative. Social proof → 'astroturfing.' Scarcity → 'false urgency.'"
+        pivot_to: "Build Heinrichs ETHOS first (credibility), then apply Cialdini principles. Trust is prerequisite."
+      - condition: "High-information audiences (experts, analysts)"
+        symptom: "Audience recognizes the tactics and resists ('I see what you're doing')"
+        pivot_to: "Be TRANSPARENT about persuasion. Cialdini advocates ethical use — name the principle if necessary."
+      - condition: "Cross-cultural contexts (non-Western)"
+        symptom: "Some principles are culturally specific (e.g., Western individualism vs collectivist cultures)"
+        pivot_to: "Authority and Social Proof strengthen in collectivist cultures. Scarcity and Liking may vary. Test locally."
+      - condition: "Negative social proof (majority behavior is BAD)"
+        symptom: "Backfire: 'Don't be like the 30% who steal' → increases theft"
+        pivot_to: "Use POSITIVE social proof ('70% comply') OR switch to Authority/Reciprocity"
+
+  success_framework:
+    agent: chip-dan-heath
+    source: "Made to Stick (Chip & Dan Heath)"
+    core: "SUCCESs — 6 traits of sticky ideas"
+    key_concepts:
+      - "Simple (core + compact)"
+      - "Unexpected (break patterns, curiosity gaps)"
+      - "Concrete (sensory, specific, tangible)"
+      - "Credible (authorities, anti-authorities, testable)"
+      - "Emotional (associations, self-interest, identity)"
+      - "Stories (challenge, connection, creativity)"
+      - "Curse of Knowledge (the villain)"
+    use_when: "Message isn't landing, idea doesn't stick"
+    lindy_score: 6.5  # Book 2007 (19 years), but COMPONENTS are ancient (Aristotle, proverbs, fairy tales)
+    proven_since: "2007 (Made to Stick), but dissects patterns from proverbs, urban legends, ads (decades-centuries old)"
+    evidence_base: "Reverse-engineered from sticky ideas that survived (JFK 'man on moon,' urban legends, Aesop's fables)"
+    survival_test: "Framework is recent (19 years). EXAMPLES analyzed are Lindy (proverbs = centuries, fairy tales = millennia)"
+    failure_modes:
+      - condition: "Low-credibility source (ethos problem)"
+        symptom: "Sticky ≠ believed. Idea spreads but is rejected ('conspiracy theory paradox')"
+        pivot_to: "Add Heinrichs ETHOS + Cialdini AUTHORITY before making sticky. Credibility first, stickiness second."
+      - condition: "Cannot hit all 6 SUCCESs traits"
+        symptom: "Trying to be Simple + Unexpected + Concrete + Credible + Emotional + Story → overcomplicated"
+        pivot_to: "Prioritize: Simple + Unexpected + Concrete are NON-NEGOTIABLE. Emotional + Stories = bonus."
+      - condition: "Misinformation/fake news"
+        symptom: "SUCCESs makes FALSE ideas sticky (QAnon, urban legends). Framework is amoral."
+        pivot_to: "Pair with Heinrichs Ethics + Cialdini 'Ethical Persuasion' chapter. Stickiness is a tool, not a goal."
+      - condition: "Curse of Knowledge is DEFENDER, not ATTACKER"
+        symptom: "Audience already knows more than presenter assumes — simplicity feels condescending"
+        pivot_to: "Use Heath CONCRETE (details) + Cialdini AUTHORITY (prove expertise) to earn respect"
+
+  power_of_moments:
+    agent: chip-dan-heath
+    source: "The Power of Moments (Chip & Dan Heath)"
+    core: "Engineer defining moments using EPIC"
+    key_concepts:
+      - "Elevation (sensory, surprise, stakes)"
+      - "Pride (achievement, recognition, courage)"
+      - "Insight (trip over the truth, stretch)"
+      - "Connection (shared experience, vulnerability)"
+    use_when: "Experience design, creating memorable peaks"
+    lindy_score: 6.0  # Book 2017 (9 years), but built on psychology research (decades) + rites of passage (millennia)
+    proven_since: "2017 (book), but COMPONENTS are ancient (rites of passage, peak-end rule, milestone celebrations)"
+    evidence_base: "Daniel Kahneman's peak-end rule, Joseph Campbell's rites of passage, psychology of memory"
+    survival_test: "Framework is new (9 years). PATTERNS analyzed are Lindy (graduations, weddings, vision quests = millennia)"
+    failure_modes:
+      - condition: "Cannot engineer moments (limited resources/control)"
+        symptom: "EPIC requires staging (budget, logistics). Not all contexts allow elevation/insight engineering."
+        pivot_to: "Focus on Pride (recognition) + Connection (vulnerability) — low-cost, high-impact elements"
+      - condition: "Audience cynicism ('manufactured moments')"
+        symptom: "Over-engineering feels fake. Disneyland effect — polished but inauthentic."
+        pivot_to: "Use Dicks vulnerability + Carnegie authenticity. Engineered ≠ fake if emotion is real."
+      - condition: "Moments without narrative context"
+        symptom: "Isolated peak without story arc feels gimmicky"
+        pivot_to: "Use Duarte Sparkline OR McKee story structure to BUILD to the moment, not drop it in randomly"
+
+  classical_rhetoric:
+    agent: jay-heinrichs
+    source: "Thank You for Arguing (Jay Heinrichs)"
+    core: "Three appeals: ethos, pathos, logos + future-focused deliberative rhetoric"
+    key_concepts:
+      - "Ethos (character/credibility)"
+      - "Pathos (emotion)"
+      - "Logos (logic/evidence)"
+      - "Deliberative rhetoric (future-focus)"
+      - "Concession strategy"
+      - "7 Deadly Sins of argumentation"
+      - "Reluctant conclusion technique"
+    use_when: "Argumentation, debate, overcoming objections, rhetorical strategy"
+    lindy_score: 9.5  # Book 2007 (19 years), but framework is Aristotle/Cicero (2300+ years)
+    proven_since: "~350 BCE (Aristotle's Rhetoric), Cicero ~55 BCE, Quintilian ~95 CE"
+    evidence_base: "2300+ years of rhetoric taught in Western education. Used by every great orator (Cicero, Lincoln, Churchill)"
+    survival_test: "Survived Greek democracy → Roman Republic → Medieval university → modern law/politics"
+    failure_modes:
+      - condition: "Audience wants collaboration, not persuasion"
+        symptom: "Rhetoric feels adversarial. Modern culture values 'authentic conversation' over 'winning arguments.'"
+        pivot_to: "Use Heinrichs but frame as 'understanding, not winning.' Concession strategy + future-focus (deliberative) softens."
+      - condition: "Low ethos (credibility deficit)"
+        symptom: "Pathos and Logos fail without Ethos foundation. Audience rejects speaker before message."
+        pivot_to: "Rebuild Ethos first via Cialdini Authority + Liking. Or borrow ethos (quote credible sources)."
+      - condition: "Emotional contexts (grief, trauma, celebration)"
+        symptom: "Logic (Logos) feels cold. Rhetoric assumes rational decision-making."
+        pivot_to: "Lead with Pathos (emotion), defer Logos. Heinrichs covers this — use 'Aquinas Maneuver' (emotions at your service)"
+      - condition: "Cross-cultural (non-Western rhetoric traditions)"
+        symptom: "Aristotelian rhetoric is Western. Eastern/African traditions value different patterns."
+        pivot_to: "Study local rhetoric traditions. Universal: Ethos/Pathos/Logos EXIST but balance varies."
+
+  # ── Tier 3: Specialized ──
+
+  storybrand_sb7:
+    agent: donald-miller
+    source: "Building a StoryBrand (Donald Miller)"
+    core: "SB7 — 7-part brand messaging framework"
+    key_concepts:
+      - "Character (customer-hero)"
+      - "Problem (external, internal, philosophical + villain)"
+      - "Guide (brand shows empathy + authority)"
+      - "Plan (3-4 steps)"
+      - "Call to Action (direct + transitional)"
+      - "Failure (stakes)"
+      - "Success (transformation)"
+      - "One-Liner formula"
+      - "'If you confuse, you'll lose'"
+    use_when: "Brand messaging, website copy, pitch clarity"
+    lindy_score: 6.0  # Book 2017 (9 years), but built on Campbell Monomyth (ancient) + copywriting principles (decades)
+    proven_since: "2017 (StoryBrand book), but COMPONENTS: Campbell (1949), direct response copy (1920s+)"
+    evidence_base: "10,000+ businesses use StoryBrand framework. Built on Campbell + direct response copywriting."
+    survival_test: "Framework is new (9 years). FOUNDATION is Lindy: Campbell Monomyth + copywriting formulas (AIDA, PAS)"
+    failure_modes:
+      - condition: "Complex B2B with multiple stakeholders"
+        symptom: "SB7 assumes single hero. Enterprise sales have 5-7 decision-makers with different problems."
+        pivot_to: "Create multiple SB7 brandscripts (one per stakeholder persona) OR use McKee 4 levels of conflict"
+      - condition: "Commodity products (low differentiation)"
+        symptom: "SB7 requires unique 'guide' positioning. Commodities can't differentiate on brand alone."
+        pivot_to: "Use Cialdini Social Proof + Scarcity (tactical) OR compete on price/distribution, not brand story"
+      - condition: "Audience is already expert (knows more than brand)"
+        symptom: "'Guide' framing feels condescending. Experts don't want to be 'heroized' by a vendor."
+        pivot_to: "Use Heinrichs Ethos (peer credibility) OR McKee Storynomics (story for data, not hero framing)"
+      - condition: "Brand IS the hero (founder story, mission-driven)"
+        symptom: "SB7 prohibits 'brand as hero' — but some brands (Apple, Tesla) ARE the hero."
+        pivot_to: "Miller ALLOWS brand-as-hero for origin stories. Use SB7 for product messaging, Campbell for founder story."
+
+  save_the_cat_bs2:
+    agent: blake-snyder
+    source: "Save the Cat (Blake Snyder)"
+    core: "15-beat story structure + 10 genres"
+    key_concepts:
+      - "15 beats from Opening Image to Final Image"
+      - "15 beats from Opening Image to Final Image"
+      - "10 genres (Monster, Whydunit, Rite of Passage, etc.)"
+      - "'Save the Cat' scene (make hero likable early)"
+      - "Double Mumbo Jumbo rule (one magic only)"
+      - "Pope in the Pool (exposition technique)"
+    use_when: "Video scripts, VSLs, cinematic narrative structure"
+    lindy_score: 6.5  # Book 2005 (21 years), but distills Hollywood story structure (decades) + Syd Field (1979)
+    proven_since: "2005 (Save the Cat), but built on Syd Field (1979), Joseph Campbell, Aristotle"
+    evidence_base: "Used in thousands of screenplays (Hollywood + indie). Criticized as formulaic but commercially proven."
+    survival_test: "Book survived 21 years, became screenwriting bible. STRUCTURE is ancient (3-act, hero's journey)"
+    failure_modes:
+      - condition: "Literary/prestige films (anti-formula)"
+        symptom: "BS2 produces formulaic, predictable stories. Art film audiences reject 'beat sheet' narratives."
+        pivot_to: "Use McKee (depth over formula) OR Campbell (archetypal without beats) for literary work"
+      - condition: "Non-transformation stories (comedy, satire)"
+        symptom: "BS2 assumes transformation arc. Pure comedy often resets to status quo."
+        pivot_to: "Use Snyder's 'Fool Triumphant' genre OR McKee (other archetypes)"
+      - condition: "Short-form content (<5min)"
+        symptom: "15 beats require 90-120min runtime. Can't compress to short videos."
+        pivot_to: "Use Dicks '5-Second Moment' OR Miller SB7 (7 elements, faster) for short-form"
+      - condition: "McKee purists"
+        symptom: "McKee explicitly rejects 'paradigms and foolproof story models' — BS2 is exactly that."
+        pivot_to: "Use BS2 for FIRST DRAFT (speed), then McKee for AUDIT (depth, beating clichés)"
+
+  public_speaking_foundations:
+    agent: dale-carnegie
+    source: "Como Falar em Público (Dale Carnegie)"
+    core: "Confidence through preparation, authenticity, and audience connection"
+    key_concepts:
+      - "Speak from experience, not memorization"
+      - "Prepare more than you'll use"
+      - "Vulnerability is strength"
+      - "Practice the emotional arc"
+      - "Enthusiasm is contagious"
+    use_when: "Stage fright, confidence building, public speaking basics"
+    lindy_score: 8.5  # Book 1926 (98 years) — nearly century-old, pre-TED, pre-modern presentation era
+    proven_since: "1926 (Public Speaking and Influencing Men in Business), Dale Carnegie courses since 1912"
+    evidence_base: "10+ million people trained via Dale Carnegie courses (100+ years). Principles predate modern presentation tech."
+    survival_test: "Survived pre-PowerPoint → slides → multimedia → virtual presenting. Fundamentals unchanged."
+    failure_modes:
+      - condition: "Advanced speakers (already confident)"
+        symptom: "Carnegie fundamentals feel basic. Experienced speakers need Gallo (TED mastery) or Heinrichs (rhetoric)."
+        pivot_to: "Use Carnegie for FOUNDATION (if missing), then layer Gallo/Duarte/Heinrichs for advanced techniques"
+      - condition: "Highly technical/data-driven talks"
+        symptom: "Carnegie emphasizes emotion + stories. Technical audiences may want data-first."
+        pivot_to: "Use Heath Concrete + Credible OR McKee Storynomics (story for data)"
+      - condition: "Virtual/remote presenting (Zoom, video)"
+        symptom: "Carnegie was written for in-person stage presence. Virtual dynamics differ (camera, lighting, engagement)."
+        pivot_to: "Carnegie fundamentals still apply (authenticity, preparation), but add Gallo (TED online tips) or Duarte (virtual presenting)"
+      - condition: "Modern vulnerability culture mismatch"
+        symptom: "Carnegie's 1926 tone feels dated (gendered language, old-fashioned examples)"
+        pivot_to: "Extract PRINCIPLES (prepare, be authentic, enthusiasm) but modernize examples via Dicks (vulnerability) or Heath"

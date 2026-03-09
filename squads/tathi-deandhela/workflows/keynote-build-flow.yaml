@@ -1,0 +1,63 @@
+workflow:
+  id: keynote-build-flow
+  purpose: "Construir keynote memorável usando Speaker Canvas (F15) e ecossistema F17→F7→F15"
+  ecosystem:
+    description: "Esta é a fase final do ecossistema proprietário"
+    flow: "F17 (Diagnóstico) → F7 (Gestão) → F15 (Planejamento)"
+    this_workflow: "F15 — Planejamento de palestra individual"
+  phases:
+    - id: phase_1
+      name: "Posicionamento e promessa (F1)"
+      description: "Definir tema principal usando F1 (Focused Positioning Loop) — 1 tema por ciclo."
+      framework: F1
+    - id: phase_2
+      name: "Abertura com F18 (4 Técnicas)"
+      description: "Escolher técnica de abertura mais adequada ao público usando F18. Aplicar F3 (Design Sensorial) para preparação emocional do ambiente."
+      frameworks: [F18, F3]
+    - id: phase_3
+      name: "Estrutura via Speaker Canvas (F15)"
+      description: "Preencher os 11 blocos do Speaker Canvas. Transformar improviso em arquitetura de palestra."
+      framework: F15
+      task: design-memorable-keynote
+    - id: phase_4
+      name: "Persuasão e fechamento (F5 + F13)"
+      description: "Validar ética de influência via F5. CTA focado em mudança mínima viável (F13 — regra dos 5%). Sequência de venda respeitando F4 (Sales as Process)."
+      frameworks: [F5, F13, F4]
+      task: optimize-persuasion-elements
+    - id: phase_5
+      name: "Validação final e entrega"
+      description: "Verificar roteiro completo contra F2 (progressão lógica). Garantir densidade narrativa adequada."
+      framework: F2
+  checkpoints:
+    - id: cp1
+      name: "Mensagem central definida (F1)"
+      blocking: true
+    - id: cp2
+      name: "Abertura desenhada com técnica F18"
+      blocking: true
+    - id: cp3
+      name: "Speaker Canvas (F15) com 11 blocos preenchidos"
+      blocking: true
+    - id: cp4
+      name: "Roteiro completo (início/meio/fim) validado por F2"
+      blocking: true
+    - id: cp5
+      name: "Persuasão ética (F5) e CTA (F13) validados"
+      blocking: true
+  veto_conditions:
+    - id: veto_1
+      condition: "roteiro_sem_progressao_logica"
+      action: "HALT e reestruturar desenvolvimento (F2)"
+    - id: veto_2
+      condition: "slide_compete_com_mensagem"
+      action: "HALT e simplificar design (F3)"
+    - id: veto_3
+      condition: "conteudo_sem_aplicabilidade_pratica"
+      action: "HALT e reduzir densidade com foco em ação"
+    - id: veto_4
+      condition: "speaker_canvas_incompleto"
+      action: "HALT e completar os 11 blocos de F15"
+  guardrails:
+    idempotency: true
+    audit_log_required: true
+    manual_override: true

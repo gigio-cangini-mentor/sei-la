@@ -1,0 +1,1229 @@
+# Irresistible Offer Creation Workflow
+# Based on Dan Koe's One-Person Business + Digital Economics methodology
+# Source: TRAFFIC_OFFERS_SYSTEM + RISK_REVERSAL_ENGINE + VALUE_HIERARCHY
+# Version: 1.0.0
+
+id: wf-offer-creation
+name: "Irresistible Offer Creation"
+version: "1.0.0"
+duration: "3-5 days"
+trigger: "*offer"
+description: |
+  Workflow completo para criar ofertas irresistíveis usando a metodologia Dan Koe.
+  Combina os frameworks Traffic + Offers = Business, Risk Reversal e Value Hierarchy
+  para construir uma oferta que funciona como motor do one-person business.
+
+  FILOSOFIA: "Traffic + Offers = Business. Sem oferta clara, tráfego é desperdício."
+
+  PRINCÍPIO CENTRAL: A oferta deve refletir QUEM VOCÊ É — não uma commodity genérica.
+  O criador É o diferencial. A oferta é a extensão da sua transformação pessoal.
+
+  RESULTADO: Oferta alinhada à identidade do criador, com reversão de risco completa,
+  hierarquia de valor clara e plano de distribuição via conteúdo orgânico.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUANDO USAR ESTE WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════════
+
+best_for:
+  - "Criar primeira oferta digital (curso, mentoria, comunidade)"
+  - "Reformular oferta que não converte via conteúdo orgânico"
+  - "Lançar novo produto como one-person business"
+  - "Aumentar ticket médio sem perder autenticidade"
+  - "Criar oferta que funciona como lead magnet e produto ao mesmo tempo"
+  - "Construir ecossistema de ofertas complementares (escada de valor)"
+  - "Transicionar de serviço para produto digital escalável"
+
+decision_matrix_fit:
+  complexity: high
+  agents_required: 4
+  estimated_duration: "3-5 days"
+  user_involvement: "high (identidade pessoal é input crítico)"
+  prerequisites:
+    - "Clareza sobre transformação pessoal (o que você superou)"
+    - "Audiência mínima OU disposição para construir (The Queue System)"
+    - "Conhecimento profundo em pelo menos 1 domínio"
+    - "Disponibilidade para sessões de elicitação sobre identidade e expertise"
+  mental_models_required:
+    - "Traffic + Offers = Business"
+    - "The Leverage Stack"
+    - "APAG Structure"
+    - "Fill/Empty/Use Brain Cycle"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS ENVOLVIDOS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orquestração, diagnóstico de mercado, alinhamento estratégico"
+      phases: [0]
+
+    - agent: koe-offers
+      role: "Engenharia de oferta, Value Hierarchy, estrutura de preço"
+      phases: [1]
+
+    - agent: koe-brand
+      role: "Integração brand-oferta, Personal Monopoly alignment"
+      phases: [2]
+
+    - agent: koe-distribuidor
+      role: "Estratégia de distribuição, Content Cascade, Traffic plan"
+      phases: [3]
+
+  secondary:
+    - agent: koe-sintetizador
+      role: "Síntese de padrões de mercado, identificação de gaps"
+      phases: [0, 1]
+
+    - agent: koe-advisor
+      role: "Validação estratégica, alinhamento com visão de longo prazo"
+      phases: [1, 3]
+
+  synergies:
+    - agents: [koe-offers, koe-brand]
+      pattern: "Offers define valor, Brand garante que a oferta reflete identidade autêntica"
+
+    - agents: [koe-offers, koe-distribuidor]
+      pattern: "Offers cria o produto, Distribuidor cria o sistema de tráfego orgânico"
+
+    - agents: [koe-brand, koe-distribuidor]
+      pattern: "Brand posiciona, Distribuidor amplifica via Content Cascade"
+
+    - agents: [koe-chief, koe-advisor]
+      pattern: "Chief orquestra execução, Advisor valida direção estratégica"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: MARKET DIAGNOSIS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Market Diagnosis"
+    days: "Day 0"
+    tier: 0
+    description: |
+      Diagnóstico completo do mercado usando a lente Dan Koe.
+      NÃO estamos procurando um nicho tradicional — estamos mapeando
+      a INTERSEÇÃO entre identidade pessoal, expertise e demanda.
+
+      PRINCÍPIO: "You Are The Niche" — o mercado não é escolhido,
+      é descoberto na interseção de quem você é com quem você serve.
+
+      FRAMEWORK: Traffic + Offers = Business.
+      Primeiro entendemos o tráfego (quem são, onde estão, o que consomem),
+      depois desenhamos a oferta que converte esse tráfego.
+
+    agent: koe-chief
+
+    tasks:
+      - task_id: T0.1
+        name: "Mapear Identidade do Criador"
+        required: true
+        description: |
+          Elicitar a transformação pessoal do criador — o que ele superou,
+          o que aprendeu, qual a perspectiva única que possui.
+          Isto é a FUNDAÇÃO de tudo. Sem isto, a oferta é genérica.
+        output: "creator_identity.yaml"
+
+      - task_id: T0.2
+        name: "Diagnóstico de Mercado via Queue System"
+        required: true
+        description: |
+          Analisar o Queue do criador (ideias, observações, padrões)
+          para identificar temas recorrentes que ressoam com audiência.
+          O Queue revela onde está a demanda orgânica.
+        output: "market_diagnosis.yaml"
+
+      - task_id: T0.3
+        name: "Mapear Competidores e Gaps"
+        required: true
+        description: |
+          Identificar 5-10 competidores no espaço e mapear seus gaps.
+          FOCO: onde o mercado está saturado de commodity e onde há
+          oportunidade para perspectiva única.
+        output: "competitive_landscape.yaml"
+
+      - task_id: T0.4
+        name: "Definir Avatar via Eu-Passado"
+        required: true
+        description: |
+          O melhor avatar é VOCÊ 2-3 anos atrás. Definir com precisão
+          quem era essa pessoa, o que sentia, o que precisava.
+          Dan Koe: "Ensine quem você era há 2 anos."
+        output: "avatar_definition.yaml"
+
+      - task_id: T0.5
+        name: "Validar Equação Traffic + Offers"
+        required: true
+        description: |
+          Verificar se existe tráfego acessível para o avatar definido
+          e se o criador tem credibilidade suficiente para converter.
+        output: "traffic_offers_validation.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Market Diagnosis Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      market_diagnosis_template:
+        description: "Template completo de diagnóstico de mercado Koe-style"
+        sections:
+          creator_identity:
+            title: "Identidade do Criador"
+            fields:
+              - id: CI_001
+                name: "Transformação Pessoal"
+                question: "Qual foi a maior transformação que você viveu nos últimos 3-5 anos?"
+                format: "Narrativa livre (3-5 parágrafos)"
+                why: "A transformação pessoal é o PRODUTO. Sem ela, não há autenticidade."
+
+              - id: CI_002
+                name: "Expertise Empilhada"
+                question: "Quais são suas 2-3 áreas de conhecimento profundo? (mínimo 2 anos cada)"
+                format: "Lista com tempo de experiência"
+                why: "A interseção de expertises cria o Personal Monopoly"
+
+              - id: CI_003
+                name: "Perspectiva Contrária"
+                question: "Em que você discorda da maioria no seu mercado?"
+                format: "Declaração + argumentação"
+                why: "Perspectiva contrária = diferenciação = atenção"
+
+              - id: CI_004
+                name: "Eu-Passado (Avatar)"
+                question: "Quem era você 2-3 anos atrás? O que você precisava ouvir?"
+                format: "Perfil detalhado (dores, desejos, objeções)"
+                why: "O melhor avatar é sempre seu eu-passado"
+
+              - id: CI_005
+                name: "Visão de Futuro"
+                question: "Qual o estilo de vida que você quer construir? Que tipo de negócio serve isso?"
+                format: "Declaração de visão + critérios de negócio"
+                why: "Oferta deve servir à vida desejada, não escravizar"
+
+          market_analysis:
+            title: "Análise de Mercado"
+            fields:
+              - id: MA_001
+                name: "Saturação do Mercado"
+                question: "Quantos competidores oferecem algo SIMILAR? (estimativa)"
+                scoring:
+                  alto: "50+ competidores diretos — necessário forte diferenciação"
+                  medio: "10-50 competidores — há espaço para perspectiva única"
+                  baixo: "< 10 competidores — mercado inexplorado ou muito nichado"
+
+              - id: MA_002
+                name: "Nível de Commodity"
+                question: "As ofertas existentes são intercambiáveis? Clientes escolhem por preço?"
+                scoring:
+                  alto: "Todas parecem iguais — oportunidade de disrupção"
+                  medio: "Alguma diferenciação — precisa ser mais forte"
+                  baixo: "Mercado já diferenciado — encontrar sub-nicho"
+
+              - id: MA_003
+                name: "Disposição de Pagar"
+                question: "O público já paga por soluções neste espaço? Qual a faixa?"
+                format: "Faixa de preço (low/mid/high ticket)"
+                why: "Se ninguém paga, não é mercado — é hobby"
+
+              - id: MA_004
+                name: "Acessibilidade do Tráfego"
+                question: "Onde esse público se concentra online? (plataformas, comunidades)"
+                format: "Lista de canais com tamanho estimado"
+                why: "Traffic + Offers — sem tráfego acessível, oferta não converte"
+
+          traffic_offers_equation:
+            title: "Equação Traffic + Offers"
+            formula: "Business = Traffic × Offer Quality × Brand Trust"
+            variables:
+              - id: TOE_001
+                name: "Traffic Score"
+                factors:
+                  - "Volume de audiência atual (seguidores, lista, comunidade)"
+                  - "Crescimento mensal estimado"
+                  - "Engajamento médio (comentários, DMs, replies)"
+                  - "Canais ativos e frequência de publicação"
+                scoring:
+                  3: "1000+ engajados, crescimento >10%/mês"
+                  2: "300-1000 engajados, crescimento >5%/mês"
+                  1: "< 300 engajados, crescimento lento"
+                  0: "Sem audiência — precisa construir antes de oferta"
+
+              - id: TOE_002
+                name: "Offer Quality Score"
+                factors:
+                  - "Clareza da transformação prometida"
+                  - "Especificidade do resultado"
+                  - "Mecanismo único de entrega"
+                  - "Prova de resultado (próprio ou de outros)"
+                scoring:
+                  3: "Transformação clara, específica, com prova"
+                  2: "Boa proposta mas falta especificidade ou prova"
+                  1: "Vago — 'vou te ajudar a crescer'"
+                  0: "Sem oferta definida"
+
+              - id: TOE_003
+                name: "Brand Trust Score"
+                factors:
+                  - "Consistência de conteúdo (6+ meses)"
+                  - "Depoimentos e resultados de clientes"
+                  - "Autoridade percebida no espaço"
+                  - "Autenticidade e vulnerabilidade no conteúdo"
+                scoring:
+                  3: "Autoridade reconhecida, provas abundantes"
+                  2: "Consistente mas ainda construindo autoridade"
+                  1: "Novo no espaço, pouca prova"
+                  0: "Sem presença — começando do zero"
+
+            veto_condition: "Se Traffic Score = 0, PARAR. Construir audiência mínima antes de criar oferta."
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Market Diagnosis Complete"
+      criteria:
+        - "Identidade do criador mapeada (5/5 campos)"
+        - "Análise de mercado com 4/4 indicadores"
+        - "Equação Traffic + Offers calculada (score >= 6/9)"
+        - "Avatar definido baseado em Eu-Passado"
+        - "Landscape competitivo com 5+ competidores mapeados"
+      human_review: true
+      message: "Revise o diagnóstico de mercado. Este é o alicerce de toda a oferta."
+      veto_conditions:
+        - condition: "Traffic Score = 0"
+          action: "HALT — Construir audiência mínima antes de oferta. Use wf-brand-architecture primeiro."
+        - condition: "Identidade do criador incompleta"
+          action: "BLOCK — Sem identidade clara, oferta será genérica e commodity"
+        - condition: "Equação Traffic + Offers < 4/9"
+          action: "BLOCK — Fundação fraca demais. Fortalecer Traffic ou Brand Trust primeiro."
+        - condition: "Perspectiva contrária ausente"
+          action: "WARNING — Oferta sem diferenciação. Alto risco de competir por preço."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "raw_elicitation_data"
+      discard:
+        - "partial_creator_identity"
+        - "incomplete_market_diagnosis"
+        - "draft_avatar_definition"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 1: OFFER ENGINEERING
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Offer Engineering"
+    days: "Days 1-2"
+    tier: 1
+    description: |
+      Engenharia da oferta usando Value Hierarchy + Risk Reversal.
+      A oferta deve resolver o problema DO CRIADOR para o EU-PASSADO.
+
+      PRINCÍPIO CENTRAL: "A melhor oferta é o caminho que VOCÊ percorreu,
+      empacotado de forma que outros percorram mais rápido."
+
+      FRAMEWORK: Godfather Offer — oferta tão boa que a pessoa se sente
+      estúpida dizendo não. Não por manipulação, mas por valor genuíno.
+
+      A OFERTA É: Transformação compactada no tempo + risco eliminado.
+
+    agent: koe-offers
+
+    tasks:
+      - task_id: T1.1
+        name: "Definir Transformação Core"
+        required: true
+        description: |
+          Articular a transformação principal em uma frase.
+          Template: "[Avatar] vai de [Estado A] para [Estado B] em [Tempo] através de [Mecanismo]."
+          A transformação DEVE ser específica, mensurável e desejável.
+        output: "core_transformation.md"
+
+      - task_id: T1.2
+        name: "Construir Value Hierarchy"
+        required: true
+        description: |
+          Criar hierarquia de valor com 3 níveis:
+          1. Resultado Funcional (o que muda concretamente)
+          2. Resultado Emocional (como se sente)
+          3. Resultado de Status (como outros percebem)
+          Koe: "Venda o resultado de status. Entregue o funcional."
+        output: "value_hierarchy.yaml"
+
+      - task_id: T1.3
+        name: "Arquitetar Estrutura da Oferta"
+        required: true
+        description: |
+          Definir componentes da oferta usando Leverage Stack:
+          - Core Offer (transformação principal)
+          - Accelerators (o que acelera o resultado)
+          - Multipliers (o que multiplica o valor)
+          - Bonuses (o que remove objeções restantes)
+        output: "offer_architecture.yaml"
+
+      - task_id: T1.4
+        name: "Construir Risk Reversal Completo"
+        required: true
+        description: |
+          Risk Reversal vai ALÉM de garantia monetária.
+          Inclui: garantia, prova social, demonstração gratuita,
+          quick wins, transparência de processo.
+          Dan Koe: "Elimine TODOS os riscos percebidos, um por um."
+        output: "risk_reversal.yaml"
+
+      - task_id: T1.5
+        name: "Definir Pricing via Value Anchoring"
+        required: true
+        description: |
+          Preço como fração do valor total (mínimo 5x ROI percebido).
+          Considerar: ticket único vs. recorrente, escada de valor,
+          posicionamento premium vs. volume.
+        output: "pricing_strategy.yaml"
+
+      - task_id: T1.6
+        name: "Criar Godfather Offer Statement"
+        required: true
+        description: |
+          Declaração final da oferta no formato Godfather:
+          "Eu vou [RESULTADO ESPECÍFICO] para você em [TEMPO],
+          ou [RISK REVERSAL]. Além disso, você recebe [VALUE STACK]."
+        output: "godfather_statement.md"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Offer Architecture Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      offer_architecture_template:
+        description: "Template de arquitetura de oferta baseado no Leverage Stack de Koe"
+        layers:
+          core_offer:
+            name: "Core Offer (Núcleo)"
+            description: "A transformação principal — o que o cliente compra"
+            template:
+              transformation: "[Estado A] → [Estado B]"
+              mechanism: "O método/sistema/framework único"
+              timeline: "Tempo até resultado principal"
+              delivery: "Como é entregue (curso, mentoria, DFY, etc.)"
+            examples:
+              - transformation: "Emprego insatisfatório → One-person business lucrativo"
+                mechanism: "Sistema Digital Economics de 4 pilares"
+                timeline: "90 dias até primeira venda"
+                delivery: "Curso + comunidade + templates"
+
+          accelerators:
+            name: "Aceleradores"
+            description: "Componentes que ACELERAM o resultado — reduzem tempo"
+            types:
+              - id: ACC_001
+                name: "Templates & Frameworks"
+                description: "Ferramentas prontas que eliminam a fase de criação"
+                perceived_value: "Alto (economiza semanas)"
+                real_cost: "Baixo (criar uma vez, entregar infinitas)"
+
+              - id: ACC_002
+                name: "Quick Start Guide"
+                description: "Plano de ação para primeiros 7 dias — vitória rápida"
+                perceived_value: "Médio"
+                real_cost: "Baixo"
+
+              - id: ACC_003
+                name: "Acesso Direto (Office Hours)"
+                description: "Calls ao vivo para tirar dúvidas e destravar"
+                perceived_value: "Muito Alto"
+                real_cost: "Médio (tempo do criador)"
+
+          multipliers:
+            name: "Multiplicadores"
+            description: "Componentes que MULTIPLICAM o valor — aumentam resultado"
+            types:
+              - id: MUL_001
+                name: "Comunidade de Pares"
+                description: "Ambiente com pessoas na mesma jornada — accountability + networking"
+                perceived_value: "Alto"
+                real_cost: "Baixo (plataforma + moderação)"
+
+              - id: MUL_002
+                name: "Case Studies Detalhados"
+                description: "Análises profundas de quem já conseguiu o resultado"
+                perceived_value: "Alto"
+                real_cost: "Baixo"
+
+              - id: MUL_003
+                name: "Atualizações Perpétuas"
+                description: "Acesso a versões futuras do conteúdo"
+                perceived_value: "Muito Alto"
+                real_cost: "Marginal"
+
+          bonuses:
+            name: "Bônus (Removedores de Objeção)"
+            description: "Cada bônus deve remover uma objeção específica"
+            mapping_rule: "Para cada objeção identificada, crie um bônus que a elimina"
+            template:
+              headers: ["Objeção", "Bônus", "Como Remove a Objeção", "Valor Percebido"]
+            examples:
+              - objection: "Não tenho tempo"
+                bonus: "Kit Implementação Express (versão condensada)"
+                how_removes: "Versão de 30min/dia que ainda funciona"
+                perceived_value: "R$ 497"
+
+              - objection: "E se não funcionar para mim?"
+                bonus: "Sessão 1-on-1 de Diagnóstico Personalizado"
+                how_removes: "Adapta o sistema ao contexto específico"
+                perceived_value: "R$ 997"
+
+              - objection: "Já tentei antes e não deu certo"
+                bonus: "Análise de Erro + Plano de Correção"
+                how_removes: "Identifica o que deu errado antes e previne"
+                perceived_value: "R$ 697"
+
+      risk_reversal_template:
+        description: "Framework completo de Risk Reversal — vai além de garantia"
+        principle: "O cliente tem MÚLTIPLOS medos. Cada medo precisa de uma reversão específica."
+        layers:
+          financial_risk:
+            name: "Risco Financeiro"
+            fear: "E se eu perder dinheiro?"
+            reversals:
+              - type: "Garantia Condicional"
+                template: "Se você [ação específica] e não [resultado] em [prazo], devolvemos 100%."
+                strength: "Forte — demonstra confiança no método"
+
+              - type: "Garantia Incondicional"
+                template: "Experimente por [X] dias. Se não gostar, devolução total."
+                strength: "Média — reduz barreira mas não prova confiança"
+
+              - type: "Garantia Reversa (Skin in the Game)"
+                template: "Se não funcionar, eu pago R$[X] pelo seu tempo."
+                strength: "Máxima — transfere 100% do risco para o criador"
+
+          time_risk:
+            name: "Risco de Tempo"
+            fear: "E se eu gastar tempo e não funcionar?"
+            reversals:
+              - type: "Quick Win Garantido"
+                description: "Resultado tangível nos primeiros 7 dias"
+              - type: "Implementação Guiada"
+                description: "Passo-a-passo tão claro que elimina tentativa e erro"
+              - type: "Acesso Vitalício"
+                description: "Sem pressão de tempo — acesse quando puder"
+
+          effort_risk:
+            name: "Risco de Esforço"
+            fear: "E se for muito difícil?"
+            reversals:
+              - type: "Templates Done-For-You"
+                description: "80% do trabalho já está feito"
+              - type: "Suporte Contínuo"
+                description: "Nunca está sozinho — ajuda quando travar"
+              - type: "Progressão Gradual"
+                description: "Começa simples, complexidade cresce organicamente"
+
+          social_risk:
+            name: "Risco Social"
+            fear: "E se parecer bobo tentando?"
+            reversals:
+              - type: "Comunidade Privada"
+                description: "Ambiente seguro com pessoas na mesma fase"
+              - type: "Anonimato Inicial"
+                description: "Pode aprender sem se expor publicamente"
+              - type: "Prova Social de Iguais"
+                description: "Pessoas como você que conseguiram"
+
+        veto_condition: "NENHUMA oferta pode ser lançada sem pelo menos 3 reversões cobrindo riscos diferentes."
+
+      value_hierarchy_template:
+        description: "Hierarquia de 3 níveis de valor — o que realmente motiva a compra"
+        levels:
+          functional:
+            name: "Resultado Funcional"
+            definition: "O que muda concretamente na vida/negócio"
+            examples:
+              - "Ganhar R$10k/mês extra"
+              - "Publicar conteúdo consistente por 90 dias"
+              - "Criar primeiro produto digital"
+            weight: "20% da decisão de compra"
+
+          emotional:
+            name: "Resultado Emocional"
+            definition: "Como o cliente se SENTE após a transformação"
+            examples:
+              - "Confiança de que pode viver do que ama"
+              - "Liberdade de não depender de emprego"
+              - "Orgulho de ter construído algo próprio"
+            weight: "30% da decisão de compra"
+
+          status:
+            name: "Resultado de Status"
+            definition: "Como OUTROS percebem o cliente após a transformação"
+            examples:
+              - "Ser visto como autoridade no assunto"
+              - "Receber convites para podcasts e eventos"
+              - "Ter pessoas pedindo conselho"
+            weight: "50% da decisão de compra"
+            principle: "VENDA o status. ENTREGUE o funcional. O emocional vem como consequência."
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Offer Engineering Complete"
+      criteria:
+        - "Transformação Core articulada (específica, mensurável, desejável)"
+        - "Value Hierarchy com 3 níveis completos"
+        - "Offer Architecture com Core + Accelerators + Multipliers + Bonuses"
+        - "Risk Reversal com mínimo 3 reversões em riscos diferentes"
+        - "Pricing definido com ancoragem 5x+ do preço"
+        - "Godfather Statement escrito"
+      human_review: true
+      message: "Revise a engenharia da oferta. Esta é a arquitetura central do produto."
+      veto_conditions:
+        - condition: "Oferta sem Risk Reversal"
+          action: "HALT — Oferta sem reversão de risco NÃO será lançada. Regra inegociável."
+        - condition: "Value Hierarchy sem nível de Status"
+          action: "BLOCK — Sem apelo de status, conversão será drasticamente menor"
+        - condition: "Godfather Statement vago ou genérico"
+          action: "BLOCK — Se não dá para explicar em 2 frases, a oferta não está clara"
+        - condition: "Preço sem justificativa de valor (ancoragem < 3x)"
+          action: "WARNING — Preço não tem suporte matemático"
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "creator_identity"
+        - "market_diagnosis"
+        - "avatar_definition"
+        - "traffic_offers_validation"
+      discard:
+        - "partial_value_hierarchy"
+        - "incomplete_offer_architecture"
+        - "draft_godfather_statement"
+      max_retries: 3
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 2: BRAND INTEGRATION
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Brand Integration"
+    days: "Day 3"
+    tier: 1
+    description: |
+      Integração da oferta com a marca pessoal do criador.
+      A oferta NÃO existe separada da marca — ela É a marca em ação.
+
+      PRINCÍPIO: "Sua marca é sua oferta em formato de conteúdo.
+      Sua oferta é sua marca em formato de produto."
+
+      FRAMEWORK: Personal Monopoly → a oferta deve ser impossível
+      de copiar porque é baseada na experiência ÚNICA do criador.
+
+    agent: koe-brand
+
+    tasks:
+      - task_id: T2.1
+        name: "Alinhar Oferta ao Personal Monopoly"
+        required: true
+        description: |
+          Verificar que a oferta reflete o Personal Monopoly:
+          - Usa a perspectiva única do criador?
+          - É impossível de replicar por commodity?
+          - A linguagem reflete a voz autêntica?
+        output: "brand_offer_alignment.yaml"
+
+      - task_id: T2.2
+        name: "Criar Narrativa de Origem"
+        required: true
+        description: |
+          A história de origem conecta a transformação pessoal à oferta.
+          Template: "Eu era [Estado A]. Descobri [Insight]. Criei [Método].
+          Agora ajudo [Avatar] a [Resultado]."
+        output: "origin_story.md"
+
+      - task_id: T2.3
+        name: "Definir Content-to-Offer Bridge"
+        required: true
+        description: |
+          Mapear como o conteúdo gratuito leva organicamente à oferta.
+          Koe: "Seu conteúdo deve resolver 80% do problema.
+          A oferta resolve os 20% que precisam de implementação guiada."
+        output: "content_offer_bridge.yaml"
+
+      - task_id: T2.4
+        name: "Criar Messaging Guide"
+        required: true
+        description: |
+          Guia de mensagens para todos os touchpoints:
+          - Bio/headline
+          - Posts de conteúdo
+          - CTAs
+          - Página de vendas
+          - Emails
+        output: "messaging_guide.md"
+
+      - task_id: T2.5
+        name: "Validar Autenticidade"
+        required: true
+        description: |
+          Checklist de autenticidade — se qualquer item falhar,
+          a oferta precisa ser ajustada.
+          "Se você não usaria seu próprio produto, não venda."
+        output: "authenticity_validation.yaml"
+
+    inline_structures:
+      brand_offer_alignment_matrix:
+        description: "Matriz de alinhamento entre marca pessoal e oferta"
+        dimensions:
+          voice_alignment:
+            question: "A oferta soa como VOCÊ ou como um marketer genérico?"
+            scoring:
+              3: "100% na voz do criador — impossível confundir com outro"
+              2: "Majoritariamente autêntico, alguns trechos genéricos"
+              1: "Mistura — parte autêntico, parte template"
+              0: "Genérico — poderia ser de qualquer pessoa"
+
+          story_alignment:
+            question: "A oferta nasce da história real do criador?"
+            scoring:
+              3: "Diretamente da transformação vivida"
+              2: "Relacionada mas não diretamente vivida"
+              1: "Tangencialmente conectada"
+              0: "Sem conexão com história pessoal"
+
+          expertise_alignment:
+            question: "O criador tem expertise PROFUNDA no que promete?"
+            scoring:
+              3: "Anos de prática + resultados comprovados"
+              2: "Conhecimento sólido + alguns resultados"
+              1: "Estudou mas nunca aplicou"
+              0: "Aprendeu ontem, quer ensinar hoje"
+
+          monopoly_alignment:
+            question: "A oferta é impossível de copiar exatamente?"
+            scoring:
+              3: "Baseada em experiência única e irrepetível"
+              2: "Difícil de copiar mas possível"
+              1: "Fácil de replicar com algum esforço"
+              0: "Commodity — idêntica a dezenas de outras"
+
+        minimum_total: 8
+        veto_condition: "Se qualquer dimensão = 0, PARAR. Oferta não é autêntica."
+
+      content_offer_bridge_template:
+        description: "Como conteúdo gratuito leva organicamente à oferta paga"
+        principle: "Conteúdo = O QUE e POR QUÊ. Oferta = COMO (implementação guiada)."
+        layers:
+          awareness_content:
+            purpose: "Atrair atenção e criar consciência do problema"
+            format: "Posts curtos, threads, reels, tweets"
+            offer_connection: "Problema que o conteúdo expõe = problema que a oferta resolve"
+            examples:
+              - "Por que 95% dos criadores nunca passam de R$5k/mês (e os 5% que passam)"
+              - "O erro que eu cometi por 2 anos antes de finalmente [resultado]"
+
+          trust_content:
+            purpose: "Construir confiança e demonstrar expertise"
+            format: "Newsletters, vídeos longos, podcasts"
+            offer_connection: "Profundidade do conteúdo = preview da qualidade da oferta"
+            examples:
+              - "Tutorial completo: como criei [resultado específico] passo a passo"
+              - "Análise detalhada do meu sistema de [processo]"
+
+          conversion_content:
+            purpose: "Converter seguidores em clientes"
+            format: "Stories, emails, live Q&As, webinars"
+            offer_connection: "CTA direto para a oferta"
+            examples:
+              - "Abri 10 vagas para [oferta]. Link na bio."
+              - "Se você quer [resultado] sem [objeção], criei algo para você."
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Brand Integration Complete"
+      criteria:
+        - "Brand-Offer Alignment >= 8/12 no total"
+        - "Nenhuma dimensão de alinhamento = 0"
+        - "Narrativa de origem escrita e revisada"
+        - "Content-to-Offer Bridge mapeado (3 layers)"
+        - "Messaging Guide com 5+ touchpoints"
+        - "Checklist de autenticidade 100% aprovado"
+      human_review: true
+      message: "Confirme que a oferta reflete autenticamente a marca pessoal."
+      veto_conditions:
+        - condition: "Qualquer dimensão de alinhamento = 0"
+          action: "HALT — Oferta desalinhada da marca. Risco de dano reputacional."
+        - condition: "Narrativa de origem genérica ou fabricada"
+          action: "BLOCK — Reescrever com autenticidade. Não invente."
+        - condition: "Content-to-Offer Bridge ausente"
+          action: "BLOCK — Sem bridge, lançamento dependerá de ads pagos (anti-Koe)"
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "core_transformation"
+        - "value_hierarchy"
+        - "offer_architecture"
+        - "risk_reversal"
+        - "godfather_statement"
+      discard:
+        - "partial_brand_alignment"
+        - "incomplete_origin_story"
+        - "draft_messaging_guide"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # PHASE 3: DISTRIBUTION STRATEGY
+  # ═══════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Distribution Strategy"
+    days: "Days 4-5"
+    tier: 2
+    description: |
+      Estratégia de distribuição usando Content Cascade e tráfego orgânico.
+      Dan Koe NÃO depende de ads pagos — o conteúdo É o sistema de aquisição.
+
+      PRINCÍPIO: "Content is the new cold call. Mas melhor — é escalável,
+      assíncrono e constrói autoridade enquanto vende."
+
+      FRAMEWORK: Content Cascade — um conteúdo longo se transforma em
+      múltiplos conteúdos curtos em diferentes plataformas.
+
+      REGRA ABSOLUTA: Nenhuma oferta será lançada sem plano de tráfego.
+      Traffic + Offers = Business. Sem traffic plan, é apenas um produto no vácuo.
+
+    agent: koe-distribuidor
+
+    tasks:
+      - task_id: T3.1
+        name: "Definir Content Cascade Strategy"
+        required: true
+        description: |
+          Mapear o Content Cascade completo:
+          1 conteúdo longo → N conteúdos curtos → múltiplas plataformas.
+          Definir: formato longo, formatos derivados, plataformas, frequência.
+        output: "content_cascade.yaml"
+
+      - task_id: T3.2
+        name: "Criar Launch Content Calendar"
+        required: true
+        description: |
+          Calendário de 30 dias pré-lançamento:
+          - Semana 1-2: Awareness (problema)
+          - Semana 3: Trust (história + prova)
+          - Semana 4: Conversion (oferta)
+        output: "launch_calendar.yaml"
+
+      - task_id: T3.3
+        name: "Mapear APAG para Conteúdos-Chave"
+        required: true
+        description: |
+          Aplicar estrutura APAG nos 5 conteúdos mais importantes:
+          A - Attention (hook que para o scroll)
+          P - Perspective (perspectiva única/contrária)
+          A - Advantage (vantagem/benefício claro)
+          G - Gamify (CTA que gamifica a ação)
+        output: "apag_content_map.yaml"
+
+      - task_id: T3.4
+        name: "Definir Métricas de Traffic"
+        required: true
+        description: |
+          KPIs de tráfego para cada fase:
+          - Awareness: impressões, alcance, novos seguidores
+          - Trust: saves, shares, newsletter signups
+          - Conversion: clicks no link, page views, vendas
+        output: "traffic_metrics.yaml"
+
+      - task_id: T3.5
+        name: "Criar Plano de Lançamento"
+        required: true
+        description: |
+          Plano de lançamento completo:
+          - Pre-launch (seed content, waitlist)
+          - Launch (open cart, content blitz)
+          - Post-launch (follow-up, urgência genuína, close cart)
+        output: "launch_plan.yaml"
+
+    # ─────────────────────────────────────────────────────────────────────────
+    # INLINE STRUCTURE: Launch Plan Template
+    # ─────────────────────────────────────────────────────────────────────────
+    inline_structures:
+      launch_plan_template:
+        description: "Template de plano de lançamento orgânico Dan Koe-style"
+        principle: "Lançamento orgânico > lançamento pago. Conteúdo faz o trabalho pesado."
+        phases:
+          pre_launch:
+            name: "Pre-Launch (Semanas -4 a -1)"
+            duration: "4 semanas antes do open cart"
+            objectives:
+              - "Criar consciência do problema"
+              - "Posicionar-se como autoridade na solução"
+              - "Construir waitlist/lista de interesse"
+              - "Semear narrativa de origem"
+            content_mix:
+              problem_aware: "60% — posts que expõem o problema e geram identificação"
+              authority: "30% — conteúdo profundo que demonstra expertise"
+              seed_offer: "10% — menções sutis de que algo está vindo"
+            tactics:
+              - "Thread/post semanal sobre o tema central"
+              - "Newsletter com deep dive no problema"
+              - "Stories mostrando bastidores da criação"
+              - "DM strategy: responder todas DMs genuinamente"
+
+          launch:
+            name: "Launch (Semana 0)"
+            duration: "5-7 dias"
+            objectives:
+              - "Abrir carrinho"
+              - "Apresentar oferta completa"
+              - "Converter waitlist e audiência"
+              - "Criar urgência genuína"
+            content_mix:
+              offer_present: "40% — apresentação da oferta"
+              social_proof: "30% — depoimentos, resultados, prova"
+              urgency: "20% — deadline, vagas, bônus limitados"
+              faq: "10% — objeções e respostas"
+            tactics:
+              - "Post de lançamento com Godfather Statement"
+              - "Email sequence (mínimo 5 emails em 7 dias)"
+              - "Stories diários com prova social"
+              - "Live Q&A para remover objeções ao vivo"
+
+          post_launch:
+            name: "Post-Launch (Semana +1)"
+            duration: "1 semana após close cart"
+            objectives:
+              - "Fechar carrinho com urgência real"
+              - "Coletar feedback dos compradores"
+              - "Documentar resultados para próximo lançamento"
+              - "Planejar conteúdo evergreen"
+            content_mix:
+              last_chance: "40% — últimas vagas / deadline"
+              testimonials: "30% — primeiros resultados"
+              gratitude: "20% — agradecimento à comunidade"
+              next_steps: "10% — o que vem depois"
+            tactics:
+              - "Post de encerramento com resultados do lançamento"
+              - "Email de last chance (24h antes do close)"
+              - "Pesquisa com quem não comprou (entender objeções)"
+              - "Onboarding imediato dos compradores"
+
+      content_cascade_template:
+        description: "Template do Content Cascade — 1 conteúdo longo → N derivados"
+        principle: "Crie uma vez, distribua várias. Leverage máximo do esforço criativo."
+        flow:
+          source:
+            name: "Conteúdo Fonte (Long-form)"
+            formats: ["Newsletter", "YouTube video", "Podcast episode", "Blog post"]
+            duration: "2-4 horas de criação"
+            frequency: "1x por semana"
+
+          derivatives:
+            - level: 1
+              name: "Derivados Diretos"
+              formats:
+                - type: "Thread (X/Twitter)"
+                  extraction: "5-7 pontos principais do conteúdo fonte"
+                  time: "15 minutos"
+                - type: "Carousel (Instagram)"
+                  extraction: "Framework visual do conteúdo"
+                  time: "30 minutos"
+                - type: "Short-form video (Reels/TikTok/Shorts)"
+                  extraction: "1 insight principal em 60 segundos"
+                  time: "20 minutos"
+
+            - level: 2
+              name: "Derivados de Derivados"
+              formats:
+                - type: "Quote cards"
+                  extraction: "Frases impactantes isoladas"
+                  time: "5 minutos cada"
+                - type: "Comentários em posts de outros"
+                  extraction: "Insight aplicado a contexto de outro criador"
+                  time: "2 minutos cada"
+                - type: "DM templates"
+                  extraction: "Versão personalizada do insight para 1-on-1"
+                  time: "5 minutos cada"
+
+          multiplication_factor: "1 conteúdo fonte = 8-15 peças distribuídas"
+
+      apag_structure_template:
+        description: "Estrutura APAG para conteúdo de alta conversão"
+        components:
+          A_attention:
+            name: "Attention (Atenção)"
+            purpose: "Parar o scroll — o hook é tudo"
+            rules:
+              - "Primeira linha deve criar curiosidade ou choque"
+              - "Use números específicos, não genéricos"
+              - "Desafie uma crença comum"
+              - "Prometa um resultado inesperado"
+            templates:
+              - "A maioria dos [avatar] faz [erro]. Aqui está o que funciona:"
+              - "Eu gastei [tempo/dinheiro] para aprender isto: [insight]"
+              - "[Número]% dos [avatar] vão falhar em [meta]. Aqui está o porquê:"
+
+          P_perspective:
+            name: "Perspective (Perspectiva)"
+            purpose: "Oferecer uma visão ÚNICA — o que diferencia seu conteúdo"
+            rules:
+              - "Apresente um ângulo que ninguém mais está usando"
+              - "Use experiência pessoal como prova"
+              - "Conecte dois mundos que normalmente não se conectam"
+            templates:
+              - "O que ninguém fala sobre [tema] é que [insight contrário]..."
+              - "Depois de [experiência], percebi que [perspectiva única]..."
+
+          A_advantage:
+            name: "Advantage (Vantagem)"
+            purpose: "Mostrar o benefício CONCRETO de adotar sua perspectiva"
+            rules:
+              - "Benefício deve ser específico e mensurável"
+              - "Conecte ao resultado de status"
+              - "Use antes/depois"
+            templates:
+              - "Quando implementei isso, [resultado concreto] em [tempo]"
+              - "Meus clientes que usam este framework conseguem [resultado]"
+
+          G_gamify:
+            name: "Gamify (Gamificar)"
+            purpose: "CTA que transforma ação em jogo — engajamento + conversão"
+            rules:
+              - "Não seja genérico ('link na bio')"
+              - "Crie desafio ou missão"
+              - "Recompense a ação"
+            templates:
+              - "Desafio: aplique [framework] por 7 dias e me conte o resultado"
+              - "Comente '[palavra]' que eu envio o [recurso] no DM"
+              - "Salve este post e volte daqui a 30 dias para comparar resultados"
+
+    checkpoint:
+      id: CP_PHASE_3
+      name: "Distribution Strategy Complete"
+      criteria:
+        - "Content Cascade definido (fonte + 2 níveis de derivados)"
+        - "Launch Calendar de 30 dias completo"
+        - "5+ conteúdos mapeados com APAG"
+        - "Métricas de tráfego definidas para cada fase"
+        - "Plano de lançamento com pre/launch/post"
+      human_review: true
+      message: "Revise a estratégia de distribuição — sem tráfego, a oferta morre no silêncio."
+      veto_conditions:
+        - condition: "Sem plano de tráfego definido"
+          action: "HALT — Traffic + Offers = Business. Sem traffic = sem business. Inegociável."
+        - condition: "Dependência exclusiva de ads pagos"
+          action: "BLOCK — Metodologia Koe é conteúdo orgânico. Ads complementam, não substituem."
+        - condition: "Content Cascade sem conteúdo fonte"
+          action: "BLOCK — Sem long-form, derivados serão superficiais"
+        - condition: "Launch Calendar < 14 dias de pré-lançamento"
+          action: "WARNING — Audiência insuficiente para conversão. Considere estender."
+    recovery:
+      rollback_to: "phase_2_checkpoint"
+      preserve:
+        - "brand_offer_alignment"
+        - "origin_story"
+        - "content_offer_bridge"
+        - "messaging_guide"
+      discard:
+        - "partial_content_cascade"
+        - "incomplete_launch_calendar"
+        - "draft_launch_plan"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ERROR HANDLING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-offer-creation"
+      status: "completed"
+      outputs:
+        - "offer_package/"
+        - "launch_plan.yaml"
+        - "content_cascade.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  phase_0:
+    - "creator_identity.yaml"
+    - "market_diagnosis.yaml"
+    - "competitive_landscape.yaml"
+    - "avatar_definition.yaml"
+    - "traffic_offers_validation.yaml"
+
+  phase_1:
+    - "core_transformation.md"
+    - "value_hierarchy.yaml"
+    - "offer_architecture.yaml"
+    - "risk_reversal.yaml"
+    - "pricing_strategy.yaml"
+    - "godfather_statement.md"
+
+  phase_2:
+    - "brand_offer_alignment.yaml"
+    - "origin_story.md"
+    - "content_offer_bridge.yaml"
+    - "messaging_guide.md"
+    - "authenticity_validation.yaml"
+
+  phase_3:
+    - "content_cascade.yaml"
+    - "launch_calendar.yaml"
+    - "apag_content_map.yaml"
+    - "traffic_metrics.yaml"
+    - "launch_plan.yaml"
+
+  final_deliverable:
+    name: "Irresistible Offer Package"
+    location: "outputs/offers/{offer_id}/"
+    contents:
+      - "README.md — Overview da oferta"
+      - "offer_summary.yaml — Dados estruturados"
+      - "godfather_statement.md — Declaração da oferta"
+      - "value_hierarchy.md — Hierarquia de valor"
+      - "risk_reversal.md — Estratégia de reversão"
+      - "pricing.md — Estratégia de preço"
+      - "launch_plan.md — Plano de lançamento"
+      - "content_cascade.md — Estratégia de conteúdo"
+      - "validation.yaml — Scores e audits"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-sintetizador"]
+
+  PHASE-1:
+    primary: ["koe-offers"]
+    secondary: ["koe-sintetizador", "koe-advisor"]
+
+  PHASE-2:
+    primary: ["koe-brand"]
+    secondary: []
+
+  PHASE-3:
+    primary: ["koe-distribuidor"]
+    secondary: ["koe-advisor"]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY CHECKLIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_checklist:
+  phase_0:
+    - "[ ] Identidade do criador mapeada (5/5 campos)"
+    - "[ ] Análise de mercado completa (4/4 indicadores)"
+    - "[ ] Equação Traffic + Offers >= 6/9"
+    - "[ ] Avatar baseado em Eu-Passado definido"
+    - "[ ] Landscape competitivo com 5+ players"
+
+  phase_1:
+    - "[ ] Transformação Core articulada"
+    - "[ ] Value Hierarchy 3 níveis"
+    - "[ ] Offer Architecture com 4 camadas"
+    - "[ ] Risk Reversal com 3+ reversões"
+    - "[ ] Pricing com ancoragem 5x+"
+    - "[ ] Godfather Statement escrito"
+
+  phase_2:
+    - "[ ] Brand-Offer Alignment >= 8/12"
+    - "[ ] Narrativa de Origem autêntica"
+    - "[ ] Content-to-Offer Bridge mapeado"
+    - "[ ] Messaging Guide completo"
+    - "[ ] Autenticidade validada"
+
+  phase_3:
+    - "[ ] Content Cascade definido"
+    - "[ ] Launch Calendar 30 dias"
+    - "[ ] 5+ conteúdos APAG"
+    - "[ ] Métricas de tráfego definidas"
+    - "[ ] Plano de lançamento completo"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "TRAFFIC_OFFERS_SYSTEM"
+    - "RISK_REVERSAL_ENGINE"
+    - "VALUE_HIERARCHY"
+    - "GODFATHER_OFFER"
+    - "CONTENT_CASCADE"
+    - "APAG_STRUCTURE"
+  source_mind: "dan_koe"
+  lines: "700+"
+  quality_gate: "SC_WFL_KOE_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

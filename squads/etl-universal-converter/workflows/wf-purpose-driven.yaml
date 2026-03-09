@@ -1,0 +1,155 @@
+# Workflow: Purpose-Driven Conversion
+# Converts file, analyzes structure, curates by purpose, and delegates to downstream squads
+
+workflow:
+  id: wf-purpose-driven
+  name: "Purpose-Driven Conversion Pipeline"
+  trigger: "*convert {path} --purpose {purpose_id} | *convert {path} --interactive"
+  executor: etl-chief
+
+  description: |
+    Extends the standard conversion pipeline with 3 additional phases:
+    structural analysis, purpose-driven curation, and intelligent delegation.
+    Activated via --purpose or --interactive flags. Without these flags,
+    the standard wf-convert-single runs unchanged (backward compatible).
+
+  phases:
+    - phase: 1
+      name: "Classify & Convert"
+      workflow: wf-convert-single
+      input:
+        file_path: "{path}"
+      checkpoint:
+        condition: "conversion successful AND output .md exists"
+        on_fail: "Report error and stop — cannot analyze unconverted content"
+      output: "converted_md_path"
+
+    - phase: 2
+      name: "Purpose Selection"
+      condition: "purpose_id NOT pre-set via --purpose flag"
+      action: |
+        Present purpose selection menu via AskUserQuestion:
+
+        ## O que você quer fazer com este conteúdo?
+
+        Arquivo convertido: {filename}.md ({word_count} palavras)
+
+        Options:
+        1. "Construir Squad" (Recommended for books/courses) — Extract frameworks, voice, and thinking DNA for squad creation
+        2. "Base de Conhecimento" — Extract concepts, definitions, and taxonomy for knowledge base
+        3. "Clonar Mente" — Extract communication style and decision patterns
+        4. "Clonar ICP" — Extract demographics, pain points, and objections
+        5. "Criar Conteúdo" — Extract stories, hooks, quotes, and insights for content
+        6. "Construir Narrativa" — Extract personal stories, conflicts, and metaphors
+        7. "Personalizado" — Describe your goal and curate by custom criteria
+        8. "Conversão simples (parar aqui)" — Keep the converted markdown as-is
+
+        If option 8: STOP workflow here. Report conversion complete.
+        If option 7: prompt for custom_description.
+      checkpoint:
+        condition: "purpose_id selected"
+        on_fail: "User cancelled — stop workflow"
+
+    - phase: 3
+      name: "Analyze Structure"
+      task: analyze-structure
+      input:
+        markdown_path: "{converted_md_path}"
+      checkpoint:
+        condition: "structure analysis complete AND sections > 0"
+        on_fail: |
+          If VETO_NO_STRUCTURE: content has no headings.
+          Offer options:
+          1. Continue without curation (delegate full document)
+          2. Stop here (keep converted markdown)
+      output: "structure_analysis"
+
+    - phase: 4
+      name: "Curate by Purpose"
+      task: curate-by-purpose
+      input:
+        structure_analysis: "{phase_3.output}"
+        purpose_id: "{purpose_id}"
+        custom_description: "{custom_description}"  # null if not custom
+      checkpoint:
+        condition: "curated file saved AND user confirmed selection"
+        on_fail: |
+          If VETO_EMPTY_CURATION: no content matches purpose.
+          Offer: select different purpose or stop.
+          If VETO_OVER_CURATION: too aggressive filtering.
+          Auto-adjusted threshold already applied.
+      output: "curated_path"
+
+    - phase: 5
+      name: "Delegation Decision"
+      condition: "purpose_id != 'custom'"
+      task: delegate-extraction
+      sub_phase: "menu_only"
+      action: |
+        Present delegation depth menu (from delegate-extraction step 3).
+        If user selects "Parar aqui": STOP workflow. Report curation complete.
+      checkpoint:
+        condition: "delegation_depth selected"
+        on_fail: "User cancelled delegation — report curation complete"
+      output: "delegation_depth"
+
+    - phase: 6
+      name: "Execute Delegations"
+      condition: "delegation_depth != 'stop'"
+      task: delegate-extraction
+      input:
+        curated_path: "{curated_path}"
+        purpose_id: "{purpose_id}"
+        delegation_depth: "{delegation_depth}"
+      checkpoint:
+        condition: "at least 1 delegation completed successfully"
+        on_fail: "All delegations failed — report errors"
+      output: "delegation_results"
+
+    - phase: 7
+      name: "Quality Gate"
+      action: |
+        Validate all artifacts produced:
+        1. Converted markdown exists and is valid
+        2. Curated markdown exists with curation frontmatter
+        3. Delegation outputs exist (for completed steps)
+
+        Score:
+        - ALL outputs valid → PASS
+        - Partial outputs → PASS_WITH_WARNINGS
+        - No outputs → FAIL
+
+    - phase: 8
+      name: "Final Report"
+      action: |
+        Display consolidated report:
+
+        ```
+        ═══════════════════════════════════════════════
+        ETL Purpose-Driven Conversion — Complete
+        ═══════════════════════════════════════════════
+
+        Source: {original_file}
+        Purpose: {purpose_label}
+
+        Pipeline:
+        ✓ Converted: {filename}.md ({word_count} words)
+        ✓ Analyzed: {sections_count} sections, {content_types} types
+        ✓ Curated: {filename}.curated.md ({curated_words} words, {coverage}%)
+        {delegation_status_lines}
+
+        Artifacts:
+        - {converted_md_path}
+        - {curated_md_path}
+        - {delegation_output_paths...}
+
+        Duration: {elapsed}
+        ═══════════════════════════════════════════════
+        ```
+
+  error_handling:
+    on_conversion_fail: "Stop immediately — nothing to analyze"
+    on_analysis_fail: "Offer to skip analysis and delegate full document"
+    on_curation_fail: "Offer to delegate uncurated content"
+    on_delegation_fail: "Report partial results, suggest manual next steps"
+    on_timeout: "Save state, report what completed, suggest resume"

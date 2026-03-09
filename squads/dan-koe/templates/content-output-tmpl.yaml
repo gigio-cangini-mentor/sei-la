@@ -1,0 +1,301 @@
+# Koe Squad — Content Output Template
+# Standard schema for all content pieces produced by the Koe creative pipeline
+# Version: 1.0.0
+# Created: 2026-02-14
+# Pattern: KOE-TMPL-OUTPUT-001
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PURPOSE: Standardize content output across all Koe agents
+# RULE: Every content piece must follow this schema before distribution
+# AGENTS: koe-arquiteto (produces), koe-distribuidor (distributes)
+# GATE: Content without complete APAG structure = blocked
+# ═══════════════════════════════════════════════════════════════════════════════
+
+content_output:
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 1: METADATA
+  # ───────────────────────────────────────────────────────────────────────────
+  metadata:
+    title: ""                         # Content piece title
+    type: ""                          # newsletter | youtube_script | blog_post | thread | carousel | short_form
+    big_idea: ""                      # The Big Idea at the core (named framework)
+    big_idea_domains: []              # Domains synthesized (e.g., ["psychology", "marketing"])
+    target_platform: ""               # Primary platform for this piece
+    word_count: 0                     # Estimated word count
+    reading_time: ""                  # Estimated reading time (e.g., "7 min")
+    created_by: ""                    # Agent that created it (e.g., koe-arquiteto)
+    created_date: ""                  # YYYY-MM-DD
+    workflow_id: ""                   # Originating workflow
+    cascade_position: ""              # primary | tier_1_derivative | tier_2_derivative | tier_3_derivative
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 2: CONTENT (APAG Structure)
+  # ───────────────────────────────────────────────────────────────────────────
+  content:
+    hook: ""                          # Opening line that stops the scroll (1-2 sentences)
+
+    apag:
+      attention:
+        technique: ""                 # contrarian | specific_result | identity_challenge | blind_spot_question
+        content: ""                   # The actual Attention section content
+        word_count: 0
+
+      perspective:
+        technique: ""                 # root_cause | cross_domain_analogy | anti_pattern_exposure | status_quo_disruption
+        content: ""                   # The Perspective reframe content
+        word_count: 0
+
+      advantage:
+        framework_name: ""            # Named framework being taught
+        steps: []                     # Numbered steps of the framework
+        content: ""                   # Full Advantage section content
+        word_count: 0
+
+      gamify:
+        technique: ""                 # challenge | template | self_assessment | call_to_action
+        content: ""                   # The actionable Gamify section
+        call_to_action: ""            # Specific next step for the reader
+        word_count: 0
+
+    cta:
+      primary: ""                     # Main call to action
+      secondary: ""                   # Optional secondary CTA
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 3: DISTRIBUTION PLAN
+  # ───────────────────────────────────────────────────────────────────────────
+  distribution_plan:
+    platforms:
+      - platform: ""                  # e.g., "Email (Newsletter)"
+        format: ""                    # e.g., "Full APAG, 2000 words"
+        adaptation_notes: ""          # Platform-specific adjustments
+        scheduled_date: ""            # YYYY-MM-DD
+        status: ""                    # DRAFTED/ADAPTED/SCHEDULED/PUBLISHED
+
+    cascade_derivatives:
+      - derivative_type: ""           # e.g., "Twitter/X Thread"
+        platform: ""
+        estimated_pieces: 0           # e.g., 8 tweets
+        adaptation_notes: ""
+        status: ""
+
+    schedule:
+      primary_publish_date: ""        # YYYY-MM-DD
+      cascade_start_date: ""          # YYYY-MM-DD (usually day after primary)
+      cascade_end_date: ""            # YYYY-MM-DD (7-14 days of staggered posts)
+      frequency_notes: ""             # e.g., "2 tweets/day, 1 LinkedIn/day"
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # SECTION 4: QUALITY CHECKS
+  # ───────────────────────────────────────────────────────────────────────────
+  quality_checks:
+    big_idea_present: false           # true/false — is a named Big Idea at the core?
+    apag_complete: false              # true/false — all 4 APAG sections present?
+    voice_consistent: false           # true/false — matches shared Voice DNA?
+    cascade_ready: false              # true/false — designed for repurposing?
+    depth_sufficient: false           # true/false — 80/20 research ratio met?
+    cross_domain_synthesis: false     # true/false — 2+ domains connected?
+    sovereignty_aligned: false        # true/false — content increases reader autonomy?
+    immune_system_clean: false        # true/false — no forbidden patterns detected?
+
+    voice_checklist:
+      em_dash_rhythm: false           # Uses em dashes for dramatic pauses
+      rhetorical_questions: false     # Includes engagement questions
+      framework_language: false       # Uses "framework" not "method/process"
+      signature_phrases: false        # Includes at least 1 Koe signature phrase
+      anti_vocabulary_clean: false    # No forbidden words detected
+
+    blocking_gate:
+      all_checks_passed: false
+      failed_checks: []               # List of failed check IDs
+      gate_verdict: ""                # PASS/FAIL/CONDITIONAL
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDATION RULES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+validation:
+  mandatory_fields:
+    - "metadata.title"
+    - "metadata.type"
+    - "metadata.big_idea"
+    - "content.hook"
+    - "content.apag.attention.content"
+    - "content.apag.perspective.content"
+    - "content.apag.advantage.content"
+    - "content.apag.gamify.content"
+    - "quality_checks.big_idea_present"
+    - "quality_checks.apag_complete"
+    - "quality_checks.voice_consistent"
+
+  blocking_checks:
+    - check: "big_idea_present"
+      veto: "KOE-VT-CONTENT-001"
+      message: "Content has no Big Idea. Every piece must have a named framework at its core."
+    - check: "apag_complete"
+      veto: "KOE-VT-CONTENT-002"
+      message: "APAG structure incomplete. All 4 sections required."
+    - check: "voice_consistent"
+      veto: "KOE-VT-CONTENT-003"
+      message: "Voice inconsistent with Dan Koe DNA. Review against shared Voice DNA."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXAMPLE: Newsletter Piece
+# ═══════════════════════════════════════════════════════════════════════════════
+
+example:
+  metadata:
+    title: "The Compound Creation Framework: Why 1 Hour of Deep Work Beats 10 Hours of Hustle"
+    type: "newsletter"
+    big_idea: "Compound Creation Framework"
+    big_idea_domains: ["finance (compound interest)", "content creation", "neuroscience (myelination)"]
+    target_platform: "Email (Newsletter)"
+    word_count: 2200
+    reading_time: "8 min"
+    created_by: "koe-arquiteto"
+    created_date: "2026-02-14"
+    workflow_id: "wf-content-pipeline"
+    cascade_position: "primary"
+
+  content:
+    hook: "Most creators work 10 hours to produce forgettable content. I work 2 hours and it compounds for years. Here's the framework."
+
+    apag:
+      attention:
+        technique: "specific_result"
+        content: |
+          I published one newsletter 18 months ago. It generated $47,000 in course sales,
+          was repurposed into 23 pieces of content, and still drives email subscribers today.
+
+          Most creators treat content like a treadmill — run hard, stop, nothing remains.
+          That's because they're missing the compound effect.
+        word_count: 120
+
+      perspective:
+        technique: "cross_domain_analogy"
+        content: |
+          In finance, compound interest is called the eighth wonder of the world.
+          $1,000 at 10% annual return becomes $17,449 in 30 years — without adding a cent.
+
+          Content works the same way, but most creators don't see it because they're
+          measuring the wrong things. They count likes instead of compounding assets.
+
+          Your brain works this way too. Neuroscience calls it myelination — every rep
+          strengthens the neural pathway. The 100th newsletter is exponentially better
+          than the 1st, not linearly better.
+
+          The problem isn't effort. The problem is you're not building content that compounds.
+        word_count: 280
+
+      advantage:
+        framework_name: "The Compound Creation Framework"
+        steps:
+          - "1. Create ONE deep piece per week (newsletter, not 10 tweets)"
+          - "2. Build it around a named Big Idea (not a topic, a FRAMEWORK)"
+          - "3. Structure with APAG so it's cascade-ready from birth"
+          - "4. Cascade into 10-20 platform-native derivatives"
+          - "5. Let the primary piece compound (SEO, evergreen, backlinks)"
+        content: |
+          Here's the framework I use every week — the Compound Creation Framework.
+
+          Step 1: Create ONE deep piece...
+          [Full advantage section with detailed explanation of each step,
+          personal examples, and tactical advice — approximately 1200 words]
+        word_count: 1200
+
+      gamify:
+        technique: "challenge"
+        content: |
+          Here's your challenge for this week:
+
+          Write ONE newsletter using APAG structure. Time yourself.
+          Then map out 10 cascade derivatives before you publish.
+
+          I bet you finish the newsletter in under 2 hours. And that single piece
+          will produce more reach than your last month of scattered posting.
+
+          Reply and tell me what happened. Simple, no?
+        word_count: 120
+        call_to_action: "Write one APAG newsletter this week and map 10 cascade derivatives."
+
+    cta:
+      primary: "Reply with your Big Idea and I'll tell you if it's cascade-ready."
+      secondary: "Forward this to a creator friend who's stuck on the content treadmill."
+
+  distribution_plan:
+    platforms:
+      - platform: "Email (Newsletter)"
+        format: "Full APAG, 2200 words"
+        adaptation_notes: "Primary format, no adaptation needed"
+        scheduled_date: "2026-02-17"
+        status: "DRAFTED"
+
+    cascade_derivatives:
+      - derivative_type: "YouTube Script"
+        platform: "YouTube"
+        estimated_pieces: 1
+        adaptation_notes: "Add visual hooks, B-roll cues for compound interest visualization"
+        status: "PLANNED"
+      - derivative_type: "Twitter/X Thread"
+        platform: "Twitter/X"
+        estimated_pieces: 8
+        adaptation_notes: "Extract 8 key insights, each tweet standalone, hook first"
+        status: "PLANNED"
+      - derivative_type: "LinkedIn Post"
+        platform: "LinkedIn"
+        estimated_pieces: 2
+        adaptation_notes: "First-person story format, professional framing"
+        status: "PLANNED"
+      - derivative_type: "Instagram Carousel"
+        platform: "Instagram"
+        estimated_pieces: 1
+        adaptation_notes: "5-slide visual breakdown of the framework"
+        status: "PLANNED"
+      - derivative_type: "Short-Form Video"
+        platform: "TikTok/Reels/Shorts"
+        estimated_pieces: 3
+        adaptation_notes: "60-sec clips: hook + one insight each"
+        status: "PLANNED"
+
+    schedule:
+      primary_publish_date: "2026-02-17"
+      cascade_start_date: "2026-02-18"
+      cascade_end_date: "2026-02-28"
+      frequency_notes: "1 thread + 1 LinkedIn Mon/Wed/Fri, 1 short-form daily, carousel Thursday"
+
+  quality_checks:
+    big_idea_present: true
+    apag_complete: true
+    voice_consistent: true
+    cascade_ready: true
+    depth_sufficient: true
+    cross_domain_synthesis: true
+    sovereignty_aligned: true
+    immune_system_clean: true
+
+    voice_checklist:
+      em_dash_rhythm: true
+      rhetorical_questions: true
+      framework_language: true
+      signature_phrases: true
+      anti_vocabulary_clean: true
+
+    blocking_gate:
+      all_checks_passed: true
+      failed_checks: []
+      gate_verdict: "PASS"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "koe-squad"
+  purpose: "Standardize content output schema across Koe creative pipeline"
+  linked_vetos:
+    - "KOE-VT-CONTENT-001"
+    - "KOE-VT-CONTENT-002"
+    - "KOE-VT-CONTENT-003"
+  enforcement: "mandatory"

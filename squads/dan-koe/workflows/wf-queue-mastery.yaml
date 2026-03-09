@@ -1,0 +1,1011 @@
+# Queue Mastery System Workflow
+# Based on Dan Koe's Queue System & Fill/Empty/Use Brain Cycle
+# Source: QUEUE_SYSTEM + FILL_PHASE + ACTIVE_RECOVERY + CONSCIOUS_CONDITIONING
+# Version: 1.0.0
+
+id: wf-queue-mastery
+name: "Queue Mastery System"
+version: "1.0.0"
+duration: "1-2 dias"
+trigger: "*capture"
+description: |
+  Workflow para auditar, processar e otimizar o Queue System pessoal.
+  A Queue e o sistema nervoso do criador soberano — onde tudo comeca.
+
+  FILOSOFIA: "A qualidade do seu output e funcao direta da qualidade do
+  seu input. Uma Queue negligenciada produz conteudo generico. Uma Queue
+  curada produz Big Ideas."
+
+  O QUEUE SYSTEM: Captura ubiqua -> Tagging por dominio -> Priorizacao
+  por signal strength -> Desenvolvimento -> Arquivo. Nada fica na Queue
+  mais de 7 dias sem processamento.
+
+  FILL/EMPTY/USE CYCLE:
+  - FILL (tarde): Consumo curado — livros, artigos, conversas, observacao
+  - EMPTY (noite): Processamento — caminhadas, meditacao, journal
+  - USE (manha): Criacao profunda — transformar insights em output
+
+  RESULTADO: Queue auditada, itens processados, e lote de material
+  sintetizado pronto para handoff ao wf-big-idea ou wf-content-pipeline.
+
+  FREQUENCIA: Executar quando Queue atinge 30+ itens nao processados,
+  ou como parte do ritual semanal (toda segunda antes do Content Pipeline).
+
+# ===============================================================================
+# QUANDO USAR ESTE WORKFLOW
+# ===============================================================================
+
+best_for:
+  - "Auditar e limpar Queue com itens acumulados"
+  - "Processar backlog de ideias capturadas"
+  - "Otimizar qualidade de captura e fontes de input"
+  - "Preparar material para o Content Pipeline semanal"
+  - "Resetar Queue quando esta congestionada ou negligenciada"
+
+decision_matrix_fit:
+  complexity: low-medium
+  agents_required: 3
+  estimated_duration: "1-2 dias"
+  user_involvement: "medium (elicitacao de fontes e validacao de triagem)"
+  prerequisites:
+    - "Queue com itens capturados (minimo 5, ideal 15-30)"
+    - "Sistema de captura ativo (Notion, Apple Notes, Obsidian, etc.)"
+    - "30-60 minutos disponiveis para sessao de processamento"
+
+# ===============================================================================
+# AGENTS ENVOLVIDOS
+# ===============================================================================
+
+clone_combinations:
+  primary:
+    - agent: koe-chief
+      role: "Orquestracao, definicao de criterios de qualidade, validacao final"
+      phases: [0]
+
+    - agent: koe-coletor
+      role: "Auditoria da Queue, processamento de itens, classificacao"
+      phases: [0, 1]
+
+    - agent: koe-sintetizador
+      role: "Sintese de itens processados, identificacao de padroes emergentes"
+      phases: [2]
+
+  synergies:
+    - agents: [koe-chief, koe-coletor]
+      pattern: "Chief define os padroes de qualidade, Coletor executa a auditoria"
+
+    - agents: [koe-coletor, koe-sintetizador]
+      pattern: "Coletor processa e classifica, Sintetizador identifica padroes nos itens processados"
+
+# ===============================================================================
+# PHASE 0: QUEUE AUDIT
+# ===============================================================================
+
+phases:
+  - id: PHASE-0
+    name: "Queue Audit"
+    days: "Dia 1 (manhã)"
+    tier: 0
+    description: |
+      Auditoria completa do estado atual da Queue. Diagnostico de saude:
+      quantos itens, ha quanto tempo, qual a qualidade, quais fontes
+      estao produzindo os melhores insights.
+
+      PRINCIPIO: "Voce nao pode melhorar o que nao mede. A Queue precisa
+      de metricas tanto quanto um negocio precisa de KPIs."
+
+      DIAGNOSTICO: Esta fase responde 3 perguntas:
+      1. Qual o estado atual da Queue? (tamanho, idade, qualidade)
+      2. Quais fontes produzem os melhores insights? (ROI de atencao)
+      3. O ciclo Fill/Empty/Use esta funcionando? (ou esta quebrado?)
+
+      METRICA: Audit Report com score de saude 0-10.
+
+    agent: koe-chief
+    secondary_agent: koe-coletor
+
+    tasks:
+      - task_id: T0.1
+        name: "Inventario Completo da Queue"
+        required: true
+        description: |
+          Coletor faz inventario de TODOS os itens na Queue.
+          Para cada: data de captura, fonte, dominio, status (fresh/stale/ancient).
+          Fresh: < 3 dias. Stale: 3-7 dias. Ancient: > 7 dias.
+        output: "queue_inventory.yaml"
+
+      - task_id: T0.2
+        name: "Diagnostico de Saude"
+        required: true
+        description: |
+          Aplicar Queue Health Scorecard para diagnosticar o estado geral.
+          Avaliar: volume, qualidade, diversidade de dominios, ratio stale/fresh,
+          frequencia de captura, fontes ativas.
+        output: "health_diagnostic.yaml"
+
+      - task_id: T0.3
+        name: "Analise de Fontes"
+        required: true
+        description: |
+          Mapear quais fontes de input estao produzindo os itens de maior
+          qualidade. Fontes: livros, newsletters, podcasts, conversas,
+          experiencias, observacao, redes sociais. Calcular ROI de atencao
+          (insights de qualidade / tempo investido).
+        output: "source_analysis.yaml"
+
+      - task_id: T0.4
+        name: "Diagnostico do Ciclo Fill/Empty/Use"
+        required: true
+        description: |
+          Avaliar se o ciclo diario esta funcionando:
+          - FILL: Esta consumindo conteudo curado na tarde?
+          - EMPTY: Esta processando/meditando/caminhando na noite?
+          - USE: Esta criando na manha (Deep Work)?
+          Se algum componente esta quebrado, identificar e propor fix.
+        output: "cycle_diagnostic.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Queue Audit Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      queue_audit_template:
+        description: "Template para auditoria completa da Queue"
+        inventory_fields:
+          - id: QA_001
+            name: "total_items"
+            type: "integer"
+            description: "Total de itens na Queue"
+            healthy_range: "10-30"
+            warning: ">50 indica Queue congestionada"
+            critical: ">100 indica Queue abandonada"
+
+          - id: QA_002
+            name: "fresh_items"
+            type: "integer"
+            description: "Itens com menos de 3 dias"
+            healthy_ratio: ">60% do total"
+
+          - id: QA_003
+            name: "stale_items"
+            type: "integer"
+            description: "Itens entre 3-7 dias sem processamento"
+            healthy_ratio: "<30% do total"
+            action_if_high: "Processar ou arquivar nesta sessao"
+
+          - id: QA_004
+            name: "ancient_items"
+            type: "integer"
+            description: "Itens com mais de 7 dias sem processamento"
+            healthy_ratio: "<10% do total"
+            action_if_high: "Decisao binaria: processar AGORA ou arquivar"
+
+          - id: QA_005
+            name: "domain_diversity"
+            type: "integer"
+            description: "Quantos dominios diferentes estao representados"
+            healthy_range: "4+"
+            warning: "<3 indica consumo unidimensional"
+
+          - id: QA_006
+            name: "high_signal_ratio"
+            type: "percentage"
+            description: "Porcentagem de itens com signal_strength = high"
+            healthy_range: ">25%"
+            warning: "<15% indica fontes de baixa qualidade"
+
+          - id: QA_007
+            name: "capture_frequency"
+            type: "per_day"
+            description: "Media de itens capturados por dia"
+            healthy_range: "2-5/dia"
+            warning: "<1/dia indica FILL phase negligenciada"
+            critical: ">10/dia indica captura sem filtro"
+
+        health_scorecard:
+          description: "Scorecard de saude da Queue (0-10)"
+          criteria:
+            - id: HS_001
+              name: "Volume Adequado"
+              max_points: 2
+              scoring:
+                2: "10-30 itens na Queue"
+                1: "5-9 ou 31-50 itens"
+                0: "<5 ou >50 itens"
+
+            - id: HS_002
+              name: "Frescor"
+              max_points: 2
+              scoring:
+                2: ">60% itens fresh (<3 dias)"
+                1: "40-60% itens fresh"
+                0: "<40% itens fresh"
+
+            - id: HS_003
+              name: "Zero Ancient"
+              max_points: 2
+              scoring:
+                2: "0 itens ancient (>7 dias)"
+                1: "1-3 itens ancient"
+                0: "4+ itens ancient"
+
+            - id: HS_004
+              name: "Diversidade de Dominios"
+              max_points: 2
+              scoring:
+                2: "4+ dominios representados"
+                1: "2-3 dominios"
+                0: "1 dominio (monocultura)"
+
+            - id: HS_005
+              name: "Qualidade de Signal"
+              max_points: 2
+              scoring:
+                2: ">30% high-signal"
+                1: "15-30% high-signal"
+                0: "<15% high-signal"
+
+          score_interpretation:
+            "9-10": "Queue exemplar — sistema funcionando perfeitamente"
+            "7-8": "Queue saudavel — ajustes menores"
+            "5-6": "Queue mediana — atencao necessaria em areas especificas"
+            "3-4": "Queue doente — intervencao necessaria"
+            "0-2": "Queue critica — reset completo necessario"
+
+      fill_empty_use_diagnostic:
+        description: "Diagnostico do ciclo Fill/Empty/Use"
+        phases:
+          fill:
+            name: "FILL Phase (Tarde)"
+            purpose: "Consumo curado — encher o cerebro com material de qualidade"
+            diagnostic_questions:
+              - id: FEU_F01
+                question: "Voce tem blocos de consumo curado na tarde?"
+                healthy: "Sim, 1-2h de leitura/video/podcast intencional"
+                warning: "Consumo aleatorio sem intencao"
+                broken: "Nao consome conteudo regularmente"
+
+              - id: FEU_F02
+                question: "Suas fontes sao de alta qualidade?"
+                healthy: "Livros, newsletters curadas, conversas profundas"
+                warning: "Mix de qualidade com lixo"
+                broken: "Apenas redes sociais / scroll infinito"
+
+              - id: FEU_F03
+                question: "Voce captura durante o consumo?"
+                healthy: "Captura imediata em sistema (Queue)"
+                warning: "As vezes esquece de capturar"
+                broken: "Consome sem capturar"
+
+            improvement_protocol:
+              - "Definir 3-5 fontes curadas (livros, newsletters, podcasts)"
+              - "Bloquear 1-2h na agenda da tarde para FILL"
+              - "Ter sistema de captura acessivel (1 toque / 1 clique)"
+              - "Eliminar consumo de baixa qualidade (scroll, noticias)"
+
+          empty:
+            name: "EMPTY Phase (Noite)"
+            purpose: "Processamento subconsciente — esvaziar para criar espaco"
+            diagnostic_questions:
+              - id: FEU_E01
+                question: "Voce tem ritual de processamento noturno?"
+                healthy: "Caminhada, meditacao, journal, ou conversa reflexiva"
+                warning: "As vezes, sem consistencia"
+                broken: "Direto do consumo para dormir (ou tela ate dormir)"
+
+              - id: FEU_E02
+                question: "Insights surgem durante a fase Empty?"
+                healthy: "Regularmente — 'eureka moments' durante caminhada/banho"
+                warning: "Ocasionalmente"
+                broken: "Nunca — cerebro sempre ocupado"
+
+              - id: FEU_E03
+                question: "Voce captura os insights da fase Empty?"
+                healthy: "Celular acessivel para notas rapidas"
+                warning: "Tenta lembrar depois (e perde)"
+                broken: "Nao percebe que tem insights"
+
+            improvement_protocol:
+              - "Adicionar caminhada de 20-30 min sem fone de ouvido"
+              - "Journal de 10 min antes de dormir"
+              - "Banho sem celular mas com bloco de notas proximo"
+              - "Meditacao de 10-15 min focada em processamento"
+
+          use:
+            name: "USE Phase (Manha)"
+            purpose: "Criacao profunda — usar o que foi processado"
+            diagnostic_questions:
+              - id: FEU_U01
+                question: "Voce tem bloco de Deep Work pela manha?"
+                healthy: "2-4h ininterruptas de criacao pela manha"
+                warning: "1h ou interrompido frequentemente"
+                broken: "Manha dedicada a emails, reunioes, reativo"
+
+              - id: FEU_U02
+                question: "O Deep Work produz output publicavel?"
+                healthy: "Sim, peca-mae ou progresso significativo"
+                warning: "As vezes, depende do dia"
+                broken: "Raramente — mais pesquisa que criacao"
+
+              - id: FEU_U03
+                question: "O output da manha usa material da Queue?"
+                healthy: "Diretamente — Queue alimenta criacao"
+                warning: "Indiretamente — lembranca vaga"
+                broken: "Nao — cria do zero sem Queue"
+
+            improvement_protocol:
+              - "Bloquear 2-4h NA MANHA — sem excecoes"
+              - "Notificacoes desligadas durante Deep Work"
+              - "Comecar com Queue aberta — ver itens priorizados"
+              - "Terminar Deep Work com captura do que sobrou"
+
+    checkpoint:
+      id: CP_PHASE_0
+      name: "Queue Audit Complete"
+      criteria:
+        - "Inventario completo da Queue (100% dos itens catalogados)"
+        - "Health Scorecard aplicado com score documentado"
+        - "Analise de fontes com ROI de atencao calculado"
+        - "Diagnostico Fill/Empty/Use completo"
+      human_review: true
+      message: "Revise o diagnostico da Queue. Identifique areas criticas antes do processamento."
+      veto_conditions:
+        - condition: "Queue Health Score <= 2"
+          action: "HALT - Queue em estado critico. Fazer reset completo antes de processar."
+        - condition: ">50% dos itens sao ancient (>7 dias)"
+          action: "WARNING - Backlog massivo. Considerar archival em massa antes de processar."
+        - condition: "Ciclo Fill/Empty/Use com 2+ fases broken"
+          action: "BLOCK - Sistema de captura-processamento-criacao nao funciona. Consertar ciclo ANTES de processar Queue."
+        - condition: "0 itens na Queue"
+          action: "HALT - Queue vazia. Ativar FILL phase de emergencia (48h de consumo curado)."
+    recovery:
+      rollback_to: "fresh_start"
+      preserve:
+        - "queue_raw_export"
+      discard:
+        - "partial_inventory"
+        - "incomplete_health_diagnostic"
+        - "draft_source_analysis"
+      max_retries: 2
+      retry_strategy: "rollback_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 1: PROCESSING SPRINT
+  # =============================================================================
+
+  - id: PHASE-1
+    name: "Processing Sprint"
+    days: "Dia 1 (tarde) - Dia 2 (manhã)"
+    tier: 1
+    description: |
+      Sprint de processamento de todos os itens da Queue. Cada item
+      recebe uma decisao binaria: desenvolver ou arquivar. Sem meios-termos.
+
+      PRINCIPIO: "Decisao rapida e melhor que decisao perfeita.
+      Um item na Queue sem decisao e atrito mental.
+      Processe em lotes de 10, nao 1 por 1."
+
+      PROCESSO POR ITEM:
+      1. Ler/reler o item (30 seg)
+      2. Classificar signal strength (10 seg)
+      3. Decidir: DESENVOLVER ou ARQUIVAR (10 seg)
+      4. Se DESENVOLVER: tag de dominio + prioridade + conexao potencial
+      5. Se ARQUIVAR: mover imediatamente
+
+      META: Processar 100% dos itens. Queue deve terminar com 0 itens
+      nao classificados. Itens "develop" prontos para sintese.
+
+    agent: koe-coletor
+
+    tasks:
+      - task_id: T1.1
+        name: "Organizar Queue por Lotes"
+        required: true
+        description: |
+          Dividir itens da Queue em lotes de 10 para processamento.
+          Ordenar: ancient primeiro (decisao mais urgente),
+          depois stale, depois fresh.
+        output: "processing_batches.yaml"
+
+      - task_id: T1.2
+        name: "Processar Lote Ancient"
+        required: true
+        description: |
+          Processar todos os itens >7 dias. Regra de ferro:
+          Se nao se lembra POR QUE capturou, ARQUIVO.
+          Se ainda provoca curiosidade, DESENVOLVER.
+          Tempo maximo por item: 60 segundos.
+        output: "ancient_processed.yaml"
+
+      - task_id: T1.3
+        name: "Processar Lote Stale"
+        required: true
+        description: |
+          Processar itens de 3-7 dias. Mais generosos que ancient
+          mas ainda com timer. Se o item nao "brilha" em 60 seg,
+          provavelmente nao e high-signal.
+        output: "stale_processed.yaml"
+
+      - task_id: T1.4
+        name: "Processar Lote Fresh"
+        required: true
+        description: |
+          Processar itens <3 dias. Estes tem mais contexto na memoria.
+          Classificar signal strength e decidir: develop ou archive.
+          Para high-signal: adicionar conexoes potenciais com outros itens.
+        output: "fresh_processed.yaml"
+
+      - task_id: T1.5
+        name: "Cross-Reference Develop Items"
+        required: true
+        description: |
+          Olhar todos os itens marcados "develop" e buscar conexoes
+          entre eles. Itens que se conectam naturalmente = candidatos
+          a Big Idea. Marcar clusters de conexao.
+        output: "develop_clusters.yaml"
+
+      - task_id: T1.6
+        name: "Gerar Queue Processada"
+        required: true
+        description: |
+          Compilar resultado final: itens develop com tags, prioridades
+          e clusters. Itens archive movidos. Queue limpa.
+          Registrar metricas do sprint.
+        output: "processed_queue.yaml"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Processing Sprint Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      processing_sprint_template:
+        description: "Template e regras para o Sprint de processamento"
+        decision_framework:
+          name: "The 60-Second Decision"
+          description: "Cada item recebe no maximo 60 segundos de atencao"
+          steps:
+            - step: 1
+              time: "0-10 seg"
+              action: "Ler/reler o item bruto"
+              question: "Lembro por que capturei isso?"
+
+            - step: 2
+              time: "10-30 seg"
+              action: "Sentir reacao"
+              question: "Isso ainda provoca curiosidade, energia, ou tensao?"
+              decision_tree:
+                yes: "Prossiga para classificacao"
+                no: "ARQUIVO imediato"
+                maybe: "Reescreva em 1 frase. Se nao consegue, ARQUIVO."
+
+            - step: 3
+              time: "30-50 seg"
+              action: "Classificar"
+              fields:
+                signal_strength: "high / medium / noise"
+                primary_domain: "[dominio principal]"
+                secondary_domains: "[dominios secundarios]"
+                potential_connections: "[links com outros itens develop]"
+
+            - step: 4
+              time: "50-60 seg"
+              action: "Decidir"
+              options:
+                develop: "Manter na Queue ativa com classificacao"
+                archive: "Mover para arquivo permanente"
+                merge: "Combinar com outro item existente"
+
+        batch_metrics:
+          per_batch:
+            total_processed: "Itens processados no lote"
+            developed: "Itens marcados develop"
+            archived: "Itens movidos para arquivo"
+            merged: "Itens combinados com outros"
+            avg_decision_time: "Tempo medio por decisao"
+            high_signal_count: "Quantidade de high-signal no lote"
+
+          sprint_totals:
+            total_queue_before: "Tamanho da Queue antes do sprint"
+            total_queue_after: "Tamanho da Queue apos sprint"
+            reduction_percentage: "% de reducao"
+            develop_ratio: "% de itens que sobreviveram"
+            time_spent: "Tempo total do sprint"
+
+        velocity_targets:
+          beginner: "10 itens em 15 min (1.5 min/item)"
+          intermediate: "10 itens em 10 min (1 min/item)"
+          advanced: "10 itens em 7 min (42 seg/item)"
+          principle: "Velocidade vem com pratica. Nao otimize no primeiro sprint."
+
+      archive_protocol:
+        description: "Protocolo para arquivamento de itens"
+        archive_categories:
+          - id: ARC_001
+            name: "Noise"
+            description: "Item sem valor identificavel"
+            action: "Deletar permanentemente"
+            retention: "0 dias"
+
+          - id: ARC_002
+            name: "Low-Signal Archive"
+            description: "Pode ter valor futuro mas nao agora"
+            action: "Mover para arquivo frio"
+            retention: "90 dias (depois auto-delete)"
+
+          - id: ARC_003
+            name: "Domain Reference"
+            description: "Referencia util mas nao insight"
+            action: "Mover para biblioteca de referencia por dominio"
+            retention: "Permanente"
+
+          - id: ARC_004
+            name: "Premature Idea"
+            description: "Ideia com potencial mas sem maturidade"
+            action: "Mover para 'incubadora' — revisar em 30 dias"
+            retention: "30 dias (depois re-avaliar)"
+
+        rules:
+          - "NUNCA deixe um item sem categoria — decisao binaria sempre"
+          - "Noise = delete sem remorso. Guardar lixo e acumular atrito."
+          - "Na duvida entre archive e develop, ARCHIVE. Ideias boas voltam."
+          - "Itens prematuros vao para incubadora — nao para Queue ativa"
+
+      cluster_detection_template:
+        description: "Template para identificacao de clusters de conexao"
+        method: |
+          Olhe todos os itens marcados "develop" e pergunte:
+          "Algum destes itens fala sobre o MESMO padrao de angulos diferentes?"
+
+          Se 3+ itens apontam para o mesmo padrao = CLUSTER = candidato a Big Idea.
+
+        cluster_schema:
+          cluster_id: "[auto-gerado]"
+          items: ["[lista de item_ids conectados]"]
+          shared_pattern: "[o padrao que os une]"
+          domains_involved: ["[lista de dominios]"]
+          big_idea_potential: "[low/medium/high]"
+          recommended_workflow: "[wf-big-idea / wf-content-pipeline / hold]"
+
+        example:
+          cluster_id: "CL_001"
+          items: ["QI_023", "QI_045", "QI_067"]
+          shared_pattern: "Subtracao como principio universal de excelencia"
+          domains_involved: ["escultura", "produtividade", "investimentos", "design"]
+          big_idea_potential: "high"
+          recommended_workflow: "wf-big-idea"
+
+    checkpoint:
+      id: CP_PHASE_1
+      name: "Processing Sprint Complete"
+      criteria:
+        - "100% dos itens da Queue processados (develop ou archive)"
+        - "0 itens sem classificacao na Queue"
+        - "Clusters de conexao identificados"
+        - "Metricas do sprint documentadas"
+        - "Queue ativa contém apenas itens 'develop' classificados"
+      human_review: true
+      message: "Revise os clusters e itens develop. Estes alimentarao a sintese."
+      veto_conditions:
+        - condition: "Menos de 80% dos itens processados"
+          action: "BLOCK - Sprint incompleto. Processar restante antes de prosseguir."
+        - condition: "0 itens develop apos sprint"
+          action: "HALT - Nenhum material sobreviveu. Queue precisava de FILL, nao de processamento."
+        - condition: "0 clusters identificados"
+          action: "WARNING - Sem clusters, nao ha padroes emergentes. Pode indicar captura desconectada."
+        - condition: ">70% dos itens foram para archive"
+          action: "WARNING - Alta taxa de descarte indica fontes de baixa qualidade. Revisar FILL phase."
+    recovery:
+      rollback_to: "phase_0_checkpoint"
+      preserve:
+        - "queue_inventory"
+        - "health_diagnostic"
+        - "source_analysis"
+        - "cycle_diagnostic"
+      discard:
+        - "partial_batch_processing"
+        - "incomplete_develop_clusters"
+        - "draft_processed_queue"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+  # =============================================================================
+  # PHASE 2: SYNTHESIS HANDOFF
+  # =============================================================================
+
+  - id: PHASE-2
+    name: "Synthesis Handoff"
+    days: "Dia 2 (tarde)"
+    tier: 1
+    description: |
+      Preparacao do material processado para handoff a outros workflows.
+      O Sintetizador pega os itens develop e clusters e cria pacotes
+      prontos para alimentar wf-big-idea ou wf-content-pipeline.
+
+      PRINCIPIO: "A Queue nao e o destino — e o ponto de partida.
+      Material processado sem handoff e desperdicio.
+      Cada cluster deve ter um proximo passo claro."
+
+      RESULTADO: Synthesis Ready Packages — pacotes organizados
+      prontos para ativacao de outros workflows.
+
+    agent: koe-sintetizador
+
+    tasks:
+      - task_id: T2.1
+        name: "Avaliar Clusters para Big Idea"
+        required: true
+        description: |
+          Cada cluster identificado na PHASE-1 e avaliado:
+          tem profundidade para wf-big-idea? Ou e melhor para
+          wf-content-pipeline direto? Aplicar criterio de profundidade.
+        output: "cluster_evaluation.yaml"
+
+      - task_id: T2.2
+        name: "Criar Synthesis Ready Packages"
+        required: true
+        description: |
+          Para cada cluster/item develop aprovado, criar pacote
+          de sintese com: insight central, dominios envolvidos,
+          material de suporte, workflow recomendado, prioridade.
+        output: "synthesis_packages.yaml"
+
+      - task_id: T2.3
+        name: "Priorizar Pacotes"
+        required: true
+        description: |
+          Ordenar pacotes por prioridade usando criterios:
+          profundidade cross-domain, alinhamento com brand,
+          potencial de cascade, urgencia temporal.
+          Top 3 pacotes recebem recomendacao de ativacao imediata.
+        output: "prioritized_packages.yaml"
+
+      - task_id: T2.4
+        name: "Gerar Recomendacoes de FILL"
+        required: true
+        description: |
+          Com base na analise de fontes (PHASE-0) e no processamento
+          (PHASE-1), gerar recomendacoes para melhorar a FILL phase:
+          quais fontes manter, quais eliminar, quais adicionar.
+        output: "fill_recommendations.yaml"
+
+      - task_id: T2.5
+        name: "Compilar Queue Mastery Report"
+        required: true
+        description: |
+          Relatorio final com: estado antes/depois da Queue,
+          metricas do sprint, clusters encontrados, pacotes prontos,
+          recomendacoes de melhoria, proximo passo recomendado.
+        output: "queue_mastery_report.md"
+
+    # -------------------------------------------------------------------------
+    # INLINE STRUCTURE: Synthesis Ready Template
+    # -------------------------------------------------------------------------
+    inline_structures:
+      synthesis_ready_template:
+        description: "Template para pacotes de sintese prontos para handoff"
+        package_schema:
+          package_id: "[auto-gerado]"
+          source_cluster: "[cluster_id ou item_id individual]"
+          insight_central: "[1-2 frases descrevendo o insight]"
+          domains: ["[lista de dominios]"]
+          cross_domain_score: "[1-5]"
+          material_included:
+            - "[item_id]: [descricao breve]"
+          support_evidence:
+            - type: "[dado/estudo/exemplo/experiencia]"
+              content: "[descricao]"
+          recommended_workflow: "[wf-big-idea / wf-content-pipeline]"
+          priority: "[P0-critical / P1-high / P2-medium / P3-low]"
+          rationale: "[Por que esta prioridade?]"
+          estimated_output: "[O que este pacote pode gerar?]"
+
+        example:
+          package_id: "SRP_001"
+          source_cluster: "CL_001"
+          insight_central: "Excelencia em qualquer dominio segue o Principio da Subtracao — os mestres removem, nao adicionam."
+          domains: ["escultura", "produtividade", "investimentos", "design"]
+          cross_domain_score: 5
+          material_included:
+            - "QI_023: Citacao Michelangelo sobre remover pedra"
+            - "QI_045: Warren Buffett agenda 90% vazia"
+            - "QI_067: Dieter Rams '10 principios' — 8 sao sobre remover"
+          support_evidence:
+            - type: "estudo"
+              content: "Pesquisa de Greg McKeown — Essencialismo"
+            - type: "experiencia"
+              content: "Minha experiencia cancelando 47 compromissos em 1 semana"
+          recommended_workflow: "wf-big-idea"
+          priority: "P0-critical"
+          rationale: "4 dominios conectados, experiencia pessoal forte, alto potencial viral"
+          estimated_output: "Framework nomeado + newsletter cornerstone + thread viral"
+
+      prioritization_matrix:
+        description: "Matriz para priorizacao de pacotes de sintese"
+        criteria:
+          - id: PM_001
+            name: "Profundidade Cross-Domain"
+            weight: 0.30
+            scoring:
+              3: "4+ dominios com conexoes nao obvias"
+              2: "2-3 dominios com ponte clara"
+              1: "1 dominio ou conexao superficial"
+
+          - id: PM_002
+            name: "Alinhamento com Brand"
+            weight: 0.25
+            scoring:
+              3: "Conecta com tese central (soberania, criacao, simplicidade)"
+              2: "Relacionado mas tangencial"
+              1: "Desconectado da narrativa"
+
+          - id: PM_003
+            name: "Potencial de Cascade"
+            weight: 0.25
+            scoring:
+              3: "20+ pecas possiveis (cascade completo)"
+              2: "10-19 pecas (cascade parcial)"
+              1: "< 10 pecas (limitado)"
+
+          - id: PM_004
+            name: "Urgencia Temporal"
+            weight: 0.20
+            scoring:
+              3: "Trending topic ou momento cultural relevante"
+              2: "Relevante mas sem urgencia"
+              1: "Atemporal (pode esperar)"
+
+        priority_assignment:
+          "P0-critical": "Weighted score >= 2.5 — ativar esta semana"
+          "P1-high": "Weighted score 2.0-2.4 — ativar em 1-2 semanas"
+          "P2-medium": "Weighted score 1.5-1.9 — ativar quando houver espaco"
+          "P3-low": "Weighted score < 1.5 — manter em incubadora"
+
+      fill_improvement_template:
+        description: "Template para recomendacoes de melhoria da FILL phase"
+        analysis_dimensions:
+          sources_roi:
+            description: "ROI de atencao por fonte"
+            template:
+              source: "[nome da fonte]"
+              type: "[livro/newsletter/podcast/conversa/rede social/experiencia]"
+              time_invested: "[horas/semana]"
+              items_captured: "[itens/semana]"
+              high_signal_ratio: "[%]"
+              roi: "[high_signal_items / time_invested]"
+              recommendation: "[manter/ampliar/reduzir/eliminar]"
+
+          domain_gaps:
+            description: "Dominios sub-representados na captura"
+            template:
+              current_domains: ["[lista]"]
+              missing_domains: ["[lista de dominios que agregariam diversidade]"]
+              recommended_sources: ["[fontes para preencher gaps]"]
+
+          consumption_hygiene:
+            description: "Higiene de consumo — o que eliminar"
+            categories:
+              keep: "Fontes com ROI alto — ampliar tempo"
+              reduce: "Fontes com ROI medio — manter mas reduzir"
+              eliminate: "Fontes com ROI baixo — eliminar completamente"
+              add: "Novas fontes para diversificar dominios"
+
+    checkpoint:
+      id: CP_PHASE_2
+      name: "Synthesis Handoff Complete"
+      criteria:
+        - "Todos os clusters avaliados com workflow recomendado"
+        - "Synthesis Ready Packages criados para cada cluster viavel"
+        - "Pacotes priorizados com top 3 recomendados para ativacao"
+        - "Recomendacoes de FILL documentadas"
+        - "Queue Mastery Report final compilado"
+      human_review: true
+      message: "Revise os pacotes de sintese e prioridades. Decida quais ativar esta semana."
+      veto_conditions:
+        - condition: "0 pacotes de sintese gerados"
+          action: "HALT - Processamento nao gerou material utilizavel. Diagnosticar fontes de input."
+        - condition: "Pacotes sem workflow recomendado"
+          action: "BLOCK - Cada pacote precisa de proximo passo claro. Sem direcao = desperdicio."
+        - condition: "0 recomendacoes de FILL"
+          action: "WARNING - Sem melhoria de fontes, proxima Queue tera mesma qualidade."
+        - condition: "Top 3 todos P3-low"
+          action: "WARNING - Nenhum insight forte nesta rodada. Considerar FILL phase intensiva."
+    recovery:
+      rollback_to: "phase_1_checkpoint"
+      preserve:
+        - "processing_batches"
+        - "processed_queue"
+        - "develop_clusters"
+      discard:
+        - "partial_cluster_evaluation"
+        - "incomplete_synthesis_packages"
+        - "draft_fill_recommendations"
+      max_retries: 2
+      retry_strategy: "fix_and_retry"
+      escalate_to: "koe-chief"
+      escalation_context:
+        - "phase_name"
+        - "failure_reason"
+        - "retry_count"
+        - "preserved_state"
+
+# ===============================================================================
+# ERROR HANDLING
+# ===============================================================================
+
+error_handling:
+  on_phase_failure:
+    action: "execute_phase_recovery"
+    notify: "koe-chief"
+  on_recovery_failure:
+    action: "halt_workflow"
+    preserve_all_checkpoints: true
+    create_incident_report: true
+    notify: ["koe-chief", "user"]
+  on_veto_triggered:
+    action: "halt_phase"
+    require: "human_review"
+    preserve_progress: true
+
+# ===============================================================================
+# SIGNALS
+# ===============================================================================
+
+signals:
+  completion:
+    type: "workflow_complete"
+    payload:
+      workflow_id: "wf-queue-mastery"
+      status: "completed"
+      outputs:
+        - "queue_mastery_report.md"
+        - "synthesis_packages.yaml"
+        - "prioritized_packages.yaml"
+
+  checkpoint:
+    type: "checkpoint_reached"
+    payload:
+      phase_id: "PHASE-{N}"
+      status: "awaiting_review"
+      requires: "human_approval"
+
+  blocked:
+    type: "workflow_blocked"
+    payload:
+      phase_id: "PHASE-{N}"
+      reason: "veto_condition_triggered"
+      veto: "{veto_description}"
+
+  handoff:
+    type: "workflow_handoff"
+    description: "Sinaliza que pacotes estao prontos para outros workflows"
+    payload:
+      packages: "[list of synthesis_package_ids]"
+      recommended_workflows: "[wf-big-idea, wf-content-pipeline]"
+      priority_activations: "[top 3 package_ids]"
+
+# ===============================================================================
+# OUTPUTS
+# ===============================================================================
+
+outputs:
+  phase_0:
+    - "queue_inventory.yaml"
+    - "health_diagnostic.yaml"
+    - "source_analysis.yaml"
+    - "cycle_diagnostic.yaml"
+
+  phase_1:
+    - "processing_batches.yaml"
+    - "ancient_processed.yaml"
+    - "stale_processed.yaml"
+    - "fresh_processed.yaml"
+    - "develop_clusters.yaml"
+    - "processed_queue.yaml"
+
+  phase_2:
+    - "cluster_evaluation.yaml"
+    - "synthesis_packages.yaml"
+    - "prioritized_packages.yaml"
+    - "fill_recommendations.yaml"
+    - "queue_mastery_report.md"
+
+  final_deliverable:
+    name: "Queue Mastery Report"
+    location: "outputs/queue/{session_id}/"
+    contents:
+      - "queue_mastery_report.md - Relatorio completo"
+      - "synthesis_packages.yaml - Pacotes prontos para handoff"
+      - "prioritized_packages.yaml - Priorizacao de pacotes"
+      - "fill_recommendations.yaml - Recomendacoes de melhoria"
+      - "health_diagnostic.yaml - Diagnostico de saude"
+
+# ===============================================================================
+# AGENTS BY PHASE
+# ===============================================================================
+
+agents_by_phase:
+  PHASE-0:
+    primary: ["koe-chief"]
+    secondary: ["koe-coletor"]
+
+  PHASE-1:
+    primary: ["koe-coletor"]
+    secondary: []
+
+  PHASE-2:
+    primary: ["koe-sintetizador"]
+    secondary: []
+
+# ===============================================================================
+# QUALITY CHECKLIST
+# ===============================================================================
+
+quality_checklist:
+  phase_0:
+    - "[ ] Inventario completo (100% itens)"
+    - "[ ] Health Score documentado"
+    - "[ ] Analise de fontes com ROI"
+    - "[ ] Diagnostico Fill/Empty/Use"
+
+  phase_1:
+    - "[ ] 100% itens processados"
+    - "[ ] 0 itens sem classificacao"
+    - "[ ] Clusters identificados"
+    - "[ ] Metricas do sprint"
+
+  phase_2:
+    - "[ ] Clusters avaliados"
+    - "[ ] Synthesis Packages criados"
+    - "[ ] Top 3 priorizados"
+    - "[ ] Recomendacoes de FILL"
+    - "[ ] Report final compilado"
+
+# ===============================================================================
+# INTEGRATION WITH OTHER WORKFLOWS
+# ===============================================================================
+
+integration:
+  feeds_into:
+    - workflow: "wf-big-idea"
+      trigger: "Quando synthesis package tem cross_domain_score >= 4"
+      handoff: "synthesis_packages.yaml -> seed_insight"
+
+    - workflow: "wf-content-pipeline"
+      trigger: "Quando synthesis package e P0-critical com cascade potential"
+      handoff: "prioritized_packages.yaml -> big_idea_selection"
+
+  fed_by:
+    - workflow: "wf-content-pipeline"
+      context: "PHASE-0 do content pipeline usa queue mastery como pre-requisito"
+      relationship: "Queue Mastery garante Queue saudavel para Content Pipeline"
+
+# ===============================================================================
+# METADATA
+# ===============================================================================
+
+metadata:
+  version: "1.0.0"
+  created: "2026-02-14"
+  author: "squad-architect"
+  source_frameworks:
+    - "QUEUE_SYSTEM"
+    - "FILL_EMPTY_USE_CYCLE"
+    - "ACTIVE_RECOVERY_PROCESSING"
+    - "CONSCIOUS_CONDITIONING"
+  source_mind: "dan_koe"
+  lines: "600+"
+  quality_gate: "SC_WFL_001"
+  quality_score: "PENDING"
+
+
+# Criado com Squad Creator do AIOSPRO por @oalanicolas e @pedrovalerio | 2026-02-14

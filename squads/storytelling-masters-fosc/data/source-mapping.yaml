@@ -1,0 +1,154 @@
+# Source Mapping — Storytelling Masters Fosc
+# Maps each agent to their primary and complementary source books
+# Books are in: squads/_imports/knowledge-base/+PROJETOS Palestras + Mágicas/LUIZFOSC/CURSOS E TRANSCRIÇÕES/LIVROS PARA MENTORIA DE PALESTRAS/markdown-output/
+
+source_base: "squads/_imports/knowledge-base/+PROJETOS Palestras + Mágicas/LUIZFOSC/CURSOS E TRANSCRIÇÕES/LIVROS PARA MENTORIA DE PALESTRAS/markdown-output"
+
+agents:
+  robert-mckee:
+    tier: 0
+    role: "Story structure, scenes, principles"
+    primary_sources:
+      - "06 - [S] Story - Robert McKee.md"
+      - "24 - [A] Storynomics - Robert McKee & Thomas Gerace.md"
+    complementary_sources:
+      - "30 - [B] The Anatomy of Story - John Truby.md"
+      - "40 - [B] Screenplay - Syd Field.md"
+      - "41 - [B] Into the Woods - John Yorke.md"
+      - "53 - [C] Story Craft - Jack Hart.md"
+      - "Conferência Mágica e Cinema - LuizFosc v2.0.md"  # [B] Autoral — premissa, conflitos, incidente incitante, viradas de valor aplicados a performance
+
+  joseph-campbell:
+    tier: 0
+    role: "Monomyth, hero's journey, archetypes"
+    primary_sources:
+      - "10 - [S] The Hero with a Thousand Faces - Joseph Campbell.md"
+    complementary_sources:
+      - "31 - [B] The Writer's Journey - Christopher Vogler.md"
+      - "50 - [C] The Seven Basic Plots - Christopher Booker.md"
+      - "22 - [A] O Guia Completo do Storytelling - Fernando Palacios & Martha Terenzzo.md"
+
+  nancy-duarte:
+    tier: 1
+    role: "Sparkline, visual storytelling, presentation design"
+    primary_sources:
+      - "02 - [S] Resonate - Nancy Duarte.md"
+    complementary_sources:
+      - "37 - [B] Storytelling com Dados - Cole Nussbaumer Knaflic.md"
+      - "16 - [A] Speak Like Churchill, Stand Like Lincoln - James Humes.md"
+
+  carmine-gallo:
+    tier: 1
+    role: "TED-style presentations, Steve Jobs method, storytelling secrets"
+    primary_sources:
+      - "03 - [S] Talk Like TED - Carmine Gallo.md"
+      - "20 - [A] The Storyteller's Secret - Carmine Gallo.md"
+      - "21 - [A] The Presentation Secrets of Steve Jobs - Carmine Gallo.md"
+    complementary_sources:
+      - "12 - [A] Say What They Can't Unhear - Tamsen Webster.md"
+      - "18 - [A] Speak, Memorably - Bill McGowan & Juliana Silva.md"
+
+  matthew-dicks:
+    tier: 1
+    role: "Storyworthy method, 5-second moment, homework for life"
+    primary_sources:
+      - "04 - [S] Storyworthy - Matthew Dicks.md"
+      - "05 - [S] How to Tell a Story - The Moth.md"
+    complementary_sources:
+      - "19 - [A] Stories That Stick - Kindra Hall.md"
+      - "29 - [B] Unleash the Power of Storytelling - Rob Biesenbach.md"
+      - "39 - [B] How Your Story Sets You Free - Heather Box & Julian Mocine-McQueen.md"
+
+  robert-cialdini:
+    tier: 2
+    role: "6 principles of influence, persuasion science"
+    primary_sources:
+      - "11 - [A] Influence - Robert Cialdini.md"
+    complementary_sources:
+      - "38 - [B] The Power of Moments - Chip & Dan Heath.md"
+      - "33 - [B] Hooked How Leaders Connect - Gabrielle Dolan & Yamini Naidu.md"
+
+  chip-dan-heath:
+    tier: 2
+    role: "Made to Stick (SUCCESs framework), Power of Moments"
+    primary_sources:
+      - "01 - [S] Made to Stick - Chip & Dan Heath.md"
+      - "38 - [B] The Power of Moments - Chip & Dan Heath.md"
+    complementary_sources:
+      - "14 - [A] The Story Factor - Annette Simmons.md"
+      - "34 - [B] The Storytelling Edge - Joe Lazauskas & Shane Snow.md"
+
+  jay-heinrichs:
+    tier: 2
+    role: "Classical rhetoric, argumentation, persuasive speaking"
+    primary_sources:
+      - "07 - [S] Thank You for Arguing - Jay Heinrichs.md"
+    complementary_sources:
+      - "44 - [C] When They Go Low, We Go High - Philip Collins.md"
+      - "45 - [C] Lincoln at Gettysburg - Garry Wills.md"
+      - "46 - [C] Language in Thought and Action - S.I. Hayakawa.md"
+
+  donald-miller:
+    tier: 3
+    role: "StoryBrand framework, business narrative, brand storytelling"
+    primary_sources:
+      - "08 - [S] Building a StoryBrand - Donald Miller.md"
+    complementary_sources:
+      - "26 - [B] Lead with a Story - Paul Smith.md"
+      - "32 - [B] Sales Pitch - April Dunford.md"
+      - "51 - [C] Let the Story Do the Work - Esther K. Choy.md"
+
+  blake-snyder:
+    tier: 3
+    role: "Save the Cat method, story beats, genre structure"
+    primary_sources:
+      - "23 - [A] Save the Cat - Blake Snyder.md"
+      - "23b - [A] Save the Cat Goes to the Movies - Blake Snyder.md"
+      - "23c - [A] Save the Cat Strikes Back - Blake Snyder.md"
+    complementary_sources:
+      - "35 - [B] Pixar Storytelling - Dean Movshovitz.md"
+      - "36 - [B] Creativity, Inc. - Ed Catmull & Amy Wallace.md"
+      - "42 - [B] On Writing - Stephen King.md"
+      - "Conferência Mágica e Cinema - LuizFosc v2.0.md"  # [B] Autoral — estrutura 3 atos (Syd Field), roteiro, montagem, ferramentas de roteiro aplicadas a performance
+
+  dale-carnegie:
+    tier: 3
+    role: "Public speaking fundamentals, audience connection"
+    primary_sources:
+      - "15 - [A] Como Falar em Público e Encantar as Pessoas - Dale Carnegie.md"
+    complementary_sources:
+      - "27 - [B] 29 Minutos para Falar Bem em Público - Reinaldo Polito & Rachel Polito.md"
+      - "17 - [A] Don't Say Um - Michael Chad Hoeppner.md"
+      - "56 - [C] Pitch Perfect - Bill McGowan.md"
+      - "48 - [C] Comunicação Assertiva - Débora Brum.md"
+      - "09 - [S] Crie Palestras Inesquecíveis - Joni Galvão & Dennis Penna.md"
+
+# Autoral / internal reference (LuizFosc original material):
+autoral:
+  - file: "Conferência Mágica e Cinema - LuizFosc v2.0.md"
+    tier: "B"
+    type: "nota-de-conferencia"
+    author: "LuizFosc"
+    word_count: 31036
+    topics:
+      - storytelling cinematográfico aplicado a performance
+      - psicologia da emoção e suspense vs surpresa (Hitchcock)
+      - ferramentas de roteiro (verossimilhança, subtexto, MacGuffin, Deus ex-machina, pista/recompensa)
+      - estrutura narrativa 3 atos (Syd Field) e Método 4x4 (Joni Galvão)
+      - conflito mágico (Pepe Carrol), dual reality (Kenton Knepper), pistas falsas (Tamariz)
+      - montagem, edição, efeito Kuleshov, raccord
+    mapped_to_agents:
+      - robert-mckee  # premissa, conflitos, incidente incitante, viradas de valor
+      - blake-snyder  # estrutura 3 atos, roteiro, ferramentas de roteiro
+    note: "Material autoral do dono do squad — ponte única entre cinema, mágica e storytelling para palestras"
+
+# Unmapped complementary sources (available for any agent enrichment):
+unmapped:
+  - "13 - [A] The Science of Storytelling - Will Storr.md"
+  - "25 - [A] Wired for Story - Lisa Cron.md"
+  - "28 - [B] The Storytelling Animal - Jonathan Gottschall.md"
+  - "43 - [C] Draft No. 4 - John McPhee.md"
+  - "47 - [C] Storytelling Histórias que Deixam Marcas - Adilson Xavier.md"
+  - "49 - [C] Bird by Bird - Anne Lamott.md"
+  - "52 - [C] Telling True Stories - Mark Kramer & Wendy Call.md"
+  - "55 - [C] The Situation and the Story - Vivian Gornick.md"
