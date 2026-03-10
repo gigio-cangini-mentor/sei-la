@@ -1,10 +1,10 @@
 # @pedro-valerio Memory - Process Absolutist
 
 ## Quick Stats
-- Workflows auditados: 2 (deep-research v1.0, v1.1)
+- Workflows auditados: 4 (deep-research v1.0, v1.1; BRE wf-extract v1.0, wf-formalize v1.0)
 - Clones auditados: 2 (renner-silva v1.1=8.5, v1.2=9.0)
 - Veto conditions criadas: 18 (deep-research checkpoints.yaml)
-- Gaps identificados: 8 workflow (4 critical→FIXED) + 8 clone (1 major + 7 minor)
+- Gaps identificados: 12 workflow (4 critical→FIXED deep-research; 5 CRITICAL BRE; 5 MAJOR BRE) + 8 clone (1 major + 7 minor)
 
 ---
 
@@ -31,6 +31,23 @@
 - Zero wrong paths: 9/10 (+4 pontos, integrity_score agora BLOQUEIA < 60%)
 - Gaps remanescentes: 4 minor (LOW severity, não bloqueantes)
 
+### [2026-03-09] BRE wf-extract-rules v1.0: VETO (62/100)
+- 5 CRITICAL issues: C1-C5 (veto sem blocking, checkpoints fracos, handoffs sem validação, enforcement ausente, fallback ausente)
+- 5 MAJOR issues: M1-M5 (edge cases, ambiguity, quality gates só Phase 5, checkpoint auto sem executor, checklists desconectados)
+- Veto conditions: 7/10 (16 conditions mas SEM blocking: true)
+- Checkpoints: 6/10 (só Phase 5 tem quality gate)
+- Zero wrong paths: 5/10 (executor PODE ignorar 5 vetos críticos)
+- Fallback chains: 4/10 (veto binário, sem graceful degradation)
+- Score 29 pontos ABAIXO de deep-research v1.1
+
+### [2026-03-09] BRE wf-formalize-rules v1.0: VETO (54/100)
+- Mesmos 5 CRITICAL de wf-extract-rules
+- 1 CRITICAL ADICIONAL: checkpoints AUSENTES (só veto_conditions, sem type/question/checks)
+- Veto conditions: 6/10 (6 conditions sem blocking)
+- Checkpoints: 4/10 (PIOR que wf-extract, checkpoints não definidos)
+- Zero wrong paths: 5/10 (executor PODE ignorar vetos)
+- Fallback chains: 3/10 (pior que wf-extract, menos fases)
+
 ---
 
 ## Veto Conditions Criadas
@@ -54,11 +71,13 @@
 - Global safeguards (max_waves: 3, timeout: 600s, plateau_threshold: 3)
 
 ### Anti-Patterns Detectados
-- ❌ Checkpoint sem veto condition → FIXED v1.1 (todas fases agora têm veto)
-- ❌ Fluxo que permite voltar → OK (pipeline é unidirecional)
-- ❌ Handoff sem validação → PARTIAL (handoffs implícitos, sem structured format)
-- ❌ Quality gate sem enforcement → FIXED v1.1 (veto conditions enforçam quality gates)
-- ❌ Stopping criteria sem edge cases → FIXED v1.1 (plateau, timeout, regression)
+- ❌ Checkpoint sem veto condition → FIXED deep-research v1.1 (todas fases agora têm veto) | BRE: PRESENTE wf-formalize
+- ❌ Fluxo que permite voltar → OK (pipeline é unidirecional deep-research + BRE)
+- ❌ Handoff sem validação → PARTIAL deep-research + BRE (handoffs implícitos, sem structured format)
+- ❌ Quality gate sem enforcement → FIXED deep-research v1.1 (veto conditions enforçam quality gates) | BRE: PRESENTE (só Phase 5)
+- ❌ Stopping criteria sem edge cases → FIXED deep-research v1.1 (plateau, timeout, regression) | BRE: PRESENTE (ausentes)
+- ❌ Veto sem blocking explícito → BRE CRITICAL (0 de 16 vetos têm blocking: true)
+- ❌ Checkpoint type ausente → BRE wf-formalize CRITICAL (6 vetos sem checkpoint type definido)
 
 ---
 
@@ -71,11 +90,25 @@
 - C3: Phase 4 sem quality gate → FIXED (V4.1-V4.4 com >= 500 tokens, >= 3 sources)
 - C4: Integrity score < 70% passa → FIXED (< 60% BLOQUEIA, 60-70% FLAGS)
 
-### MINOR (v1.1) — NÃO BLOQUEANTES
+### MINOR (deep-research v1.1) — NÃO BLOQUEANTES
 - Phase 5 veto incomplete (só overwrite, não valida 4 files output)
 - Handoff format não estruturado (context/files sem validation)
 - Decomposition uniqueness não enforçada (queries podem duplicar)
 - Subagent partial failure não documentado (skipped sub-queries não aparecem no report)
+
+### CRITICAL (BRE v1.0) — BLOQUEANTES
+- C1: Veto conditions sem `blocking: true` explícito (wf-extract 16 vetos, wf-formalize 6 vetos)
+- C2: Checkpoints sem tipo definido (wf-formalize CRITICAL, apenas veto_conditions)
+- C3: Handoffs sem validação estruturada (ambos workflows)
+- C4: Enforcement mechanism ausente (como veto PARA pipeline?)
+- C5: Fallback chains ausentes (veto binário, sem graceful degradation)
+
+### MAJOR (BRE v1.0) — NÃO BLOQUEANTES MAS GRAVES
+- M1: Edge cases não cobertos (timeout, plateau, regression ausentes)
+- M2: Decision tree ambiguity não tratada (multi-stack, prioridade igual, overlapping conclusions)
+- M3: Quality gates apenas em Phase 5 (wf-extract), faltam em Phase 0,1,2,4
+- M4: Checkpoint "auto" sem executor definido (wf-extract Phase 3)
+- M5: Checklists sem integração com workflow (extraction-quality-gate, rule-completeness isolados)
 
 ---
 
@@ -136,6 +169,13 @@ global:
 - >= 70%: PASS
 - >= 80%: HIGH QUALITY
 
+### BRE-Specific Patterns (v1.0 gaps)
+- **Checkpoint types obrigatórios**: wf-formalize tinha veto_conditions SEM checkpoint type → executor não sabe QUANDO validar
+- **Quality gates por fase**: BRE só tinha Phase 5, faltavam 0,1,2,4 → 80% do pipeline sem gate
+- **Handoff validation ausente**: output Phase N → input Phase N+1 sem schema check → pipeline prossegue com dados inválidos
+- **Fallback ausente**: veto binário (PASS ou HALT total), sem partial catalog/relaxed constraints/retry mechanism
+- **Edge cases BRE-specific**: characterization test regression, plateau em extraction_points, partial module failure, glossary term disambiguation
+
 ---
 
 ## Clone Audits
@@ -152,6 +192,8 @@ global:
 ---
 
 ## Notas Recentes
+- [2026-03-09] BRE wf-formalize v1.0 VETADO (54/100) — 6 CRITICAL (checkpoint types AUSENTES)
+- [2026-03-09] BRE wf-extract v1.0 VETADO (62/100) — 5 CRITICAL, 5 MAJOR (veto sem blocking)
 - [2026-03-09] renner-silva v1.2 APROVADO (9.0/10) — gap principal: escopo vendas
 - [2026-03-08] deep-research v1.1 APROVADO (91/100) — todos 4 CRITICAL resolvidos
 - [2026-03-08] deep-research v1.0 VETADO (62/100) — 4 CRITICAL issues

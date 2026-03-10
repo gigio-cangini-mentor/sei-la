@@ -17,7 +17,10 @@
       "mcp__google-workspace__calendar_list",
       "mcp__google-workspace__calendar_createEvent",
       "mcp__google-workspace__sheets_getMetadata",
-      "mcp__google-workspace__sheets_getRange"
+      "mcp__google-workspace__sheets_getRange",
+      "mcp__google-workspace__calendar_getEvent",
+      "mcp__google-workspace__calendar_updateEvent",
+      "mcp__google-workspace__drive_search"
     ],
     "deny": []
   }
