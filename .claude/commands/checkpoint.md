@@ -57,11 +57,25 @@ Contexto acabando ou usuario pediu checkpoint. Execute TODOS os passos abaixo SE
 {lista ou "Nenhum — tudo commitado"}
 ```
 
-## Passo 5: Confirmacao
+## Passo 5: Health check rapido dos instruction files
+- Conte as linhas de: `~/.claude/CLAUDE.md`, `.claude/CLAUDE.md`, MEMORY.md do projeto
+- Conte as linhas dos rules always-on (sem `paths:` frontmatter) em `.claude/rules/`
+- Some tudo = **total always-loaded**
+- Se total > 500 linhas, mostre WARNING:
+
+```
+⚠️ Instruction files cresceram: {total} linhas (limite: 500)
+   Rode `/audit-instructions` para diagnostico completo.
+```
+
+- Se total <= 500, mostre apenas: `Instructions: {total}/500 linhas — OK`
+
+## Passo 6: Confirmacao
 Mostre ao usuario:
 - ✅/❌ INDEX.md atualizado
 - ✅/❌ ACTIVE.md atualizado
 - ✅/❌ Session file salvo em `docs/projects/{projeto}/sessions/YYYY-MM-DD.md`
+- Instructions health: {total}/500
 
 Ao final, SEMPRE mostre a dica de retomada:
 

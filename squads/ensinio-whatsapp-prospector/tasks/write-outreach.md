@@ -6,12 +6,14 @@
 - **responsible_executor:** outreach-writer (Velvet)
 - **execution_type:** Agent
 - **input:**
-  - Analyzed prospect data from prospect-analyst
+  - Analyzed prospect data from prospect-analyst (v3.0 — dual scoring + classification)
   - Message rules from data/message-rules.md
+  - Sales arguments from ensinio-mind/data/ensinio-arguments.md
 - **output:**
   - Personalized messages with WhatsApp links (JSON)
   - URL-encoded message text
   - Valid WhatsApp links
+  - approach_type based on 7 classifications (not binary client/partner)
 
 ## Action Items
 
@@ -22,26 +24,76 @@ Load message rules from `data/message-rules.md`:
 - Must feel 100% human-written
 - Must be personalized per prospect
 
-### Step 2: Write Messages
-For EACH qualified prospect, write a personalized WhatsApp message:
+### Step 2: Route by Classification
+For EACH qualified prospect, determine message structure based on classification:
 
-**For potential clients:**
-1. Open with casual, natural greeting (first name only)
-2. Introduce Antonio naturally
-3. Explain that Fosc saw their message/project in the group
-4. Describe THEIR project/business specifically (show you know them)
-5. Connect their pain to Ensinio solution naturally
-6. If message is old: contextualize temporally
-7. Soft CTA: suggest a quick chat to show the product
-8. Close warmly
+#### CLIENTE_PURO (client 7-10, partner 0-3)
+**Estrutura:** Venda direta clássica
+1. Greeting casual (primeiro nome)
+2. Introdução Antonio
+3. Fosc viu mensagem/projeto no grupo
+4. Descrever projeto DELES especificamente
+5. Conectar dor à solução Ensinio
+6. Contextualizar temporalmente se necessário
+7. CTA: demo/papo rápido
+8. Fechamento quente
 
-**For partners (influencers/promoters):**
-1. Open casually
-2. Introduce Antonio
-3. Reference their work/audience
-4. Mention the partner program
-5. Soft CTA: offer to explain how it works
-6. Close warmly
+#### CLIENTE_INDICADOR (client 7-10, partner 4-6)
+**Estrutura:** Venda direta + menção de indicação
+1-7: Igual CLIENTE_PURO
+8. Adicionar: "A gente também tem um programa de indicação pra quem conhece outras pessoas do nicho"
+9. Fechamento quente
+
+#### CLIENTE_EMBAIXADOR (client 7-10, partner 7-10)
+**Estrutura:** Venda direta (como CLIENTE_PURO) + menção leve de parceria no final
+**Objetivo:** Fechar como cliente primeiro — gerar receita. A parceria é bônus.
+1. Greeting casual (primeiro nome)
+2. Introdução Antonio
+3. Fosc viu mensagem/projeto no grupo
+4. Descrever projeto DELES especificamente (igual CLIENTE_PURO)
+5. Conectar dor à solução Ensinio (foco em resolver o problema DELE)
+6. Contextualizar temporalmente se necessário
+7. CTA: demo/papo rápido (venda direta)
+8. Menção leve: "Ah, e a gente também tem um programa de parceiros que pode ser interessante pra quem trabalha com [formação/consultoria]"
+9. Fechamento quente
+
+#### PARCEIRO_TÁTICO (client 4-6, partner 4-6)
+**Estrutura:** Soft approach duplo
+1. Greeting casual
+2. Introdução Antonio
+3. Referência ao trabalho/projeto deles
+4. Menção leve da Ensinio como possível ferramenta
+5. CTA suave: "Se fizer sentido, posso te mostrar rapidinho"
+6. Fechamento
+
+#### PARCEIRO_ESTRATÉGICO (client 4-6, partner 7-10) — ALTA PRIORIDADE
+**Estrutura:** Proposta de parceria estratégica
+1. Greeting casual
+2. Introdução Antonio
+3. Reconhecer posição de influência/formação
+4. Proposta: "A Ensinio pode ser a plataforma oficial do seu [método/grupo/programa]"
+5. Benefício multiplicador: "Seus [alunos/clientes] ganham acesso com condições especiais"
+6. CTA: "Queria te apresentar o programa de parceiros premium"
+7. Fechamento quente
+
+#### AFILIADO_PURO (client 0-3, partner 4-6)
+**Estrutura:** Programa de afiliados simples
+1. Greeting casual
+2. Introdução Antonio
+3. Referência ao trabalho/audiência deles
+4. Programa de afiliados: "comissão por cada indicação"
+5. CTA: "Posso te explicar como funciona?"
+6. Fechamento
+
+#### CANAL_PREMIUM (client 0-3, partner 7-10) — ALTA PRIORIDADE
+**Estrutura:** Parceria formal
+1. Greeting casual
+2. Introdução Antonio
+3. Reconhecer influência/comunidade
+4. Proposta formal: "Parceria onde você ganha acesso gratuito à plataforma em troca de [recomendação/review/canal]"
+5. Prova social: mencionar outros parceiros se relevante
+6. CTA: "Queria te mostrar a proposta"
+7. Fechamento quente
 
 ### Step 3: Quality Check per Message
 Apply message-quality-checklist:
@@ -50,47 +102,61 @@ Apply message-quality-checklist:
 - [ ] No corporate language
 - [ ] Personalized with prospect's actual project
 - [ ] Temporal context included (if message is old)
-- [ ] Correct approach (client vs partner)
+- [ ] Correct approach for classification (7 types, not 2)
 - [ ] Max 5-6 short paragraphs
 - [ ] Max 1-2 emojis
 - [ ] Natural CTA (not pushy)
+- [ ] EMBAIXADOR: mensagem foca em venda direta, parceria é menção leve no final
+- [ ] ESTRATÉGICO/CANAL: mensagem foca em parceria como proposta principal
 
 ### Step 4: Generate WhatsApp Links
 For each message:
 1. URL-encode the message text
-2. Handle special characters:
-   - Newlines: `%0A`
-   - Accented chars: proper UTF-8 encoding
-   - Emojis: proper UTF-8 encoding
-   - Spaces: `%20`
+2. Handle special characters (newlines, accents, emojis)
 3. Build link: `https://api.whatsapp.com/send?phone={phone}&text={encoded_message}`
 4. Validate the link format
 
 ### Step 5: Output
-Generate JSON output for each prospect with raw message and WhatsApp link.
+Generate JSON output for each prospect with raw message, WhatsApp link, and classification.
 
 ## Acceptance Criteria
 - Each message sounds 100% human-written
 - No anti-pattern violations
 - WhatsApp links correctly URL-encoded
-- Client/partner approach correctly applied
+- Classification-based approach correctly applied (7 types)
+- EMBAIXADOR/ESTRATÉGICO/CANAL messages mention partnership/permuta
 - Each message unique (no copy-paste between prospects)
 
 ## Veto Conditions
-- **BLOCKING:** Prospect analysis data not available
+- **BLOCKING:** Prospect analysis data not available (must be v3.0 with dual scoring)
 - **BLOCKING:** Message rules not loaded
 - **BLOCKING:** Prospect has no name or phone
-- **WARNING:** Prospect has low score (< 5) - use shorter, softer message
+- **WARNING:** Prospect has low scores (client < 5 AND partner < 5) - use shorter, softer message
 - **WARNING:** No temporal context but messages are > 6 months old
 
 ## Output Example
+
+### CLIENTE_EMBAIXADOR
 ```json
 {
-  "name": "Joao",
-  "phone": "+5531999999999",
-  "raw_message": "Oi Joao! Tudo bem?\n\nMeu nome e Antonio, trabalho com o Fosc (socio fundador da Ensinio). Ele viu sua mensagem no Grupo Marketing Digital sobre o seu curso de fotografia e ficou muito interessado no projeto!\n\nPelo que entendi, voce ja tem o conteudo pronto mas precisa de uma plataforma com area de membros e checkout pra vender assinaturas, certo?\n\nA Ensinio foi feita exatamente pra isso - e ja tem varios criadores de conteudo usando. Se quiser, posso te mostrar rapidinho como funciona, sem compromisso.\n\nO que acha?\n\nAbraço!",
-  "whatsapp_link": "https://api.whatsapp.com/send?phone=5531999999999&text=Oi%20Joao%21%20Tudo%20bem%3F%0A%0AMeu%20nome%20e%20Antonio%2C%20trabalho%20com%20o%20Fosc%20%28socio%20fundador%20da%20Ensinio%29.%20Ele%20viu%20sua%20mensagem%20no%20Grupo%20Marketing%20Digital%20sobre%20o%20seu%20curso%20de%20fotografia%20e%20ficou%20muito%20interessado%20no%20projeto%21%0A%0APelo%20que%20entendi%2C%20voce%20ja%20tem%20o%20conteudo%20pronto%20mas%20precisa%20de%20uma%20plataforma%20com%20area%20de%20membros%20e%20checkout%20pra%20vender%20assinaturas%2C%20certo%3F%0A%0AA%20Ensinio%20foi%20feita%20exatamente%20pra%20isso%20-%20e%20ja%20tem%20varios%20criadores%20de%20conteudo%20usando.%20Se%20quiser%2C%20posso%20te%20mostrar%20rapidinho%20como%20funciona%2C%20sem%20compromisso.%0A%0AO%20que%20acha%3F%0A%0AAbraco%21",
-  "approach_type": "client"
+  "name": "Katia",
+  "phone": "+5521987654321",
+  "classification": "CLIENTE_EMBAIXADOR",
+  "raw_message": "Oi Katia! Tudo bem?\n\nMeu nome e Antonio, faco parte do time da Ensinio.\n\nO Fosc ta no grupo MENTORIA 50K e viu que voce ensina especialistas a criar infoprodutos. Muito bacana o seu trabalho!\n\nPelo que entendi, voce ta usando Cademi e Asaas e tem tido alguns problemas com bugs e integracao. A gente tem uma plataforma que ja vem com tudo integrado — area de membros, checkout, comunidade — sem precisar ficar juntando varias ferramentas.\n\nSeria bacana bater um papo rapido pra te mostrar como funciona?\n\nAh, e a gente tambem tem um programa de parceiros que pode ser interessante pra quem trabalha formando outros produtores de conteudo.\n\nAbraco!",
+  "whatsapp_link": "https://api.whatsapp.com/send?phone=5521987654321&text=...",
+  "approach_type": "CLIENTE_EMBAIXADOR"
+}
+```
+
+### CANAL_PREMIUM
+```json
+{
+  "name": "Diego",
+  "phone": "+5531996543210",
+  "classification": "CANAL_PREMIUM",
+  "raw_message": "Oi Diego! Tudo bem?\n\nAqui e o Antonio, do time da Ensinio.\n\nO Fosc me falou sobre o seu canal de educacao no YouTube — muito bacana o conteudo que voce produz pra essa audiencia.\n\nA gente tem uma proposta de parceria que pode ser interessante: voce ganha acesso gratuito a plataforma e em troca indica pra sua audiencia quando fizer sentido. Varios criadores de conteudo ja estao nesse modelo com a gente.\n\nPosso te explicar melhor como funciona?\n\nAbraco!",
+  "whatsapp_link": "https://api.whatsapp.com/send?phone=5531996543210&text=...",
+  "approach_type": "CANAL_PREMIUM"
 }
 ```
 
@@ -99,6 +165,7 @@ Generate JSON output for each prospect with raw message and WhatsApp link.
 - **Message rules not found:** HALT and request rules file creation
 - **URL encoding failure:** Log error, skip prospect, continue with batch
 - **Missing phone number:** Skip prospect and flag in error report
+- **Classification missing:** HALT — requires v3.0 scoring data
 
 ## Completion Criteria
-All prospects have personalized messages, quality check passed, WhatsApp links generated
+All prospects have personalized messages per classification, quality check passed, WhatsApp links generated

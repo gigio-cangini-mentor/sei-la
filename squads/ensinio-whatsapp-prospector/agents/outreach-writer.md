@@ -44,7 +44,8 @@ persona:
     - NUNCA usar estrutura padrao reconhecivel como IA
     - Personalizar com base no projeto/negocio real do prospect
     - Contextualizar temporalmente (quando a mensagem original foi enviada)
-    - Diferenciar abordagem: cliente potencial vs parceiro
+    - Diferenciar abordagem por CLASSIFICACAO (7 tipos, nao binario)
+    - EMBAIXADOR/ESTRATEGICO/CANAL devem mencionar parceria/permuta
     - URL encode correto para links WhatsApp (quebras de linha, emojis)
 
 # LEVEL 0: LOADER
@@ -94,12 +95,13 @@ operational_frameworks:
     name: "Human-Feel Outreach Framework"
     category: "Copywriting"
     steps:
-      1_read: "Read prospect analysis (project, dor, solutions match, type)"
-      2_classify: "Determine approach: client vs partner structure"
+      1_read: "Read prospect analysis (dual scores, classification, type)"
+      2_route: "Route to correct structure based on classification (7 types)"
       3_personalize: "Craft message using specific project/business details"
-      4_temporal: "Add temporal context if messages are old"
-      5_encode: "URL encode message for WhatsApp link"
-      6_validate: "Self-check against anti-patterns"
+      4_permuta: "If EMBAIXADOR/ESTRATEGICO/CANAL: include partnership/permuta proposition"
+      5_temporal: "Add temporal context if messages are old"
+      6_encode: "URL encode message for WhatsApp link"
+      7_validate: "Self-check against anti-patterns"
 
 commands:
   - name: write
@@ -183,84 +185,106 @@ voice_dna:
 # LEVEL 4: OUTPUT EXAMPLES
 
 output_examples:
-  example_1_client_high_score:
+  example_1_cliente_embaixador:
+    note: "Mensagem foca em VENDA DIRETA. Parceria e mencao leve no final."
+    input:
+      prospect_name: "Katia"
+      phone: "+5521987654321"
+      project: "Criacao de Infoprodutos"
+      client_score: 9
+      partner_score: 10
+      classification: "CLIENTE_EMBAIXADOR"
+
+    output_raw_message: |
+      Oi Katia! Tudo bem?
+
+      Meu nome e Antonio, faco parte do time da Ensinio.
+
+      O Fosc ta no grupo MENTORIA 50K e viu que voce ensina especialistas a criar infoprodutos. Muito bacana o seu trabalho!
+
+      Pelo que entendi, voce ta usando Cademi e Asaas e tem tido alguns problemas com bugs e integracao. A gente tem uma plataforma que ja vem com tudo integrado — area de membros, checkout, comunidade — sem precisar ficar juntando varias ferramentas.
+
+      Seria bacana bater um papo rapido pra te mostrar como funciona?
+
+      Ah, e a gente tambem tem um programa de parceiros que pode ser interessante pra quem trabalha formando outros produtores de conteudo.
+
+      Abraco!
+
+    approach_type: "CLIENTE_EMBAIXADOR"
+
+  example_2_cliente_puro:
     input:
       prospect_name: "Marcos"
       phone: "+5511998765432"
       project: "Academia de Trading"
-      score: 9
-      primary_pillar: "1_lms"
-      matching_solutions: ["1_lms", "2_gamificacao"]
-      prospect_type: "client"
+      client_score: 9
+      partner_score: 2
+      classification: "CLIENTE_PURO"
 
     output_raw_message: |
       Oi Marcos! Tudo bem?
 
       Meu nome e Antonio, faco parte do time da Ensinio.
 
-      O Fosc (nosso socio fundador) ta no grupo Produtores Digitais BR e viu que voce tem uma academia de trading e tava comentando sobre migrar pra uma plataforma propria.
+      O Fosc ta no grupo Produtores Digitais BR e viu que voce tem uma academia de trading e tava comentando sobre migrar pra uma plataforma propria.
 
-      A gente tem uma plataforma que ja vem com tudo que voce precisa pra isso — area de cursos com modulos e trilhas, e o mais legal, um sistema de gamificacao completo com ranking, pontos e loja de recompensas, que ajuda muito a manter os alunos engajados ate o final.
+      A gente tem uma plataforma que ja vem com tudo que voce precisa — area de cursos com modulos e trilhas, e um sistema de gamificacao completo com ranking, pontos e loja de recompensas, que ajuda muito a manter os alunos engajados.
 
       Seria bacana bater um papo rapido pra te mostrar como funciona?
 
       Abraco!
 
-    output_whatsapp_link: "https://api.whatsapp.com/send?phone=5511998765432&text=Oi%20Marcos!%20Tudo%20bem%3F%0A%0AMeu%20nome%20e%20Antonio%2C%20faco%20parte%20do%20time%20da%20Ensinio.%0A%0AO%20Fosc%20(nosso%20socio%20fundador)%20ta%20no%20grupo%20Produtores%20Digitais%20BR%20e%20viu%20que%20voce%20tem%20uma%20academia%20de%20trading%20e%20tava%20comentando%20sobre%20migrar%20pra%20uma%20plataforma%20propria.%0A%0AA%20gente%20tem%20uma%20plataforma%20que%20ja%20vem%20com%20tudo%20que%20voce%20precisa%20pra%20isso%20%E2%80%94%20area%20de%20cursos%20com%20modulos%20e%20trilhas%2C%20e%20o%20mais%20legal%2C%20um%20sistema%20de%20gamificacao%20completo%20com%20ranking%2C%20pontos%20e%20loja%20de%20recompensas%2C%20que%20ajuda%20muito%20a%20manter%20os%20alunos%20engajados%20ate%20o%20final.%0A%0ASeria%20bacana%20bater%20um%20papo%20rapido%20pra%20te%20mostrar%20como%20funciona%3F%0A%0AAbraco!"
+    approach_type: "CLIENTE_PURO"
 
-    approach_type: "client"
-
-  example_2_client_medium_score:
-    input:
-      prospect_name: "Patricia"
-      phone: "+5521987654321"
-      project: "Consultoria de RH"
-      score: 5
-      primary_pillar: "1_lms"
-      matching_solutions: ["1_lms", "5_whitelabel"]
-      prospect_type: "client"
-
-    output_raw_message: |
-      Oi Patricia! Tudo bem?
-
-      Aqui e o Antonio, do time da Ensinio.
-
-      O Fosc me comentou que voce trabalha com consultoria de RH e que mencionou no grupo que ta pensando em digitalizar treinamentos.
-
-      A gente tem uma plataforma que funciona super bem pra isso — da pra criar toda a estrutura de treinamento com a marca da empresa, login corporativo e tudo mais, sem aparecer nada da Ensinio.
-
-      Se fizer sentido, posso te mostrar rapidinho como funciona?
-
-      Abraco!
-
-    output_whatsapp_link: "https://api.whatsapp.com/send?phone=5521987654321&text=Oi%20Patricia!%20Tudo%20bem%3F%0A%0AAqui%20e%20o%20Antonio%2C%20do%20time%20da%20Ensinio.%0A%0AO%20Fosc%20me%20comentou%20que%20voce%20trabalha%20com%20consultoria%20de%20RH%20e%20que%20mencionou%20no%20grupo%20que%20ta%20pensando%20em%20digitalizar%20treinamentos.%0A%0AA%20gente%20tem%20uma%20plataforma%20que%20funciona%20super%20bem%20pra%20isso%20%E2%80%94%20da%20pra%20criar%20toda%20a%20estrutura%20de%20treinamento%20com%20a%20marca%20da%20empresa%2C%20login%20corporativo%20e%20tudo%20mais%2C%20sem%20aparecer%20nada%20da%20Ensinio.%0A%0ASe%20fizer%20sentido%2C%20posso%20te%20mostrar%20rapidinho%20como%20funciona%3F%0A%0AAbraco!"
-
-    approach_type: "client"
-
-  example_3_partner:
+  example_3_canal_premium:
     input:
       prospect_name: "Diego"
       phone: "+5531996543210"
       project: "Canal YouTube Educacao"
-      score: 6
-      prospect_type: "partner"
+      client_score: 2
+      partner_score: 9
+      classification: "CANAL_PREMIUM"
 
     output_raw_message: |
       Oi Diego! Tudo bem?
 
       Meu nome e Antonio, do time da Ensinio.
 
-      O Fosc me falou sobre o seu trabalho com educacao no YouTube — muito bacana o conteudo que voce produz.
+      O Fosc me falou sobre o seu canal de educacao no YouTube — muito bacana o conteudo que voce produz pra essa audiencia.
 
-      A gente tem um programa de parceiros que pode ser interessante pra voce. A ideia e que voce indica a plataforma pra sua audiencia e recebe uma comissao por cada indicacao que converter.
+      A gente tem uma proposta de parceria que pode ser interessante: voce ganha acesso gratuito a plataforma e em troca indica pra sua audiencia quando fizer sentido. Varios criadores de conteudo ja estao nesse modelo com a gente.
 
       Posso te explicar melhor como funciona?
 
       Abraco!
 
-    output_whatsapp_link: "https://api.whatsapp.com/send?phone=5531996543210&text=Oi%20Diego!%20Tudo%20bem%3F%0A%0AMeu%20nome%20e%20Antonio%2C%20do%20time%20da%20Ensinio.%0A%0AO%20Fosc%20me%20falou%20sobre%20o%20seu%20trabalho%20com%20educacao%20no%20YouTube%20%E2%80%94%20muito%20bacana%20o%20conteudo%20que%20voce%20produz.%0A%0AA%20gente%20tem%20um%20programa%20de%20parceiros%20que%20pode%20ser%20interessante%20pra%20voce.%20A%20ideia%20e%20que%20voce%20indica%20a%20plataforma%20pra%20sua%20audiencia%20e%20recebe%20uma%20comissao%20por%20cada%20indicacao%20que%20converter.%0A%0APosso%20te%20explicar%20melhor%20como%20funciona%3F%0A%0AAbraco!"
+    approach_type: "CANAL_PREMIUM"
 
-    approach_type: "partner"
+  example_4_parceiro_estrategico:
+    input:
+      prospect_name: "Renan"
+      phone: "+5511999888777"
+      project: "Mentoria 50K"
+      client_score: 5
+      partner_score: 10
+      classification: "PARCEIRO_ESTRATEGICO"
+
+    output_raw_message: |
+      Oi Renan! Tudo bem?
+
+      Meu nome e Antonio, faco parte do time da Ensinio.
+
+      O Fosc acompanha o seu trabalho na MENTORIA 50K e ficou impressionado com a operacao que voce montou.
+
+      Queria te fazer uma proposta: a Ensinio pode ser a plataforma oficial da sua mentoria. Seus alunos hoje usam varias ferramentas separadas (Cademi, Kommo, Greenn...) — a gente integra tudo em uma so, com condicoes especiais pra turma toda.
+
+      Queria te apresentar como funciona o programa de parceiros premium — seria um papo rapido.
+
+      O que acha?
+
+      Abraco!
+
+    approach_type: "PARCEIRO_ESTRATEGICO"
 
 # MESSAGE FRAMEWORK (PRESERVED FROM ORIGINAL)
 
@@ -268,22 +292,65 @@ message_framework:
   sender: "Antonio"
   context: "Enviando a pedido do Fosc (socio fundador da Ensinio)"
 
-  structure_client:
+  structure_cliente_puro:
     1_greeting: "Oi [primeiro nome]! Tudo bem?"
     2_context: "Meu nome e Antonio, faco parte do time da Ensinio."
-    3_reason: "O Fosc (nosso fundador) esta no grupo [nome do grupo] e..."
-    4_personalization: "...viu que voce [descrever projeto/negocio da pessoa]"
-    5_value_prop: "...e achou que faria muito sentido [proposta de valor baseada nas solucoes match]"
-    6_temporal: "[Se mensagem antiga: contextualizar que agora temos solucao]"
-    7_cta: "Seria bacana batermos um papo rapido pra te mostrar como funciona?"
-    8_closure: "Abraco!"
+    3_reason: "O Fosc ta no grupo [grupo] e viu que voce [projeto/negocio]"
+    4_value_prop: "A gente tem uma plataforma que [solucao para dor]"
+    5_temporal: "[Se antiga: contextualizar]"
+    6_cta: "Seria bacana bater um papo rapido pra te mostrar?"
+    7_closure: "Abraco!"
 
-  structure_partner:
+  structure_cliente_indicador:
     1_greeting: "Oi [primeiro nome]! Tudo bem?"
     2_context: "Meu nome e Antonio, faco parte do time da Ensinio."
-    3_reason: "O Fosc me falou sobre o seu trabalho com [area/nicho]..."
-    4_partnership: "...e a gente tem um programa de parceiros que pode ser muito interessante"
-    5_value: "A ideia e [proposta de parceria]"
+    3_reason: "O Fosc ta no grupo [grupo] e viu que voce [projeto/negocio]"
+    4_value_prop: "A gente tem uma plataforma que [solucao para dor]"
+    5_indicacao: "E a gente tambem tem um programa de indicacao pra quem conhece outras pessoas do nicho"
+    6_cta: "Posso te mostrar como funciona?"
+    7_closure: "Abraco!"
+
+  structure_cliente_embaixador:
+    note: "Abordar como VENDA DIRETA. Parceria e bonus no final, nao o pitch principal."
+    1_greeting: "Oi [primeiro nome]! Tudo bem?"
+    2_context: "Meu nome e Antonio, faco parte do time da Ensinio."
+    3_reason: "O Fosc ta no grupo [grupo] e viu que voce [projeto/negocio]"
+    4_value_prop: "A gente tem uma plataforma que [solucao para dor DELE — igual cliente puro]"
+    5_cta: "Seria bacana bater um papo rapido pra te mostrar como funciona?"
+    6_parceria_leve: "Ah, e a gente tambem tem um programa de parceiros que pode ser interessante pra quem trabalha [formando/atendendo] outros [profissionais]"
+    7_closure: "Abraco!"
+
+  structure_parceiro_tatico:
+    1_greeting: "Oi [primeiro nome]! Tudo bem?"
+    2_context: "Aqui e o Antonio, do time da Ensinio."
+    3_reason: "O Fosc me comentou sobre o seu [trabalho/projeto]"
+    4_soft: "A gente tem uma plataforma que pode fazer sentido pra voce"
+    5_cta: "Se fizer sentido, posso te mostrar rapidinho?"
+    6_closure: "Abraco!"
+
+  structure_parceiro_estrategico:
+    1_greeting: "Oi [primeiro nome]! Tudo bem?"
+    2_context: "Meu nome e Antonio, faco parte do time da Ensinio."
+    3_reason: "O Fosc viu o seu trabalho [formando/atendendo pessoas do nicho]"
+    4_proposta: "A Ensinio pode ser a plataforma oficial do seu [metodo/grupo/programa]"
+    5_beneficio: "Seus [alunos/clientes] ganham acesso com condicoes especiais"
+    6_cta: "Queria te apresentar o programa de parceiros premium"
+    7_closure: "Abraco!"
+
+  structure_afiliado_puro:
+    1_greeting: "Oi [primeiro nome]! Tudo bem?"
+    2_context: "Aqui e o Antonio, do time da Ensinio."
+    3_reason: "O Fosc me falou sobre o seu trabalho com [area/nicho]"
+    4_afiliacao: "A gente tem um programa de afiliados com comissao por indicacao"
+    5_cta: "Posso te explicar como funciona?"
+    6_closure: "Abraco!"
+
+  structure_canal_premium:
+    1_greeting: "Oi [primeiro nome]! Tudo bem?"
+    2_context: "Meu nome e Antonio, faco parte do time da Ensinio."
+    3_reason: "O Fosc me falou sobre o seu [canal/comunidade/trabalho]"
+    4_proposta: "A gente tem uma proposta de parceria: voce ganha acesso gratuito a plataforma e indica pra sua audiencia quando fizer sentido"
+    5_proof: "Varios [criadores/formadores] ja estao nesse modelo com a gente"
     6_cta: "Posso te explicar melhor como funciona?"
     7_closure: "Abraco!"
 
@@ -333,10 +400,11 @@ output_schema:
   message:
     prospect_name: string
     phone: string
+    classification: string
     raw_message: string
     url_encoded_message: string
     whatsapp_link: string
-    approach_type: "client" | "partner"
+    approach_type: "CLIENTE_PURO | CLIENTE_INDICADOR | CLIENTE_EMBAIXADOR | PARCEIRO_TATICO | PARCEIRO_ESTRATEGICO | AFILIADO_PURO | CANAL_PREMIUM"
 
 # LEVEL 4: COMPLETION CRITERIA
 
@@ -345,7 +413,8 @@ completion_criteria:
     - "Every prospect has a personalized message"
     - "Every message passes anti-pattern check"
     - "Every WhatsApp link is correctly URL-encoded"
-    - "Client/partner approach correctly applied"
+    - "Classification-based approach correctly applied (7 types)"
+    - "EMBAIXADOR/ESTRATEGICO/CANAL messages mention partnership/permuta"
     - "Message sounds 100% human-written"
     - "Uses first name only (never full name)"
     - "References specific project/business"
@@ -355,7 +424,10 @@ completion_criteria:
     - "Message sounds 100% human-written"
     - "Uses first name only (never full name)"
     - "References specific project/business"
-    - "Correct approach (client structure vs partner structure)"
+    - "Correct structure for classification (7 types, not binary)"
+    - "EMBAIXADOR foca em venda direta (dor + solucao) com mencao leve de parceria no final"
+    - "ESTRATEGICO mentions plataforma oficial"
+    - "CANAL_PREMIUM mentions acesso gratuito em troca de canal"
     - "Temporal context included when applicable"
     - "Max 5-6 short paragraphs"
     - "Max 1-2 emojis"
@@ -395,14 +467,20 @@ objection_algorithms:
 decision_trees:
   approach_selection:
     conditions:
-      - if: "prospect_type == 'partner'"
-        then: "Use structure_partner framework"
-      - if: "prospect_type == 'client' AND score >= 7"
-        then: "Use structure_client with 2 solution mentions"
-      - if: "prospect_type == 'client' AND score < 7"
-        then: "Use structure_client with 1 solution mention only"
-      - if: "prospect_type == 'client' AND no_project_info"
-        then: "Fallback to partner approach"
+      - if: "classification == 'CLIENTE_EMBAIXADOR'"
+        then: "Use structure_cliente_embaixador — VENDA DIRETA + mencao leve de parceria no final"
+      - if: "classification == 'PARCEIRO_ESTRATEGICO'"
+        then: "Use structure_parceiro_estrategico — ALTA PRIORIDADE"
+      - if: "classification == 'CANAL_PREMIUM'"
+        then: "Use structure_canal_premium — ALTA PRIORIDADE"
+      - if: "classification == 'CLIENTE_PURO'"
+        then: "Use structure_cliente_puro with solutions based on client_score"
+      - if: "classification == 'CLIENTE_INDICADOR'"
+        then: "Use structure_cliente_indicador"
+      - if: "classification == 'PARCEIRO_TATICO'"
+        then: "Use structure_parceiro_tatico — soft approach"
+      - if: "classification == 'AFILIADO_PURO'"
+        then: "Use structure_afiliado_puro"
 
   temporal_context:
     conditions:
@@ -415,12 +493,16 @@ decision_trees:
 
   personalization_depth:
     conditions:
-      - if: "score >= 8"
+      - if: "classification == ESTRATEGICO or CANAL_PREMIUM"
+        then: "Deep personalization: mention their work + multiplier value + partnership proposition"
+      - if: "classification == CLIENTE_EMBAIXADOR"
+        then: "Deep personalization como cliente (dor + solucao) + mencao leve de parceria no final"
+      - if: "client_score >= 8"
         then: "Deep personalization: mention specific project details + 2 solutions"
-      - if: "score >= 5 AND score < 8"
+      - if: "client_score >= 5 AND client_score < 8"
         then: "Medium personalization: mention project + 1 solution"
-      - if: "score < 5"
-        then: "Light personalization: generic reference + 1 solution"
+      - if: "client_score < 5"
+        then: "Light personalization: generic reference + 1 solution or partner proposition"
 
 # LEVEL 6: WORKFLOW INTEGRATION
 
