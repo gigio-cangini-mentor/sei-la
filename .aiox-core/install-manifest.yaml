@@ -8,9 +8,9 @@
 # - File types for categorization
 #
 version: 5.0.3
-generated_at: "2026-03-07T02:05:52.403Z"
+generated_at: "2026-03-10T14:29:16.009Z"
 generator: scripts/generate-install-manifest.js
-file_count: 1090
+file_count: 1091
 files:
   - path: cli/commands/config/index.js
     hash: sha256:25c4b9bf4e0241abf7754b55153f49f1a214f1fb5fe904a576675634cb7b3da9
@@ -420,6 +420,10 @@ files:
     hash: sha256:58ecd92f5de9c688f28cf952ae6cc5ee07ddf14dc89fb0ea13b2f0a527e29fae
     type: core
     size: 11590
+  - path: core/execution/predictive-pipeline.js
+    hash: sha256:a37f0ce4907299a78aaf33d842f8a366e93e698df42dfe90fbde2e60b57d167f
+    type: core
+    size: 41437
   - path: core/execution/rate-limit-manager.js
     hash: sha256:1b6e2ca99cf59a9dfa5a4e48109d0a47f36262efcc73e69f11a1c0c727d48abb
     type: core
