@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Masterclass — Ensinio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --p-950:#080014; --p-900:#0A0118; --p-800:#1A0940; --p-700:#2D1266;
+      --p-600:#4318FF; --p-500:#6C3CFF; --p-400:#8B5CF6; --p-300:#A78BFA;
+      --p-200:#C4B5FD; --p-100:#EDE9FE; --p-50:#F5F3FF;
+      --n-950:#09090B; --n-900:#18181B; --n-800:#27272A; --n-700:#3F3F46;
+      --n-600:#52525B; --n-500:#71717A; --n-400:#A1A1AA; --n-300:#D4D4D8;
+      --n-200:#E4E4E7; --n-100:#F4F4F5; --n-50:#FAFAFA; --n-0:#FFFFFF;
+      --blue:#3B82F6; --cyan:#06B6D4; --emerald:#10B981;
+      --amber:#F59E0B; --rose:#F43F5E; --orange:#F97316;
+      --success:#10B981; --success-bg:#D1FAE5;
+      --warning:#F59E0B; --warning-bg:#FEF3C7;
+      --error:#EF4444; --error-bg:#FEE2E2;
+      --info:#3B82F6; --info-bg:#DBEAFE;
+      --grad-hero: linear-gradient(135deg,#080014 0%,#1A0940 45%,#2D1266 100%);
+      --grad-cta: linear-gradient(135deg,#6C3CFF 0%,#4318FF 100%);
+      --grad-glow: radial-gradient(ellipse at 50% 40%,rgba(108,60,255,.18) 0%,transparent 70%);
+      --grad-mesh: radial-gradient(at 20% 80%,rgba(108,60,255,.1) 0%,transparent 50%),radial-gradient(at 80% 20%,rgba(59,130,246,.07) 0%,transparent 50%);
+      --grad-card: linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+      --font-display: 'DM Sans','SF Pro Display',-apple-system,sans-serif;
+      --font-body: 'DM Sans','SF Pro Text',-apple-system,sans-serif;
+      --font-mono: 'JetBrains Mono','SF Mono',monospace;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+      --shadow-glow: 0 0 40px rgba(108,60,255,.25);
+      --shadow-glow-sm: 0 0 20px rgba(108,60,255,.15);
+      --r-sm:6px; --r-md:12px; --r-lg:16px; --r-xl:20px; --r-2xl:24px; --r-full:9999px;
+      --ease: cubic-bezier(.4,0,.2,1);
+      --spring: cubic-bezier(.34,1.56,.64,1);
+    }
+
+    /* DARK MODE overrides */
+    [data-theme="dark"] {
+      --n-0:#09090B; --n-50:#18181B; --n-100:#27272A; --n-200:#3F3F46;
+      --n-300:#52525B; --n-400:#71717A; --n-500:#A1A1AA; --n-600:#D4D4D8;
+      --n-700:#E4E4E7; --n-800:#F4F4F5; --n-900:#FAFAFA; --n-950:#FFFFFF;
+      --success-bg:rgba(16,185,129,.15); --warning-bg:rgba(245,158,11,.15);
+      --error-bg:rgba(239,68,68,.15); --info-bg:rgba(59,130,246,.15);
+      --p-50:rgba(108,60,255,.08); --p-100:rgba(108,60,255,.15);
+      --shadow-sm: 0 2px 6px rgba(0,0,0,.3);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.4);
+    }
+    [data-theme="dark"] nav { background:rgba(9,9,11,.85); }
+    [data-theme="dark"] .card { background:var(--n-50); border-color:var(--n-200); }
+    [data-theme="dark"] .card:hover { border-color:var(--p-400); }
+    [data-theme="dark"] .callout { background:rgba(108,60,255,.06); }
+    [data-theme="dark"] .key-concept { background:rgba(108,60,255,.06); border-color:rgba(108,60,255,.2); }
+    [data-theme="dark"] .level-content { background:var(--n-50); border-color:var(--n-200); }
+    [data-theme="dark"] .mindset-box { background:var(--n-50); border-color:var(--n-200); }
+    [data-theme="dark"] .stat { background:var(--n-50); border-color:var(--n-200); }
+    [data-theme="dark"] .table-wrap { border-color:var(--n-200); }
+    [data-theme="dark"] th { background:var(--n-50); border-color:var(--n-200); color:var(--n-500); }
+    [data-theme="dark"] td { border-color:var(--n-100); }
+    [data-theme="dark"] tr:hover td { background:var(--n-50); }
+    [data-theme="dark"] td code { background:rgba(108,60,255,.15); }
+    [data-theme="dark"] .tabs { background:var(--n-100); }
+    [data-theme="dark"] .tab-btn.active { background:var(--n-950); color:var(--n-0); }
+    [data-theme="dark"] .tab-content { border-color:var(--n-200); }
+    [data-theme="dark"] .pipe-stage { background:var(--n-50); border-color:var(--n-200); }
+    [data-theme="dark"] .pipe-stage:not(:last-child)::after { border-left-color:var(--n-400); }
+    [data-theme="dark"] .comparison-col .col-body { background:var(--n-50); border-color:var(--n-200); }
+    [data-theme="dark"] .divider { background:var(--n-200); }
+    [data-theme="dark"] .checklist .check { border-color:var(--n-400); }
+    [data-theme="dark"] .prompt-box-body { background:var(--p-950); border-color:var(--n-200); }
+    [data-theme="dark"] .comparison-col.before .col-header { background:rgba(239,68,68,.12); }
+    [data-theme="dark"] .comparison-col.after .col-header { background:rgba(16,185,129,.12); }
+
+    /* THEME TOGGLE */
+    .theme-toggle {
+      width:36px; height:36px; border-radius:var(--r-full);
+      border:1px solid var(--n-200); background:var(--n-50);
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:16px; transition:all 200ms var(--ease); flex-shrink:0;
+    }
+    .theme-toggle:hover { border-color:var(--p-400); background:var(--p-50); }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--n-0);
+      color: var(--n-900);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 300ms var(--ease), color 300ms var(--ease);
+    }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      background:rgba(255,255,255,.85); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--n-100); padding:0 2rem;
+      transition: background 300ms var(--ease);
+    }
+    nav .nav-inner {
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; height:60px;
+    }
+    nav .logo {
+      font-weight:800; font-size:1.1rem; letter-spacing:-.03em;
+      background:var(--grad-cta); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    nav .nav-links { display:flex; gap:2px; list-style:none; }
+    nav .nav-links a {
+      color:var(--n-500); text-decoration:none; font-size:13px; font-weight:500;
+      padding:6px 14px; border-radius:var(--r-sm); transition:all 200ms var(--ease);
+    }
+    nav .nav-links a:hover { color:var(--n-900); background:var(--n-100); }
+
+    /* HERO */
+    .hero {
+      min-height:100vh; display:flex; flex-direction:column; align-items:center;
+      justify-content:center; text-align:center; padding:6rem 2rem 4rem;
+      position:relative; overflow:hidden;
+      background:var(--grad-hero);
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:var(--grad-glow); pointer-events:none;
+    }
+    .hero::after {
+      content:''; position:absolute; inset:0;
+      background:var(--grad-mesh); pointer-events:none;
+    }
+    .hero-badge {
+      position:relative; display:inline-flex; align-items:center; gap:8px;
+      padding:6px 16px; border-radius:var(--r-full);
+      border:1px solid rgba(108,60,255,.3); background:rgba(108,60,255,.12);
+      font-size:12px; font-weight:600; color:var(--p-300); margin-bottom:24px;
+    }
+    .hero-badge .dot {
+      width:6px; height:6px; border-radius:var(--r-full);
+      background:var(--p-400); animation:pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero h1 {
+      position:relative; font-size:clamp(2.5rem,6vw,4rem); font-weight:700;
+      letter-spacing:-.03em; line-height:1.1; margin-bottom:16px;
+      max-width:720px; color:#fff; font-family:var(--font-display);
+    }
+    .hero h1 .gradient {
+      background:linear-gradient(135deg,var(--p-300),var(--p-200),#fff);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .hero p {
+      position:relative; font-size:17px; color:var(--n-400);
+      max-width:520px; margin-bottom:32px; line-height:1.65;
+    }
+    .hero-cta { position:relative; display:flex; gap:10px; }
+    .btn {
+      padding:12px 28px; border-radius:var(--r-md); font-weight:600; font-size:14px;
+      text-decoration:none; transition:all 250ms var(--ease); cursor:pointer;
+      border:none; font-family:var(--font-body);
+    }
+    .btn-primary {
+      background:var(--grad-cta); color:#fff;
+      box-shadow:var(--shadow-glow-sm);
+    }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:var(--shadow-glow); }
+    .btn-ghost {
+      background:rgba(255,255,255,.06); color:#fff;
+      border:1px solid rgba(255,255,255,.15);
+    }
+    .btn-ghost:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.25); }
+
+    /* SECTIONS */
+    section { max-width:1200px; margin:0 auto; padding:80px 2rem; }
+    .section-label {
+      font-size:11px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.12em; color:var(--p-400); margin-bottom:12px;
+    }
+    .section-title {
+      font-size:clamp(1.6rem,4vw,2.4rem); font-weight:700;
+      letter-spacing:-.02em; margin-bottom:8px;
+      font-family:var(--font-display); color:var(--n-900);
+    }
+    .section-desc {
+      font-size:15px; color:var(--n-500); max-width:600px; margin-bottom:32px; line-height:1.65;
+    }
+
+    /* TERMINAL */
+    .terminal {
+      background:var(--n-950); border-radius:var(--r-lg); overflow:hidden;
+      font-family:var(--font-mono); font-size:13px; line-height:1.8;
+      border:1px solid var(--n-800);
+    }
+    .terminal-header {
+      display:flex; align-items:center; gap:8px;
+      padding:12px 16px; background:rgba(255,255,255,.03);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .terminal-dot { width:10px; height:10px; border-radius:var(--r-full); }
+    .terminal-dot.red { background:#ff5f57; }
+    .terminal-dot.yellow { background:#febc2e; }
+    .terminal-dot.green { background:#28c840; }
+    .terminal-title { margin-left:8px; color:var(--n-500); font-size:12px; }
+    .terminal-body { padding:20px 24px; overflow-x:auto; }
+    .terminal-body .line { display:block; min-height:1.8em; }
+    .terminal-body .prompt { color:var(--emerald); }
+    .terminal-body .command { color:var(--n-0); }
+    .terminal-body .comment { color:var(--n-600); font-style:italic; }
+    .terminal-body .output { color:var(--n-400); }
+    .terminal-body .highlight { color:var(--p-400); }
+    .terminal-body .warn { color:var(--amber); }
+    .terminal-body .info { color:var(--blue); }
+    .terminal-body .success { color:var(--emerald); }
+    .terminal-body .error { color:var(--rose); }
+
+    /* CARDS */
+    .card-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;
+    }
+    .card {
+      background:var(--n-0); border:1px solid var(--n-200);
+      border-radius:var(--r-lg); padding:24px; transition:all 250ms var(--ease);
+    }
+    .card:hover { border-color:var(--p-200); transform:translateY(-2px); box-shadow:var(--shadow-md); }
+    .card-icon {
+      width:44px; height:44px; border-radius:var(--r-md);
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; margin-bottom:16px; font-weight:700;
+    }
+    .card h3 { font-size:16px; font-weight:600; margin-bottom:6px; color:var(--n-900); }
+    .card p { font-size:14px; color:var(--n-500); line-height:1.6; }
+
+    /* LEVELS */
+    .levels { display:flex; flex-direction:column; gap:20px; margin-top:24px; }
+    .level { display:grid; grid-template-columns:80px 1fr; gap:16px; align-items:start; }
+    .level-badge {
+      width:72px; height:72px; border-radius:var(--r-lg);
+      display:flex; flex-direction:column; align-items:center;
+      justify-content:center; font-weight:800; font-size:1.5rem; flex-shrink:0;
+    }
+    .level-badge small {
+      font-size:10px; font-weight:600; text-transform:uppercase;
+      letter-spacing:.05em; opacity:.7;
+    }
+    .level-content {
+      background:var(--n-0); border:1px solid var(--n-200);
+      border-radius:var(--r-lg); padding:24px;
+    }
+    .level-content h3 { font-size:17px; font-weight:700; margin-bottom:4px; }
+    .level-content .subtitle { font-size:14px; color:var(--n-500); margin-bottom:12px; }
+    .level-content .prompt-example {
+      background:var(--p-950); border:1px solid rgba(108,60,255,.2);
+      border-radius:var(--r-md); padding:14px 18px; font-family:var(--font-mono);
+      font-size:13px; color:var(--p-300); margin:12px 0; line-height:1.6;
+    }
+    .level-content .prompt-example::before { content:'> '; color:var(--n-600); }
+    .level-content ul { list-style:none; padding:0; }
+    .level-content ul li {
+      font-size:14px; color:var(--n-600); padding:4px 0 4px 20px; position:relative;
+    }
+    .level-content ul li::before {
+      content:''; position:absolute; left:0; top:11px;
+      width:6px; height:6px; border-radius:var(--r-full); background:var(--n-300);
+    }
+
+    /* PIPELINE */
+    .pipeline {
+      display:flex; align-items:stretch; gap:0; margin:24px 0;
+      overflow-x:auto; padding-bottom:8px;
+    }
+    .pipe-stage {
+      flex:1; min-width:140px; background:var(--n-0);
+      border:1px solid var(--n-200); padding:20px; position:relative; text-align:center;
+    }
+    .pipe-stage:first-child { border-radius:var(--r-lg) 0 0 var(--r-lg); }
+    .pipe-stage:last-child { border-radius:0 var(--r-lg) var(--r-lg) 0; }
+    .pipe-stage:not(:last-child)::after {
+      content:''; position:absolute; right:-1px; top:50%; transform:translateY(-50%);
+      width:0; height:0; border-top:12px solid transparent;
+      border-bottom:12px solid transparent; border-left:12px solid var(--n-300); z-index:2;
+    }
+    .pipe-stage .pipe-agent {
+      font-family:var(--font-mono); font-size:13px; color:var(--p-500);
+      font-weight:600; margin-bottom:4px;
+    }
+    .pipe-stage .pipe-action { font-size:13px; color:var(--n-500); }
+
+    /* FILE TREE */
+    .file-tree {
+      background:var(--n-950); border:1px solid var(--n-800);
+      border-radius:var(--r-lg); padding:24px; font-family:var(--font-mono);
+      font-size:13px; line-height:2; color:var(--n-400); overflow-x:auto;
+    }
+    .file-tree .folder { color:var(--blue); }
+    .file-tree .file { color:var(--n-400); }
+    .file-tree .important { color:var(--p-300); font-weight:600; }
+    .file-tree .desc { color:var(--n-600); }
+
+    /* TABLE */
+    .table-wrap {
+      overflow-x:auto; margin:24px 0; border-radius:var(--r-lg);
+      border:1px solid var(--n-200);
+    }
+    table { width:100%; border-collapse:collapse; font-size:14px; }
+    th {
+      background:var(--n-50); font-weight:600; text-align:left;
+      padding:12px 20px; border-bottom:1px solid var(--n-200);
+      font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--n-400);
+    }
+    td { padding:12px 20px; border-bottom:1px solid var(--n-100); color:var(--n-600); }
+    tr:last-child td { border-bottom:none; }
+    tr:hover td { background:var(--n-50); }
+    td code {
+      font-family:var(--font-mono); font-size:12px;
+      background:var(--p-50); padding:2px 8px; border-radius:4px; color:var(--p-500);
+    }
+
+    /* TABS */
+    .tabs {
+      display:flex; gap:4px; background:var(--n-100);
+      border-radius:var(--r-md) var(--r-md) 0 0; padding:6px 6px 0;
+    }
+    .tab-btn {
+      padding:8px 20px; border:none; background:transparent;
+      color:var(--n-500); font-family:var(--font-body); font-size:13px;
+      font-weight:600; cursor:pointer; border-radius:8px 8px 0 0;
+      transition:all 150ms ease;
+    }
+    .tab-btn:hover { color:var(--n-700); }
+    .tab-btn.active { color:var(--n-900); background:var(--n-950); }
+    .tab-content {
+      display:none; border:1px solid var(--n-200); border-top:none;
+      border-radius:0 0 var(--r-lg) var(--r-lg); background:var(--n-950);
+    }
+    .tab-content.active { display:block; }
+    .tab-content .terminal { border:none; border-radius:0; }
+
+    /* CALLOUT */
+    .callout {
+      border-left:3px solid var(--p-400); background:var(--p-50);
+      padding:20px 24px; border-radius:0 var(--r-md) var(--r-md) 0; margin:24px 0;
+    }
+    .callout p { font-size:15px; color:var(--n-700); line-height:1.65; }
+
+    /* STAT */
+    .stat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:24px 0; }
+    @media (max-width:768px) { .stat-grid { grid-template-columns:1fr; } }
+    .stat {
+      background:var(--n-0); border:1px solid var(--n-200);
+      border-radius:var(--r-lg); padding:24px; text-align:center;
+    }
+    .stat .number {
+      font-size:2.5rem; font-weight:800; letter-spacing:-.03em;
+      background:var(--grad-cta); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; font-family:var(--font-mono);
+    }
+    .stat .label { font-size:13px; color:var(--n-500); margin-top:4px; }
+
+    /* DIVIDER */
+    .divider { height:1px; background:var(--n-200); margin:0; max-width:1200px; margin:0 auto; }
+    section[id] { scroll-margin-top:80px; }
+
+    /* KEY CONCEPT */
+    .key-concept {
+      background:var(--p-50); border:1px solid var(--p-200);
+      border-radius:var(--r-xl); padding:40px; text-align:center; margin:32px 0;
+    }
+    .key-concept h3 {
+      font-size:20px; font-weight:700; margin-bottom:12px;
+      color:var(--n-900); font-family:var(--font-display);
+    }
+    .key-concept p {
+      font-size:15px; color:var(--n-500); max-width:560px; margin:0 auto; line-height:1.65;
+    }
+
+    /* TAG */
+    .tag {
+      display:inline-block; padding:3px 12px; border-radius:var(--r-full);
+      font-size:11px; font-weight:600; letter-spacing:.02em;
+    }
+    .tag-green { background:var(--success-bg); color:#047857; }
+    .tag-red { background:var(--error-bg); color:#991B1B; }
+    .tag-orange { background:var(--warning-bg); color:#92400E; }
+    .tag-blue { background:var(--info-bg); color:#1D4ED8; }
+    .tag-purple { background:var(--p-100); color:var(--p-500); }
+
+    /* CHECKLIST */
+    .checklist { list-style:none; padding:0; }
+    .checklist li {
+      display:flex; align-items:flex-start; gap:12px;
+      padding:8px 0; font-size:14px; color:var(--n-600);
+    }
+    .checklist .check {
+      width:22px; height:22px; border-radius:var(--r-sm);
+      border:2px solid var(--n-300); flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:11px; cursor:pointer; transition:all 200ms var(--ease);
+    }
+    .checklist .check.done {
+      background:var(--success-bg); border-color:var(--success); color:var(--success);
+    }
+
+    /* PROMPT COMPARE */
+    .prompt-compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0; }
+    @media (max-width:768px) { .prompt-compare { grid-template-columns:1fr; } }
+    .prompt-box { border-radius:var(--r-lg); overflow:hidden; }
+    .prompt-box-header {
+      padding:12px 20px; font-weight:700; font-size:13px;
+      display:flex; align-items:center; gap:8px;
+    }
+    .prompt-box-body {
+      background:var(--n-950); border:1px solid var(--n-800);
+      border-top:none; padding:20px; font-family:var(--font-mono);
+      font-size:13px; line-height:1.8; border-radius:0 0 var(--r-lg) var(--r-lg);
+      min-height:180px;
+    }
+
+    /* FOOTER */
+    footer {
+      background:var(--n-950); text-align:center; padding:40px 2rem;
+      color:var(--n-500); font-size:13px;
+    }
+    footer .footer-logo {
+      font-size:18px; font-weight:800; letter-spacing:-.03em;
+      background:var(--grad-cta); -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; margin-bottom:8px;
+    }
+
+    /* FADE */
+    .fade-in { opacity:0; transform:translateY(16px); transition:all 500ms var(--ease); }
+    .fade-in.visible { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Claude Code — Ensinio</div>
+    <ul class="nav-links">
+      <li><a href="#dor">A Dor</a></li>
+      <li><a href="#oque">O Que É</a></li>
+      <li><a href="#niveis">3 Níveis</a></li>
+      <li><a href="#config">Setup</a></li>
+      <li><a href="#pratica">Antes/Depois</a></li>
+      <li><a href="#aios">AIOS</a></li>
+      <li><a href="#quickwins">Quick Wins</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema" id="themeBtn">&#9790;</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Workshop interno Ensinio
+  </div>
+  <h1>De Programador a <span class="gradient">Orquestrador</span></h1>
+  <p>O melhor código que você vai escrever amanhã é o que você não vai precisar escrever. Só vai precisar pedir certo.</p>
+  <div class="hero-cta">
+    <a href="#dor" class="btn btn-primary">Entender o problema</a>
+    <a href="#quickwins" class="btn btn-ghost">Ir direto pro Quick Win</a>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- A DOR -->
+<section id="dor">
+  <div class="section-label">Antes de tudo</div>
+  <h2 class="section-title fade-in">Isso aqui parece familiar?</h2>
+  <p class="section-desc fade-in">Situações que todo dev da Ensinio já viveu pelo menos uma vez por semana.</p>
+
+  <div class="card-grid fade-in">
+    <div class="card" style="border-left:3px solid var(--rose);">
+      <h3>"Ah, isso eu já expliquei"</h3>
+      <p>Você abre o Claude Code, pede pra corrigir algo no checkout do Ensinio Pay e... ele pergunta "qual framework?", "qual banco?", "como é a estrutura?". De novo.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--rose);">
+      <h3>"Pronto! Ah, esqueci o lint"</h3>
+      <p>Implementou a feature, commitou, mandou pro PR. Aí o CI quebra por lint, typecheck ou teste. Volta, corrige, commita de novo. Toda vez.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--rose);">
+      <h3>"Deixa eu copiar esse prompt"</h3>
+      <p>Você tem um prompt que funciona bem pra criar componentes. Mas fica salvo num bloco de notas, num Notion, ou na sua cabeça. Ninguém mais do time usa.</p>
+    </div>
+  </div>
+
+  <div class="callout fade-in" style="margin-top:32px;border-color:var(--rose);">
+    <p><strong>Traduzindo:</strong> Toda vez que você abre o Claude Code e gasta 5 minutos explicando "usa Next.js 14", "com Prisma", "componentes em src/components/"... são 5 minutos que você podia ter ensinado UMA VEZ e nunca mais repetir.</p>
+  </div>
+
+  <div class="callout fade-in">
+    <p><strong>O problema não é vocês.</strong> O Claude Code, sem configuração, é um assistente genérico. Ele não sabe nada sobre o Ensinio Club, Pay, Stream, AI, sobre as regras de negócio, sobre o padrão de código do time. <em>A cada sessão, ele começa do zero.</em></p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- O QUE É -->
+<section id="oque">
+  <div class="section-label">Capítulo 01</div>
+  <h2 class="section-title fade-in">O Claude Code em 30 segundos</h2>
+  <p class="section-desc fade-in">Não é um chatbot. É um agente que age no seu ambiente. Ele lê, escreve, executa e modifica coisas reais.</p>
+
+  <div class="terminal fade-in">
+    <div class="terminal-header">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+      <span class="terminal-title">Terminal — Claude Code na Ensinio</span>
+    </div>
+    <div class="terminal-body">
+      <span class="line"><span class="prompt">$ </span><span class="command">claude</span></span>
+      <span class="line"><span class="output">Claude Code v1.x</span></span>
+      <span class="line"><span class="output">Working directory: ~/ensinio/platform</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="prompt">Você: </span><span class="command">O Ensinio Pay está retornando 500 quando o aluno tenta trocar o meio de pagamento da assinatura. Deveria deixar trocar normalmente.</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="comment"># Claude automaticamente:</span></span>
+      <span class="line"><span class="info">  Lendo src/api/subscriptions/change-payment.ts</span></span>
+      <span class="line"><span class="info">  Lendo src/services/payment-gateway.ts</span></span>
+      <span class="line"><span class="info">  Buscando "throw.*Error" em src/api/subscriptions/</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="output">Encontrei. Na linha 34, o catch genérico captura o erro</span></span>
+      <span class="line"><span class="output">de validação do cartão e retorna 500 genérico.</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="success">  Editando: src/api/subscriptions/change-payment.ts</span></span>
+      <span class="line"><span class="success">  Agora: retorna 422 com mensagem "Cartão inválido"</span></span>
+      <span class="line"><span class="success">  + tratamento para Pix e Boleto</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="comment"># Nem sempre é tão direto assim. Bugs complexos</span></span>
+      <span class="line"><span class="comment"># precisam de mais contexto. Mas a diferença é:</span></span>
+      <span class="line"><span class="comment"># COM o CLAUDE.md, ele começa do lugar certo</span></span>
+      <span class="line"><span class="comment"># em vez de perguntar "qual framework?".</span></span>
+    </div>
+  </div>
+
+  <div class="card-grid fade-in" style="margin-top:32px;">
+    <div class="card">
+      <div class="card-icon" style="background:var(--success-bg);color:var(--success);">R</div>
+      <h3>Lê seus arquivos</h3>
+      <p>Código, configs, docs, imagens. Sem copiar e colar nada.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:var(--info-bg);color:var(--info);">E</div>
+      <h3>Edita cirurgicamente</h3>
+      <p>Muda exatamente a linha que precisa. Sem reescrever o arquivo inteiro.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:var(--warning-bg);color:#92400E;">T</div>
+      <h3>Executa comandos</h3>
+      <p>Roda npm test, git commit, qualquer coisa no terminal.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:var(--p-100);color:var(--p-500);">B</div>
+      <h3>Busca no projeto</h3>
+      <p>Encontra arquivos e conteúdo mais rápido que find/grep.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 3 NIVEIS -->
+<section id="niveis">
+  <div class="section-label">Capítulo 02</div>
+  <h2 class="section-title fade-in">Onde você está hoje?</h2>
+  <p class="section-desc fade-in">Você já percebeu que passa mais tempo GERENCIANDO o Claude do que codando de verdade? "Explica isso", "não, esquece", "volta", "corrige ali". Você virou babá de IA. <strong>E se ele soubesse trabalhar sozinho?</strong></p>
+
+  <!-- DIAGRAMA: Progressão dos 3 Níveis -->
+  <div class="fade-in" style="margin-bottom:40px;">
+    <svg viewBox="0 0 800 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;height:auto;">
+      <!-- Linha de progressão -->
+      <line x1="130" y1="60" x2="670" y2="60" stroke="#E4E4E7" stroke-width="3" stroke-dasharray="8,6"/>
+      <!-- Nível 1 -->
+      <circle cx="130" cy="60" r="36" fill="#FEE2E2" stroke="#EF4444" stroke-width="2"/>
+      <text x="130" y="55" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="800" font-size="20" fill="#991B1B">1</text>
+      <text x="130" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600" font-size="8" fill="#991B1B" letter-spacing="0.5">BÁSICO</text>
+      <text x="130" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="11" fill="#71717A">Você dita</text>
+      <!-- Seta 1→2 -->
+      <polygon points="280,55 270,48 270,62" fill="#D4D4D8"/>
+      <!-- Nível 2 -->
+      <circle cx="400" cy="60" r="36" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
+      <text x="400" y="55" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="800" font-size="20" fill="#92400E">2</text>
+      <text x="400" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600" font-size="8" fill="#92400E" letter-spacing="0.5">INTER</text>
+      <text x="400" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="11" fill="#71717A">Você descreve</text>
+      <!-- Seta 2→3 -->
+      <polygon points="550,55 540,48 540,62" fill="#D4D4D8"/>
+      <!-- Nível 3 -->
+      <circle cx="670" cy="60" r="36" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2"/>
+      <text x="670" y="55" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="800" font-size="20" fill="#6C3CFF">3</text>
+      <text x="670" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600" font-size="8" fill="#6C3CFF" letter-spacing="0.5">PRO</text>
+      <text x="670" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="11" fill="#71717A">Agentes resolvem</text>
+      <!-- Labels de transição -->
+      <text x="265" y="40" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600" font-size="9" fill="#A1A1AA">CLAUDE.md</text>
+      <text x="535" y="40" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="600" font-size="9" fill="#A1A1AA">AIOS</text>
+    </svg>
+  </div>
+
+  <div class="levels fade-in">
+    <div class="level">
+      <div class="level-badge" style="background:var(--error-bg);color:#991B1B;">1<small>Básico</small></div>
+      <div class="level-content">
+        <h3>Você dita, a IA digita</h3>
+        <p class="subtitle">Tipo Copilot turbinado — economiza dedos, mas não economiza cabeça.</p>
+        <div class="prompt-example">Cria um componente React com um formulário de matrícula pro Ensinio Club</div>
+        <ul>
+          <li>A cada sessão, explica tudo de novo</li>
+          <li>Dita a implementação exata ("usa useState", "faz um map")</li>
+          <li>Revisa manualmente cada linha</li>
+          <li>Nenhum conhecimento é compartilhado entre devs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-badge" style="background:var(--warning-bg);color:#92400E;">2<small>Inter</small></div>
+      <div class="level-content">
+        <h3>Você descreve o resultado, a IA escolhe o caminho</h3>
+        <p class="subtitle">O Claude já sabe o projeto. Você foca no O QUE, não no COMO.</p>
+        <div class="prompt-example">O checkout do Pay precisa validar CPF antes de processar o Pix. Segue o padrão de validação que já existe no projeto.</div>
+        <ul>
+          <li><strong>CLAUDE.md</strong> configurado — a IA já sabe a stack, convenções e regras</li>
+          <li>Slash commands: <code>/review</code>, <code>/test</code>, <code>/fix</code></li>
+          <li>Dá contexto: "segue o padrão", "como o arquivo X"</li>
+          <li>Configuração commitada no repo — todo dev herda</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-badge" style="background:var(--p-100);color:var(--p-500);">3<small>Pro</small></div>
+      <div class="level-content">
+        <h3>Você define o problema, agentes resolvem</h3>
+        <p class="subtitle">Você vira o gestor. Agentes especializados fazem o trabalho operacional.</p>
+        <div class="prompt-example">Precisamos que a Anamnese do Club direcione o aluno automaticamente para a trilha certa. Quando ele responde o questionário de perfil, os pesos geram um score e matriculam na trilha ideal. Se empatar, mostra as opções.</div>
+        <ul>
+          <li>Define O QUE precisa ser feito, não COMO</li>
+          <li>Agentes criam a story, arquitetam, implementam, testam</li>
+          <li>Verificação automática (lint, test, typecheck) antes de qualquer push</li>
+          <li>Histórico rastreável via git log + story markdown</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-concept fade-in">
+    <h3>Hoje vamos do Nível 1 pro Nível 2. <br>Nível 3 é consequência natural.</h3>
+    <p>Não tente pular. Um CLAUDE.md bem feito já muda completamente a experiência. Depois, commands e rules. Quando isso virar rotina, você está pronto pro próximo passo.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONFIGURACAO -->
+<section id="config">
+  <div class="section-label">Capítulo 03</div>
+  <h2 class="section-title fade-in">O segredo: dar contexto uma vez só</h2>
+  <p class="section-desc fade-in">Você já perdeu 20 minutos explicando "usa Next.js 14", "com Prisma", "não, sem tRPC"... pra descobrir que ele esqueceu tudo na próxima sessão? <strong>Dá pra ensinar uma vez só.</strong></p>
+
+  <div class="callout fade-in">
+    <p><strong>Pensa assim:</strong> O CLAUDE.md é o <strong>crachá de acesso</strong> do projeto. Sem ele, o Claude é um estagiário novo que chega todo dia e pergunta "cadê o banheiro?". Com ele, é o dev que já passou pelo onboarding: sabe onde tudo fica, conhece as regras da casa.</p>
+  </div>
+
+  <!-- DIAGRAMA: Como CLAUDE.md + Commands + Rules funcionam -->
+  <div class="fade-in" style="margin:32px 0;">
+    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;height:auto;">
+      <!-- CLAUDE.md central -->
+      <rect x="280" y="10" width="240" height="56" rx="12" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2"/>
+      <text x="400" y="33" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="13" fill="#6C3CFF">CLAUDE.md</text>
+      <text x="400" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="10" fill="#71717A">Carrega em TODA sessão</text>
+      <!-- Linha central descendo -->
+      <line x1="400" y1="66" x2="400" y2="90" stroke="#D4D4D8" stroke-width="2"/>
+      <!-- Ponto de ramificação -->
+      <circle cx="400" cy="95" r="4" fill="#D4D4D8"/>
+      <!-- Ramo esquerdo: Commands -->
+      <line x1="400" y1="95" x2="220" y2="95" stroke="#D4D4D8" stroke-width="2"/>
+      <line x1="220" y1="95" x2="220" y2="120" stroke="#D4D4D8" stroke-width="2"/>
+      <rect x="100" y="120" width="240" height="68" rx="12" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+      <text x="220" y="143" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#3B82F6">/commands</text>
+      <text x="220" y="160" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="10" fill="#71717A">Atalhos: /review /fix /test</text>
+      <text x="220" y="176" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#3B82F6">Você digita, executa na hora</text>
+      <!-- Ramo direito: Rules -->
+      <line x1="400" y1="95" x2="580" y2="95" stroke="#D4D4D8" stroke-width="2"/>
+      <line x1="580" y1="95" x2="580" y2="120" stroke="#D4D4D8" stroke-width="2"/>
+      <rect x="460" y="120" width="240" height="68" rx="12" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="580" y="143" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#92400E">/rules</text>
+      <text x="580" y="160" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="10" fill="#71717A">Ativa por contexto: payment, api</text>
+      <text x="580" y="176" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#92400E">Automático quando edita arquivo</text>
+    </svg>
+  </div>
+
+  <div class="file-tree fade-in" style="margin-top:24px;">
+    <span class="line"><span class="folder">ensinio-platform/</span></span>
+    <span class="line">  <span class="folder">.claude/</span> <span class="desc">........ Configuração (commitada no repo)</span></span>
+    <span class="line">    <span class="important">CLAUDE.md</span> <span class="desc">...... "Manual do projeto" — carrega automático</span></span>
+    <span class="line">    <span class="folder">commands/</span> <span class="desc">...... Slash commands compartilhados</span></span>
+    <span class="line">      <span class="file">review.md</span> <span class="desc">.... /review — checklist de code review</span></span>
+    <span class="line">      <span class="file">fix.md</span> <span class="desc">....... /fix — roda lint+test e corrige</span></span>
+    <span class="line">    <span class="folder">rules/</span> <span class="desc">......... Regras por contexto (injetadas automático)</span></span>
+    <span class="line">      <span class="file">payment.md</span> <span class="desc">... Regras quando mexe em código de pagamento</span></span>
+    <span class="line">      <span class="file">api.md</span> <span class="desc">....... Convenções de API REST</span></span>
+  </div>
+
+  <div style="margin-top:28px;" class="fade-in">
+    <div class="tabs" id="config-tabs">
+      <button class="tab-btn active" onclick="switchTab('config','claude-md')">CLAUDE.md</button>
+      <button class="tab-btn" onclick="switchTab('config','commands')">Commands</button>
+      <button class="tab-btn" onclick="switchTab('config','rules')">Rules</button>
+    </div>
+
+    <div class="tab-content active" id="config-claude-md">
+      <div class="terminal"><div class="terminal-body">
+        <span class="line"><span class="comment"># CLAUDE.md — carregado em TODA sessão</span></span>
+        <span class="line"><span class="comment"># Imagine: o que você explicaria a um dev novo?</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="highlight">## Stack</span></span>
+        <span class="line"><span class="output">- Next.js 14, App Router, TypeScript strict</span></span>
+        <span class="line"><span class="output">- Tailwind CSS + Radix UI</span></span>
+        <span class="line"><span class="output">- Prisma ORM + PostgreSQL</span></span>
+        <span class="line"><span class="output">- Stripe (Pay), Mux (Stream), Cloudflare R2</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="highlight">## Produtos</span></span>
+        <span class="line"><span class="output">- Club: área de membros (cursos, quizzes, tarefas)</span></span>
+        <span class="line"><span class="output">- Pay: checkout integrado (Pix, cartão, boleto)</span></span>
+        <span class="line"><span class="output">- Stream: vídeo hosting próprio</span></span>
+        <span class="line"><span class="output">- AI: agentes SDR e customizados (vendas, atendimento)</span></span>
+        <span class="line"><span class="output">- Engage: comunidades segmentadas + gamificação</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="highlight">## Comandos</span></span>
+        <span class="line"><span class="output">npm run dev       # Porta 3000</span></span>
+        <span class="line"><span class="output">npm test          # Jest + Testing Library</span></span>
+        <span class="line"><span class="output">npm run lint      # ESLint + Prettier</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="highlight">## Regras</span></span>
+        <span class="line"><span class="warn">- NUNCA usar "any" — tipar tudo</span></span>
+        <span class="line"><span class="warn">- NUNCA commitar .env ou credenciais</span></span>
+        <span class="line"><span class="success">- Toda API route valida input com Zod</span></span>
+        <span class="line"><span class="success">- Testes junto ao arquivo: Component.test.tsx</span></span>
+      </div></div>
+    </div>
+
+    <div class="tab-content" id="config-commands">
+      <div class="terminal"><div class="terminal-body">
+        <span class="line"><span class="comment"># .claude/commands/review.md</span></span>
+        <span class="line"><span class="comment"># Qualquer dev do time digita /review e usa</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="highlight">Faça um code review do diff atual:</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="output">1. Segurança: injection, XSS, dados expostos</span></span>
+        <span class="line"><span class="output">2. Performance: N+1 queries, renders desnecessários</span></span>
+        <span class="line"><span class="output">3. Tipos: any, assertions, casts inseguros</span></span>
+        <span class="line"><span class="output">4. Regras de negócio: validações do Pay/Club</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="error">  CRITICAL — bloqueia merge</span></span>
+        <span class="line"><span class="warn">  WARNING  — deveria corrigir</span></span>
+        <span class="line"><span class="info">  INFO     — sugestão</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="comment"># Um dev configura. Todo o time usa. Sempre.</span></span>
+      </div></div>
+    </div>
+
+    <div class="tab-content" id="config-rules">
+      <div class="terminal"><div class="terminal-body">
+        <span class="line"><span class="comment"># .claude/rules/payment.md</span></span>
+        <span class="line"><span class="comment"># Ativado AUTOMATICAMENTE quando Claude edita</span></span>
+        <span class="line"><span class="comment"># qualquer arquivo em src/services/payment/</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="highlight">Ao trabalhar com código de pagamento:</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="output">1. SEMPRE validar CPF/CNPJ antes de processar</span></span>
+        <span class="line"><span class="output">2. Pix: timeout de 15 min, depois cancela</span></span>
+        <span class="line"><span class="output">3. Cartão: retentativa em 25 dias</span></span>
+        <span class="line"><span class="output">4. Boleto: vencimento D+3 úteis</span></span>
+        <span class="line"><span class="output">5. NUNCA logar dados de cartão (PCI compliance)</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="comment"># Você não precisa lembrar essas regras.</span></span>
+        <span class="line"><span class="comment"># O Claude segue automaticamente.</span></span>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="callout fade-in" style="margin-top:32px;">
+    <p><strong>Slash commands</strong> = atalhos de teclado pra prompts. Sabe Cmd+S pra salvar? Imagine <code>/fix</code> que roda lint+test+corrige tudo. <strong>Rules</strong> = avisos de segurança automáticos. Se você mexe em <code>payment.ts</code>, o Claude já sabe "NUNCA logar dados de cartão" sem você lembrar.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- NA PRATICA -->
+<section id="pratica">
+  <div class="section-label">Capítulo 04</div>
+  <h2 class="section-title fade-in">A diferença na prática</h2>
+  <p class="section-desc fade-in">O mesmo pedido. Dois resultados completamente diferentes.</p>
+
+  <h3 style="margin-bottom:12px;" class="fade-in">Bug no Ensinio Pay</h3>
+  <div class="prompt-compare fade-in">
+    <div class="prompt-box">
+      <div class="prompt-box-header" style="background:var(--error-bg);color:#991B1B;"><span class="tag tag-red">Sem config</span></div>
+      <div class="prompt-box-body">
+        <span class="line" style="color:var(--p-300);">> o checkout ta bugado</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--n-500);">Claude: Pode me contar mais? Qual</span>
+        <span class="line" style="color:var(--n-500);">framework? Como é o checkout?</span>
+        <span class="line" style="color:var(--n-500);">Qual gateway de pagamento?</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--rose);">5 mensagens depois...</span>
+        <span class="line" style="color:var(--rose);">ainda alinhando contexto.</span>
+      </div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-box-header" style="background:var(--success-bg);color:#047857;"><span class="tag tag-green">Com CLAUDE.md</span></div>
+      <div class="prompt-box-body">
+        <span class="line" style="color:var(--p-300);">> o checkout do Pay dá 500</span>
+        <span class="line" style="color:var(--p-300);">  quando paga com Pix</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--n-500);">Claude já sabe: Next.js, Prisma,</span>
+        <span class="line" style="color:var(--n-500);">estrutura do Pay, Pix com timeout</span>
+        <span class="line" style="color:var(--n-500);">de 15min, validação de CPF...</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--emerald);">Lê o arquivo, acha o bug,</span>
+        <span class="line" style="color:var(--emerald);">corrige em 30 segundos.</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:40px 0 12px;" class="fade-in">Feature: Follow-up automático no Ensinio AI</h3>
+  <div class="prompt-compare fade-in">
+    <div class="prompt-box">
+      <div class="prompt-box-header" style="background:var(--error-bg);color:#991B1B;"><span class="tag tag-red">Prompt vago</span></div>
+      <div class="prompt-box-body">
+        <span class="line" style="color:var(--p-300);">> cria um sistema de follow-up</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--n-500);">Claude: Follow-up de quê? Emails?</span>
+        <span class="line" style="color:var(--n-500);">CRM? Vendas? Qual intervalo?</span>
+        <span class="line" style="color:var(--n-500);">Qual canal de comunicação?</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--rose);">Resultado genérico, sem</span>
+        <span class="line" style="color:var(--rose);">relação com o Ensinio AI.</span>
+      </div>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-box-header" style="background:var(--success-bg);color:#047857;"><span class="tag tag-green">Prompt com contexto</span></div>
+      <div class="prompt-box-body">
+        <span class="line" style="color:var(--p-300);">> O agente SDR do Ensinio AI</span>
+        <span class="line" style="color:var(--p-300);">  precisa mandar follow-up se o</span>
+        <span class="line" style="color:var(--p-300);">  lead não responder em 24h.</span>
+        <span class="line" style="color:var(--p-300);">  Max 3 tentativas, tom consultivo.</span>
+        <span class="line" style="color:var(--p-300);">  Sem insistência agressiva.</span>
+        <span class="line"></span>
+        <span class="line" style="color:var(--emerald);">Resultado preciso, integrado</span>
+        <span class="line" style="color:var(--emerald);">com o agente SDR existente.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-concept fade-in">
+    <h3>O padrão de ouro pra pedir qualquer coisa</h3>
+    <p><strong>CONTEXTO</strong> (o que tá acontecendo) + <strong>ESPERADO</strong> (o que deveria acontecer) + <strong>LIMITES</strong> (o que NÃO precisa agora)</p>
+  </div>
+
+  <h3 style="margin:32px 0 12px;" class="fade-in">Templates prontos — copie e adapte</h3>
+  <div class="card-grid fade-in">
+    <div class="card" style="border-left:3px solid var(--rose);">
+      <h3>Bug</h3>
+      <p><strong>O QUE + QUANDO + ESPERADO + PISTA</strong></p>
+      <p style="margin-top:8px;font-family:var(--font-mono);font-size:12px;color:var(--p-500);">"POST /api/pay/pix retorna 500 quando CPF tem pontuação. Esperado: aceitar com ou sem máscara. Erro está na validação."</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--emerald);">
+      <h3>Feature</h3>
+      <p><strong>O QUE + CENÁRIOS + O QUE NÃO PRECISA</strong></p>
+      <p style="margin-top:8px;font-family:var(--font-mono);font-size:12px;color:var(--p-500);">"Notificar alunos quando: nova aula, resposta no feed, certificado disponível. In-app por agora, push depois."</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--blue);">
+      <h3>Refactor</h3>
+      <p><strong>ESTADO ATUAL + ESTADO DESEJADO + RESTRIÇÕES</strong></p>
+      <p style="margin-top:8px;font-family:var(--font-mono);font-size:12px;color:var(--p-500);">"payment.ts tem 800 linhas misturando Pix+cartão+boleto. Separar em 3 + orquestrador. Testes devem continuar passando."</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AIOS -->
+<section id="aios">
+  <div class="section-label">Capítulo 05</div>
+  <h2 class="section-title fade-in">E quando você quiser ir além?</h2>
+  <p class="section-desc fade-in">Até aqui, você configurou o CLAUDE.md, criou commands, tá economizando tempo de verdade. Mas repara: ainda é VOCÊ que lembra de rodar lint. VOCÊ que cria o PR. VOCÊ que decide a ordem das coisas. <strong>E se cada etapa tivesse um responsável — e você só validasse o resultado final?</strong></p>
+
+  <div class="callout fade-in">
+    <p><strong>Analogia:</strong> Imagina que você é o <strong>diretor de um restaurante</strong>. Hoje, você é o chef, o garçom, o caixa e o faxineiro. O AIOS é como contratar uma equipe: cada pessoa faz só o que manja. Você continua decidindo o cardápio — mas não precisa mais fritar o ovo.</p>
+  </div>
+
+  <h3 style="margin:24px 0 12px;" class="fade-in">Antes e Depois — o que muda</h3>
+  <div class="table-wrap fade-in">
+    <table>
+      <thead><tr><th>Você faz tudo sozinho</th><th>Cada etapa tem um responsável</th></tr></thead>
+      <tbody>
+        <tr><td>Você lembra de rodar lint antes do commit</td><td>O <strong>inspetor de qualidade</strong> roda automático (lint + test + typecheck)</td></tr>
+        <tr><td>Você cria a descrição do PR manualmente</td><td>O <strong>responsável por deploy</strong> cria PR com descrição baseada na tarefa</td></tr>
+        <tr><td>Você decide cada passo da implementação</td><td>Fluxo definido: documentar &rarr; implementar &rarr; validar</td></tr>
+        <tr><td>Qualquer prompt pode dar push por acidente</td><td>Só o <strong>responsável por deploy</strong> pode push — <strong>catraca de segurança</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DIAGRAMA: Pipeline AIOS visual -->
+  <div class="fade-in" style="margin:32px 0;">
+    <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;height:auto;">
+      <!-- Título -->
+      <text x="400" y="20" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="14" fill="#3F3F46">Como funciona na prática</text>
+      <!-- VOCÊ -->
+      <rect x="290" y="36" width="220" height="44" rx="22" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2"/>
+      <text x="400" y="55" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="13" fill="#6C3CFF">VOCÊ</text>
+      <text x="400" y="70" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="9" fill="#71717A">Define O QUE precisa ser feito</text>
+      <!-- Seta descendo -->
+      <line x1="400" y1="80" x2="400" y2="100" stroke="#D4D4D8" stroke-width="2"/>
+      <polygon points="400,108 394,98 406,98" fill="#D4D4D8"/>
+      <!-- Pipeline horizontal -->
+      <!-- @sm -->
+      <rect x="20" y="112" width="136" height="60" rx="10" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1.5"/>
+      <text x="88" y="135" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#3B82F6">@sm</text>
+      <text x="88" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#71717A">Documenta</text>
+      <text x="88" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="8" fill="#A1A1AA">Cria a story</text>
+      <!-- Seta → -->
+      <line x1="156" y1="142" x2="172" y2="142" stroke="#D4D4D8" stroke-width="2" marker-end="url(#arrow)"/>
+      <!-- @po -->
+      <rect x="176" y="112" width="136" height="60" rx="10" fill="#CFFAFE" stroke="#06B6D4" stroke-width="1.5"/>
+      <text x="244" y="135" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#0891B2">@po</text>
+      <text x="244" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#71717A">Valida</text>
+      <text x="244" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="8" fill="#A1A1AA">Confere critérios</text>
+      <!-- Seta → -->
+      <line x1="312" y1="142" x2="328" y2="142" stroke="#D4D4D8" stroke-width="2"/>
+      <!-- @dev -->
+      <rect x="332" y="112" width="136" height="60" rx="10" fill="#D1FAE5" stroke="#10B981" stroke-width="1.5"/>
+      <text x="400" y="135" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#059669">@dev</text>
+      <text x="400" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#71717A">Implementa</text>
+      <text x="400" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="8" fill="#A1A1AA">Escreve código</text>
+      <!-- Seta → -->
+      <line x1="468" y1="142" x2="484" y2="142" stroke="#D4D4D8" stroke-width="2"/>
+      <!-- @qa -->
+      <rect x="488" y="112" width="136" height="60" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="556" y="135" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#D97706">@qa</text>
+      <text x="556" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#71717A">Inspeciona</text>
+      <text x="556" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="8" fill="#A1A1AA">Lint + Test</text>
+      <!-- Seta → -->
+      <line x1="624" y1="142" x2="640" y2="142" stroke="#D4D4D8" stroke-width="2"/>
+      <!-- @devops -->
+      <rect x="644" y="112" width="136" height="60" rx="10" fill="#FEE2E2" stroke="#EF4444" stroke-width="1.5"/>
+      <text x="712" y="135" text-anchor="middle" font-family="JetBrains Mono,monospace" font-weight="600" font-size="12" fill="#DC2626">@devops</text>
+      <text x="712" y="150" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="500" font-size="9" fill="#71717A">Publica</text>
+      <text x="712" y="163" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="8" fill="#A1A1AA">Push + PR</text>
+      <!-- Seta descendo do @devops -->
+      <line x1="712" y1="172" x2="712" y2="198" stroke="#D4D4D8" stroke-width="2"/>
+      <polygon points="712,206 706,196 718,196" fill="#D4D4D8"/>
+      <!-- RESULTADO -->
+      <rect x="602" y="210" width="220" height="44" rx="22" fill="#D1FAE5" stroke="#10B981" stroke-width="2"/>
+      <text x="712" y="229" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="13" fill="#059669">ENTREGUE</text>
+      <text x="712" y="244" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="400" font-size="9" fill="#71717A">Código testado + PR pronto</text>
+      <!-- Catraca label -->
+      <rect x="654" y="178" width="116" height="18" rx="9" fill="#FEE2E2"/>
+      <text x="712" y="190" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="700" font-size="8" fill="#DC2626" letter-spacing="0.5">ÚNICO QUE PODE</text>
+    </svg>
+  </div>
+
+  <h3 style="margin:32px 0 12px;" class="fade-in">Quem é quem no time?</h3>
+  <p style="font-size:14px;color:var(--n-500);margin-bottom:16px;" class="fade-in">Você é o líder técnico. Cada agente é um especialista que só faz o que manja. Ninguém invade a área do outro.</p>
+
+  <div class="card-grid fade-in">
+    <div class="card" style="border-left:3px solid var(--blue);">
+      <h3><code>@sm</code> — O Documentador</h3>
+      <p>Escreve a "receita" (story) com tudo que precisa ser feito: critérios, cenários, limites. Como um analista de requisitos que não esquece nada.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--cyan);">
+      <h3><code>@po</code> — O Validador</h3>
+      <p>Confere se a receita está completa. "Cobriu o cenário do Pix? E se o CPF vier sem pontuação?" Só libera quando tá redondo.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--emerald);">
+      <h3><code>@dev</code> — O Implementador</h3>
+      <p>Pega a receita validada e codifica. Faz commit local, atualiza a story. É o único que escreve código de produção.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);">
+      <h3><code>@qa</code> — O Inspetor</h3>
+      <p>Roda lint, typecheck e testes. Se algo falhar, devolve pro dev com feedback específico. Nada passa sem aprovação dele.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--p-400);">
+      <h3><code>@devops</code> — O Porteiro</h3>
+      <p>O ÚNICO que pode dar push e criar Pull Request. Nenhum outro agente tem essa permissão. É a catraca de segurança do projeto.</p>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 12px;" class="fade-in">Exemplo real: Parcelamento Inteligente no Pay</h3>
+  <div class="terminal fade-in" style="border-color:rgba(108,60,255,.3);">
+    <div class="terminal-header" style="background:rgba(108,60,255,.08);">
+      <div class="terminal-dot red"></div>
+      <div class="terminal-dot yellow"></div>
+      <div class="terminal-dot green"></div>
+      <span class="terminal-title" style="color:var(--p-300);">Recuperador de Vendas — Pay</span>
+    </div>
+    <div class="terminal-body">
+      <span class="line"><span class="prompt">Você: </span><span class="command">Quando o cartão do aluno é recusado por limite,</span></span>
+      <span class="line"><span class="command">       o Pay precisa oferecer parcelamento recorrente</span></span>
+      <span class="line"><span class="command">       automático. Ex: R$1.200 em 12x vira 12 cobranças</span></span>
+      <span class="line"><span class="command">       de R$100, consumindo só R$100 do limite por vez.</span></span>
+      <span class="line"><span class="command">       Se ainda não tiver limite, volta pro checkout.</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="comment"># Cada especialista faz a sua parte:</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="highlight">@sm</span> <span class="output">  Documenta: cenários, regras de retry, limites de parcela</span></span>
+      <span class="line"><span class="highlight">@po</span> <span class="output">  Valida: "e se o cartão é recusado na 3a parcela?"</span></span>
+      <span class="line"><span class="highlight">@dev</span> <span class="output"> Implementa o fluxo no checkout + lógica de reprocessamento</span></span>
+      <span class="line"><span class="highlight">@qa</span> <span class="output">  Verifica: lint ok, testes passam, PCI compliance ok</span></span>
+      <span class="line"><span class="highlight">@devops</span> <span class="output">Push + Pull Request pro time revisar</span></span>
+      <span class="line"></span>
+      <span class="line"><span class="success">Você definiu O QUE. Cada especialista resolveu O COMO.</span></span>
+      <span class="line"><span class="warn">Importante: você ainda valida o resultado final.</span></span>
+      <span class="line"><span class="warn">O AIOS acelera, não substitui seu julgamento.</span></span>
+    </div>
+  </div>
+
+  <h3 style="margin:32px 0 12px;" class="fade-in">O fluxo completo</h3>
+  <div class="pipeline fade-in">
+    <div class="pipe-stage"><div class="pipe-agent">@sm</div><div class="pipe-action">Documenta</div></div>
+    <div class="pipe-stage"><div class="pipe-agent">@po</div><div class="pipe-action">Valida</div></div>
+    <div class="pipe-stage"><div class="pipe-agent">@dev</div><div class="pipe-action">Implementa</div></div>
+    <div class="pipe-stage"><div class="pipe-agent">@qa</div><div class="pipe-action">Inspeciona</div></div>
+    <div class="pipe-stage"><div class="pipe-agent">@devops</div><div class="pipe-action">Publica</div></div>
+  </div>
+
+  <div class="callout fade-in" style="margin-top:24px;">
+    <p><strong>Não precisa começar por aqui.</strong> O AIOS é o Nível 3 — e você chega nele naturalmente depois que CLAUDE.md, commands e rules virarem rotina. Primeiro anda, depois corre.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUICK WINS -->
+<section id="quickwins">
+  <div class="section-label">Capítulo 06</div>
+  <h2 class="section-title fade-in">Quick Wins — aplique amanhã</h2>
+  <p class="section-desc fade-in">4 ações concretas que qualquer dev da Ensinio pode fazer agora.</p>
+
+  <div class="levels fade-in">
+    <div class="level">
+      <div class="level-badge" style="background:var(--success-bg);color:#047857;">5m</div>
+      <div class="level-content">
+        <h3>Crie o CLAUDE.md do seu projeto</h3>
+        <p class="subtitle">Rode <code>/init</code> no Claude Code — ele gera automaticamente.</p>
+        <ul>
+          <li>Stack (Next.js, Prisma, etc)</li>
+          <li>Comandos (dev, test, lint, build)</li>
+          <li>Convenções (naming, pastas, imports)</li>
+          <li>Regras do que NUNCA fazer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-badge" style="background:var(--info-bg);color:#1D4ED8;">15m</div>
+      <div class="level-content">
+        <h3>Crie 3 slash commands</h3>
+        <p class="subtitle">Automatize o que você repete toda semana.</p>
+        <ul>
+          <li><code>/review</code> — Code review com checklist padrão</li>
+          <li><code>/test</code> — "Cria testes pro arquivo atual"</li>
+          <li><code>/fix</code> — "Roda lint e typecheck, corrige os erros"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-badge" style="background:var(--warning-bg);color:#92400E;">30m</div>
+      <div class="level-content">
+        <h3>Crie rules pro que se repete</h3>
+        <p class="subtitle">Regras que ativam automaticamente quando necessário.</p>
+        <ul>
+          <li><code>.claude/rules/payment.md</code> — regras do Pay (PCI, CPF, etc)</li>
+          <li><code>.claude/rules/api.md</code> — convenções de API REST</li>
+          <li><code>.claude/rules/club.md</code> — regras do Club (matrícula, progresso)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="level">
+      <div class="level-badge" style="background:var(--p-100);color:var(--p-500);">1h</div>
+      <div class="level-content">
+        <h3>Mude como você pede</h3>
+        <p class="subtitle">A maior alavanca de todas.</p>
+        <ul>
+          <li>Pare de ditar implementação. Descreva o resultado.</li>
+          <li>Sempre: O QUE acontece HOJE vs O QUE DEVERIA acontecer</li>
+          <li>Diga o que NÃO precisa (limita o escopo)</li>
+          <li>Peça pra seguir os padrões existentes do projeto</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="key-concept fade-in" style="text-align:left;">
+    <h3 style="text-align:center;margin-bottom:20px;">Checklist de Setup</h3>
+    <ul class="checklist">
+      <li><span class="check" onclick="this.classList.toggle('done')"></span><span>Rodar <code>/init</code> pra gerar CLAUDE.md automaticamente</span></li>
+      <li><span class="check" onclick="this.classList.toggle('done')"></span><span>Revisar e ajustar o CLAUDE.md gerado (stack, regras, comandos)</span></li>
+      <li><span class="check" onclick="this.classList.toggle('done')"></span><span>Criar pelo menos <code>/review</code> em <code>.claude/commands/</code></span></li>
+      <li><span class="check" onclick="this.classList.toggle('done')"></span><span>Commitar o <code>.claude/</code> no repo (time inteiro herda)</span></li>
+      <li><span class="check" onclick="this.classList.toggle('done')"></span><span>No próximo bug: descrever com CONTEXTO + ESPERADO + LIMITES</span></li>
+      <li><span class="check" onclick="this.classList.toggle('done')"></span><span>Parar de microgerenciar — delegar e validar resultado</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO APRENDER -->
+<section id="aprender">
+  <div class="section-label">Capítulo 07</div>
+  <h2 class="section-title fade-in">Como isso gruda na cabeça?</h2>
+  <p class="section-desc fade-in">Saber não é fazer. A diferença entre "entendi" e "uso todo dia" está em como você pratica. Não precisa de força de vontade — precisa de estratégia.</p>
+
+  <div class="card-grid fade-in">
+    <div class="card" style="border-left:3px solid var(--cyan);">
+      <div class="card-icon" style="background:rgba(6,182,212,.1);color:var(--cyan);">1</div>
+      <h3>Comece ridiculamente pequeno</h3>
+      <p>Hábito funciona como exercício: o que importa não é a intensidade, é a consistência. Não tente "configurar tudo hoje". Comece com UMA coisa: rode <code>/init</code>. Amanhã, crie UM command. Depois de uma semana, já virou rotina.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--amber);">
+      <div class="card-icon" style="background:var(--warning-bg);color:var(--amber);">2</div>
+      <h3>Note quando funcionar</h3>
+      <p>Seu cérebro registra quando o resultado é melhor do que esperava. A primeira vez que o Claude corrigir um bug em 30s (em vez de 20min) — <strong>pare e note isso</strong>. Essa surpresa positiva é o que cria o hábito de voltar.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--emerald);">
+      <div class="card-icon" style="background:var(--success-bg);color:var(--emerald);">3</div>
+      <h3>Calibre o desafio</h3>
+      <p>Difícil demais = frustração. Fácil demais = tédio. O ponto ideal: tarefas que você <em>já sabe fazer</em>, mas que o Claude faz mais rápido. Comece por bugs simples, depois features pequenas. Vá subindo aos poucos.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--p-400);">
+      <div class="card-icon" style="background:var(--p-100);color:var(--p-400);">4</div>
+      <h3>Compartilhe com o time</h3>
+      <p>Quando um dev vê outro economizando 30min/dia com <code>/review</code>, ele quer também. Manda no canal: "olha esse comando que criei, corta metade do meu tempo de code review". Adoção por contágio é mais forte que treinamento.</p>
+    </div>
+  </div>
+
+  <div class="callout fade-in" style="margin-top:24px;">
+    <p><strong>A sequência que funciona:</strong> Semana 1: <code>/init</code> + CLAUDE.md. Semana 2: criar <code>/review</code> e <code>/fix</code>. Semana 3: rules para payment e API. Semana 4: mudar como você pede (CONTEXTO + ESPERADO + LIMITES). Em 30 dias, você não volta mais pro Nível 1.</p>
+  </div>
+
+  <div class="key-concept fade-in">
+    <h3>Não é sobre aprender uma ferramenta.<br>É sobre mudar como você trabalha.</h3>
+    <p>A ferramenta é o Claude Code. O aprendizado real é parar de microgerenciar, definir critérios claros e confiar no processo. Isso serve pra IA e pra vida.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ENCERRAMENTO -->
+<section style="text-align:center;padding:80px 2rem;">
+  <div class="fade-in">
+    <div class="section-label">Recapitulando</div>
+    <h2 class="section-title" style="max-width:640px;margin:0 auto 24px;">
+      3 passos. Hoje mesmo.
+    </h2>
+    <div style="display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;">
+      <div style="text-align:center;max-width:200px;">
+        <div style="font-size:36px;font-weight:800;background:var(--grad-cta);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">1</div>
+        <div style="font-size:15px;font-weight:600;color:var(--n-900);margin-bottom:4px;">Configure o contexto</div>
+        <div style="font-size:13px;color:var(--n-500);">CLAUDE.md com stack, comandos e regras da Ensinio</div>
+      </div>
+      <div style="text-align:center;max-width:200px;">
+        <div style="font-size:36px;font-weight:800;background:var(--grad-cta);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">2</div>
+        <div style="font-size:15px;font-weight:600;color:var(--n-900);margin-bottom:4px;">Automatize o repetitivo</div>
+        <div style="font-size:13px;color:var(--n-500);">Slash commands e rules compartilhados no repo</div>
+      </div>
+      <div style="text-align:center;max-width:200px;">
+        <div style="font-size:36px;font-weight:800;background:var(--grad-cta);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">3</div>
+        <div style="font-size:15px;font-weight:600;color:var(--n-900);margin-bottom:4px;">Peça melhor</div>
+        <div style="font-size:13px;color:var(--n-500);">Contexto + Esperado + Limites. Sempre.</div>
+      </div>
+    </div>
+    <p style="color:var(--n-500);font-size:16px;max-width:480px;margin:0 auto 32px;line-height:1.65;">
+      Você não precisa ser o melhor programador da sala.<br>Precisa ser o melhor em <em>pedir</em> as coisas certas.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Claude Code — Ensinio</div>
+  <p>Workshop Interno 2026</p>
+  <p style="margin-top:8px;font-size:12px;color:var(--n-600);">Powered by Claude Code + AIOS Framework</p>
+</footer>
+
+<script>
+  function toggleTheme(){
+    const html=document.documentElement;
+    const isDark=html.getAttribute('data-theme')==='dark';
+    html.setAttribute('data-theme',isDark?'light':'dark');
+    document.getElementById('themeBtn').innerHTML=isDark?'&#9790;':'&#9788;';
+    localStorage.setItem('theme',isDark?'light':'dark');
+  }
+  (function(){
+    const saved=localStorage.getItem('theme');
+    const prefersDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+    if(saved==='dark'||(! saved && prefersDark)){
+      document.documentElement.setAttribute('data-theme','dark');
+      document.getElementById('themeBtn').innerHTML='&#9788;';
+    }
+  })();
+
+  function switchTab(group,id){
+    const p=group+'-';
+    document.querySelectorAll(`[id^="${p}"]`).forEach(el=>{
+      if(el.classList.contains('tab-content'))el.classList.remove('active');
+    });
+    document.getElementById(`${p}${id}`).classList.add('active');
+    const tc=document.getElementById(`${group}-tabs`);
+    if(tc)tc.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:.1});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

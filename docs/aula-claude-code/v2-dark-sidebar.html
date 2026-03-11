@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Masterclass — Ensinio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg-page: #0a0a0a;
+      --color-bg-card: #1a1a1a;
+      --color-bg-card-alt: #242424;
+      --color-bg-glass: rgba(26, 26, 26, 0.85);
+      --color-text-headline: #ffffff;
+      --color-text-body: #b3b3b3;
+      --color-text-body-alt: #808080;
+      --color-border-card: #2a2a2a;
+      --color-border-separator: #1e1e1e;
+      --color-border-hover: #444444;
+
+      --red: #EF4444;
+      --red-dim: rgba(239, 68, 68, 0.12);
+      --green: #22C55E;
+      --green-dim: rgba(34, 197, 94, 0.12);
+      --purple: #A855F7;
+      --purple-dim: rgba(168, 85, 247, 0.12);
+      --blue: #3B82F6;
+      --blue-dim: rgba(59, 130, 246, 0.12);
+      --amber: #F59E0B;
+      --amber-dim: rgba(245, 158, 11, 0.12);
+      --cyan: #06B6D4;
+      --cyan-dim: rgba(6, 182, 212, 0.12);
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-pill: 99px;
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg-page);
+      color: var(--color-text-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── LAYOUT ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 300px; position: fixed; top: 0; left: 0; bottom: 0;
+      background: var(--color-bg-card);
+      border-right: 1px solid var(--color-border-card);
+      display: flex; flex-direction: column;
+      z-index: 100; overflow-y: auto;
+      transition: transform var(--transition-normal);
+    }
+    .sidebar-header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid var(--color-border-separator);
+    }
+    .sidebar-brand {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .sidebar-brand-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-md);
+      background: var(--red); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px;
+    }
+    .sidebar-brand-title {
+      font-size: 15px; font-weight: 700; color: var(--color-text-headline);
+      letter-spacing: -0.01em;
+    }
+    .sidebar-brand-subtitle {
+      font-size: 11px; color: var(--color-text-body-alt);
+    }
+    .sidebar-badge {
+      margin-left: auto;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      background: var(--red-dim); color: var(--red);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    }
+    .sidebar-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .sidebar-stat {
+      background: var(--color-bg-card-alt); border-radius: var(--radius-md);
+      padding: 10px 12px; text-align: center;
+    }
+    .sidebar-stat-value {
+      font-size: 18px; font-weight: 800; color: var(--color-text-headline);
+    }
+    .sidebar-stat-label {
+      font-size: 9px; font-weight: 600; color: var(--color-text-body-alt);
+      letter-spacing: 0.1em; margin-top: 2px;
+    }
+
+    /* ── NAV ITEMS ── */
+    .sidebar-nav { padding: 12px 0; flex: 1; }
+    .nav-section-label {
+      font-size: 10px; font-weight: 700; color: var(--color-text-body-alt);
+      letter-spacing: 0.12em; padding: 16px 20px 8px;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 20px; cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all var(--transition-fast);
+      text-decoration: none; color: inherit;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.03); }
+    .nav-item.active {
+      border-left-color: var(--red);
+      background: var(--red-dim);
+    }
+    .nav-item-number {
+      width: 28px; height: 28px; border-radius: var(--radius-sm);
+      background: var(--color-bg-card-alt); color: var(--color-text-body-alt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+    .nav-item.active .nav-item-number {
+      background: var(--red-dim); color: var(--red);
+    }
+    .nav-item-title {
+      font-size: 13px; font-weight: 500; color: var(--color-text-body);
+    }
+    .nav-item.active .nav-item-title { color: var(--color-text-headline); }
+    .nav-item-meta {
+      font-size: 11px; color: var(--color-text-body-alt);
+    }
+    .nav-separator {
+      height: 1px; background: var(--color-border-separator);
+      margin: 8px 20px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      flex: 1; margin-left: 300px;
+      min-height: 100vh;
+    }
+    .main-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header { margin-bottom: 56px; }
+    .page-header-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: var(--radius-pill);
+      background: var(--red-dim); color: var(--red);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-size: clamp(28px, 5vw, 40px); font-weight: 800;
+      color: var(--color-text-headline); letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: 16px; color: var(--color-text-body);
+      max-width: 540px; line-height: 1.65;
+    }
+
+    /* ── LESSON SECTION ── */
+    .lesson-section {
+      margin-bottom: 64px;
+      scroll-margin-top: 32px;
+    }
+    .lesson-badge-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+    }
+    .lesson-badge {
+      display: inline-block; padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    }
+    .lesson-badge--red { background: var(--red-dim); color: var(--red); }
+    .lesson-badge--green { background: var(--green-dim); color: var(--green); }
+    .lesson-badge--purple { background: var(--purple-dim); color: var(--purple); }
+    .lesson-badge--blue { background: var(--blue-dim); color: var(--blue); }
+    .lesson-badge--amber { background: var(--amber-dim); color: var(--amber); }
+    .lesson-badge--cyan { background: var(--cyan-dim); color: var(--cyan); }
+    .lesson-badge-date {
+      font-size: 12px; color: var(--color-text-body-alt);
+    }
+    .lesson-headline {
+      font-size: clamp(20px, 3vw, 26px); font-weight: 700;
+      color: var(--color-text-headline); letter-spacing: -0.01em;
+      line-height: 1.3; margin-bottom: 24px;
+    }
+
+    /* ── CONTENT CARD ── */
+    .content-card {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border-card);
+      border-radius: var(--radius-lg);
+      padding: 24px; margin-bottom: 16px;
+      transition: border-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .content-card:hover {
+      border-color: var(--color-border-hover);
+      transform: translateY(-1px);
+    }
+    .content-card-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .content-card-icon {
+      width: 36px; height: 36px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; flex-shrink: 0;
+    }
+    .content-card-icon--red { background: var(--red-dim); color: var(--red); }
+    .content-card-icon--green { background: var(--green-dim); color: var(--green); }
+    .content-card-icon--purple { background: var(--purple-dim); color: var(--purple); }
+    .content-card-icon--blue { background: var(--blue-dim); color: var(--blue); }
+    .content-card-icon--amber { background: var(--amber-dim); color: var(--amber); }
+    .content-card-icon--cyan { background: var(--cyan-dim); color: var(--cyan); }
+    .content-card-title {
+      font-size: 12px; font-weight: 700; color: var(--color-text-body-alt);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .content-card-body p {
+      font-size: 14px; color: var(--color-text-body); line-height: 1.65;
+      margin-bottom: 8px;
+    }
+    .content-card-body p:last-child { margin-bottom: 0; }
+    .content-card-body strong { color: var(--color-text-headline); font-weight: 600; }
+    .content-card-body em { color: var(--color-text-body-alt); font-style: italic; }
+    .content-card-body code {
+      font-family: var(--font-mono); font-size: 12px;
+      background: var(--color-bg-card-alt); padding: 2px 7px;
+      border-radius: 4px; color: var(--red);
+    }
+    .content-card-body ul {
+      list-style: none; padding: 0;
+    }
+    .content-card-body ul li {
+      font-size: 14px; color: var(--color-text-body);
+      padding: 5px 0 5px 18px; position: relative;
+    }
+    .content-card-body ul li::before {
+      content: ''; position: absolute; left: 0; top: 13px;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--color-text-body-alt);
+    }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px; margin-bottom: 16px;
+    }
+
+    /* ── TERMINAL ── */
+    .terminal {
+      background: #111111; border: 1px solid var(--color-border-card);
+      border-radius: var(--radius-lg); overflow: hidden;
+      font-family: var(--font-mono); font-size: 13px; line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .terminal-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px; background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #ff5f57; }
+    .terminal-dot.y { background: #febc2e; }
+    .terminal-dot.g { background: #28c840; }
+    .terminal-title { margin-left: 8px; color: var(--color-text-body-alt); font-size: 11px; }
+    .terminal-body { padding: 18px 22px; overflow-x: auto; }
+    .terminal-body .line { display: block; min-height: 1.8em; }
+    .terminal-body .prompt { color: var(--green); }
+    .terminal-body .cmd { color: #fff; }
+    .terminal-body .cmt { color: #555; font-style: italic; }
+    .terminal-body .out { color: var(--color-text-body); }
+    .terminal-body .hl { color: var(--red); }
+    .terminal-body .ok { color: var(--green); }
+    .terminal-body .wrn { color: var(--amber); }
+    .terminal-body .inf { color: var(--blue); }
+    .terminal-body .err { color: var(--red); }
+
+    /* ── FILE TREE ── */
+    .file-tree {
+      background: #111111; border: 1px solid var(--color-border-card);
+      border-radius: var(--radius-lg); padding: 22px;
+      font-family: var(--font-mono); font-size: 13px;
+      line-height: 2; color: var(--color-text-body-alt);
+      margin-bottom: 16px; overflow-x: auto;
+    }
+    .file-tree .fl { color: var(--blue); }
+    .file-tree .fi { color: var(--color-text-body-alt); }
+    .file-tree .imp { color: var(--red); font-weight: 600; }
+    .file-tree .desc { color: #555; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      overflow-x: auto; margin-bottom: 16px; border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-card);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th {
+      background: var(--color-bg-card-alt); font-weight: 600; text-align: left;
+      padding: 12px 20px; border-bottom: 1px solid var(--color-border-card);
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--color-text-body-alt);
+    }
+    td {
+      padding: 12px 20px; border-bottom: 1px solid var(--color-border-separator);
+      color: var(--color-text-body);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+    td strong { color: var(--color-text-headline); }
+    td code {
+      font-family: var(--font-mono); font-size: 12px;
+      background: var(--red-dim); padding: 2px 7px;
+      border-radius: 4px; color: var(--red);
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex; gap: 2px; background: var(--color-bg-card-alt);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 6px 6px 0;
+    }
+    .tab-btn {
+      padding: 8px 18px; border: none; background: transparent;
+      color: var(--color-text-body-alt); font-family: var(--font-sans);
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      transition: all var(--transition-fast);
+    }
+    .tab-btn:hover { color: var(--color-text-body); }
+    .tab-btn.active { color: var(--color-text-headline); background: #111111; }
+    .tab-content {
+      display: none; border: 1px solid var(--color-border-card);
+      border-top: none; border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+    .tab-content.active { display: block; }
+    .tab-content .terminal { border: none; border-radius: 0; margin-bottom: 0; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-left: 3px solid var(--red);
+      background: var(--color-bg-card);
+      padding: 20px 24px; border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-bottom: 16px;
+    }
+    .callout p {
+      font-size: 14px; color: var(--color-text-body); line-height: 1.65;
+    }
+    .callout strong { color: var(--color-text-headline); }
+
+    /* ── PROMPT COMPARE ── */
+    .prompt-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;
+    }
+    .prompt-box { border-radius: var(--radius-lg); overflow: hidden; }
+    .prompt-box-header {
+      padding: 10px 18px; font-weight: 700; font-size: 12px;
+      display: flex; align-items: center; gap: 8px;
+      letter-spacing: 0.04em;
+    }
+    .prompt-box-header.bad { background: var(--red-dim); color: var(--red); }
+    .prompt-box-header.good { background: var(--green-dim); color: var(--green); }
+    .prompt-box-body {
+      background: #111111; border: 1px solid var(--color-border-card);
+      border-top: none; padding: 18px; font-family: var(--font-mono);
+      font-size: 13px; line-height: 1.8;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      min-height: 160px;
+    }
+
+    /* ── KEY CONCEPT ── */
+    .key-concept {
+      background: var(--color-bg-card); border: 1px solid var(--color-border-card);
+      border-radius: var(--radius-lg); padding: 36px; text-align: center;
+      margin-bottom: 16px;
+    }
+    .key-concept h3 {
+      font-size: 18px; font-weight: 700; color: var(--color-text-headline);
+      margin-bottom: 10px; line-height: 1.4;
+    }
+    .key-concept p {
+      font-size: 14px; color: var(--color-text-body);
+      max-width: 500px; margin: 0 auto; line-height: 1.65;
+    }
+
+    /* ── PIPELINE ── */
+    .pipeline {
+      display: flex; gap: 0; margin-bottom: 16px;
+      overflow-x: auto; padding-bottom: 4px;
+    }
+    .pipe-stage {
+      flex: 1; min-width: 120px; background: var(--color-bg-card);
+      border: 1px solid var(--color-border-card);
+      padding: 16px 12px; text-align: center; position: relative;
+    }
+    .pipe-stage:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+    .pipe-stage:last-child { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .pipe-stage:not(:last-child)::after {
+      content: ''; position: absolute; right: -1px; top: 50%;
+      transform: translateY(-50%); z-index: 2;
+      width: 0; height: 0; border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 10px solid var(--color-border-hover);
+    }
+    .pipe-agent {
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--red); font-weight: 600; margin-bottom: 3px;
+    }
+    .pipe-action {
+      font-size: 12px; color: var(--color-text-body-alt);
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 8px 0; font-size: 14px; color: var(--color-text-body);
+    }
+    .checklist .chk {
+      width: 20px; height: 20px; border-radius: var(--radius-sm);
+      border: 2px solid #444; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; cursor: pointer; transition: all 200ms ease;
+    }
+    .checklist .chk.done {
+      background: var(--green-dim); border-color: var(--green); color: var(--green);
+    }
+
+    /* ── TOPIC TAGS ── */
+    .topic-tags {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+    }
+    .topic-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: var(--radius-pill);
+      background: var(--color-bg-card-alt); border: 1px solid var(--color-border-card);
+      font-size: 12px; color: var(--color-text-body); font-weight: 500;
+      transition: border-color var(--transition-fast);
+    }
+    .topic-tag:hover { border-color: var(--color-border-hover); }
+
+    /* ── SECTION SEPARATOR ── */
+    .section-sep {
+      height: 1px; background: var(--color-border-separator);
+      margin: 48px 0;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      text-align: center; padding: 40px 0;
+      border-top: 1px solid var(--color-border-separator);
+      margin-top: 32px;
+    }
+    .page-footer p {
+      font-size: 12px; color: var(--color-text-body-alt);
+    }
+    .page-footer .footer-brand {
+      font-size: 15px; font-weight: 700; color: var(--red);
+      margin-bottom: 4px;
+    }
+
+    /* ── MOBILE ── */
+    .mobile-header {
+      display: none; position: fixed; top: 0; left: 0; right: 0;
+      z-index: 90; background: var(--color-bg-glass);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border-card);
+      padding: 0 16px; height: 52px;
+      align-items: center; gap: 12px;
+    }
+    .mobile-hamburger {
+      background: none; border: none; color: var(--color-text-body);
+      cursor: pointer; padding: 4px;
+    }
+    .mobile-header-title {
+      font-size: 14px; font-weight: 700; color: var(--color-text-headline);
+    }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-header { display: flex; }
+      .sidebar { transform: translateX(-300px); }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-overlay.open { display: block; }
+      .main-content { margin-left: 0; padding-top: 52px; }
+      .main-inner { padding: 24px 16px 60px; }
+      .prompt-compare { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── FADE ── */
+    .fade-in {
+      opacity: 0; transform: translateY(12px);
+      transition: all 400ms ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <button class="mobile-hamburger" onclick="toggleSidebar()" aria-label="Menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+  <div class="mobile-header-title">Claude Code — Ensinio</div>
+</div>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">E</div>
+      <div>
+        <div class="sidebar-brand-title">Claude Code</div>
+        <div class="sidebar-brand-subtitle">Workshop Ensinio</div>
+      </div>
+      <span class="sidebar-badge">
+        <span style="width:6px;height:6px;background:var(--red);border-radius:50%;"></span>
+        2026
+      </span>
+    </div>
+    <div class="sidebar-stats">
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-value">7</div>
+        <div class="sidebar-stat-label">CAPÍTULOS</div>
+      </div>
+      <div class="sidebar-stat">
+        <div class="sidebar-stat-value">3</div>
+        <div class="sidebar-stat-label">NÍVEIS</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">CAPÍTULOS</div>
+    <a class="nav-item active" href="#dor">
+      <div class="nav-item-number">!</div>
+      <div><div class="nav-item-title">A Dor</div><div class="nav-item-meta">Por que isso importa</div></div>
+    </a>
+    <a class="nav-item" href="#oque">
+      <div class="nav-item-number">01</div>
+      <div><div class="nav-item-title">O Que É</div><div class="nav-item-meta">Claude Code em 30s</div></div>
+    </a>
+    <a class="nav-item" href="#niveis">
+      <div class="nav-item-number">02</div>
+      <div><div class="nav-item-title">3 Níveis</div><div class="nav-item-meta">Onde você está hoje</div></div>
+    </a>
+    <a class="nav-item" href="#config">
+      <div class="nav-item-number">03</div>
+      <div><div class="nav-item-title">Setup</div><div class="nav-item-meta">Contexto uma vez só</div></div>
+    </a>
+    <a class="nav-item" href="#pratica">
+      <div class="nav-item-number">04</div>
+      <div><div class="nav-item-title">Antes/Depois</div><div class="nav-item-meta">Na prática</div></div>
+    </a>
+    <a class="nav-item" href="#aios">
+      <div class="nav-item-number">05</div>
+      <div><div class="nav-item-title">AIOS</div><div class="nav-item-meta">Indo além</div></div>
+    </a>
+    <a class="nav-item" href="#quickwins">
+      <div class="nav-item-number">06</div>
+      <div><div class="nav-item-title">Quick Wins</div><div class="nav-item-meta">Aplique amanhã</div></div>
+    </a>
+    <a class="nav-item" href="#aprender">
+      <div class="nav-item-number">07</div>
+      <div><div class="nav-item-title">Fixação</div><div class="nav-item-meta">Como gruda na cabeça</div></div>
+    </a>
+
+    <div class="nav-separator"></div>
+    <div class="nav-section-label">PRODUTOS ENSINIO</div>
+    <div class="topic-tags" style="padding:0 20px;">
+      <span class="topic-tag">Club</span>
+      <span class="topic-tag">Pay</span>
+      <span class="topic-tag">Stream</span>
+      <span class="topic-tag">AI</span>
+      <span class="topic-tag">Engage</span>
+    </div>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+<div class="main-inner">
+
+  <!-- PAGE HEADER -->
+  <header class="page-header fade-in">
+    <div class="page-header-badge">
+      <span style="width:6px;height:6px;background:var(--red);border-radius:50%;"></span>
+      WORKSHOP INTERNO
+    </div>
+    <h1>De Programador a Orquestrador</h1>
+    <p>O melhor código que você vai escrever amanhã é o que você não vai precisar escrever. Só vai precisar pedir certo.</p>
+  </header>
+
+  <!-- ═══════════════════ A DOR ═══════════════════ -->
+  <section class="lesson-section" id="dor">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--red">ANTES DE TUDO</span>
+    </div>
+    <h2 class="lesson-headline fade-in">Isso aqui parece familiar?</h2>
+
+    <div class="card-grid fade-in">
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--red">!</div>
+          <span class="content-card-title">"Ah, isso eu já expliquei"</span>
+        </div>
+        <div class="content-card-body">
+          <p>Você abre o Claude Code, pede pra corrigir algo no checkout do Ensinio Pay e... ele pergunta "qual framework?", "qual banco?", "como é a estrutura?". De novo.</p>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--red">!</div>
+          <span class="content-card-title">"Pronto! Ah, esqueci o lint"</span>
+        </div>
+        <div class="content-card-body">
+          <p>Implementou a feature, commitou, mandou pro PR. Aí o CI quebra por lint, typecheck ou teste. Volta, corrige, commita de novo. Toda vez.</p>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--red">!</div>
+          <span class="content-card-title">"Deixa eu copiar esse prompt"</span>
+        </div>
+        <div class="content-card-body">
+          <p>Você tem um prompt que funciona bem pra criar componentes. Mas fica salvo num bloco de notas, num Notion, ou na sua cabeça. Ninguém mais do time usa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout fade-in">
+      <p><strong>Traduzindo:</strong> Toda vez que você abre o Claude Code e gasta 5 minutos explicando "usa Next.js 14", "com Prisma", "componentes em src/components/"... são 5 minutos que você podia ter ensinado UMA VEZ e nunca mais repetir.</p>
+    </div>
+    <div class="callout fade-in" style="border-left-color:var(--amber);">
+      <p><strong>O problema não é vocês.</strong> O Claude Code, sem configuração, é um assistente genérico. Ele não sabe nada sobre o Ensinio Club, Pay, Stream, AI, sobre as regras de negócio, sobre o padrão de código do time. <em>A cada sessão, ele começa do zero.</em></p>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ O QUE É ═══════════════════ -->
+  <section class="lesson-section" id="oque">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--blue">CAPÍTULO 01</span>
+    </div>
+    <h2 class="lesson-headline fade-in">O Claude Code em 30 segundos</h2>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:24px;" class="fade-in">Não é um chatbot. É um agente que age no seu ambiente. Ele lê, escreve, executa e modifica coisas reais.</p>
+
+    <div class="terminal fade-in">
+      <div class="terminal-header">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+        <span class="terminal-title">Terminal — Claude Code na Ensinio</span>
+      </div>
+      <div class="terminal-body">
+        <span class="line"><span class="prompt">$ </span><span class="cmd">claude</span></span>
+        <span class="line"><span class="out">Claude Code v1.x</span></span>
+        <span class="line"><span class="out">Working directory: ~/ensinio/platform</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="prompt">Você: </span><span class="cmd">O Ensinio Pay está retornando 500 quando o aluno tenta trocar o meio de pagamento da assinatura. Deveria deixar trocar normalmente.</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="cmt"># Claude automaticamente:</span></span>
+        <span class="line"><span class="inf">  Lendo src/api/subscriptions/change-payment.ts</span></span>
+        <span class="line"><span class="inf">  Lendo src/services/payment-gateway.ts</span></span>
+        <span class="line"><span class="inf">  Buscando "throw.*Error" em src/api/subscriptions/</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="out">Encontrei. Na linha 34, o catch genérico captura o erro</span></span>
+        <span class="line"><span class="out">de validação do cartão e retorna 500 genérico.</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="ok">  Editando: src/api/subscriptions/change-payment.ts</span></span>
+        <span class="line"><span class="ok">  Agora: retorna 422 com mensagem "Cartão inválido"</span></span>
+        <span class="line"><span class="ok">  + tratamento para Pix e Boleto</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="cmt"># Nem sempre é tão direto assim. Bugs complexos</span></span>
+        <span class="line"><span class="cmt"># precisam de mais contexto. Mas a diferença é:</span></span>
+        <span class="line"><span class="cmt"># COM o CLAUDE.md, ele começa do lugar certo</span></span>
+        <span class="line"><span class="cmt"># em vez de perguntar "qual framework?".</span></span>
+      </div>
+    </div>
+
+    <div class="card-grid fade-in">
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--green">R</div>
+          <span class="content-card-title">Lê seus arquivos</span>
+        </div>
+        <div class="content-card-body"><p>Código, configs, docs, imagens. Sem copiar e colar nada.</p></div>
+      </div>
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--blue">E</div>
+          <span class="content-card-title">Edita cirurgicamente</span>
+        </div>
+        <div class="content-card-body"><p>Muda exatamente a linha que precisa. Sem reescrever o arquivo inteiro.</p></div>
+      </div>
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--amber">T</div>
+          <span class="content-card-title">Executa comandos</span>
+        </div>
+        <div class="content-card-body"><p>Roda npm test, git commit, qualquer coisa no terminal.</p></div>
+      </div>
+      <div class="content-card">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--purple">B</div>
+          <span class="content-card-title">Busca no projeto</span>
+        </div>
+        <div class="content-card-body"><p>Encontra arquivos e conteúdo mais rápido que find/grep.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ 3 NÍVEIS ═══════════════════ -->
+  <section class="lesson-section" id="niveis">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--amber">CAPÍTULO 02</span>
+    </div>
+    <h2 class="lesson-headline fade-in">Onde você está hoje?</h2>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:24px;" class="fade-in">Você já percebeu que passa mais tempo GERENCIANDO o Claude do que codando de verdade? "Explica isso", "não, esquece", "volta", "corrige ali". Você virou babá de IA. <strong>E se ele soubesse trabalhar sozinho?</strong></p>
+
+    <div class="content-card fade-in" style="border-left:3px solid var(--red);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--red">1</div>
+        <span class="content-card-title">BÁSICO — Você dita, a IA digita</span>
+      </div>
+      <div class="content-card-body">
+        <p style="color:var(--color-text-body-alt);margin-bottom:12px;">Tipo Copilot turbinado — economiza dedos, mas não economiza cabeça.</p>
+        <div class="terminal" style="margin:12px 0;"><div class="terminal-body" style="padding:12px 16px;">
+          <span class="line"><span class="hl">> </span><span class="out">Cria um componente React com um formulário de matrícula pro Ensinio Club</span></span>
+        </div></div>
+        <ul>
+          <li>A cada sessão, explica tudo de novo</li>
+          <li>Dita a implementação exata ("usa useState", "faz um map")</li>
+          <li>Revisa manualmente cada linha</li>
+          <li>Nenhum conhecimento é compartilhado entre devs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-card fade-in" style="border-left:3px solid var(--amber);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--amber">2</div>
+        <span class="content-card-title">INTERMEDIÁRIO — Você descreve, a IA escolhe</span>
+      </div>
+      <div class="content-card-body">
+        <p style="color:var(--color-text-body-alt);margin-bottom:12px;">O Claude já sabe o projeto. Você foca no O QUE, não no COMO.</p>
+        <div class="terminal" style="margin:12px 0;"><div class="terminal-body" style="padding:12px 16px;">
+          <span class="line"><span class="hl">> </span><span class="out">O checkout do Pay precisa validar CPF antes de processar o Pix. Segue o padrão de validação que já existe no projeto.</span></span>
+        </div></div>
+        <ul>
+          <li><strong>CLAUDE.md</strong> configurado — a IA já sabe a stack, convenções e regras</li>
+          <li>Slash commands: <code>/review</code>, <code>/test</code>, <code>/fix</code></li>
+          <li>Dá contexto: "segue o padrão", "como o arquivo X"</li>
+          <li>Configuração commitada no repo — todo dev herda</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="content-card fade-in" style="border-left:3px solid var(--green);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--green">3</div>
+        <span class="content-card-title">PRO — Você define o problema, agentes resolvem</span>
+      </div>
+      <div class="content-card-body">
+        <p style="color:var(--color-text-body-alt);margin-bottom:12px;">Você vira o gestor. Agentes especializados fazem o trabalho operacional.</p>
+        <div class="terminal" style="margin:12px 0;"><div class="terminal-body" style="padding:12px 16px;">
+          <span class="line"><span class="hl">> </span><span class="out">Precisamos que a Anamnese do Club direcione o aluno automaticamente para a trilha certa. Quando ele responde o questionário de perfil, os pesos geram um score e matriculam na trilha ideal. Se empatar, mostra as opções.</span></span>
+        </div></div>
+        <ul>
+          <li>Define O QUE precisa ser feito, não COMO</li>
+          <li>Agentes criam a story, arquitetam, implementam, testam</li>
+          <li>Verificação automática (lint, test, typecheck) antes de qualquer push</li>
+          <li>Histórico rastreável via git log + story markdown</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="key-concept fade-in">
+      <h3>Hoje vamos do Nível 1 pro Nível 2.<br>Nível 3 é consequência natural.</h3>
+      <p>Não tente pular. Um CLAUDE.md bem feito já muda completamente a experiência. Depois, commands e rules. Quando isso virar rotina, você está pronto pro próximo passo.</p>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ SETUP ═══════════════════ -->
+  <section class="lesson-section" id="config">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--green">CAPÍTULO 03</span>
+    </div>
+    <h2 class="lesson-headline fade-in">O segredo: dar contexto uma vez só</h2>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:24px;" class="fade-in">Você já perdeu 20 minutos explicando "usa Next.js 14", "com Prisma", "não, sem tRPC"... pra descobrir que ele esqueceu tudo na próxima sessão? <strong>Dá pra ensinar uma vez só.</strong></p>
+
+    <div class="callout fade-in">
+      <p><strong>Pensa assim:</strong> O CLAUDE.md é o <strong>crachá de acesso</strong> do projeto. Sem ele, o Claude é um estagiário novo que chega todo dia e pergunta "cadê o banheiro?". Com ele, é o dev que já passou pelo onboarding: sabe onde tudo fica, conhece as regras da casa.</p>
+    </div>
+
+    <div class="file-tree fade-in">
+      <span class="line"><span class="fl">ensinio-platform/</span></span>
+      <span class="line">  <span class="fl">.claude/</span> <span class="desc">........ Configuração (commitada no repo)</span></span>
+      <span class="line">    <span class="imp">CLAUDE.md</span> <span class="desc">...... "Manual do projeto" — carrega automático</span></span>
+      <span class="line">    <span class="fl">commands/</span> <span class="desc">...... Slash commands compartilhados</span></span>
+      <span class="line">      <span class="fi">review.md</span> <span class="desc">.... /review — checklist de code review</span></span>
+      <span class="line">      <span class="fi">fix.md</span> <span class="desc">....... /fix — roda lint+test e corrige</span></span>
+      <span class="line">    <span class="fl">rules/</span> <span class="desc">......... Regras por contexto (injetadas automático)</span></span>
+      <span class="line">      <span class="fi">payment.md</span> <span class="desc">... Regras quando mexe em código de pagamento</span></span>
+      <span class="line">      <span class="fi">api.md</span> <span class="desc">....... Convenções de API REST</span></span>
+    </div>
+
+    <div style="margin-top:20px;" class="fade-in">
+      <div class="tabs" id="config-tabs">
+        <button class="tab-btn active" onclick="switchTab('config','claude-md')">CLAUDE.md</button>
+        <button class="tab-btn" onclick="switchTab('config','commands')">Commands</button>
+        <button class="tab-btn" onclick="switchTab('config','rules')">Rules</button>
+      </div>
+      <div class="tab-content active" id="config-claude-md">
+        <div class="terminal"><div class="terminal-body">
+          <span class="line"><span class="cmt"># CLAUDE.md — carregado em TODA sessão</span></span>
+          <span class="line"><span class="cmt"># Imagine: o que você explicaria a um dev novo?</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="hl">## Stack</span></span>
+          <span class="line"><span class="out">- Next.js 14, App Router, TypeScript strict</span></span>
+          <span class="line"><span class="out">- Tailwind CSS + Radix UI</span></span>
+          <span class="line"><span class="out">- Prisma ORM + PostgreSQL</span></span>
+          <span class="line"><span class="out">- Stripe (Pay), Mux (Stream), Cloudflare R2</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="hl">## Produtos</span></span>
+          <span class="line"><span class="out">- Club: área de membros (cursos, quizzes, tarefas)</span></span>
+          <span class="line"><span class="out">- Pay: checkout integrado (Pix, cartão, boleto)</span></span>
+          <span class="line"><span class="out">- Stream: vídeo hosting próprio</span></span>
+          <span class="line"><span class="out">- AI: agentes SDR e customizados (vendas, atendimento)</span></span>
+          <span class="line"><span class="out">- Engage: comunidades segmentadas + gamificação</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="hl">## Comandos</span></span>
+          <span class="line"><span class="out">npm run dev       # Porta 3000</span></span>
+          <span class="line"><span class="out">npm test          # Jest + Testing Library</span></span>
+          <span class="line"><span class="out">npm run lint      # ESLint + Prettier</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="hl">## Regras</span></span>
+          <span class="line"><span class="wrn">- NUNCA usar "any" — tipar tudo</span></span>
+          <span class="line"><span class="wrn">- NUNCA commitar .env ou credenciais</span></span>
+          <span class="line"><span class="ok">- Toda API route valida input com Zod</span></span>
+          <span class="line"><span class="ok">- Testes junto ao arquivo: Component.test.tsx</span></span>
+        </div></div>
+      </div>
+      <div class="tab-content" id="config-commands">
+        <div class="terminal"><div class="terminal-body">
+          <span class="line"><span class="cmt"># .claude/commands/review.md</span></span>
+          <span class="line"><span class="cmt"># Qualquer dev do time digita /review e usa</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="hl">Faça um code review do diff atual:</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="out">1. Segurança: injection, XSS, dados expostos</span></span>
+          <span class="line"><span class="out">2. Performance: N+1 queries, renders desnecessários</span></span>
+          <span class="line"><span class="out">3. Tipos: any, assertions, casts inseguros</span></span>
+          <span class="line"><span class="out">4. Regras de negócio: validações do Pay/Club</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="err">  CRITICAL — bloqueia merge</span></span>
+          <span class="line"><span class="wrn">  WARNING  — deveria corrigir</span></span>
+          <span class="line"><span class="inf">  INFO     — sugestão</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="cmt"># Um dev configura. Todo o time usa. Sempre.</span></span>
+        </div></div>
+      </div>
+      <div class="tab-content" id="config-rules">
+        <div class="terminal"><div class="terminal-body">
+          <span class="line"><span class="cmt"># .claude/rules/payment.md</span></span>
+          <span class="line"><span class="cmt"># Ativado AUTOMATICAMENTE quando Claude edita</span></span>
+          <span class="line"><span class="cmt"># qualquer arquivo em src/services/payment/</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="hl">Ao trabalhar com código de pagamento:</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="out">1. SEMPRE validar CPF/CNPJ antes de processar</span></span>
+          <span class="line"><span class="out">2. Pix: timeout de 15 min, depois cancela</span></span>
+          <span class="line"><span class="out">3. Cartão: retentativa em 25 dias</span></span>
+          <span class="line"><span class="out">4. Boleto: vencimento D+3 úteis</span></span>
+          <span class="line"><span class="out">5. NUNCA logar dados de cartão (PCI compliance)</span></span>
+          <span class="line"></span>
+          <span class="line"><span class="cmt"># Você não precisa lembrar essas regras.</span></span>
+          <span class="line"><span class="cmt"># O Claude segue automaticamente.</span></span>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="callout fade-in" style="margin-top:20px;">
+      <p><strong>Slash commands</strong> = atalhos de teclado pra prompts. Sabe Cmd+S pra salvar? Imagine <code>/fix</code> que roda lint+test+corrige tudo. <strong>Rules</strong> = avisos de segurança automáticos. Se você mexe em <code>payment.ts</code>, o Claude já sabe "NUNCA logar dados de cartão" sem você lembrar.</p>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ NA PRÁTICA ═══════════════════ -->
+  <section class="lesson-section" id="pratica">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--purple">CAPÍTULO 04</span>
+    </div>
+    <h2 class="lesson-headline fade-in">A diferença na prática</h2>
+
+    <h3 style="font-size:15px;font-weight:600;color:var(--color-text-headline);margin-bottom:12px;" class="fade-in">Bug no Ensinio Pay</h3>
+    <div class="prompt-compare fade-in">
+      <div class="prompt-box">
+        <div class="prompt-box-header bad">SEM CONFIG</div>
+        <div class="prompt-box-body">
+          <span class="line" style="color:var(--red);">> o checkout ta bugado</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--color-text-body-alt);">Claude: Pode me contar mais? Qual</span>
+          <span class="line" style="color:var(--color-text-body-alt);">framework? Como é o checkout?</span>
+          <span class="line" style="color:var(--color-text-body-alt);">Qual gateway de pagamento?</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--red);">5 mensagens depois...</span>
+          <span class="line" style="color:var(--red);">ainda alinhando contexto.</span>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-box-header good">COM CLAUDE.md</div>
+        <div class="prompt-box-body">
+          <span class="line" style="color:var(--green);">> o checkout do Pay dá 500</span>
+          <span class="line" style="color:var(--green);">  quando paga com Pix</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--color-text-body-alt);">Claude já sabe: Next.js, Prisma,</span>
+          <span class="line" style="color:var(--color-text-body-alt);">estrutura do Pay, Pix com timeout</span>
+          <span class="line" style="color:var(--color-text-body-alt);">de 15min, validação de CPF...</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--green);">Lê o arquivo, acha o bug,</span>
+          <span class="line" style="color:var(--green);">corrige em 30 segundos.</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;color:var(--color-text-headline);margin:32px 0 12px;" class="fade-in">Feature: Follow-up automático no Ensinio AI</h3>
+    <div class="prompt-compare fade-in">
+      <div class="prompt-box">
+        <div class="prompt-box-header bad">PROMPT VAGO</div>
+        <div class="prompt-box-body">
+          <span class="line" style="color:var(--red);">> cria um sistema de follow-up</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--color-text-body-alt);">Claude: Follow-up de quê? Emails?</span>
+          <span class="line" style="color:var(--color-text-body-alt);">CRM? Vendas? Qual intervalo?</span>
+          <span class="line" style="color:var(--color-text-body-alt);">Qual canal de comunicação?</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--red);">Resultado genérico, sem</span>
+          <span class="line" style="color:var(--red);">relação com o Ensinio AI.</span>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <div class="prompt-box-header good">PROMPT COM CONTEXTO</div>
+        <div class="prompt-box-body">
+          <span class="line" style="color:var(--green);">> O agente SDR do Ensinio AI</span>
+          <span class="line" style="color:var(--green);">  precisa mandar follow-up se o</span>
+          <span class="line" style="color:var(--green);">  lead não responder em 24h.</span>
+          <span class="line" style="color:var(--green);">  Max 3 tentativas, tom consultivo.</span>
+          <span class="line" style="color:var(--green);">  Sem insistência agressiva.</span>
+          <span class="line"></span>
+          <span class="line" style="color:var(--green);">Resultado preciso, integrado</span>
+          <span class="line" style="color:var(--green);">com o agente SDR existente.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-concept fade-in">
+      <h3>O padrão de ouro pra pedir qualquer coisa</h3>
+      <p><strong>CONTEXTO</strong> (o que tá acontecendo) + <strong>ESPERADO</strong> (o que deveria acontecer) + <strong>LIMITES</strong> (o que NÃO precisa agora)</p>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;color:var(--color-text-headline);margin:24px 0 12px;" class="fade-in">Templates prontos — copie e adapte</h3>
+    <div class="card-grid fade-in">
+      <div class="content-card" style="border-left:3px solid var(--red);">
+        <div class="content-card-header"><span class="content-card-title">BUG</span></div>
+        <div class="content-card-body">
+          <p><strong>O QUE + QUANDO + ESPERADO + PISTA</strong></p>
+          <p><code>"POST /api/pay/pix retorna 500 quando CPF tem pontuação. Esperado: aceitar com ou sem máscara. Erro está na validação."</code></p>
+        </div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--green);">
+        <div class="content-card-header"><span class="content-card-title">FEATURE</span></div>
+        <div class="content-card-body">
+          <p><strong>O QUE + CENÁRIOS + O QUE NÃO PRECISA</strong></p>
+          <p><code>"Notificar alunos quando: nova aula, resposta no feed, certificado disponível. In-app por agora, push depois."</code></p>
+        </div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--blue);">
+        <div class="content-card-header"><span class="content-card-title">REFACTOR</span></div>
+        <div class="content-card-body">
+          <p><strong>ESTADO ATUAL + ESTADO DESEJADO + RESTRIÇÕES</strong></p>
+          <p><code>"payment.ts tem 800 linhas misturando Pix+cartão+boleto. Separar em 3 + orquestrador. Testes devem continuar passando."</code></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ AIOS ═══════════════════ -->
+  <section class="lesson-section" id="aios">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--purple">CAPÍTULO 05</span>
+      <span class="lesson-badge lesson-badge--amber">AVANÇADO</span>
+    </div>
+    <h2 class="lesson-headline fade-in">E quando você quiser ir além?</h2>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:24px;" class="fade-in">Até aqui, você configurou o CLAUDE.md, criou commands, tá economizando tempo de verdade. Mas repara: ainda é VOCÊ que lembra de rodar lint. VOCÊ que cria o PR. VOCÊ que decide a ordem das coisas. <strong>E se cada etapa tivesse um responsável — e você só validasse o resultado final?</strong></p>
+
+    <div class="callout fade-in" style="border-left-color:var(--purple);">
+      <p><strong>Analogia:</strong> Imagina que você é o <strong>diretor de um restaurante</strong>. Hoje, você é o chef, o garçom, o caixa e o faxineiro. O AIOS é como contratar uma equipe: cada pessoa faz só o que manja. Você continua decidindo o cardápio — mas não precisa mais fritar o ovo.</p>
+    </div>
+
+    <div class="table-wrap fade-in">
+      <table>
+        <thead><tr><th>Você faz tudo sozinho</th><th>Cada etapa tem um responsável</th></tr></thead>
+        <tbody>
+          <tr><td>Você lembra de rodar lint antes do commit</td><td>O <strong>inspetor de qualidade</strong> roda automático</td></tr>
+          <tr><td>Você cria a descrição do PR manualmente</td><td>O <strong>responsável por deploy</strong> cria o PR</td></tr>
+          <tr><td>Você decide cada passo da implementação</td><td>Fluxo definido: documentar → implementar → validar</td></tr>
+          <tr><td>Qualquer prompt pode dar push por acidente</td><td>Só o <strong>responsável por deploy</strong> pode push</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;color:var(--color-text-headline);margin:24px 0 12px;" class="fade-in">Quem é quem no time?</h3>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:16px;" class="fade-in">Você é o líder técnico. Cada agente é um especialista que só faz o que manja. Ninguém invade a área do outro.</p>
+
+    <div class="card-grid fade-in">
+      <div class="content-card" style="border-left:3px solid var(--blue);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--blue">D</div>
+          <span class="content-card-title"><code>@sm</code> — O Documentador</span>
+        </div>
+        <div class="content-card-body"><p>Escreve a "receita" (story) com tudo que precisa ser feito: critérios, cenários, limites.</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--cyan);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--cyan">V</div>
+          <span class="content-card-title"><code>@po</code> — O Validador</span>
+        </div>
+        <div class="content-card-body"><p>Confere se a receita está completa. "Cobriu o cenário do Pix? E se o CPF vier sem pontuação?"</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--green);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--green">I</div>
+          <span class="content-card-title"><code>@dev</code> — O Implementador</span>
+        </div>
+        <div class="content-card-body"><p>Pega a receita validada e codifica. Faz commit local, atualiza a story. É o único que escreve código.</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--amber);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--amber">Q</div>
+          <span class="content-card-title"><code>@qa</code> — O Inspetor</span>
+        </div>
+        <div class="content-card-body"><p>Roda lint, typecheck e testes. Se algo falhar, devolve pro dev com feedback específico.</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--red);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--red">P</div>
+          <span class="content-card-title"><code>@devops</code> — O Porteiro</span>
+        </div>
+        <div class="content-card-body"><p>O ÚNICO que pode dar push e criar Pull Request. É a catraca de segurança do projeto.</p></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;color:var(--color-text-headline);margin:24px 0 12px;" class="fade-in">Exemplo real: Parcelamento Inteligente no Pay</h3>
+    <div class="terminal fade-in" style="border-color:rgba(239,68,68,0.2);">
+      <div class="terminal-header" style="background:var(--red-dim);">
+        <div class="terminal-dot r"></div><div class="terminal-dot y"></div><div class="terminal-dot g"></div>
+        <span class="terminal-title" style="color:var(--red);">Recuperador de Vendas — Pay</span>
+      </div>
+      <div class="terminal-body">
+        <span class="line"><span class="prompt">Você: </span><span class="cmd">Quando o cartão do aluno é recusado por limite,</span></span>
+        <span class="line"><span class="cmd">       o Pay precisa oferecer parcelamento recorrente</span></span>
+        <span class="line"><span class="cmd">       automático. Ex: R$1.200 em 12x vira 12 cobranças</span></span>
+        <span class="line"><span class="cmd">       de R$100, consumindo só R$100 do limite por vez.</span></span>
+        <span class="line"><span class="cmd">       Se ainda não tiver limite, volta pro checkout.</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="cmt"># Cada especialista faz a sua parte:</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="hl">@sm</span> <span class="out">  Documenta: cenários, regras de retry, limites</span></span>
+        <span class="line"><span class="hl">@po</span> <span class="out">  Valida: "e se o cartão é recusado na 3a parcela?"</span></span>
+        <span class="line"><span class="hl">@dev</span> <span class="out"> Implementa fluxo + lógica de reprocessamento</span></span>
+        <span class="line"><span class="hl">@qa</span> <span class="out">  Verifica: lint ok, testes passam, PCI ok</span></span>
+        <span class="line"><span class="hl">@devops</span> <span class="out">Push + Pull Request pro time revisar</span></span>
+        <span class="line"></span>
+        <span class="line"><span class="ok">Você definiu O QUE. Cada especialista resolveu O COMO.</span></span>
+        <span class="line"><span class="wrn">O AIOS acelera, não substitui seu julgamento.</span></span>
+      </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:600;color:var(--color-text-headline);margin:24px 0 12px;" class="fade-in">O fluxo completo</h3>
+    <div class="pipeline fade-in">
+      <div class="pipe-stage"><div class="pipe-agent">@sm</div><div class="pipe-action">Documenta</div></div>
+      <div class="pipe-stage"><div class="pipe-agent">@po</div><div class="pipe-action">Valida</div></div>
+      <div class="pipe-stage"><div class="pipe-agent">@dev</div><div class="pipe-action">Implementa</div></div>
+      <div class="pipe-stage"><div class="pipe-agent">@qa</div><div class="pipe-action">Inspeciona</div></div>
+      <div class="pipe-stage"><div class="pipe-agent">@devops</div><div class="pipe-action">Publica</div></div>
+    </div>
+
+    <div class="callout fade-in" style="border-left-color:var(--amber);">
+      <p><strong>Não precisa começar por aqui.</strong> O AIOS é o Nível 3 — e você chega nele naturalmente depois que CLAUDE.md, commands e rules virarem rotina. Primeiro anda, depois corre.</p>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ QUICK WINS ═══════════════════ -->
+  <section class="lesson-section" id="quickwins">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--green">CAPÍTULO 06</span>
+    </div>
+    <h2 class="lesson-headline fade-in">Quick Wins — aplique amanhã</h2>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:24px;" class="fade-in">4 ações concretas que qualquer dev da Ensinio pode fazer agora.</p>
+
+    <div class="content-card fade-in" style="border-left:3px solid var(--green);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--green">5m</div>
+        <span class="content-card-title">Crie o CLAUDE.md do seu projeto</span>
+      </div>
+      <div class="content-card-body">
+        <p>Rode <code>/init</code> no Claude Code — ele gera automaticamente.</p>
+        <ul><li>Stack (Next.js, Prisma, etc)</li><li>Comandos (dev, test, lint, build)</li><li>Convenções (naming, pastas, imports)</li><li>Regras do que NUNCA fazer</li></ul>
+      </div>
+    </div>
+    <div class="content-card fade-in" style="border-left:3px solid var(--blue);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--blue">15m</div>
+        <span class="content-card-title">Crie 3 slash commands</span>
+      </div>
+      <div class="content-card-body">
+        <p>Automatize o que você repete toda semana.</p>
+        <ul><li><code>/review</code> — Code review com checklist padrão</li><li><code>/test</code> — "Cria testes pro arquivo atual"</li><li><code>/fix</code> — "Roda lint e typecheck, corrige os erros"</li></ul>
+      </div>
+    </div>
+    <div class="content-card fade-in" style="border-left:3px solid var(--amber);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--amber">30m</div>
+        <span class="content-card-title">Crie rules pro que se repete</span>
+      </div>
+      <div class="content-card-body">
+        <p>Regras que ativam automaticamente quando necessário.</p>
+        <ul><li><code>.claude/rules/payment.md</code> — regras do Pay (PCI, CPF, etc)</li><li><code>.claude/rules/api.md</code> — convenções de API REST</li><li><code>.claude/rules/club.md</code> — regras do Club (matrícula, progresso)</li></ul>
+      </div>
+    </div>
+    <div class="content-card fade-in" style="border-left:3px solid var(--purple);">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--purple">1h</div>
+        <span class="content-card-title">Mude como você pede</span>
+      </div>
+      <div class="content-card-body">
+        <p>A maior alavanca de todas.</p>
+        <ul><li>Pare de ditar implementação. Descreva o resultado.</li><li>Sempre: O QUE acontece HOJE vs O QUE DEVERIA acontecer</li><li>Diga o que NÃO precisa (limita o escopo)</li><li>Peça pra seguir os padrões existentes do projeto</li></ul>
+      </div>
+    </div>
+
+    <div class="content-card fade-in" style="text-align:left;">
+      <div class="content-card-header">
+        <div class="content-card-icon content-card-icon--green">&#10003;</div>
+        <span class="content-card-title">Checklist de Setup</span>
+      </div>
+      <div class="content-card-body">
+        <ul class="checklist">
+          <li><span class="chk" onclick="this.classList.toggle('done')"></span><span>Rodar <code>/init</code> pra gerar CLAUDE.md automaticamente</span></li>
+          <li><span class="chk" onclick="this.classList.toggle('done')"></span><span>Revisar e ajustar o CLAUDE.md gerado (stack, regras, comandos)</span></li>
+          <li><span class="chk" onclick="this.classList.toggle('done')"></span><span>Criar pelo menos <code>/review</code> em <code>.claude/commands/</code></span></li>
+          <li><span class="chk" onclick="this.classList.toggle('done')"></span><span>Commitar o <code>.claude/</code> no repo (time inteiro herda)</span></li>
+          <li><span class="chk" onclick="this.classList.toggle('done')"></span><span>No próximo bug: descrever com CONTEXTO + ESPERADO + LIMITES</span></li>
+          <li><span class="chk" onclick="this.classList.toggle('done')"></span><span>Parar de microgerenciar — delegar e validar resultado</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ APRENDER ═══════════════════ -->
+  <section class="lesson-section" id="aprender">
+    <div class="lesson-badge-row">
+      <span class="lesson-badge lesson-badge--cyan">CAPÍTULO 07</span>
+    </div>
+    <h2 class="lesson-headline fade-in">Como isso gruda na cabeça?</h2>
+    <p style="font-size:14px;color:var(--color-text-body);margin-bottom:24px;" class="fade-in">Saber não é fazer. A diferença entre "entendi" e "uso todo dia" está em como você pratica. Não precisa de força de vontade — precisa de estratégia.</p>
+
+    <div class="card-grid fade-in">
+      <div class="content-card" style="border-left:3px solid var(--cyan);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--cyan">1</div>
+          <span class="content-card-title">Comece ridiculamente pequeno</span>
+        </div>
+        <div class="content-card-body"><p>Hábito funciona como exercício: o que importa não é a intensidade, é a consistência. Não tente "configurar tudo hoje". Comece com UMA coisa: rode <code>/init</code>. Amanhã, crie UM command. Depois de uma semana, já virou rotina.</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--amber);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--amber">2</div>
+          <span class="content-card-title">Note quando funcionar</span>
+        </div>
+        <div class="content-card-body"><p>Seu cérebro registra quando o resultado é melhor do que esperava. A primeira vez que o Claude corrigir um bug em 30s (em vez de 20min) — <strong>pare e note isso</strong>. Essa surpresa positiva é o que cria o hábito de voltar.</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--green);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--green">3</div>
+          <span class="content-card-title">Calibre o desafio</span>
+        </div>
+        <div class="content-card-body"><p>Difícil demais = frustração. Fácil demais = tédio. O ponto ideal: tarefas que você <em>já sabe fazer</em>, mas que o Claude faz mais rápido. Comece por bugs simples, depois features pequenas. Vá subindo aos poucos.</p></div>
+      </div>
+      <div class="content-card" style="border-left:3px solid var(--purple);">
+        <div class="content-card-header">
+          <div class="content-card-icon content-card-icon--purple">4</div>
+          <span class="content-card-title">Compartilhe com o time</span>
+        </div>
+        <div class="content-card-body"><p>Quando um dev vê outro economizando 30min/dia com <code>/review</code>, ele quer também. Manda no canal: "olha esse comando que criei, corta metade do meu tempo de code review". Adoção por contágio é mais forte que treinamento.</p></div>
+      </div>
+    </div>
+
+    <div class="callout fade-in">
+      <p><strong>A sequência que funciona:</strong> Semana 1: <code>/init</code> + CLAUDE.md. Semana 2: criar <code>/review</code> e <code>/fix</code>. Semana 3: rules para payment e API. Semana 4: mudar como você pede (CONTEXTO + ESPERADO + LIMITES). Em 30 dias, você não volta mais pro Nível 1.</p>
+    </div>
+
+    <div class="key-concept fade-in">
+      <h3>Não é sobre aprender uma ferramenta.<br>É sobre mudar como você trabalha.</h3>
+      <p>A ferramenta é o Claude Code. O aprendizado real é parar de microgerenciar, definir critérios claros e confiar no processo. Isso serve pra IA e pra vida.</p>
+    </div>
+  </section>
+
+  <div class="section-sep"></div>
+
+  <!-- ═══════════════════ ENCERRAMENTO ═══════════════════ -->
+  <section class="lesson-section" style="text-align:center;">
+    <div class="lesson-badge-row" style="justify-content:center;">
+      <span class="lesson-badge lesson-badge--red">RECAPITULANDO</span>
+    </div>
+    <h2 class="lesson-headline fade-in" style="text-align:center;">3 passos. Hoje mesmo.</h2>
+
+    <div style="display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin:32px 0;" class="fade-in">
+      <div style="text-align:center;max-width:180px;">
+        <div style="font-size:32px;font-weight:800;color:var(--red);font-family:var(--font-mono);">1</div>
+        <div style="font-size:14px;font-weight:600;color:var(--color-text-headline);margin-bottom:4px;">Configure o contexto</div>
+        <div style="font-size:12px;color:var(--color-text-body-alt);">CLAUDE.md com stack, comandos e regras da Ensinio</div>
+      </div>
+      <div style="text-align:center;max-width:180px;">
+        <div style="font-size:32px;font-weight:800;color:var(--red);font-family:var(--font-mono);">2</div>
+        <div style="font-size:14px;font-weight:600;color:var(--color-text-headline);margin-bottom:4px;">Automatize o repetitivo</div>
+        <div style="font-size:12px;color:var(--color-text-body-alt);">Slash commands e rules compartilhados no repo</div>
+      </div>
+      <div style="text-align:center;max-width:180px;">
+        <div style="font-size:32px;font-weight:800;color:var(--red);font-family:var(--font-mono);">3</div>
+        <div style="font-size:14px;font-weight:600;color:var(--color-text-headline);margin-bottom:4px;">Peça melhor</div>
+        <div style="font-size:12px;color:var(--color-text-body-alt);">Contexto + Esperado + Limites. Sempre.</div>
+      </div>
+    </div>
+
+    <p style="color:var(--color-text-body);font-size:15px;max-width:440px;margin:0 auto;line-height:1.65;" class="fade-in">
+      Você não precisa ser o melhor programador da sala.<br>Precisa ser o melhor em <em>pedir</em> as coisas certas.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-brand">Claude Code — Ensinio</div>
+    <p>Workshop Interno 2026</p>
+    <p style="margin-top:4px;">Powered by Claude Code + AIOS Framework</p>
+  </div>
+
+</div>
+</main>
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('open');
+  }
+
+  function switchTab(group, id) {
+    const p = group + '-';
+    document.querySelectorAll('[id^="' + p + '"]').forEach(el => {
+      if (el.classList.contains('tab-content')) el.classList.remove('active');
+    });
+    document.getElementById(p + id).classList.add('active');
+    const tc = document.getElementById(group + '-tabs');
+    if (tc) tc.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Sidebar active state on scroll
+  const sections = document.querySelectorAll('.lesson-section[id]');
+  const navItems = document.querySelectorAll('.nav-item[href]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navItems.forEach(n => {
+      n.classList.remove('active');
+      if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+    });
+  });
+
+  // Close sidebar on nav click (mobile)
+  navItems.forEach(n => n.addEventListener('click', () => {
+    if (window.innerWidth <= 768) toggleSidebar();
+  }));
+
+  // Fade in observer
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

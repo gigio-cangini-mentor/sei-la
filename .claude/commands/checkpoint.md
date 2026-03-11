@@ -13,6 +13,7 @@ Contexto acabando ou usuario pediu checkpoint. Execute TODOS os passos abaixo SE
 
 ## Passo 2: Atualizar INDEX.md do projeto
 - Leia `docs/projects/{projeto}/INDEX.md`
+- Extraia o campo **Project Path** (se existir) — sera usado no Passo 4
 - Atualize as secoes:
   - **Estado Atual**: reflita o estado real agora
   - **Ultima Sessao**: data/hora agora, agente/squad usado, o que foi feito (detalhado)
@@ -34,7 +35,19 @@ Contexto acabando ou usuario pediu checkpoint. Execute TODOS os passos abaixo SE
 ## Projeto
 - **Nome:** {nome do projeto}
 - **INDEX.md:** `docs/projects/{projeto}/INDEX.md`
+```
 
+Se o projeto tem **Project Path** externo (extraido no Passo 2), adicione:
+
+```markdown
+## Working Directory
+- **Path:** `{project path}`
+- Arquivos do projeto real vivem neste diretorio, fora de aios-core.
+```
+
+Restante do session file:
+
+```markdown
 ## O que foi feito
 {descricao detalhada com contexto suficiente para retomar}
 
@@ -45,7 +58,11 @@ Contexto acabando ou usuario pediu checkpoint. Execute TODOS os passos abaixo SE
 - `{arquivo 1}`
 - `{arquivo 2}`
 - `{arquivo 3}`
+```
 
+Se o projeto tem Project Path externo, use paths absolutos para arquivos que vivem fora de aios-core (ex: `~/CODE/Projects/meu-app/src/index.ts`).
+
+```markdown
 ## Decisoes tomadas
 - {decisao 1 — para nao refazer}
 - {decisao 2}

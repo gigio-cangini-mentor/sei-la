@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+coverage/
+.next/
+
+# Backups and migrations
+.claude-migration-backup-*/
+
+# Large data files
+*.log
+*.csv
+*.xlsx
+
+# Media
+*.mp4
+*.mp3
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+
+# Archives
+*.zip
+*.tar.gz

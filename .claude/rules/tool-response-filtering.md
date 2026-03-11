@@ -7,51 +7,27 @@ paths:
 
 When processing responses from MCP tools or large web fetches, apply the filter
 configuration defined in `.aiox-core/data/tool-registry.yaml` for the tool that
-produced the response. This reduces context token consumption without losing
-task-relevant information.
+produced the response.
 
 ## Filter Types
 
 ### content
-Extract the main informational content and discard noise (navigation, ads,
-boilerplate, repetitive headers/footers). Limit the extracted output to
-approximately `max_tokens` tokens, truncating at a natural paragraph or
-sentence boundary. If `extract` fields are specified, prioritize those
-fields from the response object.
-
-**Apply to:** WebFetch HTML responses, EXA search results, Context7 docs.
+Extract main content, discard noise (navigation, ads, boilerplate).
+Limit to `max_tokens`, truncate at natural boundary.
+**Apply to:** WebFetch, EXA, Context7.
 
 ### schema
-From a JSON object or array of objects, select ONLY the fields listed in
-`fields`. Discard all other keys. If `max_tokens` is set, truncate the
-serialized result at that token limit.
-
-**Apply to:** Playwright page data, API responses with known schemas.
+Select ONLY listed `fields` from JSON objects. Discard other keys.
+**Apply to:** Playwright, API responses.
 
 ### field
-From an array of objects (tabular data), project ONLY the columns listed
-in `fields` and limit the result to `max_rows` rows. This is analogous to
-`SELECT field1, field2 FROM data LIMIT max_rows`.
-
-**Apply to:** Apify scraper results, database query results, CSV-like data.
+Project ONLY listed `fields`, limit to `max_rows` rows.
+**Apply to:** Apify results, database queries, CSV-like data.
 
 ## How to Apply
 
-1. After receiving a tool response, identify the tool name.
-2. Look up the tool in `tool-registry.yaml` → check for a `filter` key.
-3. If a filter exists, apply the corresponding type rules above.
-4. If NO filter exists for the tool, use the full response as-is.
-5. Present the filtered result in your reasoning — do NOT repeat the raw
-   unfiltered payload.
-
-## Fallback
-
-If the filter would remove ALL content (empty result), fall back to the
-full unfiltered response. Never produce an empty result from filtering.
-
-## Performance Note
-
-This is a zero-overhead optimization. The filter is applied during your
-reasoning step — no external scripts are invoked. The utility scripts at
-`.aiox-core/utils/filters/` are available for batch post-processing of
-saved responses but are NOT required during normal tool use.
+1. Identify tool name from response.
+2. Look up in `tool-registry.yaml` → check `filter` key.
+3. Apply filter type rules above. No filter → use full response.
+4. Present filtered result — do NOT repeat raw payload.
+5. If filter produces empty result, fall back to full response.

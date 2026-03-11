@@ -1,234 +1,176 @@
-# AIOS Catalog — 2026-03-08
+# AIOX Catalog
 
-> **42** squads · **32** skills · **8** tools · **38** agents
+> Gerado automaticamente em 10/03/2026
 
-## 📦 Squads
+---
 
-> `/{nome}:README` para ativar
+## Squads (50)
 
-### 📝 Content & Marketing
+| Squad | Descrição | Ativação |
+|-------|-----------|----------|
+| agent-autonomy | >- | `/agent-autonomy` |
+| ai-reels | AI Reels Squad | `/ai-reels` |
+| audio-reels | Audio Reels — AI Cinema Pipeline | `/audio-reels` |
+| branding | Brand Squad | `/branding` |
+| business-rules-extraction | Business Rules Extraction Squad | `/business-rules-extraction` |
+| claude-code-mastery | Claude Code Mastery Squad | `/claude-code-mastery` |
+| content-creator | Content Creator Squad | `/content-creator` |
+| content-engine | Content Engine v2 — START HERE | `/content-engine` |
+| conversao-extrema | Conversão Extrema Squad | `/conversao-extrema` |
+| copywriting-squad | Copywriting Masters Squad | `/copywriting-squad` |
+| curator | 🎬 Curator Squad | `/curator` |
+| dan-koe | Koe Squad — The OnePerson Business System | `/dan-koe` |
+| design | | | `/design` |
+| dopamine-learning | Dopamine Learning Squad: Complete Documentation | `/dopamine-learning` |
+| ensinio-mind | Ensinio Mind — Knowledge Hub | `/ensinio-mind` |
+| ensinio-prospector | Ensinio Prospector | `/ensinio-prospector` |
+| ensinio-whatsapp-prospector | Ensinio WhatsApp Prospector | `/ensinio-whatsapp-prospector` |
+| etl-universal-converter | ETL Universal Converter | `/etl-universal-converter` |
+| file-research | File Research Squad | `/file-research` |
+| gui-avila | Squad Gui Ávila | `/gui-avila` |
+| high-ticket-sales | HighTicket Sales Squad | `/high-ticket-sales` |
+| hormozi | Hormozi Squad — The $100M Mind System | `/hormozi` |
+| icp-cloning | 🧬 ICP Cognitive Cloning Squad | `/icp-cloning` |
+| italo-marsili | Squad: Italo Marsili | `/italo-marsili` |
+| jose-amorim | Squad José Amorim — O Tradutor Nexialista | `/jose-amorim` |
+| kaizen | >- | `/kaizen` |
+| knowledge-base-builder | Knowledge Base Builder Squad | `/knowledge-base-builder` |
+| leandro-ladeira | Squad: Leandro Ladeira | `/leandro-ladeira` |
+| legacy-rule-extractor | Legacy Rule Extractor | `/legacy-rule-extractor` |
+| luiz-fosc | Luiz Fosc — Mind Clone Squad | `/luiz-fosc` |
+| magic-bob | Magic BOB - Autonomous orchestration system for AIOS projects. Detects project state, spawns agents in separate terminals, manages development cycles, and maintains persistent sessions with human chec | `/magic-bob` |
+| marketing-board | Marketing OPES — Board Estratégico + Marketing Arm | `/marketing-board` |
+| media-processor | Media Processor | `/media-processor` |
+| mind-cloning | 🧬 Mind Cloning Squad | `/mind-cloning` |
+| mind-content-updater | | | `/mind-content-updater` |
+| mmos-squad | MMOS Squad | `/mmos-squad` |
+| navigator | Autonomous project navigator and orchestration specialist. Maps roadmaps, detects current phase, prevents context loss, and orchestrates multi-agent workflows for complex AIOS projects. | `/navigator` |
+| palestras-master | Palestras Master Federator | `/palestras-master` |
+| paulo-vieira | Squad Paulo Vieira | `/paulo-vieira` |
+| renner-silva | Renner Silva — Squad Deployável | `/renner-silva` |
+| seo | SEO Expert Squad | `/seo` |
+| sop-factory | Sem descrição | `/sop-factory` |
+| squad-creator | Squad Creator | `/squad-creator` |
+| squad-creator-pro | Squad Creator | `/squad-creator-pro` |
+| storytelling-masters-fosc | Storytelling Masters Fosc | `/storytelling-masters-fosc` |
+| synapse | Synapse Squad | `/synapse` |
+| tathi-deandhela | Tathi Deandhela Method Squad | `/tathi-deandhela` |
+| transcript-sculptor | Transcript Sculptor | `/transcript-sculptor` |
+| video-content-distillery | Content Distillery Squad | `/video-content-distillery` |
+| zona-genialidade | Zona Genialidade Squad | `/zona-genialidade` |
 
-| Squad | Descrição |
-|-------|----------|
-| **content-engine** | Squad unificado de 28 experts para estratégia de conteúdo, copywriting e distri… |
-| **conversao-extrema** | Squad de 6 agentes especializados em tráfego pago e conversão baseado na metodo… |
-| **copywriting-squad** | Framework estratégico de 15 clones de copywriters lendários (Halbert, Ogilvy, S… |
-| **dan-koe** | Squad de 9 agentes especializados no método Dan Koe para negócios de uma pessoa… |
-| **hormozi** | Squad de 16 agentes especializados na metodologia Alex Hormozi ($100M). Cada ag… |
+---
 
-### 🎤 Speaking & Storytelling
+## Skills (35)
 
-| Squad | Descrição |
-|-------|----------|
-| **palestras-master** | Meta-squad federador que orquestra 4 squads satélites (tathi-deandhela, renner-… |
-| **renner-silva** | Clone mental de Renner Silva — referência em oratória, liderança e desenvolvime… |
-| **storytelling-masters-fosc** | Squad de 12 elite minds reais de storytelling e narrativa (Campbell, McKee, Dua… |
-| **tathi-deandhela** | Squad especializado em estruturação e otimização de palestras com base no corpu… |
+| Skill | Descrição | Ativação |
+|-------|-----------|----------|
+| angular | Angular Expert | `/AIOS:skills:angular` |
+| angular-state-management | Angular State Management | `/AIOS:skills:angular-state-management` |
+| app-builder | App Builder - Application Building Orchestrator | `/AIOS:skills:app-builder` |
+| avalonia-viewmodels-zafiro | Avalonia ViewModels with Zafiro | `/AIOS:skills:avalonia-viewmodels-zafiro` |
+| book-to-markdown | Book to Markdown | `/AIOS:skills:book-to-markdown` |
+| celf-context | CELF — Context Engineering Layered Framework | `/AIOS:skills:celf-context` |
+| cloud-penetration-testing | Cloud Penetration Testing | `/AIOS:skills:cloud-penetration-testing` |
+| code-refactoring-refactor-clean | Refactor and Clean Code | `/AIOS:skills:code-refactoring-refactor-clean` |
+| context-surgeon | Context Surgeon v1.1.0 | `/AIOS:skills:context-surgeon` |
+| criar-app-completo | 🚀 Criar App Completo | `/AIOS:skills:criar-app-completo` |
+| dashboard-generator | Dashboard Generator - Interactive Web Dashboards | `/AIOS:skills:dashboard-generator` |
+| decision-tree-generator | Decision Tree Documentation Generator | `/AIOS:skills:decision-tree-generator` |
+| deep-research | Deep Research v1.0 - General-Purpose Deep Research Pipeline | `/AIOS:skills:deep-research` |
+| deep-search | Deep Search | `/AIOS:skills:deep-search` |
+| deepgram-transcriber | Deepgram Transcriber | `/AIOS:skills:deepgram-transcriber` |
+| design-system-extractor | Sem descrição | `/AIOS:skills:design-system-extractor` |
+| game-development | Game Development | `/AIOS:skills:game-development` |
+| godot-gdscript-patterns | Godot GDScript Patterns | `/AIOS:skills:godot-gdscript-patterns` |
+| groq-transcriber | Groq Transcriber | `/AIOS:skills:groq-transcriber` |
+| mcp-builder | MCP Server Development Guide | `/AIOS:skills:mcp-builder` |
+| md-to-branded-pdf | MD to Branded (PDF + HTML) | `/AIOS:skills:md-to-branded-pdf` |
+| md-to-landing-page | md-to-landing-page | `/AIOS:skills:md-to-landing-page` |
+| nextjs-react-expert | Next.js & React Performance Expert | `/AIOS:skills:nextjs-react-expert` |
+| obsidian-app-filler | 📝 Obsidian App Filler | `/AIOS:skills:obsidian-app-filler` |
+| obsidian-tag-manager | Obsidian Tag Manager | `/AIOS:skills:obsidian-tag-manager` |
+| prd-generator | 📄 PRD Generator | `/AIOS:skills:prd-generator` |
+| pt-br-accentuation | Skill: Acentuação e Pontuação em Português Brasileiro | `/AIOS:skills:pt-br-accentuation` |
+| skill-creator | Skill Creator | `/AIOS:skills:skill-creator` |
+| superpowers | Sem descrição | `/AIOS:skills:superpowers` |
+| synapse | SYNAPSE Context Engine | `/AIOS:skills:synapse` |
+| system-prompt-architect | System Prompt Architect | `/AIOS:skills:system-prompt-architect` |
+| tech-search | Tech Research | `/AIOS:skills:tech-search` |
+| tokenizacao | Tokenização - Frontend Quality Audit 2025 | `/AIOS:skills:tokenizacao` |
+| unreal-engine-cpp-pro | Unreal Engine C++ Pro | `/AIOS:skills:unreal-engine-cpp-pro` |
+| vulnerability-scanner | Vulnerability Scanner | `/AIOS:skills:vulnerability-scanner` |
 
-### 🧬 Mind Cloning & Personas
+---
 
-| Squad | Descrição |
-|-------|----------|
-| **icp-cloning** | Sistema de clonagem cognitiva profunda para gerar clones de IA de alta fidelida… |
-| **italo-marsili** | Clone mental de Italo Marsili — psiquiatra tomista, criador do Guerrilha Way. E… |
-| **luiz-fosc** | Clone mental de Luiz Fosc v3.0 — ilusionista profissional, recordista Guinness,… |
-| **mind-cloning** | Squad especializado em clonar mentes de experts através de extração sistemática… |
-| **zona-genialidade** | Squad que identifica a zona de genialidade do usuário através de assessment com… |
+## Tools (7)
 
-### 🎬 Media & Production
+| Tool | Descrição |
+|------|-----------|
+| cademi-downloader | Cademi Downloader |
+| document-processing | Sem descrição |
+| hotmart-downloader | Sem descrição |
+| transcription-dashboard | Sem descrição |
+| video-transcriber | Sem descrição |
+| xtts-voice-cloner | Sem descrição |
+| zlib-downloader | Sem descrição |
 
-| Squad | Descrição |
-|-------|----------|
-| **ai-reels** | Pipeline de criação de reels para Instagram (15-90s) usando ElevenLabs para clo… |
-| **audio-reels** | Pipeline automatizado ponta-a-ponta que transforma áudio de WhatsApp em reels c… |
-| **media-processor** | Meta-orquestrador que unifica hotmart-downloader, cademi-downloader, video-tran… |
-| **transcript-sculptor** | Transforma transcrições brutas (40k+ palavras) em markdown editorial de alta qu… |
-| **video-content-distillery** | Transforma livestreams longas do YouTube em frameworks estruturados, heurística… |
+---
 
-### 📚 Knowledge & ETL
+## Agents (12)
 
-| Squad | Descrição |
-|-------|----------|
-| **etl-universal-converter** | Pipeline ETL que converte QUALQUER formato de arquivo em markdown tratado e nor… |
-| **file-research** | Pipeline de descoberta e pesquisa de arquivos para encontrar PDFs, EPUBs, paper… |
-| **knowledge-base-builder** | Transforma bibliotecas completas de materiais de curso (PDFs, transcrições, doc… |
-| **mind-content-updater** | Sistema automatizado de descoberta, coleta e análise de novas fontes de conteúd… |
+| Agent | Persona | Escopo |
+|-------|---------|--------|
+| @dev | Dex | Implementação de código, git add/commit, branch management |
+| @qa | Quinn | Testes e qualidade, QA gates, code review |
+| @architect | Aria | Arquitetura e design técnico, technology selection |
+| @pm | Morgan | Product Management, epic orchestration, requirements |
+| @po | Pax | Product Owner, story validation, backlog prioritization |
+| @sm | River | Scrum Master, story creation, sprint management |
+| @analyst | Alex | Pesquisa e análise de dados |
+| @data-engineer | Dara | Database design, schema DDL, query optimization |
+| @ux-design-expert | Uma | UX/UI design, design systems, user research |
+| @devops | Gage | CI/CD, git push (EXCLUSIVO), MCP management, infrastructure |
+| @aios-master | Master | Framework governance, constitutional enforcement |
+| @squad-creator | Scout | Squad creation, workspace setup, onboarding |
 
-### 💼 Sales & Prospecting
+---
 
-| Squad | Descrição |
-|-------|----------|
-| **ensinio-mind** | Hub de conhecimento centralizado sobre a plataforma Ensinio — fonte de verdade … |
-| **ensinio-prospector** | Sistema de prospecção de leads a partir do Google Sheets. Pipeline de 9 fases: … |
-| **ensinio-whatsapp-prospector** | Sistema de prospecção a partir de exportações de grupos WhatsApp. Pipeline de 8… |
-| **high-ticket-sales** | Sistema completo de vendas para produtos digitais de alto valor ($500-$50.000+)… |
+## Quick Reference
 
-### ⚙️ Framework & Meta
+### Slash Commands Pattern
+- **Squads:** `/squad-name` (ex: `/agent-autonomy`, `/kaizen`)
+- **Skills:** `/AIOS:skills:skill-name` (ex: `/AIOS:skills:book-to-markdown`)
+- **Agents:** `@agent-id` (ex: `@dev`, `@architect`)
 
-| Squad | Descrição |
-|-------|----------|
-| **design** | Agente de design system 100% independente — auditoria de UI, design tokens, ger… |
-| **dopamine-learning** | Transforma perguntas comuns em experiências de aprendizado imersivas otimizadas… |
-| **magic-bob** | Sistema autônomo de orquestração para projetos AIOS. Detecta estado do projeto,… |
-| **navigator** | Navegador autônomo de projetos e especialista em orquestração. Mapeia roadmaps,… |
-| **squad-creator** | Meta-squad para criar squads de agentes baseados em elite minds reais. Orquestr… |
-| **squad-creator-pro** | Versão otimizada do squad-creator com worker scripts para economia de tokens. M… |
-| **synapse** | Motor de contexto inteligente do AIOS com 8 camadas de processamento, brackets … |
+### Common Workflows
 
-### 📦 Outros
+#### Story Development Cycle
+```
+@sm *create-story → @po *validate → @dev *develop → @qa *qa-gate → @devops *push
+```
 
-| Squad | Descrição |
-|-------|----------|
-| **_imports** |  |
-| **gui-avila** |  |
-| **leandro-ladeira** |  |
-| **mmos-squad** | Squad em fase inicial de construção — ainda sem agentes ou tasks configurados. |
-| **paulo-vieira** |  |
-| **ralph** | Agente assistente pessoal Ralph — em fase inicial de configuração. |
-| **rules-extraction** | Squad para extração automática de regras e padrões de codebases existentes — em… |
-| **youtube-skills** | Squad para skills de criação e otimização de conteúdo YouTube — em fase de cons… |
+#### Spec Pipeline
+```
+@pm *gather → @architect *assess → @analyst *research → @pm *spec → @qa *critique
+```
 
-## ⚡ Skills
+#### Brownfield Discovery
+```
+@architect *audit → @data-engineer *schema-review → @ux-design-expert *frontend-spec → @qa *validate
+```
 
-> `/AIOS:skills:{nome}` para ativar
+---
 
-### 💻 Desenvolvimento
+## Data Completeness
 
-| Skill | Descrição |
-|-------|----------|
-| **angular** | Expert em Angular moderno (v20+) com Signals, Standalone Components, aplicações… |
-| **angular-state-management** | Guia especializado em gerenciamento de estado no Angular moderno com Signals, N… |
-| **app-builder** | Orquestrador principal de criação de aplicações. Cria apps full-stack a partir … |
-| **avalonia-viewmodels-zafiro** | Padrões otimizados de criação de ViewModels e Wizards para Avalonia usando Zafi… |
-| **code-refactoring-refactor-clean** | Expert em refatoração de código especializado em princípios de clean code, padr… |
-| **criar-app-completo** | Skill para criação de aplicações completas do zero, guiando todo o processo de … |
-| **game-development** | Orquestrador de desenvolvimento de jogos. Roteia para skills específicas de cad… |
-| **godot-gdscript-patterns** | Padrões master de GDScript para Godot 4 incluindo signals, scenes, state machin… |
-| **nextjs-react-expert** | Otimização de performance React e Next.js da engenharia Vercel. Usa quando prec… |
-| **unreal-engine-cpp-pro** | Guia expert para desenvolvimento C++ em Unreal Engine 5.x, cobrindo higiene de … |
+| Categoria | Total | Coverage |
+|-----------|-------|----------|
+| Squads | 50 | 100% |
+| Skills | 35 | 100% |
+| Tools | 7 | 100% |
+| Agents | 12 | 100% |
 
-### 🤖 AI & Agents
+---
 
-| Skill | Descrição |
-|-------|----------|
-| **decision-tree-generator** | Cria documentação estruturada de árvores de decisão para qualquer processo ou d… |
-| **mcp-builder** | Guia para criar servidores MCP (Model Context Protocol) de alta qualidade que p… |
-| **skill-creator** | Guia para criação de skills eficazes que estendem as capacidades do Claude com … |
-| **superpowers** | Coleção de capacidades avançadas e padrões de uso expert do Claude Code para ma… |
-| **synapse** | Guia do motor de contexto SYNAPSE — gerenciamento de domínios, regras de contex… |
-| **system-prompt-architect** | Especialista completo em system prompts: converte prompts GPT para formato AIOS… |
-
-### 🔍 Pesquisa & Conteudo
-
-| Skill | Descrição |
-|-------|----------|
-| **book-to-markdown** | Converte livros e documentos longos (PDF, EPUB, DOCX) em markdown estruturado e… |
-| **deep-search** | Pesquisa profunda multi-fonte que combina web search, análise de resultados e s… |
-| **deepgram-transcriber** | Transcrição em batch usando API Deepgram Nova-3 com workers paralelos (3-5 simu… |
-| **groq-transcriber** | Transcrição em batch usando API Groq Whisper. Auto-comprime áudio, rotaciona ch… |
-| **pt-br-accentuation** | Verificação e correção automática de acentuação e pontuação em português brasil… |
-| **tech-search** | Pesquisa técnica especializada para encontrar bibliotecas, frameworks, ferramen… |
-
-### 🎨 Design & UI
-
-| Skill | Descrição |
-|-------|----------|
-| **dashboard-generator** | Gera dashboards interativos e painéis de visualização de dados a partir de espe… |
-| **design-system-extractor** | Extrai design tokens, padrões de componentes e especificações de design systems… |
-| **md-to-branded-pdf** | Converte markdown em PDFs com identidade visual personalizada, tipografia profi… |
-| **md-to-landing-page** | Converte documentos markdown em landing pages responsivas e otimizadas para con… |
-| **tokenizacao** | Skill de auditoria e tokenização frontend para projetos React/Next.js. Analisa … |
-
-### 🔒 Seguranca
-
-| Skill | Descrição |
-|-------|----------|
-| **cloud-penetration-testing** | Técnicas abrangentes de teste de penetração em nuvem para Azure, AWS e GCP. Enu… |
-| **vulnerability-scanner** | Princípios avançados de análise de vulnerabilidades. OWASP 2025, segurança de s… |
-
-### 📋 Produtividade
-
-| Skill | Descrição |
-|-------|----------|
-| **obsidian-app-filler** | Preenche e organiza vaults do Obsidian automaticamente com conteúdo estruturado… |
-| **obsidian-tag-manager** | Gerenciador de tags para Obsidian — organiza, renomeia, mescla e audita tags em… |
-| **prd-generator** | Gera documentos de requisitos de produto (PRD) completos e estruturados a parti… |
-
-## 🔧 Tools
-
-| Tool | Lang | Descrição |
-|------|------|-----------|
-| **aios-backup** |  | Backup inteligente para GitHub de todo o ecossistema AIOS. Automatiza commits, … |
-| **cademi-downloader** | Python | Baixa cursos completos de plataformas Cademi via automação de browser (Playwrig… |
-| **document-processing** |  | Coleção completa de skills para processamento de documentos Office (PowerPoint,… |
-| **hotmart-downloader** | Python | Ferramenta CLI para baixar cursos da Hotmart, incluindo vídeos, legendas, anexo… |
-| **transcription-dashboard** |  | Dashboard web para gerenciar status de transcrições e orquestrar processamento … |
-| **video-transcriber** | Python | Ferramenta CLI que baixa, transcreve, limpa e divide conteúdo de vídeo/áudio. P… |
-| **xtts-voice-cloner** |  | Clonagem de voz em português brasileiro usando XTTS-v2 (Coqui TTS). Gera áudio … |
-| **zlib-downloader** | Node.js | Ferramenta Node.js para download de livros da Z-Library. Inclui inspeção de liv… |
-
-## 🤖 Agents
-
-> `@{nome}` para ativar
-
-### 👥 Core Team
-
-| Agent | Descrição |
-|-------|-----------|
-| `@aios-master` | Meta-agente orquestrador — governança do framework e override de boundaries |
-| `@analyst` | Alex — Pesquisa, análise de dados e investigação técnica |
-| `@architect` | Aria — Arquitetura de sistema, decisões técnicas e design patterns |
-| `@data-engineer` | Dara — Database design, schemas, queries, migrações e RLS |
-| `@dev` | Dex — Implementação de código, git local, atualização de stories |
-| `@devops` | Gage — CI/CD, git push, PRs, releases e infraestrutura (EXCLUSIVO) |
-| `@navigator` | Navegador autônomo de projetos — mapeia roadmaps, detecta fase e orquestra work… |
-| `@pm` | Morgan — Product Management, épicos, requisitos e spec pipeline |
-| `@po` | Pax — Product Owner, validação de stories, backlog e priorização |
-| `@qa` | Quinn — Testes, quality gates, revisão de código e validação |
-| `@sm` | River — Scrum Master, criação de stories e facilitação |
-| `@ux-design-expert` | Uma — UX/UI design, usabilidade, acessibilidade e prototipação |
-
-### 🔧 Extended (AIOS)
-
-| Agent | Descrição |
-|-------|-----------|
-| `@aios-analyst` | Versão AIOS expandida do @analyst com pesquisa de framework |
-| `@aios-architect` | Versão AIOS expandida do @architect com conhecimento profundo do framework |
-| `@aios-data-engineer` | Versão AIOS expandida do @data-engineer com integrações AIOS |
-| `@aios-dev` | Versão AIOS expandida do @dev com skills adicionais de framework |
-| `@aios-devops` | Versão AIOS expandida do @devops com infra e MCP management |
-| `@aios-pm` | Versão AIOS expandida do @pm com spec pipeline e épicos AIOS |
-| `@aios-po` | Versão AIOS expandida do @po com validação de stories AIOS |
-| `@aios-qa` | Versão AIOS expandida do @qa com validação de constitution e quality gates |
-| `@aios-sm` | Versão AIOS expandida do @sm com templates e workflows AIOS |
-| `@aios-ux` | Versão AIOS expandida do @ux-design-expert com design system AIOS |
-
-### 🎯 Specialists
-
-| Agent | Descrição |
-|-------|-----------|
-| `@copy-chief` | Diretor de copywriting — orquestra equipes de copywriters e valida qualidade de… |
-| `@cyber-chief` | Líder de cibersegurança — auditorias de segurança, pentest e compliance |
-| `@data-chief` | Líder de dados — estratégia de dados, pipelines e governança |
-| `@db-sage` | Sábio de banco de dados — consultoria avançada em SQL, modelagem e otimização |
-| `@design-chief` | Líder de design — orquestra design system, UI e experiência visual |
-| `@design-system` | Especialista em design system — tokens, componentes, auditoria e acessibilidade |
-| `@legal-chief` | Líder jurídico — compliance, termos de uso, LGPD e contratos |
-| `@oalanicolas` | Expert em mind cloning — extração de DNA mental, curadoria e validação de clones |
-| `@pedro-valerio` | Expert em process design — veto conditions, workflows e validação de estruturas |
-| `@prompt-architect` | Arquiteto de prompts — criação, auditoria e otimização de system prompts |
-| `@sop-extractor` | Extrator de SOPs — documenta processos operacionais a partir de código e prátic… |
-| `@squad-creator` | Criador de squads — cria equipes de agentes IA especializados em qualquer domín… |
-| `@squad` | Orquestrador master de squads — triage, routing e criação completa de squads |
-| `@story-chief` | Líder de stories — orquestra criação e validação de stories de desenvolvimento |
-| `@tools-orchestrator` | Orquestrador de ferramentas — coordena uso de tools externas e integrações |
-| `@traffic-masters-chief` | Líder de tráfego pago — estratégia de mídia, campanhas e otimização de ads |
-
-## 🚀 Atalhos
-
-| Comando | Ação |
-|---------|------|
-| `/{nome}:README` | Ativar squad |
-| `/AIOS:skills:{nome}` | Carregar skill |
-| `@{nome}` | Ativar agent |
-| `/catalog` | Atualizar catálogo |
+*AIOX Catalog — CLI First | Observability Second | UI Third*

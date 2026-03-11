@@ -20,7 +20,11 @@
       "mcp__google-workspace__sheets_getRange",
       "mcp__google-workspace__calendar_getEvent",
       "mcp__google-workspace__calendar_updateEvent",
-      "mcp__google-workspace__drive_search"
+      "mcp__google-workspace__drive_search",
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_screenshot",
+      "mcp__figma__get_variable_defs",
+      "mcp__exa__web_search_exa"
     ],
     "deny": []
   }

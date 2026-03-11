@@ -399,6 +399,42 @@ function generateMarkdown(squads, skills, tools, agents) {
 }
 
 /**
+ * Sync slash commands — ensure every squad has a README.md in .claude/commands/
+ */
+function syncCommands(squads) {
+  log('🔗 Syncing slash commands...', 'cyan');
+
+  const commandsDir = path.join(ROOT, '.claude', 'commands');
+  let created = 0;
+
+  squads.forEach(squad => {
+    const cmdDir = path.join(commandsDir, squad.slug);
+    const cmdReadme = path.join(cmdDir, 'README.md');
+
+    if (!fs.existsSync(cmdDir)) {
+      fs.mkdirSync(cmdDir, { recursive: true });
+    }
+
+    if (!fs.existsSync(cmdReadme)) {
+      // Copy README from squad source, or generate minimal one
+      const srcReadme = path.join(SQUADS_DIR, squad.slug, 'README.md');
+      if (fs.existsSync(srcReadme)) {
+        fs.copyFileSync(srcReadme, cmdReadme);
+      } else {
+        fs.writeFileSync(cmdReadme, `# ${squad.name}\n\n${squad.description}\n`, 'utf8');
+      }
+      created++;
+    }
+  });
+
+  if (created > 0) {
+    log(`✓ Created ${created} missing command(s)`, 'green');
+  } else {
+    log('✓ All commands in sync', 'green');
+  }
+}
+
+/**
  * Main execution
  */
 function main() {
@@ -411,6 +447,9 @@ function main() {
     const skills = extractSkills();
     const tools = extractTools();
     const agents = extractAgents();
+
+    // Sync slash commands
+    syncCommands(squads);
 
     // Generate markdown
     log('\n📝 Generating markdown...', 'cyan');

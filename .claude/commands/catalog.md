@@ -2,8 +2,7 @@ Ao receber este comando, siga EXATAMENTE estes passos:
 
 1. **Atualize o catálogo** rodando `node scripts/generate-catalog.js` via Bash
 
-2. **Delegue a apresentação** usando o Task tool com `model: "haiku"` e `subagent_type: "general-purpose"`:
-   - Prompt: "Leia o arquivo .aios-core/data/catalog.md e apresente o conteúdo COMPLETO ao usuário, formatado em markdown. Não resuma, não omita nada — copie o conteúdo inteiro."
+2. **Confirme ao usuário** apenas com as contagens do output do script (ex: "Catálogo atualizado — 50 squads, 35 skills, 7 tools, 12 agents"). NÃO liste nomes, NÃO leia o catalog.md. Apenas confirme e PARE.
 
 3. **Aguarde instrução** — o usuário pode pedir para ativar qualquer squad, skill, tool ou agent listado. Para ativar:
    - **Squad:** Leia o arquivo `squads/{nome}/README.md` e siga as instruções

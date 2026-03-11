@@ -1,0 +1,8 @@
+name: context-surgeon
+version: 1.1.0
+description: >
+  Diagnose, cut, and optimize Claude Code auto-loaded context for any project.
+  Use when: (1) context feels heavy or slow, (2) health check on auto-loaded files,
+  (3) remove dead references or stale content, (4) restructure context architecture,
+  (5) measure token footprint, (6) audit CLAUDE.md or MEMORY.md bloat.
+  Domains: context, tokens, auto-load, CLAUDE.md, MEMORY.md, .claudeignore, context-engineering.

@@ -9,6 +9,15 @@ Use AskUserQuestion para perguntar:
 4. **Squad/skill principal** (ou "nenhum ainda")
 5. **Status inicial** — opcoes: Em andamento | Pausado
 
+Se o tipo escolhido for `app` ou `squad`, faca uma pergunta adicional:
+
+6. **Onde o codigo vai ficar?** — opcoes:
+   - `aios-core/` (padrao — projeto vive dentro do monorepo)
+   - `~/CODE/Projects/{nome}/` (app externo independente)
+   - Caminho customizado (usuario digita)
+
+Tipos `mind-clone`, `pipeline`, `knowledge` e `research` NAO precisam dessa pergunta — o codigo (se houver) fica em `aios-core/`.
+
 ## Passo 2: Criar estrutura
 Apos respostas:
 
@@ -17,6 +26,7 @@ Apos respostas:
    - `data/` — dados do projeto
    - `sessions/` — session files de checkpoint/resume
 2. Adicione `.gitkeep` em cada subpasta vazia
+3. Se o destino do codigo for `~/CODE/Projects/{nome}/`, crie o diretorio base com `mkdir -p` — sem scaffold de codigo (isso fica pro app-builder ou manual)
 
 ## Passo 3: Gerar INDEX.md
 Crie `docs/projects/{nome}/INDEX.md` seguindo este formato:
@@ -26,9 +36,18 @@ Crie `docs/projects/{nome}/INDEX.md` seguindo este formato:
 
 ## Estado Atual
 - **Squad:** `{squad}` (ou "A definir")
+- **Project Path:** `{path}`
 - **Status:** {status descritivo}
 - **Bloqueadores:** Nenhum
+```
 
+Regras para o campo **Project Path**:
+- Se o projeto vive FORA de `aios-core/` → path absoluto (ex: `~/CODE/Projects/meu-app/`)
+- Se o projeto vive DENTRO de `aios-core/` → omitir o campo (ou usar `(local)`)
+
+Restante do INDEX.md:
+
+```markdown
 ## Ultima Sessao
 - **Data:** {data de hoje}
 - **Agente/Squad:** {squad informado ou "Nenhum"}
@@ -65,4 +84,9 @@ Mostre ao usuario:
 - Estrutura criada (tree view)
 - Path do INDEX.md
 - Row adicionada no ACTIVE.md
+
+Se o tipo for `app` e o destino for externo (`~/CODE/Projects/` ou customizado):
+- Pergunte: "Quer iniciar o scaffold com app-builder?"
+
+Caso contrario:
 - Pergunte: "Quer comecar a trabalhar neste projeto agora?"

@@ -17,10 +17,11 @@ Se `$ARGUMENTS` estiver preenchido, use-o como nome do projeto e PULE para o Pas
 Apos o usuario escolher (ou usar o argumento fornecido):
 
 1. Leia `docs/projects/{projeto}/INDEX.md`
-2. Verifique se existe session file recente em `docs/projects/{projeto}/sessions/`
+2. Extraia o campo **Project Path** (se existir) — sera usado no Passo 3
+3. Verifique se existe session file recente em `docs/projects/{projeto}/sessions/`
    - Se sim, leia o mais recente (por data no nome do arquivo)
    - Se nao, use apenas o INDEX.md
-3. Se o session file lista "Arquivos para contexto", leia esses arquivos (max 5)
+4. Se o session file lista "Arquivos para contexto", leia esses arquivos (max 5)
 
 ## Passo 3: Resumo de contexto
 Apresente ao usuario de forma concisa:
@@ -32,6 +33,13 @@ Apresente ao usuario de forma concisa:
 **Agente/Squad:** {qual estava ativo}
 **Decisoes ja tomadas:** {lista, para nao refazer}
 **Proximo passo:** {acao exata}
+```
+
+Se o projeto tem **Project Path** externo (extraido no Passo 2), adicione:
+
+```
+**Working Directory:** `{project path}`
+⚠️ O codigo deste projeto vive fora de aios-core. Considere trocar o working directory para trabalhar nele.
 ```
 
 ## Passo 4: Aguardar confirmacao

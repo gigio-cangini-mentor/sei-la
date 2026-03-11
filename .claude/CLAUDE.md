@@ -69,7 +69,7 @@ Detalhes completos: `.claude/rules/agent-authority.md` e `.claude/rules/agent-ha
 
 Todo desenvolvimento começa com uma story em `docs/stories/`. Marque checkboxes conforme completa, mantenha File List atualizada.
 
-Detalhes completos: `.claude/rules/workflow-execution.md`
+Detalhes completos: `.claude/rules/story-workflow.md`
 
 ---
 
@@ -100,12 +100,11 @@ Consulte sob demanda — estes arquivos NÃO precisam ser lidos antecipadamente:
 
 | Documento | Quando consultar |
 |-----------|-----------------|
-| `.claude/rules/workflow-execution.md` | Ao trabalhar com stories e workflows |
 | `.claude/rules/agent-authority.md` | Ao delegar entre agentes |
 | `.claude/rules/agent-handoff.md` | Ao trocar de agente (`@agent`) |
-| `.claude/rules/tool-examples.md` | Ao escolher tools (MCP vs nativo) |
-| `.claude/rules/mcp-usage.md` | Ao usar MCP servers |
-| `.claude/rules/story-lifecycle.md` | Ao criar/validar stories |
+| `.claude/references/tool-examples.md` | Ao escolher tools (MCP vs nativo) |
+| `.claude/references/mcp-usage-detail.md` | Detalhes de cada MCP server |
+| `.claude/references/ids-principles.md` | Princípios IDS (quando epic sair de Draft) |
 | `.aiox-core/constitution.md` | Para regras completas da Constitution |
 
 ---
