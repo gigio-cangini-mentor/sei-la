@@ -12,9 +12,9 @@
 
 | Campo | Valor |
 |-------|-------|
-| Status | 20/30 componentes implementados — faltam 10 do Figma |
-| Sessao mais recente | 2026-03-11 — auditoria Figma + troca MCP auth |
-| Proximo passo | Trocar Figma MCP para `produto@ensinio.com` e implementar 10 componentes faltantes |
+| Status | 32/32 componentes implementados — 100% Figma coverage + Storybook 29/29 stories |
+| Sessao mais recente | 2026-03-11 — implementou 10 componentes faltantes + 23 Storybook stories |
+| Proximo passo | Design tokens MDX docs + composition examples (recomendacao design-chief) |
 | Projeto local | `~/CODE/design-systems/designcode-ui/` |
 | Build | OK (73 modules, 257 kB JS + 45 kB CSS, 750ms) |
 | Figma fileKey (completo) | `WwLP5kREIRKWu8tRncvInv` (versão dev mode) |
