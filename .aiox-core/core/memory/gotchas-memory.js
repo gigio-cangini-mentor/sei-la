@@ -259,6 +259,13 @@ class GotchasMemory extends EventEmitter {
       };
     }
 
+    // Reset tracking if outside error window (stale errors should not count)
+    if (now - tracking.lastSeen > this.options.errorWindowMs) {
+      tracking.count = 0;
+      tracking.firstSeen = now;
+      tracking.samples = [];
+    }
+
     // Update tracking
     tracking.count++;
     tracking.lastSeen = now;

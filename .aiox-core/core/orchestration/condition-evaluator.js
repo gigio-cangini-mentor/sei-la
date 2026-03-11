@@ -145,9 +145,9 @@ class ConditionEvaluator {
       return this._evaluateDotNotation(condition);
     }
 
-    // Unknown condition - default to true (permissive)
+    // Unknown condition - default to false (fail-safe)
     console.warn(`[ConditionEvaluator] Unknown condition: ${condition}`);
-    return true;
+    return false;
   }
 
   /**
