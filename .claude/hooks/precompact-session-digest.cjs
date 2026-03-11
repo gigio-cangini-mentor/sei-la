@@ -90,18 +90,29 @@ async function main() {
   // the runner), causing the hook to block until the 9 s safety timeout.
   // The child receives context via AIOX_HOOK_CONTEXT env var and calls
   // onPreCompact() exported by the runner module.
-  const { spawn } = require('child_process');
-  const inlineScript = [
-    `const ctx = JSON.parse(process.env.AIOX_HOOK_CONTEXT || '{}');`,
-    `const { onPreCompact } = require(${JSON.stringify(runnerPath)});`,
-    `onPreCompact(ctx).catch(() => {});`,
-  ].join('\n');
-  const child = spawn(process.execPath, ['-e', inlineScript], {
-    detached: true,
-    stdio: 'ignore',
-    env: { ...process.env, AIOX_HOOK_CONTEXT: JSON.stringify(context) },
-  });
-  child.unref();
+  try {
+    const { spawn } = require('child_process');
+    let contextJson;
+    try {
+      contextJson = JSON.stringify(context);
+    } catch (_) {
+      contextJson = '{}';
+    }
+    const inlineScript = [
+      `const ctx = JSON.parse(process.env.AIOX_HOOK_CONTEXT || '{}');`,
+      `const { onPreCompact } = require(${JSON.stringify(runnerPath)});`,
+      `onPreCompact(ctx).catch(() => {});`,
+    ].join('\n');
+    const child = spawn(process.execPath, ['-e', inlineScript], {
+      detached: true,
+      stdio: 'ignore',
+      env: { ...process.env, AIOX_HOOK_CONTEXT: contextJson },
+    });
+    child.on('error', () => {});
+    child.unref();
+  } catch (_) {
+    // Silent — spawn failures must not crash the hook
+  }
 }
 
 /** Entry point runner — sets safety timeout and executes main(). */
