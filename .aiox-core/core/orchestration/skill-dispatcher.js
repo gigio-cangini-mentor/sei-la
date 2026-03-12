@@ -356,6 +356,7 @@ class SkillDispatcher {
    * @returns {boolean}
    */
   isValidAgent(agentId) {
+    if (!agentId) return false;
     return agentId in this.skillMapping || agentId.startsWith('AIOX:');
   }
 }
