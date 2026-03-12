@@ -181,7 +181,17 @@ function mergeServers(existing = {}, incoming = {}, options = {}) {
  * @returns {Object} Migration result
  */
 function executeMigration(projectRoot = process.cwd(), option = MIGRATION_OPTION.MIGRATE, options = {}) {
-  const analysis = analyzeMigration(projectRoot);
+  let analysis;
+  try {
+    analysis = analyzeMigration(projectRoot);
+  } catch (err) {
+    return {
+      success: false,
+      message: `Migration analysis failed: ${err.message}`,
+      action: 'error',
+      results: { errors: [err.message] },
+    };
+  }
 
   // Handle already linked
   if (analysis.scenario === 'already_linked') {

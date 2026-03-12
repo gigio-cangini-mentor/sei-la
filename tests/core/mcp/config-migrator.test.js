@@ -557,13 +557,12 @@ describe('config-migrator', () => {
       expect(result.results.errors).toContainEqual(expect.stringContaining('Backup failed'));
     });
 
-    test('propaga exceções de analyzeMigration (chamado antes do try/catch)', () => {
-      // analyzeMigration (linha 184) é chamado ANTES do try/catch (linha 213),
-      // então exceções propagam como unhandled. Isso documenta o comportamento
-      // atual — idealmente deveria retornar { success: false, errors: [...] }.
+    test('retorna falha estruturada quando analyzeMigration lança exceção', () => {
       checkLinkStatus.mockImplementation(() => { throw new Error('unexpected'); });
 
-      expect(() => executeMigration('/project')).toThrow('unexpected');
+      const result = executeMigration('/project');
+      expect(result.success).toBe(false);
+      expect(result.results.errors).toContainEqual(expect.stringContaining('unexpected'));
     });
   });
 
