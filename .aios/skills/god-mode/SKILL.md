@@ -422,16 +422,62 @@ Disponíveis: Playwright, EXA, Context7, Apify, Google Workspace, Figma, Pencil
 | `*squads` | Listar squads disponíveis |
 | `*status` | Status do projeto (git, stories ativas, último commit) |
 | `*constitution` | Mostrar 6 artigos constitucionais |
-| `*diagnose` | Health check do framework |
+| `*diagnose` | Health check completo (ver detalhes abaixo) |
 | `*lifecycle {story}` | Story status + próxima ação |
-| `*navigate {name}` | Encontrar qualquer componente AIOX por nome |
+| `*navigate {name}` | Encontrar qualquer componente por nome (ver detalhes abaixo) |
 | `*matrix` | Delegation/authority matrix completa |
 | `*orchestrate {flow}` | Iniciar workflow multi-agent |
 | `*sprint {epic}` | Plano de execução de sprint completo |
 
 ---
 
-## 11. Error Recovery
+## 11. Diagnostics (Detalhes)
+
+### `*diagnose` — Framework Health Check
+```
+Executa em sequência:
+1. git status (branch, commits ahead/behind, uncommitted changes)
+2. Story ativa em docs/stories/active/ (se existe, status, AC pendentes)
+3. Handoff state (.aios/handoffs/ — artifacts não consumidos?)
+4. Quality gates (npm run lint, npm run typecheck, npm test — last results)
+5. Framework health (L1/L2 intactos? core-config.yaml válido?)
+6. Agent memory (.aiox-core/development/agents/*/MEMORY.md — tamanho, freshness)
+7. Dependencies (node_modules existe? package-lock.json atualizado?)
+
+Output: tabela com STATUS (OK/WARN/FAIL) por item + ação recomendada
+```
+
+### `*navigate {name}` — Component Finder
+```
+Busca {name} em todas as locations:
+1. Tasks: .aiox-core/development/tasks/{name}*
+2. Workflows: .aiox-core/development/workflows/{name}*
+3. Agents: .aiox-core/development/agents/{name}*
+4. Checklists: .aiox-core/development/checklists/{name}*
+5. Templates: .aiox-core/development/templates/{name}*
+6. Squads: squads/{name}*
+7. Skills: .aios/skills/{name}*
+8. Rules: .claude/rules/{name}*
+9. Mind clones: squads/mind-cloning/minds/{name}*
+
+Output: path, type, layer (L1-L4), associated agent(s)
+```
+
+### `*route {task}` — Intent Analysis
+```
+1. Parse pedido do usuário
+2. Classificar intent (OPERATE / CREATE / CONFIGURE)
+3. Match keywords → agent(s) candidato(s)
+4. Calcular complexity score (se OPERATE)
+5. Recomendar workflow + execution mode
+
+Output: agent recomendado + ativação + comando sugerido + workflow
+Não executa nada — apenas mostra o plano
+```
+
+---
+
+## 12. Error Recovery
 
 | Situação | Ação |
 |----------|------|
@@ -445,7 +491,7 @@ Disponíveis: Playwright, EXA, Context7, Apify, Google Workspace, Figma, Pencil
 
 ---
 
-## 12. Anti-Patterns (NEVER)
+## 13. Anti-Patterns (NEVER)
 
 | Anti-Pattern | Consequência | Correção |
 |-------------|-------------|----------|
@@ -461,7 +507,7 @@ Disponíveis: Playwright, EXA, Context7, Apify, Google Workspace, Figma, Pencil
 
 ---
 
-## 13. Creation Validation Checklist (Master)
+## 14. Creation Validation Checklist (Master)
 
 Após criar QUALQUER componente, verificar:
 
