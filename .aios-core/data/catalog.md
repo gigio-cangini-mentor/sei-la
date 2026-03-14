@@ -1,6 +1,6 @@
 # AIOX Catalog
 
-> Gerado automaticamente em 13/03/2026
+> Gerado automaticamente em 14/03/2026
 
 ---
 
@@ -72,7 +72,7 @@
 
 ---
 
-## Skills (36)
+## Skills (41)
 
 | Skill | Descrição | Ativação |
 |-------|-----------|----------|
@@ -80,7 +80,9 @@
 | angular-state-management | Angular State Management | `/AIOS:skills:angular-state-management` |
 | app-builder | App Builder - Application Building Orchestrator | `/AIOS:skills:app-builder` |
 | avalonia-viewmodels-zafiro | Avalonia ViewModels with Zafiro | `/AIOS:skills:avalonia-viewmodels-zafiro` |
+| blotato | Blotato Publisher | `/AIOS:skills:blotato` |
 | book-to-markdown | Book to Markdown | `/AIOS:skills:book-to-markdown` |
+| canva | Canva Connect | `/AIOS:skills:canva` |
 | celf-context | CELF — Context Engineering Layered Framework | `/AIOS:skills:celf-context` |
 | cloud-penetration-testing | Cloud Penetration Testing | `/AIOS:skills:cloud-penetration-testing` |
 | code-refactoring-refactor-clean | Refactor and Clean Code | `/AIOS:skills:code-refactoring-refactor-clean` |
@@ -93,8 +95,10 @@
 | deepgram-transcriber | Deepgram Transcriber | `/AIOS:skills:deepgram-transcriber` |
 | design-system-extractor | Sem descrição | `/AIOS:skills:design-system-extractor` |
 | game-development | Game Development | `/AIOS:skills:game-development` |
+| god-mode | God Mode v2.0 — Supreme Operator AIOX | `/AIOS:skills:god-mode` |
 | godot-gdscript-patterns | Godot GDScript Patterns | `/AIOS:skills:godot-gdscript-patterns` |
 | groq-transcriber | Groq Transcriber | `/AIOS:skills:groq-transcriber` |
+| image-creator | Image Creator | `/AIOS:skills:image-creator` |
 | mcp-builder | MCP Server Development Guide | `/AIOS:skills:mcp-builder` |
 | md-to-branded-pdf | MD to Branded (PDF + HTML) | `/AIOS:skills:md-to-branded-pdf` |
 | md-to-landing-page | md-to-landing-page | `/AIOS:skills:md-to-landing-page` |
@@ -104,6 +108,7 @@
 | prd-generator | 📄 PRD Generator | `/AIOS:skills:prd-generator` |
 | pt-br-accentuation | Skill: Acentuação e Pontuação em Português Brasileiro | `/AIOS:skills:pt-br-accentuation` |
 | quality-dashboard | Quality Dashboard Skill | `/AIOS:skills:quality-dashboard` |
+| sherlock-investigator | Sherlock Investigator | `/AIOS:skills:sherlock-investigator` |
 | skill-creator | Skill Creator | `/AIOS:skills:skill-creator` |
 | superpowers | Sem descrição | `/AIOS:skills:superpowers` |
 | synapse | SYNAPSE Context Engine | `/AIOS:skills:synapse` |
@@ -115,7 +120,7 @@
 
 ---
 
-## Tools (11)
+## Tools (13)
 
 | Tool | Descrição |
 |------|-----------|
@@ -125,7 +130,9 @@
 | document-processing | Sem descrição |
 | evolution-whatsapp-api | Evolution WhatsApp API Tool |
 | hotmart-downloader | Sem descrição |
+| instagram-publisher | Instagram Publisher |
 | quality-dashboard | Quality Dashboard |
+| tldv-scraper | Sem descrição |
 | transcription-dashboard | Sem descrição |
 | xtts-voice-cloner | Sem descrição |
 | youtube-captions | YouTube Captions |
@@ -183,8 +190,8 @@
 | Categoria | Total | Coverage |
 |-----------|-------|----------|
 | Squads | 61 | 100% |
-| Skills | 36 | 100% |
-| Tools | 11 | 100% |
+| Skills | 41 | 100% |
+| Tools | 13 | 100% |
 | Agents | 12 | 100% |
 
 ---
