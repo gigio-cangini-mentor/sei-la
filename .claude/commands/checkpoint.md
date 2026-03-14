@@ -167,7 +167,14 @@ Restante do session file:
 {descrição detalhada com contexto suficiente para retomar}
 
 ## Agente/Squad em uso
-{agente ou squad ativo nesta sessão}
+- **Agente:** {agente ou squad ativo nesta sessão}
+- **Comando de ativação:** `{comando exato para ativar o agente}`
+
+> Exemplos de comando de ativação:
+> - `/AIOS:agents:aios-master` (agentes AIOS)
+> - `/AIOS:agents:dev` (agente dev)
+> - `/ensinio-whatsapp-prospector:README` (squad)
+> - Se nenhum agente especial estava ativo: `nenhum (Claude Code puro)`
 
 ## Arquivos para contexto (próximo Claude DEVE ler)
 - `{arquivo 1}`
@@ -231,8 +238,10 @@ Mostre ao usuário:
 Ao final, SEMPRE mostre a dica de retomada:
 
 ```
-Para retomar este projeto na próxima sessão, digite:
-/resume {projeto}
+Para retomar este projeto na próxima sessão:
+1. /resume {projeto}
+2. {comando de ativação do agente}
 ```
 
 Onde `{projeto}` é o nome do projeto (pasta em `docs/projects/` ou nome extraído do INDEX.md).
+O comando de ativação é o mesmo registrado no session file (ex: `/AIOS:agents:aios-master`, `/AIOS:agents:dev`, etc).

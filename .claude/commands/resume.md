@@ -108,9 +108,26 @@ Adicione informação de git se disponível:
 
 Se última sessão foi há mais de 7 dias, adicione: "⚠️ Contexto pode estar desatualizado — revise antes de continuar."
 
+## Passo 4.5: Sugerir ativação de agente
+
+Se o session file contiver "Comando de ativação" (ex: `/AIOS:agents:dev`, `/AIOS:agents:aios-master`, etc):
+
+1. Extraia o comando de ativação do session file
+2. Mostre DESTACADO no resumo:
+
+```
+🔑 **Agente da última sessão:** {nome do agente}
+   Para reativar: `{comando de ativação}`
+```
+
+3. Se o comando de ativação for `nenhum (Claude Code puro)`: omitir esta seção
+
+**IMPORTANTE:** O `/resume` NÃO ativa o agente automaticamente. Apenas mostra o comando para o usuário rodar manualmente. Isso porque a ativação muda o comportamento do Claude e precisa de consentimento explícito.
+
 ## Passo 5: Aguardar confirmação
 
 - Pergunte: "Quer continuar com esse próximo passo, ou fazer algo diferente?"
+- Se houver comando de ativação de agente (do Passo 4.5), sugira: "Quer reativar o agente? Rode: `{comando de ativação}`"
 - Se houver epic execution plan pendente, sugira: "Quer retomar o epic? Rode: `@pm *execute-epic {yaml-path}`"
 - NÃO execute nada sem confirmação explícita do usuário
 - Se o usuário quiser ativar um agente/squad, aí sim carregue o recurso necessário
