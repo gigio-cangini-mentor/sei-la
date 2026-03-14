@@ -304,52 +304,51 @@ Push completo → "Push + PR criada. Ciclo completo para story {id}."
 
 ## 6. Creation Engine — Criar componentes AIOX
 
-Quando intent = CREATE, carregar referência adequada e seguir o padrão:
+Quando intent = CREATE, carregar a referência adequada e seguir o schema completo:
 
-### Criar Agent
+### Criar Agent — `*create-agent {name}`
+**Referência:** `references/agent-creation.md` (18-point checklist)
 1. Perguntar: nome, papel, especialidade, comandos
-2. Gerar YAML frontmatter completo (name, id, title, icon, persona_profile, commands, dependencies)
-3. Salvar em: `.aiox-core/development/agents/{id}/`
-4. Registrar em: `.aiox-core/data/entity-registry.yaml`
-5. Criar slash command em: `.claude/commands/`
-6. Validar: 18-point checklist (nome, id, icon, persona, commands, dependencies, encoding UTF-8)
+2. Carregar referência e gerar YAML completo (agent, persona_profile, persona, commands, dependencies)
+3. Core: salvar em pasta `.aiox-core/development/agents/{id}/`
+4. Squad: salvar em `squads/{squad}/agents/{id}.md`
+5. Registrar em entity-registry + criar slash command
+6. **Validar:** 18-point checklist (nome, id, icon, persona, core_principles com CRITICAL, git_restrictions)
 
-### Criar Squad
-1. Perguntar: propósito, agents necessários, workflows
-2. Gerar estrutura completa:
-   ```
-   squads/{name}/
-   ├── README.md
-   ├── config.yaml
-   ├── agents/
-   ├── tasks/
-   ├── workflows/
-   ├── checklists/
-   └── data/
-   ```
-3. Usar `/squad-creator` ou skill `squad-creator-pro` se disponível
+### Criar Task — `*create-task {name}`
+**Referência:** `references/task-creation.md` (12-point checklist)
+1. Gerar com YAML frontmatter (`tools`, `utils`) + Task Definition dentro de `<!-- -->` HTML comment
+2. Incluir: Execution Modes (3), pre-conditions, steps, post-conditions, handoff
+3. Core: `.aiox-core/development/tasks/` | Squad: `squads/{squad}/tasks/`
+4. Adicionar ao agent `dependencies.tasks`
+5. **Validar:** 12-point checklist
+
+### Criar Workflow — `*create-workflow {name}`
+**Referência:** `references/workflow-creation.md` (14-point checklist)
+1. Gerar YAML com: id, name, version, orchestrator, triggers, phases, error_handling
+2. Cada phase: id, agent, description, `on_success`, `on_failure` (REQUIRED)
+3. Incluir execution_modes (yolo, interactive, preflight)
+4. Core: `.aiox-core/development/workflows/` | Squad: `squads/{squad}/workflows/`
+5. **Validar:** 14-point checklist
+
+### Criar Squad — `*create-squad {name}`
+**Referência:** `references/squad-creation.md` (15-point checklist)
+1. Perguntar: propósito, agents necessários, collaboration pattern
+2. Gerar estrutura completa com `config.yaml` (NÃO `squad.yaml`)
+3. Incluir `tier_structure` (orchestrator + tiers) e `minds` (se mind clones)
+4. Criar slash commands + rodar `/catalog`
+5. **Validar:** 15-point checklist
 
 ### Criar Story
 1. Delegar para `@sm` com contexto do pedido
 2. Validar com `@po` automaticamente (10-point checklist)
 3. Salvar em: `docs/stories/active/`
 
-### Criar Task
-1. Gerar com frontmatter YAML (task, responsável, atomic_layer)
-2. Incluir: pre-conditions (blockers), steps, post-conditions, handoff (next agent + command)
-3. Salvar em: `.aiox-core/development/tasks/`
-
-### Criar Workflow
-1. Gerar YAML com: id, name, type, phases, sequence, decision_guidance
-2. Incluir execution_modes (yolo, interactive, preflight)
-3. Cada step: id, phase, agent, action, next, on_failure
-4. Salvar em: `.aiox-core/development/workflows/`
-
-### Outros Componentes
-- `*create-checklist {name}` — Checklist de validação com checkboxes
-- `*create-template {name}` — Template reutilizável
-- `*create-rule {name}` — Regra contextual em `.claude/rules/`
-- `*create-data {name}` — Arquivo de dados/registry
+### Outros Componentes — `references/component-templates.md`
+- `*create-checklist {name}` — Checklist com YAML metadata + levels (blocking/advisory)
+- `*create-template {name}` — Template com `{{VARIABLES}}` syntax
+- `*create-rule {name}` — Regra em `.claude/rules/` com `paths:` frontmatter
+- `*create-data {name}` — Registry ou heuristics YAML
 
 ---
 
@@ -443,6 +442,41 @@ Disponíveis: Playwright, EXA, Context7, Apify, Google Workspace, Figma, Pencil
 | Build falha | `*track-attempt` → `*rollback` → nova tentativa |
 | Workflow ambíguo | Perguntar ao usuário qual modo (YOLO/Interactive/Pre-Flight) |
 | Mesmo erro 3x | Parar, investigar root cause, não repetir mesma ação |
+
+---
+
+## 12. Anti-Patterns (NEVER)
+
+| Anti-Pattern | Consequência | Correção |
+|-------------|-------------|----------|
+| @dev fazendo `git push` | Art. II violation | Delegar para @devops |
+| Código sem story | Art. III violation | Criar story primeiro |
+| Inventar features no spec | Art. IV violation | Rastrear para requirements |
+| Pular QA gates | Art. V violation | Rodar `npm test` + `npm run lint` |
+| Editar L1/L2 files | Framework corruption | Apenas L3/L4 são mutáveis |
+| Reter persona completa no switch | Context waste | Usar handoff compacto (~379 tokens) |
+| Criar agent sem YAML schema | Agent quebrado | Usar `references/agent-creation.md` |
+| Criar task sem pre/post-conditions | Task sem validação | Usar `references/task-creation.md` |
+| Criar squad sem config.yaml | Squad não registrado | Usar `references/squad-creation.md` |
+
+---
+
+## 13. Creation Validation Checklist (Master)
+
+Após criar QUALQUER componente, verificar:
+
+| # | Check | Aplica-se a |
+|---|-------|-------------|
+| 1 | Arquivo salvo no path correto (L2 core / L4 squad) | Todos |
+| 2 | YAML frontmatter válido e completo | Agents, Tasks, Checklists |
+| 3 | Naming segue convenção (kebab-case) | Todos |
+| 4 | Dependencies listadas e resolvíveis | Agents, Tasks |
+| 5 | Registrado em entity-registry (se core) | Core components |
+| 6 | Slash command criado em `.claude/commands/` | Agents, Squads |
+| 7 | Squad config.yaml atualizado | Squad components |
+| 8 | Constitutional compliance verificada | Todos |
+| 9 | Nenhum arquivo L1/L2 modificado | Todos |
+| 10 | UTF-8 encoding com acentos pt-BR preservados | Todos |
 
 ---
 

@@ -19,8 +19,13 @@ Ative o God Mode v2.0 carregando a skill completa.
 3. **Carregue sob demanda** quando necessário:
    - `references/workflow-selector.md` — Complexity scoring detalhado
    - `references/agent-quick-ref.md` — Matriz de agents + comandos
+   - `references/agent-creation.md` — Schema + 18-point checklist
+   - `references/task-creation.md` — Schema V1.0 + 12-point checklist
+   - `references/workflow-creation.md` — YAML schema + 14-point checklist
+   - `references/squad-creation.md` — Estrutura + config.yaml + 15-point checklist
+   - `references/component-templates.md` — Checklists, templates, data, rules
+   - `references/framework-map.md` — Component locator, handoff, rules system
    - `.claude/rules/agent-authority.md` — Regras de autoridade exclusiva
-   - `.aiox-core/development/workflows/` — Workflows YAML
 4. **Apresente-se** ao usuário:
 
 ```
