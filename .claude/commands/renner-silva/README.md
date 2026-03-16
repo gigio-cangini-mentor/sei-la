@@ -1,14 +1,14 @@
 # Renner Silva — Squad Deployável
 
 > Clone mental de Renner Silva — referência em oratória, liderança e desenvolvimento humano.
-> Fidelidade ~93/100 | SYNAPSE v6.0 | Clone Mental v1.1
+> Fidelidade ~95/100 (v1.2, pending formal re-score) | SYNAPSE v6.0 | Clone Mental v1.2
 
 ---
 
 ## Visão Geral
 
 O squad `renner-silva` empacota o clone mental completo de Renner Silva como um agente
-AIOS deployável. Baseado em 52 documentos (35 das Fases 1-3 + 17 Knowledge Bases), validado
+AIOS deployável. Baseado em 54 documentos (35 das Fases 1-3 + 19 Knowledge Bases), validado
 por múltiplos agentes e com dois rounds de patches de qualidade.
 
 **Renner Silva é:**
@@ -94,14 +94,14 @@ squads/renner-silva/
 ├── workflows/
 │   └── mentoring-flow.yaml        ← Workflow sequencial de mentoria completa
 └── data/
-    └── README.md                  ← Índice dos 17 KBs com caminhos
+    └── README.md                  ← Índice dos 19 KBs com caminhos
 ```
 
 ---
 
 ## Knowledge Base
 
-O agente tem acesso a 17 Knowledge Bases em:
+O agente tem acesso a 19 Knowledge Bases em:
 `squads/squad-creator/data/minds/renner_silva/05_clone_final/knowledge_base/`
 
 | Grupo | KBs |
@@ -109,6 +109,7 @@ O agente tem acesso a 17 Knowledge Bases em:
 | Identidade & Linguagem | KB01-KB04, KB12 |
 | Arquitetura Mental | KB05-KB11 |
 | Decision Intelligence v1.1 | KB13-KB17 |
+| Negócios & Método v1.2 | KB18-KB19 |
 
 Ver `data/README.md` para índice completo com descrições.
 
@@ -161,11 +162,11 @@ Ver `data/README.md` para índice completo com descrições.
 
 | Dimensão | Status |
 |----------|--------|
-| Fidelidade geral | ~93/100 (SYNAPSE v6.0) |
-| Validação @oalanicolas | 9.3/10 |
-| Validação @pedro-valerio | 8.5/10 |
-| Versão do clone | v1.1 (com Decision Intelligence) |
-| Patches aplicados | BS#7 instrução preventiva + KB13-17 |
+| Fidelidade geral | ~95/100 (v1.2, pending formal re-score) |
+| Validação @oalanicolas | 9.5/10 |
+| Validação @pedro-valerio | 9.0/10 |
+| Versão do clone | v1.2 (com Business Frameworks + Speech Craft) |
+| Patches aplicados | BS#7 instrução preventiva + KB13-17 + KB18-19 |
 
 ---
 
@@ -185,6 +186,9 @@ Ver `data/README.md` para índice completo com descrições.
 - Mentoria e processo seletivo
 - Transformação pessoal (mindset, propósito)
 - Estratégia de negócios em palestrança
+- Vendas high-ticket e pricing
+- Monetização de eventos
+- Metodologia de palestra (8 Estágios)
 
 ---
 
@@ -196,10 +200,10 @@ O clone foi criado através do pipeline completo do squad `icp-cloning`:
 2. **Extração** (15 prompts P0-P14) — `02_extracao/`
 3. **SYNAPSE** (consolidação + framework) — `03_synapse/`
 4. **Humanização** (blind spots, paradoxos, memórias) — `04_humanizacao/`
-5. **Clone Final** (SYSTEM_PROMPT_MASTER + 17 KBs) — `05_clone_final/`
+5. **Clone Final** (SYSTEM_PROMPT_MASTER + 19 KBs) — `05_clone_final/`
 6. **Validação** (multi-agente + edge cases) — `06_validacao/`
 
 ---
 
-*Renner Silva Squad v1.0.0 | Mind Clone v1.1 | 2026-02-17*
+*Renner Silva Squad v1.1.0 | Mind Clone v1.2 | 2026-03-09*
 *4ª geração de magos da palavra — transformação, não entretenimento.*

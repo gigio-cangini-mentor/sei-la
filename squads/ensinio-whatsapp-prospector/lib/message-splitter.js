@@ -11,7 +11,7 @@
  * 4. Cada parte ideal: 30-150 caracteres
  */
 
-const MIN_PART_LENGTH = 10; // Partes muito curtas são estranhas
+const MIN_PART_LENGTH = 3; // Mínimo para despedidas curtas (ex: "Abraço!", "Valeu!")
 const MAX_PART_LENGTH = 150; // Partes muito longas parecem IA
 
 /**
@@ -37,19 +37,31 @@ function splitMessageIntoParts(message) {
       return part;
     }
 
-    // Split por ". " (fim de frase)
-    const sentences = part
-      .split(/\.\s+/)
-      .map(s => s.trim())
-      .filter(s => s.length > 0)
-      .map(s => (s.endsWith('.') ? s : `${s}.`)); // Re-adicionar ponto se removido
+    // Split por pontuação de fim de frase (. ! ?) seguida de espaço
+    const sentences = [];
+    let current = '';
+    const chars = part.split('');
 
-    // Se última "frase" não termina com ponto, é porque era final do parágrafo
-    if (sentences.length > 0 && !part.endsWith('.')) {
-      sentences[sentences.length - 1] = sentences[sentences.length - 1].replace(/\.$/, '');
+    for (let i = 0; i < chars.length; i++) {
+      current += chars[i];
+
+      // Se encontrou fim de frase (. ! ?) seguido de espaço ou fim da string
+      const isEndPunctuation = /[.!?]/.test(chars[i]);
+      const nextIsSpace = i + 1 < chars.length && /\s/.test(chars[i + 1]);
+      const isLastChar = i === chars.length - 1;
+
+      if (isEndPunctuation && (nextIsSpace || isLastChar)) {
+        sentences.push(current.trim());
+        current = '';
+      }
     }
 
-    return sentences;
+    // Se sobrou algo no current (frase incompleta), adicionar
+    if (current.trim().length > 0) {
+      sentences.push(current.trim());
+    }
+
+    return sentences.filter(s => s.length > 0);
   });
 
   // Step 3: Filtrar partes muito curtas (< MIN_PART_LENGTH)
