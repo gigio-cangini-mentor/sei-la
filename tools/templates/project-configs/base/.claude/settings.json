@@ -39,7 +39,6 @@
       "Bash(git push --force:*)"
     ]
   },
-  "hooks": [],
   "outputStyle": "default",
   "sandbox": {
     "enabled": false
