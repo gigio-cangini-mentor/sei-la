@@ -78,24 +78,46 @@ const Events = {
 // ═══════════════════════════════════════════════════════════════════════════════════
 
 class ReflectionEngine extends EventEmitter {
+  /**
+   * @param {Object} options
+   * @param {string} [options.projectRoot] - Project root directory
+   * @param {Object} [options.config] - Override default config
+   */
   constructor(options = {}) {
     super();
-    this.projectRoot = options.projectRoot || process.cwd();
+    this.projectRoot = options.projectRoot ?? process.cwd();
     this.config = { ...CONFIG, ...options.config };
     this.reflections = [];
     this.patterns = [];
     this._loaded = false;
+    this._saving = false;
   }
 
   /**
    * Get the reflections file path
+   * @returns {string} Absolute path to reflections.json
+   * @private
    */
   _getFilePath() {
     return path.join(this.projectRoot, this.config.reflectionsPath);
   }
 
   /**
-   * Load reflections from disk
+   * Ensure persisted state has been hydrated before operating.
+   * Lazy-loads on first access to prevent empty-buffer overwrites.
+   * @returns {Promise<void>}
+   * @private
+   */
+  async _ensureLoaded() {
+    if (!this._loaded) {
+      await this.load();
+    }
+  }
+
+  /**
+   * Load reflections from disk.
+   * Logs a warning on schema mismatch or parse errors instead of failing silently.
+   * @returns {Promise<void>}
    */
   async load() {
     const filePath = this._getFilePath();
@@ -105,6 +127,9 @@ class ReflectionEngine extends EventEmitter {
         const data = JSON.parse(raw);
 
         if (data.schemaVersion !== this.config.schemaVersion) {
+          console.warn(
+            `[ReflectionEngine] Schema mismatch: found '${data.schemaVersion}', expected '${this.config.schemaVersion}'. Resetting reflections.`,
+          );
           this.reflections = [];
           this.patterns = [];
           this._loaded = true;
@@ -114,7 +139,8 @@ class ReflectionEngine extends EventEmitter {
         this.reflections = Array.isArray(data.reflections) ? data.reflections : [];
         this.patterns = Array.isArray(data.patterns) ? data.patterns : [];
       }
-    } catch {
+    } catch (err) {
+      console.warn('[ReflectionEngine] Failed to load reflections:', err.message);
       this.reflections = [];
       this.patterns = [];
     }
@@ -122,25 +148,38 @@ class ReflectionEngine extends EventEmitter {
   }
 
   /**
-   * Save reflections to disk
+   * Save reflections to disk.
+   * Guards against concurrent writes and uses atomic write (tmp + rename).
+   * @returns {Promise<void>}
    */
   async save() {
+    if (this._saving) return;
+    this._saving = true;
+
     const filePath = this._getFilePath();
     const dir = path.dirname(filePath);
 
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    try {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      const data = {
+        schemaVersion: this.config.schemaVersion,
+        version: this.config.version,
+        savedAt: new Date().toISOString(),
+        reflections: this.reflections,
+        patterns: this.patterns,
+      };
+
+      const tmpPath = `${filePath}.tmp`;
+      fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf8');
+      fs.renameSync(tmpPath, filePath);
+    } catch (err) {
+      console.error('[ReflectionEngine] Failed to save reflections:', err.message);
+    } finally {
+      this._saving = false;
     }
-
-    const data = {
-      schemaVersion: this.config.schemaVersion,
-      version: this.config.version,
-      savedAt: new Date().toISOString(),
-      reflections: this.reflections,
-      patterns: this.patterns,
-    };
-
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
   }
 
   /**
@@ -169,8 +208,8 @@ class ReflectionEngine extends EventEmitter {
       agentId: reflection.agentId,
       outcome: reflection.outcome,
       strategy: reflection.strategy,
-      description: reflection.description || '',
-      tags: reflection.tags || [],
+      description: reflection.description ?? '',
+      tags: reflection.tags ?? [],
       durationMs: reflection.durationMs ?? null,
       lesson: reflection.lesson ?? null,
       context: reflection.context ?? null,
@@ -219,7 +258,7 @@ class ReflectionEngine extends EventEmitter {
     // Boost by tag overlap
     const scored = relevant.map((r) => {
       let score = r.outcome === Outcome.SUCCESS ? 1.0 : r.outcome === Outcome.PARTIAL ? 0.5 : 0.0;
-      if (context.tags && r.tags) {
+      if (Array.isArray(context.tags) && Array.isArray(r.tags)) {
         const overlap = context.tags.filter((t) => r.tags.includes(t)).length;
         score += overlap * 0.2;
       }
@@ -282,7 +321,9 @@ class ReflectionEngine extends EventEmitter {
   }
 
   /**
-   * Inject reflection context before task execution
+   * Inject reflection context before task execution.
+   * Guards pattern.tags with Array.isArray to prevent runtime errors
+   * from malformed persisted data.
    *
    * @param {Object} context - Task context (taskType, agentId, tags)
    * @returns {Object} Context with injected reflections
@@ -290,7 +331,10 @@ class ReflectionEngine extends EventEmitter {
   injectContext(context) {
     const recommendations = this.getRecommendations(context);
     const relevantPatterns = this.patterns.filter(
-      (p) => p.taskType === context.taskType || (p.tags && context.tags && context.tags.some((t) => p.tags.includes(t))),
+      (p) =>
+        p.taskType === context.taskType ||
+        (Array.isArray(context.tags) &&
+          context.tags.some((t) => Array.isArray(p.tags) && p.tags.includes(t))),
     );
 
     return {
@@ -313,7 +357,7 @@ class ReflectionEngine extends EventEmitter {
    * @returns {Object} Performance trend data
    */
   getTrends(filter = {}) {
-    const windowDays = filter.windowDays || 30;
+    const windowDays = filter.windowDays ?? 30;
     const cutoff = Date.now() - windowDays * 24 * 60 * 60 * 1000;
 
     const relevant = this.reflections.filter((r) => {
@@ -362,7 +406,8 @@ class ReflectionEngine extends EventEmitter {
   }
 
   /**
-   * Prune reflections older than retention window
+   * Prune reflections older than retention window.
+   * Recomputes patterns after pruning to keep them consistent.
    * @returns {number} Number of pruned reflections
    */
   prune() {
@@ -386,6 +431,7 @@ class ReflectionEngine extends EventEmitter {
 
   /**
    * Get statistics summary
+   * @returns {Object} Stats with totals by outcome, taskType, and agent
    */
   getStats() {
     const byOutcome = {};
@@ -393,9 +439,9 @@ class ReflectionEngine extends EventEmitter {
     const byAgent = {};
 
     for (const r of this.reflections) {
-      byOutcome[r.outcome] = (byOutcome[r.outcome] || 0) + 1;
-      byTaskType[r.taskType] = (byTaskType[r.taskType] || 0) + 1;
-      byAgent[r.agentId] = (byAgent[r.agentId] || 0) + 1;
+      byOutcome[r.outcome] = (byOutcome[r.outcome] ?? 0) + 1;
+      byTaskType[r.taskType] = (byTaskType[r.taskType] ?? 0) + 1;
+      byAgent[r.agentId] = (byAgent[r.agentId] ?? 0) + 1;
     }
 
     return {
@@ -409,6 +455,13 @@ class ReflectionEngine extends EventEmitter {
 
   /**
    * List reflections with optional filtering
+   * @param {Object} [filter]
+   * @param {string} [filter.taskType] - Filter by task type
+   * @param {string} [filter.agentId] - Filter by agent
+   * @param {string} [filter.outcome] - Filter by outcome
+   * @param {string} [filter.tag] - Filter by tag
+   * @param {number} [filter.limit] - Limit results
+   * @returns {Object[]} Filtered reflections
    */
   listReflections(filter = {}) {
     let results = [...this.reflections];
@@ -416,7 +469,7 @@ class ReflectionEngine extends EventEmitter {
     if (filter.taskType) results = results.filter((r) => r.taskType === filter.taskType);
     if (filter.agentId) results = results.filter((r) => r.agentId === filter.agentId);
     if (filter.outcome) results = results.filter((r) => r.outcome === filter.outcome);
-    if (filter.tag) results = results.filter((r) => r.tags && r.tags.includes(filter.tag));
+    if (filter.tag) results = results.filter((r) => Array.isArray(r.tags) && r.tags.includes(filter.tag));
 
     if (filter.limit) results = results.slice(-filter.limit);
 
@@ -429,6 +482,7 @@ class ReflectionEngine extends EventEmitter {
 
   /**
    * Detect patterns from accumulated reflections
+   * @param {Object} newEntry - The new reflection to check against
    * @private
    */
   _detectPatterns(newEntry) {
@@ -446,7 +500,7 @@ class ReflectionEngine extends EventEmitter {
     // Collect all tags
     const tagSet = new Set();
     for (const r of all) {
-      if (r.tags) r.tags.forEach((t) => tagSet.add(t));
+      if (Array.isArray(r.tags)) r.tags.forEach((t) => tagSet.add(t));
     }
 
     // Check if pattern already exists
@@ -473,7 +527,6 @@ class ReflectionEngine extends EventEmitter {
     }
   }
 
-
   /**
    * Recompute all patterns from the current set of reflections.
    * Called after pruning to ensure patterns stay consistent with remaining data.
@@ -499,7 +552,7 @@ class ReflectionEngine extends EventEmitter {
 
       const tagSet = new Set();
       for (const r of group) {
-        if (r.tags) r.tags.forEach((t) => tagSet.add(t));
+        if (Array.isArray(r.tags)) r.tags.forEach((t) => tagSet.add(t));
       }
 
       newPatterns.push({
@@ -519,6 +572,7 @@ class ReflectionEngine extends EventEmitter {
 
   /**
    * Generate a unique ID
+   * @returns {string}
    * @private
    */
   _generateId() {
