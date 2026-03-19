@@ -60,6 +60,18 @@ credentials/
 # Squad artifacts (generated outputs, not source)
 squads/**/outputs/
 squads/**/.designs/
+
+# Large media files (GitHub 100MB limit)
+*.wav
+*.mp3
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.flac
+*.m4a
+squads/**/sources/**/*.wav
+squads/**/.transcription_temp/
 keys/
 *.secret
 *.credentials
