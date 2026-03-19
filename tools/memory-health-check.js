@@ -374,6 +374,51 @@ function main() {
     console.log(`| ${p.name.slice(0, 30).padEnd(30)} | ${p.mode.slice(0, 4)} | ${p.contextExists ? '✅' : '❌'} | ${p.contextFilled ? '✅' : '—'} | ${p.feedbackCount > 0 ? `✅(${p.feedbackCount})` : '—'} | ${pEmoji} ${pScore}/3 |`);
   }
 
+  // ── SAVE REPORT ────────────────────────────────────────────
+
+  const today = new Date().toISOString().split('T')[0];
+  const reportPath = path.join(AIOS_CORE, 'docs', 'reports', `memory-audit-${today}.md`);
+  const filledCount = projectResults.filter(p => p.contextFilled).length;
+  const feedbackCount = projectResults.filter(p => p.feedbackCount > 0).length;
+
+  let report = `# Memory Audit — ${today}\n\n`;
+  report += `**Health Score:** ${emoji} ${score}%\n`;
+  report += `**Checks automáticos:** ${passed}/${total} PASS\n`;
+  report += `**Projetos:** ${projects.length} total | ${q1Pass} com context | ${filledCount} preenchidos | ${feedbackCount} com feedback\n`;
+  report += `**Agentes:** ${agentsWithRead.length}/${agents.length} Read | ${agentsWithWrite.length}/${agents.length} Write\n\n`;
+
+  report += '## Checks\n\n';
+  report += '| # | Pergunta | Status |\n';
+  report += '|---|----------|--------|\n';
+  report += `| Q1 | project-context.md existe em todos? | ${q1 ? 'PASS' : 'FAIL'} (${q1Pass}/${q1Total}) |\n`;
+  report += `| Q2 | Contexto preenchido (real)? | ${q2 ? 'PASS' : 'WARN'} (${q2Pass}/${q1Total}) |\n`;
+  report += `| Q3 | feedback/ com arquivos reais? | ${q3 ? 'PASS' : 'WARN'} (${q3Pass}/${q1Total}) |\n`;
+  report += `| Q4 | User profile global? | ${q4 ? 'PASS' : 'FAIL'} |\n`;
+  report += `| Q5 | Agentes com Read Protocol? | ${q5 ? 'PASS' : 'FAIL'} (${agentsWithRead.length}/${agents.length}) |\n`;
+  report += `| Q6-Q8 | Comportamento de leitura | Manual |\n`;
+  report += `| Q9 | Agentes com Write Protocol? | ${q9 ? 'PASS' : 'FAIL'} (${agentsWithWrite.length}/${agents.length}) |\n`;
+  report += `| Q10-Q11 | Comportamento de gravação | Manual |\n`;
+  report += `| Q12 | Checkpoints na rule? | ${q12 ? 'PASS' : 'FAIL'} |\n`;
+  report += `| Q13 | Feedback em checkpoint? | Manual |\n`;
+  report += `| Q14 | Hook auto-load? | ${hooks.hookExists && hooks.hookRegistered ? 'PASS' : 'FAIL'} |\n`;
+  report += `| Q15 | /checkpoint atualiza memory? | ${checkpoint.hasMemoryStep ? 'PASS' : 'FAIL'} |\n`;
+  report += `| Q16 | Tools existem? | ${tools.auditTool && tools.bootstrapTool ? 'PASS' : 'FAIL'} |\n`;
+  report += `| Q17 | cleanup-old-feedback existe? | ${tools.cleanupTool ? 'PASS' : 'FAIL'} |\n`;
+  report += `| Q18 | /new-project cria memory/? | ${newProject.hasMemoryStep ? 'PASS' : 'FAIL'} |\n`;
+
+  report += '\n## Projetos\n\n';
+  report += '| Projeto | Modo | context | preenchido | feedback | Score |\n';
+  report += '|---------|------|---------|------------|----------|-------|\n';
+  for (const p of projectResults) {
+    const pScore = (p.contextExists ? 1 : 0) + (p.contextFilled ? 1 : 0) + (p.feedbackCount > 0 ? 1 : 0);
+    const pEmoji = pScore === 3 ? '🟢' : pScore >= 1 ? '🟡' : '🔴';
+    report += `| ${p.name} | ${p.mode.slice(0, 4)} | ${p.contextExists ? '✅' : '❌'} | ${p.contextFilled ? '✅' : '—'} | ${p.feedbackCount > 0 ? `✅(${p.feedbackCount})` : '—'} | ${pEmoji} ${pScore}/3 |\n`;
+  }
+
+  fs.mkdirSync(path.dirname(reportPath), { recursive: true });
+  fs.writeFileSync(reportPath, report);
+  console.log(`\nRelatório salvo: ${reportPath}`);
+
   if (jsonOutput) {
     const data = {
       score,
