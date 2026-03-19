@@ -98,7 +98,7 @@ Memórias carregam automaticamente ao abrir projeto, sem precisar de `/resume`.
 | 4 Checkpoints | Médio (controle mid-flow) | Médio (~4h) | Depois |
 | 5 Auto-Load | Alto (zero fricção) | Baixo (~2h) | Depois |
 
-**Phase 2 é o ponto de inflexão.** Sem ela, memória é só arquivo no disco. Com ela, agentes começam a parecer inteligentes.
+**Todas as phases estão completas.** Memory System v2.0 está em produção desde 2026-03-19.
 
 ---
 
