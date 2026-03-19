@@ -2,7 +2,7 @@
 
 | # | Projeto | Modo | Status | Agente/Squad | Última Sessão | INDEX |
 |---|---------|------|--------|-------------|---------------|-------|
-| 1 | ~~ensinio~~ | 🔄 | **→ Migrado para HYBRID (Row #19)** | whatsapp-prospector | 2026-03-16 | [INDEX](~/CODE/Projects/whatsapp-prospector/.aios/INDEX.md) |
+| ~~1~~ | ~~ensinio~~ | — | ~~Migrado para whatsapp-prospector (Row #19)~~ | — | — | — |
 | 2 | gui-avila-mind | 📦 | Transcrição limpa disponível | squad-creator-pro | 2026-03-07 | [INDEX](gui-avila-mind/INDEX.md) |
 | 3 | storytelling-masters-fosc | 📦 | Research Fala Magnética | tech-search | 2026-03-05 | [INDEX](storytelling-masters-fosc/INDEX.md) |
 | 4 | high-ticket-sales | 📦 | 25 livros mapeados | tech-search | 2026-03-04 | [INDEX](high-ticket-sales/INDEX.md) |

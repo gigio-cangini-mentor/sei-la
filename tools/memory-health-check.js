@@ -107,12 +107,14 @@ function checkSquadsConfig(memoryDir) {
 }
 
 function checkHybridRules() {
-  // Check HYBRID projects have memory-protocol.md in .claude/rules/
-  if (!fs.existsSync(CODE_PROJECTS)) return { total: 0, withRule: 0, missing: [] };
+  // Check HYBRID projects have full standard: INDEX.md + memory/ + sessions/ + memory-protocol.md
+  if (!fs.existsSync(CODE_PROJECTS)) return { total: 0, withRule: 0, withFullStandard: 0, missing: [], missingStandard: [] };
 
   let total = 0;
   let withRule = 0;
+  let withFullStandard = 0;
   const missing = [];
+  const missingStandard = [];
 
   for (const name of fs.readdirSync(CODE_PROJECTS)) {
     const full = path.join(CODE_PROJECTS, name);
@@ -120,15 +122,29 @@ function checkHybridRules() {
     if (name.startsWith('.')) continue;
     total++;
 
+    const aios = path.join(full, '.aios');
     const rulePath = path.join(full, '.claude', 'rules', 'memory-protocol.md');
-    if (fs.existsSync(rulePath)) {
-      withRule++;
+    const hasRule = fs.existsSync(rulePath);
+    const hasIndex = fs.existsSync(path.join(aios, 'INDEX.md'));
+    const hasMemory = fs.existsSync(path.join(aios, 'memory'));
+    const hasSessions = fs.existsSync(path.join(aios, 'sessions'));
+
+    if (hasRule) withRule++;
+    else missing.push(name);
+
+    if (hasRule && hasIndex && hasMemory && hasSessions) {
+      withFullStandard++;
     } else {
-      missing.push(name);
+      const gaps = [];
+      if (!hasIndex) gaps.push('INDEX');
+      if (!hasMemory) gaps.push('memory/');
+      if (!hasSessions) gaps.push('sessions/');
+      if (!hasRule) gaps.push('rule');
+      missingStandard.push({ name, gaps });
     }
   }
 
-  return { total, withRule, missing };
+  return { total, withRule, withFullStandard, missing, missingStandard };
 }
 
 function checkAgentSpawnFiles() {
@@ -348,11 +364,12 @@ function main() {
 
   console.log('\n## HYBRID RULES (squads funcionam em projetos externos)\n');
 
-  const q19 = hybridRules.total === 0 || hybridRules.withRule === hybridRules.total;
-  console.log(`Q19. HYBRID têm memory-protocol.md?  ${q19 ? 'PASS' : 'FAIL'} (${hybridRules.withRule}/${hybridRules.total})`);
-  if (hybridRules.missing.length > 0) {
-    console.log(`\n   Sem memory-protocol.md:`);
-    hybridRules.missing.forEach(m => console.log(`     - ${m}`));
+  const q19 = hybridRules.total === 0 || hybridRules.withFullStandard === hybridRules.total;
+  console.log(`Q19. HYBRID no padrão completo?      ${q19 ? 'PASS' : 'FAIL'} (${hybridRules.withFullStandard}/${hybridRules.total})`);
+  console.log(`     (INDEX + memory/ + sessions/ + memory-protocol.md)`);
+  if (hybridRules.missingStandard.length > 0) {
+    console.log(`\n   Fora do padrão:`);
+    hybridRules.missingStandard.forEach(m => console.log(`     - ${m.name} (falta: ${m.gaps.join(', ')})`));
   }
 
   // ── Q16-Q18: Manutenção ───────────────────────────────────
