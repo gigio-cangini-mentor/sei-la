@@ -57,14 +57,9 @@ credentials/
 .claude/commands/mmosMapper/
 .claude/commands/hybridOps/
 
-# Private local squads (not for repository)
-squads/*
-!squads/.gitkeep
-!squads/_example/
-# Published squads (whitelisted for repository)
-!squads/claude-code-mastery/
-!squads/ensinio-mind/
-!squads/whatsapp-prospector/
+# Squad artifacts (generated outputs, not source)
+squads/**/outputs/
+squads/**/.designs/
 keys/
 *.secret
 *.credentials
@@ -259,8 +254,7 @@ docs/architecture/
 docs/agents/
 docs/private/
 
-# Squad Design Files (test artifacts)
-squads/.designs/
+# Squad Design Files (covered by squads/**/.designs/ above)
 
 # ============================================
 # MCP Configuration (contains API keys)
