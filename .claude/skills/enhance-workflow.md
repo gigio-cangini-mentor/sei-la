@@ -1,8 +1,10 @@
-# Enhance Workflow v2.0 - Multi-Agent Orchestration
+# Enhance Workflow v3.0 - Multi-Agent Orchestration (Delegation Protocol)
 
 Pipeline de enhancement com análise de determinismo, roundtable dinâmico por domínio, e validação QA.
 
 **Fluxo:** Pre-flight → Determinism Check → Discovery → Research → Roundtable (dinâmico) → Create Epic → QA Validation
+
+**Delegation Protocol:** Fases sequenciais usam **delegated** (two-step invocation). Roundtable usa **subagent** (paralelo). Ver `.claude/rules/delegation-protocol.md`.
 
 ---
 
@@ -308,49 +310,105 @@ Após cada fase completar:
 
 ---
 
-### Phase 1: Discovery (@architect)
+### Phase 1: Discovery (@architect) — DELEGATED
 
-**Spawn agent** com prompt incluindo Context Preamble do AIOX.
+**Two-step invocation** (full context, persona loaded):
+
+```
+Step 1: Skill(skill: "AIOS:agents:architect")
+  → Aria loads with full persona + context
+  → Session: invocationType: "delegated", parentAgentId: "enhance-workflow"
+
+Step 2: *analyze {project_context}
+  → Aria executes discovery with full architectural judgment
+  → Saves: outputs/enhance/{slug}/01-discovery.md
+```
 
 Após completar:
-- Checkpoint: `{ "phases": { "discovery": { "status": "completed", "artifact_hash": "..." } } }`
+- Checkpoint: `{ "phases": { "discovery": { "status": "completed", "invocation_type": "delegated", "artifact_hash": "..." } } }`
 - Atualizar 00-INDEX.md
+- Generate handoff artifact → `.aios/handoffs/handoff-architect-to-analyst-{ts}.yaml`
 
 ---
 
-### Phase 2: Research (@analyst)
+### Phase 2: Research (@analyst) — DELEGATED
 
-**Spawn agent** que lê 01-discovery.md e pesquisa.
+**Two-step invocation** (full context, needs research judgment):
+
+```
+Step 1: Skill(skill: "AIOS:agents:analyst")
+  → Sage loads with full persona + context
+  → Receives handoff from architect (story_context, decisions)
+  → Session: invocationType: "delegated", parentAgentId: "enhance-workflow"
+
+Step 2: *research {context from 01-discovery.md}
+  → Sage executes research with full analytical judgment
+  → Saves: outputs/enhance/{slug}/02-research.md
+```
 
 Graceful degradation: Se falhar após 5 retries, continuar sem research (warn user).
+Generate handoff → `.aios/handoffs/handoff-analyst-to-roundtable-{ts}.yaml`
 
 ---
 
-### Phase 3: Roundtable (DINÂMICO)
+### Phase 3: Roundtable (DINÂMICO) — SUBAGENT (paralelo)
 
-**Spawn 4 agents em paralelo** baseado no domínio classificado.
+**4 agents spawned via Agent tool em paralelo** (subagent mode — mechanical consolidation, não precisa de persona completa).
+
+```
+Agent(
+  description: "RT:{domain} {agent_name}",
+  prompt: "Read 01-discovery.md and 02-research.md. Provide {domain} perspective...",
+  mode: "auto"
+)
+→ Session: invocationType: "subagent", parentAgentId: "enhance-workflow"
+```
 
 Exemplo para `copy_marketing`:
-- `rt-copy-chief` → perspectiva de copy
-- `rt-story-chief` → perspectiva de storytelling
-- `rt-funnel-architect` → perspectiva de funil
-- `rt-ads-analyst` → perspectiva de tráfego
+- `rt-copy-chief` → perspectiva de copy (subagent)
+- `rt-story-chief` → perspectiva de storytelling (subagent)
+- `rt-funnel-architect` → perspectiva de funil (subagent)
+- `rt-ads-analyst` → perspectiva de tráfego (subagent)
 
-Cada agent lê 01-discovery.md e 02-research.md, fornece perspectiva especializada.
+Cada agent recebe prompt self-contained com dados de 01-discovery + 02-research.
+**Paralelo porque:** Nenhum depende do outro. Subagent porque: fornecem perspectiva focada, não precisam de persona completa.
 
 Após todos completarem, consolidar em `03-roundtable.md`.
 
 ---
 
-### Phase 4: Create Epic (@pm)
+### Phase 4: Create Epic (@pm) — DELEGATED
 
-**Spawn pm** que lê todos os artefatos e cria o Epic.
+**Two-step invocation** (full context, needs PM judgment for epic structure):
+
+```
+Step 1: Skill(skill: "AIOS:agents:pm")
+  → Morgan loads with full persona + context
+  → Session: invocationType: "delegated", parentAgentId: "enhance-workflow"
+
+Step 2: *create-epic {context from all previous artifacts}
+  → Morgan reads 01-discovery + 02-research + 03-roundtable
+  → Creates structured epic with stories, ACs, story points
+  → Saves: outputs/enhance/{slug}/04-epic.md
+```
+
+Generate handoff → `.aios/handoffs/handoff-pm-to-qa-{ts}.yaml`
 
 ---
 
-### Phase 5: QA Validation (@qa) - NOVA
+### Phase 5: QA Validation (@qa) — DELEGATED
 
-**Spawn qa** para validar o Epic:
+**Two-step invocation** (full context, needs QA judgment for quality gate):
+
+```
+Step 1: Skill(skill: "AIOS:agents:qa")
+  → Quinn loads with full persona + context
+  → Receives handoff from pm (epic structure, decisions)
+  → Session: invocationType: "delegated", parentAgentId: "enhance-workflow"
+
+Step 2: *review {path to 04-epic.md}
+  → Quinn executes QA review with full quality criteria
+```
 
 ```
 Você é Quinn, o QA do AIOX. Leia seu agent file em:
@@ -457,10 +515,14 @@ per_phase:
 
 ## Notas de Implementação
 
-- Cada agent roda em contexto isolado
-- Comunicação entre fases via ARQUIVOS
-- Roundtable roda em PARALELO
+- **Delegation Protocol v3:** Fases sequenciais usam `delegated` (two-step), roundtable usa `subagent` (paralelo)
+- **Two-step rule:** NUNCA misturar agent invocation + command. Sempre: Step 1 carrega agente, Step 2 envia comando
+- **Handoff entre fases:** Cada fase gera handoff artifact (~379 tokens) para a próxima
+- Comunicação entre fases via ARQUIVOS (artefatos em outputs/enhance/{slug}/)
+- Roundtable roda em PARALELO (subagent mode — sem persona, prompt self-contained)
+- Fases 1,2,4,5 rodam SEQUENCIALMENTE (delegated mode — full context + persona)
 - Sempre use `mode: "bypassPermissions"`
 - Determinism check ANTES de gastar tokens
 - Domain classification ANTES de roundtable
 - QA validation ANTES de entregar
+- **Terminal indicators:** Dashboard mostra badge sólido+glow para delegated, badge tracejado para subagent
