@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/requesting-code-review/code-reviewer.md
+../../../../../../skills/superpowers/requesting-code-review/code-reviewer.md

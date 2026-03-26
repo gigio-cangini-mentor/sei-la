@@ -24,7 +24,6 @@ O post DEVE soar como José escreveu. Características:
 - **Visual:** Metáfora antes do conceito
 - **Direto:** Sem rodeios, sem floreios acadêmicos
 - **Nexialista:** Conecta domínios que ninguém conecta
-- **TDAH-aware:** Normaliza neurodiversidade
 
 ### 2. Anti-LLM Patterns (Blacklist Absoluta)
 NUNCA use estas expressões — soam como IA, não como humano:

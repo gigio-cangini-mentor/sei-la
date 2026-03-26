@@ -5,6 +5,14 @@ Agnostic — works on any Claude Code project.
 
 **Commands**: `scan` (default) | `cut` | `rewire`
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Quer apenas medir a saúde do contexto (scan), cortar o que é desnecessário (cut), ou reestruturar a fundo (rewire)?** — (scan é read-only e rápido; cut remove cirurgicamente; rewire é reestruturação profunda)
+2. **Em qual projeto quer operar?** — (define o project_root para os scripts de medição)
+3. **Tem sintomas específicos? (sessões lentas, amnésia, contexto poluído)** — (opcional) (ajuda a priorizar o que investigar primeiro)
+
 ## Activation
 
 1. Identify command: `scan` (default) | `cut` | `rewire`

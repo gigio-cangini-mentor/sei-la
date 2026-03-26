@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Antes de construir, voce precisa da planta. Pense no @pm como o arquiteto que desenha a casa, no @architect como o engenheiro que calcula se a estrutura aguenta, e no @analyst como o cara que pesquisa o bairro antes de comprar o terreno. Sem essa fase, o pedreiro (@dev) decide tudo sozinho — e ai a casa fica torta.
+Antes de construir, você precisa da planta. Pense no @pm como o arquiteto que desenha a casa, no @architect como o engenheiro que calcula se a estrutura aguenta, e no @analyst como o cara que pesquisa o bairro antes de comprar o terreno. Sem essa fase, o pedreiro (@dev) decide tudo sozinho — e aí a casa fica torta.
 
 ---
 
@@ -15,11 +15,11 @@ Antes de construir, voce precisa da planta. Pense no @pm como o arquiteto que de
 ### Step 1: PRD Creation (@pm)
 
 Dispatch @pm via Agent tool:
-- Agent: `.aios-core/development/agents/aios-pm.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-pm.md`
 - Task: spec-gather-requirements + spec-write-spec
 - Input:
   - User answers from Phase 0
-  - Context pack (minds relevantes para o dominio)
+  - Context pack (minds relevantes para o domínio)
   - App-builder project detection results
   - App-builder tech-stack recommendation
   - App-builder template (if matched): `skills/app-builder/templates/{template}/TEMPLATE.md`
@@ -27,7 +27,7 @@ Dispatch @pm via Agent tool:
 
 Show progress:
 ```
-  🔄 @pm (Morgan) esta montando o PRD...
+  🔄 @pm (Morgan) está montando o PRD...
   Pense no PM como o tradutor: ele pega sua ideia
   e transforma numa planta que os engenheiros entendem.
 ```
@@ -37,7 +37,7 @@ Show progress:
 Dispatch in PARALLEL (two Agent tool calls in one message):
 
 **@architect:**
-- Agent: `.aios-core/development/agents/aios-architect.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-architect.md`
 - Task: spec-assess-complexity
 - Input: PRD from Step 1
 - Output: Complexity score + architecture document
@@ -45,7 +45,7 @@ Dispatch in PARALLEL (two Agent tool calls in one message):
 
 **@analyst (conditional):**
 - Only dispatch if project involves external competition or unfamiliar domain
-- Agent: `.aios-core/development/agents/aios-analyst.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-analyst.md`
 - Task: research
 - Input: PRD + project domain
 - Inject: relevant minds from context-pack (ex: @hormozi for growth, @munger for strategy)
@@ -76,7 +76,7 @@ Dispatch @pm again:
 ### Step 4: Spec Critique (@qa)
 
 Dispatch @qa:
-- Agent: `.aios-core/development/agents/aios-qa.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
 - Task: spec-critique
 - Input: Final spec
 - Scoring: 1-5 scale on completeness, clarity, testability, feasibility
@@ -92,7 +92,7 @@ Dispatch @qa:
   🔴 CHECKPOINT — Spec Pipeline Complete
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  📋 PRD: {title} ({N} paginas)
+  📋 PRD: {title} ({N} páginas)
   🏗️ Arquitetura: {stack} ({complexity_level})
   📊 Stories previstas: ~{N} stories
   ✅ QA Score: {score}/5.0

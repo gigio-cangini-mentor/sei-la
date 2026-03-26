@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/celf-context/references/profiles.md
+../../../../../../skills/celf-context/references/profiles.md

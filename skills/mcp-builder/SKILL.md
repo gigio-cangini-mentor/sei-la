@@ -10,6 +10,16 @@ license: Complete terms in LICENSE.txt
 
 To create high-quality MCP (Model Context Protocol) servers that enable LLMs to effectively interact with external services, use this skill. An MCP server provides tools that allow LLMs to access external services and APIs. The quality of an MCP server is measured by how well it enables LLMs to accomplish real-world tasks using the tools provided.
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual serviço/API externa o MCP server vai integrar?** — (define o escopo de pesquisa e endpoints a implementar)
+2. **Qual linguagem de implementação? (Python/FastMCP ou TypeScript/Node SDK)** — (direciona para o guia e padrões corretos)
+3. **Quais são os workflows principais que o agente precisa realizar com esse serviço?** — (evita criar wrappers 1:1 de API e foca em tools de alto valor)
+4. **Já existe documentação da API disponível? (URL ou docs locais)** — (acelera a fase de pesquisa)
+5. **O server será usado via stdio ou HTTP/SSE?** — (impacta arquitetura de transporte e testes) (opcional)
+
 ---
 
 # Process

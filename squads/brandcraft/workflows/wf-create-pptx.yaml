@@ -1,0 +1,54 @@
+# Workflow: Create PPTX
+# Content -> Branded PowerPoint presentation
+
+name: create-pptx
+description: "Generate branded PPTX presentation from content"
+trigger: "User provides content + wants presentation/slides/PPTX"
+
+phases:
+  - name: "Load Brand"
+    agent: template-architect
+    action: "*serve {brand_name}"
+    output: "Brand template with all tokens"
+    veto_conditions:
+      - "Brand template not found"
+      - "Draft template with less than 80% completeness (missing critical tokens)"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Generate Images"
+    agent: image-generator
+    action: "*batch {image_descriptions} --brand {name}"
+    input: "Image needs derived from content analysis"
+    output: "Brand-coherent images for slide embedding"
+    condition: "TRIGGER when: content mentions data visualization, product shots, team photos, or abstract concepts needing visual support. SKIP when: text-only bullet points."
+    veto_conditions:
+      - "All 4 MCP providers failed"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Build Slides"
+    agent: pptx-architect
+    action: "*create-pptx {content}"
+    input: "Content + brand template + images (if generated)"
+    output: "PPTX file with master slides and branded content"
+    veto_conditions:
+      - "PptxGenJS not installed"
+      - "Content insufficient for minimum 3 slides"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: auto
+      show: "Slide count, master slides, fonts, brand colors applied"
+      ask: "Presentation structure looks correct? Proceed to validation?"
+
+  - name: "Validate"
+    agent: quality-validator
+    action: "*validate {output} --brand {name} --type doc"
+    input: "PPTX file + brand template"
+    output: "Quality score with PASS/FAIL"
+    enforcement: { blocking: true, on_veto: HALT }
+    on_fail:
+      action: "Send corrections to pptx-architect"
+      max_retries: 2
+      escalate_to: brandcraft-chief
+
+flow: "template-architect -> image-generator (conditional) -> pptx-architect -> quality-validator"
+estimated_duration: "5-15 minutes"

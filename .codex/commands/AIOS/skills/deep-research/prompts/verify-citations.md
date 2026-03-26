@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/deep-research/prompts/verify-citations.md
+../../../../../../skills/deep-research/prompts/verify-citations.md

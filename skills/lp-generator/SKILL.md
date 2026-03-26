@@ -3,12 +3,14 @@ name: lp-generator
 description: |
   Gerador unificado de landing pages com qualidade de agencia.
   Workflow 4 fases (Discovery → Style → Generation → Iteration).
-  Dois modos de render: HTML standalone (GSAP) ou Next.js premium (Framer Motion).
-  8 temas curados, formulas de conversao validadas, formularios de captacao, preview automatico.
+  3 modos de render: HTML standalone (GSAP), Next.js premium (Framer Motion),
+  ou Reference-Based (screenshot → design.json → HTML + Replit prompt).
+  8 temas curados + custom brands via engenharia reversa de screenshots.
+  Formulas de conversao validadas, formularios de captacao, preview automatico.
   Skill autossuficiente — zero dependencias externas.
 allowed-tools: Read, Write, Edit, Bash, Agent, Glob, Grep
-argument-hint: ["briefing"] | preview | list-brands | premium
-version: 3.0.0
+argument-hint: ["briefing"] | preview | list-brands | premium | reference ["screenshot-path"]
+version: 3.1.0
 category: generation
 tags: [landing-page, html, nextjs, marketing, lead-capture, conversion, orchestrator]
 ---
@@ -22,6 +24,50 @@ You are the **LP Generator**. A 4-phase orchestrator that combines Discovery + S
 **Golden rule:** Every LP must look like it was designed by a professional agency. No excuses.
 
 **Philosophy (Ship Page):** "Speed over perfection: A good landing page today beats a perfect one next month."
+
+---
+
+## Auto-Detection: Mode Routing (MANDATORY — runs BEFORE discovery)
+
+O LP Generator detecta automaticamente qual modo usar. O usuario NUNCA precisa lembrar de digitar "reference" ou "premium".
+
+### Detection Rules (in order of priority)
+
+```
+1. SCREENSHOT ATTACHED?
+   User attached/pasted an image, OR provided path to .png/.jpg/.webp
+   → Mode C (Reference-Based) — skip to Section 9.1
+
+2. URL PROVIDED?
+   User shared a Dribbble/Behance/site URL as reference visual
+   → Mode C (Reference-Based) — capture screenshot, then Section 9.1
+
+3. KEYWORD "reference" or "referencia"?
+   User explicitly said "reference", "referencia", "parecido com", "estilo de"
+   → Mode C (Reference-Based)
+
+4. KEYWORD "premium" or "nextjs"?
+   → Mode B (Next.js)
+
+5. DEFAULT
+   → Mode A (HTML GSAP) — standard discovery flow
+```
+
+### Greeting (ALWAYS show on activation)
+
+Ao ser ativado, SEMPRE mostrar este menu rápido:
+
+```
+Como quer criar sua LP?
+
+1. **Tenho uma referência visual** — cole um screenshot ou link do Dribbble/Behance
+2. **Me guia do zero** — respondo umas perguntas e você monta tudo
+3. **Quero premium (Next.js)** — qualidade máxima com Framer Motion
+
+Ou simplesmente descreva o que quer promover e eu cuido do resto.
+```
+
+Isso garante que o usuario descubra o Mode C sem precisar memorizar comandos.
 
 ---
 
@@ -44,12 +90,16 @@ You are the **LP Generator**. A 4-phase orchestrator that combines Discovery + S
 │  │  raycast-warm    │   │  Mode B: Next.js             │  │
 │  │  specta          │   │  (Framer Motion + shadcn)    │  │
 │  │  emerald-noir    │   │                              │  │
-│  │  rose-gold       │   └──────────────────────────────┘  │
-│  │  arctic-frost    │                                     │
-│  │  minimal-sand    │   + Copy formulas (PAS, headlines)  │
-│  └─────────────────┘   + Form injection (4 providers)    │
-│                         + Image strategy                  │
-│                         + Quality checklist                │
+│  │  rose-gold       │   │                              │  │
+│  │  arctic-frost    │   │  Mode C: Reference-Based     │  │
+│  │  minimal-sand    │   │  (screenshot → design.json   │  │
+│  │  + custom brand  │   │   → HTML + Replit prompt)    │  │
+│  │  (via Mode C)    │   │                              │  │
+│  └─────────────────┘   └──────────────────────────────┘  │
+│                                                          │
+│  + Copy formulas (PAS, headlines)                        │
+│  + Form injection (4 providers)                          │
+│  + Image strategy + Quality checklist                    │
 └──────────────────────────────────────────────────────────┘
 ```
 
@@ -65,8 +115,10 @@ OUTPUT_BASE = ~/CODE/Projects/landing-pages
 | Dependency | Purpose | Location |
 |------------|---------|----------|
 | `convert.mjs` | CLI unificada | `{SKILL_HOME}/convert.mjs` |
-| `brands/*.yaml` | 8 temas curados | `{SKILL_HOME}/brands/` |
+| `brands/*.yaml` | 8 temas curados + custom | `{SKILL_HOME}/brands/` |
 | `lib/*.mjs` | Parser, builder, utils | `{SKILL_HOME}/lib/` |
+| `prompts/reverse-engineer-design.md` | Engenharia reversa de screenshots (Mode C) | `{SKILL_HOME}/prompts/` |
+| `prompts/replit-assembler.md` | Template para montar prompt Replit (Mode C) | `{SKILL_HOME}/prompts/` |
 | `image-creator` (optional) | AI image generation | Agent tool dispatch |
 
 **Zero external skill dependencies.** Tudo esta dentro desta skill.
@@ -572,7 +624,273 @@ node /Users/luizfosc/aios-core/skills/lp-generator/convert.mjs {slug}.md --brand
 Ask in discovery: "Qual nivel de qualidade?"
 - **"Rapido / preview / MVP"** → Mode A (HTML standalone)
 - **"Premium / cliente / portfolio"** → Mode B (Next.js)
+- **"Tenho uma referencia visual"** → Mode C (Reference-Based)
 - **Default if not asked:** Mode A
+
+---
+
+## 9.1. Mode C: Reference-Based (Design-First Pipeline)
+
+> Inspirado no workflow da Deborah Folloni. Parte de uma referencia visual (Dribbble, Behance, screenshot)
+> e extrai o design system automaticamente. Entrega HTML + prompt pronto pro Replit.
+
+### Quando usar Mode C
+
+- O usuario tem uma referencia visual que quer replicar o ESTILO
+- O usuario quer uma LP com visual especifico que nao bate com os 8 brands curados
+- O usuario menciona Dribbble, Behance, "parecido com esse site", ou fornece screenshot
+
+### Pipeline Completo (4 Fases Automaticas)
+
+```
+Phase 0: Reference Capture
+  └─ Usuario fornece screenshot ou URL
+  └─ Se URL de site: capturar screenshot via Playwright
+  └─ Confirmar: "Esse e o design de referencia?"
+
+Phase 1: Design Extraction (Engenharia Reversa)
+  └─ Ler prompt: {SKILL_HOME}/prompts/reverse-engineer-design.md
+  └─ Analisar screenshot com o prompt
+  └─ Extrair design.json completo (cores, tipografia, espacamento, componentes)
+  └─ Extrair brand.yaml simplificado (compativel com pipeline existente)
+  └─ Salvar ambos em {OUTPUT_DIR}/
+  └─ Checkpoint: "Design system extraido. Quer ajustar algo?"
+
+Phase 2: Copy Discovery (Discovery Lite)
+  └─ Perguntas REDUZIDAS (visual ja resolvido):
+     1. O que esta promovendo? (produto/servico)
+     2. Pra quem? (publico-alvo)
+     3. Qual o principal beneficio?
+     4. Secoes desejadas? (ou "me sugere")
+     5. CTA principal?
+     6. Tem depoimentos/stats?
+  └─ Gerar copy brief com as formulas da Section 8
+  └─ Gerar Markdown seguindo convencao da Section 2
+
+Phase 3: Assembly & Dual Output
+  └─ OUTPUT A: Replit-Ready Prompt
+     └─ Ler template: {SKILL_HOME}/prompts/replit-assembler.md
+     └─ Combinar design.json + copy brief + section specs
+     └─ Salvar como {slug}-replit-prompt.md
+  └─ OUTPUT B: HTML via Pipeline Existente
+     └─ Salvar brand.yaml extraido em {SKILL_HOME}/brands/custom-{slug}.yaml
+     └─ Renderizar via convert.mjs --brand=custom-{slug}
+     └─ Preview no navegador
+  └─ Mostrar ambos outputs ao usuario
+```
+
+### Step-by-Step Execution
+
+#### Step 0: Capture Reference
+
+```
+SE usuario forneceu path de imagem local:
+  → Ler imagem com Read tool (multimodal)
+  → Prosseguir para Step 1
+
+SE usuario forneceu URL de site:
+  → Usar Playwright (mcp__playwright) para screenshot
+  → OU pedir pro usuario fornecer screenshot manualmente
+  → Prosseguir para Step 1
+
+SE usuario forneceu URL do Dribbble:
+  → Tentar capturar screenshot da pagina
+  → Se falhar: pedir screenshot manual
+  → Prosseguir para Step 1
+```
+
+#### Step 1: Extract Design System
+
+1. Ler `{SKILL_HOME}/prompts/reverse-engineer-design.md` — o prompt de engenharia reversa
+2. Analisar o screenshot fornecido usando as instrucoes do prompt
+3. Gerar o `design.json` completo com TODAS as variaveis visuais
+4. Gerar o `brand.yaml` simplificado (mapeamento para o pipeline)
+5. Salvar ambos em `{OUTPUT_DIR}/`
+6. Mostrar resumo ao usuario: paleta, tipografia, componentes principais
+7. **Checkpoint:** "Design system OK ou quer ajustar cores/fontes?"
+
+#### Step 2: Copy Discovery (Lite)
+
+Usar `AskUserQuestion` com as 6 perguntas reduzidas (o visual ja esta resolvido):
+
+```
+Agora que o design esta definido, preciso saber sobre o CONTEUDO:
+
+1. **O que esta promovendo?** (app, servico, curso, produto...)
+2. **Pra quem?** (publico-alvo em 1 frase)
+3. **Qual o principal beneficio?** (a transformacao)
+4. **Quais secoes?** (Hero, Problema, Solucao, Prova, Oferta, CTA, FAQ — ou "me sugere")
+5. **CTA principal?** ("Teste gratis", "Agendar consulta", etc.)
+6. **Tem depoimentos/stats reais?** (ou "cria ficticios")
+```
+
+Depois gerar o Markdown seguindo Section 2.
+
+#### Step 3: Assemble Dual Output
+
+**Output A — Replit Prompt:**
+1. Ler `{SKILL_HOME}/prompts/replit-assembler.md`
+2. Preencher o template com design.json + copy brief + section specs
+3. Salvar como `{OUTPUT_DIR}/{slug}-replit-prompt.md`
+4. Informar: "Prompt pronto para colar no Replit Design Mode, Cursor, ou qualquer AI code generator."
+
+**Output B — HTML via Pipeline:**
+1. Salvar `brand.yaml` em `{SKILL_HOME}/brands/custom-{slug}.yaml`
+2. Gerar markdown e renderizar:
+```bash
+node {SKILL_HOME}/convert.mjs {slug}.md --brand=custom-{slug} --style=gsap --effects=premium --output={OUTPUT_DIR}
+```
+3. Abrir preview:
+```bash
+open {OUTPUT_DIR}/index.html
+```
+
+### Output Structure (Mode C)
+
+```
+~/CODE/Projects/landing-pages/{slug}/
+├── index.html                    # LP renderizada (Output B)
+├── {slug}.md                     # Markdown source
+├── {slug}-replit-prompt.md       # Prompt pronto pro Replit (Output A)
+├── design.json                   # Design system completo extraido
+├── brand.yaml                    # Brand simplificado (pipeline compat)
+├── reference-screenshot.png      # Screenshot original de referencia
+├── assets/                       # Imagens (se geradas)
+└── README.md                     # Briefing + deploy instructions
+```
+
+### Quality Loops & Error Recovery (Mode C)
+
+O Mode C funciona como o Forge: cada fase tem validacao automatica e retry antes de prosseguir.
+
+#### Phase 1 Quality Gate: Design Extraction
+
+```
+APOS extrair design.json, VALIDAR automaticamente:
+
+CHECK_1: colors.primary existe?        → Se nao: RE-ANALISAR screenshot (retry 1/3)
+CHECK_2: typography.fontFamilies existe? → Se nao: RE-ANALISAR screenshot (retry 1/3)
+CHECK_3: spacing.sectionPadding existe?  → Se nao: RE-ANALISAR screenshot (retry 1/3)
+CHECK_4: components.buttons existe?      → Se nao: RE-ANALISAR screenshot (retry 1/3)
+CHECK_5: Minimo 5 cores extraidas?       → Se nao: RE-ANALISAR com foco em cores
+
+Se 3 retries falharem:
+  → CHECKPOINT: "Nao consegui extrair o design completo. O screenshot esta nitido?"
+  → Opcoes:
+    1. Fornecer outro screenshot
+    2. Ajustar manualmente (usuario edita o design.json)
+    3. Usar brand curado como fallback + cores do screenshot
+
+Apos validacao PASS:
+  → Mostrar resumo visual: paleta, fonte, estilo de botao
+  → Perguntar: "Design system OK ou quer ajustar algo?"
+  → Se ajustar: aplicar mudancas e re-validar
+  → Se OK: prosseguir para Phase 2
+```
+
+#### Phase 2 Quality Gate: Copy
+
+```
+APOS gerar markdown, VALIDAR automaticamente:
+
+CHECK_1: Headline segue uma das 5 formulas? (Section 8)
+  → Se nao: REESCREVER headline (retry automatico, max 2x)
+CHECK_2: CTA usa texto de alta conversao? (nao "Saiba mais", "Clique aqui")
+  → Se nao: SUBSTITUIR por formula validada
+CHECK_3: Tem prova social? (depoimentos ou stats)
+  → Se nao: GERAR ficticios rotulados
+CHECK_4: Acentuacao pt-BR correta?
+  → Se nao: CORRIGIR automaticamente
+CHECK_5: Zero Lorem Ipsum?
+  → Se sim: BLOQUEAR — reescrever secao
+
+Esses checks rodam SILENCIOSAMENTE (auto-fix).
+So mostra checkpoint se nao conseguir resolver em 2 tentativas.
+```
+
+#### Phase 3 Quality Gate: Render
+
+```
+APOS renderizar HTML via convert.mjs:
+
+SUCESSO:
+  → Abrir preview no navegador
+  → Perguntar: "A LP esta no navegador. O que achou?"
+  → Opcoes automaticas:
+    1. "Ficou otimo, salva assim"
+    2. "Cores nao bateram" → re-extrair cores do screenshot + re-render
+    3. "Texto precisa melhorar" → voltar pra Phase 2 (copy only)
+    4. "Layout estranho" → tentar Mode B (Next.js) como alternativa
+    5. "Quero ajustar X" → editar especifico e re-render
+
+FALHA (convert.mjs erro):
+  → Ler erro do CLI
+  → Se "brand not found": verificar se custom-{slug}.yaml foi salvo corretamente
+  → Se "parse error": validar markdown, corrigir, retry (max 3x)
+  → Se 3 retries falharem:
+    → CHECKPOINT: "O render falhou 3 vezes."
+    → Opcoes:
+      a. "Usar brand curado mais proximo + cores do screenshot"
+      b. "Entregar so o prompt pro Replit (Output A)"
+      c. "Parar aqui e salvar progresso"
+```
+
+#### Iteration Loop (pos-preview)
+
+```
+ENQUANTO usuario nao aprovar:
+  → Aplicar ajuste solicitado
+  → Re-render
+  → Re-abrir preview
+  → Perguntar novamente
+
+Max iterations: 5 (apos 5: "Vamos salvar o progresso e continuar numa proxima sessao?")
+
+TIPOS DE AJUSTE e como resolver:
+  "cores"     → editar brand.yaml + re-render
+  "texto"     → editar .md + re-render
+  "secoes"    → adicionar/remover no .md + re-render
+  "layout"    → editar HTML direto (post-render)
+  "tudo"      → voltar pra Phase 1 com novo screenshot
+```
+
+### Veto Conditions (Mode C)
+
+```yaml
+# Hard Vetos (BLOQUEIA — nunca prosseguir)
+- id: VETO_NO_REFERENCE
+  trigger: "Mode C invoked without a screenshot or URL"
+  action: "BLOCK — Pedir screenshot. Sem referencia, sem Mode C."
+
+- id: VETO_EMPTY_DESIGN_JSON
+  trigger: "design.json sem cores OU sem tipografia apos 3 retries"
+  action: "BLOCK — Checkpoint com opcoes (outro screenshot, manual, fallback)."
+
+- id: VETO_COPY_BEFORE_DESIGN
+  trigger: "Tentar escrever copy antes de extrair design"
+  action: "BLOCK — Design PRIMEIRO, copy DEPOIS. Ordem importa."
+
+- id: VETO_RENDER_STUCK
+  trigger: "convert.mjs falha 3x consecutivas"
+  action: "BLOCK — Checkpoint com opcoes (brand fallback, so Replit, parar)."
+
+# Soft Vetos (auto-fix silencioso)
+- id: SOFT_BAD_HEADLINE
+  trigger: "Headline generica"
+  action: "Auto-fix: reescrever com formula. Se falhar 2x: checkpoint."
+
+- id: SOFT_BAD_CTA
+  trigger: "CTA com texto fraco"
+  action: "Auto-fix: substituir por formula validada."
+
+- id: SOFT_NO_PROOF
+  trigger: "Sem prova social"
+  action: "Auto-fix: gerar 3 depoimentos ficticios rotulados."
+
+- id: SOFT_ACCENT
+  trigger: "Acentuacao incorreta"
+  action: "Auto-fix: corrigir silenciosamente."
+```
 
 ---
 
@@ -583,6 +901,8 @@ Ask in discovery: "Qual nivel de qualidade?"
 /lp-generator premium            -> Full flow, force Mode B (Next.js)
 /lp-generator list-brands        -> Mostra os 8 temas disponiveis
 /lp-generator "{briefing}"       -> Pula direto pro discovery com contexto
+/lp-generator reference          -> Mode C: Reference-Based (screenshot → design → LP)
+/lp-generator reference "{path}" -> Mode C com screenshot ja fornecido
 ```
 
 ---

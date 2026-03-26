@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/game-development/vr-ar/SKILL.md
+../../../../../../skills/game-development/vr-ar/SKILL.md

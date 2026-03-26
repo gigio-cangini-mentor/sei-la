@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/agent-creation.md
+../../../../../../skills/god-mode/references/agent-creation.md

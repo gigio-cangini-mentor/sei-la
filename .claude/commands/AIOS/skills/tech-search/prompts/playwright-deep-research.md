@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/prompts/playwright-deep-research.md
+../../../../../../skills/tech-search/prompts/playwright-deep-research.md

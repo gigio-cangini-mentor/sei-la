@@ -23,6 +23,15 @@ Comprehensive guide to modern Angular state management patterns, from Signal-bas
 - The task is unrelated to Angular state management
 - You need React state management → use `react-state-management`
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual o tamanho da aplicação e a complexidade do estado?** — (determina se Signal Services bastam ou se precisa NgRx/Akita)
+2. **O projeto já tem alguma solução de state management (NgRx, BehaviorSubjects, Akita)?** — (migração vs. implementação do zero muda a abordagem)
+3. **Existe necessidade de server state caching (dados remotos com invalidação)?** — (orienta se precisa de NgRx Query ou padrão HTTP+Signals)
+4. **O app já usa Signals do Angular ou ainda é todo RxJS?** — (define se é bridging gradual ou adoção direta)
+
 ---
 
 ## Core Concepts

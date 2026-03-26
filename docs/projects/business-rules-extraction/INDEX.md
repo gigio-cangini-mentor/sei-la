@@ -16,7 +16,7 @@
 
 ## Ultima Sessao
 - **Data:** 2026-03-11
-- **Agente/Squad:** squad-creator-pro (squad-chief) + oalanicolas + pedro-valerio + kaizen
+- **Agente/Squad:** squad-creator (squad-chief) + oalanicolas + pedro-valerio + kaizen
 - **O que foi feito:**
   1. Continuou quality upgrade do squad BRE
   2. Corrigiu Voice DNA de Ronald Ross e James Taylor (personality + episodic memories)

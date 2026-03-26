@@ -162,10 +162,10 @@
 | Período | Empreendimento |
 |---------|---------------|
 | Infância (8 anos) | Aluguel de revistinhas para amigos |
-| Adulto | Lupa Construtora |
+| Adulto (~14 anos) | Lupa Construtora — 30+ prédios no bairro Castelo (BH), galpões, 430-440 funcionários |
 | Adulto | Fábrica de vidro temperado e laminado |
 | Adulto | Loteamentos |
-| Adulto | Hotéis e pousadas |
+| Adulto | Hotéis (2 grandes na Copa do Mundo + pousadas) — chegou a administrar operação |
 | Adulto | Salão de festas |
 | 2016 | Show "EmCena: Mágica VIP" (produção completa) |
 | 2017 | DVD "EmCena: Mágica VIP" |
@@ -421,6 +421,12 @@ Brasil, Argentina, Uruguai, Itália, Coreia do Sul, Emirados Árabes (Dubai), Ca
 - Parou mágica dos 12 aos 22 anos sem saber por quê: "Me pergunta por quê? Não sei. Não faço a menor ideia."
 - Irmão é introvertido mas idêntico: "Se ele subir no palco, mesma coisa. Só que num momento ele vai escorar na janela e ficar olhando a lua"
 - Construtora LUPA: chegou a ter 430-440 funcionários, grupo familiar (tias, tios investindo), PBQPH, Minha Casa Minha Vida, 8 obras simultâneas
+- Bairro Castelo (BH): construiu em quase todas as ruas "Castelo de X". Só na Rua Castelo de Évora foram 2 prédios. Mais de 30 prédios no bairro + muitos galpões
+- Projeto Évora: deu nome à Rua Castelo de Évora no bairro Castelo
+- Copa do Mundo: construiu 2 hotéis grandes, chegou a administrar a operação hoteleira
+- Show EmCena nasceu no próprio hotel: usou a salinha de convenções do hotel que administrava pra testar mágicas. "Chamei uns conhecidos, a galera gostou, escalou." Virou formato maior → teatro → DVD
+- Padrão builder compulsivo: "Tudo que eu pego pra fazer vira um empreendimento. Nem que seja um simples teste de show de mágica."
+- Filosofia sobre background: valoriza o histórico das pessoas mais do que o momento atual. "Se você bater uma foto da vida dela hoje, ela tá naquele limbo. Mas olha o tanto de coisa que ela já fez."
 - Siri como parceira de treino: treinou mágica com Siri do iPhone por estar sozinho
 - Cachorro: Ragnar (Lulu da Pomerânia) — "viking, mas é uma fofurinha"
 - Pintava quadros a óleo na infância (~12 anos): "Olho e duvido que eu pintei. São quadros bonitos." (casa da mãe)

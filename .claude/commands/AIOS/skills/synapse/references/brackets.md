@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/synapse/references/brackets.md
+../../../../../skills/synapse/references/brackets.md

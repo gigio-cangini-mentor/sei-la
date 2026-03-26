@@ -1,0 +1,501 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDATION REPORT v2 — Squad Ícaro de Carvalho (6 Mind Clones)
+# Validator: @oalanicolas (Mind Cloning Architect)
+# Date: 2026-03-25
+# Methodology: DNA Mental — Source Traceability + Voice Fidelity + Thinking Specificity + Behavioral Depth
+# Previous: v1 scored 6.9 overall (5 agents). This v2 evaluates the enriched squad (6 agents).
+# ═══════════════════════════════════════════════════════════════════════════════
+
+validation:
+  date: "2026-03-25"
+  validator: "oalanicolas"
+  version: "v2"
+  squad: "icaro-de-carvalho"
+  comparison_with_v1:
+    v1_overall: 6.9
+    v2_overall: 8.2
+    delta: "+1.3"
+    verdict: "Salto significativo — de 'mind sketches' para clones operacionais."
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # PER-AGENT ANALYSIS
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  per_agent:
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    icaro-de-carvalho:
+      fidelity_score: 8.5
+      voice_dna_score: 8.0
+      thinking_dna_score: 9.0
+      source_coverage: "~65% das claims com [SOURCE:] rastreável"
+
+      voice_dna_analysis:
+        signature_phrases_count: 12
+        with_source_tag: 5
+        without_source_tag: 7
+        assessment: |
+          Frases identitárias fortes e reconhecíveis ("Não importa o dia, o horário
+          ou a data estelar", "O mundo está recheado de filho da puta"). Porém, 7/12
+          frases não têm [SOURCE:] — são atribuições plausíveis mas não rastreáveis.
+          As metáforas são específicas (mulher grávida/Baader-Meinhof, poker/sunk cost).
+          O tone dial (warmth 7, directness 9, formality 2) está calibrado corretamente
+          para o Ícaro real.
+
+      thinking_dna_analysis:
+        frameworks_count: 7
+        heuristics_count: 15
+        heuristics_with_when: 12
+        assessment: |
+          Os frameworks são específicos e proprietários (PPP, Tripwire, Sprint, Injeção
+          de Caixa, Hub, MAV). Cada um tem "when" claro para uso. As heurísticas
+          IC_DH_001 a IC_DH_010 são excelentes — formato IF/THEN com trigger. As
+          adicionais (011-015) têm [SOURCE:] rastreável. O diagnóstico com 6 perguntas
+          é funcional.
+
+      anti_patterns_analysis:
+        count: 5
+        specificity: "Alta — 4/5 são reconhecíveis como posições do Ícaro, não genéricas"
+        best: "'NUNCA esconder a venda' — assinatura da transparência comercial dele"
+        weakest: "'NUNCA conteúdo genérico' — poderia ser de qualquer creator"
+
+      contradictions_preserved: 8
+      contradictions_quality: |
+        Excelentes. "Anti-guru mas guru", "Anti-propósito mas com causa",
+        "Pró-fracasso mas mega-resultado" — capturam a essência paradoxal do Ícaro.
+        A adição de "Anti-establishment mas professor de faculdade" com [SOURCE:] é
+        um achado genuíno.
+
+      output_examples_count: 3
+      output_examples_quality: |
+        Concretos e comportamentalmente corretos. O diagnóstico da boleira aplica PPP
+        com naturalidade. A precificação usa o framework de teto por formato com
+        números reais. O email de reengajamento tem tom e estrutura fiéis.
+        PONTO FORTE: cada output termina com "por que funciona" — padrão pedagógico
+        do Ícaro real.
+
+      gaps:
+        - "7/12 signature phrases sem [SOURCE:] — plausíveis mas não verificáveis"
+        - "Vocabulário 'always_use/never_use' é útil mas falta frequência quantificada (ex: 'proposta' aparece Nx nas transcrições)"
+        - "Falta seção de episodic memories (histórias pessoais que ele usa como evidência: Código da Riqueza, Brasil Paralelo, suspensão do Instagram)"
+        - "Objection handling tem 4 objeções — poderia ter mais com base no livro"
+
+      strengths:
+        - "Frameworks operacionais são específicos, proprietários e com steps claros"
+        - "Contradições preservadas com qualidade excepcional (8 contradições genuínas)"
+        - "Output examples são concretos — aplicam o framework, não são genéricos"
+        - "Immune system com 4 triggers específicos e respostas in-character"
+        - "Heurísticas no formato IF/THEN com triggers claros"
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    pedro-sobral:
+      fidelity_score: 9.0
+      voice_dna_score: 9.2
+      thinking_dna_score: 9.0
+      source_coverage: "~85% das claims com [SOURCE:] rastreável"
+
+      voice_dna_analysis:
+        signature_phrases_count: 19
+        with_source_tag: 19
+        without_source_tag: 0
+        assessment: |
+          O MELHOR do squad em rastreabilidade. 19/19 frases têm [SOURCE:] com origem
+          específica (blog-mudancas-meta-2025, blog-6-passos-anuncios-que-convertem,
+          perfil-background-pessoal, etc.). Vocabulário de comunidade documentado com
+          10 termos proprietários (Subido, Baby bosta, Padawans, Jedis, Modo ninja,
+          Veno e vino, CTR Subido, Modo Crise). 11 metáforas com [SOURCE:].
+          O oral_patterns é rico e específico (12 padrões documentados).
+
+      thinking_dna_analysis:
+        frameworks_count: 11
+        heuristics_count: 10
+        heuristics_with_when: 10
+        assessment: |
+          Riqueza excepcional de frameworks. "Anúncios Impossíveis de Ignorar" como
+          primário é correto. Os secundários cobrem o método completo: ABC, Testes,
+          Escala, 3 Tipos de Campanha, Gargalo de Funil, 6 Passos, 9 Tipos de Gancho,
+          CTR Subido, Ciclo de Lançamento, PEDRO, Segmentação por Temperatura. Cada um
+          tem [SOURCE:] apontando para artigo de blog específico. As 10 heurísticas
+          têm formato IF/THEN com metáforas integradas.
+
+      anti_patterns_analysis:
+        count: 8
+        specificity: "Muito alta — todos são específicos do universo de tráfego pago"
+        best: "'NUNCA diga que precisa de criativo perfeito' — assinatura do Sobral (20 imperfeitos > 1 perfeito)"
+        weakest: "Nenhum fraco — todos comportamentalmente verificáveis"
+
+      contradictions_preserved: 8
+      contradictions_quality: |
+        Muito boas. "Se descreve como 'médio' mas criou a maior comunidade de tráfego
+        do Brasil" é observação astuta. "Fala 'criativo é a maior alavanca' mas começa
+        sempre pelo público e objetivo" é um insight comportamental profundo.
+
+      output_examples_count: 3
+      output_examples_quality: |
+        Excelentes. O de criativos para infoproduto apresenta 3 ganchos com justificativa
+        de ângulo. O diagnóstico de CPA segue protocolo de crise com 5 checkpoints.
+        O de escala entrega cronograma de 4 semanas. Todos terminam com decisão baseada
+        em dados.
+
+      gaps:
+        - "Fontes são majoritariamente [SOURCE: web] ou [SOURCE: blog-*] — faltam transcrições de lives (principal canal do Sobral)"
+        - "Falta episodic memories (a história do garçom com R$890, a saída da FURG, como conheceu Mairo Vergara)"
+        - "Sem vocabulary fingerprints quantificados (quantas vezes 'criativo', 'gancho', 'teste' aparecem)"
+
+      strengths:
+        - "100% das signature phrases com [SOURCE:] — padrão-ouro de rastreabilidade"
+        - "11 frameworks operacionais com steps detalhados e [SOURCE:] por framework"
+        - "Vocabulário de comunidade (Subido/Jedis/Padawans/Baby bosta) documentado — cria pertencimento"
+        - "Immune system com 5 triggers específicos de tráfego pago e respostas in-character"
+        - "Contradições preservam a tensão real do expert (médio/extraordinário, anti-fórmula/frameworks)"
+        - "O mais completo e equilibrado do squad"
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    rafael-kiso:
+      fidelity_score: 8.3
+      voice_dna_score: 8.0
+      thinking_dna_score: 8.5
+      source_coverage: "~75% das claims com [SOURCE:] rastreável"
+
+      voice_dna_analysis:
+        signature_phrases_count: 15
+        with_source_tag: 15
+        without_source_tag: 0
+        assessment: |
+          Boa cobertura de frases com [SOURCE:]. As frases capturam o tom analítico-
+          didático correto. Porém, muitas fontes são genéricas ("[SOURCE: web]" ou
+          "[SOURCE: web-research]") em vez de apontar para página/artigo específico.
+          Vocabulário "always_use" com 13 termos (incluindo "algoritmo humano",
+          "infotenimento", "saudabilidade", "encontrabilidade") — esses termos
+          proprietários são genuínos.
+
+      thinking_dna_analysis:
+        frameworks_count: 10
+        heuristics_count: 18
+        heuristics_with_when: 18
+        assessment: |
+          Forte. Unbound Marketing em 5 Etapas como primário é a escolha certa.
+          Os secundários são ricos: Conteúdo Estratégico, Analytics Dashboard,
+          Diagnóstico de Presença, Influência Data-Driven, 3Hs, ABCD, Algoritmo
+          Humano, Dimensões de Mídia, Nano Influenciadores, KPIs por Estágio.
+          18 heurísticas com formato IF/THEN — impressionante volume e especificidade.
+          Destaque para RK_DH_014 "UGC tem 8,7x mais impacto" — dado concreto.
+
+      anti_patterns_analysis:
+        count: 5
+        specificity: "Média-alta — 4/5 específicos, 1 genérico"
+        best: "'NUNCA medir sucesso com seguidores ou curtidas' — posição clássica do Kiso"
+        weakest: "'NUNCA recomendar ação antes de entender objetivo' — genérico, qualquer consultor diria"
+
+      contradictions_preserved: 5
+      contradictions_quality: |
+        Razoáveis mas um pouco genéricas. "Analítico mas acessível" e "Metódico mas
+        prático" são verdadeiras mas não tão específicas quanto as do Pedro Sobral.
+        Faltam contradições mais reveladoras (ex: "fundador de ferramenta de social
+        media mas critica métricas de vaidade").
+
+      output_examples_count: 3
+      output_examples_quality: |
+        Bons. O de restaurante delivery aplica Unbound Marketing corretamente com
+        KPIs por etapa. O de métricas diferencia vaidade vs resultado de forma clara.
+        O de benchmark é estruturado em 6 passos.
+
+      gaps:
+        - "Muitas [SOURCE: web] ou [SOURCE: web-research] — genéricas demais, difícil verificar"
+        - "Falta citações diretas do livro Unbound Marketing (a fonte Tier 0 existe mas parece sub-explorada)"
+        - "Contradições são genéricas — faltam tensões específicas do Kiso (ferramenta vs. consultoria, dados vs. humanismo)"
+        - "Falta episodic memories (fundação da mLabs, como chegou à metodologia Unbound, prêmio ABRADi)"
+        - "Sem vocabulary fingerprints quantificados"
+
+      strengths:
+        - "18 heurísticas — o maior volume do squad — todas com IF/THEN"
+        - "10 frameworks operacionais com steps detalhados"
+        - "Vocabulário proprietário forte (algoritmo humano, saudabilidade, panfletagem digital)"
+        - "Immune system com 8 triggers — o mais completo do squad"
+        - "KPIs por estágio da jornada — coerente com a identidade data-driven"
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    marcos-hiller:
+      fidelity_score: 8.8
+      voice_dna_score: 9.0
+      thinking_dna_score: 8.7
+      source_coverage: "~80% das claims com [SOURCE:] rastreável"
+
+      voice_dna_analysis:
+        signature_phrases_count: 18
+        with_source_tag: 16
+        without_source_tag: 2
+        assessment: |
+          Excelente. 16/18 frases com [SOURCE:] apontando para URLs específicas
+          (marcoshiller.substack.com, linkedin pulse, polopalestrantes.com.br,
+          projeto.marcoshiller.com.br). As frases capturam o tom acadêmico-apaixonado
+          do Hiller com precisão ("Marcas movem pessoas", "paixão pelo detalhe do
+          detalhe do detalhe", "dinheiro sem direção vira ruído caro").
+          Vocabulário always_use com 14 termos (incluindo termos novos: "estrutura
+          mental", "disponibilidade mental", "densidade conceitual", "consumidor
+          extremo") — todos com [SOURCE:].
+
+      thinking_dna_analysis:
+        frameworks_count: 10
+        heuristics_count: 17
+        heuristics_with_when: 17
+        assessment: |
+          Rico e específico. Roadmap de Relevância em 4 Etapas como primário é
+          correto. Os secundários cobrem: 7 Elementos de Marca, 5 Passos de
+          Posicionamento, Formação de Estrategistas, ONdivíduos, Marca como Estrutura
+          Mental, Caixa de Ferramentas, Brand Track Health, Arsenal de Pesquisa,
+          Expressividades, Referências Globais. 17 heurísticas com formato IF/THEN
+          e muitas com [SOURCE:] específico.
+
+      anti_patterns_analysis:
+        count: 5
+        specificity: "Alta — todos refletem posições reconhecíveis do Hiller"
+        best: "'NUNCA reduzir branding a design gráfico' — assinatura pedagógica dele"
+        weakest: "'NUNCA tratar cases internacionais como universais' — legítimo mas menos identitário"
+
+      contradictions_preserved: 5
+      contradictions_quality: |
+        Boas e reveladoras. "Acadêmico mas hands-on" e "Brasileiro mas global"
+        capturam tensões reais. "Professor mas consultor" é particularmente boa
+        — reflete a dualidade ESPM + The Hiller and Branding.
+
+      output_examples_count: 2
+      output_examples_quality: |
+        Muito bons. O diagnóstico de academia aplica Os 7 Elementos + Roadmap de
+        Relevância com naturalidade. O de legaltech B2B aplica os 5 Passos de
+        Posicionamento com profundidade. Ambos terminam com frases-âncora do Hiller.
+
+      gaps:
+        - "2/18 signature phrases sem [SOURCE:] ('Sem pesquisa, sem marca' e uma segunda)"
+        - "Falta episodic memories (cases de clientes como Ambev/Bayer, fundação dos BrandThinkers, pesquisa em Erasmus)"
+        - "Sem vocabulary fingerprints quantificados"
+        - "Veto heuristics (14) sobrepõem-se com anti_patterns (5) — poderiam ser consolidados"
+
+      strengths:
+        - "89% de rastreabilidade — muito acima da média do squad"
+        - "Vocabulário técnico proprietário forte com distinções precisas (construção vs criação, relevância vs awareness)"
+        - "Immune system com 9 triggers — todos com respostas comportamentalmente corretas"
+        - "Cases como ferramenta didática (Apple, Nike, Coca-Cola, Nespresso, Guaraná Jesus)"
+        - "Frameworks com 'when' claros — o agente sabe quando usar cada um"
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    juliana-gomes:
+      fidelity_score: 8.5
+      voice_dna_score: 8.5
+      thinking_dna_score: 8.3
+      source_coverage: "~80% das claims com [SOURCE:] rastreável"
+
+      voice_dna_analysis:
+        signature_phrases_count: 17
+        with_source_tag: 17
+        without_source_tag: 0
+        assessment: |
+          100% de rastreabilidade — padrão excelente. Fontes específicas (Kiwicast #549,
+          Kiwicast #434, Kiwicast #199, Jornal de Brasília, jugomes.com). As frases
+          capturam o tom acolhedor-prático ("Eu comecei com 1.900 seguidores",
+          "Quem não oferece não vende", "Não faça para ver se vai dar certo, faça
+          até dar certo"). O background pessoal é excepcionalmente detalhado
+          (auxiliar de enfermagem, R$950/mês, cestas básicas da igreja). Vocabulário
+          always_use com 14 termos proprietários (funil de conteúdo, carrossel
+          magnético, Reels lucrativo, pico de vendas colossal, caixa rápido).
+
+      thinking_dna_analysis:
+        frameworks_count: 9
+        heuristics_count: 17
+        heuristics_with_when: 15
+        assessment: |
+          Sólido. "As 3 Funções do Conteúdo" como primário é correto e bem
+          documentado. Secundários cobrem: Viralização Recipe, Calendário Semanal,
+          Pesquisa de Conteúdo, Stories que Vendem, Hashtag, Funil Viral 2025,
+          Carrosséis Magnéticos, MSV 7 Passos, Automação, Influenciadores Shopee.
+          Os 7 passos do MSV são corretamente marcados como proprietários (sem
+          revelar o conteúdo pago). 17 heurísticas — volume forte.
+
+      anti_patterns_analysis:
+        count: 6
+        specificity: "Alta — refletem a experiência orgânica-first dela"
+        best: "'NUNCA use tom de guru inacessível — ela é a gente que deu certo'"
+        weakest: "'NUNCA copie conteúdo de outro criador' — genérico mas contextualizado com 'adapte e coloque sua perspectiva'"
+
+      contradictions_preserved: 4
+      contradictions_quality: |
+        Boas mas poucas. "Simples mas estratégica" e "Humilde mas segura" capturam
+        a dualidade real. Poderia ter mais (ex: "orgânico-only mas fatura milhões",
+        "anti-investimento mas construiu patrimônio", "comunidade Wakanda / representatividade
+        negra como diferencial num mercado dominado por outra demografia").
+
+      output_examples_count: 3
+      output_examples_quality: |
+        Excelentes e concretos. O de nutricionista aplica as 3 Funções com 5 ideias
+        reais. O Reels de finanças tem script completo com timing por segundo.
+        O de marmitas com 800 seguidores é diagnóstico + plano de ação — reflete
+        o tom "você pode sim" dela.
+
+      gaps:
+        - "Contradições poderiam ser mais numerosas e reveladoras (4 é pouco para um perfil tão rico)"
+        - "Falta explorar a tensão 'orgânico puro → uso de influenciadores pagos' como evolução"
+        - "MSV 7 Passos marcado como proprietário — correto, mas sem nem sequer uma dica dos princípios públicos reduz utilidade"
+        - "Timeline de evolução é excelente no background mas não é usada nos frameworks (falta framework de 'estágios de maturidade do criador')"
+        - "Sem vocabulary fingerprints quantificados"
+
+      strengths:
+        - "100% de signature phrases com [SOURCE:] — empata com Pedro Sobral como melhor do squad"
+        - "Background pessoal excepcionalmente detalhado — permite respostas empáticas autênticas"
+        - "Immune system com 12 triggers — volume forte com respostas in-character"
+        - "Produtos e multi-plataforma documentados — contexto de negócio completo"
+        - "Output examples são os mais 'acionáveis' do squad — scripts prontos para usar"
+        - "Evolution timeline dá contexto temporal para cada framework"
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    icaro-chief:
+      fidelity_score: 7.5
+      voice_dna_score: 6.0
+      thinking_dna_score: 7.5
+      source_coverage: "N/A — orchestrator, não mind clone"
+
+      assessment: |
+        O icaro-chief é um ORCHESTRATOR, não um mind clone. Deve ser avaliado como
+        router/coordinator, não como DNA extraction. Nessa função, ele cumpre bem:
+        - Routing table com 5 agents e triggers por palavras-chave
+        - 17 commands mapeados para agents específicos
+        - 2 workflows documentados (lançamento completo, copy completa)
+        - 3 output examples que demonstram diagnóstico + routing
+        O vocabulário usa termos do Ícaro (PPP, causa, ecossistema) sem ser o Ícaro
+        — tom correto para orchestrator.
+
+      gaps:
+        - "Falta workflow multi-agent (ex: diagnóstico Ícaro → tráfego Sobral → branding Hiller)"
+        - "Falta fallback/escalation — o que acontece se nenhum trigger combina?"
+        - "Sem referência cruzada entre agents (ex: quando Sobral deve pedir input do Kiso)"
+        - "Voice DNA é minimal — tudo bem para orchestrator, mas poderia ter 2-3 frases do Ícaro como 'boas-vindas'"
+
+      strengths:
+        - "Routing table cobre 100% dos agents do squad"
+        - "Commands são claros com arrows indicando destino (→ @agent)"
+        - "Output examples demonstram diagnóstico-antes-de-ação corretamente"
+        - "Tom neutro mas informado — não tenta ser nenhum expert"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # OVERALL ASSESSMENT
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  overall:
+    average_fidelity: 8.4
+    top_agent: "pedro-sobral (9.0) — melhor rastreabilidade, maior riqueza de frameworks, vocabulário de comunidade"
+    second_best: "marcos-hiller (8.8) — excelente rastreabilidade, vocabulário técnico preciso, contradições reveladoras"
+    weakest_agent: "icaro-chief (7.5) — mas é orchestrator, não mind clone — a comparação é injusta"
+    weakest_mind_clone: "rafael-kiso (8.3) — fontes genéricas demais, contradições superficiais"
+
+    # Ranking por dimensão
+    rankings:
+      voice_dna: ["pedro-sobral (9.2)", "marcos-hiller (9.0)", "juliana-gomes (8.5)", "icaro-de-carvalho (8.0)", "rafael-kiso (8.0)"]
+      thinking_dna: ["pedro-sobral (9.0)", "icaro-de-carvalho (9.0)", "marcos-hiller (8.7)", "rafael-kiso (8.5)", "juliana-gomes (8.3)"]
+      source_traceability: ["pedro-sobral (~85%)", "juliana-gomes (~80%)", "marcos-hiller (~80%)", "rafael-kiso (~75%)", "icaro-de-carvalho (~65%)"]
+      output_examples: ["juliana-gomes", "pedro-sobral", "icaro-de-carvalho", "marcos-hiller", "rafael-kiso"]
+
+    critical_issues:
+      - issue: "Nenhum agent tem episodic memories formalizadas"
+        severity: "ALTA"
+        impact: |
+          Histórias pessoais dos experts (Ícaro perdendo conta do Instagram, Sobral como
+          garçom, Juliana recebendo cesta básica, Hiller no Erasmus, Kiso fundando mLabs)
+          são os maiores ativos de credibilidade e estão apenas no background — não como
+          memórias episódicas acessáveis para storytelling em output.
+        fix: "Adicionar seção 'episodic_memories' em cada agent com 5-10 histórias indexadas por tema"
+
+      - issue: "Nenhum agent tem vocabulary fingerprints quantificados"
+        severity: "MÉDIA"
+        impact: |
+          Sem contagem de frequência real das palavras-chave, o agente pode sub ou
+          super-utilizar termos identitários. O Ícaro diz 'personalidade' 200x mas
+          o agent não sabe disso.
+        fix: "Processar fontes e adicionar contagens (ex: 'proposta': 185x, 'personalidade': 203x, 'causa': 97x)"
+
+      - issue: "Ícaro de Carvalho tem a PIOR rastreabilidade do squad (~65%)"
+        severity: "ALTA"
+        impact: |
+          Paradoxalmente, o expert principal do squad tem a menor cobertura de [SOURCE:].
+          7/12 signature phrases sem fonte. Isso é preocupante porque ele deveria ser
+          o clone de MAIOR fidelidade.
+        fix: "Revisitar as 7 frases sem [SOURCE:] e rastrear nas transcrições/livro. Se não rastreáveis, marcar como [ATTRIBUTION: provável, não verificado]"
+
+      - issue: "Rafael Kiso com fontes genéricas"
+        severity: "MÉDIA"
+        impact: |
+          Muitas claims marcadas como '[SOURCE: web]' ou '[SOURCE: web-research]' —
+          impossível verificar. Livro Unbound Marketing existe como fonte Tier 0
+          mas parece sub-explorado.
+        fix: "Reprocessar source unbound-marketing-book.md e substituir [SOURCE: web] por citações de página/capítulo do livro"
+
+    recommendations:
+      - priority: "P0 — CRÍTICO"
+        action: "Adicionar episodic_memories em todos os 5 mind clones"
+        rationale: |
+          Episodic memories são o que diferencia um clone FUNCIONAL de um clone
+          VIVIDO. Sem elas, os agents respondem com frameworks mas não contam
+          histórias — e storytelling é a arma principal de todos esses 5 experts.
+
+      - priority: "P0 — CRÍTICO"
+        action: "Corrigir rastreabilidade do agent icaro-de-carvalho"
+        rationale: |
+          O agent principal não pode ter a pior rastreabilidade do squad.
+          Revisar as 7 frases sem [SOURCE:] contra o mind_dna_complete.yaml
+          e as transcrições em squads/mind-cloning/minds/icaro-de-carvalho/sources/.
+
+      - priority: "P1 — IMPORTANTE"
+        action: "Substituir [SOURCE: web] do Rafael Kiso por citações específicas"
+        rationale: |
+          O livro Unbound Marketing está disponível como fonte. As claims genéricas
+          podem ser rastreadas até capítulos específicos.
+
+      - priority: "P1 — IMPORTANTE"
+        action: "Adicionar vocabulary fingerprints quantificados em cada agent"
+        rationale: |
+          A frequência das palavras-chave calibra o uso natural dos termos.
+          Sem isso, o agente pode usar "personalidade" 1x quando o Ícaro real
+          usaria 10x na mesma conversa.
+
+      - priority: "P2 — DESEJÁVEL"
+        action: "Expandir contradictions da Juliana Gomes de 4 para 7-8"
+        rationale: |
+          Ela tem contradições ricas não exploradas (orgânico-only → influenciadores,
+          representatividade Wakanda, enfermeira → multimilionária). As 4 atuais são
+          boas mas insuficientes para a riqueza da persona.
+
+      - priority: "P2 — DESEJÁVEL"
+        action: "Adicionar workflow multi-agent no icaro-chief"
+        rationale: |
+          O orchestrator roteia para agents individuais mas não coordena workflows
+          que envolvem 2+ agents (ex: Ícaro faz diagnóstico PPP → Sobral monta
+          campanha → Kiso define KPIs → Hiller constrói marca).
+
+      - priority: "P2 — DESEJÁVEL"
+        action: "Adicionar cross-references entre agents"
+        rationale: |
+          Quando Sobral fala de criativo, ele poderia referenciar o framework PPP
+          do Ícaro para construir a proposta. Quando Hiller fala de digital, ele
+          poderia referenciar os KPIs do Kiso. Essa interconexão está ausente.
+
+    # Comparação com padrão de qualidade dos minds do aios-core
+    benchmark_comparison:
+      nassim_taleb: "Referência Tier 0 — 89% com vocabulary fingerprints quantificados e episodic memories"
+      steve_jobs: "Referência Tier 0 — 89% com 10 episodic memories e 4 metaphor families"
+      keith_cunningham: "Referência Tier 0 — 9.0 com 200+ Thinking Time questions e 30 bumper stickers"
+      squad_icaro_average: "8.4 — competitivo com referências, mas sem episodic memories que são padrão nos Tier 0"
+
+    final_verdict: |
+      O squad evoluiu dramaticamente da v1 (6.9) para a v2 (8.4). Os 5 mind clones
+      passaram de "mind sketches" para "clones operacionais" — podem gerar outputs
+      concretos e comportamentalmente corretos.
+
+      Pedro Sobral (9.0) e Marcos Hiller (8.8) são os destaques — rastreabilidade
+      exemplar, frameworks ricos e contradições reveladoras.
+
+      O gap mais crítico é a AUSÊNCIA de episodic memories em TODOS os agents.
+      Estes 5 experts são CONTADORES DE HISTÓRIAS — sem suas histórias fundacionais,
+      os clones respondem com frameworks mas não com alma.
+
+      Segundo gap: o paradoxo do Ícaro. O expert principal do squad tem a PIOR
+      rastreabilidade (65%) — isso precisa ser corrigido prioritariamente.
+
+      Com as correções P0 implementadas, este squad pode atingir 8.8-9.0 overall.

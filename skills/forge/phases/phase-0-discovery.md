@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Entender O QUE o usuario quer antes de qualquer linha de codigo. Pense nessa fase como a consulta com o medico antes da cirurgia — ele nao opera sem saber o que doi.
+Entender O QUE o usuário quer antes de qualquer linha de código. Pense nessa fase como a consulta com o médico antes da cirurgia — ele não opera sem saber o que dói.
 
 ---
 
@@ -14,20 +14,47 @@ Entender O QUE o usuario quer antes de qualquer linha de codigo. Pense nessa fas
 
 ### Step 1: Show Banner
 
-Display the Forge banner from `personality.md`.
+Display the Forge banner from `{FORGE_HOME}/personality.md`.
 
-### Step 2: Check Interrupted Runs
+### Step 2: Project Awareness (AUTOMATIC — all modes)
+
+Detect if running inside an existing project. Check for: `package.json`, `.git/`, `tsconfig.json`, `Cargo.toml`, `requirements.txt`, `go.mod`.
+
+**If existing project detected:**
+
+Run a quick scan (~10 seconds):
+
+1. **Read `package.json`** (or equivalent) → stack, dependencies, scripts
+2. **Run `ls` top-level** → folder structure
+3. **Read `README.md`** or `.aios/INDEX.md` (first 50 lines) → project context
+4. **Run `git log -5 --oneline`** → recent activity
+
+Save results to working memory. This context will be:
+- Injected into ALL agent dispatches (so @dev knows the stack, patterns, conventions)
+- Used to skip redundant questions (if we know the stack, dont ask "stack preferida?")
+- Used to detect brownfield mode (if project has substantial code, suggest `/forge scan`)
+
+**If NO existing project detected:**
+- Skip this step (greenfield mode)
+- Proceed normally
+
+**If existing project but user ran `/forge` (full app) instead of `/forge feature`:**
+- Warn: "Detectei que esse projeto já tem código. Você quer adicionar algo novo ou começar do zero?"
+- If "adicionar": reclassify as SINGLE_FEATURE
+- If "do zero": proceed as FULL_APP (user knows what they're doing)
+
+### Step 3: Check Interrupted Runs
 
 Glob `.aios/forge-runs/*/state.json`. For each file:
 - Read and check `status` field
 - If any has `status != "completed"`:
-  - Show: "Encontrei um run interrompido: `{run_id}` (Phase {N}). Continuar ou comecar novo?"
+  - Show: "Encontrei um run interrompido: `{run_id}` (Phase {N}). Continuar ou começar novo?"
   - If resume: load state and jump to last phase
   - If new: proceed with Step 3
 
-### Step 3: Onboarding + Socratic Gate (FUNDIDOS — uma unica interacao)
+### Step 4: Onboarding + Socratic Gate (FUNDIDOS — uma única interação)
 
-**Principio:** Minimo de perguntas, maximo de contexto. O usuario quer ver as coisas acontecendo, nao responder questionario.
+**Princípio:** Mínimo de perguntas, máximo de contexto. O usuário quer ver as coisas acontecendo, não responder questionário.
 
 **Check project memory:**
 - HYBRID: `{cwd}/.aios/memory/project-context.md`
@@ -35,69 +62,154 @@ Glob `.aios/forge-runs/*/state.json`. For each file:
 
 **Se project memory EXISTS:**
 - Greet: "Fala, {name}! Bora continuar o {project}?"
-- Pular direto para as perguntas de contextualizacao (so 2, sem onboarding)
+- Pular direto para as perguntas de contextualização (só 2, sem onboarding)
 
 **Se primeiro run (sem memory):**
-- Adicionar UMA pergunta extra no inicio: "Como posso te chamar?"
+- Adicionar UMA pergunta extra no início: "Como posso te chamar?"
 
-#### Perguntas — AGRUPADAS em um unico bloco
+#### Formato de apresentação (OBRIGATÓRIO)
 
-Use `AskUserQuestion` UMA VEZ com todas as perguntas juntas. NAO faca uma por vez.
+**TODAS as perguntas DEVEM ser apresentadas como opções numeradas com título bold + descrição.**
+Nunca use perguntas abertas soltas. Sempre ofereça opções pré-definidas + uma opção livre no final.
 
-**FULL_APP mode:**
-
-Analise primeiro o que o usuario JA disse no comando. Se ele escreveu "/forge app de gestao de clinicas com agendamento e prontuarios", voce JA SABE o que o app faz. NAO pergunte de novo.
-
-Perguntas (pule as que ja foram respondidas no comando):
+Formato padrão:
 
 ```
-Me conta rapidinho pra eu montar o plano:
+{Pergunta contextualizada}
 
-1. Quem vai usar e qual o principal problema que resolve?
-2. Tem referencia? (app parecido, site, Figma, ou "nao")
-3. Stack preferida ou deixa comigo?
+> 1. **{Opção A}**
+>    {Descrição curta de 1 linha explicando o que isso significa}
+> 2. **{Opção B}**
+>    {Descrição curta}
+> 3. **{Opção C}**
+>    {Descrição curta}
+> 4. Digitar outra coisa.
 ```
 
-Se primeiro run, adicione no inicio: "Ah, e como posso te chamar?"
+Regras do formato:
+- Título da opção em **bold**
+- Descrição embaixo, indentada, em tom informal
+- Última opção SEMPRE é "Digitar outra coisa." (escape valve)
+- Máximo 5 opções por pergunta (incluindo a livre)
+- Use `AskUserQuestion` para apresentar
 
-**SINGLE_FEATURE mode:**
+#### Perguntas — UMA POR VEZ, formato de opções
+
+Analise primeiro o que o usuário JÁ disse no comando. Se ele escreveu "/forge app de gestão de clínicas com agendamento e prontuários", você JÁ SABE o que o app faz. NÃO pergunte de novo.
+
+Pule perguntas que já foram respondidas no comando. Faça as restantes UMA POR VEZ no formato acima.
+
+**FULL_APP mode — Pergunta 1 (pesquisa de mercado — SEMPRE PRIMEIRA):**
+
+Essa pergunta vem ANTES de qualquer outra. Pesquisar o que já existe no mercado simplifica todas as decisões seguintes (stack, arquitetura, features, diferencial).
+
 ```
-Pra eu entender a feature:
+Antes de montar o plano, quer que eu pesquise o que já existe no mercado?
 
-1. Me da um exemplo de uso real (tipo: "usuario clica em X e acontece Y")
-2. Isso muda algo que ja existe ou e 100% novo?
+> 1. **Pesquisar soluções parecidas**
+>    Investigo os principais apps/tools do mercado que resolvem problema similar e trago um resumo
+> 2. **Já conheço o mercado**
+>    Já sei o que existe, me diz as referências e eu sigo
+> 3. **Pular, vai direto**
+>    Não precisa pesquisar, já tenho clareza do que quero
+> 4. Digitar outra coisa.
 ```
 
-**BUG_FIX mode:**
+**Se opção 1 escolhida:** Executar `/tech-search` (skill de deep research) com foco em:
+- Top 5-10 soluções open-source e comerciais para o problema descrito
+- Features comuns entre elas (table stakes)
+- Gaps/oportunidades (o que nenhuma faz bem)
+- Modelos de negócio (free, freemium, paid, open-source)
+- Stack/tech choices (repos GitHub, stars, última atividade)
+
+O output do `/tech-search` é salvo em `docs/research/` e serve como base para o PRD.
+Apresentar resumo ao usuário e DEPOIS prosseguir para Pergunta 2.
+
+**Se opção 2 escolhida:** Perguntar quais referências o usuário já conhece, anotar, e prosseguir.
+
+**Se opção 3 escolhida:** Pular direto para Pergunta 2.
+
+---
+
+**FULL_APP mode — Pergunta 2 (público/problema):**
+
+```
+Quem vai usar esse app e qual o principal problema que resolve?
+
+> 1. **Eu mesmo**
+>    Ferramenta pessoal pra resolver um problema meu do dia-a-dia
+> 2. **Qualquer pessoa/empresa**
+>    Produto aberto, qualquer um pode usar (SaaS, marketplace, etc.)
+> 3. **Público específico/nicho**
+>    Tipo: agências, clínicas, restaurantes, freelancers...
+> 4. Digitar outra coisa.
+```
+
+**FULL_APP mode — Pergunta 3 (stack):**
+
+```
+Stack preferida?
+
+> 1. **Next.js + React**
+>    Full-stack moderno, SSR, API routes, deploy fácil
+> 2. **Angular**
+>    Enterprise, tipagem forte, RxJS
+> 3. **Deixa comigo**
+>    Eu escolho a melhor stack pro que você descreveu
+> 4. Digitar outra coisa.
+```
+
+Se primeiro run, adicione antes de tudo: "Ah, e como posso te chamar?"
+
+**SINGLE_FEATURE mode — Pergunta 1:**
+
+```
+Me dá um exemplo de uso real dessa feature:
+
+> 1. **Usuário faz X e acontece Y**
+>    Me descreve o fluxo principal (ex: "clica em exportar e baixa PDF")
+> 2. **Melhoria no que já existe**
+>    Algo que já funciona mas precisa mudar/melhorar
+> 3. **Algo 100% novo**
+>    Feature que não existe ainda no projeto
+> 4. Digitar outra coisa.
+```
+
+**BUG_FIX mode — Pergunta 1:**
+
 ```
 Me conta do bug:
 
-1. O que deveria acontecer vs o que esta acontecendo?
-2. Tem mensagem de erro? (cola aqui se tiver)
+> 1. **Tem mensagem de erro**
+>    Cola a mensagem aqui que eu investigo
+> 2. **Comportamento errado**
+>    Deveria fazer X mas faz Y (sem erro visível)
+> 3. **Quebrou do nada**
+>    Tava funcionando e parou, não sei o que mudou
+> 4. Digitar outra coisa.
 ```
 
 #### Follow-up inteligente
 
-Se alguma resposta for vaga, faca UMA follow-up especifica:
-- AskUserQuestion: "Quando voce diz 'vendas', e de produtos fisicos, digitais ou servicos?"
+Se alguma resposta for vaga, faça UMA follow-up específica — também no formato de opções numeradas.
 
-Maximo 1 follow-up. Depois, prossiga com o melhor entendimento.
+Máximo 1 follow-up. Depois, prossiga com o melhor entendimento.
 
-#### Se o usuario disser "so faz" ou "vai direto"
+#### Se o usuário disser "só faz" ou "vai direto"
 
 Respeite. Pule perguntas, use o que tem, e prossiga.
 Registre no state.json: `discovery_mode: "minimal"`
 
 ### Step 5: Ecosystem Scan (MANDATORY)
 
-Read `skills/forge/ecosystem-scanner.md` and execute the full scan protocol:
+Read `{FORGE_HOME}/ecosystem-scanner.md` and execute the full scan protocol:
 
 1. Read minds INDEX, skills frontmatters, squads READMEs
 2. Match against project description + tech stack
 3. Build context-pack.json
 4. Show scan results to user
 
-### Step 6: Project Detection (FULL_APP only)
+### Step 6: Project Detection (FULL_APP only) (FULL_APP only)
 
 For full app mode, also run project detection:
 1. Read `skills/app-builder/project-detection.md`
@@ -116,7 +228,7 @@ Show a summary of everything understood:
 
   📋 Projeto: {name}
   🎯 O que faz: {description}
-  👥 Publico: {audience}
+  👥 Público: {audience}
   🔧 Stack sugerida: {stack} (template: {template})
   🧠 Consultores: {minds list}
   ⚡ Skills: {skills list}
@@ -130,10 +242,20 @@ Wait for user response before proceeding.
 
 ### Step 8: Initialize Run
 
-1. Generate run_id: `forge-{slug}-{YYYYMMDD-HHmm}`
-2. Create run folder: `.aios/forge-runs/{run_id}/`
-3. Save state.json with initial state
-4. Save context-pack.json from ecosystem scan
+1. **Check for concurrent runs (LOCK):**
+   - Check if `.aios/forge-runs/.lock` exists
+   - If exists: read lock file to get active run_id
+     - Check if that run's state.json has `status != "completed"`
+     - If active: "Já existe um run em andamento (`{run_id}`). Quer esperar, cancelar o outro, ou forçar um novo?"
+     - If completed/corrupted: remove stale lock and proceed
+   - If not exists: proceed
+2. Generate run_id: `forge-{slug}-{YYYYMMDD-HHmm}`
+3. **Create lock file:** Write run_id to `.aios/forge-runs/.lock`
+4. Create run folder: `.aios/forge-runs/{run_id}/`
+5. Save state.json with initial state (using atomic write: .tmp → rename)
+6. Save context-pack.json from ecosystem scan
+
+**Lock cleanup:** The lock file is removed in runner.md Completion Protocol (Step 7).
 
 ---
 

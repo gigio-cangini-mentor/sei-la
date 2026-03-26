@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/prompts/evaluate.md
+../../../../../../skills/tech-search/prompts/evaluate.md

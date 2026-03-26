@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/cloud-penetration-testing/references/advanced-cloud-scripts.md
+../../../../../../skills/cloud-penetration-testing/references/advanced-cloud-scripts.md

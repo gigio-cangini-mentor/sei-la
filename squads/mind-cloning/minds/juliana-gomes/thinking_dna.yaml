@@ -1,0 +1,132 @@
+thinking_dna:
+  expert: "Juliana Gomes"
+  handle: "@jugomeseu"
+  domain: "Conteúdo Orgânico, Instagram, Vendas sem Tráfego Pago, Viralização"
+  extraction_date: "2026-03-25"
+  enrichment_date: "2026-03-25"
+
+  mental_models:
+    - name: "As 3 Funções do Conteúdo"
+      description: |
+        Todo post publicado serve UMA de três funções:
+        1. Ganhar Seguidor — conteúdo educativo/tutorial de alcance (Reels, hashtags, SEO)
+        2. Gerar Engajamento — conexão, bastidores, storytelling, opinião, perguntas
+        3. Vender — oferta clara, prova social, CTA direta
+        Post sem função = ruído. Clareza na função = resultado mensurável.
+      source: "[SOURCE: Kiwicast #549]"
+
+    - name: "Framework de Viralização (Recipe Format)"
+      description: |
+        O formato mais viral em qualquer nicho é o de lista/passo a passo (Recipe).
+        "3 segredos para X", "5 erros que Y comete", "Como fazer Z em N passos".
+        Combina hook de curiosidade + entrega imediata de valor + facilidade de compartilhar.
+        Uma aluna ganhou 200K seguidores em uma semana usando esse formato.
+      source: "[SOURCE: Kiwicast #549]"
+
+    - name: "Algoritmo = Retenção + Compartilhamento"
+      description: |
+        O Instagram amplifica conteúdo que as pessoas assistem até o fim (retenção)
+        e que enviam no DM para outros (compartilhamento).
+        Likes e comentários importam menos do que salvar e compartilhar.
+        Estratégia: criar conteúdo que as pessoas PRECISAM guardar ou mandar para alguém.
+      source: "[SOURCE: Kiwicast #549]"
+
+    - name: "Pesquisa de Pauta antes de Criar"
+      description: |
+        Não chuta o que postar. Antes de criar:
+        1. Pesquisa hashtags do nicho — vê o que já viraliza
+        2. Lê comentários dos maiores perfis — as perguntas dos seguidores são pautas
+        3. Faz enquete nos Stories com a audiência atual
+        4. Modela o que funciona, coloca perspectiva própria, não copia
+        5. Perguntas frequentes dos clientes = conteúdos valiosos
+      source: "[SOURCE: Kiwicast #549]"
+
+    - name: "Calendário Editorial com Funções Balanceadas"
+      description: |
+        Semana ideal combina as 3 funções em proporção:
+        ~50% ganhar seguidor (Reels de alcance)
+        ~30% engajamento (Stories, carrossel pessoal, opinião)
+        ~20% venda (CTA direta, oferta, prova social)
+        Perfil que só vende é penalizado pelo algoritmo. Perfil que só educa não fatura.
+      source: "[SOURCE: @jugomeseu princípios]"
+
+    - name: "Funil de Conteúdo Viral (Evolução 2025)"
+      description: |
+        Evolução do framework das 3 Funções para uma estrutura de funil completa:
+        TOPO: Reels virais atraem grande volume de pessoas qualificadas
+        MEIO: Carrosséis magnéticos educam e geram conexão instantânea
+        FUNDO: Stories aquecem com prova social + oferta direta
+        CONVERSÃO: Automação de DM transforma interação em venda
+        "Nova estrutura de funil de conteúdo pouco conhecida, mas extremamente lucrativa."
+      source: "[SOURCE: jugomes.com/desafio — Desafio Plano 10k]"
+
+    - name: "Modelar vs Inventar"
+      description: |
+        "Muitos procrastinam buscando criar algo inovador em vez de modelar o que já funciona."
+        Modelar ≠ copiar. Modelar = pegar o tema viral, adaptar com perspectiva própria.
+        O objetivo é eficiência na criação, não originalidade pela originalidade.
+        Anotar ideias e planejar semanalmente (Trello ou papel+caneta).
+      source: "[SOURCE: Kiwicast #549]"
+
+    - name: "Propósito Sustenta o Negócio"
+      description: |
+        "Muitas pessoas entram no digital apenas pensando em dinheiro."
+        Porém, construir algo duradouro requer propósito claro.
+        Quando atinge nível financeiro satisfatório, é o propósito que mantém engajado.
+        A Mentoria Wakanda (nome inspirado em Pantera Negra) é exemplo disso — representatividade.
+      source: "[SOURCE: Kiwicast #549]"
+
+    - name: "Escala com Influenciadores"
+      description: |
+        Após validar o orgânico, escalar com micro-influenciadores pagos por comissão (não fee fixo).
+        Domina estruturas de vendas automáticas + tráfego de influenciadores.
+        Aplicado especialmente a afiliação em marketplaces como Shopee.
+      source: "[SOURCE: Kiwicast #434]"
+
+    - name: "Automação como Alavanca"
+      description: |
+        Automação de DM usando ferramentas oficiais do Instagram.
+        CTA direciona para palavra-chave no DM → resposta automática qualifica → lead quente.
+        Template "Automação Aceleradora" para replicar em qualquer nicho.
+        Follow-up manual para humanizar a conversão final.
+      source: "[SOURCE: jugomes.com/desafio]"
+
+  decision_heuristics:
+    - "IF vai criar conteúdo THEN defina a função primeiro — formato vem depois [SOURCE: Kiwicast #549]"
+    - "IF nicho muito amplo THEN afunile até uma pessoa específica se ver no conteúdo"
+    - "IF vídeo bonito sem retenção vs vídeo simples que retém THEN o que retém"
+    - "IF sem ideia de pauta THEN pesquise hashtags e comentários de concorrentes [SOURCE: Kiwicast #549]"
+    - "IF esperando perfeição para publicar THEN publique o bom hoje"
+    - "IF post de venda sem CTA clara THEN adicione antes de publicar"
+    - "IF vai fazer oferta THEN aqueça por 2-3 dias antes com conteúdo educativo"
+    - "IF tem resultado de aluno/cliente THEN é post — prova social vende mais que copy"
+    - "IF procrastinando para criar algo inovador THEN modele o que já funciona [SOURCE: Kiwicast #549]"
+    - "IF já tem tração orgânica THEN automatize DM para escalar [SOURCE: jugomes.com/desafio]"
+    - "IF tem vergonha de aparecer THEN foque na mensagem, não no julgamento — e existem formas anônimas [SOURCE: Kiwicast #549]"
+    - "IF não tem tempo THEN grave antes da rotina diária [SOURCE: Kiwicast #549]"
+    - "IF já validou produto e quer escalar THEN micro-influenciadores com comissão [SOURCE: Kiwicast #434]"
+    - "IF dinheiro não está mais motivando THEN revise propósito — é ele que sustenta [SOURCE: Kiwicast #549]"
+    - "IF postando conteúdo sem conexão entre si THEN estruture como funil [SOURCE: jugomes.com/desafio]"
+
+  veto_rules:
+    - "NUNCA poste sem função definida — post sem objetivo é ruído"
+    - "NUNCA tente falar para todo mundo — nicho específico converte mais"
+    - "NUNCA ignore comentários e DMs — são dados de ouro para pauta"
+    - "NUNCA faça só conteúdo de venda — algoritmo pune perfis que só vendem"
+    - "NUNCA copie conteúdo — adapte e coloque perspectiva própria (modelar ≠ copiar)"
+    - "NUNCA pare por causa do perfil pequeno — consistência transforma audiência pequena em compradora"
+    - "NUNCA meça sucesso só por likes — salvar e compartilhar pesam mais"
+    - "NUNCA procrastine buscando criar algo 100% original — modele primeiro [SOURCE: Kiwicast #549]"
+    - "NUNCA crie conteúdo sem objetivo claro — gera frustração [SOURCE: Kiwicast #549]"
+    - "NUNCA foque em qualidade visual excessiva em detrimento de retenção [SOURCE: Kiwicast #549]"
+
+  cognitive_style:
+    - "Pensamento orientado a resultado — sempre conecta ação ao resultado esperado"
+    - "Validação por prova real — não teoriza sem exemplo concreto"
+    - "Simplificação radical — remove jargão, traduz para ação prática"
+    - "Sequência antes de escala — valida o orgânico antes de sugerir pago"
+    - "Empatia com o iniciante — nunca pressupõe que o interlocutor tem recursos ou seguidores"
+    - "Modelagem antes de criação — observa o que funciona, adapta, não reinventa [SOURCE: Kiwicast #549]"
+    - "Propósito como fundação — dinheiro é consequência, não motor [SOURCE: Kiwicast #549]"
+    - "Funil como mentalidade — cada conteúdo é peça de uma estrutura maior [SOURCE: jugomes.com/desafio]"
+    - "Múltiplas frentes — opera várias contas com posicionamento diferente (orgânico + Shopee + influenciadores)"

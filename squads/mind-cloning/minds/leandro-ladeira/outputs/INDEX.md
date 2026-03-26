@@ -3,7 +3,7 @@
 ## Metadata
 - **Tipo:** Mind Clone + Squad Creation
 - **Squad alvo:** `squads/leandro-ladeira/`
-- **Agente/Squad em uso:** `/squad-creator-pro:squad-chief` + `/mind-cloning`
+- **Agente/Squad em uso:** `/squad-creator:squad-chief` + `/mind-cloning`
 - **Criado:** 2026-03-07
 - **Última sessão:** 2026-03-08 às 01:15
 

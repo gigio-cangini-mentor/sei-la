@@ -179,12 +179,12 @@ output_examples:
 
       **Meta Description:**
       Before: (none)
-      After: `<meta name="description" content="Descubra o Metodo AGS para autoconhecimento e cura interior. Retiros transformadores com resultados comprovados. Inscreva-se agora.">`
+      After: `<meta name="description" content="Descubra o Método AGS para autoconhecimento e cura interior. Retiros transformadores com resultados comprovados. Inscreva-se agora.">`
 
       **Open Graph:**
       ```html
       <meta property="og:title" content="Alma de Maramar — Retiros de Cura e Autoconhecimento">
-      <meta property="og:description" content="Descubra o Metodo AGS para autoconhecimento e cura interior.">
+      <meta property="og:description" content="Descubra o Método AGS para autoconhecimento e cura interior.">
       <meta property="og:image" content="/images/og-cover.jpg">
       <meta property="og:type" content="website">
       <meta property="og:url" content="https://almademaramar.com">

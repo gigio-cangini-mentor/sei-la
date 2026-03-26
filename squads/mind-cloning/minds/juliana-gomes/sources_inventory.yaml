@@ -1,0 +1,105 @@
+sources_inventory:
+  expert: "Juliana Gomes"
+  full_name: "Juliana Oliveira Gomes Valerio"
+  handle: "@jugomeseu"
+  extraction_date: "2026-03-25"
+  enrichment_date: "2026-03-25"
+  total_sources: 10
+  status: "enriched — sem acesso a materiais de curso privados (MSV, Mentoria Wakanda)"
+
+  sources:
+    - id: "KIWICAST_549"
+      type: podcast_transcript
+      title: "Como Vender Todos os Dias no Instagram com Conteúdo Orgânico"
+      platform: "YouTube / Kiwicast"
+      url: "https://www.youtube.com/watch?v=G5wFHJq6g_o"
+      transcript_url: "https://videohighlight.com/v/G5wFHJq6g_o"
+      quality: high
+      source_file: "sources/kiwicast-549-videohighlight.md"
+      notes: "Principal fonte de frameworks — 3 Funções, Recipe Format, Viralização, Mentoria Wakanda, ferramentas, superação de barreiras"
+
+    - id: "KIWICAST_199"
+      type: podcast
+      title: "Como Elas Fizeram R$6 Milhões No Marketing Digital"
+      platform: "Kiwicast / iVoox / Audacy"
+      url: "https://www.audacy.com/podcast/kiwicast-o-podcast-da-kiwify-81a6e/episodes/como-elas-fizeram-r6-milhoes-no-marketing-digital-juliana-gomes-mariana-amorim-kiwicast-199-95ac7"
+      quality: medium
+      source_file: "sources/kiwicast-199-audacy.md"
+      notes: "Trajetória com Mariana Amorim, vendas automáticas/semi-automáticas, estrutura de vendas, time de afiliados"
+
+    - id: "KIWICAST_434"
+      type: podcast
+      title: "O Essencial Para Você Começar A Faturar Como Afiliado Na Shopee"
+      platform: "Spotify / Apple Podcasts / Kiwicast"
+      url: "https://open.spotify.com/episode/1RE72198MUbqYcl1viq2wv"
+      date: "2025-04-11"
+      duration: "1h18min"
+      quality: medium
+      source_file: "sources/kiwicast-434-shopee.md"
+      notes: "2a vez no Kiwicast. R$ 7M faturados. Expansão para Shopee + influenciadores. Estratégias de escala."
+
+    - id: "JORNAL_BRASILIA"
+      type: article
+      title: "Juliana Gomes: influenciadora digital emergente da pandemia que ficou milionária em menos de dois anos"
+      platform: "Jornal de Brasília"
+      author: "Analice Nicolau"
+      url: "https://jornaldebrasilia.com.br/blogs-e-colunas/analice-nicolau/juliana-gomes-saiba-quem-e-a-influenciadora-digital-emergente-da-pandemia-que-ficou-milionaria-em-menos-de-dois-anos/"
+      date: "2023-04-05"
+      quality: high
+      source_file: "sources/jornal-de-brasilia-perfil.md"
+      notes: "Trajetória completa, frases diretas verificadas, números, contexto de origem. Principal fonte biográfica."
+
+    - id: "SITE_JUGOMES"
+      type: website
+      title: "Ju Gomes — Site Oficial"
+      platform: "jugomes.com"
+      url: "https://jugomes.com/"
+      quality: high
+      source_file: "sources/site-jugomes-com.md"
+      notes: "Posicionamento atual, MSV curso principal, números atualizados, precificação"
+
+    - id: "DESAFIO_10K"
+      type: landing_page
+      title: "Desafio Plano 10k com Instagram — Lote 2"
+      platform: "jugomes.com/desafio"
+      url: "https://jugomes.com/desafio/"
+      quality: high
+      source_file: "sources/desafio-plano-10k.md"
+      notes: "Novos frameworks: Funil de Conteúdo Viral, Carrosséis Magnéticos, Automação Aceleradora, Estratégia Caixa Rápido"
+
+    - id: "MSV_HOTMART"
+      type: product_page
+      title: "Método Secreto de Vendas — MSV"
+      platform: "Hotmart"
+      author_confirmed: "Juliana Oliveira Gomes"
+      url: "https://hotmart.com/pt-br/marketplace/produtos/metodo-secreto-de-vendas-msv/A97365900J"
+      quality: medium
+      source_file: "sources/metodo-secreto-vendas-hotmart.md"
+      notes: "Confirma nome civil como Juliana Oliveira Gomes. Produto verificado na Hotmart."
+
+    - id: "AGENCIA_RS_REVIEW"
+      type: review_article
+      title: "Método Secreto de Vendas da Juliana Gomes: Funciona Mesmo?"
+      platform: "Agência RS"
+      url: "https://agenciars.com.br/metodo-secreto-de-vendas-da-juliana-gomes/"
+      date: "2024-01-26"
+      quality: medium
+      source_file: "sources/agencia-rs-review.md"
+      notes: "Módulos detalhados do MSV, público-alvo, precificação, veredicto positivo"
+
+    - id: "CNPJ_EMPRESA"
+      type: business_registry
+      title: "Juliana Oliveira Gomes Valerio — CNPJ"
+      platform: "cnpj.biz"
+      url: "https://cnpj.biz/45499372000142"
+      quality: medium
+      source_file: "sources/empresa-cnpj.md"
+      notes: "CNPJ 45.499.372/0001-42, Juiz de Fora/MG, abertura mar/2022, atividade: treinamento profissional"
+
+    - id: "MULTI_PLATFORM"
+      type: web_search
+      title: "Pesquisa multi-plataforma — presença @jugomesz, @ajugomesz, TikTok, Threads"
+      platform: "Multiple"
+      quality: low
+      source_file: "sources/tiktok-presenca.md"
+      notes: "Mapeamento de múltiplas contas e evolução do posicionamento ao longo do tempo"

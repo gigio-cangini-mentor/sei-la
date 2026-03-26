@@ -1,0 +1,1 @@
+../../../../../../skills/lp-generator/prompts/reverse-engineer-design.md

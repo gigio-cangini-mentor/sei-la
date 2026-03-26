@@ -1,0 +1,76 @@
+# wf-daily-fleet.yaml
+# Workflow: Daily Fleet Operations
+# Version: 1.0.0
+# Trigger: Daily 06:00 UTC ou *daily-ops manual
+
+workflow:
+  id: wf-daily-fleet
+  name: "Daily Fleet Operations"
+  version: "1.0.0"
+  purpose: "Operacoes diarias: health check → inventory sync → context sync → alertas → report"
+  orchestrator: "@openclaw-chief"
+  total_steps: 5
+  estimated_time: "5-10 min"
+  schedule: "daily 06:00 UTC"
+
+  pre_flight:
+    checks:
+      - "Fleet registry acessivel (Supabase online)"
+      - "Pelo menos 1 claw ativo no registry"
+    on_fail: "Log error, retry in 30min"
+
+steps:
+
+  step_1_health:
+    name: "Fleet Health Check"
+    agent: "@fleet-monitor"
+    task: "tasks/fleet-health.md"
+    timeout: "120s"
+    output: "fleet_health_report"
+    on_timeout: "Log warning, proceed with partial data"
+
+  step_2_inventory:
+    name: "Skill Inventory Sync"
+    agent: "@skill-ops"
+    task: "tasks/skill-inventory.md"
+    depends_on: "step_1_health"
+    timeout: "60s"
+    output: "inventory_report"
+    on_timeout: "Log warning, proceed"
+
+  step_3_context_sync:
+    name: "Context Sync"
+    delegate_to:
+      squad: "openclaw-ops"
+      agent: "@ops-chief"
+      task: "tasks/sync-context.md"
+    depends_on: "step_1_health"
+    timeout: "120s"
+    per_claw:
+      - "Sync memoria compartilhada (Supabase)"
+      - "Sync tasks ClickUp (se CLICKUP_API_TOKEN configurado)"
+      - "Verificar crons agendados no VPS"
+    output: "sync_report"
+    on_timeout: "Log warning, proceed with partial sync"
+
+  step_4_alerts:
+    name: "Alert Processing"
+    agent: "@fleet-monitor"
+    depends_on: ["step_1_health", "step_2_inventory"]
+    actions:
+      - "Processar alertas de health check"
+      - "Processar alertas de skill errors"
+      - "Notificar owners se necessario"
+    output: "alerts_sent"
+
+  step_5_report:
+    name: "Daily Report"
+    agent: "@openclaw-chief"
+    depends_on: ["step_1_health", "step_2_inventory", "step_3_context_sync", "step_4_alerts"]
+    action: "Consolidar todos os outputs em daily report"
+    output: "daily_ops_report"
+
+  circuit_breaker:
+    failure_threshold: 3
+    reset_timeout_ms: 60000
+    on_circuit_open: "Log critical, alert admin, skip to report with partial data"

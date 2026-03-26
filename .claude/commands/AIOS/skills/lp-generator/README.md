@@ -1,0 +1,1 @@
+../../../../../skills/lp-generator/README.md

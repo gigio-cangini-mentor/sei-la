@@ -22,6 +22,8 @@ Este skill garante que TODO texto gerado em português brasileiro contenha acent
 
 ---
 
+<!-- Discovery: not applicable — deterministic skill -->
+
 ## Erros Mais Comuns de IA (CRÍTICO - Referência Exaustiva)
 
 ### Categoria 1: Verbos e Auxiliares (MÁXIMA PRIORIDADE)

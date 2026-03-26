@@ -8,7 +8,17 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent
 
 > Analyzes user's requests, determines tech stack, plans structure, and coordinates agents.
 
-## 🎯 Selective Reading Rule
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual app você quer construir?** — (descrição do que o app faz, mesmo que informal — é o input principal)
+2. **Qual a plataforma alvo?** — Web, mobile (iOS/Android), desktop, CLI, extensão de browser. (determina o template)
+3. **Tem preferência de stack?** — Ex: Next.js, Flutter, Python FastAPI. Se não, o skill escolhe o melhor fit. (opcional)
+4. **É um projeto novo ou feature em projeto existente?** — (muda o fluxo: scaffolding vs feature-building)
+5. **Onde salvar o projeto?** — Confirmar destino conforme organização de pastas (`~/CODE/Projects/`, etc.). (opcional)
+
+## Selective Reading Rule
 
 **Read ONLY files relevant to the request!** Check the content map, find what you need.
 

@@ -27,7 +27,7 @@ INIT -> PHASE_0 -> PHASE_1 -> PHASE_2 -> PHASE_3 -> PHASE_4 -> PHASE_5 -> COMPLE
 ## 2. Execution Protocol (for EACH phase)
 
 ### Step 1: Enter Phase
-1. Read the phase file from `phases/phase-{N}-{name}.md`
+1. Read the phase file from `{FORGE_HOME}/phases/phase-{N}-{name}.md`
 2. Show phase header (from personality.md)
 3. Show progress indicator with updated status
 4. Update state.json: `phases.{N}.status = "running"`, `current_phase = N`
@@ -52,16 +52,16 @@ For each story in priority order:
 ### 3.1 Story Creation (@sm)
 
 Dispatch @sm via Agent tool with:
-- Agent: `.aios-core/development/agents/aios-sm.md`
-- Task: `.aios-core/development/tasks/create-next-story.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-sm.md`
+- Task: `{AIOS_HOME}/.aios-core/development/tasks/create-next-story.md`
 - Input: Epic/PRD from Phase 1 (or user description for SINGLE_FEATURE)
 - Output: Story file at `docs/stories/active/{id}.story.md`
 
 ### 3.2 Story Validation (@po)
 
 Dispatch @po via Agent tool with:
-- Agent: `.aios-core/development/agents/aios-po.md`
-- Task: `.aios-core/development/tasks/validate-next-story.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-po.md`
+- Task: `{AIOS_HOME}/.aios-core/development/tasks/validate-next-story.md`
 - Input: Story file from 3.1
 - Veto: Score < 7/10 -> return to @sm with feedback (max 2 retries)
 - Output: Story status updated to "Ready"
@@ -69,8 +69,8 @@ Dispatch @po via Agent tool with:
 ### 3.3 Implementation (@dev)
 
 Dispatch @dev via Agent tool with:
-- Agent: `.aios-core/development/agents/aios-dev.md`
-- Task: `.aios-core/development/tasks/dev-develop-story.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-dev.md`
+- Task: `{AIOS_HOME}/.aios-core/development/tasks/dev-develop-story.md`
 - Mode: YOLO (autonomous)
 - Input: Story file (status: Ready) + project context
 - Output: Code changes, story status "In Progress" -> "In Review"
@@ -78,8 +78,8 @@ Dispatch @dev via Agent tool with:
 ### 3.4 Quality Gate (@qa)
 
 Dispatch @qa via Agent tool with:
-- Agent: `.aios-core/development/agents/aios-qa.md`
-- Task: `.aios-core/development/tasks/qa-review-story.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
+- Task: `{AIOS_HOME}/.aios-core/development/tasks/qa-review-story.md`
 - Input: Story file + code changes from @dev
 - Decision:
   - **PASS** -> Mark story Done, proceed to next story
@@ -136,16 +136,22 @@ STUCK (same error 3x):
      - What was attempted (3 times)
      - What failed each time
      - Possible causes
-  3. Offer options:
-     a. "Quer que eu chame @architect pra analisar?"
-     b. "Quer pular essa story e voltar depois?"
-     c. "Quer parar aqui? (salvo o progresso)"
+  3. Offer options (TODAS obrigatórias — nunca omitir):
+     a. "Chamar @architect pra analisar o problema"
+     b. "Pular essa story (marcar como SKIPPED) e continuar com a próxima"
+     c. "Parar aqui e salvar progresso"
+  4. If user chooses (b): mark story as SKIPPED in state.json, log reason, proceed
 
 GENERIC_ERROR:
   1. Retry @dev with error context (max 3 retries)
   2. After 3 retries -> escalate to @aios-master
-  3. @aios-master has no restrictions -> can fix anything
-  4. If @aios-master fails -> HALT + CHECKPOINT
+  3. @aios-master operates with Agent Authority guardrails:
+     - CANNOT do git push (that's @devops)
+     - CANNOT delete files without confirmation
+     - CAN modify code, config, and dependencies
+     - Max 1 attempt
+  4. If @aios-master fails -> HALT + offer same 3 options as STUCK (a, b, c)
+     Option (b) "pular story" MUST always be available — never leave user without exit
 ```
 
 ### Error Log
@@ -174,18 +180,33 @@ Every error is logged in state.json:
 
 Before moving to the next story in Phase 3, automatically verify:
 
-| Check | Command | Veto If |
-|-------|---------|---------|
-| Lint | `npm run lint` | Any errors (warnings OK) |
-| TypeCheck | `npm run typecheck` | Any errors |
-| Tests | `npm test` | Any failures |
-| Story AC | Read story file | Any AC checkbox unchecked |
+### Hard Vetos (BLOCK — nunca prosseguir sem resolver)
 
-If a veto condition triggers:
-1. Do NOT proceed to @qa
-2. Re-dispatch @dev with the specific veto failure
-3. Max 2 veto fix attempts per story
-4. After 2 failed attempts: send to @qa anyway (QA will catch and route)
+| Check | Command | Veto If | Action |
+|-------|---------|---------|--------|
+| Lint | `npm run lint` | Any errors | Re-dispatch @dev, max 3 retries, then CHECKPOINT |
+| TypeCheck | `npm run typecheck` | Any errors | Re-dispatch @dev, max 3 retries, then CHECKPOINT |
+| Tests | `npm test` | Any failures | Re-dispatch @dev, max 3 retries, then CHECKPOINT |
+
+Hard vetos NUNCA são ultrapassados automaticamente. Após 3 retries, CHECKPOINT com opções:
+- "Corrigir manualmente"
+- "Pular story (SKIPPED)"
+- "Parar aqui"
+
+### Soft Vetos (podem prosseguir com concerns documentados)
+
+| Check | Veto If | Action |
+|-------|---------|--------|
+| Story AC | AC checkbox unchecked | Warn @dev, retry 1x, after: proceed with concerns |
+| PO Score | Score 5-6/10 | Proceed with concerns noted in state.json |
+
+### PO Score Hard Veto
+
+| Score | Action |
+|-------|--------|
+| >= 7/10 | Pass — prosseguir |
+| 5-6/10 | Soft veto — prosseguir com concerns |
+| < 5/10 | **Hard veto** — BLOQUEIA. Volta pro @sm, max 2 retries, depois CHECKPOINT |
 
 ---
 
@@ -193,11 +214,22 @@ If a veto condition triggers:
 
 When resuming an interrupted run:
 
-1. Read `.aios/forge-runs/{run_id}/state.json`
+1. Read `.aios/forge-runs/{run_id}/state.json` **with validation:**
+   - Parse JSON inside try/catch
+   - If JSON is invalid/corrupted: show "State do run `{run_id}` está corrompido. Quer começar um novo run ou tentar recuperar?"
+   - If recover: try to read last valid phase from build-log/ files
+   - If start new: archive corrupted folder as `{run_id}-corrupted/` and proceed fresh
 2. Show: "Retomando run `{run_id}` — parado na Phase {N}"
 3. Show progress indicator with current state
 4. Jump to `current_phase` and continue from where it stopped
 5. If Phase 3: check `stories_completed` to know which story to continue from
+
+### State Write Safety
+
+ALL state.json writes MUST use atomic pattern:
+1. Write to `.aios/forge-runs/{run_id}/state.json.tmp`
+2. Rename `.tmp` to `.json` (atomic on POSIX)
+3. This prevents corruption from crashes mid-write
 
 ---
 
@@ -205,10 +237,12 @@ When resuming an interrupted run:
 
 After all phases complete:
 
-1. Update state.json: `status = "completed"`, `completed_at = now`
-2. Show completion banner (personality.md) with:
+1. Update state.json: `status = "completed"`, `completed_at = now` (atomic write)
+2. **Remove lock file:** Delete `.aios/forge-runs/.lock`
+3. **Move stories:** If stories exist in `docs/stories/active/`, move completed ones to `docs/stories/completed/`
+4. Show completion banner (personality.md) with:
    - Run ID
-   - Number of stories implemented
+   - Number of stories implemented (including SKIPPED count if any)
    - PR URL (if deployed)
    - Total errors encountered and resolved
-3. If in a project with memory: save run summary to feedback memory
+5. If in a project with memory: save run summary to feedback memory

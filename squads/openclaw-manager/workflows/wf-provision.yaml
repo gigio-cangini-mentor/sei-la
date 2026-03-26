@@ -1,0 +1,373 @@
+# wf-provision.yaml
+# Workflow: Provision New Claw — E2E Pipeline
+# Version: 1.0.0
+# Author: Pedro Valerio (arq-structure)
+# Philosophy: Impossibilitar caminhos errados. Credenciais primeiro. Zero handoff manual.
+
+workflow:
+  id: wf-provision
+  name: "Provision New Claw — E2E Pipeline"
+  version: "1.0.0"
+  purpose: "Pipeline completo: Intake → Memory Extraction → Credentials → Setup → Skills → Go-Live"
+  orchestrator: "@openclaw-chief"
+  total_phases: 6
+  estimated_time: "45-100 min"
+
+  philosophy: |
+    Nenhum claw entra em operacao sem credenciais validadas.
+    Nenhuma skill e criada sem claw ativo.
+    Nenhum handoff entre squads e manual.
+    O pipeline e uma esteira — entra nome do claw, sai claw operacional.
+    Memory Extraction: a IA do usuario gera 80% do perfil em 2 minutos.
+
+  # ═══ FIX F11: Mapa de traducao de phases entre squads ═══
+  phase_numbering_map:
+    description: |
+      openclaw-manager e openclaw-setup usam numeracao diferente.
+      Este mapa traduz entre os dois pra evitar confusao.
+    mapping:
+      - manager: "Phase 0 (Intake)"
+        setup_equivalent: "N/A — nao existe no setup"
+      - manager: "Phase 0.5 (Memory Extraction)"
+        setup_equivalent: "Substitui/complementa Phase 1 Discovery"
+      - manager: "Phase 1.5 (Credentials)"
+        setup_equivalent: "N/A — novo, nao existe no setup"
+      - manager: "Phase 2 (Setup delegado)"
+        setup_equivalent: "Phases 1-7 do setup (Discovery → Validation)"
+      - manager: "Phase 3 (First Skills)"
+        setup_equivalent: "N/A — delegado ao skill-factory"
+      - manager: "Phase 4 (Go-Live)"
+        setup_equivalent: "N/A — novo, nao existe no setup"
+
+  pre_flight:
+    description: "Verificacao rapida antes de iniciar provisioning"
+    checks:
+      - "Usuario tem acesso a Supabase? (vai precisar das credenciais)"
+      - "Usuario tem acesso SSH a VPS? (se claw precisa de VPS)"
+      - "Fleet registry acessivel? (Supabase master project)"
+    on_fail: "HALT — resolver pre-requisitos"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PIPELINE — 5 MACRO-PHASES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0: INTAKE
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_0_intake:
+    station: 0
+    name: "Intake — Quem e pra que?"
+    agent: "@openclaw-chief"
+    elicit: true
+    duration: "2-5 min"
+
+    input: "Comando *provision {name}"
+    output:
+      intake_data:
+        claw_name: "string"
+        owner_name: "string"
+        purpose: "string"
+        integrations_needed: "list"
+
+    checkpoint:
+      gate: "CP-INTAKE"
+      criteria: "Nome + dono + proposito preenchidos"
+      veto: "Dados incompletos — perguntar o que falta"
+      on_pass: "auto-proceed to phase_1_5"
+
+    conveyor_out: "intake_data → Phase 0.5"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 0.5: MEMORY EXTRACTION — Extrai perfil via ChatGPT/Gemini/Claude
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_0_5_memory_extraction:
+    station: 0.5
+    name: "Memory Extraction — Perfil via IA do usuario"
+    agent: "@claw-provisioner"
+    task: "tasks/memory-extraction.md"
+    elicit: true
+    duration: "2-5 min (usuario) + 1 min (parsing)"
+    skippable: true  # Se nao usa IA, pula pra Discovery classico
+
+    input:
+      from_phase: "phase_0_intake"
+      data: "intake_data"
+      template: "templates/memory-extraction-prompt.md"
+
+    output:
+      user_profile_yaml:
+        file: "outputs/user-profile.yaml"
+        source: "memory_extraction | manual"
+        quality_score: "float 0-1"
+
+    checkpoint:
+      gate: "CP-PROFILE"
+      criteria:
+        - "5 campos criticos preenchidos"
+        - "Quality score >= 0.6"
+        - "Usuario aprovou preview"
+      on_pass: "auto-proceed to phase_1_5_credentials"
+      on_fail: "Complementar com gap-fill perguntas"
+      on_skip: "Fallback para Discovery classico (22 perguntas)"
+
+    conveyor_out: "user-profile.yaml → Phase 1.5"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1.5: CREDENTIAL COLLECTION (VT-OC-007)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_1_5_credentials:
+    station: 1
+    name: "Credential Collection & Validation"
+    agent: "@claw-provisioner"
+    task: "tasks/credential-collection.md"
+    elicit: true
+    duration: "5-15 min"
+
+    input:
+      from_phase: "phase_0_intake"
+      data: "intake_data"
+
+    output:
+      credential_report:
+        env_file_path: "~/.openclaw/{claw-name}/.env"
+        required_validated: true
+        available_integrations: "map"
+
+    checkpoint:
+      gate: "CP-CRED"
+      criteria:
+        - "SUPABASE_URL conecta com sucesso"
+        - "SUPABASE_ANON_KEY valida"
+        - "SUPABASE_SERVICE_ROLE_KEY valida e diferente da anon"
+        - ".env salvo com chmod 600"
+        - ".env nao commitado em git"
+      veto: "VT-OC-007 — Credenciais obrigatorias faltando"
+      on_pass: "auto-proceed to phase_2"
+      on_fail: "HALT — resolver credenciais antes de prosseguir"
+
+    conveyor_out: "credential_report → Phase 2"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: SETUP (Delegated to openclaw-setup squad)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_2_setup:
+    station: 2
+    name: "Full Setup — 7 Estacoes (delegado)"
+    delegate_to:
+      squad: "openclaw-setup"
+      workflow: "wf-openclaw-full-setup.yaml"
+    duration: "45-90 min"
+
+    input:
+      from_phase: "phase_1_5_credentials"
+      inject:
+        - credential_report: "integracoes disponiveis"
+        - intake_data: "contexto do dono e proposito"
+        - user_profile_yaml: "perfil do usuario (de Memory Extraction ou Discovery)"
+
+    # ═══ FIX F1: Sinalizar ao setup pra pular Discovery se perfil ja existe ═══
+    skip_setup_discovery:
+      condition: "user-profile.yaml exists AND quality_score >= 0.7"
+      action: "Injetar user-profile.yaml no setup e PULAR Phase 1 Discovery"
+      fallback: "Se quality_score < 0.7, setup roda Discovery como gap-fill (so campos faltantes)"
+
+    output:
+      setup_artifacts:
+        - "SOUL.md"
+        - "USER.md"
+        - "IDENTITY.md"
+        - "AGENTS.md"
+        - "BOOT.md"
+        - "SETUP-REPORT.md"
+
+    checkpoint:
+      gate: "CP-SETUP"
+      criteria: "SETUP-REPORT.md existe com todas 7 fases DONE"
+      veto: "Setup incompleto — resolver com openclaw-setup"
+      on_pass: "auto-proceed to phase_3"
+      on_fail: "Return to openclaw-setup with feedback"
+
+    conveyor_out: "setup_artifacts → Phase 3"
+
+    # HANDOFF AUTOMATICO — zero gap de tempo (VT-OC-006)
+    auto_handoff:
+      trigger: "SETUP-REPORT.md generated with all phases DONE"
+      action: "Immediately notify skill-ops with claw context"
+      payload:
+        - "SOUL.md (identity)"
+        - "user-profile.yaml (owner context)"
+        - "credential_report (available integrations)"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: FIRST SKILLS (Delegated to openclaw-skill-factory)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_3_skills:
+    station: 3
+    name: "First Skills — Skills iniciais"
+    agent: "@skill-ops"
+    delegate_to:
+      squad: "openclaw-skill-factory"
+      workflow: "wf-create-skill.yaml"
+    duration: "15-30 min"
+
+    input:
+      from_phase: "phase_2_setup"
+      data: "setup_artifacts + credential_report"
+
+    actions:
+      - "Analisar perfil do dono e sugerir 2-3 skills iniciais"
+      - "Criar cada skill via skill-factory pipeline"
+      - "Validar com security checklist (VT-OC-003)"
+      - "Deployar no VPS"
+      - "Registrar no skill registry (Supabase openclaw_skills)"
+
+    output:
+      skills_deployed:
+        count: "integer"
+        list: "skill names + statuses"
+
+    checkpoint:
+      gate: "CP-SKILLS"
+      criteria: "Pelo menos 1 skill deployada e ativa"
+      blocking: false  # Skills sao opcionais para go-live
+      on_pass: "auto-proceed to phase_4"
+      on_fail: "Log warning, proceed anyway — skills podem ser adicionadas depois"
+
+    conveyor_out: "skills_deployed → Phase 4"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: GO-LIVE
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_4_golive:
+    station: 4
+    name: "Go-Live — Registrar e ativar"
+    agent: "@fleet-monitor"
+    duration: "5 min"
+
+    input:
+      from_all_phases:
+        - intake_data
+        - credential_report
+        - setup_artifacts
+        - skills_deployed
+
+    actions:
+      - action: "Register in fleet registry"
+        table: "openclaw_fleet"
+        fields:
+          claw_name: "{from intake}"
+          owner_name: "{from intake}"
+          status: "active"
+          supabase_project: "{from credentials}"
+          setup_completed_at: "NOW()"
+          skills_count: "{from skills}"
+
+      - action: "First health check"
+        task: "tasks/fleet-health.md"
+
+      - action: "Activate daily monitoring"
+        details: "Add to daily cron at 06:00 UTC"
+
+      - action: "Generate PROVISIONING-REPORT.md"
+
+    checkpoint:
+      gate: "CP-GOLIVE"
+      criteria:
+        - "Fleet registry entry exists"
+        - "First health check passed (status != offline)"
+        - "Daily monitoring activated"
+      on_pass: "✅ CLAW OPERACIONAL — Pipeline completo"
+      on_fail: "Resolver issues — nao declarar go-live com problemas"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# REGRAS INVIOLAVEIS DO PIPELINE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inviolable_rules:
+  - id: 1
+    rule: "NUNCA pular Phase 1.5 (Credentials)"
+    enforced_in: ["phase_0_5_memory_extraction"]
+    veto_if_violated: true
+
+  - id: 6
+    rule: "SEMPRE oferecer Memory Extraction antes de Discovery manual"
+    enforced_in: ["phase_0_intake"]
+    veto_if_violated: false  # Skippable, mas deve ser oferecido
+
+  - id: 2
+    rule: "NUNCA hardcodar credenciais"
+    enforced_in: ["phase_1_5_credentials"]
+    veto_if_violated: true
+
+  - id: 3
+    rule: "NUNCA handoff manual entre phases"
+    enforced_in: ["all"]
+    veto_if_violated: true
+
+  - id: 4
+    rule: "NUNCA deploy skill sem security checklist"
+    enforced_in: ["phase_3_skills"]
+    veto_if_violated: true
+
+  - id: 5
+    rule: "NUNCA go-live sem fleet registry entry"
+    enforced_in: ["phase_4_golive"]
+    veto_if_violated: true
+
+  - id: 7
+    rule: "NUNCA rodar Discovery do setup se user-profile.yaml ja existe com score >= 0.7"
+    enforced_in: ["phase_2_setup"]
+    veto_if_violated: false  # Warning, nao block
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ROLLBACK & RECOVERY (FIX F10)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+rollback:
+  description: "Procedimento de recovery se provisioning falha em qualquer phase"
+
+  on_failure:
+    phase_0_intake:
+      action: "Nenhum cleanup necessario — nada foi criado"
+      retry: "Reiniciar *provision"
+
+    phase_0_5_memory_extraction:
+      action: "Nenhum cleanup necessario — user-profile.yaml descartavel"
+      retry: "Reiniciar *provision ou pular pra Discovery"
+
+    phase_1_5_credentials:
+      action: "Deletar ~/.openclaw/{claw-name}/.env se parcialmente criado"
+      retry: "*credentials {claw-name} para recoletar"
+      command: "rm -f ~/.openclaw/{claw-name}/.env"
+
+    phase_2_setup:
+      action: |
+        - Manter credenciais (ja validadas)
+        - Manter user-profile.yaml (ja extraido)
+        - Deletar artifacts parciais de setup (outputs/*.md)
+        - Fleet registry entry permanece em status 'provisioning'
+      retry: "Re-delegar pra openclaw-setup com mesmo contexto"
+      cleanup_commands:
+        - "rm -f outputs/SOUL.md outputs/USER.md outputs/IDENTITY.md outputs/AGENTS.md outputs/BOOT.md"
+        - "# Fleet registry: manter em 'provisioning' pra retry"
+
+    phase_3_skills:
+      action: |
+        - Setup ja esta completo — nao desfazer
+        - Skills parciais podem existir no VPS — listar e decidir
+        - Fleet registry: manter em 'provisioning'
+      retry: "Re-rodar *add-skill {claw} {skill} individualmente"
+
+    phase_4_golive:
+      action: |
+        - Tudo pronto mas go-live falhou
+        - Verificar health check: se claw esta online, tentar go-live novamente
+        - Se offline: investigar VPS/infra
+      retry: "*fleet-status para diagnosticar, depois manual go-live"
+
+  stale_provisioning_cleanup:
+    trigger: "Fleet registry entry com status 'provisioning' ha > 24h"
+    action: "Alertar admin — provisioning abandonado?"
+    auto_cleanup: false  # Requer decisao humana

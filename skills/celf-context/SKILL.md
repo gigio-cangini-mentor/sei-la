@@ -19,6 +19,15 @@ state-of-art context-engineered workspace.
 
 **3 modes. 1 goal: right information, right layer, right moment.**
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Quer configurar do zero (scaffold), auditar o que já existe (diagnose), ou validar contra o rubric CELF (validate)?** — (define qual dos 3 modos executar)
+2. **Qual o perfil do projeto? (solo, equipe pequena, multi-agente/enterprise)** — (determina quais layers ativar: SOLO = L0+L1+L5, MEDIUM = L0-L5, ENTERPRISE = L0-L7)
+3. **O projeto já tem CLAUDE.md ou arquivos de contexto existentes?** — (se sim, modo diagnose/validate faz mais sentido; se não, scaffold)
+4. **Qual a função do projeto em uma frase?** — (opcional) (usado no scaffold para gerar CLAUDE.md e knowledge graph personalizados)
+
 ## Activation
 
 On invoke, determine mode from user intent:

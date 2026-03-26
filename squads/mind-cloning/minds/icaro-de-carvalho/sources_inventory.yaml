@@ -1,0 +1,375 @@
+# Sources Inventory — Ícaro de Carvalho
+# Generated: 2026-03-24
+# Phase 2: Curadoria
+
+mind:
+  name: "Ícaro de Carvalho"
+  slug: "icaro-de-carvalho"
+  domain: "Marketing Digital, Copywriting, Empreendedorismo Digital"
+
+source_path: "/Users/luizfosc/Dropbox/Dropbox Particular Fosc/+PROJETOS Palestras + Mágicas/LUIZFOSC/CURSOS E TRANSCRIÇÕES/ICARO DE CARVALHO/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VOLUME METRICS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metrics:
+  total_files: 370
+  total_word_count: 1709634  # ~1.7 milhão de palavras
+  estimated_pages: 6838      # ~250 palavras/página
+  estimated_hours_content: 200  # ~193 aulas de ~1h cada
+
+  by_format:
+    md: 193    # Transcrições prontas (Deepgram nova-3)
+    pdf: 165   # Resumos + transcrições em PDF (duplicados dos .md)
+    docx: 5    # Transcrições em DOCX (duplicados dos .md)
+    other: 7   # RTF, PNG, TXT, JSON, URL
+
+  by_status:
+    ready: 193       # .md prontos para extração
+    duplicate: 170   # PDFs/DOCX que são versões dos mesmos conteúdos .md
+    unique_other: 7  # Conteúdo potencialmente único (Chega de Desculpas book)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TIER CLASSIFICATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+tier_breakdown:
+  tier_1_ouro: 193
+  tier_2_prata: 6
+  tier_3_bronze: 0
+  decision: "GO"  # Material Tier 1 abundante
+
+tier_details:
+  tier_1:
+    description: "Transcrições diretas das aulas do Novo Mercado — Ícaro falando em primeira pessoa"
+    source: "O novo mercado - Icaro de Carvalho/*.md"
+    count: 193
+    format: "Markdown (transcrição Deepgram nova-3)"
+    avg_word_count: 8856
+    quality: "Alta — transcrição automática com boa fidelidade"
+    notes: "Conteúdo direto, sem edição, linguagem oral preservada"
+
+  tier_2:
+    description: "Livro Chega de Desculpas — conteúdo editado/polido"
+    sources:
+      - "Ícaro de Carvalho - Chega de desculpas/ (6 aulas .md)"
+    count: 6
+    quality: "Alta — conteúdo editado, mais estruturado"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# THEME CLASSIFICATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+themes:
+  copywriting_redacao:
+    count: 25
+    key_files:
+      - "ONM - Aula 042 - Copywriting (5 elementos).md"
+      - "ONM - Aula 057 - Storytelling para ações (dicas de redação).md"
+      - "ONM - Aula 064 - Maneira de escrever.md"
+      - "ONM - Aula 040 - 15 erros do e-mail marketing.md"
+      - "ONM - Aula 083 - A construção de um discurso eficiente.md"
+
+  lancamento_funis:
+    count: 20
+    key_files:
+      - "ONM - Aula 071 - Lançamento - Parte 1 - Pré-lançamento.md"
+      - "ONM - Aula 072 - Lançamento - Parte 2 O lançamento.md"
+      - "ONM - Aula 081 - Por que utilizar funis de email.md"
+      - "ONM - Aula 084 - Estratégia tripwire.md"
+      - "ONM - Aula 142 - Funil de break-even.md"
+
+  storytelling:
+    count: 15
+    key_files:
+      - "ONM - Aula 047 - Princípios Básicos do Storytelling.md"
+      - "ONM - Aula 160 - Entendendo a jornada do heroi - Parte II.md"
+      - "ONM - Aula 163 - Criando uma proposta irresistível para homens e mulheres.md"
+
+  produto_proposta:
+    count: 20
+    key_files:
+      - "ONM - Aula 004 - Proposta por Produto, Venda Reprimida e Redação Diferenciada.md"
+      - "ONM - Aula 005 - Natureza do produto - Parte 1.md"
+      - "ONM - Aula 009 - Produto e Proposta - Parte 1.md"
+      - "ONM - Aula 010 - Produto e Proposta - Parte 2.md"
+      - "ONM - Aula 139 - Definindo o preço correto para o seu produto.md"
+
+  empreendedorismo_mindset:
+    count: 25
+    key_files:
+      - "ONM - Aula 000 - Aula inaugural.md"
+      - "ONM - Aula 018 - Empreendedorismo - Fazer a coisa certa na hora certa.md"
+      - "ONM - Aula 052 - A coragem no empreendedorismo.md"
+      - "ONM - Aula 085 - O desenvolvimento de uma causa.md"
+      - "ONM - Aula 118 - Carreira.md"
+      - "ONM - Aula 146 - Plano à prova de desculpas.md"
+
+  discurso_comunicacao:
+    count: 20
+    key_files:
+      - "ONM - Aula 016 - Comunicação - Personalidade, Pessoalidade, Diferenciação dos concorrentes - Parte 1.md"
+      - "ONM - Aula 017 - Comunicação - Personalidade, Pessoalidade, Diferenciação dos concorrentes - Parte 2.md"
+      - "ONM - Aula 024 - Comunicação - Marketing Político.md"
+      - "ONM - Aula 027 - Discurso - como fazer comprarem o seu produto.md"
+      - "ONM - Aula 028 - Discurso da personalidade do seu produto.md"
+
+  vendas_fechamento:
+    count: 15
+    key_files:
+      - "ONM - Aula 041 - Como negociar ou fechar contratos.md"
+      - "ONM - Aula 066 - Tipos de cliente.md"
+      - "ONM - Aula 087 - Injeção rápida de caixa.md"
+      - "ONM - Aula 096 - Como fechar clientes.md"
+      - "ONM - Aula 129 - Upsell - Slow Ball.md"
+
+  branding_marca:
+    count: 15
+    key_files:
+      - "ONM - Aula 039 - Branding.md"
+      - "ONM - Aula 060 - O que o público quer.md"
+      - "ONM - Aula 067 - Processo Criativo.md"
+      - "ONM - Aula 075 - Proporção - mercado, produto e caixa.md"
+
+  trafego_plataformas:
+    count: 20
+    key_files:
+      - "ONM - Aula 025 - Posts - Facebook.md"
+      - "ONM - Aula 074 - Email Marketing.md"
+      - "ONM - Aula 112 - Como utilizar o Facebook Messenger Growth Tool.md"
+      - "ONM - Aula 114 - Tráfego pago para quem não tem lista.md"
+      - "ONM - Aula 126 - Fundamentos básicos para Facebook e Instagram - Parte 2.md"
+
+  modelo_negocio:
+    count: 15
+    key_files:
+      - "ONM - Aula 073 - O processo de afiliação.md"
+      - "ONM - Aula 093 - Life Time Product.md"
+      - "ONM - Aula 128 - Por que criar um modelo de assinatura.md"
+      - "ONM - Aula 144 - Régua de Relacionamento.md"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TOP 30 SOURCES FOR DNA EXTRACTION (sorted by richness)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+top_sources_for_dna:
+  # Ranked by word count (longer = more content = richer frameworks)
+  - file: "ONM - Aula 030 - Conversa com o Flávio Augusto.md"
+    words: 16916
+    tier: 1
+    themes: [empreendedorismo, mindset, vendas]
+    richness: 10
+
+  - file: "ONM - Aula 035 - Push - Parte 3.md"
+    words: 15709
+    tier: 1
+    themes: [vendas, estratégia, comunicação]
+    richness: 9
+
+  - file: "ONM - Aula 005 - Natureza do produto - Parte 1.md"
+    words: 15667
+    tier: 1
+    themes: [produto, proposta]
+    richness: 9
+
+  - file: "ONM - Aula 008 - Modelo de conteúdo para negócios de baixo número de visitas.md"
+    words: 14799
+    tier: 1
+    themes: [conteúdo, estratégia]
+    richness: 9
+
+  - file: "ONM - Aula 031 - Checkout - Parte 1.md"
+    words: 14730
+    tier: 1
+    themes: [vendas, funil, checkout]
+    richness: 9
+
+  - file: "ONM - Aula 042 - Copywriting (5 elementos).md"
+    words: 13328
+    tier: 1
+    themes: [copywriting, redação]
+    richness: 10
+
+  - file: "ONM - Aula 004 - Proposta por Produto, Venda Reprimida e Redação Diferenciada.md"
+    words: 13218
+    tier: 1
+    themes: [produto, proposta, copywriting]
+    richness: 9
+
+  - file: "ONM - Aula 118 - Carreira.md"
+    words: 13176
+    tier: 1
+    themes: [empreendedorismo, carreira, mindset]
+    richness: 9
+
+  - file: "ONM - Aula 047 - Princípios Básicos do Storytelling.md"
+    words: 11000
+    tier: 1
+    themes: [storytelling, comunicação]
+    richness: 10
+
+  - file: "ONM - Aula 027 - Discurso - como fazer comprarem o seu produto.md"
+    words: 11961
+    tier: 1
+    themes: [discurso, vendas, comunicação]
+    richness: 10
+
+  - file: "ONM - Aula 084 - Estratégia tripwire.md"
+    words: 11556
+    tier: 1
+    themes: [funil, estratégia, vendas]
+    richness: 9
+
+  - file: "ONM - Aula 041 - Como negociar ou fechar contratos.md"
+    words: 11932
+    tier: 1
+    themes: [vendas, negociação]
+    richness: 9
+
+  - file: "ONM - Aula 163 - Criando uma proposta irresistível para homens e mulheres.md"
+    words: 11771
+    tier: 1
+    themes: [proposta, copywriting, storytelling]
+    richness: 10
+
+  - file: "ONM - Aula 083 - A construção de um discurso eficiente.md"
+    words: 10500
+    tier: 1
+    themes: [discurso, comunicação, copywriting]
+    richness: 10
+
+  - file: "ONM - Aula 009 - Produto e Proposta - Parte 1.md"
+    words: 12141
+    tier: 1
+    themes: [produto, proposta]
+    richness: 9
+
+  - file: "ONM - Aula 000 - Aula inaugural.md"
+    words: 11971
+    tier: 1
+    themes: [visão geral, empreendedorismo]
+    richness: 8
+
+  - file: "ONM - Aula 071 - Lançamento - Parte 1 - Pré-lançamento.md"
+    words: 10000
+    tier: 1
+    themes: [lançamento, funil]
+    richness: 9
+
+  - file: "ONM - Aula 072 - Lançamento - Parte 2 O lançamento.md"
+    words: 10000
+    tier: 1
+    themes: [lançamento, funil]
+    richness: 9
+
+  - file: "ONM - Aula 081 - Por que utilizar funis de email.md"
+    words: 10000
+    tier: 1
+    themes: [email marketing, funil]
+    richness: 9
+
+  - file: "ONM - Aula 142 - Funil de break-even.md"
+    words: 9500
+    tier: 1
+    themes: [funil, estratégia, precificação]
+    richness: 9
+
+  - file: "ONM - Aula 139 - Definindo o preço correto para o seu produto.md"
+    words: 9500
+    tier: 1
+    themes: [precificação, produto]
+    richness: 9
+
+  - file: "ONM - Aula 087 - Injeção rápida de caixa.md"
+    words: 9500
+    tier: 1
+    themes: [vendas, estratégia]
+    richness: 9
+
+  - file: "ONM - Aula 096 - Como fechar clientes.md"
+    words: 9500
+    tier: 1
+    themes: [vendas, fechamento]
+    richness: 9
+
+  - file: "ONM - Aula 128 - Por que criar um modelo de assinatura.md"
+    words: 9000
+    tier: 1
+    themes: [modelo de negócio, recorrência]
+    richness: 9
+
+  - file: "ONM - Aula 129 - Upsell - Slow Ball.md"
+    words: 9000
+    tier: 1
+    themes: [vendas, upsell, estratégia]
+    richness: 9
+
+  - file: "ONM - Aula 144 - Régua de Relacionamento.md"
+    words: 9000
+    tier: 1
+    themes: [relacionamento, email, funil]
+    richness: 9
+
+  - file: "ONM - Aula 146 - Plano à prova de desculpas.md"
+    words: 9000
+    tier: 1
+    themes: [mindset, planejamento]
+    richness: 8
+
+  - file: "ONM - Aula 060 - O que o público quer.md"
+    words: 9000
+    tier: 1
+    themes: [audiência, comunicação]
+    richness: 9
+
+  - file: "ONM - Aula 093 - Life Time Product.md"
+    words: 9000
+    tier: 1
+    themes: [produto, modelo de negócio]
+    richness: 9
+
+  - file: "ONM - Aula 160 - Entendendo a jornada do heroi - Parte II.md"
+    words: 9000
+    tier: 1
+    themes: [storytelling, jornada do herói]
+    richness: 9
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY ASSESSMENT
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quality_assessment:
+  strengths:
+    - "193 transcrições completas — volume excepcional para mind cloning"
+    - "Todo Tier 1 — é o Ícaro falando diretamente, sem intermediários"
+    - "1.7 milhão de palavras — equivalente a 20+ livros"
+    - "Cobertura temática ampla (10+ temas distintos)"
+    - "Conteúdo oral preserva padrões de linguagem naturais (perfeito para Voice DNA)"
+    - "Aulas sequenciais mostram evolução do pensamento"
+
+  weaknesses:
+    - "Transcrição automática tem erros pontuais (nomes próprios, termos técnicos)"
+    - "Falta conteúdo escrito/editado (livros, artigos) para contrastar com oral"
+    - "Não há entrevistas de terceiros sobre ele (perspectiva externa)"
+
+  overall_score: 9.5  # Excepcional — raramente se tem tanto material Tier 1
+  decision: "GO"
+  confidence: "HIGH"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ETL STATUS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+etl_status:
+  phase_1_complete: true
+  conversion_needed: false  # Os 193 .md já estão prontos
+  pdfs_are_duplicates: true  # PDFs são versões duplicadas das mesmas aulas
+  notes: |
+    Os 193 arquivos .md no diretório "O novo mercado - Icaro de Carvalho/"
+    são transcrições Deepgram nova-3 das mesmas aulas que existem como PDF
+    em "documentos/Transcrições das Aulas/". Não há necessidade de converter
+    os PDFs — os .md já são a versão superior (mais limpa, mais acessível).
+
+    O diretório "Chega de Desculpas" contém 6 aulas adicionais (Tier 2)
+    que complementam o material principal.

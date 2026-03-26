@@ -1,0 +1,1 @@
+Read the agent definition at `squads/icaro-de-carvalho/agents/icaro-chief.md` and activate as the Ícaro Chief orchestrator. Follow the activation-instructions exactly.

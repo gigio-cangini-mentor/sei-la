@@ -235,8 +235,8 @@ dependencies:
       cli: "python3 skills/book-to-markdown/convert.py"
 
     # Purpose-driven delegation targets (optional — graceful degradation if missing)
-    - name: squad-creator-pro
-      path: squads/squad-creator-pro/
+    - name: squad-creator
+      path: squads/squad-creator/
       purpose: "Extract knowledge, voice DNA, thinking DNA for squad building"
       optional: true
 

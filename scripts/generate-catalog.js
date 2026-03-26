@@ -22,9 +22,19 @@ function simpleYamlValue(content, key) {
 
 const ROOT = process.cwd();
 const SQUADS_DIR = path.join(ROOT, 'squads');
-const SKILLS_DIR = path.join(ROOT, '.aios', 'skills');
+const SKILLS_DIR = path.join(ROOT, 'skills');
 const TOOLS_DIR = path.join(ROOT, 'tools');
 const AGENTS_DIR = path.join(ROOT, '.claude', 'commands', 'AIOS', 'agents');
+
+// Remove a broken symlink if it exists (existsSync returns false but lstatSync succeeds)
+function removeBrokenSymlink(filePath) {
+  try {
+    fs.lstatSync(filePath);
+    if (!fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  } catch (e) { /* doesn't exist at all, fine */ }
+}
 
 // Color codes for console output
 const colors = {
@@ -559,9 +569,10 @@ function syncSkillCommands(skills) {
 
         // Main doc symlink
         const cmdReadme = path.join(cmdDir, 'README.md');
+        removeBrokenSymlink(cmdReadme);
         if (!fs.existsSync(cmdReadme)) {
           // ../../../../skills/{name}/README.md
-          const relTarget = path.join('..', '..', '..', '..', '..', '.aios', 'skills', skill.name, mainDoc);
+          const relTarget = path.join('..', '..', '..', '..', 'skills', skill.name, mainDoc);
           fs.symlinkSync(relTarget, cmdReadme);
           modelCreated++;
         }
@@ -578,9 +589,10 @@ function syncSkillCommands(skills) {
 
           mdFiles.forEach(mdFile => {
             const cmdFile = path.join(cmdSubdir, mdFile);
+            removeBrokenSymlink(cmdFile);
             if (!fs.existsSync(cmdFile)) {
               // ../../../../../skills/{name}/{subdir}/{file}.md
-              const relTarget = path.join('..', '..', '..', '..', '..', '..', '.aios', 'skills', skill.name, subdir, mdFile);
+              const relTarget = path.join('..', '..', '..', '..', '..', 'skills', skill.name, subdir, mdFile);
               fs.symlinkSync(relTarget, cmdFile);
               modelCreated++;
             }
@@ -589,9 +601,10 @@ function syncSkillCommands(skills) {
       } else {
         // Simple skill: single symlink {name}.md
         const cmdFile = path.join(skillsCmdDir, `${skill.name}.md`);
+        removeBrokenSymlink(cmdFile);
         if (!fs.existsSync(cmdFile)) {
           // ../../../skills/{name}/README.md
-          const relTarget = path.join('..', '..', '..', '..', '.aios', 'skills', skill.name, mainDoc);
+          const relTarget = path.join('..', '..', '..', 'skills', skill.name, mainDoc);
           fs.symlinkSync(relTarget, cmdFile);
           modelCreated++;
         }
@@ -705,6 +718,7 @@ function syncGlobalSkillCommands(skills) {
       // Main doc symlink (absolute path for global)
       const cmdReadme = path.join(complexDir, 'README.md');
       const absTarget = path.join(absSkillDir, mainDoc);
+      removeBrokenSymlink(cmdReadme);
       if (!fs.existsSync(cmdReadme)) {
         fs.symlinkSync(absTarget, cmdReadme);
         created++;
@@ -723,6 +737,7 @@ function syncGlobalSkillCommands(skills) {
 
         mdFiles.forEach(mdFile => {
           const cmdFile = path.join(cmdSubdir, mdFile);
+          removeBrokenSymlink(cmdFile);
           if (!fs.existsSync(cmdFile)) {
             fs.symlinkSync(path.join(srcSubdir, mdFile), cmdFile);
             created++;
@@ -731,6 +746,7 @@ function syncGlobalSkillCommands(skills) {
       });
     } else {
       // Simple: single symlink (absolute path for global)
+      removeBrokenSymlink(simpleSymlink);
       if (!fs.existsSync(simpleSymlink)) {
         fs.symlinkSync(path.join(absSkillDir, mainDoc), simpleSymlink);
         created++;

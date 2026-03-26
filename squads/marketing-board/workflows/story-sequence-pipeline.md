@@ -11,13 +11,13 @@
 
 ## Overview
 
-Pipeline semanal que gera 7 sequencias de Instagram Stories, cada dia com um framework psicologico diferente (Nicolas Clay). Usa 4 agentes em sequencia com 2 QA Gates. Output: 7 scripts completos + composicao de camadas + preview WhatsApp para aprovacao.
+Pipeline semanal que gera 7 sequências de Instagram Stories, cada dia com um framework psicológico diferente (Nicolas Clay). Usa 4 agentes em sequência com 2 QA Gates. Output: 7 scripts completos + composição de camadas + preview WhatsApp para aprovação.
 
-**Diferenca do daily-content-pipeline:** Este workflow e exclusivo para Instagram Stories (formato vertical, 5 stories/dia). O daily-content-pipeline e para posts de feed (carousel, imagem, texto). Sao complementares e rodam em paralelo.
+**Diferença do daily-content-pipeline:** Este workflow é exclusivo para Instagram Stories (formato vertical, 5 stories/dia). O daily-content-pipeline é para posts de feed (carousel, imagem, texto). São complementares e rodam em paralelo.
 
 ---
 
-## Conceito Central: Ativacao Neurológica Cumulativa
+## Conceito Central: Ativação Neurológica Cumulativa
 
 ```
 SEG          TER          QUA          QUI          SEX          SAB          DOM
@@ -26,7 +26,7 @@ PAIN    →    YOUR PROOF → CLIENT PROOF→ BREAK OBJ → EDUCATION → DIFFER
 Light        Heavy        Heavy        Heavy        Light        Light        Light
 ```
 
-Cada dia ativa uma area cerebral diferente. Ao final do ciclo, o prospecto tem cerebro 100% ativado para a oferta.
+Cada dia ativa uma área cerebral diferente. Ao final do ciclo, o prospecto tem cérebro 100% ativado para a oferta.
 
 ---
 
@@ -34,26 +34,26 @@ Cada dia ativa uma area cerebral diferente. Ao final do ciclo, o prospecto tem c
 
 | Dia | Sequencia | 5 Blocos | Tom | Objetivo |
 |-----|-----------|----------|-----|----------|
-| **Seg** | PAIN | Pain Hook → Agitate → Proof → Desire → Break Objection | Light | Consciencia do problema |
+| **Seg** | PAIN | Pain Hook → Agitate → Proof → Desire → Break Objection | Light | Consciência do problema |
 | **Ter** | YOUR PROOF | Personal Win → Pain → Agitate → Proof → Relatability | Heavy | Autoridade pessoal |
-| **Qua** | CLIENT PROOF | Client Win → Relatability → Pain → Agitate → Proof | Heavy | Validacao social |
+| **Qua** | CLIENT PROOF | Client Win → Relatability → Pain → Agitate → Proof | Heavy | Validação social |
 | **Qui** | BREAK OBJECTION | Curiosity → Break Obj → Storytelling → Shift Mind → CTA | Heavy | Eliminar barreiras |
 | **Sex** | EDUCATION | Pain Hook → Educate → Proof → Desire → Desire CTA | Light | Reciprocidade |
-| **Sab** | DIFFERENTIATION | Storytelling → Different → Proof → Desire → Break Obj | Light | Posicionamento unico |
-| **Dom** | CONNECTION | Authentic Hook → Storytelling → Storytelling → Proof → CTA | Light | Vinculo emocional |
+| **Sab** | DIFFERENTIATION | Storytelling → Different → Proof → Desire → Break Obj | Light | Posicionamento único |
+| **Dom** | CONNECTION | Authentic Hook → Storytelling → Storytelling → Proof → CTA | Light | Vínculo emocional |
 
 ---
 
 ## As 4 Camadas de Cada Story
 
-Cada story individual e composto por:
+Cada story individual é composto por:
 
 | Camada | Nome | Funcao | Obrigatorio |
 |--------|------|--------|-------------|
 | L1 | **Texto (Script)** | Copy que guia retenção story-a-story | Sim |
 | L2 | **Imagem (Background)** | Contexto subconsciente (lifestyle, prova) | Sim |
-| L3 | **Prova (Screenshots)** | Prints de resultados sobrepostos | Quando aplicavel |
-| L4 | **Visuais (Assets)** | Graficos, setas, diagramas | Opcional |
+| L3 | **Prova (Screenshots)** | Prints de resultados sobrepostos | Quando aplicável |
+| L4 | **Visuais (Assets)** | Gráficos, setas, diagramas | Opcional |
 
 **Regra:** Nunca fundo vazio. Nunca promessa sem prova.
 
@@ -69,21 +69,21 @@ DOMINGO — PLANEJAMENTO SEMANAL
        │
        ▼
   Definir foco da semana
-  (lancamento? perpétuo? aquecimento?)
-  Selecionar objecoes prioritarias
+  (lançamento? perpétuo? aquecimento?)
+  Selecionar objeções prioritárias
        │
        ▼
 @marketing-ideation-ig
        │
        ▼
-  Gerar 7 sequencias completas
+  Gerar 7 sequências completas
   ┌────────────────────────────────────┐
   │ Para cada dia (seg-dom):           │
   │ 1. Aplicar framework do dia        │
   │ 2. Selecionar hook do banco        │
-  │ 3. Mapear provas disponiveis       │
-  │ 4. Definir historia (se aplicavel) │
-  │ 5. Sugerir composicao de camadas   │
+  │ 3. Mapear provas disponíveis       │
+  │ 4. Definir história (se aplicável) │
+  │ 5. Sugerir composição de camadas   │
   └────────────────────────────────────┘
        │
        ▼
@@ -106,10 +106,10 @@ DOMINGO — PLANEJAMENTO SEMANAL
   ┌────────────────────────────────────┐
   │ Para cada dia:                     │
   │ 1. Escrever 5 blocos de copy       │
-  │ 2. Voz do Jose (casual, real)      │
+  │ 2. Voz do José (casual, real)      │
   │ 3. Hook forte no bloco 1           │
-  │ 4. Transicao fluida entre blocos   │
-  │ 5. CTA natural (nao salesy)        │
+  │ 4. Transição fluida entre blocos   │
+  │ 5. CTA natural (não salesy)        │
   │                                    │
   │ REGRAS:                            │
   │ - Dias Heavy: copy afiada          │
@@ -129,7 +129,7 @@ DOMINGO — PLANEJAMENTO SEMANAL
   │ 2. Overlay de screenshot (L3)      │
   │    do proof-bank                   │
   │ 3. Elementos visuais (L4)          │
-  │    graficos, setas, diagrams       │
+  │    gráficos, setas, diagrams       │
   │ 4. Brief visual completo           │
   └────────────────────────────────────┘
            │
@@ -164,19 +164,19 @@ DOMINGO — PLANEJAMENTO SEMANAL
 
 | Ordem | Agent | Responsabilidade | Input | Output |
 |-------|-------|-----------------|-------|--------|
-| 1 | @marketing-cmo | Foco semanal + validacao Gate 1 | Estrategia + objecoes | Foco definido + aprovacao |
-| 2 | @marketing-ideation-ig | Gerar 7 frameworks diarios | Foco + story-sequence-bank | 7 sequencias (conceito) |
-| 3 | @marketing-production | Escrever scripts de copy | Sequencias aprovadas | 35 blocos de copy (7×5) |
+| 1 | @marketing-cmo | Foco semanal + validação Gate 1 | Estratégia + objeções | Foco definido + aprovação |
+| 2 | @marketing-ideation-ig | Gerar 7 frameworks diários | Foco + story-sequence-bank | 7 sequências (conceito) |
+| 3 | @marketing-production | Escrever scripts de copy | Sequências aprovadas | 35 blocos de copy (7×5) |
 | 4 | @marketing-designer | Compor camadas visuais | Scripts + proof-bank | 35 briefs visuais (7×5) |
 
 ---
 
 ## QA Gates
 
-| Gate | Dono | Criterio | Falha |
+| Gate | Dono | Critério | Falha |
 |------|------|----------|-------|
 | 1 CMO Validation | @marketing-cmo | Framework correto + SVA + ritmo H/L + proof exists | Volta para @ideation-ig (max 2 loops) |
-| 2 Preview WhatsApp | Jose | Jose aprova preview da semana | Ajustar e reenviar ou cancelar |
+| 2 Preview WhatsApp | José | José aprova preview da semana | Ajustar e reenviar ou cancelar |
 
 ---
 
@@ -192,22 +192,22 @@ DOMINGO — PLANEJAMENTO SEMANAL
 
 ---
 
-## Modos de Execucao
+## Modos de Execução
 
 | Modo | Comando | Comportamento |
 |------|---------|---------------|
 | Semanal completo | `/weekly-story-sequence` | Gera 7 dias de uma vez |
-| Com foco | `/weekly-story-sequence foco="lancamento cohort"` | Semana orientada a lancamento |
+| Com foco | `/weekly-story-sequence foco="lancamento cohort"` | Semana orientada a lançamento |
 | Regerar dia | `/weekly-story-sequence dia="quinta"` | Regera apenas 1 dia |
 
 ---
 
 ## Output
 
-| Output | Path | Frequencia |
+| Output | Path | Frequência |
 |--------|------|------------|
 | Plano semanal | `outputs/hubs/marketing/YYYY-WNN-story-sequence/plano.md` | 1x/semana |
-| Scripts diarios (7) | `outputs/hubs/marketing/YYYY-WNN-story-sequence/seg.md` ... `dom.md` | 1x/semana |
+| Scripts diários (7) | `outputs/hubs/marketing/YYYY-WNN-story-sequence/seg.md` ... `dom.md` | 1x/semana |
 | Preview WhatsApp | Via UazAPI | 1x/semana |
 
 ---
@@ -231,17 +231,17 @@ DOMINGO — PLANEJAMENTO
 
 ---
 
-## Metricas Especificas (Story Sequence)
+## Métricas Específicas (Story Sequence)
 
-| Metrica | Definicao | Meta |
+| Métrica | Definição | Meta |
 |---------|-----------|------|
 | Story View Rate | % seguidores que veem stories | ≥ 15% |
-| Story Completion Rate | % que ve do 1o ao 5o story | ≥ 60% |
+| Story Completion Rate | % que vê do 1º ao 5º story | ≥ 60% |
 | Reply Rate | % que responde/reage | ≥ 2% |
 | Link Tap Rate | % que toca no CTA | ≥ 3% |
 | Weekly Fatigue | Queda de views seg→dom | < 10% |
 
-Essas metricas sao coletadas pelo `/metrics-weekly` como extensao dos KPIs existentes.
+Essas métricas são coletadas pelo `/metrics-weekly` como extensão dos KPIs existentes.
 
 ---
 

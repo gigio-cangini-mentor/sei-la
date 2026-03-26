@@ -1,1 +1,1 @@
-../../../../skills/obsidian-tag-manager/README.md
+../../../../../skills/obsidian-tag-manager/README.md

@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/game-development/pc-games/SKILL.md
+../../../../../../skills/game-development/pc-games/SKILL.md

@@ -172,6 +172,46 @@ To complete SKILL.md, answer the following questions:
 2. When should the skill be used?
 3. In practice, how should Claude use the skill? All reusable skill contents developed above should be referenced so that Claude knows how to use them.
 
+#### Add Discovery Questions (Recommended)
+
+Skills that handle ambiguous or creative requests SHOULD include a `## Discovery Questions` section. This section defines the questions the agent asks the user **before executing**, to gather context and avoid inventing requirements.
+
+Think of it as a medical intake form — the right questions lead to the right treatment.
+
+**Format:**
+
+```markdown
+## Discovery Questions
+
+Questions to ask before executing. Use `AskUserQuestion` tool.
+Skip if the user already provided this context.
+
+1. **[Question]** — (why it matters)
+2. **[Question]** — (why it matters)
+3. **[Question]** — (why it matters)
+```
+
+**Rules:**
+- Maximum 5 questions per skill (focus on what's essential)
+- Questions must be specific, not generic ("Qual o ticket médio?" > "Me conta mais")
+- Include "why it matters" so the agent understands the purpose
+- Mark optional questions with `(optional)` suffix
+- If the user already provided the answer in their request, skip that question
+
+**Example (squad creation skill):**
+
+```markdown
+## Discovery Questions
+
+1. **Qual o objetivo principal do squad?** — define o foco e os agentes necessários
+2. **Qual o público-alvo?** — calibra tom, linguagem e referências
+3. **Tem referências ou exemplos?** — perfis, concorrentes, conteúdos que admira
+4. **Qual o canal/plataforma?** — Instagram, YouTube, newsletter, etc.
+5. **Qual o nível de autonomia?** — squad totalmente autônomo ou com checkpoints? (optional)
+```
+
+Skills that are purely technical/deterministic (linting, file conversion, etc.) do NOT need Discovery Questions.
+
 ### Step 5: Packaging a Skill
 
 Once the skill is ready, it should be packaged into a distributable zip file that gets shared with the user. The packaging process automatically validates the skill first to ensure it meets all requirements:

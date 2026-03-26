@@ -1,0 +1,13 @@
+{
+  "name": "pipeline-dashboard",
+  "version": "1.0.0",
+  "description": "Real-time gamified dashboard for Pipeline Quest — projects your progress on a second monitor",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js --dev"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

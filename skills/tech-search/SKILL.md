@@ -19,6 +19,13 @@ Deep research pipeline que transforma perguntas em conhecimento documentado.
 /tech-research "como melhorar performance de queries SQL"
 ```
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual é a pergunta técnica?** — (input principal — pode ser passada como argumento do comando)
+2. **É sobre alguma tecnologia/framework específico?** — Ex: React, PostgreSQL, Kubernetes. Ajuda a direcionar as buscas. (opcional)
+
 ## Activation
 
 1. Parse query dos argumentos (ou perguntar se não fornecido)

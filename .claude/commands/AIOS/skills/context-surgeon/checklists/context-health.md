@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/context-surgeon/checklists/context-health.md
+../../../../../../skills/context-surgeon/checklists/context-health.md

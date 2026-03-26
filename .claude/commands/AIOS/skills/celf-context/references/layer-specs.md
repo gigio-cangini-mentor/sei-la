@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/celf-context/references/layer-specs.md
+../../../../../../skills/celf-context/references/layer-specs.md

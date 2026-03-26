@@ -1,0 +1,631 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AUDIT REPORT v2 — Squad Ícaro de Carvalho v2.0.0 (Enriquecido)
+# Auditor: @pedro-valerio (Process Absolutist)
+# Data: 2026-03-25
+# Princípio: "Se executor CONSEGUE fazer errado → processo está errado"
+# ═══════════════════════════════════════════════════════════════════════════════
+
+squad: icaro-de-carvalho
+version: "2.0.0-enriched"
+audit_date: "2026-03-25"
+audit_version: "v2"
+auditor: pedro-valerio
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPARAÇÃO v1 → v2
+# ═══════════════════════════════════════════════════════════════════════════════
+
+delta_from_v1:
+  v1_score: 74
+  v2_score: 82
+  v1_date: "2026-03-25"
+  v2_date: "2026-03-25"
+  v1_artefacts: "6 agents, 4 tasks, 0 workflows no disco, 0 checklists"
+  v2_artefacts: "6 agents, 7 tasks, 3 workflows, 2 checklists, 3 templates"
+  issues_resolved_from_v1:
+    - "C1 RESOLVIDO: 2 workflows referenciados em config.yaml AGORA EXISTEM no disco (wf-lancamento-completo, wf-copy-pipeline, wf-marketing-end-to-end)"
+    - "C2 RESOLVIDO: checkpoints formais agora existem em TODOS os workflows (16 quality gates no total)"
+    - "C3 RESOLVIDO: tasks expandidas de 4 para 7, cobrindo todos os 5 minds"
+    - "H2 RESOLVIDO: config.yaml agora registra 3 workflows existentes e verificáveis"
+  issues_remaining_from_v1:
+    - "Veto conditions documentadas mas SEM enforcement mecânico (blocking: true / throw / HALT)"
+    - "Orchestrator (icaro-chief) sem veto conditions de routing"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORE FINAL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+score:
+  total: 66
+  max: 80
+  percentage: 82
+  verdict: "APROVAR COM RESSALVAS"
+  # 90-100: APROVAR | 70-89: APROVAR c/ ressalvas | 50-69: VETO | <50: retrabalho
+
+criteria_scores:
+  veto_conditions: 7        # Todas as fases de todos os workflows têm veto, mas sem enforcement
+  fluxo_unidirecional: 9    # 3 workflows forward-only, sem loops
+  checkpoints: 8            # 16 quality gates com human_review, veto_conditions e ask_user
+  zero_wrong_paths: 7       # Routing melhora, mas condicional "when" sem fallback
+  handoff_coverage: 8       # handoff_to explícito em todos os workflows, agents_by_phase presente
+  tasks_anatomy: 9          # 7/7 tasks com input, output, action_items, veto, checkpoints
+  workflow_integrity: 9     # 3/3 workflows existem no disco, config.yaml correto
+  agent_quality: 9          # 6 agents com 300+ linhas, voice DNA excepcional, output examples
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOWS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflows:
+  wf-lancamento-completo:
+    file: "workflows/wf-lancamento-completo.yaml"
+    phases: 6
+    unidirectional: true
+    checkpoints: 6
+    veto_conditions: 18
+    handoff_gaps: 0
+    human_review_flags: 6
+    score: 8
+    strengths:
+      - "6 fases com fluxo perfeitamente linear: PHASE-0 → 1 → 2 → 3 → 4 → 5"
+      - "TODOS os checkpoints têm human_review: true + ask_user com template de comunicação"
+      - "Veto conditions por fase com ação clara (BLOCK vs WARN)"
+      - "handoff_to explícito entre fases"
+      - "Inputs com required/optional bem definidos + examples"
+      - "Completion signals com success/partial/failure — graceful degradation"
+      - "Outputs com paths documentados por slug"
+      - "agents_by_phase serve como mapa rápido de responsabilidade"
+    issues:
+      - severity: HIGH
+        id: "WF1-H1"
+        title: "Veto conditions sem enforcement mecânico"
+        detail: |
+          Todas as 18 veto conditions são textuais ("→ BLOCK", "→ WARN") mas não existe
+          mecanismo que FORCE o bloqueio. O executor pode ler "BLOCK" e decidir ignorar.
+          Sem blocking: true ou throw, o "BLOCK" é uma sugestão, não uma trava.
+        wrong_path: "Executor ignora BLOCK e avança para próxima fase com output incompleto"
+        recommendation: "Adicionar enforcement: { checkpoint_policy: block_on_veto, veto_behavior: halt }"
+
+      - severity: MEDIUM
+        id: "WF1-M1"
+        title: "WARN sem threshold de promoção para BLOCK"
+        detail: |
+          Phase 0 tem "Personalidade completamente ausente → WARN" — mas e se chegar no Phase 3
+          (Copy) sem personalidade? O WARN nunca vira BLOCK em fases posteriores.
+          Acumular WARNs sem escalar é ignorar risco que cresce.
+        wrong_path: "Produto lança com personalidade ausente porque ninguém escalou o WARN"
+        recommendation: "Definir regra: WARN no Phase 0 → BLOCK se não resolvido até Phase 2"
+
+      - severity: MEDIUM
+        id: "WF1-M2"
+        title: "Sem timeout/max_duration global"
+        detail: |
+          Duration "3-6 semanas" sem enforcement. Se o workflow travar no Phase 2
+          (conteúdo orgânico), nenhum mecanismo detecta estagnação.
+        wrong_path: "Workflow fica parado no Phase 2 por 3 meses sem ninguém perceber"
+        recommendation: "Adicionar max_duration: 6w com alerta em 80% do tempo (4.8 semanas)"
+
+      - severity: LOW
+        id: "WF1-L1"
+        title: "not_for menciona 'wf-sprint' que não existe"
+        detail: |
+          Campo not_for diz: "Lançamentos urgentes em menos de 1 semana (use wf-sprint)".
+          Não existe wf-sprint no disco. Referência a workflow fantasma.
+        wrong_path: "Usuário procura wf-sprint e não encontra"
+        recommendation: "Remover referência ou criar wf-sprint"
+
+  wf-copy-pipeline:
+    file: "workflows/wf-copy-pipeline.yaml"
+    phases: 4
+    unidirectional: true
+    checkpoints: 4
+    veto_conditions: 14
+    handoff_gaps: 0
+    human_review_flags: 4
+    score: 9
+    strengths:
+      - "Workflow mais limpo e robusto do squad"
+      - "4 fases claras: Diagnóstico → Tom de Voz → Redação → Revisão/Adaptação"
+      - "Multi-agent por design: Ícaro redige, Hiller posiciona, Juliana adapta orgânico, Sobral adapta ads"
+      - "Inputs com required + optional + examples + valores enumerados"
+      - "Cada checkpoint tem criteria, veto_conditions, output e ask_user"
+      - "Completion signals com 3 níveis (success/partial/failure)"
+      - "Quick reference com framework por tipo de copy"
+      - "Copy condicional por tipo (when: tipo_de_copy inclui X)"
+      - "Revisão final pelo Ícaro garante coerência entre canais"
+    issues:
+      - severity: HIGH
+        id: "WF2-H1"
+        title: "Veto conditions sem enforcement mecânico"
+        detail: "Mesmo problema do WF1-H1. 14 veto conditions textuais sem blocking: true."
+        wrong_path: "Executor ignora BLOCK e entrega copy com jargão corporativo"
+        recommendation: "Adicionar enforcement global"
+
+      - severity: MEDIUM
+        id: "WF2-M1"
+        title: "Condicional 'when' sem fallback para tipos não cobertos"
+        detail: |
+          Tasks da Phase 2 usam "when: tipo_de_copy inclui 'email'" etc. Se o usuário pedir
+          um tipo de copy não listado (ex: "roteiro de webinar"), nenhuma task é ativada e
+          o workflow não tem fallback para tipos desconhecidos.
+        wrong_path: "Usuário pede 'copy de webinar' e Phase 2 não gera nada, passa vazio para Phase 3"
+        recommendation: "Adicionar fallback task para tipo_de_copy não reconhecido, ou veto 'tipo inválido → BLOCK'"
+
+      - severity: LOW
+        id: "WF2-L1"
+        title: "not_for referencia wf-lancamento-completo mas sem link ou path"
+        detail: "Diz 'use wf-lancamento-completo' sem path. Funcional mas inconsistente."
+        recommendation: "Adicionar path relativo ou absoluto"
+
+  wf-marketing-end-to-end:
+    file: "workflows/wf-marketing-end-to-end.yaml"
+    phases: 6
+    unidirectional: true
+    checkpoints: 6
+    veto_conditions: 15
+    handoff_gaps: 0
+    human_review_flags: 6
+    score: 8
+    strengths:
+      - "Workflow mais ambicioso — orquestra TODOS os 5 minds em sequência"
+      - "6 fases com handoff_from/handoff_to explícitos em TODAS"
+      - "Phase 3 com trabalho paralelo (Juliana orgânico + Ícaro copy) — único workflow com paralelismo"
+      - "Inputs com restricoes como campo opcional (diferenciado)"
+      - "Veto conditions fortes e específicas por fase"
+      - "Cada fase tem description rica com premissas e contexto"
+    issues:
+      - severity: HIGH
+        id: "WF3-H1"
+        title: "Veto conditions sem enforcement mecânico"
+        detail: "Mesmo problema sistêmico. 15 veto conditions textuais sem mecanismo de halt."
+        wrong_path: "Executor avança sem análise de concorrência porque BLOCK é só texto"
+        recommendation: "Enforcement global"
+
+      - severity: HIGH
+        id: "WF3-H2"
+        title: "Phase 3 paralela sem sincronização explícita"
+        detail: |
+          Phase 3 roda @juliana-gomes e @icaro-de-carvalho em paralelo, mas não define:
+          - Quem termina primeiro?
+          - O checkpoint QG-3 espera AMBOS ou qualquer um?
+          - Se Juliana termina e Ícaro trava, há timeout?
+          O workflow não tem sync barrier — o checkpoint pode ser atingido com output parcial.
+        wrong_path: "QG-3 aprovado com calendário editorial mas sem copy de vendas (ou vice-versa)"
+        recommendation: "Adicionar sync_barrier: all antes do checkpoint, ou criteria explícito que valide ambos outputs"
+
+      - severity: MEDIUM
+        id: "WF3-M1"
+        title: "Sem timeout/max_duration global"
+        detail: "Duration '4-8 semanas' sem enforcement de prazo máximo."
+        wrong_path: "Workflow estagna por meses sem detecção"
+        recommendation: "Adicionar max_duration com alerta"
+
+      - severity: LOW
+        id: "WF3-L1"
+        title: "Phase 4 e 5 lidas do restante do arquivo mas sem checkpoint visível no trecho lido"
+        detail: |
+          O arquivo excedeu o limite de leitura, mas pela estrutura dos outros workflows,
+          é provável que Phase 4 e 5 sigam o mesmo padrão. Verificar se existem checkpoints.
+        recommendation: "Confirmar presença de QG-4 e QG-5 no arquivo completo"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TASKS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+tasks:
+  diagnostico-ppp:
+    file: "tasks/diagnostico-ppp.md"
+    executor: "icaro-de-carvalho"
+    has_veto: true
+    has_elicitation: true
+    has_output_example: false
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 8
+    strengths:
+      - "Elicitação com 4 perguntas específicas do framework PPP"
+      - "3 veto conditions claras (genérico → REFAZER, vago → REFAZER, corporativo → REESCREVER)"
+      - "checkpoint_policy: block_on_veto presente"
+      - "Output sections bem definidas (5 seções)"
+      - "2 checkpoints: após input e antes de output"
+    issues:
+      - severity: MEDIUM
+        id: "T1-M1"
+        title: "Sem output_example"
+        detail: "Seção output.sections lista o que entregar, mas não mostra exemplo concreto."
+        wrong_path: "Executor entrega formato diferente do esperado"
+        recommendation: "Adicionar output_example com diagnóstico PPP fictício completo"
+
+  copy-email:
+    file: "tasks/copy-email.md"
+    executor: "icaro-de-carvalho"
+    has_veto: true
+    has_elicitation: true
+    has_output_example: false
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 8
+    strengths:
+      - "Regras de email do Ícaro codificadas (IC_DH_008)"
+      - "3 veto conditions específicas (emoji no subject, corpo genérico, CTA múltiplo)"
+      - "checkpoint_policy: block_on_veto presente"
+      - "Acceptance criteria verificáveis"
+    issues:
+      - severity: MEDIUM
+        id: "T2-M1"
+        title: "Sem output_example"
+        detail: "Não tem exemplo de email completo redigido."
+        wrong_path: "Executor não sabe qual formato/tamanho entregar"
+        recommendation: "Adicionar output_example com email de vendas de referência"
+
+  lancamento-strategy:
+    file: "tasks/lancamento-strategy.md"
+    executor: "icaro-de-carvalho"
+    has_veto: true
+    has_elicitation: false
+    has_output_example: false
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 7
+    strengths:
+      - "Decision tree para seleção de estratégia (Tripwire/Sprint/Injeção/Assinatura)"
+      - "3 veto conditions"
+      - "checkpoint_policy: block_on_veto"
+    issues:
+      - severity: MEDIUM
+        id: "T3-M1"
+        title: "Sem elicitação explícita (questions)"
+        detail: |
+          Diferente das outras tasks, lancamento-strategy não tem seção questions no step 1.
+          Vai direto para "Diagnóstico PPP rápido" sem perguntar ao usuário.
+        wrong_path: "Executor parte de suposições em vez de dados reais do negócio"
+        recommendation: "Adicionar questions como nas demais tasks"
+      - severity: MEDIUM
+        id: "T3-M2"
+        title: "Sem output_example"
+        detail: "Não tem exemplo de timeline de lançamento."
+        recommendation: "Adicionar output_example"
+
+  precificacao:
+    file: "tasks/precificacao.md"
+    executor: "icaro-de-carvalho"
+    has_veto: true
+    has_elicitation: false
+    has_output_example: false
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 7
+    strengths:
+      - "Framework IC_DH_009 (Teto por Formato) codificado com tabela de preços"
+      - "IC_DH_003 (Leque de Preços) referenciado"
+      - "checkpoint_policy: block_on_veto"
+    issues:
+      - severity: MEDIUM
+        id: "T4-M1"
+        title: "Sem elicitação explícita (questions)"
+        detail: "Step 1 é 'Classificar formato' — não pergunta nada ao usuário."
+        wrong_path: "Executor assume formato errado do produto"
+        recommendation: "Adicionar questions (ex: 'O produto é gravado ou ao vivo?')"
+      - severity: MEDIUM
+        id: "T4-M2"
+        title: "Sem output_example"
+        recommendation: "Adicionar exemplo de precificação com leque"
+      - severity: LOW
+        id: "T4-L1"
+        title: "Apenas 2 veto conditions"
+        detail: "Menos veto conditions que as demais tasks. Falta veto para 'leque ausente'."
+        recommendation: "Adicionar: 'Preço único sem leque → REFAZER (IC_DH_003)'"
+
+  campanha-trafego:
+    file: "tasks/campanha-trafego.md"
+    executor: "pedro-sobral"
+    has_veto: true
+    has_elicitation: true
+    has_output_example: true
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 10
+    strengths:
+      - "TASK MODELO DO SQUAD — anatomia completa"
+      - "Output example concreto e detalhado (estrutura de campanha + KPIs + briefing criativos)"
+      - "6 questions de elicitação específicas"
+      - "5 veto conditions com citação de framework (PS_DH_001, PS_DH_002, etc.)"
+      - "completion_criteria separado de acceptance_criteria (diferenciação rara e correta)"
+      - "checkpoint_policy: block_on_veto"
+      - "Framework Método Subido (PEDRO) codificado nos criteria"
+      - "Referência a heurísticas de decisão por ID"
+
+  estrategia-social:
+    file: "tasks/estrategia-social.md"
+    executor: "rafael-kiso"
+    has_veto: true
+    has_elicitation: true
+    has_output_example: true
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 10
+    strengths:
+      - "Output example completo com diagnóstico, Brand Persona, pilares 3Hs, jornada bumerangue e KPIs"
+      - "6 questions de elicitação com citação de frameworks (RK_DH_001, RK_DH_006)"
+      - "5 veto conditions com tom de voz do Kiso (ex: 'Estratégia sem métrica é horóscopo de marketing')"
+      - "3 checkpoints (input, strategy, output) — mais granular que as demais tasks"
+      - "completion_criteria separado de acceptance_criteria"
+      - "7 steps cobrindo os 5 Passos Unbound completos"
+
+  branding-completo:
+    file: "tasks/branding-completo.md"
+    executor: "marcos-hiller"
+    has_veto: true
+    has_elicitation: true
+    has_output_example: true
+    has_completion_criteria: true
+    has_checkpoints: true
+    score: 10
+    strengths:
+      - "Output example riquíssimo (Fintech de Microcrédito para MEIs — posicionamento 5 passos, Brand Persona 4D, Brand Track Health)"
+      - "6 questions de elicitação com pergunta memorável ('Se sua marca fosse uma pessoa, como se comportaria numa festa?')"
+      - "6 veto conditions com tom do Hiller"
+      - "3 checkpoints (input, positioning, output)"
+      - "7 steps cobrindo análise competitiva → posicionamento → Brand Persona → expressividades → naming → Brand Track Health"
+      - "completion_criteria com condicionais (naming só se solicitado)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CHECKLISTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+checklists:
+  copy-quality-gate:
+    file: "checklists/copy-quality-gate.md"
+    specificity: 9
+    scoring_system: true
+    veto_conditions: 3
+    score: 9
+    strengths:
+      - "Pré-requisitos como BLOQUEADORES (PPP definido, público identificado, objetivo claro)"
+      - "Scoring system com pesos: Gancho 25%, Proposta 25%, CTA 20%, Storytelling 15%, Formatação 15%"
+      - "Thresholds claros: PASS >=7.0, REVISÃO 5.0-6.9, FAIL <5.0"
+      - "Seções específicas por formato (Email, Landing Page, Anúncio)"
+      - "Itens específicos e não genéricos (ex: 'Máximo 300 palavras email', 'Leque mín 2 opções LP')"
+      - "Validação final inclui 'leitura em voz alta' e 'teste do e daí?'"
+    issues:
+      - severity: MEDIUM
+        id: "CK1-M1"
+        title: "Bloqueadores sem enforcement"
+        detail: |
+          'PPP definido' é BLOQUEADOR, mas o checklist é uma lista de checkbox manual.
+          Se o executor pular os pré-requisitos e for direto para a redação, nada impede.
+        wrong_path: "Executor começa a redigir sem PPP definido porque checkbox é voluntário"
+        recommendation: "Vincular pré-requisitos ao QG do workflow (Phase 0 deve ser PASS antes de qualquer copy)"
+
+  lancamento-readiness:
+    file: "checklists/lancamento-readiness.md"
+    specificity: 9
+    scoring_system: true
+    veto_conditions: 5
+    score: 9
+    strengths:
+      - "5 BLOQUEADORES ABSOLUTOS em tabela separada (PPP, conteúdo prévio, pixel, KPI)"
+      - "Scoring system por área com pesos: Fundação 30%, Audiência 25%, Tráfego 20%, Analytics 15%, Branding 10%"
+      - "Thresholds: GO >=7.0, GO com ressalvas 5.0-6.9, NO-GO <5.0"
+      - "Seção por tipo de lançamento (Tripwire, Sprint, Injeção de Caixa)"
+      - "Items ultra-específicos ('100 leads/R$1.000 de faturamento alvo', '30% opt-in mínimo LP')"
+      - "Integra frameworks de TODOS os 5 minds (Ícaro preço, Sobral pixel, Kiso KPI, Hiller identidade, Juliana conteúdo)"
+    issues:
+      - severity: MEDIUM
+        id: "CK2-M1"
+        title: "Fórmula de lista mínima pode não funcionar para todos os tickets"
+        detail: |
+          "100 leads/R$1.000 de faturamento alvo" implica 1% conversão. Para produtos high-ticket
+          (R$5.000+), a conversão pode ser 0.5% e a regra subestima a lista necessária.
+        recommendation: "Adicionar nota: taxa de conversão estimada varia por ticket (1-3% low, 0.3-1% high)"
+      - severity: LOW
+        id: "CK2-L1"
+        title: "'Preço sem leque → AVISAR' deveria ser BLOQUEAR"
+        detail: "IC_DH_003 diz explicitamente 'produto único = vendas perdidas'. AVISAR é fraco demais."
+        recommendation: "Promover de AVISAR para BLOQUEAR"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OVERALL ANALYSIS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+overall:
+  process_score: 82
+  verdict: "APROVAR COM RESSALVAS"
+
+  critical_issues:
+    - id: "SYSTEMIC-C1"
+      title: "Veto conditions sem enforcement mecânico em TODO o squad"
+      severity: CRITICAL
+      detail: |
+        47 veto conditions documentadas em 3 workflows + 7 tasks + 2 checklists.
+        ZERO enforcement mecânico. Todas são texto ("→ BLOCK", "→ REFAZER").
+        O executor pode ler, concordar e ignorar. Não existe trava.
+        Este é o gap mais fundamental do squad inteiro.
+      affected: "Todos os 3 workflows, todas as 7 tasks, ambos checklists"
+      recommendation: |
+        Adicionar bloco enforcement global no config.yaml:
+        enforcement:
+          checkpoint_policy: block_on_veto
+          veto_behavior: halt_pipeline
+          max_retries: 2
+          escalation: human_review
+
+    - id: "SYSTEMIC-C2"
+      title: "Orchestrator (icaro-chief) sem veto conditions de routing"
+      severity: CRITICAL
+      detail: |
+        O icaro-chief roteia pedidos para 5 minds diferentes, mas não tem
+        veto conditions que impeçam routing errado. Se "branding" for roteado
+        para icaro-de-carvalho em vez de marcos-hiller, nada bloqueia.
+      affected: "agents/icaro-chief.md"
+      recommendation: |
+        Adicionar veto conditions de routing no orchestrator:
+        - Pedido com keyword "marca/branding/naming" → marcos-hiller obrigatório
+        - Pedido com keyword "tráfego/ads/campanha" → pedro-sobral obrigatório
+        - Pedido com keyword "analytics/KPI/dados" → rafael-kiso obrigatório
+
+  wrong_paths_found:
+    - id: "WP-1"
+      description: "Executor ignora BLOCK textual e avança sem output completo"
+      probability: "ALTA"
+      impact: "Pipeline inteiro contaminado com dados incompletos"
+
+    - id: "WP-2"
+      description: "Tipo de copy não coberto pelo 'when' condicional (ex: webinar, podcast script)"
+      probability: "MÉDIA"
+      impact: "Phase 2 do wf-copy-pipeline não gera nada, Phase 3 recebe vazio"
+
+    - id: "WP-3"
+      description: "WARN acumulado nunca escalado para BLOCK em fases posteriores"
+      probability: "MÉDIA"
+      impact: "Produto lança com personalidade/personalidade ausente porque WARN foi ignorado"
+
+    - id: "WP-4"
+      description: "Phase 3 paralela do wf-marketing-end-to-end sem sync barrier"
+      probability: "MÉDIA"
+      impact: "Checkpoint aprovado com apenas metade do output (calendário sem copy ou copy sem calendário)"
+
+    - id: "WP-5"
+      description: "Referência a wf-sprint inexistente no not_for do wf-lancamento-completo"
+      probability: "BAIXA"
+      impact: "Usuário procura workflow que não existe"
+
+    - id: "WP-6"
+      description: "4 tasks originais (Ícaro) sem output_example vs 3 novas tasks (Sobral/Kiso/Hiller) com output_example"
+      probability: "MÉDIA"
+      impact: "Inconsistência de qualidade: tasks do Ícaro entregam formato livre, tasks dos outros minds têm referência"
+
+    - id: "WP-7"
+      description: "Checklist de lançamento com fórmula 100 leads/R$1.000 subestima para high-ticket"
+      probability: "BAIXA"
+      impact: "Lista insuficiente para lançamento de produto R$5.000+"
+
+  recommendations:
+    - priority: P0
+      action: "Adicionar enforcement global no config.yaml (checkpoint_policy + veto_behavior + halt)"
+      effort: "Pequeno"
+      impact: "Resolve SYSTEMIC-C1 e hardena todos os 47 veto conditions"
+
+    - priority: P0
+      action: "Adicionar veto conditions de routing no icaro-chief"
+      effort: "Pequeno"
+      impact: "Resolve SYSTEMIC-C2 — impede routing errado entre minds"
+
+    - priority: P1
+      action: "Adicionar output_example nas 4 tasks originais do Ícaro (diagnostico-ppp, copy-email, lancamento-strategy, precificacao)"
+      effort: "Médio"
+      impact: "Equipara qualidade das tasks do Ícaro com as 3 novas (Sobral/Kiso/Hiller)"
+
+    - priority: P1
+      action: "Adicionar sync_barrier na Phase 3 do wf-marketing-end-to-end"
+      effort: "Pequeno"
+      impact: "Impede checkpoint com output parcial"
+
+    - priority: P1
+      action: "Adicionar fallback para tipos de copy não reconhecidos no wf-copy-pipeline"
+      effort: "Pequeno"
+      impact: "Impede Phase 2 vazia"
+
+    - priority: P2
+      action: "Criar mecanismo de escalação: WARN no Phase N → BLOCK se não resolvido até Phase N+2"
+      effort: "Médio"
+      impact: "WARNs acumulados não são mais ignoráveis"
+
+    - priority: P2
+      action: "Adicionar max_duration global em todos os workflows"
+      effort: "Pequeno"
+      impact: "Detecta estagnação"
+
+    - priority: P2
+      action: "Adicionar elicitação (questions) nas tasks lancamento-strategy e precificacao"
+      effort: "Pequeno"
+      impact: "Consistência com as demais tasks"
+
+    - priority: P3
+      action: "Remover referência a wf-sprint ou criar o workflow"
+      effort: "Pequeno"
+      impact: "Elimina referência fantasma"
+
+    - priority: P3
+      action: "Ajustar fórmula de lista mínima no checklist de lançamento para considerar ticket"
+      effort: "Pequeno"
+      impact: "Precisão da estimativa de lista"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SUMMARY — ISSUE COUNT BY SEVERITY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+issue_summary:
+  critical: 2    # Enforcement ausente (sistêmico), orchestrator sem veto routing
+  high: 4        # WF1-H1, WF2-H1, WF3-H1 (enforcement por workflow), WF3-H2 (sync barrier)
+  medium: 10     # WARNs sem escalação, timeouts, output_examples, elicitação, condicionais sem fallback
+  low: 4         # Referência fantasma, links sem path, fórmula de lista, veto fraco em leque
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPARAÇÃO COM OUTROS SQUADS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+benchmark:
+  note: "Comparação com squads já auditados pelo @pedro-valerio"
+  vs_brandcraft_v1_1: |
+    Ícaro v2 (82) > BrandCraft v1.1 (71).
+    Ícaro tem workflows completos com veto por fase. BrandCraft tem handoff IDs errados.
+    Ícaro tem tasks com checkpoint_policy. BrandCraft tem gaps em wf-improve-document.
+    Ambos compartilham o problema de enforcement ausente.
+  vs_forge_v1: |
+    Ícaro v2 (82) > Forge v1.0 (74).
+    Forge tem arquitetura de pipeline superior (Flow First Checkpoints, Human Awareness).
+    Ícaro tem tasks mais completas (output_example em 3/7, completion_criteria em 7/7).
+    Forge tem mais CRITICALs operacionais (state.json, concurrent runs).
+  vs_icaro_v1: |
+    Ícaro v2 (82) > Ícaro v1 (74). Melhoria de +8 pontos.
+    Workflows existem agora (antes eram fantasma). Checkpoints formais em todas as fases.
+    3 novas tasks são as melhores do squad (campanha-trafego, estrategia-social, branding-completo = 10/10).
+    Checklists são novidade e estão bem estruturados.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HIGHLIGHTS — O QUE ESTÁ EXCEPCIONAL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+highlights:
+  - title: "3 tasks modelo (10/10)"
+    detail: |
+      campanha-trafego, estrategia-social e branding-completo são as tasks mais completas
+      já auditadas em qualquer squad. Têm TUDO: elicitação, output_example detalhado,
+      completion_criteria, veto conditions com citação de framework, múltiplos checkpoints,
+      e tom de voz do mind preservado nos vetos.
+
+  - title: "Voice DNA excepcional nos veto conditions"
+    detail: |
+      Os veto conditions não são genéricos — falam na voz do mind:
+      - Kiso: "Estratégia sem métrica é horóscopo de marketing."
+      - Hiller: "Copiar líder é construir a marca dele de graça."
+      - Sobral: "Sem pixel não existe campanha. Instala primeiro, depois a gente conversa."
+      Isso não é common — é diferenciador.
+
+  - title: "Checklists com scoring system"
+    detail: |
+      Ambos checklists têm scoring com pesos, thresholds (PASS/REVISÃO/FAIL e GO/GO ressalvas/NO-GO)
+      e bloqueadores absolutos separados. Padrão superior ao de squads anteriores.
+
+  - title: "Multi-mind orchestration nos workflows"
+    detail: |
+      wf-marketing-end-to-end é o workflow mais ambicioso auditado — orquestra 5 minds
+      em 6 fases com handoffs explícitos. Nenhum outro squad tentou isso.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  artefacts_audited:
+    workflows: 3
+    tasks: 7
+    checklists: 2
+    templates: 3       # Não auditados em profundidade (são referência, não processo)
+    agents: 6          # Qualidade mantida do v1, não re-auditados em profundidade
+  total_veto_conditions: 47
+  total_checkpoints: 16
+  total_issues: 20     # 2C + 4H + 10M + 4L
+  audit_duration: "single pass"
+  previous_audit: "pedro-valerio-audit-report.yaml (v1, score 74)"

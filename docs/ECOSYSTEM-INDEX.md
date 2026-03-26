@@ -576,7 +576,7 @@
 - **pedro-valerio** — N/A
 - **oalanicolas** — N/A
 
-### Squad: squad-creator-pro (3)
+### Squad: squad-creator (3)
 
 - **squad-chief** — N/A
 - **pedro-valerio** — N/A

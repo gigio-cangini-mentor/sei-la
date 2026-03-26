@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/framework-map.md
+../../../../../../skills/god-mode/references/framework-map.md

@@ -1,0 +1,1 @@
+../../../../skills/instagram-publisher/SKILL.md

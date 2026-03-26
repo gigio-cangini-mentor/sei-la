@@ -1,0 +1,35 @@
+# Workflow: Extract & Save
+# URL -> Design tokens -> Brand template stored
+
+name: extract-and-save
+description: "Extract design system from URL and store as brand template"
+trigger: "User provides URL + wants to capture brand identity"
+
+phases:
+  - name: "Extract"
+    agent: token-extractor
+    action: "*extract {url}"
+    output: "Raw design tokens (colors, typography, spacing, logos, metadata)"
+    veto_conditions:
+      - "URL is unreachable or returns error"
+      - "No visual content found (API endpoint, redirect)"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: auto
+      show: "Extracted tokens summary"
+      ask: "Tokens look correct? Proceed to store?"
+
+  - name: "Store"
+    agent: template-architect
+    action: "*store {tokens}"
+    input: "Tokens from Extract phase"
+    output: "Versioned brand template in data/templates/{name}.yaml"
+    veto_conditions:
+      - "Less than 50% of required tokens extracted"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: auto
+      show: "Template stored with version and completeness status"
+
+flow: "token-extractor -> template-architect"
+estimated_duration: "2-5 minutes"

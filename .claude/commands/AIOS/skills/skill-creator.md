@@ -1,1 +1,1 @@
-../../../../skills/skill-creator/SKILL.md
+../../../skills/skill-creator/SKILL.md

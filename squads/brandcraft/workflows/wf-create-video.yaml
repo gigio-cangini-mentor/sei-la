@@ -1,0 +1,65 @@
+# Workflow: Create Video
+# Content/spec -> Branded video (reel, story, landscape, carousel, GIF)
+
+name: create-video
+description: "Compose branded video using Remotion"
+trigger: "User provides content + wants video/reel/story/animation"
+
+phases:
+  - name: "Load Brand"
+    agent: template-architect
+    action: "*serve {brand_name}"
+    output: "Brand template with tokens + motion style derivation"
+    veto_conditions:
+      - "Brand template not found"
+      - "Draft template with less than 80% completeness (missing critical tokens)"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Generate Assets"
+    agent: image-generator
+    action: "*batch {scene_backgrounds} --brand {name}"
+    input: "Scene descriptions from content"
+    output: "Background images and visual assets for scenes"
+    condition: "TRIGGER when: scenes require backgrounds, product shots, or visual assets beyond text+brand colors. SKIP when: text-overlay-only video (kinetic typography)."
+    veto_conditions:
+      - "All 4 MCP providers failed"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Compose"
+    agent: video-architect
+    action: "*create-reel or *create-story or *create-animated-carousel or *create-gif"
+    input: "Content + brand template + assets (if any)"
+    output: "MP4 or GIF file"
+    veto_conditions:
+      - "Remotion not installed"
+      - "Content insufficient for minimum scene structure"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: auto
+      show: "Scene timeline, duration, format, motion style"
+      ask: "Video composition looks correct? Proceed to audio/validation?"
+
+  - name: "Add Audio"
+    agent: video-architect
+    action: "*add-voiceover or *add-avatar (if requested)"
+    input: "Video + script"
+    output: "Video with audio/avatar layer"
+    condition: "Only if voiceover or avatar requested"
+    veto_conditions:
+      - "ElevenLabs API unavailable (for voiceover)"
+      - "HeyGen API unavailable (for avatar)"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Validate"
+    agent: quality-validator
+    action: "*validate {output} --brand {name} --type video"
+    input: "Video file + brand template"
+    output: "Quality score with PASS/FAIL (video scoring matrix)"
+    enforcement: { blocking: true, on_veto: HALT }
+    on_fail:
+      action: "Send corrections to video-architect"
+      max_retries: 2
+      escalate_to: brandcraft-chief
+
+flow: "template-architect -> image-generator (conditional) -> video-architect -> quality-validator"
+estimated_duration: "10-30 minutes"

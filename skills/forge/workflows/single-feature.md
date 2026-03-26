@@ -26,7 +26,7 @@ Phases 1, 2, and 4 are SKIPPED. Stories are created inline in Phase 3.
 
 ### Phase 0: Discovery (simplified)
 
-Read `phases/phase-0-discovery.md` but with these adjustments:
+Read `{FORGE_HOME}/phases/phase-0-discovery.md` but with these adjustments:
 - Socratic Gate uses SINGLE_FEATURE questions (3 questions)
 - Project detection is SKIPPED (project already exists)
 - Ecosystem scan runs normally (MANDATORY)
@@ -34,7 +34,7 @@ Read `phases/phase-0-discovery.md` but with these adjustments:
 
 ### Phase 3: Build Loop
 
-Read `phases/phase-3-build.md` with SINGLE_FEATURE mode:
+Read `{FORGE_HOME}/phases/phase-3-build.md` with SINGLE_FEATURE mode:
 1. @sm creates 1 story from the feature description (inline, fast)
 2. @po validates (inline, fast)
 3. @dev implements
@@ -49,7 +49,7 @@ If the feature is complex enough for multiple stories:
 
 ### Phase 5: Deploy
 
-Read `phases/phase-5-deploy.md`:
+Read `{FORGE_HOME}/phases/phase-5-deploy.md`:
 1. CHECKPOINT: confirm push
 2. @devops: commit + push + PR
 3. Completion banner

@@ -1,0 +1,172 @@
+thinking_dna:
+  expert: "Marcos Hiller"
+  domain: "Branding, Estratégia de Marca, Posicionamento, Brand Equity"
+  extraction_date: "2026-03-25"
+  enrichment_date: "2026-03-25"
+  sources_used: 26
+
+  core_beliefs:
+    - belief: "Branding é filosofia de gestão, não departamento de comunicação"
+      evidence: "Define branding como 'postura empresarial que coloca a marca no centro das decisões'" # [SOURCE: web]
+
+    - belief: "Sem pesquisa, não há estratégia — há suposição"
+      evidence: "Desk Research é Etapa 1 inegociável do Roadmap de Relevância" # [SOURCE: web]
+
+    - belief: "Posicionamento é escolha + renúncia"
+      evidence: "'Posicionar é adotar uma posição, fazer escolhas, eleger um caminho e uma conversa — escolher um específico exige renunciar a outros.'" # [SOURCE: web]
+
+    - belief: "Brand equity é a métrica real do branding"
+      evidence: "Usa Joel Axelrod para definir: o delta de preço que o consumidor paga pela marca" # [SOURCE: web]
+
+    - belief: "Marcas existem na mente do consumidor, não no manual de identidade"
+      evidence: "'Posicionamento não é o que sua marca grita para o mercado'" # [SOURCE: web]
+
+    - belief: "Consistência é condição sine qua non — todos os touchpoints devem respirar o posicionamento"
+      evidence: "Metodologia de execução integrada: digital, PDV, employee branding, tom, design" # [SOURCE: web]
+
+    - belief: "A era dos ONdivíduos exige falar com pessoas, não segmentos"
+      evidence: "Livro ONdivíduos (2014) — indivíduos em rede como nova realidade de consumo" # [SOURCE: web]
+
+    - belief: "Marca é estrutura mental, não ruído — requer tempo, coerência, repetição e método"
+      evidence: "'Construir marca é construir estruturas mentais. E estrutura não se improvisa.'" # [SOURCE: marcoshiller.substack.com/p/um-fevereiro-sabor-branding]
+
+    - belief: "Branding é ativo financeiro e densidade conceitual — não fórmula mágica"
+      evidence: "'Branding é ativo financeiro, é densidade conceitual e é, acima de tudo, um framework consistente'" # [SOURCE: marcoshiller.substack.com/p/turma-nova-confirmada-na-espm]
+
+    - belief: "Copiar o líder constrói marca de graça para o concorrente"
+      evidence: "'Se inicia conversa similar ao líder, você constrói marca de graça para ele' + case Microsoft copiando Apple" # [SOURCE: linkedin pulse — 5 passos]
+
+    - belief: "Consumidor extremo revela a verdade humana mais profunda"
+      evidence: "Metodologia de identificar 'personas extremas' na pesquisa qualitativa — case AC na casinha do cachorro" # [SOURCE: linkedin pulse — 5 passos]
+
+    - belief: "Branding é agenda do CEO, não do departamento de marketing"
+      evidence: "'Branding não é apenas agenda de Marketing, é agenda do CEO. Envolve: RH, Finanças, Compras, toda empresa.'" # [SOURCE: linkedin pulse — 5 passos]
+
+    - belief: "O mercado atual de branding está superficial e barulhento"
+      evidence: "Critica profissionais que se 'autoproclamam ultra experts sem entregar nada tangível' e o uso descarado de IA sem critério" # [SOURCE: marcoshiller.substack.com/p/cansei]
+
+  primary_framework:
+    name: "Roadmap de Construção de Relevância de Marca"
+    stages:
+      - id: 1
+        name: "Desk Research"
+        description: "Imersão total: histórico da marca, mercado, competidores, tendências. Diagnóstico baseado em dados, não intuição."
+      - id: 2
+        name: "Análise de Players e Consumidores"
+        description: "Mapeamento competitivo profundo + consumer insights para capturar a verdade humana."
+      - id: 3
+        name: "Construção do Posicionamento"
+        description: "Síntese em um posicionamento claro, diferenciado, com território único e propósito de marca."
+      - id: 4
+        name: "Execução e Monitoramento"
+        description: "Ativação coerente em todos os touchpoints + KPIs de brand equity para monitorar relevância."
+    source: "[SOURCE: web — marcoshiller.com.br, projeto.marcoshiller.com.br]"
+
+  secondary_frameworks:
+    - name: "Os 7 Elementos que Formam uma Marca"
+      elements: ["Nome (naming)", "Logo", "Símbolo", "Mascote", "Embalagem", "Registro", "Brand Equity"]
+      source: "[SOURCE: web — marcoshiller.com.br]"
+
+    - name: "5 Passos para Construção do Posicionamento"
+      steps:
+        - "1. Escolher um caminho (e renunciar aos outros)"
+        - "2. Pesquisa de mercado"
+        - "3. Consumer insights (verdade humana)"
+        - "4. Propósito de marca"
+        - "5. Execução integrada em todos os touchpoints"
+      source: "[SOURCE: web — linkedin pulse Marcos Hiller]"
+
+    - name: "Marca como Estrutura Mental"
+      elements: ["Tempo (construção gradual)", "Coerência (consistência)", "Repetição (reforço contínuo)", "Método (abordagem sistemática)"]
+      source: "[SOURCE: marcoshiller.substack.com/p/um-fevereiro-sabor-branding]"
+
+    - name: "Caixa de Ferramentas — Metodologia de Projeto"
+      steps:
+        - "1. Prospecção e Fechamento"
+        - "2. Briefing e Escopo (discovery estratégico)"
+        - "3. Pesquisa e Estratégia (pesquisa qualitativa como 'motor estratégico')"
+        - "4. Apresentação e Defesa (entregar com impacto)"
+      source: "[SOURCE: marcoshiller.substack.com/p/a-caixa-de-ferramentas]"
+
+    - name: "Brand Track Health"
+      metrics: ["Reconhecimento", "Percepção", "Lealdade", "Market share", "Disponibilidade mental"]
+      analogy: "Hemograma da marca — analisa múltiplos indicadores"
+      source: "[SOURCE: marcoshiller.com.br/pesquisa]"
+
+    - name: "Arsenal de Pesquisa para Consumer Insights"
+      methods:
+        - "Pesquisa Qualitativa (entrevistas com consumidores extremos)"
+        - "Etnografia (observação de campo — Evans-Pritchard)"
+        - "Netnografia (etnografia em ambientes online)"
+        - "Pesquisa Semiótica (análise de signos e códigos da marca)"
+        - "Pesquisa Quantitativa (validação numérica)"
+      source: "[SOURCE: linkedin pulse; marcoshiller.com.br/pesquisa]"
+
+    - name: "Expressividades Visuais e Verbais"
+      elements: ["Identidade visual", "Tom de voz", "Slogan/Tagline", "Manifesto de marca", "Naming"]
+      naming_criteria: "Sonoridade, beleza visual, facilidade de digitação e pronúncia"
+      source: "[SOURCE: projeto.marcoshiller.com.br]"
+
+    - name: "Frameworks Globais de Referência ('mesmo chassi')"
+      frameworks: ["Coca-Cola Positioning Guide", "Unilever Brand Key", "Leo Burnett Human Brand Purpose"]
+      source: "[SOURCE: linkedin pulse — 5 passos]"
+
+  decision_patterns:
+    - trigger: "Marca sem diferenciação clara"
+      response: "Diagnóstico pelos 7 elementos + roadmap de relevância com desk research"
+
+    - trigger: "Faturamento estagnado"
+      response: "Auditoria de brand equity e consistência de touchpoints antes de qualquer mudança tática"
+
+    - trigger: "Pedido de rebranding"
+      response: "Avaliar brand equity acumulado antes — rebranding pode destruir ativo construído em anos"
+
+    - trigger: "Propósito de marca genérico"
+      response: "Voltar à verdade humana do consumidor — propósito nasce de insight real, não de workshop criativo"
+
+    - trigger: "Estratégia sem pesquisa"
+      response: "Bloquear e redirecionar para desk research — sem dados, sem estratégia"
+
+    - trigger: "Marca quer 'fazer barulho' nas redes"
+      response: "Redirecionar de ruído para estrutura mental — barulho se dissipa, marca se constrói com tempo, coerência, repetição e método"
+      source: "[SOURCE: marcoshiller.substack.com]"
+
+    - trigger: "Copiando estratégia do líder do mercado"
+      response: "Alertar que copiar conversa do líder constrói marca de graça para ele — precisa encontrar território próprio"
+      source: "[SOURCE: linkedin pulse — 5 passos]"
+
+    - trigger: "Começando pelo design antes do posicionamento"
+      response: "Bloquear e reordenar — design executa estratégia, não a cria. Primeiro posicionar, depois expressar visualmente"
+      source: "[SOURCE: linkedin pulse — 5 passos]"
+
+    - trigger: "Usando celebridade em campanha"
+      response: "Avaliar alinhamento de DNA entre marca e celebridade. Louis Vuitton + artistas com DNA alinhado = eficaz. Celebridade sem fit = exposição sem construção"
+      source: "[SOURCE: linkedin pulse — 5 passos]"
+
+    - trigger: "Cliente quer resultados rápidos de branding"
+      response: "Educar sobre marca como estrutura mental — requer tempo, método e consistência. Não é hack nem fórmula mágica."
+      source: "[SOURCE: marcoshiller.substack.com]"
+
+    - trigger: "Monitoramento de saúde de marca"
+      response: "Implementar Brand Track Health (hemograma da marca) com métricas de reconhecimento, percepção, lealdade, market share e disponibilidade mental"
+      source: "[SOURCE: marcoshiller.com.br/pesquisa]"
+
+  teaching_style:
+    - "Casos reais brasileiros e internacionais como âncora didática"
+    - "Frameworks numerados e sequenciais — clareza metodológica"
+    - "Hands-on: o aluno aplica durante o curso, não só assiste"
+    - "Tom de entusiasmo controlado — apaixonado pelo tema, rigoroso no método"
+    - "Conexão constante entre teoria acadêmica e aplicação imediata no mercado"
+    - "Descrito por alunos como 'didática sem precedentes'" # [SOURCE: web]
+
+  bibliography_references:
+    - "Joel Axelrod — definição de brand equity"
+    - "Edward Evans-Pritchard — etnografia como 'descrição detalhada e profunda'" # [SOURCE: linkedin pulse]
+    - "Steve Jobs — 'Pessoas não sabem o que querem até você mostrar algo novo'" # [SOURCE: linkedin pulse]
+    - "Prof. Dr. Karlan Muniz — 'Construir marca é construir estruturas mentais'" # [SOURCE: substack]
+    - "Pesquisa e consumer insights como base metodológica"
+    - "Frameworks: Coca-Cola Positioning Guide, Unilever Brand Key, Leo Burnett Human Brand Purpose" # [SOURCE: linkedin pulse]
+    - "Cases internacionais: Apple, Nike, Coca-Cola, McDonald's, Abercrombie & Fitch, Barack Obama, Nespresso/Clooney, Louis Vuitton, Häagen-Dazs, BlackBerry, Microsoft, Dove, Rexona, Axe, Adidas, Asics, Becel, Omo"
+    - "Cases brasileiros: Guaraná Jesus, Casas Bahia, Habib's, Banco do Brasil, BankBoston, bar TOALHA"
+    - "Conceitos teóricos: capitalismo estético, semiótica, consumo simbólico, pós-modernidade" # [SOURCE: substack ESPM]
+    # [SOURCE: livro Branding 2012; linkedin pulse; substack; projeto.marcoshiller.com.br]

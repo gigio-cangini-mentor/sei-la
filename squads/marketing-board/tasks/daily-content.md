@@ -289,3 +289,15 @@ points:
 
 *Task v3.0.0 — OPES Marketing Arm Daily Pipeline (End-to-End)*
 *Ideação → CMO → Produção → Designer → Distribuição → Publicação Automática*
+
+---
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-daily-01 | Conteúdo avançou para Produção sem passar pelo Gate 2.5 do CMO | HALT — Retornar ao Step 2.5; nenhum post vai à produção sem aprovação explícita do CMO |
+| VC-daily-02 | Big Idea foi vetada pelo CMO 2 vezes e uma terceira tentativa começa sem direção explícita fornecida | HALT — CMO deve entregar briefing direcional antes de qualquer novo loop |
+| VC-daily-03 | Purple Cow score abaixo de 4/5 no momento da aprovação do CMO | HALT — Devolver para @ideation com feedback específico do que está faltando |
+| VC-daily-04 | Publicação automática disparada sem Step 7 (QA Gate pós-publicação) registrado no output do dia | HALT — Registrar status de publicação antes de encerrar o pipeline; @metrics opera cego sem esse dado |
+| VC-daily-05 | Versões de Instagram e LinkedIn são idênticas (copy-paste entre plataformas) | HALT — Retornar ao Step 4 (@distribution) para diferenciação obrigatória de tom, formato e hashtags |

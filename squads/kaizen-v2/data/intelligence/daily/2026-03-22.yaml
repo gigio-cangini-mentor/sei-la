@@ -2,7 +2,7 @@
 date: 2026-03-22
 capture_time: "2026-03-22T01:29:31.055Z"
 session_id: e828e076
-session_count: 22
+session_count: 45
 providers_active:
   - "claude-sonnet-4-6"
 activity_summary: Session completed (no commits)
@@ -366,4 +366,359 @@ highlights: []
 decisions: []
 stories_touched: []
 learnings: []
+agents_involved: []
+
+# --- Session 95e3237e (2026-03-22T03:04:42.315Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:04:42.315Z"
+session_id: 95e3237e
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 0bc26bae (2026-03-22T03:11:40.415Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:11:40.414Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved:
+  - "@dev"
+
+# --- Session 327130b4 (2026-03-22T03:14:54.098Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:14:54.098Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 327130b4 (2026-03-22T03:22:45.379Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:22:45.378Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved:
+  - "@dev"
+  - "@sm"
+  - "@architect"
+
+# --- Session 0bc26bae (2026-03-22T03:25:38.023Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:25:38.022Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 0bc26bae (2026-03-22T03:41:47.062Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:41:47.061Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 05c8ce54 (2026-03-22T03:43:25.452Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:43:25.451Z"
+session_id: 05c8ce54
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 0bc26bae (2026-03-22T03:44:15.117Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:44:15.116Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved:
+  - "@aios-master"
+
+# --- Session 05c8ce54 (2026-03-22T03:44:24.457Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:44:24.456Z"
+session_id: 05c8ce54
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 05c8ce54 (2026-03-22T03:46:06.572Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:46:06.571Z"
+session_id: 05c8ce54
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 05c8ce54 (2026-03-22T03:46:31.209Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:46:31.208Z"
+session_id: 05c8ce54
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 0bc26bae (2026-03-22T03:47:23.658Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:47:23.658Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved:
+  - "@aios-master"
+
+# --- Session 0bc26bae (2026-03-22T03:49:45.160Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:49:45.159Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 0bc26bae (2026-03-22T03:53:48.410Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:53:48.410Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 0bc26bae (2026-03-22T03:54:56.636Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T03:54:56.635Z"
+session_id: 0bc26bae
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 074c4eea (2026-03-22T04:00:55.794Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T04:00:55.793Z"
+session_id: 074c4eea
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 074c4eea (2026-03-22T04:07:22.723Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T04:07:22.722Z"
+session_id: 074c4eea
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 327130b4 (2026-03-22T20:41:09.823Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T20:41:09.822Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 327130b4 (2026-03-22T20:41:57.205Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T20:41:57.203Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 327130b4 (2026-03-22T20:42:01.785Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T20:42:01.785Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 327130b4 (2026-03-22T20:42:09.344Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T20:42:09.343Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 327130b4 (2026-03-22T20:42:19.034Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T20:42:19.034Z"
+session_id: 327130b4
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings: []
+agents_involved: []
+
+# --- Session 074c4eea (2026-03-22T20:43:14.096Z) ---
+# Kaizen v2 Daily Digest — 2026-03-22
+date: 2026-03-22
+capture_time: "2026-03-22T20:43:14.095Z"
+session_id: 074c4eea
+session_count: 1
+providers_active:
+  - "claude-sonnet-4-6"
+activity_summary: Session completed (no commits)
+highlights: []
+decisions: []
+stories_touched: []
+learnings:
+  -
+    signal: \bworkaround\b
+    snippet: "orge\"  Isso funciona como um \"workaround manual\". Mas é chato digitar isso toda vez.  Com o global command que acabei de criar, agora você pode usar direto de qualquer projeto:  ``` /AIOS:skills:forge ```  Isso vai funcionar no te"
+    verified: false
 agents_involved: []

@@ -100,3 +100,13 @@ SCORE ORACULO: Todas as pecas >= 80%
 - data/oraculo-posts.md — validacao de carrosseis
 - tasks/create-carousel.md — task de criacao de carrossel
 - tasks/create-stories.md — task de criacao de stories
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-campaign-01 | Campanha tem apenas 1 formato (só carrossel, só reels ou só stories) — não é multi-formato | HALT — não é campanha, redirecionar para task específica do formato solicitado |
+| VC-campaign-02 | Narrativa central não conecta os formatos — cada peça fala de tema diferente sem fio condutor | HALT — redefinir narrativa central e refazer briefing estratégico antes de criar peças |
+| VC-campaign-03 | Tom varia entre peças da campanha — um formato usa tom imperial e outro usa tom educativo ou motivacional | HALT — padronizar tom imperial em todas as peças antes da entrega |
+| VC-campaign-04 | Cronograma não tem arco emocional progressivo entre os dias — dia 3 com mesma intensidade que dia 1 | HALT — reestruturar sequência: dor (dia 1) → amplificação → paradigma → prova → ação (último dia) |
+| VC-campaign-05 | Stories da campanha não têm intenção estratégica definida — são apenas "complemento" sem função no funil | HALT — atribuir categoria estratégica a cada sequência de stories (bastidores, levantada de mão, casos, etc.) |

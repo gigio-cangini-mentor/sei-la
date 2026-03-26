@@ -1,3 +1,7 @@
+# ⚠️ DEPRECATED — Use marketing-ideation-ig, marketing-ideation-li, ou marketing-ideation-yt instead.
+
+---
+
 # Agent: Marketing Ideation
 
 **Agent ID**: marketing-ideation

@@ -115,3 +115,13 @@ REPURPOSE: Carrossel 7 slides (Blocos 2-4) + Stories 5 (hook + dado + moral + CT
 - data/reels-imperial.md — 4C Imperial e tom de comando
 - data/reels-patterns.md — 7 padroes virais de hook
 - data/oraculo-reels.md — Validacao em 3 niveis (Copy, Hook, Reel Completo)
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-reels-01 | Hook do Bloco 1 tem mais de 5 palavras ou é formulado como pergunta em vez de afirmação ou comando | HALT — reescrever hook até respeitar o limite e o padrão viral selecionado |
+| VC-reels-02 | Bloco 4 (Conteúdo Principal) não contém elemento do Movimento — nenhum inimigo, crença, mantra ou posicionamento identificado | HALT — inserir elemento do Movimento obrigatoriamente antes de continuar |
+| VC-reels-03 | Bloco 5 não gera nenhum dos 5 sentimentos climáticos (indignação, esperança, urgência, vergonha, raiva) | HALT — reescrever moral e CTA até produzir reação emocional clara no ICP |
+| VC-reels-04 | Roteiro não tem corte, mudança de ritmo ou elemento de retenção nos primeiros 3 segundos do Bloco 1 | HALT — reescrever abertura com dissonância imediata: visual, sonora ou verbal |
+| VC-reels-05 | CTA do Bloco 5 vende diretamente ("compre agora", "link na bio", "acesse") em vez de gerar desejo | HALT — reescrever CTA como gerador de desejo com palavra-chave nos comentários ou DM |

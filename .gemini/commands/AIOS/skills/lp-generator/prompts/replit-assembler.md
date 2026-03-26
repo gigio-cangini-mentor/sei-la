@@ -1,0 +1,1 @@
+../../../../../../skills/lp-generator/prompts/replit-assembler.md

@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/templates/output-structure.md
+../../../../../../skills/tech-search/templates/output-structure.md

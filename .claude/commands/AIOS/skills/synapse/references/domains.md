@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/synapse/references/domains.md
+../../../../../skills/synapse/references/domains.md

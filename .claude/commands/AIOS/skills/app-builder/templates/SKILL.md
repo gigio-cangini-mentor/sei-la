@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/app-builder/templates/SKILL.md
+../../../../../../skills/app-builder/templates/SKILL.md

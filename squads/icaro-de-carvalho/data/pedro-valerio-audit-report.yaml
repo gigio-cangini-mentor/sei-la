@@ -1,0 +1,488 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# AUDIT REPORT — Squad Ícaro de Carvalho v2.0.0
+# Auditor: @pedro-valerio (Process Absolutist)
+# Data: 2026-03-25
+# Princípio: "Se executor CONSEGUE fazer errado → processo está errado"
+# ═══════════════════════════════════════════════════════════════════════════════
+
+squad: icaro-de-carvalho
+version: "2.0.0"
+audit_date: "2026-03-25"
+auditor: pedro-valerio
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORE FINAL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+score:
+  total: 59
+  max: 80
+  percentage: 74
+  verdict: "APROVAR COM RESSALVAS"
+  # 90-100: APROVAR | 70-89: APROVAR c/ ressalvas | 50-69: VETO | <50: retrabalho
+
+criteria_scores:
+  veto_conditions: 7       # Tasks têm veto, mas orchestrator e agents não
+  fluxo_unidirecional: 8   # Routing table clara, sem loops
+  checkpoints: 4           # Zero checkpoints formais entre fases
+  zero_wrong_paths: 7      # Overlap mínimo nos triggers, mas sem desambiguação formal
+  handoff_coverage: 6      # Agents têm handoff_to, mas IDs inconsistentes
+  tasks_anatomy: 8         # 4/4 tasks com 7-8 campos (falta enforcement)
+  workflow_integrity: 3    # 2 workflows referenciados em config.yaml NÃO EXISTEM no disco
+  agent_quality: 8         # 5 agents com 300+ linhas, voice DNA, output examples
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 1: VETO CONDITIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+veto_conditions:
+  status: PARTIAL
+  score: 7
+  detail: |
+    As 4 tasks possuem veto_conditions explícitas — bom. Porém:
+    1. Nenhuma veto condition tem enforcement mecânico (blocking: true, throw, HALT).
+       São instruções textuais ("→ REFAZER", "→ REESCREVER") sem mecanismo que
+       impeça o agent de entregar output que viola a condição.
+    2. O orchestrator (icaro-chief) NÃO tem veto conditions para routing errado.
+       Se o usuário pede "marca" e o chief roteia para icaro-de-carvalho em vez de
+       marcos-hiller, nada bloqueia.
+    3. Nenhum agent individual tem veto_conditions de execução — apenas
+       veto_heuristics (orientação de conteúdo, não de processo).
+
+  issues:
+    - id: C1
+      severity: CRITICAL
+      title: "Workflows referenciados não existem no disco"
+      description: |
+        config.yaml referencia 2 workflows:
+        - workflows/wf-lancamento-completo.yaml
+        - workflows/wf-copy-pipeline.yaml
+        Nenhum dos dois existe em squads/icaro-de-carvalho/workflows/.
+        O orchestrator também descreve esses workflows inline (phases),
+        mas sem arquivo correspondente = zero enforcement, zero checkpoints,
+        zero veto conditions entre fases.
+      recommendation: |
+        Criar os 2 arquivos de workflow com:
+        - Fases com veto conditions por fase
+        - Checkpoints entre fases (auto ou human_review)
+        - input_validation por fase
+        - fallback (on_veto, on_timeout)
+
+    - id: C2
+      severity: CRITICAL
+      title: "Veto conditions sem enforcement"
+      description: |
+        Todas as 4 tasks têm veto_conditions, mas são instruções textuais:
+        "→ REFAZER", "→ REESCREVER", "→ SIMPLIFICAR", "→ ADICIONAR".
+        Nenhuma tem blocking: true, throw, ou mecanismo de HALT.
+        O executor pode ignorar a veto condition e entregar output violador.
+      recommendation: |
+        Adicionar enforcement em cada task:
+        enforcement:
+          checkpoint_policy: "block_on_veto"
+          veto_behavior: "halt_and_rewrite"
+          max_retries: 2
+
+    - id: H1
+      severity: HIGH
+      title: "Orchestrator sem veto conditions de routing"
+      description: |
+        icaro-chief.md tem routing table com triggers, mas nenhuma condição
+        de veto para routing incorreto. Se o input do usuário é ambíguo
+        ("preciso melhorar minha presença"), o chief pode rotear para qualquer
+        agent sem mecanismo de desambiguação.
+      recommendation: |
+        Adicionar ao orchestrator:
+        routing_veto:
+          - "IF input ambíguo (match >= 2 agents) THEN perguntar antes de rotear"
+          - "IF nenhum trigger matched THEN HALT + pedir clarificação"
+          - "IF confidence < 70% THEN mostrar opções ao usuário"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 2: FLUXO UNIDIRECIONAL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+fluxo_unidirecional:
+  status: PASS
+  score: 8
+  detail: |
+    O routing do orchestrator é fundamentalmente forward-only:
+    - Usuário → icaro-chief → agent especialista → output → usuário.
+    - Não há loops definidos (agent não retorna ao chief).
+    - Os handoff_to nos agents apontam para agentes genéricos ("designer",
+      "tráfego pago") — não criam ciclos.
+
+  issues:
+    - id: M1
+      severity: MEDIUM
+      title: "Handoff_to com IDs genéricos em vez de agent IDs do squad"
+      description: |
+        Agents como pedro-sobral e rafael-kiso têm handoff_to para:
+        - "copywriter / especialista em copy"
+        - "designer ou especialista em UX visual"
+        - "especialista em dados / analytics"
+        Estes NÃO são IDs do squad. Dentro do squad, deveria referenciar
+        icaro-de-carvalho (para copy), marcos-hiller (para branding), etc.
+        Handoff para icaro-de-carvalho existe em rafael-kiso e juliana-gomes
+        (correto), mas pedro-sobral referencia "Ícaro de Carvalho" como
+        texto livre, não como agent ID.
+      recommendation: |
+        Padronizar todos os handoff_to com agent IDs reais do squad:
+        - "icaro-de-carvalho" (não "Ícaro de Carvalho" texto livre)
+        - "pedro-sobral" (não "especialista em tráfego pago")
+        - "rafael-kiso" (não "especialista em dados / analytics")
+        - "marcos-hiller" (não "designer de identidade visual")
+        - "juliana-gomes" (não "estrategista de conteúdo")
+        Handoffs para fora do squad (designer, dev): marcar como "external".
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 3: CHECKPOINTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+checkpoints:
+  status: FAIL
+  score: 4
+  detail: |
+    ZERO checkpoints formais definidos em qualquer lugar do squad.
+    Nem nas tasks (entre steps), nem nos workflows (entre phases),
+    nem no orchestrator (antes de rotear).
+
+  issues:
+    - id: C3
+      severity: CRITICAL
+      title: "Zero checkpoints entre fases dos workflows"
+      description: |
+        Os workflows inline no orchestrator listam fases (Phase 0-4 para
+        lançamento, Phase 0-3 para copy), mas:
+        - Nenhuma fase tem checkpoint de validação
+        - Nenhuma transição entre fases tem quality gate
+        - Nenhuma fase tem veto condition
+        Isto permite que o executor pule de Phase 0 (diagnóstico) direto
+        para Phase 3 (lançamento) sem validar que Phase 1 e 2 foram feitas.
+      recommendation: |
+        Para cada workflow, definir entre fases:
+        checkpoints:
+          - after_phase: 0
+            type: quality_gate
+            criteria: "PPP diagnosticado com 3 pilares preenchidos"
+            veto: "IF qualquer pilar vazio THEN HALT"
+          - after_phase: 1
+            type: human_review
+            criteria: "Usuário aprova causa/audiência antes de avançar"
+
+    - id: H2
+      severity: HIGH
+      title: "Tasks sem checkpoint entre steps"
+      description: |
+        As 4 tasks têm action_items com steps numerados, mas nenhum
+        checkpoint entre eles. Na task lancamento-strategy (5 steps),
+        o executor pode pular do Step 1 (diagnóstico PPP) direto para
+        Step 4 (copy) sem passar por Step 2 (seleção de estratégia).
+      recommendation: |
+        Adicionar checkpoint mínimo nos steps críticos:
+        - diagnostico-ppp: checkpoint após Step 1 (escuta do ecossistema)
+        - lancamento-strategy: checkpoint após Step 2 (seleção de estratégia)
+        - copy-email: checkpoint após Step 1 (contexto do email)
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 4: HANDOFF COVERAGE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+handoff_coverage:
+  status: PARTIAL
+  score: 6
+  detail: |
+    Cada agent tem handoff_to e completion_criteria — estrutura existe.
+    Problemas: IDs inconsistentes (ver M1), handoffs genéricos para fora
+    do squad sem fallback, e nenhum handoff tem input_validation.
+
+  issues:
+    - id: H3
+      severity: HIGH
+      title: "Handoffs sem input_validation"
+      description: |
+        Nenhum handoff define o que o agent receptor espera receber.
+        Quando icaro-chief roteia para icaro-de-carvalho, não há
+        contrato de dados: quais campos devem estar preenchidos?
+        O agent receptor pode receber input incompleto e falhar
+        silenciosamente.
+      recommendation: |
+        Adicionar input_validation em cada handoff:
+        handoff_to:
+          - agent: "icaro-de-carvalho"
+            when: "Copy, strategy, frameworks"
+            input_validation:
+              - field: "negocio_ou_produto"
+                required: true
+                min_length: 10
+              - field: "objetivo"
+                required: true
+
+    - id: M2
+      severity: MEDIUM
+      title: "Agents não sabem quando parar"
+      description: |
+        Os completion_criteria existem mas não há mecanismo de
+        auto-avaliação. O agent icaro-de-carvalho pode considerar
+        "entregável concreto entregue" sem que o output passe por
+        quality gate real. Sem auto-check antes de finalizar.
+      recommendation: |
+        Adicionar seção self_check em cada agent:
+        self_check:
+          before_completion:
+            - "Output tem entregável concreto (não opinião genérica)?"
+            - "Framework aplicado com steps claros?"
+            - "Linguagem preservada?"
+            - "Próximo passo definido?"
+          if_any_fails: "HALT e corrigir antes de entregar"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 5: ZERO WRONG PATHS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+zero_wrong_paths:
+  status: PARTIAL
+  score: 7
+  detail: |
+    A routing table tem triggers bem segmentados entre os 5 agents.
+    Overlap mínimo: "posicionamento" está em icaro-de-carvalho E
+    marcos-hiller. "Estratégia" e "estratégia de marketing" estão
+    no Ícaro, enquanto "social media strategy" está no Kiso. O
+    overlap é pequeno mas existe.
+
+  issues:
+    - id: H4
+      severity: HIGH
+      title: "Overlap de trigger 'posicionamento' entre Ícaro e Hiller"
+      description: |
+        icaro-de-carvalho triggers: "estratégia de marketing, posicionamento"
+        marcos-hiller triggers: "posicionamento, naming, rebranding"
+        Se o usuário pede "me ajuda com posicionamento", o chief não tem
+        regra de desempate. Ícaro trata posicionamento como comunicação/proposta,
+        Hiller trata como branding/território de marca. São coisas diferentes
+        mas o trigger é idêntico.
+      recommendation: |
+        Refinar triggers para eliminar overlap:
+        - icaro-de-carvalho: "posicionamento de comunicação, proposta de valor"
+        - marcos-hiller: "posicionamento de marca, território de marca, branding"
+        E adicionar disambiguation rule no chief:
+        disambiguation:
+          - trigger: "posicionamento"
+            ask: "Posicionamento de comunicação (como falar) ou de marca (quem ser)?"
+            routes:
+              comunicacao: "icaro-de-carvalho"
+              marca: "marcos-hiller"
+
+    - id: M3
+      severity: MEDIUM
+      title: "4 tasks todas atribuídas ao mesmo executor"
+      description: |
+        Todas as 4 tasks têm executor: icaro-de-carvalho. Nenhuma task
+        para pedro-sobral, rafael-kiso, marcos-hiller ou juliana-gomes.
+        Os outros 4 agents só são acessíveis via routing de comandos livres,
+        não via tasks estruturadas. Isto cria dois níveis de qualidade:
+        Ícaro tem tasks com veto conditions, os outros não.
+      recommendation: |
+        Criar ao menos 1 task por agent:
+        - pedro-sobral: task campanha-trafego.md
+        - rafael-kiso: task estrategia-social.md
+        - marcos-hiller: task auditoria-marca.md
+        - juliana-gomes: task plano-conteudo-organico.md
+        Com mesma anatomia (input, output, action_items, acceptance_criteria,
+        veto_conditions).
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 6: TASKS ANATOMY (8 campos)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+tasks_anatomy:
+  status: PARTIAL
+  score: 8
+  detail: |
+    Campos avaliados: task_name, input, output, action_items,
+    acceptance_criteria, veto_conditions, executor, execution_type.
+    Todas as 4 tasks possuem 7-8 destes campos. Bom.
+
+  task_analysis:
+    diagnostico-ppp:
+      fields_present: [task_name, input, output, action_items, acceptance_criteria, veto_conditions, executor, execution_type]
+      fields_count: 8
+      veto_count: 3
+      status: PASS
+      notes: "Anatomia completa. Veto conditions presentes mas sem enforcement."
+
+    copy-email:
+      fields_present: [task_name, input, output, action_items, acceptance_criteria, veto_conditions, executor, execution_type]
+      fields_count: 8
+      veto_count: 3
+      status: PASS
+      notes: "Anatomia completa. Veto conditions presentes mas sem enforcement."
+
+    lancamento-strategy:
+      fields_present: [task_name, input, output, action_items, acceptance_criteria, veto_conditions, executor, execution_type]
+      fields_count: 8
+      veto_count: 3
+      status: PASS
+      notes: "Decision tree bem definido no Step 2. Veto conditions presentes mas sem enforcement."
+
+    precificacao:
+      fields_present: [task_name, input, output, action_items, acceptance_criteria, veto_conditions, executor, execution_type]
+      fields_count: 8
+      veto_count: 2
+      status: PASS
+      notes: "Menor número de veto conditions (2). Considerar adicionar: 'produto sem formato definido → HALT'."
+
+  issues:
+    - id: L1
+      severity: LOW
+      title: "Nenhuma task define timeout ou max_duration"
+      description: |
+        Nenhuma das 4 tasks tem campo de timeout. Uma task de lançamento
+        strategy com 5 steps pode rodar indefinidamente sem limite.
+      recommendation: |
+        Adicionar em cada task:
+        constraints:
+          max_duration: "15 min"
+          max_retries: 2
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 7: WORKFLOW INTEGRITY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflow_integrity:
+  status: FAIL
+  score: 3
+  detail: |
+    config.yaml referencia 2 workflows que NÃO EXISTEM no disco:
+    - workflows/wf-lancamento-completo.yaml (não existe)
+    - workflows/wf-copy-pipeline.yaml (não existe)
+    O orchestrator descreve as fases inline, mas sem arquivo de workflow
+    = sem enforcement, sem checkpoints, sem veto conditions, sem fallback.
+
+  issues:
+    - id: C1
+      severity: CRITICAL
+      title: "(mesmo C1 acima — workflows fantasma)"
+      cross_ref: "C1 em veto_conditions"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CRITÉRIO 8: AGENT QUALITY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agent_quality:
+  status: PASS
+  score: 8
+  detail: |
+    Todos os 5 agents (+ orchestrator) excedem 300 linhas e possuem:
+    - Voice DNA completa (tone, vocabulary, anti_patterns, immune_system)
+    - Output examples com input/output (2-3 exemplos cada)
+    - Decision heuristics numeradas (10 cada)
+    - Veto heuristics (7 cada)
+    - Objection handling (3-4 cada)
+    - Contradictions to preserve
+    A qualidade dos agents é a maior força deste squad.
+
+  agent_line_counts:
+    icaro-chief: 198
+    icaro-de-carvalho: 415
+    pedro-sobral: 493
+    rafael-kiso: 494
+    marcos-hiller: 481
+    juliana-gomes: 450
+
+  issues:
+    - id: L2
+      severity: LOW
+      title: "icaro-chief abaixo de 300 linhas"
+      description: |
+        O orchestrator tem 198 linhas. Como tier 0 (routing only), é
+        aceitável, mas poderia incluir mais disambiguation rules.
+      recommendation: "Aceitar — orchestrator não precisa de 300+ linhas."
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RESUMO DE ISSUES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+summary:
+  total_issues: 12
+  by_severity:
+    CRITICAL: 3   # C1 (workflows fantasma), C2 (veto sem enforcement), C3 (zero checkpoints)
+    HIGH: 4       # H1 (routing sem veto), H2 (tasks sem checkpoint entre steps), H3 (handoff sem input_validation), H4 (overlap posicionamento)
+    MEDIUM: 3     # M1 (handoff IDs genéricos), M2 (agents sem self_check), M3 (tasks só pro Ícaro)
+    LOW: 2        # L1 (sem timeout), L2 (chief < 300 linhas)
+
+  strengths:
+    - "Agents de altíssima qualidade — Voice DNA, output examples, heuristics, immune system"
+    - "Routing table bem segmentada com triggers específicos por domínio"
+    - "Tasks com anatomia completa (8/8 campos nas 4 tasks)"
+    - "Decision heuristics numeradas e referenciáveis (IC_DH_009, etc.)"
+    - "Fluxo fundamentalmente unidirecional sem loops"
+
+  weaknesses:
+    - "2 workflows referenciados em config.yaml NÃO EXISTEM (arquivos fantasma)"
+    - "Zero checkpoints em todo o squad — fases, steps, routing"
+    - "Veto conditions existem mas sem enforcement mecânico"
+    - "Handoff IDs inconsistentes (texto livre vs. agent IDs)"
+    - "4/5 agents sem tasks estruturadas (só Ícaro tem)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RECOMENDAÇÕES PRIORITÁRIAS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+recommendations:
+  priority_1_critical:
+    - action: "Criar os 2 arquivos de workflow"
+      files:
+        - "workflows/wf-lancamento-completo.yaml"
+        - "workflows/wf-copy-pipeline.yaml"
+      must_include:
+        - "Fases com veto conditions explícitas"
+        - "Checkpoints entre fases (auto + human_review)"
+        - "input_validation por fase"
+        - "fallback: { on_veto, on_timeout }"
+        - "enforcement: { checkpoint_policy: block_on_veto, max_retries: 2 }"
+
+    - action: "Adicionar enforcement em todas as veto conditions das 4 tasks"
+      pattern: |
+        enforcement:
+          checkpoint_policy: "block_on_veto"
+          veto_behavior: "halt_and_rewrite"
+          max_retries: 2
+
+    - action: "Adicionar checkpoints entre fases dos workflows e entre steps das tasks"
+
+  priority_2_high:
+    - action: "Adicionar disambiguation rules ao orchestrator para triggers ambíguos"
+    - action: "Padronizar handoff_to com agent IDs reais do squad"
+    - action: "Adicionar input_validation em todos os handoffs"
+    - action: "Criar ao menos 1 task por agent secundário"
+
+  priority_3_medium:
+    - action: "Adicionar self_check em cada agent antes de completion"
+    - action: "Adicionar timeout/max_duration nas tasks"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# VEREDICTO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+verdict:
+  decision: "APROVAR COM RESSALVAS"
+  score: 74
+  reasoning: |
+    O squad tem a melhor qualidade de agents que já auditei — Voice DNA
+    profunda, output examples ricos, heuristics bem documentadas.
+    A arquitetura de routing é sólida e os triggers são bem segmentados.
+
+    Porém, os PROCESSOS estão fracos: workflows fantasma (referenciados
+    mas inexistentes), zero checkpoints, veto conditions sem enforcement,
+    handoffs sem contratos de dados. É como ter uma orquestra de músicos
+    excelentes sem partitura nem maestro com batuta.
+
+    Os agents sabem O QUE fazer. Falta garantir que eles NÃO CONSIGAM
+    fazer errado. Até que os 3 CRITICALs sejam resolvidos, o squad
+    funciona por boa vontade do executor, não por robustez do processo.
+
+  blocking_for_production:
+    - "C1: Criar os 2 workflows que config.yaml referencia"
+    - "C2: Adicionar enforcement nas veto conditions"
+    - "C3: Adicionar checkpoints entre fases"

@@ -1,0 +1,153 @@
+thinking_dna:
+  expert: "Pedro Sobral"
+  domain: "Tráfego Pago, Gestão de Anúncios, Formação de Gestores de Tráfego"
+  extraction_date: "2026-03-25"
+  sources_used: 12
+
+  primary_framework:
+    name: "Anúncios Impossíveis de Ignorar (Gancho + Corpo + CTA)"
+    description: >
+      Todo anúncio eficaz tem três partes indissociáveis. O Gancho são os primeiros 3 segundos
+      que prendem a atenção — critério de vida ou morte do criativo. O Corpo desenvolve a
+      promessa do gancho com contexto, prova e conexão emocional. O CTA é a instrução clara
+      de uma única ação. O gancho é o elemento primordial: se não para o scroll, o resto não
+      existe. Sobral ensina que o criativo se tornou a maior alavanca de performance nas
+      campanhas de tráfego pago modernas, superando segmentação e orçamento.
+    steps:
+      - "1. Definir dor ou desejo central do público-alvo"
+      - "2. Construir o gancho: imagem/vídeo + primeira frase que para o scroll"
+      - "3. Desenvolver o corpo com prova, contexto e conexão emocional"
+      - "4. Escrever CTA claro e único — uma ação, não várias"
+      - "5. Testar variações de gancho com ângulos diferentes"
+      - "6. Medir CTR, stop-rate, frequência e custo por resultado"
+    when_to_use: "Qualquer criação ou análise de anúncio pago"
+    source: "[SOURCE: web — YouTube Subido por Pedro Sobral, Comunidade Subido]"
+
+  secondary_frameworks:
+    - name: "Framework de Testes Sistemáticos"
+      description: >
+        Todo real investido é um teste — estruturado ou não. A disciplina de testes de Sobral
+        exige: isolar uma variável por vez, definir objetivo antes de rodar, calcular CPA máximo
+        aceitável antes de começar, e decidir baseado em dados. A frequência de ajuste varia
+        por elemento: orçamento a cada 2 dias, públicos a cada 4 dias, criativos a cada 2-3 dias,
+        estrutura a cada 7 dias.
+      variables_to_test:
+        - "Criativo: gancho, formato, ângulo, tom de voz (maior impacto)"
+        - "Público: segmentação, LAL, interesses, dados demográficos"
+        - "Oferta: proposta, preço, garantia"
+        - "Destino: landing page, rota de conversão"
+      source: "[SOURCE: web — blog.pedrosobral.com.br/como-fazer-testes]"
+
+    - name: "Framework de Escala de Campanhas"
+      description: >
+        Escalar não é só aumentar orçamento. Sobral ensina 5 alavancas em ordem de
+        risco/impacto: orçamento (escalar 20-30% a cada 2-3 dias, nunca dobrar),
+        criativo (maior alavanca, menor risco — criar variações do campeão),
+        público (adicionar conjuntos, não trocar o que funciona),
+        estrutura (4-8 conjuntos por campanha, max 12),
+        pós-clique (LP e funil — frequentemente o maior gargalo ignorado).
+      source: "[SOURCE: web — blog.pedrosobral.com.br/como-escalar]"
+
+    - name: "Os 3 Tipos de Campanha no Meta Ads"
+      description: >
+        Estratégia completa de funil exige três tipos de campanha operando em conjunto:
+        Prospecção (alcançar novos públicos — topo do funil),
+        Remarketing (reconverter quem já interagiu — meio/fundo do funil),
+        Retenção/Upsell (maximizar LTV de clientes existentes).
+        Erro comum: focar só em prospecção e ignorar o dinheiro que já está na mesa.
+      source: "[SOURCE: web — blog.pedrosobral.com.br]"
+
+    - name: "Diagnóstico de Gargalo de Funil"
+      description: >
+        Todo problema de campanha está em um dos três pontos do funil:
+        Topo (CPM alto = problema de público ou leilão),
+        Meio (CTR baixo = problema de criativo/gancho),
+        Fundo (conversão baixa = problema de LP, oferta ou rastreamento).
+        O diagnóstico correto do gargalo economiza tempo e dinheiro.
+      diagnostics:
+        topo: "CPM alto → competição de leilão ou público saturado"
+        meio: "CTR < 1% → gancho não está parando o scroll"
+        fundo: "CTR ok mas sem conversão → LP ou oferta com problema"
+      source: "[SOURCE: web — Método Subido]"
+
+    - name: "Filosofia de Entrega Total (Vantagem Competitiva)"
+      description: >
+        Ensinar tudo de graça não enfraquece — cria vantagem competitiva impossível de copiar.
+        O mecanismo: (1) força evolução contínua própria, pois amanhã você precisa ser melhor
+        que o conteúdo que entregou hoje; (2) constrói autoridade inabalável através de
+        resultados demonstráveis; (3) cria barreiras de entrada por constante evolução.
+        Fundamento do modelo de negócio da Comunidade Subido.
+      source: "[SOURCE: web — growthmachine.com.br/pedro-sobral]"
+
+  decision_heuristics:
+    - id: "PS_DH_001"
+      name: "Criativo é a Principal Alavanca"
+      rule: "IF campanha com bom público mas resultado fraco THEN o problema quase sempre é o criativo — troque o gancho antes de mexer em público ou orçamento"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_002"
+      name: "Dados Suficientes Antes de Decidir"
+      rule: "IF quer pausar ou escalar uma campanha THEN espere mínimo de 50 conversões ou 7 dias — decisão prematura é o maior inimigo do tráfego"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_003"
+      name: "Uma Variável por Vez"
+      rule: "IF quer testar algo THEN mude apenas criativo, público OU orçamento — nunca os três ao mesmo tempo"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_004"
+      name: "Público Menor, Mais Qualificado"
+      rule: "IF público grande com CPA ruim THEN restrição do público tende a melhorar qualificação — tamanho é inversamente proporcional à qualidade"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_005"
+      name: "Não Quebre o Aprendizado"
+      rule: "IF tentado a pausar e reativar campanha THEN avalie se é queda real ou oscilação normal — reiniciar mata o aprendizado do algoritmo"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_006"
+      name: "Automação Executa, Humano Estrategiza"
+      rule: "IF plataforma sugere algo automaticamente THEN questione se serve ao SEU objetivo — não confie cegamente na raposa"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_007"
+      name: "CPA Máximo Antes de Rodar"
+      rule: "IF não tem CPA máximo definido THEN não roda campanha — sem esse número você não distingue perda de ganho"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_008"
+      name: "Criativo Novo Antes de Orçamento Novo"
+      rule: "IF resultado caindo e tentado a aumentar verba THEN primeiro tente novo criativo — mais dinheiro em criativo saturado é queimar caixa"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_009"
+      name: "Rastreamento é Fundação"
+      rule: "IF indo rodar qualquer campanha THEN verifique pixel e conversões primeiro — campanha sem rastreamento é dirigir com os olhos fechados"
+      source: "[SOURCE: web]"
+
+    - id: "PS_DH_010"
+      name: "Veno e Vino — Respeite a Maturação"
+      rule: "IF campanha nova com resultado ruim nos primeiros dias THEN dê tempo para o algoritmo aprender — tráfego pago precisa de maturação"
+      source: "[SOURCE: web — expressão cultura Comunidade Subido]"
+
+  veto_heuristics:
+    - "NUNCA escale orçamento em campanha sem rastreamento configurado corretamente"
+    - "NUNCA tome decisão com menos de 50 conversões ou menos de 7 dias de dados"
+    - "NUNCA mude mais de uma variável no mesmo teste"
+    - "NUNCA pause campanha lucrativa para 'descansar' sem dados que justifiquem"
+    - "NUNCA prometa resultado específico sem conhecer o funil completo do cliente"
+    - "NUNCA confie 100% na automação da plataforma sem questionar o objetivo"
+    - "NUNCA use métricas de vaidade como KPI principal de campanha de conversão"
+
+  mental_models:
+    - name: "Funil como Pipeline com Gargalo"
+      description: "Todo funil de conversão tem exatamente um gargalo principal por vez. Encontrar e resolver o gargalo correto é a habilidade central do gestor de tráfego."
+
+    - name: "Algoritmo como Parceiro Treinável"
+      description: "O algoritmo de anúncios é um parceiro que aprende com os dados que você fornece. Bons dados = bom aprendizado = bons resultados. Maus dados (pixel errado) = campanha perdida."
+
+    - name: "Criativo como Hipótese"
+      description: "Cada criativo é uma hipótese sobre o que vai ressoar com o público. Nenhum criativo é definitivo — todos são testes que validam ou invalidam uma hipótese de comunicação."
+
+    - name: "Escala como Amplificador"
+      description: "Escalar amplifica o que já existe. Campanha boa escalada fica ótima. Campanha ruim escalada fica pior. Resolver problemas antes de escalar é lei."

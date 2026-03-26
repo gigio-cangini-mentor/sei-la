@@ -1,0 +1,204 @@
+# Squad: Ícaro de Carvalho — Marketing Digital & Comunicação Persuasiva
+# Version: 2.0.0
+
+pack-metadata:
+  name: icaro-de-carvalho
+  version: "2.0.0"
+  title: "Marketing Digital Elite — Squad Multi-Mind"
+  description: |
+    Squad completo de marketing digital com 5 elite minds:
+    - Ícaro de Carvalho: copywriting, lançamento, storytelling (85-90% fidelidade)
+    - Pedro Sobral: tráfego pago, Meta/Google Ads, scaling (87-90% fidelidade)
+    - Rafael Kiso: analytics, social media strategy, dados (85-92% fidelidade)
+    - Marcos Hiller: branding, posicionamento, identidade de marca (85-90% fidelidade)
+    - Juliana Gomes: conteúdo orgânico, Instagram, crescimento (85-88% fidelidade)
+  author: "squad-creator"
+  icon: "🎯"
+  domain: "marketing_digital"
+  keywords:
+    - "marketing digital"
+    - "copywriting"
+    - "lançamento"
+    - "storytelling"
+    - "empreendedorismo digital"
+    - "comunicação persuasiva"
+    - "funil de vendas"
+    - "precificação"
+    - "novo mercado"
+  slashPrefix: "icaro-de-carvalho"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents:
+  orchestrator:
+    file: "agents/icaro-chief.md"
+    tier: 0
+    role: "Diagnóstico e routing"
+
+  primary:
+    - file: "agents/icaro-de-carvalho.md"
+      tier: 1
+      role: "Strategy, copy, frameworks de marketing digital"
+      mind_source: "squads/mind-cloning/minds/icaro-de-carvalho/mind_dna_complete.yaml"
+
+    - file: "agents/pedro-sobral.md"
+      tier: 1
+      role: "Tráfego pago, Meta Ads, Google Ads, scaling"
+      mind_source: "squads/mind-cloning/minds/pedro-sobral/mind_dna_complete.yaml"
+      fidelity: "87-90%"
+
+    - file: "agents/rafael-kiso.md"
+      tier: 1
+      role: "Analytics, social media strategy, dados"
+      mind_source: "squads/mind-cloning/minds/rafael-kiso/mind_dna_complete.yaml"
+      fidelity: "85-92%"
+
+    - file: "agents/marcos-hiller.md"
+      tier: 1
+      role: "Branding, posicionamento, identidade de marca"
+      mind_source: "squads/mind-cloning/minds/marcos-hiller/mind_dna_complete.yaml"
+      fidelity: "85-90%"
+
+    - file: "agents/juliana-gomes.md"
+      tier: 1
+      role: "Conteúdo orgânico, Instagram, crescimento, vendas por conteúdo"
+      mind_source: "squads/mind-cloning/minds/juliana-gomes/mind_dna_complete.yaml"
+      fidelity: "85-88%"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# TASKS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+tasks:
+  - name: "diagnostico-ppp"
+    file: "tasks/diagnostico-ppp.md"
+    description: "Diagnóstico usando Produto/Proposta/Personalidade"
+    executor: "icaro-de-carvalho"
+
+  - name: "copy-email"
+    file: "tasks/copy-email.md"
+    description: "Redigir email de vendas/relacionamento"
+    executor: "icaro-de-carvalho"
+
+  - name: "lancamento-strategy"
+    file: "tasks/lancamento-strategy.md"
+    description: "Estratégia completa de lançamento"
+    executor: "icaro-de-carvalho"
+
+  - name: "precificacao"
+    file: "tasks/precificacao.md"
+    description: "Definir preço de produto digital"
+    executor: "icaro-de-carvalho"
+
+  - name: "campanha-trafego"
+    file: "tasks/campanha-trafego.md"
+    description: "Criar campanha completa de tráfego pago"
+    executor: "pedro-sobral"
+
+  - name: "estrategia-social"
+    file: "tasks/estrategia-social.md"
+    description: "Estratégia Unbound Marketing para redes sociais"
+    executor: "rafael-kiso"
+
+  - name: "branding-completo"
+    file: "tasks/branding-completo.md"
+    description: "Construir ou reposicionar marca completa"
+    executor: "marcos-hiller"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# WORKFLOWS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+workflows:
+  - name: "wf-lancamento-completo"
+    file: "workflows/wf-lancamento-completo.yaml"
+    description: "Pipeline completo de lançamento digital"
+    phases: 5
+
+  - name: "wf-copy-pipeline"
+    file: "workflows/wf-copy-pipeline.yaml"
+    description: "Pipeline de criação de copy"
+    phases: 4
+
+  - name: "wf-marketing-end-to-end"
+    file: "workflows/wf-marketing-end-to-end.yaml"
+    description: "Marketing completo: branding → conteúdo → copy → tráfego → analytics (todos os 5 minds)"
+    phases: 6
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DATA & REFERENCES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+data:
+  mind_dna: "squads/mind-cloning/minds/icaro-de-carvalho/mind_dna_complete.yaml"
+  sources: "squads/mind-cloning/minds/icaro-de-carvalho/sources_inventory.yaml"
+  raw_content: "/Users/luizfosc/Dropbox/Dropbox Particular Fosc/+PROJETOS Palestras + Mágicas/LUIZFOSC/CURSOS E TRANSCRIÇÕES/ICARO DE CARVALHO/"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ENFORCEMENT POLICY
+# ═══════════════════════════════════════════════════════════════════════════════
+
+enforcement:
+  checkpoint_policy: block_on_veto
+  veto_behavior: halt_pipeline
+  description: |
+    Veto conditions em tasks, workflows e checklists são BLOQUEADORES MECÂNICOS.
+    Quando um veto é acionado, a execução PARA até que o veto seja resolvido.
+    O executor NÃO pode prosseguir ignorando um veto — deve resolver ou escalar.
+  rules:
+    - "Veto condition acionada → pipeline HALT"
+    - "Human review required → aguardar aprovação explícita do usuário"
+    - "Score < threshold (FAIL) → bloquear entrega, exigir revisão"
+    - "WARN sem resolução → escalar para BLOCK após 2 ocorrências no mesmo workflow"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CHECKLISTS & TEMPLATES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+checklists:
+  - name: "copy-quality-gate"
+    file: "checklists/copy-quality-gate.md"
+    description: "Validação de qualidade para peças de copy"
+
+  - name: "lancamento-readiness"
+    file: "checklists/lancamento-readiness.md"
+    description: "Prontidão antes de lançar produto digital"
+
+templates:
+  - name: "email-vendas-tmpl"
+    file: "templates/email-vendas-tmpl.md"
+    description: "Template de email de vendas estilo Ícaro"
+
+  - name: "landing-page-tmpl"
+    file: "templates/landing-page-tmpl.md"
+    description: "Template de landing page persuasiva"
+
+  - name: "anuncio-criativo-tmpl"
+    file: "templates/anuncio-criativo-tmpl.md"
+    description: "Template de anúncio para Meta/Google Ads"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUALITY & VALIDATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+validation:
+  mind_fidelity: "85-93%"
+  sources_tier_1: 193
+  total_words_analyzed: 250000
+  smoke_tests: "3/3 PASS"
+  extraction_date: "2026-03-25"
+  validations:
+    - validator: "oalanicolas"
+      version: "v2"
+      score: "8.4/10"
+      date: "2026-03-25"
+    - validator: "pedro-valerio"
+      version: "v2"
+      score: "82/100"
+      date: "2026-03-25"
+    - validator: "kaizen"
+      version: "v2"
+      score: "8.5/10"
+      date: "2026-03-25"

@@ -1,0 +1,199 @@
+# openclaw-manager squad configuration
+# Version: 1.0.0
+# Created: 2026-03-16
+# Author: Pedro Valerio (arq-structure)
+# Purpose: Orquestrador unificado dos 3 squads Openclaw (setup + skill-factory + ops)
+
+squad:
+  id: openclaw-manager
+  name: "OpenClaw Manager — Fleet Orchestrator"
+  version: "1.0.0"
+  purpose: |
+    Camada de orquestração que conecta os 3 squads Openclaw existentes.
+    Pipeline E2E: Memory Extraction → Credentials → Setup → Skills → Ops → Monitoring.
+    Impossibilita pular etapas. Impossibilita claw sem credenciais. Impossibilita skill sem claw ativo.
+    Memory Extraction: usa ChatGPT/Gemini/Claude do usuario para extrair perfil automaticamente.
+  domain: "ai-agent-management"
+  keywords:
+    - openclaw
+    - fleet-management
+    - orchestration
+    - provisioning
+    - multi-claw
+    - monitoring
+    - credentials
+    - supabase
+
+  architecture:
+    pattern: "Unified Squad with Delegation"
+    delegates_to:
+      - squad: openclaw-setup
+        for: "Identity + Infra + Memory + Immune System"
+      - squad: openclaw-skill-factory
+        for: "Skill creation + testing + deployment"
+      - squad: openclaw-ops
+        for: "Daily operations + ClickUp + VPS sync"
+    owns:
+      - "Fleet registry (multi-claw)"
+      - "Credential collection + validation"
+      - "Cross-squad handoffs (automatizados)"
+      - "Health monitoring (fleet-wide)"
+      - "Dashboard / reporting"
+
+  agents:
+    - id: openclaw-chief
+      role: orchestrator
+      title: "Fleet Orchestrator"
+      tier: orchestrator
+      file: agents/openclaw-chief.md
+
+    - id: claw-provisioner
+      role: specialist
+      title: "Provisioning Pipeline Manager"
+      tier: 1
+      file: agents/claw-provisioner.md
+      delegates_to: [openclaw-setup, openclaw-skill-factory]
+
+    - id: skill-ops
+      role: specialist
+      title: "Skill Lifecycle Manager"
+      tier: 1
+      file: agents/skill-ops.md
+      delegates_to: [openclaw-skill-factory, openclaw-ops]
+
+    - id: fleet-monitor
+      role: specialist
+      title: "Fleet Health & Dashboard"
+      tier: 1
+      file: agents/fleet-monitor.md
+
+  workflows:
+    - id: wf-provision
+      name: "Provision New Claw — E2E Pipeline"
+      file: workflows/wf-provision.yaml
+
+    - id: wf-brownfield-upgrade
+      name: "Brownfield Upgrade — Audit & Remediate Existing Claw"
+      file: workflows/wf-brownfield-upgrade.yaml
+
+    - id: wf-daily-fleet
+      name: "Daily Fleet Operations"
+      file: workflows/wf-daily-fleet.yaml
+
+  tasks:
+    - id: provision-new-claw
+      name: "Provision New Claw"
+      file: tasks/provision-new-claw.md
+
+    - id: memory-extraction
+      name: "Extract Profile via User's AI Memory"
+      file: tasks/memory-extraction.md
+
+    - id: credential-collection
+      name: "Collect & Validate Credentials"
+      file: tasks/credential-collection.md
+
+    - id: fleet-health
+      name: "Fleet Health Check"
+      file: tasks/fleet-health.md
+
+    - id: skill-inventory
+      name: "Skill Registry Sync"
+      file: tasks/skill-inventory.md
+
+    - id: upgrade-existing-claw
+      name: "Brownfield Upgrade — Audit & Remediate"
+      file: tasks/upgrade-existing-claw.md
+
+    - id: daily-ops
+      name: "Daily Fleet Operations"
+      file: tasks/daily-ops.md
+
+  checklists:
+    - id: provision-checklist
+      name: "Provision Completion Checklist"
+      file: checklists/provision-checklist.md
+
+  templates:
+    - BOOT.template.md
+    - AGENTS.template.md
+    - IDENTITY.template.md
+    - USER.template.md
+    - SOUL.template.md
+    - memory-extraction-prompt.md
+
+  supabase:
+    project_ref: "obnfzsgbjwbflrxjdfwc"
+    url: "https://obnfzsgbjwbflrxjdfwc.supabase.co"
+    tables:
+      - openclaw_fleet
+      - openclaw_skills
+    note: "Projeto dedicado ao openclaw-manager. Credenciais em ~/.config/aios/credentials.yaml"
+
+  data:
+    fleet_registry_schema: data/fleet-registry-schema.yaml
+
+  knowledge_base:
+    inherited_from:
+      - .aios-core/pro/squads/openclaw-setup/
+      - .aios-core/pro/squads/openclaw-skill-factory/
+      - .aios-core/pro/squads/openclaw-ops/
+    primary_sources:
+      - inputs/curso-openclaw/markdown/
+
+  settings:
+    mode: "orchestrator"
+    auto_proceed: true
+    stop_only_when: "credenciais faltando OU dados do usuario incompletos"
+    model_split:
+      orchestrator: "sonnet"
+      specialists: "sonnet"
+      validation: "haiku"
+      health_checks: "haiku"
+
+  veto_conditions:
+    VT-OC-001:
+      trigger: "Criar skill sem claw ativo"
+      action: "VETO"
+      reason: "Pra que skill se nao tem claw rodando?"
+
+    VT-OC-002:
+      trigger: "Setup sem SOUL.md preenchido"
+      action: "VETO"
+      reason: "Claw sem identidade = chatbot generico"
+
+    VT-OC-003:
+      trigger: "Deploy skill sem security checklist"
+      action: "VETO"
+      reason: "Ja existe no skill-factory. OBRIGATORIO."
+
+    VT-OC-004:
+      trigger: "Ops sem health check automatizado"
+      action: "VETO"
+      reason: "O que nao e vigiado nao e realizado"
+
+    VT-OC-005:
+      trigger: "Multi-claw sem registry centralizado"
+      action: "VETO"
+      reason: "Se nao sabe quantos claws tem, nao gerencia nada"
+
+    VT-OC-006:
+      trigger: "Handoff manual entre squads"
+      action: "VETO"
+      reason: "Gap de tempo = erro esperando acontecer"
+
+    VT-OC-007:
+      trigger: "Setup completo sem credenciais validadas"
+      action: "VETO"
+      reason: "Squad que nao conecta com nada = squad decorativo"
+
+    VT-OC-008:
+      trigger: "Credencial hardcoded em qualquer arquivo"
+      action: "VETO CRITICO"
+      reason: "Regra Inviolavel #2 — NUNCA hardcodar credenciais"
+
+    VT-OC-009:
+      trigger: "Criar SKILL.md via heredoc no VPS (SSH cat/echo/heredoc)"
+      action: "VETO"
+      reason: "Caracteres especiais no YAML frontmatter quebram heredoc. SEMPRE criar local + SCP."
+      correct_pattern: "Criar arquivo local → scp arquivo user@VPS:path/"

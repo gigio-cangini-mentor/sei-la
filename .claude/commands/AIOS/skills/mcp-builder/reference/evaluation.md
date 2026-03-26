@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/mcp-builder/reference/evaluation.md
+../../../../../skills/mcp-builder/reference/evaluation.md

@@ -21,6 +21,15 @@ Production patterns for Godot 4.x game development with GDScript, covering archi
 - The task is unrelated to godot gdscript patterns
 - You need a different domain or tool outside this scope
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual versão do Godot está usando (4.x)?** — (APIs e padrões mudam entre versões menores)
+2. **Que tipo de jogo está desenvolvendo (2D, 3D, gênero)?** — (influencia padrões de scene tree, physics e state machine)
+3. **Qual sistema específico precisa implementar (movimentação, inventário, AI, UI)?** — (direciona para o playbook correto)
+4. **O projeto já tem uma arquitetura de scenes definida ou está começando do zero?** — (evita conflitar com padrões existentes) (opcional)
+
 ## Instructions
 
 - Clarify goals, constraints, and required inputs.

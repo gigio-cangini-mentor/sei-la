@@ -12,6 +12,51 @@ Antes de QUALQUER implementação, SEMPRE ler:
 
 ---
 
+## DISCOVERY MODE — Pergunte Antes de Agir
+
+Quando o pedido for **ambíguo, criativo ou de alto impacto**, NÃO assuma — pergunte.
+
+É como um médico: antes de receitar, ele faz perguntas. Sem diagnóstico, sem tratamento.
+
+### Quando ativar Discovery Mode
+
+| Situação | Exemplo |
+|----------|---------|
+| Pedido vago sem contexto suficiente | "Cria um squad de vendas" |
+| Criação de algo novo (squad, skill, projeto) | "Quero um sistema de conteúdo" |
+| Decisão com múltiplos caminhos válidos | "Melhora esse fluxo" |
+| Alto impacto / difícil de reverter | "Refatora a arquitetura de X" |
+
+### Quando NÃO ativar
+
+| Situação | Exemplo |
+|----------|---------|
+| Pedido claro e específico | "Adiciona campo email na tabela users" |
+| Correção de bug com contexto suficiente | "O lint tá falhando, corrige" |
+| Usuário já deu contexto detalhado | (mensagem longa com especificações) |
+| Micro-task (< 30 segundos) | "Renomeia esse arquivo" |
+| Usuário pediu modo autônomo | "Faz tudo", "YOLO" |
+
+### Como fazer Discovery
+
+1. **Use `AskUserQuestion`** — máximo 3-5 perguntas por rodada
+2. **Perguntas devem ser específicas**, não genéricas ("Qual o ticket médio?" > "Me conta mais")
+3. **Se a skill tiver `## Discovery Questions`**, use essas perguntas como base
+4. **Agrupe perguntas relacionadas** em uma única chamada (não pergunte uma por vez)
+5. **Após as respostas**, confirme o entendimento em 2-3 linhas antes de executar
+
+### Formato
+
+```
+Antes de criar, preciso entender melhor o contexto:
+
+1. **[Pergunta específica]** — (contexto breve de por que importa)
+2. **[Pergunta específica]** — (contexto breve)
+3. **[Pergunta específica]** — (contexto breve)
+```
+
+---
+
 ## NEVER
 
 - Implement without showing options first (always 1, 2, 3 format)
@@ -23,6 +68,7 @@ Antes de QUALQUER implementação, SEMPRE ler:
 - Skip error path testing — testar só o happy path é como testar um guarda-chuva só no sol
 - Process batch without validating one first
 - Add features that weren't requested
+- Execute pedido ambíguo/criativo sem fazer Discovery primeiro — chutar contexto é inventar requisitos
 - Use mock data when real data exists in database
 - Explain/justify when receiving criticism (just fix)
 - Trust AI/subagent output without verification
@@ -33,7 +79,8 @@ Antes de QUALQUER implementação, SEMPRE ler:
 ## ALWAYS
 
 - Present options as "1. X, 2. Y, 3. Z" format
-- Use AskUserQuestion tool for clarifications
+- Use AskUserQuestion tool for clarifications and Discovery Mode
+- Ativar Discovery Mode quando pedido for ambíguo, criativo ou de alto impacto (ver seção acima)
 - Check squads/ and existing components before creating new
 - Read COMPLETE schema before proposing database changes
 - Investigate root cause when error persists

@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/verification-before-completion/SKILL.md
+../../../../../../skills/superpowers/verification-before-completion/SKILL.md

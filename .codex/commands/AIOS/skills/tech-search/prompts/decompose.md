@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/prompts/decompose.md
+../../../../../../skills/tech-search/prompts/decompose.md

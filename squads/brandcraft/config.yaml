@@ -1,0 +1,193 @@
+name: brandcraft
+version: "1.0.0"
+description: |
+  Visual content production squad with brand consistency.
+  Extracts design systems from websites, generates PDFs, PNGs, PPTX,
+  videos, and social assets — all aligned with brand identity.
+  Quality-validated with objective scoring (PASS/FAIL).
+
+domain: brand-content-production
+keywords:
+  - brand
+  - design system
+  - pdf
+  - carousel
+  - pptx
+  - video
+  - remotion
+  - visual identity
+  - content production
+
+# Agent roster
+agents:
+  orchestrator:
+    - maestro          # Pipeline routing
+
+  explorers:
+    - prober           # Design token extraction
+    - scribe           # PDF content extraction
+
+  builders:
+    - vault            # Template management
+    - forge-renderer   # HTML → PDF/PNG (Puppeteer/Playwright)
+    - canvas           # PPTX generation (PptxGenJS)
+    - brush            # AI image generation
+    - director         # Video composition (Remotion)
+
+  guardians:
+    - gauge            # Brand quality validation
+
+# Tier system
+tiers:
+  tier_0_diagnosis:
+    - prober           # Extracts before anyone creates
+    - scribe           # Reads before anyone redesigns
+  tier_1_orchestration:
+    - maestro          # Routes to correct workflow
+  tier_2_production:
+    - vault            # Manages templates
+    - forge-renderer   # Renders documents
+    - canvas           # Creates presentations
+    - brush            # Generates images
+    - director         # Composes videos
+  tier_3_validation:
+    - gauge            # Validates everything
+
+# Skill dependencies (reuse existing AIOS skills)
+skill_dependencies:
+  - skill: design-system-extractor
+    used_by: prober
+    capability: "Token extraction from URLs"
+
+  - skill: md-to-branded-pdf
+    used_by: forge-renderer
+    capability: "Markdown → PDF with brand themes"
+
+  - skill: image-creator
+    used_by: forge-renderer
+    capability: "HTML → PNG rendering (carousels, social cards)"
+
+  - skill: canva
+    used_by: brush
+    capability: "Template-based design via Canva MCP"
+
+  - skill: image-fetcher
+    used_by: brush
+    capability: "Reference image acquisition"
+
+  - skill: instagram-publisher
+    used_by: maestro
+    capability: "Direct social publishing (enhancement over original)"
+
+  - skill: lp-generator
+    used_by: maestro
+    capability: "Branded landing page generation (enhancement over original)"
+
+  - skill: blotato
+    used_by: maestro
+    capability: "Multi-channel social publishing (LinkedIn, Twitter/X, TikTok)"
+
+# Squad dependencies (reuse existing squads)
+squad_dependencies:
+  - squad: ai-reels
+    used_by: director
+    capability: "Remotion video pipeline + avatar + voice"
+
+  - squad: branding
+    used_by: maestro
+    capability: "Brand strategy governance (enhancement)"
+
+  - squad: design
+    used_by: gauge
+    capability: "Design system validation + accessibility"
+
+  - skill: pptx-generator
+    used_by: canvas
+    capability: "Native PPTX generation via PptxGenJS"
+
+  - skill: video-generator
+    used_by: director
+    capability: "Brand video composition via Remotion"
+
+# Tech stack (installed via skills above)
+tech_stack:
+  pptx_generation:
+    library: "pptxgenjs@^3.12"
+    skill: "pptx-generator"
+    used_by: canvas
+
+  pdf_extraction:
+    library: "pdf-parse@^1.1"
+    used_by: scribe
+
+  pdf_manipulation:
+    library: "pdf-lib@^1.17"
+    used_by: scribe
+
+  ai_image_mcps:
+    - name: nano-banana-pro
+      provider: "Google Gemini"
+      priority: 1
+    - name: dalle3
+      provider: "GPT Image"
+      priority: 2
+    - name: fal-video
+      provider: "Imagen4/Ideogram/Recraft"
+      priority: 3
+    - name: flux
+      provider: "FLUX Kontext Pro"
+      priority: 4
+
+# Output formats
+output_formats:
+  documents:
+    - name: "PDF Report A4"
+      dimensions: "210x297mm"
+      engine: forge-renderer
+
+    - name: "PDF Slides 16:9"
+      dimensions: "254x143mm"
+      engine: forge-renderer
+
+    - name: "Carousel Instagram"
+      dimensions: "1080x1080 / 1080x1350"
+      engine: forge-renderer
+
+    - name: "Social Card"
+      dimensions: "1200x630"
+      engine: forge-renderer
+
+    - name: "PPTX Widescreen"
+      dimensions: "10x5.625in"
+      engine: canvas
+
+  videos:
+    - name: "Reel/Short 9:16"
+      dimensions: "1080x1920"
+      fps: 30
+      engine: director
+
+    - name: "Story 9:16"
+      dimensions: "1080x1920"
+      fps: 30
+      engine: director
+
+    - name: "Landscape 16:9"
+      dimensions: "1920x1080"
+      fps: 30
+      engine: director
+
+    - name: "Square 1:1"
+      dimensions: "1080x1080"
+      fps: 30
+      engine: director
+
+    - name: "Animated Carousel 4:5"
+      dimensions: "1080x1350"
+      fps: 30
+      engine: director
+
+    - name: "GIF"
+      dimensions: "configurable"
+      fps: 15
+      engine: director

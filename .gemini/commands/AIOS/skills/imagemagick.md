@@ -1,0 +1,1 @@
+../../../../skills/imagemagick/SKILL.md

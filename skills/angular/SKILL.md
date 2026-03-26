@@ -29,6 +29,15 @@ Master modern Angular development with Signals, Standalone Components, Zoneless 
 - Working with legacy Angular apps that cannot upgrade
 - General TypeScript issues → use `typescript-expert` skill
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual versão do Angular o projeto usa atualmente?** — (define quais padrões aplicar: Signals, Zoneless, etc.)
+2. **O projeto já usa Standalone Components ou ainda tem NgModules?** — (determina se é migração incremental ou greenfield)
+3. **SSR/hydration é requisito? O app precisa de SEO?** — (impacta arquitetura do bootstrap e configuração de providers)
+4. **Qual a abordagem de state management atual (Signals, NgRx, serviços RxJS)?** — (evita conflitos com o que já existe) (opcional)
+
 ## Instructions
 
 1. Assess the Angular version and project structure

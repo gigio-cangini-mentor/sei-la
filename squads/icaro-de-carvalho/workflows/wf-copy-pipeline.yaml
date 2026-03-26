@@ -1,0 +1,643 @@
+# WF-COPY-PIPELINE: Pipeline Completo de Criação de Copy
+# Squad: Ícaro de Carvalho
+# Duration: 1-3 dias (dependendo do volume e do tipo de copy)
+# Best for: Criar copy de qualidade com diagnóstico, posicionamento, redação e revisão para todos os canais
+
+workflow:
+  id: wf-copy-pipeline
+  name: "Copy Pipeline Completo"
+  version: "1.0.0"
+  duration: "1-3 dias"
+  description: |
+    Pipeline de criação de copy baseado nos frameworks do Ícaro de Carvalho, com etapas de
+    diagnóstico de ecossistema, posicionamento e tom de voz, redação e revisão/adaptação
+    para múltiplos canais (email, LP, anúncio, post orgânico).
+
+    "O email é um tiro de 60 mil reais. Escreva segunda, revise quarta, revise sexta."
+    — Ícaro de Carvalho
+
+    Este workflow produz:
+    - Diagnóstico de ecossistema e proposta emocional validada
+    - Guia de tom de voz alinhado com branding
+    - Copy redigida (email, LP, anúncio e/ou post) no estilo Ícaro
+    - Versões adaptadas por canal (orgânico via @juliana-gomes, ads via @pedro-sobral)
+
+  best_for:
+    - "Criadores que precisam de copy para lançamento, funil ou campanha específica"
+    - "Negócios com produto/serviço definido mas sem proposta emocional clara"
+    - "Copy de email de vendas, reengajamento ou nurturing"
+    - "Página de vendas, anúncio ou post de conversão"
+    - "Adaptar copy existente para canais diferentes mantendo consistência"
+
+  not_for:
+    - "Copywriting técnico ou institucional (B2B corporativo sem proposta emocional)"
+    - "Copy sem produto definido (use wf-lancamento-completo para partir do zero)"
+    - "Redação jornalística ou acadêmica"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS (o que o usuário precisa fornecer)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: produto_ou_servico
+      description: "O que está sendo vendido ou comunicado"
+      example: "Mentorias de fotografia — programa online, 3 meses, R$ 1.997"
+
+    - name: publico_alvo
+      description: "Para quem é a copy — quem lê e quem decide comprar"
+      example: "Fotógrafos freelancers que querem sair do amadorismo e cobrar mais caro"
+
+    - name: objetivo_da_copy
+      description: "O que a copy precisa fazer"
+      values:
+        - "Vender (conversão direta)"
+        - "Reengajar lista fria"
+        - "Aquecer para lançamento"
+        - "Nutrir relacionamento"
+        - "Capturar lead"
+      example: "Vender (conversão direta)"
+
+  optional:
+    - name: tipo_de_copy
+      description: "Qual formato de copy precisa ser entregue"
+      values: ["email", "página de vendas", "anúncio (Meta Ads)", "post orgânico", "todos"]
+      default: "todos"
+
+    - name: tom_existente
+      description: "Tom de voz ou brand brief já existente (se houver)"
+      default: "Definir no Phase 1"
+
+    - name: copy_existente
+      description: "Copy atual que precisa de revisão (se houver)"
+      default: "Criar do zero"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: ESCUTA DO ECOSSISTEMA — Diagnóstico antes de escrever
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Escuta do Ecossistema — Diagnóstico"
+    tier: 0
+    duration: "30-60 minutos"
+    agents_assigned:
+      - "@icaro-de-carvalho"
+    description: |
+      Antes de escrever uma linha, o Ícaro ouve. O diagnóstico do ecossistema responde
+      à pergunta mais importante: "Você está vendendo o que o cliente QUER ou o que você
+      quer vender?"
+
+      Nenhuma copy funciona sem esse diagnóstico. Escrever antes de ouvir o ecossistema
+      é como receitar remédio sem examinar o paciente.
+
+      Framework aplicado: Escuta do Ecossistema + diagnóstico PPP simplificado
+      (foco em Proposta e Personalidade, pois Produto já está definido nos inputs)
+
+    tasks:
+      - name: "diagnostico-proposta"
+        agent: "@icaro-de-carvalho"
+        command: "*diagnostico {produto}"
+        action: |
+          Diagnosticar a proposta antes de redigir qualquer copy:
+
+          PROPOSTA EMOCIONAL:
+          - O que o cliente realmente compra? (não o produto — o resultado emocional)
+          - Qual é o estímulo principal: liberdade, status, segurança, pertencimento, vingança?
+          - O produto resolve dor (fuga) ou realiza desejo (conquista)?
+          - No Brasil: a proposta é emocional e utilitarista? (Proposta > Produto)
+
+          ECOSSISTEMA:
+          - As pessoas estão comprando soluções parecidas? (validação de mercado)
+          - Qual a maior objeção do público-alvo para este produto? (derrubar na copy)
+          - Qual é o KPI real desta copy? (taxa de abertura, clique, conversão, lead gerado)
+          - Qual o canal principal onde esta copy vai circular?
+
+          PERSONALIDADE:
+          - Quem assina esta copy? A voz do criador está presente?
+          - Se tapar o nome, dá para saber que é aquela pessoa?
+          - Há causa identificável? (Causa cria militante, propósito cria seguidor passivo)
+
+          OUTPUT: briefing de copy com proposta emocional central, objeção principal e KPI definido
+
+      - name: "validar-kpi-da-copy"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Antes de continuar, validar:
+          - O KPI está definido? (sem KPI, sem ação — IC diagnóstico)
+          - A copy vai para um único canal ou múltiplos? (muda a estrutura)
+          - Existe copy anterior? (se sim, o que estava funcionando e o que não estava)
+          - Qual o prazo de entrega e de publicação?
+
+          Se qualquer resposta for vaga: parar e clarificar antes do Phase 1.
+
+    checkpoint:
+      name: "QG-0: Diagnóstico de Ecossistema Aprovado"
+      human_review: true
+      criteria:
+        - "Proposta emocional central identificada e documentada"
+        - "Maior objeção do público mapeada"
+        - "KPI da copy definido (taxa de conversão, abertura, lead, etc.)"
+        - "Canal(is) de publicação definido(s)"
+        - "Briefing de copy completo"
+      veto_conditions:
+        - "Proposta emocional ausente ou idêntica ao produto → BLOCK (refazer diagnóstico)"
+        - "KPI da copy não definido → BLOCK (sem métrica, copy vira decoração)"
+        - "Público-alvo vago ('todo mundo') → BLOCK (copy para todo mundo não converte ninguém)"
+        - "Objeção principal não mapeada → WARN (copy vai ignorar o maior bloqueio de compra)"
+      output: "briefing-copy.md"
+      ask_user: |
+        Diagnóstico de ecossistema concluído.
+
+        Proposta emocional central: {proposta}
+        Maior objeção identificada: {objecao}
+        KPI da copy: {kpi}
+        Canal(is): {canais}
+
+        Prosseguir para posicionamento e definição do tom de voz?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: POSICIONAMENTO E TOM DE VOZ
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Posicionamento e Tom de Voz"
+    tier: 1
+    duration: "1-2 horas"
+    agents_assigned:
+      - "@marcos-hiller"
+      - "@icaro-de-carvalho"
+    description: |
+      @marcos-hiller define o posicionamento estratégico e o tom de voz da copy.
+      @icaro-de-carvalho valida se o tom está alinhado com a proposta emocional e com
+      a personalidade do criador — não com o que parece "profissional".
+
+      Premissa: "Personalidade é o que te diferencia de commodity."
+      Premissa: "Jargão corporativo sanitizado é o inimigo da copy que vende."
+
+      Esta fase é especialmente crítica quando a copy precisa circular por múltiplos canais —
+      voz é a mesma, tom muda por canal.
+
+    tasks:
+      - name: "posicionamento-da-copy"
+        agent: "@marcos-hiller"
+        action: |
+          Definir o posicionamento estratégico que vai orientar a redação:
+
+          1. DECLARAÇÃO DE POSICIONAMENTO DA COPY:
+             "Esta copy fala para [público específico] que está [situação atual] e quer [resultado desejado].
+             A mensagem central é: [uma frase que é a essência de tudo]."
+
+          2. DIFERENCIAL COMPETITIVO:
+             O que torna ESTA oferta diferente de alternativas similares?
+             (não "o mais completo" — algo concreto e verificável)
+
+          3. ARQUÉTIPO DA VOZ:
+             Herói (supera obstáculos), Criador (constrói), Sábio (ensina), Fora da lei (subverte),
+             Explorador (descobre). Qual é o arquétipo principal desta copy?
+
+          4. POSTURA DA COPY:
+             Direta (vai logo ao ponto) vs. Narrativa (história antes da oferta)?
+             Escassez real (prazo/vagas) vs. Urgência emocional (dor que piora)?
+
+      - name: "guia-de-tom-de-voz"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Definir o guia de tom de voz para a copy, baseado na personalidade do criador:
+
+          TOM GERAL:
+          - Escala de formalidade: 1 (bar com amigos) → 10 (documento jurídico). Onde está?
+          - Escala de diretividade: 1 (rodeios) → 10 (direto ao ponto sem filtro). Onde está?
+          - Temperatura emocional: frio (dados, lógica) vs. quente (histórias, emoção)?
+
+          VOCABULÁRIO DA COPY:
+          - 5 palavras que SEMPRE usar (alinhadas com a causa e proposta)
+          - 5 palavras que NUNCA usar (jargão corporativo, promessas vazias, termos da concorrência)
+
+          PADRÕES DE FRASE:
+          - Frases curtas ou longas?
+          - Perguntas retóricas (provocação antes de resposta)?
+          - Listas numeradas ou parágrafos corridos?
+          - Palavrão como pontuação ou linguagem limpa?
+
+          ANTI-PATTERNS DESTA COPY:
+          - O que esta copy NUNCA vai fazer ou dizer?
+
+          OUTPUT: guia de tom de voz em 1 página — referência para o copywriter no Phase 2
+
+    checkpoint:
+      name: "QG-1: Posicionamento e Tom de Voz Aprovados"
+      human_review: true
+      criteria:
+        - "Declaração de posicionamento da copy (uma frase que diz tudo)"
+        - "Diferencial competitivo concreto e verificável"
+        - "Arquétipo da voz definido"
+        - "Guia de tom de voz com vocabulário, padrões e anti-patterns"
+        - "Validação do Ícaro: tom está alinhado com personalidade e proposta?"
+      veto_conditions:
+        - "Tom genérico e intercambiável com qualquer outra marca → BLOCK (refazer com personalidade)"
+        - "Vocabulário com jargão corporativo sem tradução → BLOCK (o Ícaro rejeita explicitamente)"
+        - "Posicionamento igual ao do concorrente mais próximo → WARN (diferenciar antes de escrever)"
+        - "Diferencial é 'o mais completo' ou 'o melhor' → WARN (não é diferencial, é clichê)"
+      output: "guia-tom-de-voz.md"
+      handoff_to: "PHASE-2"
+      ask_user: |
+        Posicionamento e tom de voz definidos.
+
+        Posicionamento: {declaracao}
+        Arquétipo: {arquetipo}
+        Tom: {descricao_tom}
+
+        Pronto para iniciar a redação?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: REDAÇÃO — Email, LP, Anúncio e Post
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Redação — Email, LP, Anúncio e Post"
+    tier: 2
+    duration: "1-2 dias"
+    agents_assigned:
+      - "@icaro-de-carvalho"
+    description: |
+      @icaro-de-carvalho redige a copy usando o briefing do Phase 0 e o guia de tom do Phase 1.
+      A regra de ouro: "Escreva segunda, revise quarta, revise sexta."
+
+      Não existe atalho. Copy que converte tem camadas — é escrita, descansada, relida com
+      olhos frescos. O Ícaro não entrega primeira versão como final.
+
+      Cada tipo de copy tem estrutura própria, mas o princípio é único: proposta emocional
+      antes do produto, personalidade visível em cada linha, CTA única e clara.
+
+    tasks:
+      - name: "copy-email"
+        agent: "@icaro-de-carvalho"
+        command: "*email {objetivo}"
+        when: "tipo_de_copy inclui 'email'"
+        action: |
+          Redigir email de vendas ou relacionamento com os elementos obrigatórios:
+
+          SUBJECT:
+          - Sem emoji no subject de vendas (destrói entregabilidade e credibilidade)
+          - Sem caps lock
+          - Sem fórmula óbvia de marketing ("Última chance!", "Oferta imperdível")
+          - Subject que parece email de pessoa, não de empresa
+
+          ABERTURA:
+          - Primeira frase que prende — não pode ser "Olá, [nome]!"
+          - Vai direto ao contexto ou à dor
+
+          CORPO:
+          - Uma ideia central por email (IC_DH_008: email é tiro de 60 mil)
+          - Storytelling ou argumento que desenvolve a proposta emocional
+          - Prova social ou referência concreta se for email de vendas
+          - Objeção antecipada derrubada antes de chegar na CTA
+
+          CTA:
+          - Uma ação, não várias
+          - Clara e direta: "Clica aqui", "Me responde com [palavra]", "Acessa o link"
+          - Link de descadastro no final (transparência aumenta confiança)
+
+          REVISÃO OBRIGATÓRIA:
+          Rascunho no dia 1 → Revisão no dia 2 → Envio no dia 3 (ou mais)
+          "Não existe email que não melhore depois de uma noite de sono."
+
+      - name: "copy-pagina-de-vendas"
+        agent: "@icaro-de-carvalho"
+        command: "*copy pagina-de-vendas"
+        when: "tipo_de_copy inclui 'página de vendas'"
+        action: |
+          Redigir página de vendas com estrutura completa:
+
+          1. HEADLINE: proposta emocional (não o nome do produto)
+             → Primeira coisa que lê. Se não prende, a LP não existe.
+          2. SUBHEADLINE: para quem é + o que resolve (uma linha)
+          3. PROBLEMA: ampliar a dor — o que acontece se o problema não for resolvido?
+          4. AGITAÇÃO: por que as soluções atuais não funcionam?
+          5. SOLUÇÃO: o produto como caminho (não como produto — como transformação)
+          6. O QUE ESTÁ DENTRO: conteúdo descrito em linguagem de resultado, não de índice
+          7. PARA QUEM É / PARA QUEM NÃO É: exclusão aumenta credibilidade
+          8. PROVA SOCIAL: depoimento com resultado específico + nome + contexto
+          9. OFERTA: o que vem, quanto custa, o que garante
+          10. LEQUE DE PREÇOS: ao menos 2 opções (IC_DH_003 — produto único perde vendas)
+          11. GARANTIA: remover risco percebido da decisão
+          12. CTA FINAL: botão com texto de ação, não de confirmação ("Quero acessar", não "Comprar")
+
+          Tom: linguagem de bar, não de cartilha. Personalidade visível em cada parágrafo.
+
+      - name: "copy-anuncio"
+        agent: "@icaro-de-carvalho"
+        command: "*copy anuncio"
+        when: "tipo_de_copy inclui 'anúncio'"
+        action: |
+          Redigir copy de anúncio (Meta Ads) integrada com a estrutura do Pedro Sobral:
+
+          GANCHO (primeiros 3 segundos — visual + primeira frase):
+          - Dor imediata: nomeia o problema específico do público-alvo
+          - Curiosidade: derruba crença comum ("O motivo pelo qual X não funciona...")
+          - Resultado: número real + transformação concreta
+
+          CORPO:
+          - Contextualiza a dor ou o desejo
+          - Entrega prova (dado, depoimento, resultado próprio)
+          - Conecta à solução sem dar tudo de graça
+
+          CTA:
+          - Uma ação clara (link, DM, comentário)
+          - Urgência real se houver (não urgência falsa)
+
+          Entregar 3 variações de gancho para teste A/B (conforme PS_DH_003: uma variável por vez)
+
+      - name: "copy-post-organico"
+        agent: "@icaro-de-carvalho"
+        command: "*copy post"
+        when: "tipo_de_copy inclui 'post orgânico'"
+        action: |
+          Redigir copy para post orgânico (legenda de Reels, carrossel ou feed):
+
+          FUNÇÃO DO POST (definida no briefing):
+          - Ganhar seguidor: copy que educa e é compartilhável
+          - Engajamento: copy que conecta emocionalmente e gera resposta
+          - Venda: copy com proposta clara e CTA explícita
+
+          REGRA DA LEGENDA:
+          - Primeira linha = hook (tudo que aparece antes do "ver mais")
+          - Segunda linha: quebra de expectativa ou promessa do que vem
+          - Desenvolvimento: histórias curtas, listas ou argumentos
+          - Fechamento: CTA alinhada com a função do post
+
+          VOCABULÁRIO:
+          Alinhado com o guia de tom de voz do Phase 1.
+          Personalidade do criador visível — se não tem personalidade, não publica.
+
+    checkpoint:
+      name: "QG-2: Copy Redigida e Revisada"
+      human_review: true
+      criteria:
+        - "Todos os tipos de copy solicitados redigidos"
+        - "Proposta emocional central presente em cada peça"
+        - "Tom de voz do Phase 1 aplicado em todas as peças"
+        - "CTA única e clara em cada peça"
+        - "Copy de anúncio com 3 variações de gancho"
+        - "Email com subject sem emoji/caps lock/fórmula"
+      veto_conditions:
+        - "Headline da LP com nome do produto em vez de proposta emocional → BLOCK (refazer)"
+        - "Email com múltiplas CTAs → BLOCK (confunde e paralisa o leitor)"
+        - "Anúncio com apenas 1 variação de gancho → WARN (impossível testar)"
+        - "Post orgânico sem função definida → WARN (Juliana Gomes: post sem função é ruído)"
+        - "Copy com jargão corporativo não adaptado para linguagem de rua → BLOCK (reescrever)"
+      output: "copy-completa.md"
+      handoff_to: "PHASE-3"
+      ask_user: |
+        Copy redigida e revisada.
+
+        Peças entregues:
+        {lista_de_pecas}
+
+        Revisei cada peça verificando:
+        - Proposta emocional presente
+        - Tom de voz aplicado
+        - CTA única e clara
+
+        Avançar para revisão final e adaptação por canal?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: REVISÃO + ADAPTAÇÃO PARA CANAIS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Revisão e Adaptação para Canais"
+    tier: 2
+    duration: "4-8 horas"
+    agents_assigned:
+      - "@juliana-gomes"
+      - "@pedro-sobral"
+    description: |
+      A copy criada no Phase 2 é adaptada para os canais específicos de publicação.
+
+      @juliana-gomes revisa e adapta tudo que vai para o orgânico (posts, Reels, Stories):
+      - Aplicar as 3 Funções do Conteúdo em cada peça
+      - Garantir que os hooks param o scroll
+      - Calibrar o tom para o algoritmo do Instagram
+
+      @pedro-sobral revisa e adapta tudo que vai para anúncios pagos:
+      - Garantir que o gancho cumpre os 3 segundos críticos
+      - Estruturar as 3 variações para teste A/B
+      - Alinhar com framework "Anúncios Impossíveis de Ignorar"
+
+      Premissa da Ju: "Retenção bate produção. Um vídeo simples que retém supera um vídeo bonito que não."
+      Premissa do Sobral: "O gancho é o critério de vida ou morte do criativo."
+
+    tasks:
+      - name: "revisao-organico"
+        agent: "@juliana-gomes"
+        action: |
+          Revisar e adaptar toda copy destinada ao orgânico (Instagram, Reels, Stories):
+
+          CHECKLIST DE REVISÃO (post a post):
+
+          1. FUNÇÃO ESTÁ CLARA?
+             - O post serve para ganhar seguidor, gerar engajamento OU vender?
+             - Se tiver mais de uma função, priorizar uma e ajustar o restante
+
+          2. HOOK DOS REELS (se aplicável):
+             - Os primeiros 3 segundos prendem quem está passando o dedo?
+             - É promessa, provocação ou surpresa?
+             - Para o scroll ou passa despercebido?
+
+          3. LEGENDA:
+             - Primeira linha funciona sem o "ver mais"?
+             - CTA está alinhada com a função do post?
+             - Palavras-chave do nicho para SEO do Instagram?
+
+          4. PROPORÇÃO DAS FUNÇÕES:
+             - Sequência do calendário editorial: 50% seguidor + 30% engajamento + 20% venda?
+             - Está equilibrado ou é só venda (o algoritmo pune)?
+
+          5. TOM DA JU:
+             - Linguagem simples, sem jargão?
+             - Resultado real em vez de perfeição visual?
+             - Prova social está presente nas peças de venda?
+
+          OUTPUT: copy orgânica revisada com comentários de ajuste em cada peça
+
+      - name: "revisao-ads"
+        agent: "@pedro-sobral"
+        action: |
+          Revisar e adaptar toda copy destinada a anúncios pagos (Meta Ads, TikTok Ads):
+
+          CHECKLIST DE REVISÃO (anúncio por anúncio):
+
+          1. GANCHO (vida ou morte):
+             - Os primeiros 3 segundos param o scroll?
+             - A primeira frase nomeia dor ou desejo de forma específica?
+             - Existem 3 variações de gancho para teste? (PS_DH_003: uma variável por vez)
+
+          2. CORPO:
+             - Sustenta a promessa do gancho?
+             - Tem prova, contexto ou dado que aumenta credibilidade?
+             - Não entrega a solução de graça (precisa do clique)?
+
+          3. CTA:
+             - É clara e única?
+             - Alinha com o objetivo da campanha (lead, venda, mensagem)?
+             - Sem múltiplas opções que paralisam?
+
+          4. ALINHAMENTO COM RASTREAMENTO:
+             - A copy menciona o produto/oferta de forma consistente com a LP de destino?
+             - Não promete algo que a LP não entrega?
+
+          5. REGRA DO SOBRAL:
+             - "Anúncio que converte é anúncio impossível de ignorar."
+             - Ao ler, você pararia o scroll? Seja honesto.
+
+          OUTPUT: copy de ads revisada com 3 variações de gancho claramente marcadas
+
+      - name: "checklist-final"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Revisão final pelo Ícaro — validar coerência entre todas as peças:
+
+          - A proposta emocional definida no Phase 0 está presente em TODAS as peças?
+          - A personalidade do criador é reconhecível em todos os canais?
+          - A copy orgânica e a copy paga estão contando a mesma história de formas diferentes?
+          - Alguma peça tem jargão corporativo que não foi corrigido?
+          - A copy vai gerar comprometimento ou só interesse?
+
+          REGRA DO COMPROMETIMENTO (Injeção Rápida de Caixa):
+          Copy que vende não promove — comprometida. Diferença:
+          - PROMOÇÃO: "Aproveite 20% de desconto" → interesse passageiro
+          - COMPROMETIMENTO: "Você está nessa situação hoje. Isso vai mudar se você agir agora." → decisão
+
+    checkpoint:
+      name: "QG-3: Copy Revisada e Adaptada por Canal — Pronta para Publicar"
+      human_review: true
+      criteria:
+        - "Toda copy orgânica revisada pela Juliana (função definida, hook testado, tom calibrado)"
+        - "Toda copy de ads revisada pelo Sobral (3 variações de gancho, CTA única, alinhada com LP)"
+        - "Revisão final do Ícaro (coerência entre canais, proposta emocional presente)"
+        - "Nenhuma peça com múltiplas CTAs"
+        - "Nenhuma peça com jargão corporativo não adaptado"
+        - "Conjunto completo organizado por canal (orgânico / ads / email / LP)"
+      veto_conditions:
+        - "Anúncio com gancho fraco aprovado → BLOCK (o Sobral veta: gancho é vida ou morte)"
+        - "Post orgânico sem função definida publicado → BLOCK (Juliana veta: post sem objetivo é ruído)"
+        - "Copy orgânica e copy de ads contradizem a mesma proposta → BLOCK (confunde audiência)"
+        - "Email com subject de fórmula óbvia → WARN (compromete entregabilidade e credibilidade)"
+        - "LP sem leque de preços → WARN (IC_DH_003: produto único perde vendas)"
+      output: "copy-final-por-canal.md"
+      ask_user: |
+        Copy pipeline concluído. Todas as peças estão prontas para publicação.
+
+        Orgânico (revisado pela @juliana-gomes):
+        {lista_posts_organicos}
+
+        Anúncios (revisados pelo @pedro-sobral):
+        {lista_criativos_ads}
+
+        Email / LP (revisados pelo @icaro-de-carvalho):
+        {lista_pecas_email_lp}
+
+        Arquivo final: copy-final-por-canal.md
+
+        Há alguma peça que você quer revisar antes de publicar?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signals:
+  success:
+    - "Todos os tipos de copy solicitados entregues e revisados"
+    - "Todos os quality gates PASS"
+    - "Proposta emocional verificada em todas as peças"
+    - "Copy organizada por canal e pronta para publicar"
+  partial:
+    - "Copy de alguns canais pronta, outros pendentes → entregar o que está pronto, sinalizar pendências"
+    - "Copy redigida mas tom divergente → revisão adicional com @icaro-de-carvalho"
+    - "Anúncios sem 3 variações de gancho → criar variações antes de subir campanha"
+  failure:
+    - "Briefing insuficiente para redigir (público ou proposta indefinidos)"
+    - "Tom de voz inconsistente com a personalidade real do criador"
+    - "Copy aprovada mas que contradiz a proposta emocional central"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  primary:
+    - name: "briefing-copy.md"
+      path: "squads/icaro-de-carvalho/output/copy/{slug}/briefing-copy.md"
+      description: "Diagnóstico de ecossistema, proposta emocional e KPI da copy"
+
+    - name: "guia-tom-de-voz.md"
+      path: "squads/icaro-de-carvalho/output/copy/{slug}/guia-tom-de-voz.md"
+      description: "Posicionamento, arquétipo, vocabulário e anti-patterns"
+
+    - name: "copy-completa.md"
+      path: "squads/icaro-de-carvalho/output/copy/{slug}/copy-completa.md"
+      description: "Todas as peças redigidas (email, LP, anúncio, post) — primeira versão"
+
+    - name: "copy-final-por-canal.md"
+      path: "squads/icaro-de-carvalho/output/copy/{slug}/copy-final-por-canal.md"
+      description: "Copy revisada e adaptada por canal — versão final para publicar"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0: "@icaro-de-carvalho"
+  PHASE-1: "@marcos-hiller + @icaro-de-carvalho"
+  PHASE-2: "@icaro-de-carvalho"
+  PHASE-3: "@juliana-gomes (orgânico) + @pedro-sobral (ads) + @icaro-de-carvalho (revisão final)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK REFERENCE — Quando usar qual tipo de copy
+# ═══════════════════════════════════════════════════════════════════════════════
+
+quick_reference:
+  email:
+    quando: "Lista existente, reengajamento, lançamento, nurturing"
+    framework: "IC_DH_008 — Email é tiro de 60 mil. Escreve, descansa, revisa."
+    tempo_medio: "1 dia de redação + 1 dia de revisão"
+
+  pagina_de_vendas:
+    quando: "Produto com tráfego pago ou link de vendas direto"
+    framework: "PPP — Proposta mata preço. Headline é proposta, não nome do produto."
+    tempo_medio: "1-2 dias"
+
+  anuncio:
+    quando: "Campanhas Meta Ads, TikTok Ads — escalar audiência"
+    framework: "Anúncios Impossíveis de Ignorar (Sobral) — Gancho + Corpo + CTA"
+    tempo_medio: "Meio dia + 3 variações de gancho"
+
+  post_organico:
+    quando: "Conteúdo de feed, Reels, Stories sem verba"
+    framework: "3 Funções do Conteúdo (Juliana) — definir função antes do formato"
+    tempo_medio: "2-4 horas por post/script"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created_by: "@icaro-chief"
+  created_at: "2026-03-25"
+  version: "1.0.0"
+  squad: "icaro-de-carvalho"
+  tags: ["copy", "copywriting", "email-marketing", "landing-page", "anuncio", "post-organico", "tom-de-voz"]
+  frameworks_used:
+    - "PPP — Produto, Proposta, Personalidade (Ícaro de Carvalho)"
+    - "Escuta do Ecossistema (Ícaro de Carvalho)"
+    - "3 Funções do Conteúdo (Juliana Gomes)"
+    - "Anúncios Impossíveis de Ignorar (Pedro Sobral)"
+    - "Branding e Arquétipo de Marca (Marcos Hiller)"
+  depends_on:
+    agents:
+      - "@icaro-de-carvalho"
+      - "@marcos-hiller"
+      - "@juliana-gomes"
+      - "@pedro-sobral"

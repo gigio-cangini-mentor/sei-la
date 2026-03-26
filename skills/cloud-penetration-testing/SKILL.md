@@ -12,6 +12,16 @@ metadata:
 
 Conduct comprehensive security assessments of cloud infrastructure across Microsoft Azure, Amazon Web Services (AWS), and Google Cloud Platform (GCP). This skill covers reconnaissance, authentication testing, resource enumeration, privilege escalation, data extraction, and persistence techniques for authorized cloud security engagements.
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual provedor cloud é o alvo? (Azure, AWS, GCP ou multi-cloud?)** — (define quais fases e ferramentas serão usadas)
+2. **Existe autorização escrita e escopo definido para o teste?** — (obrigatório legal — sem isso, não se inicia)
+3. **Quais credenciais ou tokens de acesso estão disponíveis para o teste?** — (determina o ponto de partida: recon externo vs. acesso autenticado)
+4. **O objetivo é enumeração geral ou há alvos específicos? (ex: Key Vault, S3 buckets, IAM)** — (foca o esforço nas fases mais relevantes)
+5. **Há restrições de detecção? (ex: ambiente com GuardDuty/Security Center ativo)** — (ajusta velocidade e técnicas para evitar alertas) (opcional)
+
 ## Prerequisites
 
 ### Required Tools

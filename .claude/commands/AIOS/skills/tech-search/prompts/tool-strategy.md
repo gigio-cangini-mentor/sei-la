@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/prompts/tool-strategy.md
+../../../../../../skills/tech-search/prompts/tool-strategy.md

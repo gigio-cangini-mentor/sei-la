@@ -1,1 +1,1 @@
-../../../../skills/system-prompt-architect/SKILL.md
+../../../../../skills/system-prompt-architect/SKILL.md

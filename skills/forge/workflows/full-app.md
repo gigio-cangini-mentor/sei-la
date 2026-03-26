@@ -27,7 +27,7 @@ ALL 6 phases execute. This is the complete Forge experience.
 
 ### Phase 0: Discovery (full)
 
-Read `phases/phase-0-discovery.md` with FULL_APP adjustments:
+Read `{FORGE_HOME}/phases/phase-0-discovery.md` with FULL_APP adjustments:
 - Socratic Gate uses FULL_APP questions
 - Project detection runs (type, stack, template)
 - Ecosystem scan runs (MANDATORY)
@@ -35,7 +35,7 @@ Read `phases/phase-0-discovery.md` with FULL_APP adjustments:
 
 ### Phase 1: Spec Pipeline
 
-Read `phases/phase-1-spec.md`:
+Read `{FORGE_HOME}/phases/phase-1-spec.md`:
 1. @pm creates PRD + Epic (with app-builder stack/template)
 2. @architect assesses complexity + designs architecture
 3. @analyst researches (if complexity >= STANDARD)
@@ -45,14 +45,14 @@ Read `phases/phase-1-spec.md`:
 
 ### Phase 2: Story Factory
 
-Read `phases/phase-2-stories.md`:
+Read `{FORGE_HOME}/phases/phase-2-stories.md`:
 1. @sm creates stories from epic (one by one)
 2. @po validates each (veto: < 7/10)
 3. CHECKPOINT: approve story list + priority
 
 ### Phase 3: Build Loop
 
-Read `phases/phase-3-build.md` with FULL_APP mode:
+Read `{FORGE_HOME}/phases/phase-3-build.md` with FULL_APP mode:
 - Stories already exist from Phase 2
 - Execute in priority order
 - Full SDC per story: @dev -> veto -> @qa
@@ -61,14 +61,14 @@ Read `phases/phase-3-build.md` with FULL_APP mode:
 
 ### Phase 4: Integration
 
-Read `phases/phase-4-integration.md`:
+Read `{FORGE_HOME}/phases/phase-4-integration.md`:
 1. @qa runs full test suite
 2. @devops runs pre-push quality gate
 3. CHECKPOINT: approve for deploy
 
 ### Phase 5: Deploy
 
-Read `phases/phase-5-deploy.md`:
+Read `{FORGE_HOME}/phases/phase-5-deploy.md`:
 1. CHECKPOINT: confirm push
 2. @devops: commit + push + PR
 3. Completion banner

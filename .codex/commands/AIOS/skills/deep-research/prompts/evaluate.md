@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/deep-research/prompts/evaluate.md
+../../../../../../skills/deep-research/prompts/evaluate.md

@@ -36,7 +36,7 @@ squad:
     - aiox
 
   entry_agent: claude-mastery-chief
-  created_by: "squad-creator-pro"
+  created_by: "squad-creator"
   created_at: "2026-03-01"
 
 # ─────────────────────────────────────────────────────────────────────────────

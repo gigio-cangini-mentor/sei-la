@@ -37,9 +37,66 @@ quality:
   run_tests: true
   run_build: false           # Only in Phase 4 (Integration)
 
-# Ecosystem scanner (Sprint 2)
-# ecosystem:
-#   minds_index: "squads/mind-cloning/minds/INDEX.md"
-#   skills_dir: "skills/"
-#   squads_dir: "squads/"
-#   max_context_items: 5     # Max minds/skills injected per agent
+# Extended Quality Gates (Phase 4 — conditional)
+# Each gate has a detection condition. If condition is false, gate is skipped.
+extended_quality:
+  bulletproof_test:
+    enabled: true
+    skill: "skills/bulletproof-test/SKILL.md"
+    detect: "npm test OR test framework present"  # package.json has test script
+    phase: 4                  # After all stories, before deploy
+    modes: [FULL_APP]         # Skip for feature/bugfix
+    severity: recommended     # Not a hard veto — CONCERNS if skipped
+    model: sonnet
+
+  vulnerability_scanner:
+    enabled: true
+    skill: "skills/vulnerability-scanner/SKILL.md"
+    detect: always            # Security is universal
+    phase: 4
+    modes: [FULL_APP, SINGLE_FEATURE]
+    severity: recommended
+    model: sonnet
+
+  tier_s_checklist:
+    enabled: true
+    skill: "skills/tier-s-checklist/SKILL.md"
+    detect: always            # Production readiness is universal
+    phase: 4
+    modes: [FULL_APP]         # Only for full apps going to production
+    severity: recommended
+    model: sonnet
+
+  tokenizacao:
+    enabled: true
+    skill: "skills/tokenizacao/SKILL.md"
+    detect: "tailwind.config OR next.config OR angular.json OR React detected"
+    phase: 4
+    modes: [FULL_APP, SINGLE_FEATURE]
+    severity: optional        # Informational, not a veto
+    model: haiku
+
+  code_refactoring:
+    enabled: true
+    skill: "skills/code-refactoring-refactor-clean/SKILL.md"
+    detect: "qa_reported_tech_debt OR code_smells_detected"
+    phase: 4
+    modes: [FULL_APP]
+    severity: optional
+    model: sonnet
+
+  cloud_pentest:
+    enabled: false            # Disabled by default — opt-in only
+    skill: "skills/cloud-penetration-testing/SKILL.md"
+    detect: "terraform OR pulumi OR aws-cdk OR .aws/ OR gcloud"
+    phase: 4
+    modes: [FULL_APP]
+    severity: optional
+    model: sonnet
+
+# Ecosystem scanner (MANDATORY)
+ecosystem:
+  minds_index: "squads/mind-cloning/minds/INDEX.md"
+  skills_dir: "skills/"
+  squads_dir: "squads/"
+  max_context_items: 3       # Max minds/skills injected per agent dispatch

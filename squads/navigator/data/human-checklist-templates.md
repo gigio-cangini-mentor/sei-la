@@ -25,13 +25,13 @@ For squad-based projects (elite minds, expansion packs, content squads).
 - [ ] Verificar se `## Próximas Tarefas` está atualizado
 
 ### Qualidade do Squad (após criação ou mudanças significativas)
-- [ ] `/squad-creator-pro:squad-chief` → `*validate-squad {squad_name}` — Validação estrutural completa
-- [ ] `/squad-creator-pro:oalanicolas` → `*fidelity-score` — Score de fidelidade dos clones
-- [ ] `/squad-creator-pro:oalanicolas` → `*clone-review` — Review de qualidade e autenticidade
-- [ ] `/squad-creator-pro:pedro-valerio` → `*audit` — Audit de workflows, veto conditions, automação
-- [ ] `/squad-creator-pro:pedro-valerio` → `*axioma-assessment` — Score em 10 dimensões de qualidade
-- [ ] `/squad-creator-pro:pedro-valerio` → `*veto-check` — Verificar que veto conditions bloqueiam paths incorretos
-- [ ] `/squad-creator-pro:pedro-valerio` → `*smoke-test-design` — Desenhar 3 smoke tests para validar comportamento
+- [ ] `/squad-creator:squad-chief` → `*validate-squad {squad_name}` — Validação estrutural completa
+- [ ] `/squad-creator:oalanicolas` → `*fidelity-score` — Score de fidelidade dos clones
+- [ ] `/squad-creator:oalanicolas` → `*clone-review` — Review de qualidade e autenticidade
+- [ ] `/squad-creator:pedro-valerio` → `*audit` — Audit de workflows, veto conditions, automação
+- [ ] `/squad-creator:pedro-valerio` → `*axioma-assessment` — Score em 10 dimensões de qualidade
+- [ ] `/squad-creator:pedro-valerio` → `*veto-check` — Verificar que veto conditions bloqueiam paths incorretos
+- [ ] `/squad-creator:pedro-valerio` → `*smoke-test-design` — Desenhar 3 smoke tests para validar comportamento
 
 ### Primeiro uso real (prova de fogo)
 - [ ] Ativar o chief do squad → `*help` → testar 2-3 comandos core
@@ -39,11 +39,11 @@ For squad-based projects (elite minds, expansion packs, content squads).
 - [ ] Avaliar se output é utilizável sem edição
 
 ### Melhoria contínua (mensal)
-- [ ] `/squad-creator-pro:tasks:find-0.8` — Encontrar gaps de qualidade (items abaixo de 80%)
-- [ ] `/squad-creator-pro:tasks:squad-analytics` — Métricas e analytics do squad
-- [ ] `/squad-creator-pro:squad-chief` → `*quality-dashboard {squad_name}` — Dashboard
+- [ ] `/squad-creator:tasks:find-0.8` — Encontrar gaps de qualidade (items abaixo de 80%)
+- [ ] `/squad-creator:tasks:squad-analytics` — Métricas e analytics do squad
+- [ ] `/squad-creator:squad-chief` → `*quality-dashboard {squad_name}` — Dashboard
 - [ ] `/squad-creator:squad-diagnostician` → `*check-ecosystem` — Verificar overlap com outros squads
-- [ ] `/squad-creator-pro:pedro-valerio` → `*modernization-score` — Score de modernização IDS
+- [ ] `/squad-creator:pedro-valerio` → `*modernization-score` — Score de modernização IDS
 ```
 
 ---
@@ -97,10 +97,10 @@ For mind cloning projects (expert personality extraction and validation).
 - [ ] `/icp-cloning:clone-validator` → `*test-edge-cases` — Situações extremas e stress
 
 ### Qualidade do agent (após mudanças no squad)
-- [ ] `/squad-creator-pro:oalanicolas` → `*fidelity-score` — Score de fidelidade
-- [ ] `/squad-creator-pro:oalanicolas` → `*diagnose-clone` — Diagnosticar gaps
-- [ ] `/squad-creator-pro:pedro-valerio` → `*authenticity-check` — Verificar voz e thinking DNA
-- [ ] `/squad-creator-pro:pedro-valerio` → `*audit` — Audit de workflows e veto conditions
+- [ ] `/squad-creator:oalanicolas` → `*fidelity-score` — Score de fidelidade
+- [ ] `/squad-creator:oalanicolas` → `*diagnose-clone` — Diagnosticar gaps
+- [ ] `/squad-creator:pedro-valerio` → `*authenticity-check` — Verificar voz e thinking DNA
+- [ ] `/squad-creator:pedro-valerio` → `*audit` — Audit de workflows e veto conditions
 
 ### Teste real (prova de fogo)
 - [ ] Ativar o agent do clone → `*help` → testar 2-3 comandos
@@ -159,8 +159,8 @@ For knowledge base and platform projects (prospecção, CRM, content hubs).
 - [ ] Verificar se scoring/regras refletem prática real
 
 ### Qualidade dos Squads associados
-- [ ] `/squad-creator-pro:squad-chief` → `*validate-squad {squad_name}` — Validação estrutural
-- [ ] `/squad-creator-pro:pedro-valerio` → `*audit` — Audit de workflows e veto conditions
+- [ ] `/squad-creator:squad-chief` → `*validate-squad {squad_name}` — Validação estrutural
+- [ ] `/squad-creator:pedro-valerio` → `*audit` — Audit de workflows e veto conditions
 
 ### Teste real (prova de fogo)
 - [ ] Ativar o chief do squad principal → testar pipeline com caso real
@@ -168,8 +168,8 @@ For knowledge base and platform projects (prospecção, CRM, content hubs).
 - [ ] Testar edge cases (inputs inesperados, dados faltantes)
 
 ### Melhoria contínua (mensal)
-- [ ] `/squad-creator-pro:tasks:find-0.8` — Encontrar gaps de qualidade
-- [ ] `/squad-creator-pro:tasks:squad-analytics` — Métricas do squad
+- [ ] `/squad-creator:tasks:find-0.8` — Encontrar gaps de qualidade
+- [ ] `/squad-creator:tasks:squad-analytics` — Métricas do squad
 - [ ] Verificar se há novos dados/conteúdos para integrar na KB
 ```
 

@@ -29,6 +29,15 @@ categories: [scraping, data, automation]
 
 Use Apify when you need to extract data from websites, scrape social media profiles, run search engine queries, or automate web data collection workflows. Apify provides thousands of pre-built scrapers (called Actors) that handle common scraping tasks out of the box.
 
+## Discovery Questions
+
+Perguntas para fazer antes de executar. Use AskUserQuestion tool. Pule se o usuário já forneceu esse contexto.
+
+1. **O que você quer extrair e de qual site/plataforma?** — (define qual Actor usar e os parâmetros de input)
+2. **Quantos resultados precisa? (ex: top 10, todos, últimos 30 dias)** — (configura `maxItems` para controlar custo e volume)
+3. **Quais campos/dados são relevantes do resultado?** — (evita retornar dados desnecessários e facilita o parsing)
+4. **Qual o formato de saída desejado? (JSON, Markdown, CSV)** — (define como entregar os dados ao usuário) (opcional)
+
 ## Instructions
 
 You have access to Apify tools for web scraping and data extraction.

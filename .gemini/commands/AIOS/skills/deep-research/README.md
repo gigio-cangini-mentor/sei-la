@@ -1,1 +1,1 @@
-../../../../skills/deep-research/README.md
+../../../../../skills/deep-research/README.md

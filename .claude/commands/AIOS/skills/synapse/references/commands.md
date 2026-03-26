@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/synapse/references/commands.md
+../../../../../skills/synapse/references/commands.md

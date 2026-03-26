@@ -9,7 +9,7 @@
 
 ## Overview
 
-Workflow unificado do Advisory Board. 3 conselheiros (Naval, Hormozi, Thiel) analisam a questao por lentes distintas, convergem, e o Agente Chefe (Elon Musk) decide com acao + deadline.
+Workflow unificado do Advisory Board. 3 conselheiros (Naval, Hormozi, Thiel) analisam a questão por lentes distintas, convergem, e o Agente Chefe (Elon Musk) decide com ação + deadline.
 
 ---
 
@@ -18,17 +18,17 @@ Workflow unificado do Advisory Board. 3 conselheiros (Naval, Hormozi, Thiel) ana
 ```
 ENTRADA
 ━━━━━━
-  Questao estrategica
+  Questão estratégica
   (deal, strategy, priority, positioning, pricing)
        │
        ▼
 ┌──────────────────────┐
-│  ENQUADRAR QUESTAO   │
+│  ENQUADRAR QUESTÃO   │
 │                      │
-│  1. Tipo de decisao  │
-│  2. Urgencia         │
+│  1. Tipo de decisão  │
+│  2. Urgência         │
 │  3. Peso por advisor │
-│  4. Dados disponiveis│
+│  4. Dados disponíveis│
 │                      │
 │  Se dados faltam →   │
 │  perguntar antes     │
@@ -47,37 +47,37 @@ CONSELHEIROS (sequencial)
 ┌──────────────────────────────────────┐
 │  NAVAL RAVIKANT                      │
 │  Lente: Leverage + Equity            │
-│  "Isso escala sem presenca?"         │
+│  "Isso escala sem presença?"         │
 │                                      │
-│  → Diagnostico (2-3 frases)          │
-│  → Recomendacao (1 acao)             │
+│  → Diagnóstico (2-3 frases)          │
+│  → Recomendação (1 ação)             │
 │  → Veredicto (1 frase)              │
 └──────────────────────────────────────┘
        │
        ▼
 ┌──────────────────────────────────────┐
 │  ALEX HORMOZI                        │
-│  Lente: Monetizacao + Unit Economics │
-│  "Qual e a matematica?"             │
+│  Lente: Monetização + Unit Economics │
+│  "Qual é a matemática?"             │
 │                                      │
-│  → Diagnostico (2-3 frases)          │
-│  → Recomendacao (1 acao)             │
+│  → Diagnóstico (2-3 frases)          │
+│  → Recomendação (1 ação)             │
 │  → Veredicto (1 frase)              │
 └──────────────────────────────────────┘
        │
        ▼
 ┌──────────────────────────────────────┐
 │  PETER THIEL                         │
-│  Lente: Monopolio + Contrarian       │
-│  "Esta competindo ou criando?"       │
+│  Lente: Monopólio + Contrarian       │
+│  "Está competindo ou criando?"       │
 │                                      │
-│  → Diagnostico (2-3 frases)          │
-│  → Recomendacao (1 acao)             │
+│  → Diagnóstico (2-3 frases)          │
+│  → Recomendação (1 ação)             │
 │  → Veredicto (1 frase)              │
 └──────────────────────────────────────┘
 
 
-CONVERGENCIA
+CONVERGÊNCIA
 ━━━━━━━━━━━━
 
 | Aspecto | Naval | Hormozi | Thiel | Consenso |
@@ -85,8 +85,13 @@ CONVERGENCIA
 
   Identificar:
   - Acordo forte (2+ concordam) → sinal forte
-  - Divergencia → oportunidade de insight
+  - Divergência → oportunidade de insight
   - Ponto cego → o que nenhum cobriu
+
+
+### Checkpoint: Aprovação do Usuário
+Após os 3 conselheiros emitirem suas perspectivas, PAUSAR e apresentar resumo ao usuário.
+Perguntar: "Os 3 conselheiros deram suas perspectivas. Quer que o Agente Chefe decida agora, ou quer ajustar algo?"
 
 
 AGENTE CHEFE
@@ -96,23 +101,23 @@ AGENTE CHEFE
 │  ELON MUSK (DECISOR)                 │
 │                                      │
 │  Recebe: 3 perspectivas +            │
-│          tabela convergencia         │
+│          tabela convergência         │
 │                                      │
 │  1. Aplica first principles          │
 │  2. Remove complexidade              │
 │  3. Entrega:                         │
-│     DECISAO: [o que fazer]           │
-│     ACAO: [proximo passo concreto]   │
+│     DECISÃO: [o que fazer]           │
+│     AÇÃO: [próximo passo concreto]   │
 │     DEADLINE: [quando]               │
 │                                      │
-│  Tone: Urgente, pragmatico,          │
+│  Tone: Urgente, pragmático,          │
 │  impaciente com complexidade.        │
-│  "Faca X. Ate [data]. Porque [1     │
+│  "Faça X. Até [data]. Porque [1     │
 │   frase]."                           │
 └──────┬───────────────────────────────┘
        │
        ▼
-  Salvar sessao
+  Salvar sessão
   docs/logs/YYYY-MM-DD_board-{tipo}.md
 ```
 
@@ -120,52 +125,52 @@ AGENTE CHEFE
 
 ## Variantes por Tipo
 
-### `/consult-board` (Consulta Generica)
+### `/consult-board` (Consulta Genérica)
 
 | Campo | Valor |
 |-------|-------|
-| Input | Questao + contexto opcional |
+| Input | Questão + contexto opcional |
 | Peso conselheiros | Balanceado |
-| Output | Decisao + acao + deadline |
+| Output | Decisão + ação + deadline |
 | Template | templates/board-session-report.md |
 
-### `/evaluate-deal` (Avaliacao de Deal)
+### `/evaluate-deal` (Avaliação de Deal)
 
 | Campo | Valor |
 |-------|-------|
-| Input | Parceiro + perfil + estrutura + contribuicao |
+| Input | Parceiro + perfil + estrutura + contribuição |
 | Peso conselheiros | Naval (deal structure), Hormozi (math), Thiel (positioning) |
 | Extra | Deal scoring (0-3 SIM), kill condition |
-| Output | ACEITAR / REJEITAR / RENEGOCIAR + condicoes |
+| Output | ACEITAR / REJEITAR / RENEGOCIAR + condições |
 | Template | templates/board-session-report.md |
 
 **Deal Scoring:**
 
-| Score | Significado | Acao |
+| Score | Significado | Ação |
 |-------|------------|------|
 | 3/3 SIM | Deal excepcional | Executar HOJE |
 | 2/3 SIM | Deal bom com ressalva | Executar com ajuste |
-| 1/3 SIM | Deal questionavel | Renegociar ou recusar |
+| 1/3 SIM | Deal questionável | Renegociar ou recusar |
 | 0/3 SIM | Deal ruim | Recusar imediatamente |
 
-### `/strategic-review` (Revisao Estrategica)
+### `/strategic-review` (Revisão Estratégica)
 
 | Campo | Valor |
 |-------|-------|
-| Input | Periodo + receita + deals + pipeline + blockers + wins |
-| Peso conselheiros | Balanceado com foco especifico por advisor |
-| Extra | Dashboard de situacao, runway, priorizacao MANTER/ACELERAR/CORTAR |
-| Output | Prioridade #1 da proxima semana em 1 frase |
+| Input | Período + receita + deals + pipeline + blockers + wins |
+| Peso conselheiros | Balanceado com foco específico por advisor |
+| Extra | Dashboard de situação, runway, priorização MANTER/ACELERAR/CORTAR |
+| Output | Prioridade #1 da próxima semana em 1 frase |
 | Template | templates/board-session-report.md |
 
-**Cadencia review:**
+**Cadência review:**
 
-| Frequencia | Tipo | Profundidade |
+| Frequência | Tipo | Profundidade |
 |------------|------|-------------|
 | Semanal (sexta) | Quick review | Dashboard + Elon prioriza |
-| Quinzenal | Full review | Todos conselheiros + convergencia |
-| Mensal | Deep review | Full + tendencia + ajuste meta |
-| Trimestral | Strategic pivot | Reavaliacao completa |
+| Quinzenal | Full review | Todos conselheiros + convergência |
+| Mensal | Deep review | Full + tendência + ajuste meta |
+| Trimestral | Strategic pivot | Reavaliação completa |
 
 ---
 
@@ -181,17 +186,17 @@ AGENTE CHEFE
 **Prioridade de carregamento:**
 1. `squads/mind-cloning/minds/{slug}/system_prompts/` (se existir)
 2. `data/decision-frameworks.yaml` (fallback)
-3. Definicao em `agents/board-orchestrator.md` (base)
+3. Definição em `agents/board-orchestrator.md` (base)
 
 ---
 
 ## Commands do Board
 
-| Command | Descricao | Task |
+| Command | Descrição | Task |
 |---------|-----------|------|
-| `*consult` | Questao ao board completo | consult-board.md |
+| `*consult` | Questão ao board completo | consult-board.md |
 | `*deal` | Avaliar parceria/deal | evaluate-deal.md |
-| `*review` | Revisao estrategica | strategic-review.md |
+| `*review` | Revisão estratégica | strategic-review.md |
 | `*naval` | Consultar Naval individual | — |
 | `*hormozi` | Consultar Hormozi individual | — |
 | `*thiel` | Consultar Thiel individual | — |
@@ -202,12 +207,12 @@ AGENTE CHEFE
 
 ## Quality Gate
 
-Toda sessao do board passa pelo checklist `checklists/board-decision-quality.md`:
-- [ ] Todos conselheiros emitiram perspectiva autentica
-- [ ] Tabela de convergencia preenchida
-- [ ] Agente Chefe entregou decisao com acao + deadline
-- [ ] Sessao salva em docs/logs/
-- [ ] Jose sabe exatamente o que fazer HOJE
+Toda sessão do board passa pelo checklist `checklists/board-decision-quality.md`:
+- [ ] Todos conselheiros emitiram perspectiva autêntica
+- [ ] Tabela de convergência preenchida
+- [ ] Agente Chefe entregou decisão com ação + deadline
+- [ ] Sessão salva em docs/logs/
+- [ ] José sabe exatamente o que fazer HOJE
 
 ---
 

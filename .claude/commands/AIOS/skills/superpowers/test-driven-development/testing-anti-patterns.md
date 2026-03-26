@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/test-driven-development/testing-anti-patterns.md
+../../../../../../skills/superpowers/test-driven-development/testing-anti-patterns.md

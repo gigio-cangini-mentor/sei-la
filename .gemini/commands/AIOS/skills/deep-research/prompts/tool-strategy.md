@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/deep-research/prompts/tool-strategy.md
+../../../../../../skills/deep-research/prompts/tool-strategy.md

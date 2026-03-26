@@ -1,13 +1,13 @@
 # Ecosystem Scanner — AIOS Knowledge Bridge (Built-in)
 
-> PREMISSA: O Forge NUNCA trabalha sozinho. Antes de qualquer execucao, ele escaneia
-> o ecossistema para encontrar os melhores recursos disponiveis. Isso NAO e opcional.
+> PREMISSA: O Forge NUNCA trabalha sozinho. Antes de qualquer execução, ele escaneia
+> o ecossistema para encontrar os melhores recursos disponíveis. Isso NÃO é opcional.
 
 ---
 
 ## Regra de Ouro
 
-**Antes de despachar QUALQUER agente, o Forge DEVE verificar se existe um mind, squad ou skill que pode enriquecer o contexto.** Pular essa etapa e como um chef ignorando a despensa — voce pode cozinhar, mas vai sair pior do que poderia.
+**Antes de despachar QUALQUER agente, o Forge DEVE verificar se existe um mind, squad ou skill que pode enriquecer o contexto.** Pular essa etapa é como um chef ignorando a despensa — você pode cozinhar, mas vai sair pior do que poderia.
 
 ---
 
@@ -33,22 +33,22 @@ Analyze the user's project description + detected tech stack and match:
 
 | Domain Keywords | Minds to Consult | Skills to Inject | Squads to Reference |
 |----------------|------------------|-------------------|---------------------|
-| copy, texto, vendas, persuasao, outreach, landing page | schwartz, cialdini, hormozi, ladeira | superpowers | copywriting-squad |
+| copy, texto, vendas, persuasão, outreach, landing page | schwartz, cialdini, hormozi, ladeira | superpowers | copywriting-squad |
 | oferta, pricing, value proposition, high-ticket | hormozi (offers, audit) | — | high-ticket-sales, high-ticket-mastery |
-| estrategia, decisao, analise, investimento | munger, naval, taleb, helmer | deep-research | advisor-board |
-| negociacao, venda, prospeccao, lead | chris-voss, jeb-blount | deep-research | negotiation, whatsapp-prospector |
-| storytelling, palestra, narrativa, conteudo | walt-disney, luiz-fosc | — | storytelling-masters-fosc, content-creator |
+| estratégia, decisão, análise, investimento | munger, naval, taleb, helmer | deep-research | advisor-board |
+| negociação, venda, prospecção, lead | chris-voss, jeb-blount | deep-research | negotiation, whatsapp-prospector |
+| storytelling, palestra, narrativa, conteúdo | walt-disney, luiz-fosc | — | storytelling-masters-fosc, content-creator |
 | marca, branding, identidade visual, logo | — | design-system-extractor | branding |
 | frontend, react, nextjs, componentes, UI | — | nextjs-react-expert | — |
 | mobile, react native, flutter, app mobile | — | app-builder (templates) | — |
 | database, schema, migration, RLS, supabase | — | — | — (use @data-engineer) |
-| seguranca, vulnerabilidade, pentest | — | vulnerability-scanner | — |
+| segurança, vulnerabilidade, pentest | — | vulnerability-scanner | — |
 | testes, quality, cobertura | — | bulletproof-test | — |
 | design system, tokens, componentes UI | — | design-system-extractor | design-system |
-| SEO, busca organica, schema markup | — | — | seo |
-| automacao, workflow, processo | goldratt | — | sop-factory |
+| SEO, busca orgânica, schema markup | — | — | seo |
+| automação, workflow, processo | goldratt | — | sop-factory |
 | HR, corporativo, T&D, treinamento | josh-bersin, verne-harnish | — | — |
-| pesquisa, investigacao, deep dive | — | deep-research, deep-search, tech-search | insight |
+| pesquisa, investigação, deep dive | — | deep-research, deep-search, tech-search | insight |
 
 #### Dynamic Detection (beyond the matrix)
 
@@ -116,7 +116,7 @@ For each item in context-pack where `inject_in_phases` includes current phase:
 
 **For squads:**
 1. Read the squad's key agent files (max 2-3 most relevant)
-2. Inject as: `"Recursos disponiveis no squad {name}: {list of agents with expertise}"`
+2. Inject as: `"Recursos disponíveis no squad {name}: {list of agents with expertise}"`
 
 ### Injection Rules
 
@@ -160,15 +160,15 @@ After the ecosystem scan, show the user what was found:
   ⚡ Skills: nextjs-react-expert, app-builder
   📦 Template: nextjs-fullstack
 
-  Esses recursos serao injetados nos agentes certos
-  durante a execucao. Pense neles como consultores
-  que ficam de plantao — cada um entra quando e a
+  Esses recursos serão injetados nos agentes certos
+  durante a execução. Pense neles como consultores
+  que ficam de plantão — cada um entra quando é a
   vez dele brilhar.
 ```
 
 If NO relevant resources found:
 ```
-  🔍 Ecosystem Scan: nenhum recurso especifico encontrado.
-  Os agentes AIOS vao trabalhar com seu conhecimento padrao.
-  (Isso e normal pra projetos com dominio generico)
+  🔍 Ecosystem Scan: nenhum recurso específico encontrado.
+  Os agentes AIOS vão trabalhar com seu conhecimento padrão.
+  (Isso é normal pra projetos com domínio genérico)
 ```

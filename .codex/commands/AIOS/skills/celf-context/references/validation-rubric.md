@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/celf-context/references/validation-rubric.md
+../../../../../../skills/celf-context/references/validation-rubric.md

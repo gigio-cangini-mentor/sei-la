@@ -3,13 +3,27 @@ name: politica-simulation-mirofish
 description: |
   Motor de predicao por inteligencia de enxame para simulacao de opiniao publica.
   Cria painel virtual de agentes AI com perfis cognitivos diversos e os faz deliberar
-  sobre temas politicos em multiplas rodadas. Output: relatorio com distribuicao de
+  sobre temas politicos em multiplas rodadas. Output: relatorio premium com distribuicao de
   sentimento, argumentos-chave, vulnerabilidades narrativas e recomendacoes estrategicas.
+  Integra o squad de copywriting para copy profissional no relatorio premium.
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash, Agent, WebSearch, WebFetch
 argument-hint: "tema da simulacao" [--preset brasil-geral|sp-capital|nordeste-evangelico] [--agents 20] [--rounds 3] [--context path/to/doc.md] [--panel path/to/panel.yaml] [--compare "Tema 1" "Tema 2"]
-version: 0.3.0
+version: 0.4.0
 category: simulation
-tags: [politica, simulacao, swarm-intelligence, opiniao-publica, predicao]
+tags: [politica, simulacao, swarm-intelligence, opiniao-publica, predicao, copywriting]
+squads:
+  - name: copywriting-squad
+    path: ~/aios-core/squads/copywriting-squad
+    role: |
+      Responsavel pela copy profissional do relatorio premium.
+      Fornece textos estrategicos para cada secao, labels de impacto para stat cards,
+      descricoes de valor e template de vitrine qualitativa.
+      Banco de textos: docs/premium-report-copy.md (no projeto MiroFish)
+    agents-utilizados:
+      - david-ogilvy: Tom institucional e autoridade para secoes de metodologia e sumario
+      - eugene-schwartz: Sofisticacao e profundidade para analise narrativa e recomendacoes
+      - gary-halbert: Impacto e urgencia para secoes de riscos e vulnerabilidades
+      - copy-maestro: Orquestracao e consistencia de tom entre todas as secoes
 ---
 
 # politica-simulation-mirofish -- Motor de Predicao por Inteligencia de Enxame
@@ -387,17 +401,32 @@ Seguir `templates/recommendations.md` COMPLETAMENTE.
 
 Seguir `templates/report-template.md` COMPLETAMENTE.
 
+**Integracao com Copywriting Squad:**
+Antes de gerar o relatorio, carregar o banco de copy profissional:
+- Arquivo: `docs/premium-report-copy.md` (no projeto MiroFish)
+- Contem: taglines, paragrafos introdutorios, labels de stat cards, descricoes de valor
+- Aplicar os textos do squad de copywriting em cada secao do relatorio
+- Usar o template de vitrine qualitativa (Deliverable 4) para apresentar citacoes de agentes
+- Agentes do squad utilizados: @david-ogilvy (tom institucional), @eugene-schwartz (sofisticacao),
+  @gary-halbert (impacto), @copy-maestro (consistencia de tom)
+
 1. Carregar aggregation.yaml + panel.yaml + config-snapshot.yaml + context-metadata.yaml (se existir)
-2. Gerar as **7 secoes do relatorio** (FR19):
-   1. **Sumario Executivo** — 3-5 paragrafos, tom de consultor de campanha, conclusoes acionaveis
-   2. **Dashboard de Sentimento** — tabela geral (posicao, %, intensidade) + tabela por segmento
-   3. **Mapa de Argumentos** — rankeado por impacto (NAO por frequencia), com segmentos que ressoam
-   4. **Analise de Vulnerabilidades** — severidade, taxa de mudanca, contranarrativa sugerida
-   5. **Dinamica de Opiniao** — evolucao entre rodadas, gatilhos, segmentos volateis
-   6. **Recomendacoes Estrategicas** — inserir output do passo 4a
-   7. **Metodologia e Disclaimer** — configuracao, composicao do painel, disclaimer etico obrigatorio
-3. **Tom:** Consultor de campanha. Zero jargao de AI/ML (NFR12). Sem mencionar LLM, token, prompt, Claude
-4. **Metadados:** Data, preset, agentes, rodadas, contexto ingerido (FR20)
+2. Gerar as **11 secoes do relatorio premium** (expandido do original FR19):
+   1. **Capa** — tagline + subtitulo do banco de copy + badges de metricas-chave
+   2. **Sumario Executivo** — intro do banco de copy + 3-5 paragrafos, tom de consultor de campanha
+   3. **Metodologia** — intro do banco de copy + framework OASIS, parametros, processo de analise
+   4. **Demografia dos Agentes** — intro do banco de copy + graficos + vitrine qualitativa
+   5. **Analise de Atividade** — intro do banco de copy + timeline + ranking de agentes
+   6. **Analise de Sentimento** — intro do banco de copy + distribuicao + evolucao
+   7. **Comparacao de Plataformas** — intro do banco de copy + metricas lado a lado
+   8. **Analise Narrativa** — intro do banco de copy + argumentos dominantes + citacoes
+   9. **Dinamica de Interacao** — intro do banco de copy + rede de influencia
+   10. **Riscos e Vulnerabilidades** — intro do banco de copy + severidade + contranarrativas
+   11. **Recomendacoes Estrategicas** — intro do banco de copy + acoes priorizadas
+   12. **Apendice** — dados completos, glossario, metodologia detalhada
+3. **Tom:** Consultor de campanha premium. Zero jargao de AI/ML (NFR12). Sem mencionar LLM, token, prompt, Claude
+4. **Labels de stat cards:** Usar labels de impacto do banco de copy (ex: "PERFIS COMPORTAMENTAIS SIMULADOS" em vez de "Agentes")
+5. **Metadados:** Data, preset, agentes, rodadas, contexto ingerido (FR20)
 5. **Se painel foi reutilizado (`panel_source` != "generated"):** Incluir na Metodologia:
    `"Painel reutilizado de simulacao anterior: {panel_source}"`
 6. Salvar em `output/{run_id}/report.md` (FR21)

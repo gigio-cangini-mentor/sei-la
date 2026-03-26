@@ -12,7 +12,7 @@
 
 ## Squads
 
-### squad-creator-pro
+### squad-creator
 - **Detectado em:** INDEX.md/sessions
 - **Contexto:** (preencher)
 

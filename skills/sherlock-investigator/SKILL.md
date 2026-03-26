@@ -31,6 +31,15 @@ Investigador de perfis reais em redes sociais. É como contratar um detetive par
 - O perfil é privado ou requer autenticação especial
 - Precisa de scraping em massa (use Apify)
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Quais perfis você quer investigar?** — (URLs do Instagram, YouTube, Twitter/X ou LinkedIn dos criadores de referência)
+2. **Qual o objetivo da investigação?** — Criar squad de conteúdo, analisar concorrentes, calibrar quality criteria, etc. (define o foco da extração)
+3. **Quantos posts por perfil?** — Scan rápido (1 post), análise de padrões (5-10, default) ou post específico (URL). (define o investigation mode)
+4. **Precisa de transcrição de vídeos (Reels, YouTube)?** — Requer yt-dlp, ffmpeg e whisper instalados. (opcional)
+
 ## Prerequisites
 
 - MCP server Playwright configurado e funcionando

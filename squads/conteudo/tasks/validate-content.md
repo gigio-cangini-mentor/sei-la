@@ -96,3 +96,13 @@ VEREDICTO: PRONTO PARA PUBLICAR
 - data/oraculo-posts.md — 9 etapas + 12 testes completos
 - data/tipos-de-post.md — estruturas dos 7 tipos para checagem de coerencia
 - data/frameworks-copy.md — frameworks para checagem de coerencia (etapa 2, teste 11)
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-validate-01 | Conteúdo enviado está incompleto — sem headline, sem CTA ou sem pelo menos 3 slides/blocos | HALT — devolver ao solicitante com lista do que está faltando antes de iniciar validação |
+| VC-validate-02 | Qualquer etapa do Oráculo Posts recebe score 0% — independente da média geral | HALT — rejeição imediata, não calcular média, exigir reescrita completa da etapa zerada |
+| VC-validate-03 | Score geral atingiu 80% mas palavras proibidas (segredo, dica, truque, hack, simples, fácil) ainda estão presentes | HALT — não aprovar com palavras proibidas, remover e re-validar a Etapa 3 antes de emitir veredicto |
+| VC-validate-04 | Reescrita foi aplicada 3 vezes e score ainda não atingiu 80% em alguma etapa | HALT — sinalizar problema estrutural, recusar aprovação e recomendar refazer do zero com outro tipo/framework |
+| VC-validate-05 | Relatório de validação foi emitido como "APROVADO" sem re-validação após correções aplicadas | HALT — nunca emitir veredicto final sem rodar o Oráculo novamente sobre o conteúdo corrigido |

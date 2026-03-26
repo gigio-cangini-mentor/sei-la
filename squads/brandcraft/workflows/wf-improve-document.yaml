@@ -1,0 +1,53 @@
+# Workflow: Improve Document
+# Existing PDF -> Extract content -> Re-render with brand identity
+
+name: improve-document
+description: "Redesign existing PDF with proper brand identity"
+trigger: "User provides PDF + wants it redesigned/improved"
+
+phases:
+  - name: "Extract Content"
+    agent: pdf-extractor
+    action: "*read {pdf_path}"
+    output: "Structured Markdown with text, tables, images, hierarchy"
+    veto_conditions:
+      - "PDF is scanned/image-only (OCR required)"
+      - "PDF is password-protected"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: user
+      show: "Extracted content summary (sections, tables, images, warnings)"
+      ask: "Content extracted correctly? Proceed to redesign?"
+
+  - name: "Load Brand"
+    agent: template-architect
+    action: "*serve {brand_name}"
+    output: "Brand template"
+    veto_conditions:
+      - "Brand template not found"
+      - "Draft template with less than 80% completeness"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Re-Render"
+    agent: doc-generator
+    action: "*render-pdf {extracted_content} --format a4|slides"
+    input: "Extracted content + brand template"
+    output: "Redesigned PDF with brand identity"
+    veto_conditions:
+      - "Puppeteer/Playwright not available"
+      - "Brand tokens incomplete and no fallbacks"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Validate"
+    agent: quality-validator
+    action: "*validate {output} --brand {name} --type doc"
+    input: "Redesigned PDF + brand template"
+    output: "Quality score with PASS/FAIL"
+    enforcement: { blocking: true, on_veto: HALT }
+    on_fail:
+      action: "Send corrections to doc-generator"
+      max_retries: 2
+      escalate_to: brandcraft-chief
+
+flow: "pdf-extractor -> template-architect -> doc-generator -> quality-validator"
+estimated_duration: "5-15 minutes"

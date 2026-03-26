@@ -1,0 +1,168 @@
+sources_inventory:
+  expert: "Marcos Hiller"
+  collected_date: "2026-03-25"
+  enrichment_date: "2026-03-25"
+  total_sources: 26
+  fidelity_note: "Extração enriquecida com 14 fontes primárias adicionais. Fidelidade estimada: 85-90%"
+
+  books:
+    - title: "Branding: a arte de construir marcas"
+      year: 2012
+      publisher: "Trevisan Editora"
+      url: "https://www.amazon.com.br/dp/8599519395"
+      pages: 155
+      status: "referenced — resenhas e sumário analisados"
+
+    - title: "ONdivíduos"
+      year: 2014
+      url: "https://marcoshiller.com.br/ondividuos/"
+      status: "referenced"
+
+    - title: "Branding: a arte de construir relevância de marca"
+      year: 2019
+      url: "https://www.amazon.com.br/dp/B07WC6PX63"
+      status: "referenced — resenhas e anúncios de lançamento analisados"
+
+    - title: "#WALK New York Edition"
+      year: 2016
+      status: "mentioned"
+
+    - title: "#WALK Abu Dhabi Edition"
+      year: 2017
+      status: "mentioned"
+
+  web_articles:
+    - url: "https://pt.linkedin.com/pulse/5-passos-para-construir-um-posicionamento-da-marca-marcos-hiller"
+      title: "5 PASSOS para construir um posicionamento da MARCA"
+      status: "deeply analyzed — fonte primária rica"
+      source_file: "sources/01-linkedin-5-passos-posicionamento.md"
+
+    - url: "https://marcoshiller.com.br/artigos/a-caixa-de-ferramentas/"
+      title: "A Caixa de Ferramentas dos Projetos de Branding"
+      status: "analyzed"
+      source_file: "sources/10-caixa-de-ferramentas.md"
+
+    - url: "https://marcoshiller.com.br/biografia/"
+      title: "Biografia oficial"
+      status: "analyzed"
+      source_file: "sources/13-biografia-oficial.md"
+
+  newsletters_substack:
+    - url: "https://marcoshiller.substack.com/p/um-fevereiro-sabor-branding"
+      title: "Um fevereiro SABOR branding"
+      status: "analyzed — conceitos de marca como estrutura mental"
+      source_file: "sources/04-substack-fevereiro-branding.md"
+
+    - url: "https://marcoshiller.substack.com/p/cansei-o-meu-mini-desabafo-em-5-topicos"
+      title: "Cansei! O meu mini desabafo em 5 tópicos"
+      status: "analyzed — críticas ao mercado, posicionamento ético"
+      source_file: "sources/05-substack-desabafo-criticas.md"
+
+    - url: "https://marcoshiller.substack.com/p/turma-nova-confirmada-na-espm"
+      title: "TURMA NOVA CONFIRMADA na ESPM"
+      status: "analyzed — estrutura curricular ESPM, filosofia de ensino"
+      source_file: "sources/09-substack-espm-turma-nova.md"
+
+    - url: "https://marcoshiller.substack.com/p/a-caixa-de-ferramentas"
+      title: "A Caixa de Ferramentas (Substack)"
+      status: "analyzed"
+      source_file: "sources/10-caixa-de-ferramentas.md"
+
+    - url: "https://marcoshiller.substack.com/p/acabou-a-espera"
+      title: "ACABOU DE ESPERAR! — Branding Summit"
+      status: "analyzed — papel do estrategista"
+      source_file: "sources/11-branding-summit-festival.md"
+
+    - url: "https://marcoshiller.substack.com/p/a-grn-esta-n"
+      title: "A GRØN está ØN!"
+      status: "analyzed — comunidade de estrategistas"
+      source_file: "sources/12-substack-gron-comunidade.md"
+
+    - url: "https://marcoshiller.substack.com/p/curso-avancado-de-branding-na-espm"
+      title: "Curso Avançado de Branding na ESPM"
+      status: "analyzed — parceria Disney, abordagem internacional"
+
+  courses:
+    - title: "Formação de Estrategistas de Marcas"
+      url: "https://projeto.marcoshiller.com.br/"
+      format: "5 dias, 20h ao vivo, online"
+      status: "deeply analyzed"
+      source_file: "sources/02-formacao-estrategistas-marcas.md"
+
+    - title: "Masterclass: Seja Um Estrategista de Marcas"
+      url: "https://projeto.marcoshiller.com.br/masterclass"
+      status: "analyzed — estrutura 3 dias, filosofia de ensino"
+
+    - title: "Caixa de Ferramentas — Curso Avançado"
+      url: "https://marcoshiller.substack.com/p/a-caixa-de-ferramentas"
+      format: "15h, todo abril, para profissionais experientes"
+      status: "analyzed"
+      source_file: "sources/10-caixa-de-ferramentas.md"
+
+    - title: "Formação Avançada para Estrategistas de Marcas — ESPM"
+      url: "https://www.espm.br/cursos/dynamic/formacao-avancada-para-estrategistas-de-marcas/"
+      format: "6 sessões, híbrido, com Rodrigo Delorenzo (Disney)"
+      status: "analyzed"
+
+  profiles:
+    - url: "https://www.espm.br/professores/marcos-hiller/"
+      title: "Perfil ESPM"
+      status: "analyzed"
+      source_file: "sources/08-espm-perfil-academico.md"
+
+    - url: "https://www.linkedin.com/in/marcoshiller/"
+      title: "LinkedIn — The Hiller and Branding"
+      status: "referenced"
+
+    - url: "https://www.motiveacaopalestras.com.br/palestrantes/marcos-hiller/"
+      title: "Perfil Motiveação Palestras"
+      status: "analyzed"
+      source_file: "sources/14-palestrante-temas.md"
+
+    - url: "https://polopalestrantes.com.br/palestrantes/marcos-hiller"
+      title: "Perfil Polo Palestrantes"
+      status: "analyzed"
+      source_file: "sources/14-palestrante-temas.md"
+
+  communities:
+    - url: "http://marcoshiller.com.br/os-brand-thinkers/"
+      title: "BrandThinkers"
+      status: "analyzed"
+      source_file: "sources/06-brandthinkers.md"
+
+  services:
+    - url: "http://marcoshiller.com.br/pesquisa/"
+      title: "Pesquisa — The Hiller and Branding"
+      status: "analyzed — metodologias de pesquisa"
+      source_file: "sources/07-pesquisa-hiller-consulting.md"
+
+    - url: "https://marcoshiller.com.br/"
+      title: "Site oficial — marcas movem pessoas"
+      status: "analyzed"
+      source_file: "sources/03-site-oficial-marcoshiller.md"
+
+  events:
+    - url: "https://brandingsummit.com.br/"
+      title: "Branding Summit Festival 2025"
+      status: "analyzed"
+      source_file: "sources/11-branding-summit-festival.md"
+
+  book_reviews:
+    - url: "https://www.everand.com/book/405680286/Branding-a-arte-de-construir-marcas"
+      title: "Resenha Everand — livro 2012"
+      status: "analyzed"
+
+    - url: "https://www.virtusrh.com.br/marcos-hiller-lanca-novo-livro-sobre-branding-e-relevancia-de-marca/"
+      title: "Lançamento livro 2019 — Virtus RH"
+      status: "analyzed"
+
+    - url: "https://administradores.com.br/noticias/marcos-hiller-lanca-novo-livro-sobre-branding-e-relevancia-de-marca"
+      title: "Lançamento livro 2019 — Administradores"
+      status: "analyzed"
+
+  gaps_remaining:
+    - "Sem acesso a transcrições de aulas completas (vídeos de curso são privados)"
+    - "Sem transcrições de podcasts (ep. 23 Podcast Next Level referenciado mas não transcrito)"
+    - "Livros analisados por referência/resenha, não lidos integralmente"
+    - "Metodologia interna detalhada da Hiller Consulting (frameworks proprietários) não é pública"
+    - "Conteúdo de apresentações SlideShare não acessível via web fetch (apenas metadados)"

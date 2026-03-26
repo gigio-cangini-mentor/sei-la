@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/finishing-a-development-branch/SKILL.md
+../../../../../../skills/superpowers/finishing-a-development-branch/SKILL.md

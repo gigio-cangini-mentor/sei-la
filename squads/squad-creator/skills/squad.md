@@ -56,6 +56,35 @@ subagents:
     permissionMode: default
     memory: project
 
+  sop-extractor:
+    description: |
+      SOP extraction specialist. Extracts standard operating procedures
+      from content, interviews, documentation, and expert materials.
+    model: sonnet
+    tools:
+      - Read
+      - Grep
+      - Write
+    permissionMode: acceptEdits
+    memory: project
+
+  thiago_finch:
+    description: |
+      Business strategy & viability architect. Invoke for:
+      - PHASE 0 (BEFORE): Viability check (GO/NO-GO decision, ROI analysis, market scan)
+      - PHASE 3 (AFTER): Monetization package (pricing, GTM, sales funnel, authority)
+      Expert in funnel optimization, loss aversion analysis, and business model design.
+      BOOKEND agent - opens and closes squad creation process.
+    model: opus
+    tools:
+      - Read
+      - Grep
+      - WebSearch
+      - WebFetch
+      - Write
+    permissionMode: default
+    memory: project
+
 hooks:
   PreToolUse:
     - matcher: "Write"
@@ -187,6 +216,24 @@ Output: Validation report
 Signal: <promise>COMPLETE</promise>
 ```
 
+### Invoking @thiago_finch (PHASE 0 - Viability)
+```
+Task: Viability check for "Sales High-Ticket" squad
+Analysis: Market size, ROI estimate, downside analysis (Loss Aversion 2.5:1)
+Output: GO/NO-GO decision + business case
+Veto Power: YES (if NO-GO, halt squad creation)
+Signal: <promise>COMPLETE</promise>
+```
+
+### Invoking @thiago_finch (PHASE 3 - Monetization)
+```
+Task: Monetization package for squad
+Input: Completed squad (agents + tasks + workflows)
+Output: Pricing strategy, sales funnel, GTM plan, authority scaffold
+Deliverable: Business plan ready for launch
+Signal: <promise>COMPLETE</promise>
+```
+
 ### Completion Detection
 - Subagent MUST end with `<promise>COMPLETE</promise>`
 - SubagentStop hook validates output
@@ -215,6 +262,73 @@ When user mentions squad creation, I:
 - ❌ Propose agent architecture
 - ❌ Suggest agent names
 - ❌ Create any structure
+
+## BOOKEND Flow (Complete TRIO Orchestration)
+
+The complete squad creation follows a 4-phase BOOKEND flow:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ PHASE 0: VIABILITY (@thiago_finch)                     │
+├─────────────────────────────────────────────────────────┤
+│ BEFORE everything - Strategic gate                      │
+│ • Market size estimation                                │
+│ • ROI analysis (must be >= 1.5x in 12 months)          │
+│ • Downside analysis (Loss Aversion 2.5:1)              │
+│ • Competition scan                                       │
+│ OUTPUT: GO/NO-GO decision                               │
+│ VETO POWER: YES (if NO-GO, halt entire process)        │
+└─────────────────────────────────────────────────────────┘
+              ↓ (IF GO)
+┌─────────────────────────────────────────────────────────┐
+│ PHASE 1: RESEARCH & EXTRACTION (@oalanicolas)          │
+├─────────────────────────────────────────────────────────┤
+│ • Elite mind research (wf-mind-research-loop)           │
+│ • Voice DNA extraction                                  │
+│ • Thinking DNA extraction                               │
+│ • Framework documentation                               │
+│ OUTPUT: Complete DNA profiles (85-95% fidelity)         │
+└─────────────────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│ PHASE 2: PROCESS DESIGN (@pedro-valerio)               │
+├─────────────────────────────────────────────────────────┤
+│ • Agents creation from DNA                              │
+│ • Tasks + Workflows structure                           │
+│ • Veto conditions definition                            │
+│ • Quality gates validation                              │
+│ OUTPUT: Operational squad with zero wrong paths         │
+└─────────────────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│ PHASE 3: MONETIZATION (@thiago_finch)                  │
+├─────────────────────────────────────────────────────────┤
+│ AFTER everything - Business package                     │
+│ • Pricing strategy (with justification)                 │
+│ • Revenue model (subscription/one-time/usage)           │
+│ • Sales funnel design                                   │
+│ • Authority scaffold (credibility plan)                 │
+│ • Go-to-market roadmap                                  │
+│ OUTPUT: Squad ready + Business plan                     │
+└─────────────────────────────────────────────────────────┘
+```
+
+### BOOKEND Philosophy
+
+**Why Thiago opens AND closes:**
+1. **Phase 0 (BEFORE):** Validates if it's worth investing time/effort
+2. **Phase 3 (AFTER):** Ensures the squad can actually generate value/revenue
+
+**Without BOOKEND:** Risk of building high-quality squad that nobody needs or can't monetize.
+**With BOOKEND:** Only build what makes business sense AND know how to sell it.
+
+### Invocation Order
+
+When user requests squad creation:
+1. Invoke @thiago_finch (viability) → IF NO-GO, stop
+2. Execute research + DNA extraction → @oalanicolas
+3. Execute process design → @pedro-valerio
+4. Invoke @thiago_finch (monetization) → Deliver complete package
 
 ## Quality Gates
 
@@ -247,8 +361,10 @@ When user mentions squad creation, I:
 
 | Specialist | Skill | When to Use |
 |------------|-------|-------------|
-| @oalanicolas | `/squad:oalanicolas` | Mind cloning, DNA extraction |
-| @pedro-valerio | `/squad:pedro-valerio` | Process validation, workflow audit |
+| @thiago_finch | `/squad:thiago_finch` | Viability (PHASE 0), Monetization (PHASE 3) |
+| @oalanicolas | `/squad:oalanicolas` | Mind cloning, DNA extraction (PHASE 1) |
+| @pedro-valerio | `/squad:pedro-valerio` | Process validation, workflow audit (PHASE 2) |
+| @sop-extractor | `/squad:sop-extractor` | Extract SOPs from content |
 
 ## Quick Start
 

@@ -9,6 +9,15 @@ Transform complex decision-making processes into clear, actionable documentation
 decision types, criteria hierarchies, Mermaid flowcharts, comparison matrices, and
 implementation guidance.
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual processo ou decisão você quer documentar?** — (input principal — define o escopo da árvore)
+2. **Qual o domínio?** — Técnico, negócios, operacional ou criativo. (adapta o conteúdo gerado)
+3. **Quem vai usar essa árvore de decisão?** — Desenvolvedores, gestores, operadores, agentes AI. (define o nível de detalhe)
+4. **Quais são os outcomes possíveis?** — Liste todas as decisões/resultados finais que o processo pode ter. (opcional — o skill elicita se não fornecido)
+
 ## Activation
 
 When activated, greet the user and begin elicitation:

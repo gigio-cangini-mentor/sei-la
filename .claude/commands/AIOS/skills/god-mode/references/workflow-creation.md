@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/workflow-creation.md
+../../../../../../skills/god-mode/references/workflow-creation.md

@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/prompts/page-extract.md
+../../../../../skills/tech-search/prompts/page-extract.md

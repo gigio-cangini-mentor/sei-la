@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/using-git-worktrees/SKILL.md
+../../../../../../skills/superpowers/using-git-worktrees/SKILL.md

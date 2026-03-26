@@ -1,0 +1,548 @@
+# Kaizen Ecosystem Report v2 — Squad icaro-de-carvalho
+# Gerado em: 2026-03-25
+# Avaliador: Claude Opus 4.6 (auditoria completa de todos os componentes)
+
+kaizen_report:
+  date: "2026-03-25"
+  version: "v2"
+  squad: "icaro-de-carvalho"
+
+  scores:
+    completude: 9/10
+    coerencia: 9/10
+    qualidade: 8/10
+    ecossistema: 8/10
+    overall: 8.5/10
+
+  component_inventory:
+    agents: 6
+    tasks: 7
+    workflows: 3
+    checklists: 2
+    templates: 3
+    total: 21
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # DIMENSÃO 1: COMPLETUDE (9/10)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  completude:
+    score: 9
+    details: |
+      Salto enorme em relação à v1. Todos os componentes declarados em config.yaml
+      EXISTEM no filesystem. Nenhum arquivo fantasma.
+
+    components_check:
+      config_yaml:
+        status: PASS
+        details: |
+          - pack-metadata completo com name, version, title, description, keywords, slashPrefix
+          - 6 agents listados (1 orchestrator + 5 primários) com mind_source e fidelidade
+          - 7 tasks com executor definido para cada uma
+          - 3 workflows com arquivo correspondente
+          - Seção data com paths canônicos
+          - Seção validation com métricas de fidelidade
+          - Versão consistente (2.0.0 no header E no pack-metadata) — corrigido desde v1
+
+      readme:
+        status: PASS_WITH_NOTES
+        details: |
+          README extremamente completo — 207 linhas. Inclui:
+          - Quando Usar (9 casos de uso)
+          - Quick Start com 6 slash commands
+          - Tabela de 6 Agents com tier e fidelidade
+          - Tabelas de comandos por agent (25+ comandos documentados)
+          - 9 Frameworks explicados
+          - 12 Heurísticas de decisão documentadas
+          - 3 Workflows com fases e descrições
+          - 3 Templates documentados
+          - Seção Mind Sources com palavras e fidelidade por mind
+          - Seção de Diferenciação (vs copywriting-squad, vs leandro-ladeira)
+          - Próximos Passos (todos marcados como concluídos)
+        nota: |
+          A seção Estrutura no README ainda lista tasks/ com apenas 4 arquivos
+          e workflows/ com apenas 2 arquivos (desatualizado — são 7 tasks e 3 workflows).
+          Checklists/ aparece vazio na tree. Impacto: cosmético, não funcional.
+
+      agents_files:
+        status: PASS
+        details: |
+          6/6 arquivos existem em agents/:
+          - icaro-chief.md (orchestrator, tier 0)
+          - icaro-de-carvalho.md (master, tier 1) — 493 linhas, profundidade excepcional
+          - pedro-sobral.md (master, tier 1) — ~400 linhas, 10 frameworks operacionais
+          - rafael-kiso.md (master, tier 1) — ~400 linhas, 11 frameworks incluindo Unbound completo
+          - marcos-hiller.md (master, tier 1) — ~400 linhas, 9 frameworks de branding
+          - juliana-gomes.md (master, tier 1) — ~400 linhas, 9 frameworks de conteúdo orgânico
+
+      tasks_files:
+        status: PASS
+        details: |
+          7/7 arquivos existem em tasks/:
+          - diagnostico-ppp.md → executor: icaro-de-carvalho
+          - copy-email.md → executor: icaro-de-carvalho
+          - lancamento-strategy.md → executor: icaro-de-carvalho
+          - precificacao.md → executor: icaro-de-carvalho
+          - campanha-trafego.md → executor: pedro-sobral
+          - estrategia-social.md → executor: rafael-kiso
+          - branding-completo.md → executor: marcos-hiller
+          Todos têm executor definido e aceito.
+
+      workflows_files:
+        status: PASS
+        details: |
+          3/3 arquivos existem em workflows/:
+          - wf-lancamento-completo.yaml (5 phases, ~300 linhas)
+          - wf-copy-pipeline.yaml (4 phases, 644 linhas — extremamente detalhado)
+          - wf-marketing-end-to-end.yaml (6 phases, ~500 linhas)
+          TODOS existem — corrigido desde v1 onde eram declarados mas inexistentes.
+
+      checklists_files:
+        status: PASS
+        details: |
+          2/2 arquivos existem em checklists/:
+          - copy-quality-gate.md (73 linhas — checklist completo com scoring)
+          - lancamento-readiness.md (85 linhas — checklist por phase com veto conditions)
+          Corrigido desde v1 onde estavam vazios.
+
+      templates_files:
+        status: PASS
+        details: |
+          3/3 arquivos existem em templates/:
+          - email-vendas-tmpl.md (240 linhas — 4 variações com anti-padrões)
+          - landing-page-tmpl.md (373 linhas — 8 blocos com exemplos e anti-padrões)
+          - anuncio-criativo-tmpl.md (322 linhas — 3 plataformas + orgânico vs pago)
+          Corrigido desde v1 onde estavam vazios.
+
+    missing_or_incomplete:
+      - "README tree desatualizada (lista 4 tasks e 2 workflows, real são 7 e 3)"
+      - "Falta task executada por juliana-gomes (ela tem 10 commands mas nenhuma task no config.yaml)"
+      - "Config.yaml não declara checklists nem templates na seção formal"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # DIMENSÃO 2: COERÊNCIA (9/10)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  coerencia:
+    score: 9
+    details: |
+      Os 5 minds se complementam com sobreposição mínima e handoffs claros.
+      Workflows usam os agents corretos nas fases corretas. Heurísticas são
+      consistentes entre agents — sem contradições.
+
+    agent_complementarity:
+      status: EXCELLENT
+      details: |
+        Cada agent ocupa um território claro e distinto:
+        - Ícaro: copy, lançamento, storytelling, precificação (core strategy)
+        - Sobral: tráfego pago, criativos, escala de campanhas (execução paga)
+        - Kiso: analytics, social strategy, dados, KPIs (medição e planejamento)
+        - Hiller: branding, posicionamento, naming (identidade de marca)
+        - Juliana: conteúdo orgânico, Instagram, crescimento sem ads (execução orgânica)
+        O orchestrator (icaro-chief) tem routing table bem definida com triggers por keyword.
+
+    handoffs:
+      status: GOOD
+      details: |
+        Handoffs claros nos workflows:
+        - wf-copy-pipeline: Ícaro (diagnóstico) → Hiller (posicionamento) → Ícaro (redação) → Juliana+Sobral (revisão por canal)
+        - wf-lancamento-completo: Ícaro (PPP) → Hiller (branding) → Kiso (estratégia) → Juliana (orgânico) → Sobral (tráfego) → Kiso (analytics)
+        - wf-marketing-end-to-end: orquestra todos os 5 minds em 6 phases sequenciais
+      nota: |
+        Handoff_to no icaro-de-carvalho.md ainda menciona "designer ou visual (parceiro Hub)"
+        e "tráfego pago (especialista)" em vez de referenciar @pedro-sobral e @marcos-hiller
+        diretamente. Inconsistência menor — os agents existem no squad.
+
+    heuristics_consistency:
+      status: PASS
+      details: |
+        Heurísticas são complementares, não contraditórias:
+        - Ícaro diz "Proposta mata preço" → Hiller diz "Posicionar é renunciar" → consistente
+        - Sobral diz "Criativo é rei (85%)" → Ícaro diz "Conteúdo é moeda" → complementar
+        - Kiso diz "Sem KPI, sem estratégia" → Sobral diz "CPA máximo antes de rodar" → alinhados
+        - Juliana diz "Função antes do formato" → Ícaro diz "Framework primeiro" → consistente
+        Nenhuma contradição detectada entre os 5 conjuntos de heurísticas.
+
+    templates_usage:
+      status: GOOD
+      details: |
+        Templates são referenciados nos workflows corretos:
+        - email-vendas-tmpl.md → usado no wf-copy-pipeline (Phase 2, copy-email)
+        - landing-page-tmpl.md → usado no wf-copy-pipeline (Phase 2, copy-pagina-de-vendas)
+        - anuncio-criativo-tmpl.md → usado no wf-copy-pipeline (Phase 2+3, copy-anuncio + revisão Sobral)
+        Templates integram frameworks de múltiplos agents (Ícaro PPP + Sobral Gancho + Juliana 3 Funções).
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # DIMENSÃO 3: QUALIDADE (8/10)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  qualidade:
+    score: 8
+    details: |
+      Profundidade excepcional nos agents (cada um tem 10-17 heurísticas, 5-11 frameworks,
+      voice DNA completo com tone scores). Tasks bem estruturadas com veto conditions.
+      Workflows com checkpoints human_review. Templates com exemplos concretos.
+      Deduzo 2 pontos por falta de task para Juliana e checkpoints sem human_review
+      em algumas tasks.
+
+    agents_depth:
+      status: EXCELLENT
+      details: |
+        Profundidade por agent:
+        - icaro-de-carvalho: 15 heurísticas, 8 frameworks, 12 signature phrases, 8 veto rules,
+          3 output examples completos, voice DNA com tone scores, immune system, contradictions_to_preserve
+        - pedro-sobral: 10 heurísticas, 10 frameworks (incluindo 9 tipos de gancho, ciclo 8 fases),
+          19 signature phrases, 7 veto rules, community vocabulary próprio
+        - rafael-kiso: 18 heurísticas, 11 frameworks (Unbound completo, 3Hs, ABCD, Algoritmo Humano),
+          15 signature phrases, 12 veto rules
+        - marcos-hiller: 17 heurísticas, 9 frameworks (Roadmap, 7 Elementos, 5 Passos, ONdivíduos),
+          18 signature phrases, 13 veto rules
+        - juliana-gomes: 17 heurísticas, 9 frameworks (3 Funções, Recipe, MSV, Funil de Conteúdo),
+          core_principles com 16 entradas, evolution_timeline, products_ecosystem, multi_platform
+        Todos têm voice_dna com tone scores, vocabulary, metaphors, oral_patterns, anti_patterns.
+        TODOS com [SOURCE] tags em princípios e heurísticas — rastreabilidade excelente.
+
+    tasks_quality:
+      status: GOOD
+      details: |
+        Todas as 7 tasks têm:
+        - ✅ input required/optional definido
+        - ✅ output format e sections
+        - ✅ action_items com steps numerados
+        - ✅ acceptance_criteria específicos
+        - ✅ veto_conditions com ações de correção
+        - ✅ checkpoints com auto_check
+        - ✅ checkpoint_policy: block_on_veto
+
+        Destaques:
+        - campanha-trafego.md tem output_example completo com tabela de KPIs
+        - estrategia-social.md tem output_example com brand persona + 3Hs + jornada bumerangue
+        - branding-completo.md tem output_example com fintech de microcrédito — concreto e realista
+
+      nota: |
+        Nenhuma task tem human_review: true nos checkpoints (todos auto_check).
+        Para um squad consultivo de marketing, seria mais seguro ter ao menos
+        o checkpoint final com human_review: true.
+
+    workflows_quality:
+      status: EXCELLENT
+      details: |
+        Os 3 workflows são os mais detalhados do ecossistema:
+        - wf-copy-pipeline: 4 phases, 644 linhas. Cada task tem action com instruções
+          passo-a-passo. Checkpoints com veto_conditions específicas e ask_user.
+          Completion signals (success, partial, failure). Outputs com paths.
+        - wf-lancamento-completo: 5+ phases, inputs required/optional, cada phase com
+          agents_assigned, tasks detalhadas, checkpoint com human_review: true, veto_conditions.
+        - wf-marketing-end-to-end: 6 phases orquestrando todos os 5 minds.
+          Handoffs explícitos (handoff_from/handoff_to). Completion signals.
+        Todos com best_for e not_for — ajuda o usuário a escolher o workflow certo.
+
+    checklists_quality:
+      status: GOOD
+      details: |
+        - copy-quality-gate.md: 30+ items organizados por seção (Pré-requisitos, Estrutura,
+          Tom e Voz, Persuasão, Formato Específico). Scoring com pesos. Thresholds PASS/REVISÃO/FAIL.
+        - lancamento-readiness.md: 30+ items organizados por phase (Fundação, Audiência, Tráfego,
+          Analytics, Branding, Lançamento). Seções por tipo de lançamento (Tripwire, Sprint, Injeção).
+          Veto Conditions. Scoring com pesos.
+        Ambos com checkboxes markdown — prontos para uso interativo.
+
+    templates_quality:
+      status: EXCELLENT
+      details: |
+        Templates excepcionalmente detalhados:
+        - email-vendas-tmpl.md (240 linhas): 4 variações (reengajamento, pré-lançamento, venda
+          direta, nurturing). Cada uma com template preenchível, exemplo concreto e "por que funciona".
+          Anti-padrões documentados. Checklist de revisão incluído.
+        - landing-page-tmpl.md (373 linhas): 8 blocos (Hero, Causa, Storytelling, O que está incluído,
+          Leque de preços, Prova social, FAQ, CTA final). Cada bloco com template, exemplo preenchido,
+          anti-padrões. Tabela de proporção por bloco. Checklist final.
+        - anuncio-criativo-tmpl.md (322 linhas): Adaptações por plataforma (Feed, Stories/Reels,
+          Google Search). Seção Orgânico vs Pago integrando Juliana e Sobral. 3 exemplos completos
+          (infoproduto, serviço, e-commerce). Anti-padrões. Checklist por formato.
+        Todos com placeholders claros, regras e justificativas.
+
+    output_examples:
+      status: GOOD
+      details: |
+        Output examples presentes em:
+        - icaro-chief.md: 3 exemplos (lançar curso, copy email, precificar ebook)
+        - icaro-de-carvalho.md: 3 exemplos longos (diagnóstico boleira, precificar foto, email reengajamento)
+        - campanha-trafego.md: exemplo de output completo com estrutura + criativos + KPIs
+        - estrategia-social.md: exemplo de output com clínica de estética
+        - branding-completo.md: exemplo de output com fintech de microcrédito
+        - Templates: múltiplos exemplos preenchidos
+        Agents pedro-sobral, rafael-kiso, marcos-hiller e juliana-gomes NÃO têm output_examples
+        no corpo do agent — apenas nas tasks. Aceitável mas não ideal.
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # DIMENSÃO 4: ECOSSISTEMA (8/10)
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  ecossistema:
+    score: 8
+    details: |
+      Squad bem diferenciado dos demais. Slash commands completos. Mind sources
+      agora existem para TODOS os 5 minds (corrigido desde v1). Integra com
+      ecossistema AIOS. Deduzo 2 pontos pela tree do README desatualizada e
+      falta de task para Juliana no config.yaml.
+
+    differentiation:
+      vs_copywriting_squad:
+        overlap: MODERATE
+        verdict: COEXISTÊNCIA_JUSTIFICADA
+        details: |
+          copywriting-squad usa copywriters internacionais lendários (Hopkins, Halbert, Schwartz).
+          Este squad usa frameworks BRASILEIROS proprietários (PPP, Tripwire, Sprint, MAV).
+          Diferenciação clara no README com seção dedicada. Sem confusão para o usuário.
+
+      vs_leandro_ladeira:
+        overlap: MODERATE
+        verdict: SOBREPOSIÇÃO_GERENCIÁVEL
+        details: |
+          Overlap em tráfego pago (Sobral vs Ladeira) e copy.
+          Diferenciação documentada no README:
+          - Este squad = lançamento, ciclo completo (branding → orgânico → copy → tráfego → analytics)
+          - leandro-ladeira = vendas diretas, perpétuo, ROAS/CPC otimização
+          Pedro Sobral traz Método Subido vs Ladeira traz M.O.E.R — frameworks distintos.
+
+      vs_content_creator:
+        overlap: LOW
+        verdict: SEM_CONFLITO
+        details: |
+          content-creator foca em produção técnica de vídeo (corte, repurposing, roteiros técnicos).
+          Juliana Gomes foca em estratégia de crescimento orgânico + vendas por conteúdo.
+          Adjacentes mas não duplicados.
+
+    slash_commands:
+      status: PASS
+      details: |
+        7 arquivos em .claude/commands/icaro-de-carvalho/:
+        - README.md (entry point)
+        - icaro-chief.md
+        - icaro-de-carvalho.md
+        - pedro-sobral.md
+        - rafael-kiso.md
+        - marcos-hiller.md
+        - juliana-gomes.md
+        Todos os 6 agents registrados como slash commands.
+
+    mind_sources:
+      status: PASS
+      details: |
+        TODOS os 5 minds agora têm diretório canônico em squads/mind-cloning/minds/:
+        - icaro-de-carvalho/: mind_dna_complete.yaml, sources_inventory.yaml, thinking_dna.yaml, voice_dna.yaml, sources/
+        - pedro-sobral/: mind_dna_complete.yaml, sources/
+        - rafael-kiso/: mind_dna_complete.yaml, sources/
+        - marcos-hiller/: mind_dna_complete.yaml, mind-clone-summary.md, sources_inventory.yaml, thinking_dna.yaml, voice_dna.yaml, sources/
+        - juliana-gomes/: mind_dna_complete.yaml, sources_inventory.yaml, thinking_dna.yaml, voice_dna.yaml, sources/
+
+        MELHORIA MASSIVA desde v1 onde 4 de 5 eram "web-research YOLO mode" sem diretório canônico.
+        Config.yaml atualizado com mind_source paths reais e fidelidade por agent.
+      note: |
+        Pedro Sobral e Rafael Kiso têm diretórios mais enxutos (sem voice_dna.yaml separado,
+        sem sources_inventory.yaml). Completude menor que os outros 3 minds.
+
+    catalog_registration:
+      status: NOT_VERIFIED
+      details: "Não verificado se está no catálogo geral (.aios-core/data/catalog.md)"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # ISSUES
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  issues:
+    critical: []
+
+    medium:
+      - id: ISS-001
+        title: "README tree desatualizada"
+        details: |
+          A seção 'Estrutura' no README.md lista apenas 4 tasks (diagnostico-ppp, copy-email,
+          lancamento-strategy, precificacao) e 2 workflows. Na realidade são 7 tasks, 3 workflows,
+          2 checklists e 3 templates. Checklists/ aparece vazio na tree.
+        recommendation: "Atualizar a tree no README para refletir o estado real do squad."
+
+      - id: ISS-002
+        title: "Juliana Gomes sem task no config.yaml"
+        details: |
+          Juliana Gomes tem 10 commands definidos no agent e é usada nos workflows
+          (Phase 3 do wf-copy-pipeline, Phase 3 do wf-lancamento-completo) mas NÃO tem
+          nenhuma task standalone registrada no config.yaml. Os outros 4 agents primários
+          têm pelo menos 1 task cada.
+        recommendation: |
+          Criar ao menos 1 task para juliana-gomes (ex: conteudo-organico.md ou
+          calendario-editorial.md) e registrar no config.yaml.
+
+      - id: ISS-003
+        title: "Handoffs genéricos no agent icaro-de-carvalho.md"
+        details: |
+          A seção handoff_to do icaro-de-carvalho.md menciona "designer ou visual (parceiro Hub)",
+          "tráfego pago (especialista)" e "desenvolvedor (parceiro Hub)" em vez de referenciar
+          os agents do próprio squad (@pedro-sobral, @marcos-hiller).
+        recommendation: "Atualizar handoff_to para referenciar os agents do squad."
+
+      - id: ISS-004
+        title: "Config.yaml não declara checklists e templates"
+        details: |
+          A seção formal do config.yaml lista agents, tasks e workflows mas não tem
+          seção para checklists nem templates. Os arquivos existem mas não estão
+          inventariados no config.
+        recommendation: "Adicionar seções 'checklists:' e 'templates:' no config.yaml."
+
+    low:
+      - id: ISS-005
+        title: "Pedro Sobral e Rafael Kiso com mind_dna incompleto"
+        details: |
+          Estes 2 minds têm diretório canônico mas sem voice_dna.yaml e
+          sources_inventory.yaml separados (apenas mind_dna_complete.yaml + sources/).
+          Os outros 3 minds têm extração mais completa.
+        recommendation: "Gerar voice_dna.yaml e sources_inventory.yaml para Sobral e Kiso quando possível."
+
+      - id: ISS-006
+        title: "Tasks sem human_review nos checkpoints"
+        details: |
+          Todas as 7 tasks usam auto_check nos checkpoints. Para um squad consultivo
+          onde outputs são copy e estratégia, seria mais seguro ter human_review: true
+          no checkpoint final.
+        recommendation: "Adicionar human_review: true no último checkpoint de cada task."
+
+      - id: ISS-007
+        title: "Agents secundários sem output_examples no corpo do agent"
+        details: |
+          pedro-sobral.md, rafael-kiso.md, marcos-hiller.md e juliana-gomes.md não têm
+          seção output_examples no arquivo do agent (têm apenas nas tasks). icaro-de-carvalho.md
+          e icaro-chief.md têm output_examples excelentes.
+        recommendation: "Adicionar 2-3 output_examples por agent para consistência."
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # STRENGTHS
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  strengths:
+    - "Squad mais completo do ecossistema AIOS para marketing digital brasileiro — 21 componentes integrados"
+    - "Profundidade excepcional dos agents: cada mind tem 10-18 heurísticas, 5-11 frameworks, voice DNA com tone scores, e [SOURCE] tags para rastreabilidade"
+    - "Templates de produção prontos para uso: email (4 variações), LP (8 blocos), anúncio (3 plataformas + orgânico vs pago) — com exemplos concretos e anti-padrões"
+    - "Workflows detalhados com checkpoints, veto conditions, ask_user e completion signals — os mais elaborados do ecossistema"
+    - "5 minds com mind_dna canônico em squads/mind-cloning/minds/ — salto de 1/5 (v1) para 5/5 (v2)"
+    - "Diferenciação clara documentada (vs copywriting-squad, vs leandro-ladeira) com argumentos específicos"
+    - "Checklists com scoring system (copy-quality-gate e lancamento-readiness) — prontos para validação quantitativa"
+    - "Voice DNA preserva contradições reais das personas (ex: Ícaro 'anti-guru mas guru', 'anti-propósito mas com causa')"
+    - "Todas as tasks têm veto_conditions com mensagens no tom do agent — consistência de persona até na rejeição"
+    - "Frameworks proprietários brasileiros únicos: PPP, Tripwire, Sprint, MAV, Método Subido, Unbound Marketing, 3 Funções do Conteúdo"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # RECOMMENDATIONS
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  recommendations:
+    - id: REC-001
+      priority: MEDIUM
+      title: "Atualizar tree do README.md"
+      action: "Refletir os 7 tasks, 3 workflows, 2 checklists e 3 templates na seção Estrutura"
+      effort: LOW
+
+    - id: REC-002
+      priority: MEDIUM
+      title: "Criar task para Juliana Gomes"
+      action: "Criar tasks/conteudo-organico.md com executor: juliana-gomes e registrar no config.yaml"
+      effort: MEDIUM
+
+    - id: REC-003
+      priority: MEDIUM
+      title: "Atualizar handoffs no icaro-de-carvalho.md"
+      action: "Trocar referências genéricas por @pedro-sobral, @marcos-hiller, @juliana-gomes"
+      effort: LOW
+
+    - id: REC-004
+      priority: MEDIUM
+      title: "Adicionar seções checklists e templates no config.yaml"
+      action: "Inventariar formalmente os 2 checklists e 3 templates no config.yaml"
+      effort: LOW
+
+    - id: REC-005
+      priority: LOW
+      title: "Completar mind_dna de Sobral e Kiso"
+      action: "Gerar voice_dna.yaml e sources_inventory.yaml separados"
+      effort: HIGH
+
+    - id: REC-006
+      priority: LOW
+      title: "Adicionar output_examples nos agents secundários"
+      action: "2-3 exemplos de output por agent (Sobral, Kiso, Hiller, Juliana)"
+      effort: MEDIUM
+
+    - id: REC-007
+      priority: LOW
+      title: "Ativar human_review no checkpoint final das tasks"
+      action: "Mudar human_review: false → true no último checkpoint de cada task"
+      effort: LOW
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # COMPARAÇÃO COM V1
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  comparison_with_v1:
+    previous_score: 7.2/10
+    current_score: 8.5/10
+    delta: "+1.3"
+    improvements:
+      - "Workflows: de 0 arquivos (declarados mas inexistentes) para 3 workflows completos e detalhados"
+      - "Templates: de 0 arquivos para 3 templates com exemplos, anti-padrões e checklists"
+      - "Checklists: de 0 arquivos para 2 checklists com scoring system"
+      - "Tasks: de 4 para 7 — adicionadas campanha-trafego (Sobral), estrategia-social (Kiso), branding-completo (Hiller)"
+      - "Mind sources: de 1/5 canônico para 5/5 canônicos em squads/mind-cloning/minds/"
+      - "Config.yaml: versão consistente (2.0.0 em header e pack-metadata) — corrigido"
+      - "README: expandido com 6 agents, 25+ comandos, seção de diferenciação, 9 frameworks"
+      - "Fidelidade dos agents: Sobral 87-90%, Kiso 85-92%, Hiller 85-90%, Juliana 85-88% — todos com sources"
+      - "Agents enriquecidos: Ícaro com MAV + livro, Kiso com Unbound completo, Hiller com Substack + LinkedIn, Juliana com Kiwicast #434/#549"
+
+    resolved_from_v1:
+      - "REC-001 (criar workflows declarados): ✅ RESOLVIDO — 3 workflows criados"
+      - "REC-002 (corrigir versão): ✅ RESOLVIDO — versão consistente 2.0.0"
+      - "REC-003 (atualizar tabela agents README): ✅ RESOLVIDO — 6 agents na tabela"
+      - "REC-004 (diferenciação vs leandro-ladeira): ✅ RESOLVIDO — seção dedicada no README"
+      - "REC-005 (criar checklists e templates): ✅ RESOLVIDO — 2 checklists + 3 templates"
+      - "REC-006 (documentar fidelidade agents): ✅ RESOLVIDO — mind_dna canônico para todos"
+
+    remaining_from_v1:
+      - "REC-007 (status no config.yaml): parcialmente — version 2.0.0 mas sem campo 'completion' ou 'status'"
+
+  # ═══════════════════════════════════════════════════════════════════════════════
+  # METADATA
+  # ═══════════════════════════════════════════════════════════════════════════════
+
+  metadata:
+    kaizen_agent: "claude-opus-4.6-1m"
+    report_version: "2.0"
+    evaluation_model: "claude-opus-4-6[1m]"
+    components_read: 21
+    files_analyzed:
+      - "config.yaml"
+      - "README.md"
+      - "agents/icaro-chief.md"
+      - "agents/icaro-de-carvalho.md"
+      - "agents/pedro-sobral.md"
+      - "agents/rafael-kiso.md"
+      - "agents/marcos-hiller.md"
+      - "agents/juliana-gomes.md"
+      - "tasks/diagnostico-ppp.md"
+      - "tasks/copy-email.md"
+      - "tasks/lancamento-strategy.md"
+      - "tasks/precificacao.md"
+      - "tasks/campanha-trafego.md"
+      - "tasks/estrategia-social.md"
+      - "tasks/branding-completo.md"
+      - "workflows/wf-lancamento-completo.yaml"
+      - "workflows/wf-copy-pipeline.yaml"
+      - "workflows/wf-marketing-end-to-end.yaml"
+      - "checklists/copy-quality-gate.md"
+      - "checklists/lancamento-readiness.md"
+      - "templates/email-vendas-tmpl.md"
+      - "templates/landing-page-tmpl.md"
+      - "templates/anuncio-criativo-tmpl.md"
+    squads_compared:
+      - copywriting-squad
+      - leandro-ladeira
+      - content-creator
+    previous_report: "data/kaizen-ecosystem-report.yaml"

@@ -123,3 +123,15 @@ points:
 ---
 
 *Task v1.0.0 - Created: 2026-01-31*
+
+---
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-consult-01 | Decisão final entregue sem input de pelo menos 2 dos 3 conselheiros (Naval, Hormozi, Thiel) | HALT — Canalizar os conselheiros ausentes antes de avançar para Step 5 (Agente Chefe) |
+| VC-consult-02 | Agente Chefe (Elon) emitiu veredicto sem a tabela de convergência preenchida (Step 4) | HALT — Retornar ao Step 4; decisão sem análise de convergência é opinião, não estratégia |
+| VC-consult-03 | Questão submetida ao board sem dados suficientes e @board-orchestrator assumiu valores em vez de perguntar ao José | HALT — Interromper e elicitar dados faltantes; nunca fabricar contexto para completar a análise |
+| VC-consult-04 | Sessão não salva em `docs/logs/` antes de encerrar | HALT — Salvar relatório completo; sessão sem registro não pode ser referenciada em decisões futuras |
+| VC-consult-05 | José não recebeu ação concreta com deadline ao final da sessão | HALT — Reformular output do Agente Chefe até conter: Veredicto + Ação + Deadline |

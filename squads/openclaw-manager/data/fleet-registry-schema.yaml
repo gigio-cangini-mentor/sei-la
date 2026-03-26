@@ -1,0 +1,266 @@
+# Fleet Registry Schema — Supabase Tables
+# Para ser criado no Supabase do projeto master
+# Tabelas: openclaw_fleet + openclaw_skills
+
+tables:
+
+  openclaw_fleet:
+    description: "Registry de todos os claws provisionados"
+    columns:
+      - name: claw_id
+        type: uuid
+        primary_key: true
+        default: "gen_random_uuid()"
+
+      - name: claw_name
+        type: text
+        not_null: true
+        unique: true
+
+      - name: owner_name
+        type: text
+        not_null: true
+
+      - name: owner_email
+        type: text
+
+      - name: purpose
+        type: text
+
+      - name: status
+        type: text
+        not_null: true
+        default: "'provisioning'"
+        check: "status IN ('provisioning', 'active', 'inactive', 'error', 'retired')"
+
+      - name: supabase_project_ref
+        type: text
+        description: "Ref do projeto Supabase do claw (ex: obnfzsgbjwbflrxjdfwc)"
+
+      - name: vps_host
+        type: text
+        description: "IP ou hostname da VPS do claw"
+
+      - name: setup_completed_at
+        type: timestamptz
+
+      - name: skills_count
+        type: integer
+        default: 0
+
+      - name: last_health_check
+        type: timestamptz
+
+      - name: last_health_status
+        type: text
+        check: "last_health_status IN ('healthy', 'degraded', 'offline', 'idle', 'error')"
+
+      - name: integrations
+        type: jsonb
+        default: "'{}'::jsonb"
+        description: "Map de integracoes disponiveis — schema definido abaixo"
+        expected_schema:
+          supabase: "boolean — SEMPRE true (required credential)"
+          anthropic: "boolean — true se ANTHROPIC_API_KEY fornecida"
+          openai: "boolean — true se OPENAI_API_KEY fornecida"
+          clickup: "boolean — true se CLICKUP_API_TOKEN fornecido"
+          evolution_whatsapp: "boolean — true se EVOLUTION_API_URL fornecida"
+          custom: "object — integracoes extras nao padrao"
+        example: |
+          {
+            "supabase": true,
+            "anthropic": true,
+            "openai": false,
+            "clickup": true,
+            "evolution_whatsapp": false,
+            "custom": {}
+          }
+        validation_note: "Validar no application layer — Supabase JSONB nao tem schema nativo"
+
+      - name: created_at
+        type: timestamptz
+        default: "now()"
+
+      - name: updated_at
+        type: timestamptz
+        default: "now()"
+
+    indexes:
+      - "CREATE INDEX idx_fleet_status ON openclaw_fleet(status)"
+      - "CREATE INDEX idx_fleet_owner ON openclaw_fleet(owner_name)"
+
+    rls:
+      enabled: true
+      policies:
+        - name: "authenticated_full_access"
+          for: "ALL"
+          to: "authenticated"
+          using: "true"
+          with_check: "true"
+
+    trigger:
+      name: "update_updated_at"
+      event: "BEFORE UPDATE"
+      action: "SET NEW.updated_at = now()"
+
+  openclaw_skills:
+    description: "Registry de todas as skills deployadas"
+    columns:
+      - name: skill_id
+        type: uuid
+        primary_key: true
+        default: "gen_random_uuid()"
+
+      - name: claw_id
+        type: uuid
+        not_null: true
+        references: "openclaw_fleet(claw_id) ON DELETE CASCADE"
+
+      - name: skill_name
+        type: text
+        not_null: true
+
+      - name: skill_slug
+        type: text
+        not_null: true
+
+      - name: skill_type
+        type: text
+        not_null: true
+        check: "skill_type IN ('heartbeat', 'cron', 'on-demand', 'event-driven')"
+
+      - name: version
+        type: text
+        default: "'1.0.0'"
+
+      - name: status
+        type: text
+        not_null: true
+        default: "'active'"
+        check: "status IN ('active', 'inactive', 'error', 'retired', 'deploying')"
+
+      - name: config_path
+        type: text
+        description: "Path no VPS onde a skill esta instalada"
+
+      - name: deployed_at
+        type: timestamptz
+        default: "now()"
+
+      - name: last_execution
+        type: timestamptz
+
+      - name: execution_count
+        type: integer
+        default: 0
+
+      - name: error_count
+        type: integer
+        default: 0
+
+      - name: created_at
+        type: timestamptz
+        default: "now()"
+
+      - name: updated_at
+        type: timestamptz
+        default: "now()"
+
+    indexes:
+      - "CREATE UNIQUE INDEX idx_skills_slug_claw ON openclaw_skills(skill_slug, claw_id)"
+      - "CREATE INDEX idx_skills_claw ON openclaw_skills(claw_id)"
+      - "CREATE INDEX idx_skills_status ON openclaw_skills(status)"
+
+    rls:
+      enabled: true
+      policies:
+        - name: "authenticated_full_access"
+          for: "ALL"
+          to: "authenticated"
+          using: "true"
+          with_check: "true"
+
+    trigger:
+      name: "update_updated_at"
+      event: "BEFORE UPDATE"
+      action: "SET NEW.updated_at = now()"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SQL para criar as tabelas (copiar e colar no Supabase SQL Editor)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+sql_migration: |
+  -- OpenClaw Fleet Registry
+  CREATE TABLE IF NOT EXISTS openclaw_fleet (
+    claw_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    claw_name TEXT NOT NULL UNIQUE,
+    owner_name TEXT NOT NULL,
+    owner_email TEXT,
+    purpose TEXT,
+    status TEXT NOT NULL DEFAULT 'provisioning'
+      CHECK (status IN ('provisioning', 'active', 'inactive', 'error', 'retired')),
+    supabase_project_ref TEXT,
+    vps_host TEXT,
+    setup_completed_at TIMESTAMPTZ,
+    skills_count INTEGER DEFAULT 0,
+    last_health_check TIMESTAMPTZ,
+    last_health_status TEXT
+      CHECK (last_health_status IN ('healthy', 'degraded', 'offline', 'idle', 'error')),
+    integrations JSONB DEFAULT '{}'::jsonb,
+    created_at TIMESTAMPTZ DEFAULT now(),
+    updated_at TIMESTAMPTZ DEFAULT now()
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_fleet_status ON openclaw_fleet(status);
+  CREATE INDEX IF NOT EXISTS idx_fleet_owner ON openclaw_fleet(owner_name);
+
+  -- OpenClaw Skills Registry
+  CREATE TABLE IF NOT EXISTS openclaw_skills (
+    skill_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    claw_id UUID NOT NULL REFERENCES openclaw_fleet(claw_id) ON DELETE CASCADE,
+    skill_name TEXT NOT NULL,
+    skill_slug TEXT NOT NULL,
+    skill_type TEXT NOT NULL
+      CHECK (skill_type IN ('heartbeat', 'cron', 'on-demand', 'event-driven')),
+    version TEXT DEFAULT '1.0.0',
+    status TEXT NOT NULL DEFAULT 'active'
+      CHECK (status IN ('active', 'inactive', 'error', 'retired', 'deploying')),
+    config_path TEXT,
+    deployed_at TIMESTAMPTZ DEFAULT now(),
+    last_execution TIMESTAMPTZ,
+    execution_count INTEGER DEFAULT 0,
+    error_count INTEGER DEFAULT 0,
+    created_at TIMESTAMPTZ DEFAULT now(),
+    updated_at TIMESTAMPTZ DEFAULT now()
+  );
+
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_skills_slug_claw ON openclaw_skills(skill_slug, claw_id);
+  CREATE INDEX IF NOT EXISTS idx_skills_claw ON openclaw_skills(claw_id);
+  CREATE INDEX IF NOT EXISTS idx_skills_status ON openclaw_skills(status);
+
+  -- RLS
+  ALTER TABLE openclaw_fleet ENABLE ROW LEVEL SECURITY;
+  ALTER TABLE openclaw_skills ENABLE ROW LEVEL SECURITY;
+
+  CREATE POLICY "authenticated_fleet_access" ON openclaw_fleet
+    FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+  CREATE POLICY "authenticated_skills_access" ON openclaw_skills
+    FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+  -- Updated_at triggers
+  CREATE OR REPLACE FUNCTION update_updated_at()
+  RETURNS TRIGGER AS $$
+  BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+
+  CREATE TRIGGER tr_fleet_updated_at
+    BEFORE UPDATE ON openclaw_fleet
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+  CREATE TRIGGER tr_skills_updated_at
+    BEFORE UPDATE ON openclaw_skills
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at();

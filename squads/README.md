@@ -6,7 +6,7 @@
 
 | Preciso de... | Use este squad |
 |---------------|----------------|
-| Clonar mente de expert | `mind-cloning` (framework) + `squad-creator-pro` (execucao) |
+| Clonar mente de expert | `mind-cloning` (framework) + `squad-creator` (execucao) |
 | Copy para vendas/marketing | `copywriting-squad` (15 masters, hierarquia) |
 | Copy com debate multi-perspectiva | `content-engine` (28 agents, debate) |
 | Estrategia de conteudo video | `content-creator` (cortes, roteiros) |
@@ -33,7 +33,7 @@
 | Dominar Claude Code | `claude-code-mastery` |
 | Aprendizado gamificado | `dopamine-learning` |
 | Criar knowledge base de curso | `knowledge-base-builder` |
-| Criar squad novo | `squad-creator` / `squad-creator-pro` |
+| Criar squad novo | `squad-creator` / `squad-creator` |
 | Navegar fases de projeto | `navigator` |
 | Regras Synapse (domains/rules) | `synapse` |
 | Melhoria continua (Kaizen) | `kaizen` |
@@ -133,7 +133,7 @@ Squads baseados em personas reais com Voice DNA + Thinking DNA extraidos.
 | `mind-content-updater` | Descoberta automatica de conteudo para clones |
 | `mmos-squad` | Multi-Mind Orchestration (multiplos clones simultaneos) |
 | `squad-creator` | Criar squads novos (open-core) |
-| `squad-creator-pro` | Criar squads (pro, com Pedro Valerio + OalaNicolas) |
+| `squad-creator` | Criar squads (pro, com Pedro Valerio + OalaNicolas) |
 
 ### Infrastructure & Tools (6)
 

@@ -30,6 +30,16 @@ Use this skill when you need to:
 - Build stakeholder communication dashboards
 - Transform data/reports into visual websites
 
+## Discovery Questions
+
+Perguntas para fazer antes de executar. Use AskUserQuestion tool. Pule se o usuário já forneceu esse contexto.
+
+1. **Qual o tipo de dashboard? (analytics, comparison, project-report, timeline, portfolio, custom)** — (define a estrutura e os componentes usados)
+2. **De onde vêm os dados? (caminho para arquivos .md/.json/.csv ou dados diretos)** — (necessário para popular o dashboard)
+3. **Quais seções/tabs o dashboard precisa ter?** — (define a navegação e o escopo do conteúdo)
+4. **Tem preferência de esquema de cores ou branding?** — (define variáveis CSS; default é purple-blue) (opcional)
+5. **O dashboard será apresentado para alguém externo (stakeholder, cliente)?** — (ajusta nível de polimento e linguagem) (opcional)
+
 ---
 
 ## ⚙️ How It Works

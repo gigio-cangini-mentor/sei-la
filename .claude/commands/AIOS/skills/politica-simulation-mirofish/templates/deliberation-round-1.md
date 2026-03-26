@@ -1,0 +1,1 @@
+../../../../../../skills/politica-simulation-mirofish/templates/deliberation-round-1.md

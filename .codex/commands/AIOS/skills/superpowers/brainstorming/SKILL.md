@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/brainstorming/SKILL.md
+../../../../../../skills/superpowers/brainstorming/SKILL.md

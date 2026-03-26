@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Dia da mudanca — so leva o que funciona. Essa fase e EXCLUSIVA do @devops. Nenhum outro agente toca em git push ou PR. E como a chave do cofre: so uma pessoa tem.
+Dia da mudança — só leva o que funciona. Essa fase é EXCLUSIVA do @devops. Nenhum outro agente toca em git push ou PR. É como a chave do cofre: só uma pessoa tem.
 
 ---
 
@@ -19,14 +19,14 @@ Dia da mudanca — so leva o que funciona. Essa fase e EXCLUSIVA do @devops. Nen
   🔴 CHECKPOINT — Pronto para Deploy
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  📋 Resumo do que sera deployado:
+  📋 Resumo do que será deployado:
   - {N} stories implementadas
   - {files_changed} arquivos modificados
   - {commits} commits locais
 
   1. Deploy (push + PR)
   2. Revisar antes
-  3. Nao deployar agora (salvar progresso)
+  3. Não deployar agora (salvar progresso)
 ```
 
 If user chooses 2: show git diff summary and wait.
@@ -35,8 +35,8 @@ If user chooses 3: mark Phase 5 as "paused", save state, show completion banner 
 ### Step 2: Dispatch @devops
 
 Dispatch @devops via Agent tool:
-- Read `.aios-core/development/agents/aios-devops.md`
-- Read `.aios-core/development/tasks/push.md` (or `commit-workflow.md`)
+- Read `{AIOS_HOME}/.aios-core/development/agents/aios-devops.md`
+- Read `{AIOS_HOME}/.aios-core/development/tasks/push.md` (or `commit-workflow.md`)
 - Instructions:
   1. Run pre-push quality gate: `npm run lint && npm run typecheck && npm test && npm run build`
   2. If any gate fails: HALT and report to runner (do NOT push broken code)
@@ -65,7 +65,7 @@ After @devops completes:
   🔀 PR: {pr_url}
   ⚠️ Erros resolvidos: {error_count}
 
-  "Nao e dom, e estrutura." — Fosc
+  "Não é dom, é estrutura." — Fosc
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -78,9 +78,9 @@ After @devops completes:
 | II - Agent Authority | ONLY @devops executes this phase. Runner MUST NOT do git push directly. |
 | V - Quality First | Pre-push gate runs lint + typecheck + test + build. All must pass. |
 
-If @devops is not available or the user explicitly says "nao push":
+If @devops is not available or the user explicitly says "não push":
 - Save all work locally
-- Show: "Codigo pronto localmente. Quando quiser deployar, rode `/forge resume`"
+- Show: "Código pronto localmente. Quando quiser deployar, rode `/forge resume`"
 
 ---
 

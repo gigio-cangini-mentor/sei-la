@@ -2,6 +2,8 @@
 
 Collection of advanced development workflow skills for Claude Code.
 
+<!-- Discovery: not applicable — this is an index/hub skill that delegates to sub-skills, each with their own context -->
+
 ## Sub-skills
 
 | Skill | Purpose |

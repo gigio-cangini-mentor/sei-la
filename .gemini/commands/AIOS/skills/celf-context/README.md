@@ -1,1 +1,1 @@
-../../../../skills/celf-context/SKILL.md
+../../../../../skills/celf-context/SKILL.md

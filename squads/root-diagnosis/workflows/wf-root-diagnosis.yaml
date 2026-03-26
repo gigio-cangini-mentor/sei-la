@@ -1,0 +1,1614 @@
+# WF-ROOT-DIAGNOSIS: Central Diagnostic Workflow
+# Orchestrates the 13-phase diagnostic process from intake to report delivery
+# Version: 1.2.0
+# Last Updated: 2026-02-21
+
+# ===============================================================================
+# WORKFLOW HEADER
+# ===============================================================================
+
+workflow:
+  id: wf-root-diagnosis
+  name: "Root Diagnosis Pipeline"
+  version: "1.2.0"
+  squad: root-diagnosis
+  orchestrator: root-diagnosis-chief
+  description: |
+    Pipeline diagnostico central de 13 fases (0-10 + 1.5 + 3.5) que orquestra 13 agentes
+    especialistas para identificar causas-raiz reais de qualquer problema.
+    Inclui classificacao de dominio, auditoria de pressupostos, reframing,
+    diagnostico profundo com decision points adaptativos, analise de causa-raiz,
+    quantificacao de evidencias, stress test e empacotamento para acao.
+
+    Dois decision points adaptativos roteiam para o metodo correto:
+    - DP1 (Phase 5): Cynefin domain -> Goldratt (CRT) ou Checkland (SSM)
+    - DP2 (Phase 6): Isolabilidade -> Kepner-Tregoe (IS/IS NOT) ou Gano (Apollo RCA)
+
+    Produz relatorio diagnostico com causas-raiz verificaveis, niveis de confianca
+    e proximos passos acionaveis.
+
+  duration: "30 min (quick) | 60-120 min (full) | 240+ min (deep)"
+  total_phases: 13
+
+  best_for:
+    - "Diagnostico de causa-raiz de problemas organizacionais"
+    - "Problemas onde sintomas estao sendo tratados como causas"
+    - "Situacoes com multiplos stakeholders e perspectivas divergentes"
+    - "Problemas cronicos que resistem a tentativas anteriores de solucao"
+    - "Validacao pre-projeto: confirmar que o problema certo sera resolvido"
+    - "Problemas complexos com dinamicas politicas/culturais ocultas"
+
+# ===============================================================================
+# EXECUTION MODES
+# ===============================================================================
+
+modes:
+  full:
+    name: "Diagnostico Completo"
+    description: "Todas as 13 fases (0-10 + 1.5 + 3.5), incluindo opcionais"
+    phases: [0, 1, 1.5, 2, 3, 3.5, 4, 5, 6, 7, 8, 9, 10]
+    required_phases: [0, 1, 1.5, 2, 3, 3.5, 4, 5, 6, 7, 8, 9, 10]
+    estimated_duration: "60-120 min (padrao) | 240+ min (profundo)"
+    when_to_use:
+      - "Problema complexo com alto impacto"
+      - "Multiplos stakeholders envolvidos"
+      - "Tentativas anteriores falharam"
+      - "Cliente quer confianca maxima no diagnostico"
+
+  quick:
+    name: "Diagnostico Rapido"
+    description: "8 fases essenciais — pula fases opcionais"
+    phases: [0, 1, 3, 3.5, 4, 5, 6, 10]
+    required_phases: [0, 1, 3, 3.5, 4, 5, 6, 10]
+    skipped_phases:
+      - phase: 2
+        reason: "Cultural/Political Diagnosis — opcional em modo rapido"
+      - phase: 7
+        reason: "Evidence Quantification — opcional em modo rapido"
+      - phase: 8
+        reason: "Stress Test — opcional em modo rapido"
+      - phase: 9
+        reason: "Package for Action — opcional em modo rapido"
+    estimated_duration: "30-45 min"
+    when_to_use:
+      - "Problema relativamente isolado"
+      - "Urgencia alta, tempo limitado"
+      - "Diagnostico preliminar antes de investir em completo"
+      - "Problema tecnico com causa provavelmente rastreavel"
+    tradeoffs:
+      - "Confianca do diagnostico tipicamente menor (50-70% vs 70-90%)"
+      - "Dinamicas culturais/politicas nao investigadas"
+      - "Diagnostico nao passa por stress test"
+      - "Output nao empacotado para acao — requer trabalho adicional"
+
+# ===============================================================================
+# PHASES (0-10 + 1.5 + 3.5)
+# ===============================================================================
+
+phases:
+
+  # =============================================================================
+  # PHASE 0: INTAKE & TRIAGE
+  # =============================================================================
+  - id: PHASE-0
+    name: "Intake & Triage"
+    phase_number: 0
+    agent: root-diagnosis-chief
+    task: tasks/intake-triage.md
+    required_in: [full, quick]
+    optional: false
+    duration: "5-10 min"
+    description: |
+      Ponto de entrada do diagnostico. Determina escopo, profundidade, nivel de
+      acesso a dados e cliente do diagnostico. Coleta 8 dados essenciais via
+      triagem estruturada antes de ativar qualquer especialista.
+
+    elicit: true
+    elicitation_points:
+      - id: "E0-1"
+        question: "Qual o problema conforme voce o entende?"
+        purpose: "Capturar declaracao bruta — sera desafiada na Phase 4"
+        required: true
+      - id: "E0-2"
+        question: "Quem e afetado por esse problema?"
+        purpose: "Mapear stakeholders — influencia Phase 2 (Schein)"
+        required: true
+      - id: "E0-3"
+        question: "Ha quanto tempo esse problema existe?"
+        purpose: "Temporalidade — problemas cronicos vs agudos exigem metodos diferentes"
+        required: true
+      - id: "E0-4"
+        question: "O que ja foi tentado?"
+        purpose: "Historico de tentativas — evitar re-diagnosticar o obvio"
+        required: true
+      - id: "E0-5"
+        question: "Qual o nivel de urgencia? (critico | alto | medio | baixo)"
+        purpose: "Calibrar profundidade do diagnostico"
+        required: true
+      - id: "E0-6"
+        question: "Quem e o cliente deste diagnostico? (quem vai usar o resultado)"
+        purpose: "Formatar output para o consumidor correto"
+        required: true
+      - id: "E0-7"
+        question: "Qual profundidade desejada? (rapido 30-45min | padrao 60-120min | profundo 240+ min)"
+        purpose: "Selecionar modo de execucao"
+        required: true
+      - id: "E0-8"
+        question: "Ha acesso a dados, metricas, pessoas?"
+        purpose: "Definir nivel de evidencia possivel — influencia Phase 7 (Hubbard)"
+        required: true
+
+    inputs:
+      - problem_description: "Descricao do problema pelo usuario"
+      - context: "Contexto organizacional, tecnico, estrategico"
+
+    outputs:
+      - intake-brief.md
+      - routing_decisions: "Mapa de roteamento para cada fase"
+      - depth_selection: "rapido | padrao | profundo"
+      - mode_selection: "quick | full"
+
+    checkpoint:
+      id: QG-RD-INTAKE
+      type: blocking
+      criteria:
+        - "Todas as 8 perguntas de triagem respondidas"
+        - "Escopo definido (rapido/padrao/profundo)"
+        - "Modo selecionado (quick/full)"
+        - "Cliente do diagnostico identificado"
+        - "Problema e articulavel — usuario consegue descrever em 1-2 paragrafos"
+        - "Escopo e delimitado — nao e 'tudo esta errado'"
+        - "Routing decisions documentadas para cada fase"
+      veto:
+        - condition: "Problema nao articulavel"
+          action: "HALT — pedir ao usuario que descreva melhor o problema antes de prosseguir"
+          severity: CRITICAL
+        - condition: "Escopo ilimitado ('tudo esta errado', 'nada funciona')"
+          action: "HALT — delimitar escopo com perguntas de refinamento"
+          severity: CRITICAL
+        - condition: "Menos de 6/8 perguntas respondidas"
+          action: "HALT — completar triagem antes de prosseguir"
+          severity: HIGH
+      max_retries: 3
+      on_pass: "Prosseguir para Phase 1 (dave-snowden)"
+      on_fail: "Repetir perguntas faltantes, refinar escopo"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 1: DOMAIN CLASSIFICATION
+  # =============================================================================
+  - id: PHASE-1
+    name: "Domain Classification"
+    phase_number: 1
+    agent: dave-snowden
+    task: tasks/classify-domain.md
+    required_in: [full, quick]
+    optional: false
+    duration: "10-15 min"
+    depends_on: [PHASE-0]
+    description: |
+      Classificar o problema no framework Cynefin (Clear/Complicated/Complex/Chaotic/Disorder).
+      A classificacao determina a abordagem diagnostica nas fases seguintes.
+      Problema Complicated -> CRT (Goldratt). Problema Complex -> SSM (Checkland).
+      Esta fase e OBRIGATORIA — sem classificacao, o metodo de diagnostico pode ser errado.
+
+    inputs:
+      - intake-brief.md: "Triagem completa da Phase 0"
+      - problema_declarado: "Descricao do problema pelo usuario"
+      - stakeholders: "Lista de afetados"
+      - temporalidade: "Ha quanto tempo o problema existe"
+
+    outputs:
+      - domain-classification.md
+      - cynefin_domain: "Clear | Complicated | Complex | Chaotic | Disorder"
+      - domain_rationale: "Justificativa da classificacao com evidencias"
+      - method_implications: "Implicacoes para metodo de diagnostico"
+      - dp1_input: "Input para Decision Point 1 (Phase 5)"
+
+    checkpoint:
+      id: QG-RD-CLASSIFY
+      type: blocking
+      criteria:
+        - "Dominio Cynefin classificado com justificativa baseada em evidencias"
+        - "Pelo menos 3 indicadores citados para suportar a classificacao"
+        - "Abordagem diagnostica selecionada e documentada"
+        - "Implicacoes metodologicas para Phases 5 e 6 explicitadas"
+        - "Se Disorder: plano de re-classificacao com dados adicionais"
+      veto:
+        - condition: "Classificacao sem evidencias (chute)"
+          action: "VETO — re-coletar dados e re-classificar com rigor"
+          severity: CRITICAL
+        - condition: "Classificacao Disorder sem plano de re-coleta"
+          action: "VETO — nao ha como prosseguir sem saber o tipo de problema"
+          severity: CRITICAL
+        - condition: "Classificacao contradiz dados do intake"
+          action: "HALT — reconciliar classificacao com dados de triagem"
+          severity: HIGH
+      max_retries: 2
+      on_pass: "Prosseguir para Phase 2 (schein) ou Phase 3 (argyris) em modo quick"
+      on_fail: "Re-coletar dados e re-classificar"
+
+    human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # PHASE 1.5: VIABILITY ASSESSMENT (OPCIONAL — org/business)
+  # ─────────────────────────────────────────────────────────────────────
+
+  - id: PHASE-1-5
+    name: "Viability Assessment"
+    phase_number: 1.5
+    agent: stafford-beer
+    task: tasks/assess-viability.md
+    required_in: [full]
+    optional: true
+    duration: "10-20 min"
+    depends_on: [PHASE-1]
+    skip_condition: "Problema puramente técnico, individual ou sem componente organizacional"
+    description: |
+      Avaliar a viabilidade organizacional do sistema em análise usando o Viable System Model (VSM).
+      Identifica disfunções nos 5 sistemas (S1-S5), verifica equilíbrio de variedade (Lei de Ashby)
+      e testa viabilidade recursiva. OPCIONAL — apenas para problemas org/business.
+
+    inputs:
+      - intake-brief.md: "Triagem completa da Phase 0"
+      - domain-classification.md: "Classificacao Cynefin da Phase 1"
+
+    outputs:
+      - viability-assessment.md
+      - vsm_mapping: "Mapeamento S1-S5 com assessment de viabilidade"
+      - variety_analysis: "Analise de equilibrio de variedade (Ashby)"
+      - recursion_check: "Check de viabilidade recursiva em sub-niveis"
+
+    checkpoint:
+      id: QG-RD-VIABILITY
+      type: non-blocking
+      criteria:
+        - "5 sistemas VSM mapeados com assessment (Funcional/Disfuncional/Parcial)"
+        - "Equilibrio de variedade avaliado (Lei de Ashby)"
+        - "Recursion check executado em pelo menos 1 sub-nivel"
+        - "Disfuncoes criticas sinalizadas para fases seguintes"
+      veto:
+        - condition: "VSM com menos de 3 sistemas mapeados (analise incompleta)"
+          action: "HALT — completar mapeamento antes de prosseguir"
+          severity: HIGH
+      max_retries: 1
+      on_pass: "Prosseguir para Phase 2 (schein) ou Phase 3 (argyris) em modo quick"
+      on_fail: "Documentar limitacoes e prosseguir (fase opcional)"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 2: CULTURAL & POLITICAL DIAGNOSIS [OPTIONAL but recommended]
+  # =============================================================================
+  - id: PHASE-2
+    name: "Cultural & Political Diagnosis"
+    phase_number: 2
+    agent: edgar-schein
+    task: tasks/diagnose-culture.md
+    required_in: [full]
+    optional: true
+    recommended: true
+    duration: "10-20 min"
+    depends_on: [PHASE-1]
+    skip_condition: "mode == 'quick' OR urgency == 'critico'"
+    description: |
+      Diagnosticar o que NAO esta sendo dito. Mapear dinamicas de poder,
+      tabus organizacionais, tensoes politicas e correntes emocionais que
+      influenciam o problema mas nao aparecem em declaracoes formais.
+      Usa Humble Inquiry, Clinical Inquiry e os 3 niveis de cultura de Schein.
+
+    inputs:
+      - intake-brief.md: "Triagem completa"
+      - domain-classification.md: "Classificacao Cynefin"
+      - stakeholders: "Lista de afetados e relacoes de poder"
+
+    outputs:
+      - cultural-diagnosis.md
+      - hidden_dynamics: "Dinamicas de poder, tabus, tensoes"
+      - unspoken_issues: "O que ninguem esta dizendo"
+      - cultural_level_analysis: "Artifacts / Espoused Values / Basic Assumptions"
+      - political_map: "Mapa de interesses e influencia"
+
+    checkpoint:
+      id: QG-RD-CULTURE
+      type: non-blocking
+      criteria:
+        - "Dinamicas ocultas surfaceadas OU explicitamente confirmadas como ausentes"
+        - "3 niveis de cultura analisados (artefatos, valores, pressupostos basicos)"
+        - "Mapa politico documentado (quem tem interesse em que)"
+        - "Implicacoes para fases seguintes documentadas"
+      veto: []
+      on_pass: "Prosseguir para Phase 3 (argyris)"
+      on_fail: "Documentar limitacao e prosseguir (fase opcional)"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 3: ASSUMPTION AUDIT
+  # =============================================================================
+  - id: PHASE-3
+    name: "Assumption Audit"
+    phase_number: 3
+    agent: chris-argyris
+    task: tasks/audit-assumptions.md
+    required_in: [full, quick]
+    optional: false
+    duration: "10-15 min"
+    depends_on:
+      full: [PHASE-2]
+      quick: [PHASE-1]
+    description: |
+      Caminhar pela Ladder of Inference sobre a declaracao do problema.
+      Identificar governing variables que precisam ser questionadas.
+      Flaggear rotinas defensivas que bloqueiam diagnostico honesto.
+      Separar o que e FATO do que e INFERENCIA no problema declarado.
+
+    inputs:
+      - intake-brief.md: "Triagem completa"
+      - domain-classification.md: "Classificacao Cynefin"
+      - cultural-diagnosis.md: "Dinamicas ocultas (se disponivel)"
+      - problema_declarado: "Declaracao original do problema"
+
+    outputs:
+      - assumption-audit.md
+      - assumptions_list: "Lista completa de pressupostos identificados"
+      - inference_ladder_analysis: "Analise degrau por degrau"
+      - governing_variables: "Variaveis que controlam o raciocinio"
+      - defensive_routines: "Rotinas defensivas detectadas"
+      - blind_spots: "Pontos cegos identificados"
+      - reframing_seeds: "Sementes para reframing na Phase 4"
+
+    checkpoint:
+      id: QG-RD-ASSUMPTIONS
+      type: blocking
+      criteria:
+        - "Todos os pressupostos na declaracao do problema identificados e listados"
+        - "Cada pressuposto classificado como: verificado | nao verificado | infundado"
+        - "Ladder of Inference percorrida integralmente (dados -> selecao -> significado -> conclusao -> crenca -> acao)"
+        - "Governing variables identificadas"
+        - "Defensive routines sinalizadas (se existentes)"
+      veto:
+        - condition: "Pressupostos nao examinados na declaracao do problema"
+          action: "VETO — nao prosseguir com pressupostos nao auditados contaminando o diagnostico"
+          severity: CRITICAL
+        - condition: "Nenhum pressuposto encontrado (improvavel — indica analise superficial)"
+          action: "HALT — refazer analise com mais profundidade"
+          severity: HIGH
+      max_retries: 2
+      on_pass: "Prosseguir para Phase 4 (wedell-wedellsborg)"
+      on_fail: "Repetir analise com maior profundidade, talvez com dados adicionais"
+
+    human_review: false
+
+  # ─────────────────────────────────────────────────────────────────────
+  # PHASE 3.5: SYSTEM DYNAMICS DIAGNOSTIC
+  # ─────────────────────────────────────────────────────────────────────
+
+  - id: PHASE-3-5
+    name: "System Dynamics Diagnostic"
+    phase_number: 3.5
+    agent: peter-senge
+    task: tasks/model-system-dynamics.md
+    required_in: [full, quick]
+    optional: false
+    duration: "15-25 min"
+    depends_on: [PHASE-3]
+    description: |
+      Mapear dinâmicas sistêmicas subjacentes ao problema usando Causal Loop Diagrams,
+      System Archetypes, Iceberg Model e Meadows Leverage Points. Revela feedback loops,
+      delays e padrões estruturais que perpetuam o problema. Essencial para problemas Complex.
+
+    inputs:
+      - intake-brief.md: "Triagem completa da Phase 0"
+      - domain-classification.md: "Classificacao Cynefin da Phase 1"
+      - assumption-audit.md: "Pressupostos auditados da Phase 3"
+      - viability-assessment.md: "VSM assessment (se disponivel, Phase 1.5)"
+      - cultural-diagnosis.md: "Diagnostico cultural (se disponivel, Phase 2)"
+
+    outputs:
+      - system-dynamics-analysis.md
+      - iceberg_model: "4 niveis: Events -> Patterns -> Structures -> Mental Models"
+      - causal_loop_diagrams: "CLDs com loops R + B + delays"
+      - system_archetypes: "Arquetipos identificados com mapeamento"
+      - leverage_points: "Pontos de alavancagem classificados (Meadows 12)"
+      - behavior_over_time: "BOT graphs para variaveis-chave"
+
+    checkpoint:
+      id: QG-RD-SYSTEMS
+      type: blocking
+      criteria:
+        - "Iceberg Model 4 niveis documentados"
+        - ">=1 feedback loop identificado (R ou B)"
+        - ">=1 archetype testado contra situacao"
+        - "Leverage points classificados (Meadows hierarquia)"
+        - "Sintese com key insight diagnostico"
+      veto:
+        - condition: "Problema Complex (Cynefin) sem nenhum feedback loop identificado"
+          action: "VETO — problema complexo EXIGE modelagem de dinamicas sistemicas"
+          severity: CRITICAL
+        - condition: "Iceberg Model nao desceu alem de Events (nivel 1)"
+          action: "HALT — descer ate Mental Models para diagnostico estrutural"
+          severity: HIGH
+      max_retries: 2
+      on_pass: "Prosseguir para Phase 4 (wedell-wedellsborg)"
+      on_fail: "Re-analisar com mais profundidade, solicitar dados adicionais"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 4: PROBLEM REFRAMING
+  # =============================================================================
+  - id: PHASE-4
+    name: "Problem Reframing"
+    phase_number: 4
+    agent: thomas-wedell-wedellsborg
+    task: tasks/reframe-problem.md
+    required_in: [full, quick]
+    optional: false
+    duration: "15-20 min"
+    depends_on: [PHASE-3, PHASE-3-5]
+    description: |
+      Desafiar o enquadramento do problema usando 5 estrategias de reframing.
+      Determinar se este e o problema CERTO a ser resolvido. A maioria das
+      organizacoes resolve o problema errado com alta eficiencia. Esta fase
+      existe para prevenir isso.
+
+      5 Estrategias de Reframing:
+      1. Look outside the frame
+      2. Rethink the goal
+      3. Examine bright spots
+      4. Look in the mirror
+      5. Take their perspective
+
+    inputs:
+      - intake-brief.md: "Triagem completa"
+      - domain-classification.md: "Classificacao Cynefin"
+      - assumption-audit.md: "Pressupostos auditados"
+      - system-dynamics-analysis.md: "Dinamicas sistemicas (Phase 3.5)"
+      - cultural-diagnosis.md: "Dinamicas ocultas (se disponivel)"
+      - problema_declarado: "Declaracao original"
+
+    outputs:
+      - reframing-analysis.md
+      - reframed_problem: "Problema reframeado (pode ser igual ao original se validado)"
+      - original_vs_reframed: "Contraste explicito entre original e reframeado"
+      - reframing_rationale: "Justificativa com evidencias para o reframing"
+      - strategies_applied: "Quais das 5 estrategias foram usadas"
+      - bright_spots: "Excepcoes positivas identificadas"
+
+    checkpoint:
+      id: QG-RD-REFRAME
+      type: blocking
+      criteria:
+        - "Pelo menos 3 das 5 estrategias de reframing aplicadas"
+        - "Contraste original vs reframeado documentado explicitamente"
+        - "Se problema permaneceu igual: justificativa de por que o frame original esta correto"
+        - "Se problema mudou: evidencias que sustentam o novo frame"
+        - "Bright spots (excecoes positivas) investigados"
+      veto:
+        - condition: "Nenhuma estrategia de reframing aplicada (problema aceito como declarado)"
+          action: "VETO — problema deve ser desafiado antes de diagnostico profundo"
+          severity: CRITICAL
+        - condition: "Reframing sem evidencias (apenas opiniao do agente)"
+          action: "HALT — reframing precisa de sustentacao, nao e exercicio criativo"
+          severity: HIGH
+      max_retries: 2
+      on_pass: "Prosseguir para Phase 5 (Decision Point 1)"
+      on_fail: "Re-examinar pressupostos e tentar estrategias de reframing adicionais"
+
+    human_review: true
+
+  # =============================================================================
+  # PHASE 5: DEEP DIAGNOSIS — DECISION POINT 1
+  # =============================================================================
+  - id: PHASE-5
+    name: "Deep Diagnosis"
+    phase_number: 5
+    agent: "DYNAMIC — eli-goldratt OR peter-checkland (via Decision Point 1)"
+    task: tasks/deep-diagnosis.md
+    required_in: [full, quick]
+    optional: false
+    duration: "20-40 min"
+    depends_on: [PHASE-4]
+    description: |
+      Diagnostico profundo usando o metodo apropriado ao tipo de problema.
+      DECISION POINT 1 roteia automaticamente baseado na classificacao Cynefin (Phase 1):
+      - Complicated -> Eli Goldratt (Current Reality Tree: cadeia causal)
+      - Complex -> Peter Checkland (SSM: Rich Picture + CATWOE)
+      - Chaotic -> Ambos sequenciais (SSM primeiro, depois CRT)
+      - Disorder -> Re-classificar (voltar Phase 1 com mais dados)
+
+    decision_point:
+      id: DP1
+      name: "Deep Diagnosis Method Selection"
+      input_source: "PHASE-1 (domain-classification.md)"
+      input_field: "cynefin_domain"
+      routes:
+        clear_or_complicated:
+          condition: "cynefin_domain IN ['Clear', 'Complicated']"
+          activate: eli-goldratt
+          method: "Current Reality Tree (CRT)"
+          rationale: |
+            Problema tem efeitos observaveis e mensuraveis. Relacao causa-efeito
+            pode ser mapeada linearmente. CRT conecta sintomas (Undesirable Effects)
+            a causas-raiz atraves de cadeia logica de suficiencia.
+          indicators:
+            - "Desvio claro de um padrao esperado"
+            - "Causa-efeito rastreavel com dados"
+            - "Experts concordam sobre a natureza do problema"
+
+        complex:
+          condition: "cynefin_domain == 'Complex'"
+          activate: peter-checkland
+          method: "Soft Systems Methodology (SSM)"
+          rationale: |
+            Problema mal definido, multiplos stakeholders com perspectivas divergentes.
+            Nao ha consenso sobre o que e o problema. SSM modela sistemas de atividade
+            humana com Rich Pictures e CATWOE.
+          indicators:
+            - "Stakeholders discordam sobre o que e o problema"
+            - "Dinamicas humanas e politicas envolvidas"
+            - "Nao ha baseline clara de 'como deveria ser'"
+
+        chaotic:
+          condition: "cynefin_domain == 'Chaotic'"
+          activate: both_sequential
+          method: "SSM first (criar estrutura), then CRT (mapear causas)"
+          sequence:
+            1: "peter-checkland (SSM) -> criar modelo conceitual do sistema"
+            2: "eli-goldratt (CRT) -> mapear causas dentro do modelo criado"
+          rationale: |
+            Ambiente caotico requer primeiro criar ordem (SSM) e depois
+            analisar causas dentro da ordem estabelecida (CRT).
+
+        disorder:
+          condition: "cynefin_domain == 'Disorder'"
+          activate: "RETURN TO PHASE-1"
+          method: "Re-classificacao com dados adicionais"
+          rationale: |
+            Disorder indica dados insuficientes para classificar.
+            Coletar mais contexto e re-executar Phase 1.
+
+    inputs:
+      - reframing-analysis.md: "Problema reframeado"
+      - domain-classification.md: "Classificacao Cynefin + indicadores"
+      - assumption-audit.md: "Pressupostos auditados"
+      - cultural-diagnosis.md: "Dinamicas ocultas (se disponivel)"
+      - all_previous_outputs: "Contexto acumulado de todas as fases anteriores"
+
+    outputs:
+      - deep-diagnosis.md
+      - output_variant_crt:
+          condition: "agent == eli-goldratt"
+          contents:
+            - current_reality_tree: "Arvore de realidade atual com UDEs e causas"
+            - undesirable_effects: "Lista de efeitos indesejaveis observados"
+            - core_conflict: "Conflito central identificado (Evaporating Cloud)"
+            - causal_chain: "Cadeia causal completa de sintomas a raiz"
+      - output_variant_ssm:
+          condition: "agent == peter-checkland"
+          contents:
+            - rich_picture: "Representacao visual da situacao problematica"
+            - catwoe_analysis: "CATWOE para cada sistema relevante"
+            - conceptual_models: "Modelos conceituais de sistemas de atividade"
+            - systemically_desirable_changes: "Mudancas sistemicamente desejaveis e culturalmente viaveis"
+
+    checkpoint:
+      id: QG-RD-DEEP
+      type: blocking
+      criteria:
+        - "Modelo diagnostico completo (CRT ou Rich Picture + CATWOE)"
+        - "Se CRT: pelo menos 3 Undesirable Effects conectados a pelo menos 1 causa-raiz"
+        - "Se SSM: Rich Picture com todos os stakeholders, CATWOE completo, pelo menos 1 modelo conceitual"
+        - "Estrutura causal ou modelo de sistema validado contra dados do intake"
+        - "Output informa Decision Point 2 (Phase 6)"
+      veto:
+        - condition: "CRT sem UDEs verificaveis (lista de causas sem cadeia logica)"
+          action: "VETO — CRT exige cadeia de suficiencia, nao lista de causas"
+          severity: CRITICAL
+        - condition: "SSM sem CATWOE (Rich Picture sozinho e insuficiente)"
+          action: "VETO — SSM sem CATWOE nao permite comparacao entre modelos conceituais e realidade"
+          severity: CRITICAL
+        - condition: "Metodo errado para o dominio (CRT em Complex ou SSM em Clear)"
+          action: "VETO — re-checar Decision Point 1 e aplicar metodo correto"
+          severity: CRITICAL
+      max_retries: 2
+      on_pass: "Prosseguir para Phase 6 (Decision Point 2)"
+      on_fail: "Retornar ao agente com feedback especifico"
+
+    human_review: true
+
+  # =============================================================================
+  # PHASE 6: ROOT CAUSE ANALYSIS — DECISION POINT 2
+  # =============================================================================
+  - id: PHASE-6
+    name: "Root Cause Analysis"
+    phase_number: 6
+    agent: "DYNAMIC — kepner-tregoe OR dean-gano (via Decision Point 2)"
+    task: tasks/root-cause-analysis.md
+    required_in: [full, quick]
+    optional: false
+    duration: "20-30 min"
+    depends_on: [PHASE-5]
+    description: |
+      Root Cause Analysis detalhada usando metodo apropriado a natureza do problema.
+      DECISION POINT 2 roteia baseado nas caracteristicas do problema reveladas em Phases 4-5:
+      - Desvio isolavel -> Kepner-Tregoe (IS/IS NOT com analise forense)
+      - Multiplas causas interconectadas -> Dean Gano (Apollo RCA com grafos causais)
+      - Unclear -> Ambos sequenciais (KT primeiro, Apollo se KT nao isola)
+
+    decision_point:
+      id: DP2
+      name: "Root Cause Method Selection"
+      input_source: "PHASE-4 + PHASE-5 outputs"
+      input_field: "problem_isolability"
+      routes:
+        isolable_deviation:
+          condition: "problem has clear deviation from expected state AND single-cause hypothesis viable"
+          activate: kepner-tregoe
+          method: "KT Rational Process (IS/IS NOT)"
+          rationale: |
+            Problema tem desvio claro de um estado esperado. Causa pode ser
+            isolada por eliminacao sistematica. IS/IS NOT separa onde o problema
+            ocorre vs onde nao ocorre.
+          indicators:
+            - "Existe um 'antes' e 'depois' claro"
+            - "Problema acontece em A mas nao em B (distinctions)"
+            - "Uma unica mudanca pode ser identificada como trigger"
+
+        interacting_causes:
+          condition: "multiple contributing factors AND removing one cause does not eliminate problem"
+          activate: dean-gano
+          method: "Apollo Root Cause Analysis (grafo causal verificavel)"
+          rationale: |
+            Multiplas causas interagem em cadeias e loops. Causa unica nao
+            explica o fenomeno. Apollo RCA constroi grafo causal onde cada
+            no requer evidencia para ser validado.
+          indicators:
+            - "Multiplos fatores contribuem simultaneamente"
+            - "Remover uma causa nao eliminaria o problema"
+            - "Causas se reforcam mutuamente (loops)"
+
+        unclear:
+          condition: "isolability not determinable from available data"
+          activate: both_sequential
+          method: "KT first (tentar isolar), then Apollo RCA (se nao isolavel)"
+          sequence:
+            1: "kepner-tregoe -> tentar IS/IS NOT para isolar causa unica"
+            2: "dean-gano -> se KT nao consegue isolar, construir grafo causal"
+          rationale: |
+            Quando nao e claro se o problema e isolavel, comecar com KT.
+            Se KT identifica causa unica verificavel, encerrar. Se nao,
+            escalar para Apollo RCA para capturar multiplas causas.
+
+    inputs:
+      - deep-diagnosis.md: "Output do diagnostico profundo (CRT ou SSM)"
+      - reframing-analysis.md: "Problema reframeado"
+      - all_previous_outputs: "Contexto acumulado completo"
+
+    outputs:
+      - root-cause-analysis.md
+      - root_causes: "Lista priorizada de causas-raiz com % de contribuicao"
+      - adjacent_causes: "Causas adjacentes/contribuintes"
+      - symptoms_vs_causes: "Separacao explicita entre sintomas e causas"
+      - output_variant_kt:
+          condition: "agent == kepner-tregoe"
+          contents:
+            - is_is_not_matrix: "Matriz IS/IS NOT completa"
+            - distinctions: "Distincoes entre onde ocorre e onde nao ocorre"
+            - changes: "Mudancas que explicam as distincoes"
+            - verified_cause: "Causa verificada contra todas as distincoes"
+            - verification_tests: "Testes de verificacao propostos"
+      - output_variant_gano:
+          condition: "agent == dean-gano"
+          contents:
+            - causal_graph: "Grafo causal completo (nos + arestas)"
+            - evidence_per_node: "Evidencia verificavel para cada no causal"
+            - conditional_causes: "Condicoes que permitem as causas atuar"
+            - primary_effect: "Efeito primario (problema)"
+            - root_causes_with_weight: "Causas-raiz com peso de contribuicao"
+
+    checkpoint:
+      id: QG-RD-RCA
+      type: blocking
+      criteria:
+        - "Pelo menos 1 causa-raiz identificada com evidencia verificavel"
+        - "Cada causa-raiz distinguida de sintomas e causas adjacentes"
+        - "Impacto estimado por causa (% de contribuicao)"
+        - "Se KT: verificacao contra todas as distincoes do IS/IS NOT"
+        - "Se Apollo: cada no do grafo causal tem evidencia associada"
+        - "Teste de falsificacao: 'se removermos esta causa, o problema desaparece?'"
+      veto:
+        - condition: "Causa-raiz sem evidencia verificavel"
+          action: "VETO — causa-raiz sem evidencia e hipotese, nao diagnostico"
+          severity: CRITICAL
+        - condition: "Sintoma apresentado como causa-raiz"
+          action: "VETO — refazer analise distinguindo sintomas de causas"
+          severity: CRITICAL
+        - condition: "Nenhuma causa-raiz identificada (analise inconclusiva)"
+          action: "HALT — coletar dados adicionais ou tentar metodo alternativo (DP2)"
+          severity: HIGH
+      max_retries: 2
+      on_pass: "Prosseguir para Phase 7 (hubbard) ou Phase 10 (report) em modo quick"
+      on_fail: "Retornar ao agente com feedback, ou tentar metodo alternativo"
+
+    human_review: true
+
+  # =============================================================================
+  # PHASE 7: EVIDENCE QUANTIFICATION [OPTIONAL but recommended]
+  # =============================================================================
+  - id: PHASE-7
+    name: "Evidence Quantification"
+    phase_number: 7
+    agent: douglas-hubbard
+    task: tasks/quantify-evidence.md
+    required_in: [full]
+    optional: true
+    recommended: true
+    duration: "15-25 min"
+    depends_on: [PHASE-6]
+    skip_condition: "mode == 'quick' OR access_to_data == 'none'"
+    description: |
+      Quantificar achados diagnosticos chave usando Applied Information Economics.
+      Criar measurement chains que conectam observacoes a conclusoes.
+      Calcular Value of Information para incognitas remanescentes.
+      Atribuir niveis de confianca calibrados a cada causa-raiz identificada.
+
+    inputs:
+      - root-cause-analysis.md: "Causas-raiz identificadas"
+      - all_previous_outputs: "Contexto diagnostico completo"
+      - available_data: "Descricao de dados/metricas acessiveis"
+
+    outputs:
+      - evidence-quantification.md
+      - calibrated_estimates: "Estimativas calibradas para cada causa-raiz"
+      - measurement_chains: "Cadeia de medicao: observacao -> metrica -> conclusao"
+      - value_of_information: "VoI para cada incognita remanescente"
+      - quantified_impact: "Impacto quantificado de cada causa-raiz"
+      - confidence_per_cause: "Nivel de confianca (%) por causa-raiz"
+
+    checkpoint:
+      id: QG-RD-QUANTIFY
+      type: non-blocking
+      criteria:
+        - "Achados diagnosticos chave tem niveis de confianca quantificados"
+        - "Measurement chains documentadas (como chegamos ao numero)"
+        - "VoI calculado para pelo menos as 2 maiores incognitas"
+        - "Estimativas sao calibradas (ranges, nao pontos)"
+      veto: []
+      on_pass: "Prosseguir para Phase 8 (klein)"
+      on_fail: "Documentar limitacao e prosseguir com confianca qualitativa"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 8: STRESS TEST
+  # =============================================================================
+  - id: PHASE-8
+    name: "Stress Test"
+    phase_number: 8
+    agent: gary-klein
+    task: tasks/stress-test.md
+    required_in: [full]
+    optional: true
+    recommended: true
+    duration: "15-20 min"
+    depends_on: [PHASE-6]
+    skip_condition: "mode == 'quick'"
+    description: |
+      PreMortem sobre o diagnostico em si. "Imagine que este diagnostico esta
+      completamente errado — por que estaria?" Usar Data/Frame model para
+      verificar se os dados foram encaixados num frame pre-existente (viés de
+      confirmacao). Stress test final antes da compilacao do relatorio.
+
+    inputs:
+      - root-cause-analysis.md: "Causas-raiz identificadas"
+      - evidence-quantification.md: "Quantificacao (se disponivel)"
+      - all_previous_outputs: "Diagnostico completo ate aqui"
+      - confidence_level: "Nivel de confianca atual"
+
+    outputs:
+      - stress-test.md
+      - premortem_scenarios: "Cenarios em que o diagnostico estaria errado"
+      - failure_modes: "Modos de falha do diagnostico identificados"
+      - framing_blind_spots: "Pontos cegos no enquadramento (Data/Frame)"
+      - confirmation_bias_check: "Verificacao de vies de confirmacao"
+      - revised_confidence: "Confianca revisada pos-stress test"
+      - amended_diagnosis: "Diagnostico emendado (se necessario)"
+
+    checkpoint:
+      id: QG-RD-STRESS
+      type: non-blocking
+      criteria:
+        - "Pelo menos 3 cenarios de falha do diagnostico articulados"
+        - "Data/Frame check executado (dados encaixaram num frame pre-existente?)"
+        - "Vies de confirmacao verificado explicitamente"
+        - "Diagnostico sobrevive ao stress test OU e emendado"
+        - "Confianca revisada declarada"
+      veto:
+        - condition: "Stress test revela falha fundamental no diagnostico"
+          action: "HALT — retornar a fase apropriada para corrigir antes de relatorio"
+          severity: HIGH
+      on_pass: "Prosseguir para Phase 9 (basadur) ou Phase 10 (report)"
+      on_fail: "Retornar a fase que precisa de correcao"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 9: PACKAGE FOR ACTION [OPTIONAL but recommended]
+  # =============================================================================
+  - id: PHASE-9
+    name: "Package for Action"
+    phase_number: 9
+    agent: min-basadur
+    task: tasks/package-for-action.md
+    required_in: [full]
+    optional: true
+    recommended: true
+    duration: "15-20 min"
+    depends_on: [PHASE-6]
+    skip_condition: "mode == 'quick'"
+    description: |
+      Transformar output diagnostico em formato acionavel. Criar lista priorizada
+      de problemas com statements "How Might We" (HMW). Definir criterios de
+      sucesso para cada causa-raiz. Ponte entre diagnostico e execucao —
+      sem este empacotamento, o diagnostico fica no relatorio e ninguem age.
+
+    inputs:
+      - root-cause-analysis.md: "Causas-raiz identificadas"
+      - stress-test.md: "Diagnostico validado (se disponivel)"
+      - evidence-quantification.md: "Quantificacao (se disponivel)"
+      - client_profile: "Quem vai usar o diagnostico (Phase 0)"
+      - urgency: "Nivel de urgencia (Phase 0)"
+
+    outputs:
+      - action-package.md
+      - problem_statements_refined: "Statements de problema refinados e acionaveis"
+      - how_might_we: "HMW statements para cada causa-raiz"
+      - success_criteria: "Criterios de sucesso por causa-raiz"
+      - prioritized_actions: "Acoes priorizadas (impacto x esforco)"
+      - solution_seeds: "Sementes de solucao (nao solucoes — seeds)"
+      - quick_wins: "Acoes de impacto imediato identificadas"
+
+    checkpoint:
+      id: QG-RD-ACTION
+      type: non-blocking
+      criteria:
+        - "Cada causa-raiz tem pelo menos 1 HMW statement"
+        - "Criterios de sucesso definidos (como saber que resolvemos)"
+        - "Acoes priorizadas por impacto x esforco"
+        - "Quick wins identificados (se existem)"
+        - "Formato adequado ao cliente do diagnostico (Phase 0, Q6)"
+      veto: []
+      on_pass: "Prosseguir para Phase 10 (report)"
+      on_fail: "Documentar limitacao e prosseguir para relatorio"
+
+    human_review: false
+
+  # =============================================================================
+  # PHASE 10: DIAGNOSTIC REPORT
+  # =============================================================================
+  - id: PHASE-10
+    name: "Diagnostic Report"
+    phase_number: 10
+    agent: root-diagnosis-chief
+    task: tasks/generate-report.md
+    required_in: [full, quick]
+    optional: false
+    duration: "15-20 min"
+    depends_on:
+      full: [PHASE-6, PHASE-7, PHASE-8, PHASE-9]
+      quick: [PHASE-6]
+      minimum: [PHASE-6]
+    description: |
+      Compilar todos os outputs das fases anteriores em relatorio diagnostico
+      completo e coerente. Usar template diagnostic-report-tmpl.md. Inclui
+      sumario executivo, evolucao do problem statement, causas-raiz priorizadas,
+      problemas adjacentes, niveis de confianca, e proximos passos acionaveis.
+      Formato adaptado ao cliente do diagnostico (CEO, gerente, tecnico).
+
+    template: templates/diagnostic-report-tmpl.md
+
+    inputs:
+      - all_phase_outputs: "Outputs de todas as fases executadas"
+      - client_profile: "Quem vai consumir o relatorio"
+      - depth: "rapido | padrao | profundo"
+
+    outputs:
+      - diagnostic-report-final.md
+      - report_sections:
+          - executive_summary: "1 pagina max — problema, causas-raiz, proximos passos"
+          - problem_evolution: "Problema declarado -> reframeado -> diagnosticado"
+          - domain_classification: "Cynefin domain + implicacoes"
+          - root_causes_prioritized: "Causas-raiz com % de contribuicao e evidencias"
+          - adjacent_problems: "Problemas adjacentes e contribuintes"
+          - hidden_dynamics: "Diagnostico cultural/politico (se Phase 2 executada)"
+          - evidence_quantification: "Quantificacao e medicoes (se Phase 7 executada)"
+          - stress_test_results: "PreMortem e vies de confirmacao (se Phase 8 executada)"
+          - action_items: "Proximos passos priorizados e acionaveis"
+          - confidence_level: "Confianca do diagnostico (%) com justificativa"
+          - appendix: "Outputs individuais dos agentes"
+
+    checkpoint:
+      id: QG-RD-REPORT
+      type: blocking
+      criteria:
+        - "Relatorio distingue EXPLICITAMENTE sintomas vs causas-raiz"
+        - "Pelo menos 1 causa-raiz com evidencia verificavel"
+        - "Proximos passos priorizados e acionaveis (nao genericos)"
+        - "Confianca do diagnostico declarada (%) com justificativa"
+        - "Formato adequado ao cliente do diagnostico"
+        - "Sumario executivo cabe em 1 pagina"
+        - "Evolucao do problem statement documentada (original -> reframeado -> diagnosticado)"
+        - "Todas as fases executadas referenciadas com seus outputs"
+      veto:
+        - condition: "Relatorio sem distincao entre sintomas e causas-raiz"
+          action: "VETO — re-compilar distinguindo claramente sintomas de causas"
+          severity: CRITICAL
+        - condition: "Causa-raiz sem evidencia no relatorio"
+          action: "VETO — toda causa-raiz deve ter pelo menos 1 evidencia verificavel"
+          severity: CRITICAL
+        - condition: "Relatorio sem confianca declarada"
+          action: "HALT — calcular e declarar confianca antes de entregar"
+          severity: HIGH
+        - condition: "Proximos passos genericos ('melhorar comunicacao', 'treinar equipe')"
+          action: "HALT — proximos passos devem ser especificos, mensuraveis, com responsavel e prazo"
+          severity: HIGH
+      max_retries: 2
+      on_pass: "Entregar relatorio ao usuario"
+      on_fail: "Revisar e completar secoes faltantes"
+
+    human_review: true
+
+# ===============================================================================
+# DECISION POINTS (Summary)
+# ===============================================================================
+
+decision_points:
+  DP1:
+    name: "Deep Diagnosis Method Selection"
+    location: "Phase 5"
+    trigger: "Conclusao da Phase 4 (Problem Reframing)"
+    input: "Cynefin classification from Phase 1"
+    options:
+      - condition: "Clear OR Complicated"
+        agent: eli-goldratt
+        method: "Current Reality Tree (CRT)"
+      - condition: "Complex"
+        agent: peter-checkland
+        method: "Soft Systems Methodology (SSM)"
+      - condition: "Chaotic"
+        agent: "both sequential (checkland -> goldratt)"
+        method: "SSM first, then CRT"
+      - condition: "Disorder"
+        agent: "RETURN TO Phase 1"
+        method: "Re-classification with additional data"
+    fallback: "Se classificacao ambigua, executar ambos sequenciais e comparar"
+
+  DP2:
+    name: "Root Cause Method Selection"
+    location: "Phase 6"
+    trigger: "Conclusao da Phase 5 (Deep Diagnosis)"
+    input: "Problem characteristics from Phases 4-5"
+    options:
+      - condition: "Isolable deviation"
+        agent: kepner-tregoe
+        method: "KT Rational Process (IS/IS NOT)"
+      - condition: "Interacting causes / multi-causal chain"
+        agent: dean-gano
+        method: "Apollo Root Cause Analysis"
+      - condition: "Unclear isolability"
+        agent: "both sequential (kepner-tregoe -> dean-gano)"
+        method: "KT first, then Apollo if not isolable"
+    fallback: "Se KT encontra causa unica verificavel, encerrar. Senao, escalar para Apollo."
+
+# ===============================================================================
+# TRANSITIONS
+# ===============================================================================
+
+transitions:
+  - from: PHASE-0
+    to: PHASE-1
+    condition: "QG-RD-INTAKE passed"
+    description: "Triagem completa, prosseguir para classificacao Cynefin"
+
+  - from: PHASE-1
+    to: PHASE-1-5
+    condition: "QG-RD-CLASSIFY passed AND mode == 'full' AND problema_tem_componente_organizacional"
+    description: "Dominio classificado, avaliar viabilidade organizacional (VSM)"
+
+  - from: PHASE-1
+    to: PHASE-2
+    condition: "QG-RD-CLASSIFY passed AND mode == 'full' AND PHASE-1-5 skipped"
+    description: "Dominio classificado, pular viability e investigar dinamicas culturais"
+
+  - from: PHASE-1-5
+    to: PHASE-2
+    condition: "QG-RD-VIABILITY completed"
+    description: "Viability assessment completo, prosseguir para diagnostico cultural"
+
+  - from: PHASE-1
+    to: PHASE-3
+    condition: "QG-RD-CLASSIFY passed AND mode == 'quick'"
+    description: "Dominio classificado, pular cultural e ir para assumption audit (quick mode)"
+
+  - from: PHASE-2
+    to: PHASE-3
+    condition: "QG-RD-CULTURE completed (pass or documented limitation)"
+    description: "Dinamicas culturais investigadas, prosseguir para assumption audit"
+
+  - from: PHASE-3
+    to: PHASE-3-5
+    condition: "QG-RD-ASSUMPTIONS passed"
+    description: "Pressupostos auditados, prosseguir para system dynamics diagnostic"
+
+  - from: PHASE-3-5
+    to: PHASE-4
+    condition: "QG-RD-SYSTEMS passed"
+    description: "Dinamicas sistemicas mapeadas, prosseguir para reframing"
+
+  - from: PHASE-4
+    to: PHASE-5
+    condition: "QG-RD-REFRAME passed"
+    description: "Problema reframeado, acionar Decision Point 1"
+
+  - from: PHASE-5
+    to: PHASE-6
+    condition: "QG-RD-DEEP passed"
+    description: "Diagnostico profundo completo, acionar Decision Point 2"
+
+  - from: PHASE-6
+    to: PHASE-7
+    condition: "QG-RD-RCA passed AND mode == 'full' AND access_to_data != 'none'"
+    description: "RCA completa, quantificar evidencias"
+
+  - from: PHASE-6
+    to: PHASE-10
+    condition: "QG-RD-RCA passed AND mode == 'quick'"
+    description: "RCA completa, ir direto para relatorio (quick mode)"
+
+  - from: PHASE-7
+    to: PHASE-8
+    condition: "QG-RD-QUANTIFY completed"
+    description: "Evidencias quantificadas, stress test do diagnostico"
+
+  - from: PHASE-8
+    to: PHASE-9
+    condition: "QG-RD-STRESS completed AND stress_test_passed"
+    description: "Diagnostico sobreviveu stress test, empacotar para acao"
+
+  - from: PHASE-8
+    to: "RETURN TO appropriate phase"
+    condition: "stress_test_revealed_fundamental_flaw"
+    description: "Stress test revelou falha — retornar para correcao"
+
+  - from: PHASE-9
+    to: PHASE-10
+    condition: "QG-RD-ACTION completed"
+    description: "Diagnostico empacotado, compilar relatorio final"
+
+  - from: PHASE-7
+    to: PHASE-10
+    condition: "Phase 8 and 9 skipped"
+    description: "Fases opcionais puladas, ir para relatorio"
+
+  - from: PHASE-10
+    to: COMPLETE
+    condition: "QG-RD-REPORT passed"
+    description: "Relatorio aprovado, diagnostico entregue"
+
+# ===============================================================================
+# ERROR HANDLING
+# ===============================================================================
+
+error_handling:
+  on_phase_failure:
+    - log_error: true
+    - identify_failure_type: "data_insufficient | method_inappropriate | agent_stall | quality_gate_fail"
+    - action_by_type:
+        data_insufficient:
+          action: "Solicitar dados adicionais ao usuario"
+          max_retries: 2
+          escalation: "Entregar diagnostico parcial com lacunas documentadas"
+        method_inappropriate:
+          action: "Trocar metodo via decision point (tentar alternativa)"
+          max_retries: 1
+          escalation: "Executar ambos metodos e comparar"
+        agent_stall:
+          action: "Chief assume com metodo simplificado"
+          max_retries: 1
+          escalation: "Pular fase e documentar gap"
+        quality_gate_fail:
+          action: "Retornar ao agente com feedback especifico"
+          max_retries: 2
+          escalation: "Aceitar com ressalvas documentadas"
+
+  on_checkpoint_failure:
+    - log_failure_reason: true
+    - classify_severity: "CRITICAL | HIGH | MEDIUM | LOW"
+    - action_by_severity:
+        CRITICAL:
+          action: "HALT — nao prosseguir ate resolver"
+          notify: true
+          escalation: "Entregar diagnostico parcial com CRITICAL flag"
+        HIGH:
+          action: "Retornar a fase anterior com feedback"
+          max_retries: 2
+          escalation: "Aceitar com HIGH issues documentadas"
+        MEDIUM:
+          action: "Documentar issue e prosseguir"
+          notify: false
+        LOW:
+          action: "Registrar e ignorar"
+          notify: false
+
+  on_decision_point_ambiguity:
+    action: "Executar ambos metodos sequencialmente"
+    log: "Ambiguidade no decision point documentada"
+    rationale: "Metodo duplo aumenta tempo mas reduz risco de diagnostico errado"
+
+  on_agent_divergence:
+    action: "Chief media e documenta divergencia"
+    resolution: "Buscar dados adicionais que resolvam a divergencia"
+    fallback: "Apresentar ambas perspectivas no relatorio com peso de evidencia"
+    log: "Divergencia registrada no relatorio final"
+
+  circuit_breaker:
+    max_retries_per_phase: 2
+    max_retries_total: 10
+    timeout_per_phase_minutes: 30
+    timeout_total_minutes: 240
+    on_circuit_open: |
+      Pipeline diagnostico atingiu limite de retries/timeout.
+      Acao: Entregar relatorio parcial com:
+      - Fases concluidas e seus outputs
+      - Fases pendentes e motivo de nao conclusao
+      - Confianca ajustada para baixo
+      - Recomendacao: retomar diagnostico com mais dados/tempo
+
+# ===============================================================================
+# COMPLETION CRITERIA
+# ===============================================================================
+
+completion_criteria:
+  full_mode:
+    required:
+      - "Todas as 13 fases executadas (ou opcionais explicitamente puladas com justificativa)"
+      - "QG-RD-INTAKE passed"
+      - "QG-RD-CLASSIFY passed"
+      - "QG-RD-ASSUMPTIONS passed"
+      - "QG-RD-REFRAME passed"
+      - "QG-RD-DEEP passed"
+      - "QG-RD-RCA passed"
+      - "QG-RD-REPORT passed"
+      - "Pelo menos 1 causa-raiz com evidencia verificavel"
+      - "Confianca do diagnostico >= 50%"
+      - "Relatorio distingue sintomas vs causas-raiz"
+      - "Proximos passos especificos e acionaveis"
+    recommended:
+      - "Confianca do diagnostico >= 70%"
+      - "Stress test executado e sobrevivido"
+      - "Evidencias quantificadas"
+      - "Action package com HMW statements"
+
+  quick_mode:
+    required:
+      - "Fases 0, 1, 3, 3.5, 4, 5, 6, 10 executadas"
+      - "QG-RD-INTAKE passed"
+      - "QG-RD-CLASSIFY passed"
+      - "QG-RD-ASSUMPTIONS passed"
+      - "QG-RD-REFRAME passed"
+      - "QG-RD-DEEP passed"
+      - "QG-RD-RCA passed"
+      - "QG-RD-REPORT passed"
+      - "Pelo menos 1 causa-raiz com evidencia verificavel"
+      - "Relatorio rotulado como QUICK DIAGNOSIS"
+    recommended:
+      - "Confianca do diagnostico >= 50%"
+      - "Recomendacao sobre se diagnostico completo e necessario"
+
+# ===============================================================================
+# OUTPUT ARTIFACTS
+# ===============================================================================
+
+output_artifacts:
+  phase_0:
+    - "intake-brief.md"
+  phase_1:
+    - "domain-classification.md"
+  phase_1_5:
+    - "viability-assessment.md"
+  phase_2:
+    - "cultural-diagnosis.md"
+  phase_3:
+    - "assumption-audit.md"
+  phase_3_5:
+    - "system-dynamics-analysis.md"
+  phase_4:
+    - "reframing-analysis.md"
+  phase_5:
+    - "deep-diagnosis.md (CRT ou Rich Picture + CATWOE)"
+  phase_6:
+    - "root-cause-analysis.md"
+  phase_7:
+    - "evidence-quantification.md"
+  phase_8:
+    - "stress-test.md"
+  phase_9:
+    - "action-package.md"
+  phase_10:
+    - "diagnostic-report-final.md"
+
+  output_directory: "squads/root-diagnosis/data/{diagnostic_id}/"
+
+# ===============================================================================
+# AGENTS BY PHASE
+# ===============================================================================
+
+agents_by_phase:
+  PHASE-0:
+    primary: root-diagnosis-chief
+    role: "Triagem, escopo, routing"
+  PHASE-1:
+    primary: dave-snowden
+    role: "Classificacao Cynefin"
+  PHASE-1-5:
+    primary: stafford-beer
+    role: "Viability Assessment (VSM)"
+  PHASE-2:
+    primary: edgar-schein
+    role: "Diagnostico cultural/politico"
+  PHASE-3:
+    primary: chris-argyris
+    role: "Auditoria de pressupostos"
+  PHASE-3-5:
+    primary: peter-senge
+    role: "System Dynamics Diagnostic"
+  PHASE-4:
+    primary: thomas-wedell-wedellsborg
+    role: "Reframing de problema"
+  PHASE-5:
+    primary:
+      - eli-goldratt  # se Clear/Complicated
+      - peter-checkland  # se Complex
+    role: "Diagnostico profundo — CRT ou SSM"
+    selection: "Decision Point 1 (baseado em Phase 1)"
+  PHASE-6:
+    primary:
+      - kepner-tregoe  # se isolavel
+      - dean-gano  # se multi-causal
+    role: "Root Cause Analysis — KT ou Apollo"
+    selection: "Decision Point 2 (baseado em Phases 4-5)"
+  PHASE-7:
+    primary: douglas-hubbard
+    role: "Quantificacao de evidencias"
+  PHASE-8:
+    primary: gary-klein
+    role: "Stress test do diagnostico"
+  PHASE-9:
+    primary: min-basadur
+    role: "Empacotamento para acao"
+  PHASE-10:
+    primary: root-diagnosis-chief
+    role: "Compilacao do relatorio final"
+
+# ===============================================================================
+# QUALITY CHECKLIST
+# ===============================================================================
+
+quality_checklist:
+  intake_triage:
+    - "[ ] 8 perguntas de triagem respondidas"
+    - "[ ] Escopo definido e delimitado"
+    - "[ ] Cliente do diagnostico identificado"
+    - "[ ] Profundidade selecionada (rapido/padrao/profundo)"
+    - "[ ] Routing decisions documentadas"
+
+  domain_classification:
+    - "[ ] Cynefin domain classificado"
+    - "[ ] Justificativa com pelo menos 3 indicadores"
+    - "[ ] Implicacoes metodologicas documentadas"
+    - "[ ] Decision Point 1 input preparado"
+
+  viability_assessment:
+    - "[ ] 5 sistemas VSM mapeados (S1-S5)"
+    - "[ ] Viabilidade de cada sistema avaliada"
+    - "[ ] Equilibrio de variedade verificado (Lei de Ashby)"
+    - "[ ] Recursion check executado"
+
+  cultural_diagnosis:
+    - "[ ] 3 niveis de cultura analisados"
+    - "[ ] Dinamicas ocultas surfaceadas ou confirmadas ausentes"
+    - "[ ] Mapa politico documentado"
+
+  assumption_audit:
+    - "[ ] Todos pressupostos identificados e listados"
+    - "[ ] Cada pressuposto classificado (verificado/nao verificado/infundado)"
+    - "[ ] Ladder of Inference percorrida integralmente"
+    - "[ ] Governing variables identificadas"
+    - "[ ] Defensive routines sinalizadas"
+
+  system_dynamics:
+    - "[ ] Iceberg Model 4 niveis documentados"
+    - "[ ] Pelo menos 1 feedback loop identificado (R ou B)"
+    - "[ ] Pelo menos 1 archetype testado"
+    - "[ ] Leverage points classificados (Meadows)"
+    - "[ ] Sintese com key insight"
+
+  problem_reframing:
+    - "[ ] Pelo menos 3 estrategias de reframing aplicadas"
+    - "[ ] Contraste original vs reframeado documentado"
+    - "[ ] Reframing justificado com evidencias"
+    - "[ ] Bright spots investigados"
+
+  deep_diagnosis:
+    - "[ ] Metodo correto para o dominio (CRT ou SSM)"
+    - "[ ] Se CRT: UDEs conectados a causas via cadeia de suficiencia"
+    - "[ ] Se SSM: Rich Picture + CATWOE completo"
+    - "[ ] Modelo validado contra dados do intake"
+
+  root_cause_analysis:
+    - "[ ] Pelo menos 1 causa-raiz identificada"
+    - "[ ] Cada causa tem evidencia verificavel"
+    - "[ ] Sintomas separados de causas"
+    - "[ ] Impacto estimado por causa (%)"
+    - "[ ] Teste de falsificacao aplicado"
+
+  evidence_quantification:
+    - "[ ] Niveis de confianca quantificados"
+    - "[ ] Measurement chains documentadas"
+    - "[ ] VoI calculado para maiores incognitas"
+
+  stress_test:
+    - "[ ] Pelo menos 3 cenarios de falha articulados"
+    - "[ ] Data/Frame check executado"
+    - "[ ] Vies de confirmacao verificado"
+    - "[ ] Confianca revisada declarada"
+
+  action_package:
+    - "[ ] HMW statements para cada causa-raiz"
+    - "[ ] Criterios de sucesso definidos"
+    - "[ ] Acoes priorizadas por impacto x esforco"
+    - "[ ] Quick wins identificados"
+
+  diagnostic_report:
+    - "[ ] Sumario executivo em 1 pagina"
+    - "[ ] Evolucao do problem statement documentada"
+    - "[ ] Sintomas vs causas-raiz explicitamente separados"
+    - "[ ] Causas-raiz com evidencia verificavel"
+    - "[ ] Confianca do diagnostico declarada (%)"
+    - "[ ] Proximos passos especificos e acionaveis"
+    - "[ ] Formato adequado ao cliente"
+
+# ===============================================================================
+# FLOW DIAGRAM
+# ===============================================================================
+
+flow_diagram: |
+  ```mermaid
+  graph TD
+      START[Problema Chega] --> P0[Phase 0: Intake & Triage<br/>root-diagnosis-chief]
+      P0 --> QG0{QG-INTAKE<br/>Passed?}
+      QG0 -->|No| P0
+      QG0 -->|Yes| P1[Phase 1: Domain Classification<br/>dave-snowden]
+      P1 --> QG1{QG-CLASSIFY<br/>Passed?}
+      QG1 -->|No| P1
+      QG1 -->|Yes, Full+Org| P1_5[Phase 1.5: Viability Assessment<br/>stafford-beer]
+      QG1 -->|Yes, Full| P2[Phase 2: Cultural Diagnosis<br/>edgar-schein]
+      QG1 -->|Yes, Quick| P3
+      P1_5 --> P2
+
+      P2 --> P3[Phase 3: Assumption Audit<br/>chris-argyris]
+      P3 --> QG3{QG-ASSUMPTIONS<br/>Passed?}
+      QG3 -->|No| P3
+      QG3 -->|Yes| P3_5[Phase 3.5: System Dynamics<br/>peter-senge]
+      P3_5 --> QG3_5{QG-SYSTEMS<br/>Passed?}
+      QG3_5 -->|No| P3_5
+      QG3_5 -->|Yes| P4[Phase 4: Problem Reframing<br/>thomas-wedell-wedellsborg]
+      P4 --> QG4{QG-REFRAME<br/>Passed?}
+      QG4 -->|No| P4
+      QG4 -->|Yes| DP1{Decision Point 1<br/>Cynefin Domain?}
+
+      DP1 -->|Clear/Complicated| P5a[Phase 5: Deep Diagnosis<br/>eli-goldratt — CRT]
+      DP1 -->|Complex| P5b[Phase 5: Deep Diagnosis<br/>peter-checkland — SSM]
+      DP1 -->|Chaotic| P5c[Phase 5: Both Sequential<br/>SSM then CRT]
+      DP1 -->|Disorder| P1
+
+      P5a --> QG5{QG-DEEP Passed?}
+      P5b --> QG5
+      P5c --> QG5
+      QG5 -->|No| P5a
+      QG5 -->|Yes| DP2{Decision Point 2<br/>Isolable?}
+
+      DP2 -->|Isolable| P6a[Phase 6: RCA<br/>kepner-tregoe — IS/IS NOT]
+      DP2 -->|Multi-causal| P6b[Phase 6: RCA<br/>dean-gano — Apollo]
+      DP2 -->|Unclear| P6c[Phase 6: Both Sequential<br/>KT then Apollo]
+
+      P6a --> QG6{QG-RCA Passed?}
+      P6b --> QG6
+      P6c --> QG6
+      QG6 -->|No| P6a
+      QG6 -->|Yes, Full| P7[Phase 7: Quantification<br/>douglas-hubbard]
+      QG6 -->|Yes, Quick| P10
+
+      P7 --> P8[Phase 8: Stress Test<br/>gary-klein]
+      P8 --> QG8{Stress Test<br/>Passed?}
+      QG8 -->|Fundamental Flaw| RETURN[Return to<br/>Appropriate Phase]
+      QG8 -->|Passed| P9[Phase 9: Package for Action<br/>min-basadur]
+      P9 --> P10[Phase 10: Diagnostic Report<br/>root-diagnosis-chief]
+      P10 --> QG10{QG-REPORT<br/>Passed?}
+      QG10 -->|No| P10
+      QG10 -->|Yes| DONE[Diagnostico Entregue]
+
+      style START fill:#FFB6C1
+      style DONE fill:#90EE90
+      style DP1 fill:#FFD700
+      style DP2 fill:#FFD700
+      style RETURN fill:#FF6347
+      style P0 fill:#E6E6FA
+      style P1_5 fill:#E6E6FA
+      style P3_5 fill:#E6E6FA
+      style P10 fill:#E6E6FA
+  ```
+
+# ===============================================================================
+# HANDOFF PROTOCOL
+# ===============================================================================
+
+handoff_protocol:
+  format: |
+    === HANDOFF: {source_agent} -> {target_agent} ===
+    Diagnostic ID: {diagnostic_id}
+    Phase: {current_phase} -> {next_phase}
+    Mode: {full | quick}
+    Depth: {rapido | padrao | profundo}
+
+    --- PROBLEMA DECLARADO (Phase 0) ---
+    {problema_original}
+
+    --- PROBLEMA REFRAMEADO (Phase 4) [se disponivel] ---
+    {problema_reframeado}
+
+    --- CYNEFIN DOMAIN (Phase 1) ---
+    {cynefin_domain}: {justificativa}
+
+    --- OUTPUTS ANTERIORES ---
+    {accumulated_outputs_summary}
+
+    --- DECISION POINT (se aplicavel) ---
+    {decision_rationale}
+
+    --- MISSAO PARA {target_agent} ---
+    {o_que_o_especialista_precisa_fazer}
+
+    --- OUTPUT ESPERADO ---
+    {formato_e_conteudo_esperado}
+
+    --- DADOS DISPONIVEIS ---
+    {dados_metricas_acessos}
+    ===
+
+  rules:
+    - "NUNCA passar so a pergunta — sempre contexto acumulado completo"
+    - "SEMPRE incluir problema ORIGINAL e REFRAMEADO (apos Phase 4)"
+    - "SEMPRE incluir classificacao Cynefin (apos Phase 1)"
+    - "NUNCA rotear sem justificativa documentada"
+    - "Se agente precisa mais dados -> retornar para Chief"
+    - "Contexto NUNCA resumido sem autorizacao — outputs completos"
+    - "Divergencias entre agentes mediadas e documentadas pelo Chief"
+
+# ===============================================================================
+# CONFIDENCE CALCULATION
+# ===============================================================================
+
+confidence_calculation:
+  method: |
+    Confianca = media ponderada de:
+    - Numero de fases concluidas vs total (peso 30%)
+    - Numero de fontes de dados acessadas (peso 25%)
+    - Convergencia entre agentes (peso 25%)
+    - Validacao via stress test (peso 20%)
+
+  levels:
+    - range: "90-100%"
+      label: "Alta confianca"
+      description: "Multiplas evidencias convergentes, stress test validado, quantificacao completa"
+    - range: "70-89%"
+      label: "Confianca moderada"
+      description: "Evidencias suficientes, algumas lacunas, stress test executado"
+    - range: "50-69%"
+      label: "Confianca limitada"
+      description: "Poucas evidencias, diagnostico e hipotese forte, stress test nao executado"
+    - range: "0-49%"
+      label: "Baixa confianca"
+      description: "Diagnostico preliminar, requer investigacao adicional"
+
+# ===============================================================================
+# COMPLETION SIGNALS
+# ===============================================================================
+
+completion_signals:
+  phase_complete: "<signal>PHASE-{N}:COMPLETE</signal>"
+  checkpoint_pass: "<signal>QG-RD-{name}:PASS</signal>"
+  checkpoint_fail: "<signal>QG-RD-{name}:FAIL:{reason}</signal>"
+  decision_point: "<signal>DP{N}:ROUTE:{agent}</signal>"
+  workflow_complete: "<signal>WF-ROOT-DIAGNOSIS:COMPLETE</signal>"
+  workflow_blocked: "<signal>WF-ROOT-DIAGNOSIS:BLOCKED:{phase}:{reason}</signal>"
+
+# ===============================================================================
+# METADATA
+# ===============================================================================
+
+metadata:
+  version: "1.2.0"
+  created: "2026-02-21"
+  author: "root-diagnosis-chief"
+  squad: "root-diagnosis"
+  framework: "Root Diagnosis Pipeline"
+  total_agents: 14
+  total_phases: 13
+  decision_points: 2
+  quality_gates: 13
+  required_phases_full: 13
+  required_phases_quick: 8
+  primary_use_case: |
+    Diagnostico de causa-raiz de qualquer problema — organizacional, tecnico,
+    estrategico, operacional. Identifica causas-raiz reais com evidencias,
+    separando sintomas de causas e empacotando para acao.
+  key_differentiator: |
+    Unico pipeline diagnostico que integra 13 perspectivas complementares:
+    classificacao de dominio (Cynefin), viability assessment (VSM),
+    diagnostico cultural (Humble Inquiry), auditoria de pressupostos (Ladder of Inference),
+    system dynamics (Iceberg/CLDs/Archetypes/Leverage Points), reframing (5 estrategias),
+    diagnostico profundo adaptativo (CRT/SSM), RCA adaptativa (KT/Apollo),
+    quantificacao de evidencias (AIE), stress test cognitivo (PreMortem),
+    empacotamento para acao (Simplex).
+  based_on:
+    - "Dave Snowden — Cynefin Framework"
+    - "Stafford Beer — Viable System Model (VSM)"
+    - "Edgar Schein — Humble Inquiry + 3 Levels of Culture"
+    - "Chris Argyris — Ladder of Inference + Double-Loop Learning"
+    - "Peter Senge — The Fifth Discipline / System Dynamics"
+    - "Thomas Wedell-Wedellsborg — What's Your Problem?"
+    - "Eli Goldratt — Theory of Constraints Thinking Processes"
+    - "Peter Checkland — Soft Systems Methodology"
+    - "Kepner & Tregoe — Rational Process"
+    - "Dean L. Gano — Apollo Root Cause Analysis"
+    - "Douglas Hubbard — How to Measure Anything"
+    - "Gary Klein — Sources of Power / PreMortem"
+    - "Min Basadur — Simplex Creative Problem Solving"
+  tags:
+    - root-cause-analysis
+    - diagnostic-pipeline
+    - workflow
+    - orchestration
+    - problem-diagnosis
+    - systems-thinking
+    - cynefin
+    - reframing
+  changelog:
+    - version: "1.1.0"
+      date: "2026-03-01"
+      changes:
+        - "Adicionada Phase 1.5: Viability Assessment (stafford-beer, VSM) — opcional para org/business"
+        - "Adicionada Phase 3.5: System Dynamics Diagnostic (peter-senge, CLDs/Iceberg/Archetypes)"
+        - "Total de fases: 11 → 13, agentes: 11 → 13, quality gates: 11 → 13"
+        - "Modo full atualizado: 13 fases (0-10 + 1.5 + 3.5)"
+        - "Modo quick atualizado: 8 fases (inclui 3.5)"
+        - "Phase 4 atualizada: depends_on inclui PHASE-3-5, inputs inclui system-dynamics-analysis.md"
+    - version: "1.2.0"
+      date: "2026-03-01"
+      changes:
+        - "Objection algorithms adicionados a todos 14 agentes (3-4 objecoes domain-specific cada)"
+        - "Phases 1.5/3.5 normalizadas: checkpoint, veto, depends_on, duration, human_review"
+        - "Workflow metadata: total_agents 13→14, version 1.1.0→1.2.0"
+    - version: "1.0.0"
+      date: "2026-02-21"
+      changes:
+        - "Criacao inicial: 11 fases (0-10), 2 decision points, 11 quality gates"
+        - "2 modos de execucao: full (11 fases) e quick (7 fases)"
+        - "Confidence calculation com 4 dimensoes ponderadas"
+        - "Error handling com circuit breaker e 4 tipos de falha"
+        - "Handoff protocol com formato padronizado"
+        - "Mermaid flow diagram com branching completo"

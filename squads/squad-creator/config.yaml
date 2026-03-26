@@ -1,7 +1,7 @@
 name: squad-creator
-version: 3.0.0
+version: 4.0.0
 tested: true
-updated_at: "2026-02-10"
+updated_at: "2026-03-26"
 short-title: Squad Creator
 description: >-
   Meta-squad para criar squads de agentes baseados em elite minds reais.
@@ -10,6 +10,8 @@ description: >-
   @pedro-valerio (process design, veto conditions, workflow validation).
   v3.0: Mental model integration — 46 checkpoints em 10 tasks forçam consulta a
   VALUES/OBSESSIONS/MODELS/PARADOXES antes de decisões. 4/4 smoke tests PASS.
+  v4.0: Merge com squad-creator-pro — absorveu scripts Python, minds/heurísticas formais,
+  checklists extras, templates e frameworks de qualidade. Squad único e canônico.
   Estatísticas calculadas dinamicamente via *refresh-registry.
 author: AIOS Team
 entry_agent: squad-chief

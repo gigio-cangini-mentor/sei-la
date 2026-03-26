@@ -214,3 +214,15 @@ python3 "$E" system complete "Pipeline completo."
 
 *Task v1.0.0 — Quick Post: Do Insight à Publicação*
 *José → CMO → Produção → Designer → Distribuição → Publish*
+
+---
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-quick-01 | Post usa tema da lista proibida do CMO (ex.: TDAH, religião, política partidária, saúde mental sem contexto) | HALT — Retornar ao José com explicação do veto e solicitar novo insight |
+| VC-quick-02 | Insight avançou para Produção sem passar pela validação do CMO (Step 1) | HALT — CMO deve avaliar todos os insights, mesmo os que parecem "óbvios" de aprovar |
+| VC-quick-03 | Post contém expressão da blacklist LLM (ex.: "mergulhar", "transformador", "jornada", "no cenário atual") | HALT — Retornar ao @production para reescrita completa do trecho contaminado |
+| VC-quick-04 | Gate 6 (Publish Authorization) foi pulado ou não registrou resultado explícito | HALT — Publicação bloqueada até que Gate 6 retorne `result=approved` |
+| VC-quick-05 | Pipeline iniciado com `auto=true` e José não havia revisado o insight previamente | HALT — Modo automático exige que o insight venha diretamente do José; nunca gerar insight internamente com auto=true |

@@ -1,12 +1,12 @@
 # Phase 2: Story Factory
 
-> Transformando spec em receitas executaveis
+> Transformando spec em receitas executáveis
 
 ---
 
 ## Purpose
 
-A spec diz O QUE construir. As stories dizem COMO, passo a passo. Pense nas stories como receitas de cozinha: cada uma tem ingredientes (AC), modo de preparo (tasks), e a foto do prato pronto (Definition of Done). O @sm e o chef que escreve as receitas, e o @po e o critico que prova e diz se ficou bom.
+A spec diz O QUE construir. As stories dizem COMO, passo a passo. Pense nas stories como receitas de cozinha: cada uma tem ingredientes (AC), modo de preparo (tasks), e a foto do prato pronto (Definition of Done). O @sm é o chef que escreve as receitas, e o @po é o crítico que prova e diz se ficou bom.
 
 ---
 
@@ -15,8 +15,8 @@ A spec diz O QUE construir. As stories dizem COMO, passo a passo. Pense nas stor
 ### Step 1: Story Creation (@sm)
 
 Dispatch @sm via Agent tool:
-- Agent: `.aios-core/development/agents/aios-sm.md`
-- Task: `.aios-core/development/tasks/create-next-story.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-sm.md`
+- Task: `{AIOS_HOME}/.aios-core/development/tasks/create-next-story.md`
 - Input:
   - Final spec from Phase 1: `.aios/forge-runs/{run_id}/spec/spec-final.md`
   - Architecture document: `.aios/forge-runs/{run_id}/spec/architecture.md`
@@ -31,7 +31,7 @@ Dispatch @sm via Agent tool:
 Show progress:
 ```
   🔄 @sm (River) criando stories a partir da spec...
-  Cada story e uma receita: ingredientes claros,
+  Cada story é uma receita: ingredientes claros,
   modo de preparo passo a passo, foto do prato pronto.
 ```
 
@@ -40,8 +40,8 @@ Show progress:
 For EACH story created by @sm:
 
 Dispatch @po:
-- Agent: `.aios-core/development/agents/aios-po.md`
-- Task: `.aios-core/development/tasks/validate-next-story.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-po.md`
+- Task: `{AIOS_HOME}/.aios-core/development/tasks/validate-next-story.md`
 - Input: Story file
 - Validation: 10-point checklist (completeness, clarity, testability, etc.)
 - Scoring: Pass >= 7/10
@@ -55,7 +55,7 @@ Dispatch @po:
 
 Show per-story result:
 ```
-  ✅ Story 1.1: "Autenticacao de usuario" — 9/10
+  ✅ Story 1.1: "Autenticação de usuário" — 9/10
   ✅ Story 1.2: "Feed de posts" — 8/10
   ⚠️ Story 1.3: "Sistema de likes" — 6/10 → refazendo...
   ✅ Story 1.3: "Sistema de likes" (v2) — 8/10
@@ -80,13 +80,13 @@ After all stories are created and validated:
 
   📋 {N} stories criadas e validadas:
 
-  Ordem de execucao:
-  1. 📦 Story 1.1: "{title}" (base — sem dependencias)
+  Ordem de execução:
+  1. 📦 Story 1.1: "{title}" (base — sem dependências)
   2. 📦 Story 1.2: "{title}" (depende de 1.1)
   3. 📦 Story 1.3: "{title}" (depende de 1.1)
   ...
 
-  1. Aprovar e comecar a implementacao
+  1. Aprovar e começar a implementação
   2. Reordenar prioridades
   3. Adicionar/remover stories
   4. Parar aqui (salvo o progresso)
@@ -101,7 +101,7 @@ Save to state.json:
     "2": {
       "status": "completed",
       "stories": [
-        { "id": "1.1", "title": "Autenticacao", "priority": 1, "po_score": 9, "path": "docs/stories/active/1.1.story.md" },
+        { "id": "1.1", "title": "Autenticação", "priority": 1, "po_score": 9, "path": "docs/stories/active/1.1.story.md" },
         { "id": "1.2", "title": "Feed de posts", "priority": 2, "po_score": 8, "path": "docs/stories/active/1.2.story.md" }
       ],
       "total_stories": 8,

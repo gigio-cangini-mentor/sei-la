@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/synapse/references/manifest.md
+../../../../../../skills/synapse/references/manifest.md

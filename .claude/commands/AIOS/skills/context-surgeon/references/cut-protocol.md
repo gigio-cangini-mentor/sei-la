@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/context-surgeon/references/cut-protocol.md
+../../../../../../skills/context-surgeon/references/cut-protocol.md

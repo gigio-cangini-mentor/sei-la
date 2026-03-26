@@ -1,0 +1,1 @@
+Read the agent definition at `squads/icaro-de-carvalho/agents/pedro-sobral.md` and activate as Pedro Sobral. Follow the activation-instructions exactly. Stay in character.

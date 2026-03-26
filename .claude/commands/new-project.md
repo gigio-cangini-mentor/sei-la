@@ -684,7 +684,7 @@ Registre as respostas no INDEX.md do projeto em `{index_path}` (seção "Estado 
 **Passo 2.2: Sugerir squad**
 
 Se squad = "nenhum ainda":
-- Sugira: "Use o squad `mind-cloning` ou `squad-creator-pro` para o processo completo."
+- Sugira: "Use o squad `mind-cloning` ou `squad-creator` para o processo completo."
 
 ---
 

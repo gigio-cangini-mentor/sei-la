@@ -151,4 +151,16 @@ Rastreado no @metrics semanal:
 ---
 
 *Trend Sniper Task v1.0.0 — OPES Marketing Arm*
-*Estrategia: Sniper, nao Surfer*
+*Estratégia: Sniper, não Surfer*
+
+---
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-trend-01 | Tendência encaminhada para produção com score < 2/3 no filtro automático de layers | HALT — Score 0 ou 1 vai apenas para log semanal; nunca acionar @ideation abaixo de score 2 |
+| VC-trend-02 | Handoff para @ideation disparado sem resposta "GO" explícita do José via WhatsApp | HALT — José é o filtro humano final; nenhuma tendência vira conteúdo sem sua aprovação direta |
+| VC-trend-03 | Produção iniciada com formato carrossel em vez de post texto simples para conteúdo de tendência | HALT — Regra do pipeline: trends viram post texto simples (resposta rápida); carrossel só para conteúdo planejado |
+| VC-trend-04 | Alerta enviado ao José sem Brief completo (trend, score, janela estimada, ângulo tribal sugerido) | HALT — Reprocessar alerta com o template completo antes de enviar via WhatsApp |
+| VC-trend-05 | As 3 perguntas obrigatórias do Filtro CMO não foram verificadas antes de acionar produção | HALT — Checar: (1) SVA cobre o tema? (2) José tem ângulo único? (3) Conecta com "instalar > ensinar"? Se qualquer resposta for NÃO, ignorar a tendência |

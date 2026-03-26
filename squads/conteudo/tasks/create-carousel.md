@@ -124,3 +124,13 @@ REPURPOSE:
 - data/tipos-de-post.md — 7 tipos de post com estrutura completa por slides
 - data/frameworks-copy.md — 9 frameworks de copy + matriz tipo x framework
 - data/oraculo-posts.md — 9 etapas de validacao + 12 testes
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-carousel-01 | Slide 1 não contém afirmação chocante nos primeiros 8 palavras — é pergunta, suavização ou introdução genérica | HALT — reescrever Slide 1 como afirmação contraintuitiva e imperativa |
+| VC-carousel-02 | CTA do último slide é genérico ("saiba mais", "clique aqui", "acesse o link") sem escolha binária | HALT — reescrever CTA como comando imperativo com consequência clara de não agir |
+| VC-carousel-03 | Nenhum slide referencia diretamente a dor, desejo ou crença limitante do avatar especificado | HALT — identificar avatar e reescrever slides 2-4 com dor real e específica |
+| VC-carousel-04 | Progressão emocional ausente — slides 1-10 têm tom e intensidade uniformes, sem escalonamento reptiliano → límbico → neocórtex | HALT — reestruturar distribuição emocional antes de prosseguir |
+| VC-carousel-05 | Score do Oráculo Posts abaixo de 80% e carrossel foi entregue como aprovado sem reescrita | HALT — bloquear entrega, reescrever etapas reprovadas e re-validar até atingir 80% |

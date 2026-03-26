@@ -1,1 +1,1 @@
-../../../../skills/synapse/SKILL.md
+../../../../../skills/synapse/SKILL.md

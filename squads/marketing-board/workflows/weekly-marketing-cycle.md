@@ -9,7 +9,7 @@
 
 ## Overview
 
-Ciclo semanal completo do marketing arm: planejamento no inicio da semana, execucao diaria, e analise no final. Inclui feedback loop obrigatorio que atualiza o Content Map.
+Ciclo semanal completo do marketing arm: planejamento no início da semana, execução diária, e análise no final. Inclui feedback loop obrigatório que atualiza o Content Map.
 
 ---
 
@@ -41,7 +41,7 @@ DOMINGO/SEGUNDA — PLANEJAMENTO
   Atualizar queue em content-map.yaml
 
 
-SEGUNDA A SEXTA — EXECUCAO
+SEGUNDA A SEXTA — EXECUÇÃO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   /daily-content (ver workflow daily-content-pipeline.md)
@@ -68,8 +68,8 @@ DOMINGO — ANALISE
   └────────────────────────────────────┘
        │
        ▼
-  Identificar padroes
-  (tema, formato, horario, hook)
+  Identificar padrões
+  (tema, formato, horário, hook)
        │
        ▼
   3 ajustes acionaveis
@@ -84,23 +84,23 @@ DOMINGO — ANALISE
 │  - Aumenta temas fortes      │
 │  - Adiciona novas ideias     │
 │                              │
-│  @cmo REVISA mudancas:       │
-│  - Faz sentido estrategico?  │
+│  @cmo REVISA mudanças:       │
+│  - Faz sentido estratégico?  │
 │  - SVA servida?              │
-│  - Nao perseguindo vanity?   │
+│  - Não perseguindo vanity?   │
 │                              │
-│  Se nao atualizar → flag de  │
-│  falha no relatorio          │
+│  Se não atualizar → flag de  │
+│  falha no relatório          │
 └──────────────┬───────────────┘
                │
                ▼
   Content Map atualizado
-  → proxima semana comeca
+  → próxima semana começa
 ```
 
 ---
 
-## Calendario de Temas (Rotacao Fixa)
+## Calendário de Temas (Rotação Fixa)
 
 | Dia | Tema | Peso |
 |-----|------|------|
@@ -108,7 +108,7 @@ DOMINGO — ANALISE
 | Terca | Nexialismo Aplicado | 35% |
 | Quarta | Jornada Real | 25% |
 | Quinta | OPES in Practice | 40% |
-| Sexta | Reflexao/Provocacao | — |
+| Sexta | Reflexão/Provocação | — |
 
 ---
 
@@ -122,52 +122,52 @@ DOMINGO — ANALISE
 
 ---
 
-## Feedback Loop (Obrigatorio)
+## Feedback Loop (Obrigatório)
 
 ```
-Semana N: Publicar conteudo
+Semana N: Publicar conteúdo
     ↓
 Domingo: @metrics coleta dados
     ↓
 @metrics atualiza content-map.yaml
     ↓
-@cmo valida mudancas
+@cmo valida mudanças
     ↓
 Semana N+1: Planejamento usa Content Map atualizado
     ↓
 (ciclo repete)
 ```
 
-**Se o loop falhar** (metrics nao atualizar content-map):
+**Se o loop falhar** (metrics não atualizar content-map):
 - Semana seguinte usa queue antiga
-- Relatorio registra "feedback loop falhou"
+- Relatório registra "feedback loop falhou"
 - @cmo deve intervir
 
 ---
 
 ## Outputs Semanais
 
-| Output | Path | Frequencia |
+| Output | Path | Frequência |
 |--------|------|------------|
 | Plano semanal | `data/content-map.yaml` (queue) | 1x/semana |
-| Posts diarios | `outputs/hubs/marketing/YYYY-MM-DD.md` | 5x/semana |
+| Posts diários | `outputs/hubs/marketing/YYYY-MM-DD.md` | 5x/semana |
 | Imagens | `outputs/hubs/marketing/YYYY-MM-DD-cover.png` | 3-4x/semana |
-| Relatorio metricas | `docs/logs/YYYY-MM-DD_marketing-metrics.md` | 1x/semana |
-| Content Map update | `data/content-map.yaml` | 1x/semana (pos-metricas) |
+| Relatório métricas | `docs/logs/YYYY-MM-DD_marketing-metrics.md` | 1x/semana |
+| Content Map update | `data/content-map.yaml` | 1x/semana (pós-métricas) |
 
 ---
 
-## Cadencia de Revisao CMO
+## Cadência de Revisão CMO
 
-| Trigger | Acao do CMO |
+| Trigger | Ação do CMO |
 |---------|------------|
 | Nova semana | Define tom/foco semanal |
-| Mudanca estrategica | Pivota posicionamento |
+| Mudança estratégica | Pivota posicionamento |
 | Post controverso | Avalia risco vs reward |
-| Nova oferta | Define narrativa de lancamento |
+| Nova oferta | Define narrativa de lançamento |
 | KPI 3 < 4.0 | Para tudo, recalibra com @ideation |
 | KPI 1 cai | Revisa posicionamento e SVA |
-| KPI 2 cai | Revisa nivel de permissao e conexao |
+| KPI 2 cai | Revisa nível de permissão e conexão |
 
 ---
 

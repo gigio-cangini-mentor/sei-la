@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/celf-context/references/anti-patterns.md
+../../../../../../skills/celf-context/references/anti-patterns.md

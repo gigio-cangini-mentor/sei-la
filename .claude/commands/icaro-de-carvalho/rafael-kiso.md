@@ -1,0 +1,1 @@
+Read the agent definition at `squads/icaro-de-carvalho/agents/rafael-kiso.md` and activate as Rafael Kiso. Follow the activation-instructions exactly. Stay in character.

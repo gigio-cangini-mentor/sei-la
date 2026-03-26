@@ -1,9 +1,9 @@
 # @pedro-valerio Memory - Process Absolutist
 
 ## Quick Stats
-- Workflows auditados: 12 (deep-research v1.0→v1.1; BRE extract v1.0→v1.1, formalize v1.0→v1.1; Mind Cloning v1.1; Project Lifecycle v1.0; YouTube Transcription v1.0; /new-project v1.0; Ensinio WhatsApp Prospector v5.0; High-Ticket Mastery v1.0)
+- Workflows auditados: 17 (deep-research v1.0→v1.1; BRE extract v1.0→v1.1, formalize v1.0→v1.1; Mind Cloning v1.1; Project Lifecycle v1.0; YouTube Transcription v1.0; /new-project v1.0; Ensinio WhatsApp Prospector v5.0; High-Ticket Mastery v1.0; Forge v1.0; BrandCraft v1.0→v1.1; Ícaro de Carvalho v2.0→v2.0-enriched)
 - Clones auditados: 2 (renner-silva v1.1=8.5, v1.2=9.0)
-- Veto conditions propostas: 18 (deep-research) + 24 (BRE v1.1) + 8 (Project Lifecycle) + 8 (/new-project v1.0) + 12 (Ensinio v5.0) + 10 (HTM v1.0)
+- Veto conditions propostas: 18 (deep-research) + 24 (BRE v1.1) + 8 (Project Lifecycle) + 8 (/new-project v1.0) + 12 (Ensinio v5.0) + 10 (HTM v1.0) + 22 (Forge v1.0) + 21 (BrandCraft v1.0) + 12 (Ícaro v2.0) + 47 catalogadas (Ícaro v2 enriched)
 - Detalhes completos: `audit-history.md`
 
 ---
@@ -29,6 +29,11 @@
 | /new-project v1.0 | 67 | VETO |
 | **Ensinio Prospector v5.0** | **73** | **APROVAR c/ ressalvas** |
 | **High-Ticket Mastery v1.0** | **58** | **VETO** |
+| **Forge v1.0** | **74** | **APROVAR c/ ressalvas** |
+| **BrandCraft v1.0** | **71** | **APROVAR c/ ressalvas** |
+| **BrandCraft v1.1** | **71** | **APROVAR c/ ressalvas** |
+| **Ícaro de Carvalho v2.0** | **74** | **APROVAR c/ ressalvas** |
+| **Ícaro de Carvalho v2.0-enriched** | **82** | **APROVAR c/ ressalvas** |
 
 ---
 
@@ -76,6 +81,25 @@
 - **WARN em vez de BLOCK** (HTM: V2 Skip Foundation = WARN, contradiz allow_skip:false do workflow)
 - **Menu oferece opcao sem implementacao** (HTM: "Lancamento Rapido" sem rapid-launch.yaml)
 - **Activation ambigua** (HTM: "Direct call" e "Direct reference" nao sao slash commands executaveis)
+- **Resume sem state validation** (Forge: state.json corrompido = crash sem fallback)
+- **Fallback chain sem skip** (Forge: HALT apos @aios-master = dead-end, sem opcao pular story)
+- **Brownfield routing sem state init** (Forge: brownfield despacha workflow sem criar state.json)
+- **Concurrent runs sem lock** (Forge: dois runs simultaneos = conflito no codebase)
+- **"Proceed anyway" apos N retries** (Forge: toda veto condition ultrapassavel = veto sem dentes)
+- **Workflow viola propria Constitution** (Forge BUG_FIX: skip story viola Article III Story-Driven)
+- **Handoff IDs errados entre agentes** (BrandCraft: brandcraft-chief referencia template-manager, doc-renderer, etc. IDs reais sao template-architect, doc-generator)
+- **Condicional sem criterio explicito** (BrandCraft: "if images needed" sem regra objetiva = ambiguidade)
+- **Command sem workflow** (BrandCraft: *publish sem wf-publish.yaml)
+- **Agent handoff bypassa workflow** (BrandCraft: Scribe handoff direto para renderer, pulando Vault/brand)
+- **Correcao incompleta** (BrandCraft v1.1: wf-improve-document fases Re-Render e Validate sem veto/enforcement — unico workflow com gap)
+- **Output example contradiz workflow** (BrandCraft v1.1: Vault exemplo mostra "serving anyway" para draft, workflow diz HALT <80%)
+- **Workflows fantasma** (Ícaro v2.0: config.yaml referencia 2 workflows que NÃO EXISTEM no disco) — RESOLVIDO em v2-enriched
+- **Tasks só para 1 de 5 agents** (Ícaro v2.0: 4 tasks todas para icaro-de-carvalho, 4 agents sem tasks estruturadas) — RESOLVIDO em v2-enriched (7 tasks, 4 minds)
+- **Routing sem disambiguation** (Ícaro v2.0: trigger "posicionamento" match 2 agents sem regra de desempate)
+- **Condicional 'when' sem fallback** (Ícaro v2-enriched: wf-copy-pipeline Phase 2, tipo de copy não coberto = nada executa)
+- **Phase paralela sem sync barrier** (Ícaro v2-enriched: wf-marketing-end-to-end Phase 3, Juliana + Ícaro em paralelo, checkpoint não valida ambos)
+- **WARN sem escalação** (Ícaro v2-enriched: WARN no Phase 0 nunca vira BLOCK em fases posteriores)
+- **Referência a workflow fantasma em not_for** (Ícaro v2-enriched: wf-lancamento-completo menciona wf-sprint que não existe)
 
 ## Patterns Efetivos
 - Enforcement global: `enforcement: { checkpoint_policy, veto_behavior, max_retries }`
@@ -100,7 +124,24 @@
 
 ---
 
+## Patterns Novos (Forge)
+- **Flow First Checkpoints** — usuario so para 2x no happy path, automatico no resto. Melhor UX de pipeline auditado.
+- **Human Awareness** — checagem de horario/duracao. Unico workflow com essa preocupacao.
+- **Ecosystem Scanner** — bridge com minds/skills/squads do ecossistema. Conceito forte.
+- **Error Recovery Tree com routing por tipo** — ARCHITECTURE/DB/REQUIREMENT/STUCK/GENERIC. Mais sofisticado que retry simples.
+
+## Patterns Novos (Ícaro v2-enriched)
+- **Tasks 10/10 como referência** — campanha-trafego, estrategia-social, branding-completo são as tasks mais completas auditadas. Todas têm: output_example, elicitação, completion_criteria, veto com citação de framework, múltiplos checkpoints.
+- **Voice DNA nos veto conditions** — veto fala na voz do mind ("Estratégia sem métrica é horóscopo de marketing" — Kiso). Diferenciador.
+- **Checklists com scoring system + thresholds** — copy-quality-gate e lancamento-readiness com pesos, PASS/FAIL/REVISÃO e bloqueadores absolutos.
+- **Multi-mind orchestration** — wf-marketing-end-to-end orquestra 5 minds em 6 fases. Mais ambicioso que qualquer squad anterior.
+
 ## Notas Recentes
+- [2026-03-25] Ícaro de Carvalho v2.0-enriched RE-AUDIT APROVAR c/ RESSALVAS (82/100) — 2C, 4H, 10M, 4L. **Maior salto de qualidade entre audits (+8 pts).** Workflows agora existem com 16 quality gates. 3 tasks 10/10 (Sobral/Kiso/Hiller). 2 checklists com scoring. CRITICALs remanescentes: enforcement ausente (47 vetos textuais), orchestrator sem veto routing. Audit: `squads/icaro-de-carvalho/data/pedro-valerio-audit-v2.yaml`
+- [2026-03-25] Ícaro de Carvalho v2.0 APROVAR c/ RESSALVAS (74/100) — 3C, 4H, 3M, 2L. **Melhor qualidade de agents auditada (Voice DNA excepcional em 5 minds).** CRITICALs: 2 workflows referenciados em config.yaml NÃO EXISTEM, veto conditions sem enforcement, zero checkpoints em todo o squad. Tasks com anatomia completa mas só para 1 agent. Routing sólido com overlap mínimo ("posicionamento"). Audit: `squads/icaro-de-carvalho/data/pedro-valerio-audit-report.yaml`
+- [2026-03-24] BrandCraft v1.1 RE-AUDIT APROVAR c/ RESSALVAS (71/100) — 1C, 4H, 4M, 2L. **5 issues anteriores corrigidos.** C1-NEW: wf-improve-document Re-Render+Validate sem veto/enforcement. H: *publish sem workflow, Scribe bypassa Maestro, config.yaml usa nomes narrativos vs IDs, "if images needed" sem criterio. Zero timeout em todos workflows. Score nao subiu porque novos gaps encontrados. Audit inline na conversa.
+- [2026-03-24] BrandCraft v1.0 APROVAR c/ RESSALVAS (71/100) — 5C, 7H, 6M, 3L. **Arquitetura solida com tier system e Gauge quality gate.** CRITICALs: handoff IDs errados entre agentes (template-manager vs template-architect), 3/5 workflows sem checkpoints, 8 fases sem veto conditions, veto sem enforcement, draft template servido sem HALT. Problemas de hardening e naming consistency. Audit inline na conversa.
+- [2026-03-22] Forge v1.0 APROVAR c/ RESSALVAS (74/100) — 5C, 8H, 6M, 3L. **Melhor arquitetura de pipeline auditada.** CRITICALs: state.json sem validation, fallback sem skip, brownfield sem state init, concurrent sem lock, @aios-master sem guardrails. Problemas de hardening, nao de concepcao. Audit: `skills/forge/AUDIT-2026-03-22.md`
 - [2026-03-17] High-Ticket Mastery v1.0 VETO (58/100) — 10C, 8H, 8M. **Enforcement zero:** veto conditions documentadas mas nao bloqueiam. CRITICAL: V2=WARN contradiz allow_skip:false, menu oferece workflow inexistente, zero fallback/timeout, handoffs sem input_validation. Arquitetura FUSION solida mas sem travas. Audit: `squads/high-ticket-mastery/AUDIT-2026-03-17.md`
 - [2026-03-16] Ensinio Prospector v5.0 APROVAR c/ RESSALVAS (73/100) — 3C, 4H, 3M. **Veto sem enforcement:** QG documentado mas não força throw. CRITICAL: Phase 9 (GHL) falha silenciosa, phone_coverage sem threshold, schema validation ausente. Pipeline sólido mas precisa hardening. Audit: `.aios/audits/process-workflow-audit-2026-03-16.md`
 - [2026-03-15] /new-project v1.0 VETO (67/100) — 3C, 4H, 4M, 2L. **Fail Late** violação: validation no fim. CRITICAL: rollback ausente, table corruption, scan não bloqueia

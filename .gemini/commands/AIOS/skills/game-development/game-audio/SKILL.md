@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/game-development/game-audio/SKILL.md
+../../../../../../skills/game-development/game-audio/SKILL.md

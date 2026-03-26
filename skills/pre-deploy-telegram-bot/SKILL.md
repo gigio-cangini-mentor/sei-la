@@ -17,6 +17,8 @@ Skill ESPECIFICA para o projeto `~/CODE/Projects/telegram-agenda-bot`. Nao reuti
 - Depois de atualizar OAuth tokens
 - Ao retomar trabalho e querer garantir que tudo funciona
 
+<!-- Discovery: not applicable — deterministic skill -->
+
 ## O Que Faz
 
 Executa `npm run pre-deploy` no projeto telegram-agenda-bot, que valida:

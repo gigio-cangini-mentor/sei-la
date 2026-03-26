@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Aqui e onde o codigo nasce. Pense nessa fase como a linha de montagem: cada story entra como materia-prima e sai como feature pronta e testada. Se algo der errado, o GPS recalcula — nao volta pro inicio.
+Aqui é onde o código nasce. Pense nessa fase como a linha de montagem: cada story entra como matéria-prima e sai como feature pronta e testada. Se algo der errado, o GPS recalcula — não volta pro início.
 
 ---
 
@@ -37,8 +37,8 @@ For each story, execute the SDC subloop:
 **Skip if:** stories already exist (FULL_APP) or BUG_FIX mode.
 
 Dispatch @sm:
-- Read `.aios-core/development/agents/aios-sm.md`
-- Read `.aios-core/development/tasks/create-next-story.md`
+- Read `{AIOS_HOME}/.aios-core/development/agents/aios-sm.md`
+- Read `{AIOS_HOME}/.aios-core/development/tasks/create-next-story.md`
 - Input: feature description + project context
 - Inject ecosystem context: relevant skills for this domain
 - Output: Story file created at `docs/stories/active/`
@@ -57,8 +57,8 @@ Show handoff:
 **Skip if:** BUG_FIX mode.
 
 Dispatch @po:
-- Read `.aios-core/development/agents/aios-po.md`
-- Read `.aios-core/development/tasks/validate-next-story.md`
+- Read `{AIOS_HOME}/.aios-core/development/agents/aios-po.md`
+- Read `{AIOS_HOME}/.aios-core/development/tasks/validate-next-story.md`
 - Input: Story file from 2.1
 - Veto: Score < 7/10
   - If veto: return to @sm with @po's feedback
@@ -69,8 +69,8 @@ Dispatch @po:
 #### 2.3 — Implementation (@dev)
 
 Dispatch @dev:
-- Read `.aios-core/development/agents/aios-dev.md`
-- Read `.aios-core/development/tasks/dev-develop-story.md`
+- Read `{AIOS_HOME}/.aios-core/development/agents/aios-dev.md`
+- Read `{AIOS_HOME}/.aios-core/development/tasks/dev-develop-story.md`
 - Mode: YOLO (autonomous)
 - Input:
   - Story file (status: Ready)
@@ -102,8 +102,8 @@ If ANY check fails:
 #### 2.5 — Quality Gate (@qa)
 
 Dispatch @qa:
-- Read `.aios-core/development/agents/aios-qa.md`
-- Read `.aios-core/development/tasks/qa-review-story.md`
+- Read `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
+- Read `{AIOS_HOME}/.aios-core/development/tasks/qa-review-story.md`
 - Input: Story file + code changes
 - Decision:
   - **APPROVED** -> Story Done ✅
@@ -121,9 +121,9 @@ Dispatch @qa:
   🔴 CHECKPOINT — Progresso do Build
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  ✅ {N} stories concluidas de {total}
+  ✅ {N} stories concluídas de {total}
   ⚠️ {errors} erros encontrados e resolvidos
-  ⏭️ Proximas: {next 3 story titles}
+  ⏭️ Próximas: {next 3 story titles}
 
   1. Continuar
   2. Pausar e revisar o que foi feito
@@ -139,7 +139,7 @@ When all stories are done:
   Build Loop completo!
   ✅ {N} stories implementadas
   ⚠️ {errors} erros resolvidos
-  ⏭️ Proximo: Deploy
+  ⏭️ Próximo: Deploy
 ```
 3. Proceed to Phase 5 (or Phase 4 for FULL_APP)
 

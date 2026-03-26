@@ -57,7 +57,7 @@ scope:
     - "Analyze content structure (headings, sections, TOC, content types)"
     - "Curate content by purpose with relevance scoring (5 dimensions)"
     - "Present interactive menus for purpose selection and chapter curation"
-    - "Delegate curated content to downstream squads (squad-creator-pro, knowledge-base-builder, mind-cloning, icp-cloning, content-engine, storytelling-masters-fosc)"
+    - "Delegate curated content to downstream squads (squad-creator, knowledge-base-builder, mind-cloning, icp-cloning, content-engine, storytelling-masters-fosc)"
     - "Support 7 pre-defined purposes + custom purpose with user-defined keywords"
 
   does_not:
@@ -105,7 +105,7 @@ purpose_routing:
       label: "Construir Squad"
       description: "Extract frameworks, voice DNA, and thinking DNA for squad creation"
       focus: [framework, instruction, definition]
-      delegation: [squad-creator-pro]
+      delegation: [squad-creator]
       recommended_for: "Books, courses, methodologies, SOPs"
 
     - id: knowledge-base
@@ -119,7 +119,7 @@ purpose_routing:
       label: "Clonar Mente"
       description: "Extract communication style and decision patterns"
       focus: [opinion, narrative, instruction]
-      delegation: [mind-cloning, squad-creator-pro]
+      delegation: [mind-cloning, squad-creator]
       recommended_for: "Autobiographies, interviews, podcasts, personal content"
 
     - id: icp-cloning
@@ -749,9 +749,9 @@ output_examples:
 
       | ID | Label | Foco | Delegation |
       |----|-------|------|------------|
-      | squad-building | Construir Squad | frameworks, instructions, definitions | squad-creator-pro |
+      | squad-building | Construir Squad | frameworks, instructions, definitions | squad-creator |
       | knowledge-base | Criar Base de Conhecimento | definitions, frameworks, data | knowledge-base-builder |
-      | mind-cloning | Clonar Mente | opinions, narratives, instructions | mind-cloning + squad-creator-pro |
+      | mind-cloning | Clonar Mente | opinions, narratives, instructions | mind-cloning + squad-creator |
       | icp-cloning | Clonar ICP | narratives, opinions, data | icp-cloning |
       | content-creation | Criar Conteúdo | narratives, opinions, frameworks | content-engine |
       | storytelling | Construir Narrativa | narratives, opinions | storytelling-masters-fosc |
@@ -799,7 +799,7 @@ output_examples:
       Curated output saved: ~/books/expert.curated.md (40,200 words, 89%)
 
       Phase 5: Delegação — Construir Squad
-      Chain: squad-creator-pro: extract-knowledge → extract-voice-dna → extract-thinking-dna
+      Chain: squad-creator: extract-knowledge → extract-voice-dna → extract-thinking-dna
         1. Parar aqui
         2. Delegação automática ★
         3. Escolher squad manualmente
@@ -813,7 +813,7 @@ output_examples:
       ✓ extract-thinking-dna → thinking-dna.md saved
 
       Phase 8: Complete!
-      Source: expert.pdf → 3 artifacts generated via squad-creator-pro
+      Source: expert.pdf → 3 artifacts generated via squad-creator
 
   # Quality verification examples
   - input: "*verify ~/docs/relatorio.md"

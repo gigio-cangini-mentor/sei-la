@@ -1,0 +1,1 @@
+Read the skill at `~/aios-core/skills/quest/SKILL.md` and execute it against the current working directory. This is the first command the user runs when entering any project — it diagnoses the state, sets up what's missing, starts the dashboard, and creates the gamified checklist.

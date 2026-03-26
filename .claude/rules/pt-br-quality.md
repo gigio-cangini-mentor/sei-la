@@ -1,16 +1,26 @@
-# Qualidade Ortográfica pt-BR (ALWAYS-ON)
+# Qualidade Ortográfica pt-BR — Artigo VII da Constitution (NON-NEGOTIABLE)
 
-## Regra Fundamental (NON-NEGOTIABLE)
+## Regra Constitutional (NON-NEGOTIABLE — mesmo nível que Agent Authority)
 
 TODO texto em português brasileiro DEVE seguir normas ortográficas completas:
 acentos, cedilhas, tils, crases e pontuação correta. Sem exceção.
 
-**Texto sem acentuação é INACEITÁVEL.** Isto se aplica a:
+**Texto sem acentuação é INACEITÁVEL e constitui VIOLAÇÃO CONSTITUCIONAL.** Isto se aplica a:
 - Respostas ao usuário
-- Conteúdo de arquivos .md gerados
+- Conteúdo de arquivos .md, .html, .txt gerados
 - Stories, PRDs, relatórios, análises
+- Copy, landing pages, posts, scripts
 - Mensagens de commit em português
 - Qualquer output voltado para humanos em pt-BR
+- **Outputs de TODOS os squads, skills e agentes — sem exceção**
+
+## Enforcement
+
+- TODO agente (dev, sm, po, qa, analyst, architect, etc.) DEVE aplicar esta regra
+- TODO squad que gera conteúdo DEVE respeitar pt-BR antes de finalizar output
+- Subagents (Agent tool) DEVEM seguir esta regra mesmo sem contexto explícito
+- Se o output contiver texto pt-BR sem acentuação: **BLOQUEAR** e corrigir antes de entregar
+- Referência completa de palavras e padrões: `skills/pt-br-accentuation/SKILL.md`
 
 **NÃO se aplica a:**
 - Comentários em código (que DEVEM ser em inglês)

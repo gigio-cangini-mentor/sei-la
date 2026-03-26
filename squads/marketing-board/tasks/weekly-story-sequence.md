@@ -11,7 +11,7 @@
 
 ## Purpose
 
-Gerar 7 sequencias completas de Instagram Stories para a semana inteira, cada dia com framework psicologico diferente, seguindo a Holistic Story Sequence Strategy. Output: scripts de copy + composicao de camadas + preview para aprovacao.
+Gerar 7 sequências completas de Instagram Stories para a semana inteira, cada dia com framework psicológico diferente, seguindo a Holistic Story Sequence Strategy. Output: scripts de copy + composição de camadas + preview para aprovação.
 
 ---
 
@@ -19,34 +19,34 @@ Gerar 7 sequencias completas de Instagram Stories para a semana inteira, cada di
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `semana` | date | No | Data da segunda-feira (default: proxima segunda) |
+| `semana` | date | No | Data da segunda-feira (default: próxima segunda) |
 | `foco` | string | No | Foco da semana: "perpetuo", "lancamento", "aquecimento" |
-| `dia` | string | No | Se informado, regera apenas 1 dia especifico |
+| `dia` | string | No | Se informado, regera apenas 1 dia específico |
 
 ---
 
 ## Workflow
 
-### Step 1: Contexto Estrategico (@marketing-cmo)
+### Step 1: Contexto Estratégico (@marketing-cmo)
 
 ```
 1. Ler data/story-sequence-bank.yaml
-   - Verificar objecoes ja abordadas (objection_tracker)
-   - Identificar provas disponiveis (proof_bank)
-   - Listar historias nao usadas recentemente (story_bank)
+   - Verificar objeções já abordadas (objection_tracker)
+   - Identificar provas disponíveis (proof_bank)
+   - Listar histórias não usadas recentemente (story_bank)
 
 2. Definir foco da semana:
-   - Lancamento? → Stories mais agressivos, CTAs diretos
-   - Perpetuo? → Balanco padrao Heavy/Light
-   - Aquecimento? → Foco em educacao + conexao
+   - Lançamento? → Stories mais agressivos, CTAs diretos
+   - Perpétuo? → Balanço padrão Heavy/Light
+   - Aquecimento? → Foco em educação + conexão
 
-3. Selecionar 2-3 objecoes prioritarias para quinta-feira
-4. Definir qual oferta/CTA sera usada no ciclo
+3. Selecionar 2-3 objeções prioritárias para quinta-feira
+4. Definir qual oferta/CTA será usada no ciclo
 
 OUTPUT: Brief estrategico semanal
 ```
 
-### Step 2: Ideacao das 7 Sequencias (@marketing-ideation-ig)
+### Step 2: Ideação das 7 Sequências (@marketing-ideation-ig)
 
 ```
 Para CADA dia da semana, aplicar o framework correspondente:
@@ -63,7 +63,7 @@ TERCA — YOUR PROOF SEQUENCE (Heavy)
 ├── Bloco 2: Pain — dificuldade que Jose enfrentou
 ├── Bloco 3: Agitate — profundar a dificuldade
 ├── Bloco 4: Proof — resultado inegavel de Jose
-└── Bloco 5: Relatability Hook — "voce tambem pode"
+└── Bloco 5: Relatability Hook — "você também pode"
 
 QUARTA — CLIENT PROOF SEQUENCE (Heavy)
 ├── Bloco 1: Client Win Hook — resultado expressivo de cliente
@@ -90,8 +90,8 @@ SABADO — DIFFERENTIATION SEQUENCE (Light)
 ├── Bloco 1: Storytelling Hook — narrativa envolvente
 ├── Bloco 2: Different — Unique Mechanism do OPES
 ├── Bloco 3: Proof — resultado superior vs alternativas
-├── Bloco 4: Desire — desejo pelo metodo exclusivo
-└── Bloco 5: Break Objection — "sera que e para mim?"
+├── Bloco 4: Desire — desejo pelo método exclusivo
+└── Bloco 5: Break Objection — "será que é para mim?"
 
 DOMINGO — CONNECTION SEQUENCE (Light)
 ├── Bloco 1: Authentic Hook — pessoal, vulneravel, bastidores
@@ -100,17 +100,17 @@ DOMINGO — CONNECTION SEQUENCE (Light)
 ├── Bloco 4: Proof — congruencia (vive o que fala)
 └── Bloco 5: CTA — convite suave para semana juntos
 
-Para cada sequencia:
+Para cada sequência:
 - Definir conceito do hook (1 frase)
 - Selecionar prova do proof_bank
-- Selecionar historia do story_bank (se aplicavel)
-- Marcar objecao do tracker (se quinta)
+- Selecionar história do story_bank (se aplicável)
+- Marcar objeção do tracker (se quinta)
 - Definir tom (Heavy ou Light)
 
 OUTPUT: 7 conceitos de sequencia
 ```
 
-### Step 3: Gate 1 — Validacao CMO (@marketing-cmo)
+### Step 3: Gate 1 — Validação CMO (@marketing-cmo)
 
 ```
 elicit: false (automatico)
@@ -119,32 +119,32 @@ Para CADA dia, verificar:
 ☐ Framework correto aplicado? (5 blocos na ordem certa)
 ☐ SVA premium servida? (fala com quem fatura R$30-200k)
 ☐ Ritmo Heavy/Light respeitado?
-☐ Proof existe no banco? (nao e inventada)
-☐ Historia e real? (nao e fabricada)
-☐ Objecao de quinta nao foi abordada recentemente?
+☐ Proof existe no banco? (não é inventada)
+☐ História é real? (não é fabricada)
+☐ Objeção de quinta não foi abordada recentemente?
 
 Score: ___/5 por dia
 Se algum dia < 4/5 → devolver para @ideation-ig (max 2 loops)
 Se todos ≥ 4/5 → APROVADO
 
-OUTPUT: 7 sequencias aprovadas
+OUTPUT: 7 sequências aprovadas
 ```
 
-### Step 4: Producao de Scripts (@marketing-production)
+### Step 4: Produção de Scripts (@marketing-production)
 
 ```
 Para CADA dia, escrever 5 blocos de copy:
 
 REGRAS GERAIS:
-- Voz do Jose Carlos Amorim (casual, direto, real)
+- Voz do José Carlos Amorim (casual, direto, real)
 - Cada bloco = 1 story = 2-4 frases curtas MAX
-- Hook (bloco 1) = frase unica, forte, visual
-- Transicao natural entre blocos (leitor quer ver o proximo)
-- CTA nunca parece propaganda — e convite natural
+- Hook (bloco 1) = frase única, forte, visual
+- Transição natural entre blocos (leitor quer ver o próximo)
+- CTA nunca parece propaganda — é convite natural
 - Zero palavras da LLM blacklist
 
 REGRAS POR TOM:
-- Heavy (ter, qua, qui): Copy afiada, numeros, resultados, confronto
+- Heavy (ter, qua, qui): Copy afiada, números, resultados, confronto
 - Light (seg, sex, sab, dom): Casual, pessoal, como conversa com amigo
 
 FORMATO POR BLOCO:
@@ -153,9 +153,9 @@ FORMATO POR BLOCO:
 
 Story 1/5 — [Nome do Bloco]
 Camada L1 (Texto): "[copy aqui]"
-Camada L2 (Imagem): [sugestao de background]
-Camada L3 (Prova): [screenshot especifico se aplicavel]
-Camada L4 (Visual): [elemento grafico se aplicavel]
+Camada L2 (Imagem): [sugestão de background]
+Camada L3 (Prova): [screenshot específico se aplicável]
+Camada L4 (Visual): [elemento gráfico se aplicável]
 
 Story 2/5 — [Nome do Bloco]
 ...
@@ -164,7 +164,7 @@ Story 2/5 — [Nome do Bloco]
 OUTPUT: 35 blocos de copy (7 dias × 5 stories)
 ```
 
-### Step 5: Composicao Visual (@marketing-designer)
+### Step 5: Composição Visual (@marketing-designer)
 
 ```
 Para CADA story (35 total), definir:
@@ -177,24 +177,24 @@ Para CADA story (35 total), definir:
 
 2. Screenshot Overlay (L3):
    - Selecionar do proof_bank em story-sequence-bank.yaml
-   - Posicao: canto inferior ou lateral
+   - Posição: canto inferior ou lateral
    - Opacidade: 85-95%
 
 3. Elementos Visuais (L4):
-   - Setas apontando para numeros
-   - Circulos destacando resultados
-   - Graficos simplificados (se educacao)
+   - Setas apontando para números
+   - Círculos destacando resultados
+   - Gráficos simplificados (se educação)
    - Estilo: Miro-like (rabisco + funcional)
 
 4. Tipografia:
    - Usar brand-guide.yaml
-   - Tamanho: legivel em mobile sem zoom
+   - Tamanho: legível em mobile sem zoom
    - Destaque: bold nas palavras-chave
 
 OUTPUT: 35 briefs visuais
 ```
 
-### Step 6: Compilacao do Output
+### Step 6: Compilação do Output
 
 ```
 1. Salvar em: outputs/hubs/marketing/YYYY-WNN-story-sequence/
@@ -215,7 +215,7 @@ OUTPUT: 35 briefs visuais
 ```
 elicit: true
 
-Enviar para Jose via WhatsApp (UazAPI):
+Enviar para José via WhatsApp (UazAPI):
 
 📱 STORY SEQUENCE — Semana WNN
 
@@ -247,7 +247,7 @@ Historias: [N] usadas
 
 ✅ GO | ✏️ AJUSTAR | ❌ SKIP
 
-Jose responde:
+José responde:
 - GO → marcar como aprovado, salvar
 - AJUSTAR → receber nota, reprocessar Step 4-6
 - SKIP → cancelar semana
@@ -258,9 +258,9 @@ Jose responde:
 ```
 Se aprovado:
 1. Atualizar objection_tracker em story-sequence-bank.yaml
-   - Marcar objecao de quinta como "abordada" + data
+   - Marcar objeção de quinta como "abordada" + data
 2. Atualizar story_bank
-   - Marcar historias usadas + data
+   - Marcar histórias usadas + data
 3. Atualizar proof_bank
    - Registrar quais provas foram usadas
 ```
@@ -273,7 +273,7 @@ Se aprovado:
 |--------|------|-------------|
 | Plano semanal | `outputs/hubs/marketing/YYYY-WNN-story-sequence/plano.md` | Overview 7 dias |
 | Scripts (7 files) | `outputs/hubs/marketing/YYYY-WNN-story-sequence/{dia}.md` | Copy + camadas por dia |
-| Tracker update | `data/story-sequence-bank.yaml` | Objecoes, historias, provas usadas |
+| Tracker update | `data/story-sequence-bank.yaml` | Objeções, histórias, provas usadas |
 
 ---
 
@@ -283,11 +283,11 @@ Se aprovado:
 - [ ] Cada sequencia tem 5 blocos na ordem correta do framework
 - [ ] Ritmo Heavy/Light respeitado (3H / 4L)
 - [ ] Cada story tem 4 camadas definidas (L1-L4)
-- [ ] Todas as provas existem no banco (nao inventadas)
-- [ ] Todas as historias sao reais (nao fabricadas)
-- [ ] Objecao de quinta nao repetida nas ultimas 4 semanas
+- [ ] Todas as provas existem no banco (não inventadas)
+- [ ] Todas as histórias são reais (não fabricadas)
+- [ ] Objeção de quinta não repetida nas últimas 4 semanas
 - [ ] CMO aprovou com score ≥ 4/5 por dia
-- [ ] Jose aprovou via WhatsApp
+- [ ] José aprovou via WhatsApp
 - [ ] Tracker atualizado
 
 ---

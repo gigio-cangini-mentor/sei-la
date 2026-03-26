@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/synapse/assets/README.md
+../../../../../skills/synapse/assets/README.md

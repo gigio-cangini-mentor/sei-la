@@ -1,12 +1,12 @@
 # Phase 4: Integration
 
-> QA completo + pre-push gates — a inspecao final antes da mudanca
+> QA + Process Validation + Output Quality Audit + Pre-Push Gates — a inspeção final com padrão 10/10
 
 ---
 
 ## Purpose
 
-Todas as stories foram implementadas individualmente. Agora e hora de verificar se tudo funciona JUNTO. Pense nisso como a vistoria do apartamento antes de entregar a chave: cada comodo pode estar perfeito, mas o encanamento conecta? A eletrica nao vai dar curto?
+Todas as stories foram implementadas individualmente. Agora é hora de verificar se tudo funciona JUNTO e se o processo inteiro é à prova de falhas. Pense nisso como a vistoria do apartamento com três inspetores: um verifica se funciona (QA), outro se o encanamento não tem caminho errado (Pedro Valério), e o terceiro se o acabamento está no padrão ouro (Kaizen).
 
 ---
 
@@ -15,7 +15,7 @@ Todas as stories foram implementadas individualmente. Agora e hora de verificar 
 ### Step 1: Full Test Suite (@qa)
 
 Dispatch @qa via Agent tool:
-- Agent: `.aios-core/development/agents/aios-qa.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-qa.md`
 - Task: Full integration review (not per-story, but whole project)
 - Input:
   - All story files (list from state.json phases.2.stories)
@@ -32,14 +32,187 @@ Dispatch @qa via Agent tool:
 Show progress:
 ```
   🔄 @qa (Quinn) fazendo a vistoria final...
-  Pense nisso como a inspecao do apartamento:
-  cada comodo pode estar perfeito, mas funciona junto?
+  Pense nisso como a inspeção do apartamento:
+  cada cômodo pode estar perfeito, mas funciona junto?
 ```
 
-### Step 2: Pre-Push Quality Gate (@devops)
+---
+
+### Step 2: Process Validation (@pedro-valerio)
+
+> O encanamento pode funcionar, mas se tem um caminho que permite água suja voltar pro tanque limpo, é processo quebrado.
+
+Dispatch pedro-valerio via Agent tool:
+- subagent_type: `pedro-valerio`
+- Agent definition: `{AIOS_HOME}/squads/squad-creator/agents/pedro-valerio.md`
+- Mode: `*audit` (Process Audit)
+
+**What to validate:**
+
+1. **Workflow Integrity** — todo workflow criado tem fluxo unidirecional (nada volta)?
+2. **Veto Conditions** — cada checkpoint tem condições de veto claras? Caminhos errados estão impossibilitados?
+3. **Checkpoint Coverage** — todas as fases críticas têm checkpoint? Nenhum ponto cego?
+4. **Handoff Gaps** — existe gap de tempo entre handoffs? Informação se perde na passagem?
+5. **Error Path Completeness** — todos os caminhos de erro estão mapeados? Nenhum "e se..." sem resposta?
+
+**Input to provide:**
+- All story files from this Forge run
+- Architecture document from Phase 1
+- All workflow/task files created during build
+- State.json with phase history
+
+**Evaluation criteria:**
+
+| Dimension | Score Range | PASS Threshold |
+|-----------|-----------|----------------|
+| Unidirectional Flow | 1-10 | >= 8 |
+| Veto Conditions | 1-10 | >= 8 |
+| Checkpoint Coverage | 1-10 | >= 7 |
+| Handoff Zero-Gap | 1-10 | >= 7 |
+| Error Path Coverage | 1-10 | >= 7 |
+
+**Composite score:** Average of all 5 dimensions. PASS >= 7.5, CONCERNS 5.0-7.4, FAIL < 5.0
+
+**If FAIL or CONCERNS:**
+1. Pedro Valério lists specific issues with fix recommendations
+2. Dispatch @dev to fix structural issues
+3. Re-run validation (max 2 attempts)
+4. After 2 failures: CHECKPOINT with user — "O processo tem fragilidades. Quer prosseguir mesmo assim ou corrigir?"
+
+Show progress:
+```
+  🔄 @pedro-valerio auditando processo...
+  "Processo que permite erro é processo quebrado."
+  Verificando: fluxo unidirecional, veto conditions, checkpoints...
+```
+
+---
+
+### Step 3: Output Quality Audit (@kaizen)
+
+> O acabamento pode estar bonito, mas está no padrão ouro? Ou é genérico disfarçado?
+
+Dispatch kaizen via Agent tool:
+- subagent_type: `general-purpose`
+- Load task: `{AIOS_HOME}/squads/kaizen-v2/tasks/audit-output-quality.md`
+- Load agent context: `{AIOS_HOME}/squads/kaizen-v2/agents/kaizen-chief.md`
+
+**What to audit:**
+
+Avaliar os outputs do Forge run nas 5 dimensões Kaizen:
+
+1. **COMPLETUDE** (25%) — todos os elementos obrigatórios presentes? Stories têm todos os ACs? Arquitetura cobre todos os requisitos?
+2. **VOICE DNA / CONSISTENCY** (20%) — o código segue padrões consistentes? Naming conventions, estrutura de arquivos, imports?
+3. **QUALIDADE TÉCNICA** (20%) — formatação, estrutura, sem code smells? Separação de concerns respeitada?
+4. **DIFERENCIAÇÃO** (15%) — o output é específico para este projeto ou é boilerplate genérico? Tem personalidade?
+5. **IMPACTO ESTIMADO** (20%) — o output atinge o objetivo declarado no Discovery? Resolve o problema real?
+
+**Input to provide:**
+- All files created/modified during this Forge run
+- Original description from Phase 0 Discovery
+- Architecture document from Phase 1
+- Story files with AC status
+
+**Evaluation output:**
+
+| Dimension | Weight | Score | Status |
+|-----------|--------|-------|--------|
+| Completude | 25% | X/10 | PASS/FAIL |
+| Consistência | 20% | X/10 | PASS/FAIL |
+| Qualidade Técnica | 20% | X/10 | PASS/FAIL |
+| Diferenciação | 15% | X/10 | PASS/FAIL |
+| Impacto | 20% | X/10 | PASS/FAIL |
+
+**Composite score:** Weighted average. Classification:
+- **GOLD** (>= 8.5) — padrão ouro, pronto para deploy
+- **GOOD** (7.0-8.4) — bom, mas pode melhorar
+- **NEEDS_WORK** (5.0-6.9) — precisa de ajustes antes de deploy
+- **POOR** (< 5.0) — requer retrabalho significativo
+
+**If NEEDS_WORK or POOR:**
+1. Kaizen generates prioritized recommendations per dimension
+2. Each recommendation has specific action + file path
+3. Dispatch @dev to fix (guided by recommendations)
+4. Re-run audit (max 2 attempts)
+5. After 2: CHECKPOINT with user
+
+**Veto conditions (from Kaizen):**
+- Output avaliado sem ler conteúdo completo → REDO
+- Score POOR sem diagnóstico de causa raiz → BLOCK
+- Recomendação genérica sem ação específica → REMOVE
+
+Show progress:
+```
+  🔄 @kaizen auditando qualidade dos outputs...
+  Avaliando 5 dimensões: completude, consistência,
+  qualidade técnica, diferenciação, impacto...
+```
+
+---
+
+### Step 4: Extended Quality Gates (Conditional Skills)
+
+> Gates extras que só ativam se o projeto precisar. Como sensores especializados: só disparam se detectam algo relevante.
+
+**Resolution:** Read `{FORGE_HOME}/config.yaml` section `extended_quality`. For each gate where `enabled: true`:
+
+1. **Check mode** — is current workflow mode in the gate's `modes` list? If not, skip.
+2. **Check detection condition** — run the detect logic (see table below). If condition is false, skip.
+3. **If both pass** — dispatch the skill via Agent tool and collect results.
+4. **Log result** — save in state.json under `phases.4.extended_gates.{gate_name}`.
+
+#### Detection Logic
+
+| Gate | How to detect | Files to check |
+|------|--------------|----------------|
+| `bulletproof_test` | `package.json` has `"test"` script AND test framework in devDependencies | `package.json` |
+| `vulnerability_scanner` | Always runs (security is universal) | — |
+| `tier_s_checklist` | Always runs for FULL_APP | — |
+| `tokenizacao` | Glob for `tailwind.config.*`, `next.config.*`, `angular.json`, or grep `from 'react'` in src/ | Project root + src/ |
+| `code_refactoring` | QA report from Step 1 mentions "tech debt", "code smell", or "refactor" | QA integration report |
+| `cloud_pentest` | Glob for `*.tf`, `pulumi.*`, `cdk.json`, `.aws/`, `gcloud` configs | Project root |
+
+#### Dispatch Format
+
+For each active gate, dispatch via Agent tool:
+
+```
+subagent_type: general-purpose
+model: {gate.model from config}
+prompt: |
+  Read the skill at {AIOS_HOME}/{gate.skill}.
+  Run it against the current project at {cwd}.
+  Focus on: {context from Phase 0 Discovery + Architecture from Phase 1}.
+  Return: summary of findings + score (if applicable) + critical issues list.
+```
+
+#### Result Handling
+
+| Severity | If issues found | If clean |
+|----------|----------------|----------|
+| `recommended` | Log as CONCERNS in summary, list top 3 issues | Log as PASS |
+| `optional` | Log as INFO in summary | Log as PASS |
+
+**IMPORTANT:** Extended gates are NEVER hard vetos. They produce CONCERNS or INFO that appear in the Integration Summary (Step 6). The user decides whether to fix before deploy.
+
+#### Progress Display
+
+```
+  🔄 Extended Quality Gates...
+  ├── /bulletproof-test .......... ✅ PASS (42 scenarios, 0 failures)
+  ├── /vulnerability-scanner ..... ⚠️ CONCERNS (2 medium issues)
+  ├── /tier-s-checklist .......... ✅ 8.5/10 (3 items to improve)
+  ├── /tokenizacao ............... ⏭️ SKIPPED (no frontend detected)
+  ├── /code-refactoring .......... ⏭️ SKIPPED (no tech debt flagged)
+  └── /cloud-pentest ............. ⏭️ SKIPPED (disabled)
+```
+
+---
+
+### Step 5: Pre-Push Quality Gate (@devops)
 
 Dispatch @devops (read-only mode, no push yet):
-- Agent: `.aios-core/development/agents/aios-devops.md`
+- Agent: `{AIOS_HOME}/.aios-core/development/agents/aios-devops.md`
 - Run pre-push quality gate:
   1. `npm run lint` — 0 errors
   2. `npm run typecheck` — 0 errors
@@ -54,39 +227,67 @@ If ANY gate fails:
 4. Max 2 fix attempts
 5. After 2: CHECKPOINT with user
 
-### Step 3: Integration Summary
+---
+
+### Step 6: Integration Summary
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Integration Results
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  ✅ Lint:       0 errors
-  ✅ TypeCheck:  0 errors
-  ✅ Tests:      {N} passing, 0 failing
-  ✅ Build:      success
-  ✅ QA Review:  APPROVED
+  ✅ Lint:              0 errors
+  ✅ TypeCheck:         0 errors
+  ✅ Tests:             {N} passing, 0 failing
+  ✅ Build:             success
+  ✅ QA Review:         APPROVED
+
+  ⚙️ Process Audit:     {pv_score}/10 — {pv_status}
+     Unidirectional:    {score}/10
+     Veto Conditions:   {score}/10
+     Checkpoints:       {score}/10
+     Handoff Gaps:      {score}/10
+     Error Paths:       {score}/10
+
+  📊 Output Quality:    {kaizen_score}/10 — {kaizen_class}
+     Completude:        {score}/10
+     Consistência:      {score}/10
+     Qualidade Técnica: {score}/10
+     Diferenciação:     {score}/10
+     Impacto:           {score}/10
+
+  🛡️ Extended Gates:
+     /bulletproof-test:     {status} {detail}
+     /vulnerability-scanner: {status} {detail}
+     /tier-s-checklist:     {status} {detail}
+     /tokenizacao:          {status} {detail}
+     /code-refactoring:     {status} {detail}
+     /cloud-pentest:        {status} {detail}
 
   📊 {stories_count} stories implementadas
   📁 {files_changed} arquivos modificados
   🔀 {commits_count} commits locais
 ```
 
-### Step 4: CHECKPOINT
+---
+
+### Step 7: CHECKPOINT
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   🔴 CHECKPOINT — Pronto para Deploy
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Tudo verde. O codigo esta pronto para ir pro ar.
+  Tudo verde. O código está pronto para ir pro ar.
 
   1. Deploy agora (push + PR)
-  2. Revisar o codigo antes
-  3. Nao deployar (salvar progresso)
+  2. Revisar o código antes
+  3. Não deployar (salvar progresso)
 ```
 
-### Step 5: Update State
+---
+
+### Step 8: Update State
 
 ```json
 {
@@ -97,7 +298,39 @@ If ANY gate fails:
       "typecheck": "pass",
       "tests": { "passing": 42, "failing": 0 },
       "build": "pass",
-      "qa_verdict": "APPROVED"
+      "qa_verdict": "APPROVED",
+      "process_validation": {
+        "validator": "pedro-valerio",
+        "score": 8.5,
+        "status": "PASS",
+        "dimensions": {
+          "unidirectional_flow": 9,
+          "veto_conditions": 8,
+          "checkpoint_coverage": 8,
+          "handoff_gaps": 9,
+          "error_paths": 8
+        }
+      },
+      "output_quality": {
+        "auditor": "kaizen",
+        "score": 8.7,
+        "classification": "GOLD",
+        "dimensions": {
+          "completude": 9,
+          "consistency": 8,
+          "technical_quality": 9,
+          "differentiation": 8,
+          "impact": 9
+        }
+      },
+      "extended_gates": {
+        "bulletproof_test": { "status": "PASS", "scenarios": 42, "failures": 0 },
+        "vulnerability_scanner": { "status": "CONCERNS", "critical": 0, "medium": 2, "low": 5 },
+        "tier_s_checklist": { "status": "PASS", "score": 8.5, "items_to_improve": 3 },
+        "tokenizacao": { "status": "SKIPPED", "reason": "no frontend detected" },
+        "code_refactoring": { "status": "SKIPPED", "reason": "no tech debt flagged" },
+        "cloud_pentest": { "status": "SKIPPED", "reason": "disabled in config" }
+      }
     }
   }
 }
@@ -108,6 +341,8 @@ If ANY gate fails:
 ## Outputs
 
 - Integration report from @qa
+- Process validation report from @pedro-valerio
+- Output quality audit report from @kaizen
 - Pre-push gate results from @devops
 - User approval to proceed to Phase 5
 - All quality checks passing
@@ -121,3 +356,15 @@ If integration tests reveal cross-story bugs:
 2. Dispatch @dev to fix (with the specific test failure)
 3. Re-run integration
 4. If architectural issue: dispatch @architect first
+
+If process validation fails:
+1. Pedro Valério identifies structural flaws
+2. Dispatch @dev or @architect depending on severity
+3. Re-run process validation
+4. If persistent: CHECKPOINT — structural issues may require design rethink
+
+If output quality audit fails:
+1. Kaizen provides per-dimension recommendations with file paths
+2. Dispatch @dev to address specific gaps
+3. Re-run quality audit
+4. If POOR persists: likely a Phase 1 (Spec) issue — consider revisiting architecture

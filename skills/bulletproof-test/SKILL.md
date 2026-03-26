@@ -33,6 +33,16 @@ Generate exhaustive real-world usage scenarios for ANY application, then orchest
 - Unit tests for a single function
 - Non-software projects
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual o app/projeto alvo e onde está o código?** — (a skill precisa do cwd correto para análise de codebase)
+2. **É a primeira execução ou incremental (já rodou bulletproof-test antes)?** — (incremental reutiliza scenarios.md existente e foca só em mudanças)
+3. **Tem alguma área de alto risco ou feature recente que quer priorizar?** — (foca Phase 1 Discovery nas áreas mais críticas)
+4. **Qual o framework de testes do projeto (Jest, Vitest, pytest, etc.)?** — (Phase 5 precisa seguir os padrões existentes)
+5. **Tem restrição de tempo? Quer focar só em P0+P1?** — (permite early exit e priorização agressiva) (opcional)
+
 ---
 
 ## Config

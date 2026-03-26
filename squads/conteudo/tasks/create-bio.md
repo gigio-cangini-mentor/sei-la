@@ -78,3 +78,13 @@ references:
   - data/nucleo.md
   - data/cliches-proibidos.md
   - data/regras-inviolaveis.md
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-bio-01 | Mais de uma pergunta feita ao usuário ao mesmo tempo — perguntas agrupadas em bloco | HALT — fazer apenas a próxima pergunta pendente e aguardar resposta antes de continuar |
+| VC-bio-02 | Frase de Domínio usa verbos proibidos: "ajudo", "inspiro", "ensino", "oriento", "capacito" | HALT — reescrever com verbos permitidos (reposiciono, instalo, desbloqueio, acelero, codifico) |
+| VC-bio-03 | Frase da Bio ultrapassa 150 caracteres ou usa linguagem genérica de LinkedIn ("especialista em", "apaixonado por") | HALT — reduzir e reescrever com linguagem de comando imperial antes de apresentar ao usuário |
+| VC-bio-04 | Alguma resposta do usuário foi vaga ou genérica e a bio foi construída sem pedir especificidade | HALT — voltar à pergunta correspondente, exigir dado concreto (mercado, dor real, resultado mensurável) |
+| VC-bio-05 | Entregou apenas 1 variação em vez das 3 obrigatórias | HALT — gerar as 3 variações completas (Frase de Domínio + Frase da Bio) antes de finalizar |

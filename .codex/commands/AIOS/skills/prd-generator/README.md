@@ -1,1 +1,1 @@
-../../../../skills/prd-generator/README.md
+../../../../../skills/prd-generator/README.md

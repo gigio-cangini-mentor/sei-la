@@ -9,7 +9,7 @@
 
 ## Overview
 
-Pipeline end-to-end que transforma uma Big Idea em post publicado no Instagram + LinkedIn via API. Envolve 6 agentes em sequencia com 3 QA Gates bloqueantes.
+Pipeline end-to-end que transforma uma Big Idea em post publicado no Instagram + LinkedIn via API. Envolve 6 agentes em sequência com 3 QA Gates bloqueantes.
 
 ---
 
@@ -19,9 +19,9 @@ Pipeline end-to-end que transforma uma Big Idea em post publicado no Instagram +
 @marketing-ideation
        │
        ▼
-  Big Idea + 3 angulos
+  Big Idea + 3 ângulos
        │
-       ▼ (Jose escolhe ou auto-seleciona)
+       ▼ (José escolhe ou auto-seleciona)
 ┌──────────────────────┐
 │  GATE 2.5 — @cmo     │ ⛔ BLOQUEANTE
 │  SVA + Purple Cow +  │
@@ -75,22 +75,22 @@ Pipeline end-to-end que transforma uma Big Idea em post publicado no Instagram +
 
 | Ordem | Agent | Responsabilidade | Input | Output |
 |-------|-------|-----------------|-------|--------|
-| 1 | @marketing-ideation | Big Idea + 3 angulos | content-map.yaml | Big Idea + angulo |
+| 1 | @marketing-ideation | Big Idea + 3 ângulos | content-map.yaml | Big Idea + ângulo |
 | 2 | @marketing-cmo | Gate 2.5 (SVA + Purple Cow) | Big Idea | Aprovado/Vetado + score |
-| 3 | @marketing-production | Escrever post na voz Jose | Big Idea aprovada | Post completo |
-| 4 | @marketing-designer | Direcao visual + prompt | Post + angulo | Visual Brief |
-| 5 | @marketing-distribution | Adaptar IG + LinkedIn | Post + Visual Brief | 2 versoes prontas |
+| 3 | @marketing-production | Escrever post na voz José | Big Idea aprovada | Post completo |
+| 4 | @marketing-designer | Direção visual + prompt | Post + ângulo | Visual Brief |
+| 5 | @marketing-distribution | Adaptar IG + LinkedIn | Post + Visual Brief | 2 versões prontas |
 | 6 | publish.py | Publicar via API | Versoes finais | Post IDs |
 
 ---
 
 ## QA Gates
 
-| Gate | Dono | Criterio | Falha |
+| Gate | Dono | Critério | Falha |
 |------|------|----------|-------|
-| 2.5 CMO | @marketing-cmo | Purple Cow ≥ 4/5 + SVA especifica + Permission OK | Volta para @ideation (max 2 loops) |
+| 2.5 CMO | @marketing-cmo | Purple Cow ≥ 4/5 + SVA específica + Permission OK | Volta para @ideation (max 2 loops) |
 | 6 Publish | publish.py | APIs respondem 2xx | Registrar erro, retry ou fallback manual |
-| 7 Confirm | Jose/Sistema | Posts visiveis nas plataformas | Registrar falha para @metrics |
+| 7 Confirm | José/Sistema | Posts visíveis nas plataformas | Registrar falha para @metrics |
 
 ---
 
@@ -105,26 +105,26 @@ Pipeline end-to-end que transforma uma Big Idea em post publicado no Instagram +
 
 ---
 
-## Modos de Execucao
+## Modos de Execução
 
 | Modo | Comando | Comportamento |
 |------|---------|---------------|
-| Interativo | `/daily-content` | Apresenta 3 angulos, Jose escolhe |
-| Automatico | `/daily-content auto=true` | Auto-seleciona angulo mais forte |
-| Com contexto | `/daily-content contexto="..."` | Usa contexto como materia-prima |
+| Interativo | `/daily-content` | Apresenta 3 ângulos, José escolhe |
+| Automático | `/daily-content auto=true` | Auto-seleciona ângulo mais forte |
+| Com contexto | `/daily-content contexto="..."` | Usa contexto como matéria-prima |
 
 ---
 
-## Metricas Coletadas
+## Métricas Coletadas
 
-Cada execucao registra em `outputs/hubs/marketing/YYYY-MM-DD.md`:
+Cada execução registra em `outputs/hubs/marketing/YYYY-MM-DD.md`:
 - Purple Cow score (Gate 2.5)
 - Formato visual escolhido
 - LinkedIn share ID
 - Instagram media ID
-- Horario de publicacao
+- Horário de publicação
 
-Esses dados alimentam `/metrics-weekly` para calculo dos 3 KPIs.
+Esses dados alimentam `/metrics-weekly` para cálculo dos 3 KPIs.
 
 ---
 

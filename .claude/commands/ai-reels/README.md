@@ -1,9 +1,9 @@
 # AI Reels Squad v3.0
 
 Squad para criar Instagram Reels (15-90s) com clone de voz e avatar IA.
-Stack: ElevenLabs Creator (voz PT-BR PVC) + HeyGen Creator (lip sync avatar) + Remotion (pós-produção).
+Stack: ElevenLabs Creator (voz PT-BR PVC) + HeyGen Creator (lip sync avatar) + Remotion (pos-producao).
 
-**Status**: DEVELOPING | **Target**: 4-5 reels/semana | **Custo**: $51/mês
+**Status**: DEVELOPING | **Target**: 4-5 reels/semana | **Custo**: $51/mes
 
 ---
 
@@ -22,7 +22,7 @@ flowchart TD
     QG1 -->|PASS| SCRIPT
 
     subgraph FASE2["Fase 2 — Script"]
-        SCRIPT[script-director<br/>7 beats + direção 10D]
+        SCRIPT[script-director<br/>7 beats + direcao 10D]
         SCRIPT --> QG2{QG-AR-2<br/>7 beats + timing OK?}
         QG2 -->|FAIL| SCRIPT
     end
@@ -45,7 +45,7 @@ flowchart TD
 
     QG4 -->|PASS| EDIT
 
-    subgraph FASE5["Fase 5 — Edição"]
+    subgraph FASE5["Fase 5 — Edicao"]
         EDIT[video-composer<br/>Remotion render]
         EDIT --> QG5{QG-AR-5<br/>1080x1920 + legendas?}
         QG5 -->|FAIL| EDIT
@@ -80,7 +80,7 @@ flowchart TD
     style QG7 fill:#f59e0b,color:#000
 ```
 
-## Fluxograma Técnico (ferramentas)
+## Fluxograma Tecnico (ferramentas)
 
 ```mermaid
 flowchart LR
@@ -88,13 +88,13 @@ flowchart LR
         A[Claude/GPT<br/>Hook + Script + Caption]
     end
 
-    subgraph PRODUCAO["Fase Produção (APIs)"]
+    subgraph PRODUCAO["Fase Producao (APIs)"]
         B[ElevenLabs<br/>voice.mp3]
         C[HeyGen Web UI<br/>avatar.mp4]
         D[Whisper<br/>captions.json]
     end
 
-    subgraph EDICAO["Fase Edição (Código)"]
+    subgraph EDICAO["Fase Edicao (Codigo)"]
         E[generate-reel-config.ts<br/>reel-config.json]
         F[Remotion Render<br/>reel-edit.mp4]
         G[FFmpeg<br/>reel-final.mp4]
@@ -115,31 +115,31 @@ flowchart LR
 |---|---|---|---|
 | ai-reels-chief | T0 | Orquestrador pipeline 7 fases | Pipeline orchestration |
 | hook-architect | T1 | Hooks 3 primeiros segundos | Hook-Retain-Reward (Hormozi), 7Fs (Bourgoin), Hook Point (Kane) |
-| script-director | T1 | Roteiro 7 beats + direção 10D | Eight-Point Arc (Blackman), Performance Direction |
+| script-director | T1 | Roteiro 7 beats + direcao 10D | Eight-Point Arc (Blackman), Performance Direction |
 | voice-engineer | T1 | Clonagem de voz PT-BR | ElevenLabs multilingual_v2, PVC, speed 1.15 |
 | avatar-director | T1 | Lip sync talking head | HeyGen Creator (web UI) |
-| video-composer | T2 | Pós-produção programática | Remotion 4.0.427, FFmpeg |
-| qa-sentinel | T2 | QA binário + gate humano | Checklist 14 itens, Devil's Advocate |
+| video-composer | T2 | Pos-producao programatica | Remotion 4.0.427, FFmpeg |
+| qa-sentinel | T2 | QA binario + gate humano | Checklist 14 itens, Devil's Advocate |
 
 ---
 
-## Remotion — Composição `ReelEdit`
+## Remotion — Composicao `ReelEdit`
 
-O coração da edição automática. Cada reel é gerado a partir de um `reel-config.json` — zero código por vídeo.
+O coracao da edicao automatica. Cada reel e gerado a partir de um `reel-config.json` — zero codigo por video.
 
 ### 8 Camadas Visuais
 
 ```
-┌─────────────────────────┐
-│  8. Film Grain           │  noise3D (Remotion), opacity 0.05
-│  7. Progress Bar         │  3px topo, cor do accent
-│  6. Lower Third          │  Nome + @handle, slide-in com spring
-│  5. Keyword Overlays     │  Texto animado em timestamps
-│  4. Auto Captions        │  TikTok-style word-by-word
-│  3. Vignette             │  Radial gradient cinematográfico
-│  2. Cut Flash            │  Flash branco nos pontos de corte
-│  1. OffthreadVideo       │  Avatar HeyGen com punch-in/out
-└─────────────────────────┘
++--------------------------+
+|  8. Film Grain           |  noise3D (Remotion), opacity 0.05
+|  7. Progress Bar         |  3px topo, cor do accent
+|  6. Lower Third          |  Nome + @handle, slide-in com spring
+|  5. Keyword Overlays     |  Texto animado em timestamps
+|  4. Auto Captions        |  TikTok-style word-by-word
+|  3. Vignette             |  Radial gradient cinematografico
+|  2. Cut Flash            |  Flash branco nos pontos de corte
+|  1. OffthreadVideo       |  Avatar HeyGen com punch-in/out
++--------------------------+
 ```
 
 ### Config-Driven — Exemplo `reel-config.json`
@@ -160,7 +160,7 @@ O coração da edição automática. Cada reel é gerado a partir de um `reel-co
     { "text": "IA", "fromS": 6.08, "toS": 6.72, "position": "top", "color": "#C9A84C", "size": 90 }
   ],
   "lowerThird": {
-    "name": "Tiago Guimarães",
+    "name": "Tiago Guimaraes",
     "handle": "@tiag8guimaraes",
     "showFromS": 2,
     "showToS": 6
@@ -186,9 +186,9 @@ O coração da edição automática. Cada reel é gerado a partir de um `reel-co
 O sistema gera cortes automaticamente a partir das pausas detectadas no `captions.json` (Whisper):
 
 1. Detecta gaps > 200ms entre palavras
-2. Gera pontos de corte em pausas naturais (intervalo mínimo ~70% do `intervalS`)
+2. Gera pontos de corte em pausas naturais (intervalo minimo ~70% do `intervalS`)
 3. Preenche gaps com cortes em intervalo fixo
-4. Alterna normal (scale 1.0) / close-up (scale 1.2) com variações
+4. Alterna normal (scale 1.0) / close-up (scale 1.2) com variacoes
 5. Hook usa scale maior (1.25), CTA final usa ease-in longo
 
 ### Comandos de Render
@@ -200,103 +200,103 @@ cd squads/ai-reels/remotion && npx remotion studio src/index.ts
 # Render MP4
 npx remotion render src/index.ts ReelEdit --output out/reel.mp4
 
-# Render com codec específico
+# Render com codec especifico
 npx remotion render src/index.ts ReelEdit --output out/reel.mp4 --codec h264
 
-# Normalizar áudio (pós-render)
+# Normalizar audio (pos-render)
 ffmpeg -y -i out/reel.mp4 -af "loudnorm=I=-14:TP=-1.5:LRA=11" -c:v copy out/reel-final.mp4
 ```
 
-### Specs Técnicas
+### Specs Tecnicas
 
-| Parâmetro | Valor |
+| Parametro | Valor |
 |---|---|
-| Resolução | 1080x1920 (9:16) |
+| Resolucao | 1080x1920 (9:16) |
 | FPS | 25 |
 | Codec | H.264 |
-| Áudio | -14 LUFS (normalizado FFmpeg) |
+| Audio | -14 LUFS (normalizado FFmpeg) |
 | Formato | MP4 |
-| Duração | 15-90s (detecta do vídeo) |
+| Duracao | 15-90s (detecta do video) |
 
 ---
 
-## Stack Técnica
+## Stack Tecnica
 
 | Componente | Ferramenta | Custo | Status |
 |---|---|---|---|
-| TTS / Voz | ElevenLabs Creator (PVC, speed 1.15) | $22/mês | ✅ Ativo |
-| Lip Sync / Avatar | HeyGen Creator (web UI) | $29/mês | ⏳ Assinar |
-| Pós-produção | Remotion 4.0.427 | $0 | ✅ Configurado |
-| Legendas | Whisper (word-level) → @remotion/captions | $0 | ✅ |
-| Normalização áudio | FFmpeg (-14 LUFS) | $0 | ✅ |
+| TTS / Voz | ElevenLabs Creator (PVC, speed 1.15) | $22/mes | Ativo |
+| Lip Sync / Avatar | HeyGen Creator (web UI) | $29/mes | Assinar |
+| Pos-producao | Remotion 4.0.427 | $0 | Configurado |
+| Legendas | Whisper (word-level) -> @remotion/captions | $0 | OK |
+| Normalizacao audio | FFmpeg (-14 LUFS) | $0 | OK |
 
-### Decisões Técnicas
+### Decisoes Tecnicas
 
-| Decisão | Escolha | Alternativas rejeitadas |
+| Decisao | Escolha | Alternativas rejeitadas |
 |---|---|---|
 | Lip sync | **HeyGen Creator $29/mo** | MuseTalk (borrado), LatentSync (dessync), Kling (10s limite) |
-| Edição | **Remotion** (programático) | CapCut (manual), FFmpeg puro (limitado) |
+| Edicao | **Remotion** (programatico) | CapCut (manual), FFmpeg puro (limitado) |
 | Velocidade voz | **1.15x** | 1.0x (lento demais para reels) |
-| Captions | **@remotion/captions** (TikTok-style) | SRT overlay (estático, sem animação) |
+| Captions | **@remotion/captions** (TikTok-style) | SRT overlay (estatico, sem animacao) |
 | Grain | **noise3D** (@remotion/noise) | SVG feTurbulence (mais leve, pior resultado) |
 
 ---
 
 ## Scripts
 
-| Script | Descrição |
+| Script | Descricao |
 |---|---|
-| `scripts/elevenlabs-tts.ts` | Gera áudio via ElevenLabs API (TTS) |
+| `scripts/elevenlabs-tts.ts` | Gera audio via ElevenLabs API (TTS) |
 | `scripts/whisper-captions.ts` | Gera captions word-by-word via Whisper |
 | `scripts/generate-reel-config.ts` | Gera `reel-config.json` a partir de captions + metadados |
 | `scripts/test-lipsync.sh` | Testa lip sync tools (MuseTalk, LatentSync, etc.) |
 
 ## Workflows
 
-| Workflow | Descrição |
+| Workflow | Descricao |
 |---|---|
 | `wf-reel-production.yaml` | Pipeline completo para 1 reel (7 fases sequenciais) |
-| `wf-batch-production.yaml` | Produção semanal batch (4-5 reels com aprovação em lote) |
+| `wf-batch-production.yaml` | Producao semanal batch (4-5 reels com aprovacao em lote) |
 
 ## Quality Gates
 
-| Gate | Fase | Critério |
+| Gate | Fase | Criterio |
 |---|---|---|
-| QG-AR-1 | Hook | Score >= 8/10, curiosity gap + fórmula comprovada |
-| QG-AR-2 | Script | 7 beats completos, duração 15-90s, timing validado |
-| QG-AR-3 | Voz | Fidelidade >= 80%, zero artefatos, pronúncia PT-BR |
-| QG-AR-4 | Lip Sync | Sync sem dessincronização + identidade preservada |
-| QG-AR-5 | Edição | 1080x1920 9:16, legendas, duração correta |
-| QG-AR-6 | Caption | Voice DNA pass, CTA específico, guardrail 10/10 |
-| QG-AR-7 | QA Final | 14/14 checklist, devil's advocate, aprovação Tiago |
+| QG-AR-1 | Hook | Score >= 8/10, curiosity gap + formula comprovada |
+| QG-AR-2 | Script | 7 beats completos, duracao 15-90s, timing validado |
+| QG-AR-3 | Voz | Fidelidade >= 80%, zero artefatos, pronuncia PT-BR |
+| QG-AR-4 | Lip Sync | Sync sem dessincronizacao + identidade preservada |
+| QG-AR-5 | Edicao | 1080x1920 9:16, legendas, duracao correta |
+| QG-AR-6 | Caption | Voice DNA pass, CTA especifico, guardrail 10/10 |
+| QG-AR-7 | QA Final | 14/14 checklist, devil's advocate, aprovacao Tiago |
 
 ---
 
-## Pré-requisitos
+## Pre-requisitos
 
-| # | Pré-requisito | Status | Como |
+| # | Pre-requisito | Status | Como |
 |---|---|---|---|
-| 1 | ElevenLabs Creator ($22/mês) | ✅ | `ELEVENLABS_API_KEY` no `.env` |
-| 2 | Voice clone criado (PVC) | ✅ | Voice ID: `YenbYX8x7myujzTnQhXP` |
-| 3 | HeyGen Creator ($29/mês) | ⏳ | Assinar em app.heygen.com |
-| 4 | Vídeo-template gravado | ✅ | 1080x1920, câmera frontal, fundo neutro |
-| 5 | Remotion instalado | ✅ | `cd remotion && npm install` |
-| 6 | FFmpeg disponível | ✅ | `brew install ffmpeg` |
-| 7 | Whisper disponível | ✅ | Via OpenAI API ou local |
+| 1 | ElevenLabs Creator ($22/mes) | OK | `ELEVENLABS_API_KEY` no `.env` |
+| 2 | Voice clone criado (PVC) | OK | Voice ID: `YenbYX8x7myujzTnQhXP` |
+| 3 | HeyGen Creator ($29/mes) | Pendente | Assinar em app.heygen.com |
+| 4 | Video-template gravado | OK | 1080x1920, camera frontal, fundo neutro |
+| 5 | Remotion instalado | OK | `cd remotion && npm install` |
+| 6 | FFmpeg disponivel | OK | `brew install ffmpeg` |
+| 7 | Whisper disponivel | OK | Via OpenAI API ou local |
 
 Setup completo: `squads/ai-reels/docs/setup-guide.md`
 
 ## Custos
 
-| Item | Custo/mês |
+| Item | Custo/mes |
 |---|---|
 | ElevenLabs Creator | $22 |
 | HeyGen Creator | $29 |
 | Remotion | $0 (open source) |
 | FFmpeg + Whisper | $0 |
-| **Total** | **$51/mês** |
+| **Total** | **$51/mes** |
 
-Capacidade: ~15 reels/mês (limitado por HeyGen 15min/mês no plano Creator).
+Capacidade: ~15 reels/mes (limitado por HeyGen 15min/mes no plano Creator).
 
 ---
 
@@ -305,23 +305,22 @@ Capacidade: ~15 reels/mês (limitado por HeyGen 15min/mês no plano Creator).
 ```
 squads/ai-reels/
 ├── README.md                  # Este arquivo
-├── config.yaml                # Configuração do squad
 ├── agents/                    # 7 agentes (T0 + T1 + T2)
 │   ├── ai-reels-chief.md      # Orquestrador
 │   ├── hook-architect.md       # Hooks
 │   ├── script-director.md      # Roteiro
 │   ├── voice-engineer.md       # Voz
 │   ├── avatar-director.md      # Avatar
-│   ├── video-composer.md       # Edição
+│   ├── video-composer.md       # Edicao
 │   └── qa-sentinel.md          # QA
 ├── tasks/                     # Tasks por fase
-├── workflows/                 # Orquestração
+├── workflows/                 # Orquestracao
 │   ├── wf-reel-production.yaml
 │   └── wf-batch-production.yaml
 ├── checklists/                # Quality gates
 ├── templates/                 # Templates de output
 ├── data/                      # Knowledge base + tool stack
-├── scripts/                   # Scripts de automação
+├── scripts/                   # Scripts de automacao
 │   ├── elevenlabs-tts.ts
 │   ├── whisper-captions.ts
 │   ├── generate-reel-config.ts
@@ -334,7 +333,7 @@ squads/ai-reels/
 │   │   ├── ReelComposition.tsx # 8 camadas visuais
 │   │   ├── auto-cuts.ts       # Algoritmo de cortes
 │   │   └── types.ts           # TypeScript types
-│   ├── public/                # Assets (vídeo, captions, config)
+│   ├── public/                # Assets (video, captions, config)
 │   └── out/                   # Renders (gitignored)
 ├── docs/                      # Guias internos
 └── assets/                    # Assets compartilhados
@@ -342,21 +341,21 @@ squads/ai-reels/
 
 ## Comandos
 
-| Comando | Descrição |
+| Comando | Descricao |
 |---|---|
 | `*create-reel "<tema>"` | Pipeline completo para 1 reel |
-| `*batch-reels` | Produção semanal batch (4-5 reels) |
-| `*generate-hooks "<tema>"` | Gerar 5 variações de hook |
+| `*batch-reels` | Producao semanal batch (4-5 reels) |
+| `*generate-hooks "<tema>"` | Gerar 5 variacoes de hook |
 | `*write-script "<tema>"` | Roteiro 7 beats completo |
-| `*synth-voice <script.txt>` | Síntese de voz via ElevenLabs |
-| `*render-edit` | Editar vídeo via Remotion |
-| `*qa-review <reel.mp4>` | QA binário + checklist 14 itens |
+| `*synth-voice <script.txt>` | Sintese de voz via ElevenLabs |
+| `*render-edit` | Editar video via Remotion |
+| `*qa-review <reel.mp4>` | QA binario + checklist 14 itens |
 
 ## Cross-References
 
 - **content-engine**: `workflows/reels-creation.md` (workflow criativo), `checklists/reels-checklist.md`
 - **docs/instagram**: `hook-formulas.md`, `reels-performance-direction.md`
 - **docs/content/data**: `voice-dna.md` (guardrail de voz), `storytelling.md`
-- **instagram-spy**: detecção de tendências, auditoria de hooks, triggers 7Fs
+- **instagram-spy**: deteccao de tendencias, auditoria de hooks, triggers 7Fs
 - **research**: `docs/research/2026-02-20-lip-sync-apis/` (comparativo 21 ferramentas)
 - **research**: `docs/research/2026-02-21-remotion-instagram-reels/` (best practices YouTube)

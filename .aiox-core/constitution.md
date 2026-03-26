@@ -128,6 +128,24 @@ import { useStore } from '../../../stores/feature/store'
 
 ---
 
+### VII. pt-BR Quality (NON-NEGOTIABLE)
+
+Todo texto em português brasileiro DEVE conter acentuação ortográfica completa. Texto sem acentos é violação constitucional equivalente a push sem @devops.
+
+**Regras:**
+- MUST: Todo output em pt-BR (respostas, .md, .html, copy, stories, relatórios) com acentuação completa
+- MUST: Acentos, cedilhas, tils, crases e pontuação corretos — sem exceção
+- MUST: Todo agente, squad e skill DEVE aplicar esta regra antes de entregar output
+- MUST: Subagents (Agent tool) DEVEM seguir esta regra mesmo sem contexto explícito da skill
+- MUST NOT: Entregar texto pt-BR sem acentuação — BLOQUEAR e corrigir antes
+- EXCEPTION: Comentários em código (inglês), variáveis, IDs, slugs
+
+**Referência completa:** `skills/pt-br-accentuation/SKILL.md`
+
+**Gate:** Revisão obrigatória antes de qualquer output pt-BR. Na dúvida, ACENTUE.
+
+---
+
 ### VII. Comunicação Clara (SHOULD)
 
 Explicações devem ser acessíveis sem sacrificar precisão técnica.

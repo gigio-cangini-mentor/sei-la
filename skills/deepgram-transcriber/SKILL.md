@@ -30,6 +30,14 @@ Transcrição batch usando Deepgram Nova-3, via **aios-transcriber** (ferramenta
 - Precisa de diarização — use outro serviço
 - **Para YouTube:** use `aios-transcriber youtube` (extrai legendas em segundos)
 
+## Discovery Questions
+
+Perguntas para fazer antes de executar. Use AskUserQuestion tool. Pule se o usuário já forneceu esse contexto.
+
+1. **Qual o caminho dos arquivos de áudio (ou diretório)?** — (necessário para montar o comando)
+2. **Onde salvar as transcrições?** — (define `-o`, senão salva no diretório atual) (opcional)
+3. **Quantos workers paralelos usar?** — (default 3, Deepgram aguenta 5 tranquilo; impacta velocidade) (opcional)
+
 ## Prerequisites
 
 - Python 3.10+

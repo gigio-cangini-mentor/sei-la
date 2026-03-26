@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/code-refactoring-refactor-clean/resources/implementation-playbook.md
+../../../../../../skills/code-refactoring-refactor-clean/resources/implementation-playbook.md

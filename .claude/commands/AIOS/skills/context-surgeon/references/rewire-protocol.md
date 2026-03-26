@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/context-surgeon/references/rewire-protocol.md
+../../../../../../skills/context-surgeon/references/rewire-protocol.md

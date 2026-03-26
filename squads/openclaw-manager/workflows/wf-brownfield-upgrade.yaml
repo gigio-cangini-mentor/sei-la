@@ -1,0 +1,265 @@
+# wf-brownfield-upgrade.yaml
+# Workflow: Brownfield Upgrade — Auditar + Remediar Openclaw Existente
+# Version: 1.0.0
+# Trigger: *upgrade {claw-name} ou *audit-claw {claw-name}
+
+workflow:
+  id: wf-brownfield-upgrade
+  name: "Brownfield Upgrade — Audit & Remediate Existing Claw"
+  version: "1.0.0"
+  purpose: |
+    Conecta via SSH a um Openclaw existente, audita 6 dimensoes,
+    gera report de gaps, e executa pipeline de remediacao priorizado.
+  orchestrator: "@openclaw-chief"
+  total_phases: 6
+  estimated_time: "15-45 min (depende dos gaps encontrados)"
+
+  philosophy: |
+    Nao presumir que esta tudo certo. Auditar tudo. Corrigir seguranca primeiro.
+    Backup antes de qualquer mudanca. Nunca heredoc no VPS.
+    Registrar no fleet apos upgrade — claw existente sem registry = claw invisivel.
+
+phases:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 1: CONNECT
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_1_connect:
+    name: "Conectar via SSH"
+    agent: "@claw-provisioner"
+    elicit: true
+    duration: "1-2 min"
+
+    collect:
+      - field: "ssh_host"
+        prompt: "IP ou hostname da VPS"
+        required: true
+
+      - field: "ssh_user"
+        prompt: "Usuario SSH (geralmente root)"
+        required: true
+        default: "root"
+
+      - field: "ssh_auth_method"
+        prompt: "Metodo de autenticacao"
+        options: ["password", "ssh_key"]
+        required: true
+
+      - field: "ssh_password"
+        prompt: "Senha SSH"
+        required_if: "ssh_auth_method == password"
+        sensitivity: "HIGH"
+        note: "Sera usada apenas nesta sessao, nao sera salva em arquivo"
+
+      - field: "ssh_key_path"
+        prompt: "Path da chave SSH (ex: ~/.ssh/id_rsa)"
+        required_if: "ssh_auth_method == ssh_key"
+
+      - field: "claw_name"
+        prompt: "Nome pra identificar este claw no fleet registry"
+        required: true
+
+    validation:
+      test: "ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no {user}@{host} 'echo OK'"
+      expect: "OK"
+      on_fail: "HALT — verificar IP, usuario e credenciais"
+
+    gate: "SSH conecta com sucesso"
+    conveyor_out: "ssh_credentials → Phase 2"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 2: AUDIT (6 Dimensoes)
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_2_audit:
+    name: "Auditoria Completa — 6 Dimensoes"
+    agent: "@claw-provisioner"
+    task: "tasks/upgrade-existing-claw.md"
+    duration: "3-5 min"
+
+    dimensions:
+      - id: "infra"
+        name: "Gateway & Infraestrutura"
+        weight: 0.20
+        checks: 6
+
+      - id: "security"
+        name: "Seguranca"
+        weight: 0.25  # Peso maior — seguranca e prioridade
+        checks: 6
+
+      - id: "identity"
+        name: "Identidade (Workspace Files)"
+        weight: 0.20
+        checks: 7
+
+      - id: "memory"
+        name: "Memoria"
+        weight: 0.15
+        checks: 5
+
+      - id: "skills"
+        name: "Skills & Crons"
+        weight: 0.10
+        checks: 5
+
+      - id: "integrations"
+        name: "Integracoes & Canais"
+        weight: 0.10
+        checks: 3
+
+    gate: "Auditoria completa (todas 6 dimensoes executadas)"
+    conveyor_out: "audit_results → Phase 3"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 3: REPORT
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_3_report:
+    name: "Gerar Audit Report"
+    agent: "@claw-provisioner"
+    duration: "1 min"
+
+    output:
+      format: "visual table + scores per dimension"
+      classifications:
+        - critical: "Risco de seguranca ou funcionalidade quebrada"
+        - high: "Degrada qualidade significativamente"
+        - medium: "Melhoria importante"
+        - low: "Nice to have"
+
+    scoring:
+      healthy: ">= 80% overall"
+      needs_work: "50-79% overall"
+      critical: "< 50% overall"
+
+    present_to_user: true
+    ask_confirmation: "Quer que eu gere o pipeline de remediacao?"
+
+    gate: "Usuario viu o report e quer prosseguir"
+    conveyor_out: "audit_report → Phase 4"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 4: REMEDIATION PLAN
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_4_remediation:
+    name: "Gerar Pipeline de Remediacao"
+    agent: "@openclaw-chief"
+    duration: "1 min"
+
+    strategy:
+      wave_1: "CRITICOS — sequencial, seguranca primeiro"
+      wave_2: "ALTOS — paralelo onde possivel"
+      wave_3: "MEDIOS — paralelo"
+
+    per_item:
+      - classify: "auto_fixable (SSH command) vs manual (precisa input do usuario)"
+      - estimate: "tempo de execucao"
+      - define: "rollback procedure"
+
+    special_cases:
+      identity_files_missing:
+        action: "Oferecer Memory Extraction (Phase 0.5 do provisioning)"
+        reason: "Se USER.md/SOUL.md faltam, precisa dos dados do usuario"
+        reuse: "tasks/memory-extraction.md"
+
+      identity_files_weak:
+        action: "Expandir usando templates + dados extraidos"
+        reuse: "templates/SOUL.template.md, templates/USER.template.md"
+
+    present_to_user: true
+    ask_confirmation: "Pipeline pronto. Quer que eu execute?"
+
+    gate: "Usuario aprovou o pipeline"
+    conveyor_out: "remediation_plan → Phase 5"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 5: EXECUTE
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_5_execute:
+    name: "Executar Remediacao"
+    agent: "@claw-provisioner"
+    duration: "10-30 min (depende dos gaps)"
+
+    execution_rules:
+      before_each_change:
+        - "Backup: cp {file} {file}.bak.$(date +%s)"
+        - "Mostrar o que vai mudar"
+        - "Confirmar com usuario (se risco > baixo)"
+
+      file_operations:
+        create: "Criar LOCAL + SCP (VT-OC-009)"
+        modify: "SCP download → editar local → SCP upload"
+        config_change: "Backup → Patch → Restart gateway"
+
+      after_each_change:
+        - "Verificar que mudanca foi aplicada"
+        - "Se gateway restart necessario, verificar health check apos"
+
+    progress_tracking:
+      format: |
+        Remediacao: [{done}/{total}]
+        Wave 1 (Criticos): ████████░░ 3/4
+        Wave 2 (Altos):    ░░░░░░░░░░ 0/3
+        Wave 3 (Medios):   ░░░░░░░░░░ 0/1
+
+    on_error:
+      strategy: "Rollback item que falhou, continuar com proximos"
+      notify: "Mostrar erro e rollback ao usuario"
+
+    gate: "Todas as waves executadas (ou items restantes documentados)"
+    conveyor_out: "execution_log → Phase 6"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PHASE 6: REGISTER & VERIFY
+  # ─────────────────────────────────────────────────────────────────────────────
+  phase_6_register:
+    name: "Registrar no Fleet + Verificar"
+    agent: "@fleet-monitor"
+    duration: "2 min"
+
+    actions:
+      - action: "Re-run audit (subset: items remediados)"
+        purpose: "Verificar que fixes foram aplicados"
+
+      - action: "Registrar no fleet registry"
+        table: "openclaw_fleet"
+        status: "active"
+
+      - action: "Ativar monitoramento diario"
+
+      - action: "Gerar UPGRADE-REPORT.md"
+        format: |
+          UPGRADE REPORT — {claw-name}
+          ├── Antes: {overall_score_before}%
+          ├── Depois: {overall_score_after}%
+          ├── Findings corrigidos: {fixed_count}/{total_findings}
+          ├── Pendentes: {pending_count} (documentados)
+          ├── Fleet Registry: Registrado
+          └── Monitoramento: Ativo
+
+    gate: "Fleet entry criada + score melhorou"
+
+inviolable_rules:
+  - id: 1
+    rule: "NUNCA criar arquivo via heredoc no VPS (VT-OC-009)"
+    enforced_in: ["phase_5_execute"]
+    veto_if_violated: true
+
+  - id: 2
+    rule: "NUNCA modificar sem backup primeiro"
+    enforced_in: ["phase_5_execute"]
+    veto_if_violated: true
+
+  - id: 3
+    rule: "NUNCA restart gateway sem confirmar com usuario"
+    enforced_in: ["phase_5_execute"]
+    veto_if_violated: true
+
+  - id: 4
+    rule: "Seguranca SEMPRE remediada primeiro (Wave 1)"
+    enforced_in: ["phase_5_execute"]
+    veto_if_violated: true
+
+  - id: 5
+    rule: "Credenciais SSH NUNCA salvas em arquivo"
+    enforced_in: ["phase_1_connect"]
+    veto_if_violated: true

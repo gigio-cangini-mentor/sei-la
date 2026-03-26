@@ -15,6 +15,15 @@ Specialist in creating, converting, auditing, and iterating system prompts optim
 - Iterating and improving system prompts based on observed behavior
 - User says "adapt this prompt", "convert this GPT prompt", "audit my prompt", "improve this system prompt"
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual o modo desejado?** — Convert (GPT→Claude), Create (do zero), Audit (avaliar existente) ou Iterate (melhorar). (determina o pipeline)
+2. **Qual o prompt de entrada?** — Arquivo ou texto colado do prompt a converter/auditar/iterar. Não se aplica ao modo Create. (opcional)
+3. **Qual o formato de saída?** — SKILL.md, Agent YAML, Claude rule (`.claude/rules/`) ou raw system prompt. (define a estrutura do output)
+4. **Qual o domínio de expertise?** — Ex: Python backend, UX design, análise financeira. (enriquece o prompt gerado) (opcional)
+
 ## Do not use this skill when
 
 - Writing user-facing copy or marketing content (use copywriting skill)

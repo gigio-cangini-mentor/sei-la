@@ -25,6 +25,16 @@ Esta skill deve ser usada quando:
 - ❌ Frameworks que não sejam React/Next.js
 - ❌ Projetos sem requisitos de acessibilidade/performance
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual o caminho do projeto a ser auditado?** — (define o repositório/diretório alvo)
+2. **Quer auditoria completa ou apenas categorias específicas? (tailwind, tokens, a11y, performance, tooling)** — (permite focar e economizar tempo)
+3. **O projeto usa Tailwind v3 ou v4?** — (se o usuário já sabe, evita detecção e aplica checklist correto direto)
+4. **Existe design system ou tokens já implementados?** — (determina se a auditoria vai propor criação ou avaliar o existente) (opcional)
+5. **Deve gerar stories para os fixes prioritários? (`--create-stories`)** — (define se o output inclui stories actionable) (opcional)
+
 ---
 
 ## PREMISSA FUNDAMENTAL (CRÍTICO)

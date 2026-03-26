@@ -20,6 +20,13 @@ Self-contained deep research pipeline for ANY domain. Zero external dependencies
 /deep-search "Flights from SP to Tokyo in March 2026"
 ```
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual é a sua pergunta de pesquisa?** — (input principal — pode ser passada como argumento do comando)
+2. **Tem algum foco específico?** — Comparação, dados recentes, região geográfica, etc. Se não, o skill detecta automaticamente pelo query. (opcional)
+
 ## Activation
 
 1. Parse query from `$ARGUMENTS` (or ask if not provided)

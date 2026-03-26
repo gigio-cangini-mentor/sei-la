@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/synapse/references/layers.md
+../../../../../skills/synapse/references/layers.md

@@ -1,0 +1,988 @@
+# WF-MARKETING-END-TO-END: Operação de Marketing Completa (do Zero ao Tráfego Pago)
+# Squad: Ícaro de Carvalho
+# Duration: 4-8 semanas (dependendo da maturidade do negócio)
+# Best for: Negócio que precisa sair do zero em posicionamento e chegar em campanhas pagas otimizadas
+
+workflow:
+  id: wf-marketing-end-to-end
+  name: "Marketing End-to-End — Operação Completa"
+  version: "1.0.0"
+  duration: "4-8 semanas"
+  description: |
+    O workflow definitivo do squad Ícaro de Carvalho. Orquestra TODAS as 5 minds em uma
+    operação de marketing completa — do diagnóstico de negócio até campanhas pagas rodando
+    com conteúdo otimizado.
+
+    Pense nisso como uma linha de montagem de marketing: cada estação (mind) faz o que
+    sabe melhor, e o produto passa para a próxima sem tempo morto entre handoffs.
+
+    Este workflow produz:
+    - Diagnóstico completo do negócio com rotas de ação
+    - Identidade de marca e posicionamento validados
+    - Estratégia de conteúdo com pilares, 3Hs e KPIs
+    - Pacote de produção: calendário editorial + copy de vendas + narrativas
+    - Plano de campanha paga pronto para execução
+    - Framework de analytics e otimização contínua
+
+  best_for:
+    - "Negócios que existem mas não têm posicionamento claro de marketing"
+    - "Empresas que fazem conteúdo sem estratégia e querem profissionalizar"
+    - "Marcas prontas para investir em tráfego pago mas sem estrutura de funil"
+    - "Reposicionamento completo: mudar a percepção do mercado sobre o negócio"
+    - "Operação de marketing integrada: orgânico + pago + copy + analytics"
+
+  not_for:
+    - "Lançamentos pontuais de infoproduto (use wf-lancamento-completo)"
+    - "Negócios sem produto ou serviço definido (definir antes de entrar aqui)"
+    - "Operações que precisam de resultado em menos de 2 semanas (não existe atalho)"
+    - "Marcas pessoais em estágio zero de audiência sem verba (comece pelo orgânico puro)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS (o que o usuário precisa fornecer)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: negocio
+      description: "Descrição do negócio: o que vende, para quem, como entrega"
+      example: "Consultoria de nutrição esportiva para atletas amadores — atendimento online, planos mensais"
+
+    - name: objetivos
+      description: "Objetivos de marketing para os próximos 3-6 meses"
+      example: "Sair de 20 clientes/mês para 80, com tráfego pago + conteúdo orgânico"
+
+    - name: orcamento_mensal
+      description: "Verba total disponível para marketing (tráfego + ferramentas)"
+      example: "R$ 5.000/mês"
+
+  optional:
+    - name: presenca_atual
+      description: "Canais atuais e tamanho da audiência (Instagram, YouTube, lista, etc.)"
+      default: "Não informado (diagnóstico vai mapear)"
+
+    - name: concorrentes
+      description: "Top 3 concorrentes diretos ou referências de mercado"
+      default: "A ser mapeado no diagnóstico"
+
+    - name: materiais_existentes
+      description: "Materiais já existentes (logo, site, landing page, copy anterior)"
+      default: "Nenhum"
+
+    - name: restricoes
+      description: "Restrições regulatórias, de nicho ou de marca"
+      example: "Não pode fazer promessas de resultado específico (saúde)"
+      default: "Nenhuma informada"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: DIAGNÓSTICO — Mapeamento Completo do Negócio
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Diagnóstico — Mapeamento Completo do Negócio"
+    tier: 0
+    duration: "2-3 dias"
+    agents_assigned:
+      - "@icaro-de-carvalho"
+    handoff_from: null
+    handoff_to: "PHASE-1"
+    description: |
+      Antes de construir qualquer coisa, o @icaro-de-carvalho faz o raio-X completo do negócio.
+      É como um médico: sem diagnóstico, não existe tratamento — existe chute.
+
+      Aplica o framework PPP (Produto, Proposta, Personalidade) e avalia o estado atual
+      do marketing do negócio para definir as rotas que cada mind vai seguir.
+
+      Premissa: "Não importa o tamanho da verba — se a proposta está errada, o dinheiro
+      evapora. Diagnóstico é o investimento mais barato que existe."
+
+    tasks:
+      - name: "diagnostico-ppp"
+        agent: "@icaro-de-carvalho"
+        command: "*diagnostico {negocio}"
+        action: |
+          Aplicar framework PPP ao negócio informado:
+
+          PRODUTO:
+          - O que o negócio entrega objetivamente? (serviço, produto, SaaS, consultoria)
+          - Qual o formato de entrega e frequência?
+          - Qual o ticket médio atual e o teto de preço pelo formato?
+          - Existe escada de valor (entrada → core → premium)?
+
+          PROPOSTA:
+          - O que o cliente realmente compra? (não o serviço — o resultado emocional)
+          - Qual é o estímulo emocional central? (liberdade, status, segurança, pertencimento)
+          - A comunicação atual vende o produto ou a transformação?
+          - A proposta tem camada financeira? (se sim, teto de preço sobe)
+
+          PERSONALIDADE:
+          - Quem está por trás do negócio? A voz é única ou genérica?
+          - Se eu tapar o logo, sei que é essa marca?
+          - Qual é a causa (não propósito) do negócio?
+          - Existe reserva de mercado natural (talento que dá vantagem desproporcional)?
+
+      - name: "mapeamento-estado-atual"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Mapear estado atual do marketing do negócio:
+          - Canais ativos e tamanho da audiência em cada um
+          - Frequência e qualidade do conteúdo atual
+          - Funil existente (se houver): onde começa e onde termina
+          - Investimento atual em tráfego pago (se houver)
+          - Maiores gargalos percebidos pelo dono do negócio
+          - KPIs atuais (se houver) vs. KPIs desejados
+
+      - name: "recomendacoes-de-rota"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Com base no PPP e no estado atual, gerar recomendações de rota:
+
+          Para cada mind que vai atuar nas fases seguintes, indicar:
+          - @marcos-hiller: o branding precisa ser criado do zero ou apenas ajustado?
+          - @rafael-kiso: qual nível de estratégia (criar do zero / otimizar existente)?
+          - @juliana-gomes: conteúdo orgânico é prioridade ou suporte ao pago?
+          - @pedro-sobral: tráfego pago é viável agora ou precisa de preparação?
+
+          OUTPUT: relatório diagnóstico com rotas claras por mind
+
+    checkpoint:
+      name: "QG-0: Diagnóstico Aprovado"
+      human_review: true
+      criteria:
+        - "Documento PPP completo (Produto + Proposta + Personalidade)"
+        - "Estado atual do marketing mapeado com dados concretos"
+        - "Rotas de ação definidas para cada mind"
+        - "Gargalos identificados e priorizados"
+        - "KPIs desejados documentados"
+      veto_conditions:
+        - "Negócio não tem produto ou serviço claro → BLOCK (definir oferta antes de marketing)"
+        - "Proposta emocional não identificada → BLOCK (sem proposta, todo marketing é genérico)"
+        - "Objetivos vagos sem métrica → BLOCK (sem número, sem norte)"
+      output: "diagnostico-negocio.md"
+      ask_user: |
+        Diagnóstico completo do negócio.
+
+        Produto: {produto}
+        Proposta emocional central: {proposta}
+        Personalidade: {status_personalidade}
+        Estado atual: {resumo_estado}
+        Gargalo principal: {gargalo}
+
+        Rotas definidas para cada mind. Aprovado para seguir para branding?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: BRANDING & POSICIONAMENTO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Branding & Posicionamento"
+    tier: 1
+    duration: "3-5 dias"
+    agents_assigned:
+      - "@marcos-hiller"
+    handoff_from: "PHASE-0"
+    handoff_to: "PHASE-2"
+    description: |
+      @marcos-hiller recebe o diagnóstico e constrói (ou recalibra) a identidade de marca.
+      Branding não é logo bonito — é a promessa que o mercado associa ao seu nome.
+
+      Marcos aplica: análise de concorrência, arquétipos de marca, declaração de
+      posicionamento e guia de tom de voz. Tudo isso é o DNA que alimenta conteúdo,
+      copy e campanhas nas fases seguintes.
+
+      Premissa: "Posicionamento não é o que você diz que é. É o que o mercado entende que você é."
+
+    tasks:
+      - name: "analise-concorrencia"
+        agent: "@marcos-hiller"
+        command: "*analise-concorrencia {nicho}"
+        action: |
+          Mapear o cenário competitivo antes de posicionar:
+
+          1. Identificar 3-5 concorrentes diretos e indiretos
+          2. Para cada um, analisar:
+             - Posicionamento percebido (como o mercado os vê)
+             - Tom de voz e personalidade de marca
+             - Pontos fortes e fracos de comunicação
+             - Preço e formato de oferta
+          3. Identificar espaços vazios no mercado (white spaces)
+          4. Mapear oportunidades de diferenciação real (não cosmética)
+
+          OUTPUT: mapa competitivo com white spaces identificados
+
+      - name: "construcao-identidade"
+        agent: "@marcos-hiller"
+        command: "*branding {marca}"
+        action: |
+          Construir a identidade de marca completa:
+
+          1. NAMING: o nome comunica a proposta? É memorável? (validar ou propor alternativas)
+          2. ARQUÉTIPO DE MARCA: qual arquétipo Jung melhor representa a personalidade?
+             (Herói, Criador, Sábio, Fora da Lei, Explorador, etc.)
+          3. DECLARAÇÃO DE POSICIONAMENTO:
+             "Para [público], [marca] é o [referência] que [benefício único]
+             porque [razão para acreditar]."
+          4. TOM DE VOZ: guia com 3-5 adjetivos + exemplos de "fala assim / não fala assim"
+          5. MANIFESTO DE MARCA: parágrafo que captura a essência e a causa da marca
+          6. IDENTIDADE VISUAL (diretrizes): paleta de cores, referências estéticas, tipografia
+
+          OUTPUT: brand book simplificado (brand brief) com todos os elementos acima
+
+      - name: "guia-aplicacao"
+        agent: "@marcos-hiller"
+        action: |
+          Criar guia prático de aplicação da marca:
+          - Como usar o tom de voz em posts, emails e anúncios
+          - O que é on-brand e o que é off-brand (exemplos concretos)
+          - Regras de uso do naming e identidade visual
+          - Checklist rápido para validar qualquer peça de comunicação
+
+    checkpoint:
+      name: "QG-1: Branding e Posicionamento Aprovados"
+      human_review: true
+      criteria:
+        - "Análise de concorrência com mapa competitivo"
+        - "Brand brief completo (naming, arquétipo, posicionamento, tom de voz, manifesto)"
+        - "Guia de aplicação prático"
+        - "White spaces identificados e explorados no posicionamento"
+      veto_conditions:
+        - "Nenhuma análise de concorrência realizada → BLOCK (posicionar sem saber o campo é chutar no escuro)"
+        - "Posicionamento genérico sem diferencial claro → BLOCK (reformular até ser único)"
+        - "Tom de voz contradiz a proposta emocional do Phase 0 → BLOCK (alinhar com diagnóstico)"
+      output: "brand-brief.md"
+      ask_user: |
+        Branding e posicionamento finalizados.
+
+        Marca: {nome}
+        Arquétipo: {arquetipo}
+        Posicionamento: {declaracao}
+        White space explorado: {white_space}
+        Tom de voz: {tom_resumo}
+
+        Aprovado para seguir para estratégia de conteúdo?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: ESTRATÉGIA DE CONTEÚDO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Estratégia de Conteúdo"
+    tier: 1
+    duration: "3-5 dias"
+    agents_assigned:
+      - "@rafael-kiso"
+    handoff_from: "PHASE-1"
+    handoff_to: "PHASE-3"
+    description: |
+      @rafael-kiso recebe o brand brief e o diagnóstico para montar a estratégia de conteúdo
+      usando o framework Unbound Marketing e os 5 Passos do Marketing de Conteúdo.
+
+      Conteúdo sem estratégia é como atirar no escuro — gasta munição e não acerta nada.
+      O Kiso define os pilares, a proporção entre formatos, as métricas de sucesso e o
+      mapa de conteúdo por etapa do funil.
+
+      Premissa: "Marketing de conteúdo não é publicar muito. É publicar certo, medir e iterar."
+      Premissa: "Sem KPI, não tem estratégia — tem esperança."
+
+    tasks:
+      - name: "estrategia-unbound"
+        agent: "@rafael-kiso"
+        command: "*estrategia {marca}"
+        action: |
+          Aplicar framework Unbound Marketing — 5 Passos:
+
+          PASSO 1 — AWARENESS: como o público vai descobrir que a marca existe?
+          - Canais prioritários (Instagram, YouTube, TikTok, LinkedIn?)
+          - Formato dominante por canal (Reels, carrossel, vídeo longo?)
+          - Volume mínimo de publicação por semana
+
+          PASSO 2 — DESCOBERTA: como transformar visitante em seguidor/lead?
+          - Lead magnets e iscas de captura
+          - Sequência de boas-vindas (email ou DM)
+          - Conteúdo que demonstra autoridade e resolve dor imediata
+
+          PASSO 3 — AÇÃO: como converter seguidor em cliente?
+          - Conteúdo de venda direta (não é post, é peça de conversão)
+          - Integração com copy e landing pages do Phase 3
+          - Timing: quando vender e quando educar
+
+          PASSO 4 — EXPERIÊNCIA: como garantir que o cliente ame a entrega?
+          - Conteúdo de onboarding e pós-venda
+          - Suporte proativo via conteúdo (FAQ, tutoriais)
+
+          PASSO 5 — COMPARTILHAMENTO: como transformar cliente em embaixador?
+          - Programa de indicação ou incentivo
+          - Conteúdo gerado pelo usuário (UGC)
+          - Prova social sistemática
+
+      - name: "pilares-de-conteudo"
+        agent: "@rafael-kiso"
+        command: "*pilares {nicho}"
+        action: |
+          Definir pilares de conteúdo alinhados com o posicionamento:
+
+          Para cada pilar (3-5 pilares):
+          - Nome e descrição do pilar
+          - Relação com o posicionamento e a causa da marca
+          - Proporção no mix de conteúdo (ex: 40% educativo, 30% autoridade, 20% bastidores, 10% venda)
+          - Exemplos de temas e formatos por pilar
+
+          Mapeamento 3Hs (Hero, Hub, Help):
+          - HERO: conteúdos de alto impacto, frequência baixa (ex: vídeo longo, live)
+          - HUB: conteúdos recorrentes que criam hábito (ex: série semanal)
+          - HELP: conteúdos que respondem dúvidas frequentes (ex: Reels dica rápida)
+
+      - name: "kpis-conteudo"
+        agent: "@rafael-kiso"
+        command: "*kpis {marca}"
+        action: |
+          Definir KPIs de conteúdo por etapa do funil:
+
+          AWARENESS:
+          - Alcance por publicação (meta)
+          - Novos seguidores/semana (meta)
+          - Impressões totais (meta)
+
+          ENGAJAMENTO:
+          - Taxa de engajamento por post (meta)
+          - Salvamentos/compartilhamentos (meta)
+          - Comentários qualificados (meta)
+
+          CONVERSÃO:
+          - Cliques no link da bio (meta)
+          - Leads gerados por mês (meta)
+          - Taxa de conversão lead → cliente (meta)
+
+          RETENÇÃO:
+          - NPS ou satisfação (meta)
+          - Taxa de recompra (se aplicável)
+          - UGC gerado por mês (meta)
+
+          Para cada KPI: número-meta, ferramenta de medição, frequência de revisão
+
+    checkpoint:
+      name: "QG-2: Estratégia de Conteúdo Aprovada"
+      human_review: true
+      criteria:
+        - "Framework Unbound Marketing aplicado (5 passos documentados)"
+        - "Pilares de conteúdo definidos com proporção e exemplos"
+        - "Mapeamento 3Hs completo (Hero, Hub, Help)"
+        - "KPIs definidos por etapa do funil com metas numéricas"
+        - "Estratégia alinhada com brand brief do Phase 1"
+      veto_conditions:
+        - "KPIs não definidos → BLOCK (sem métrica, sem estratégia)"
+        - "Nenhum pilar de conteúdo ligado à conversão → BLOCK (conteúdo sem venda é hobby)"
+        - "Estratégia ignora o funil completo (só awareness) → BLOCK (awareness sem ação é vaidade)"
+      output: "estrategia-conteudo.md"
+      ask_user: |
+        Estratégia de conteúdo definida.
+
+        Pilares: {lista_pilares}
+        Mix 3Hs: Hero ({hero}%) | Hub ({hub}%) | Help ({help}%)
+        KPI principal: {kpi_norte}
+        Canais prioritários: {canais}
+
+        Aprovado para iniciar produção de conteúdo e copy?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: PRODUÇÃO DE CONTEÚDO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Produção de Conteúdo"
+    tier: 2
+    duration: "5-7 dias"
+    agents_assigned:
+      - "@juliana-gomes"
+      - "@icaro-de-carvalho"
+    handoff_from: "PHASE-2"
+    handoff_to: "PHASE-4"
+    description: |
+      Duas minds trabalham em paralelo: @juliana-gomes cuida do conteúdo orgânico e editorial,
+      enquanto @icaro-de-carvalho cuida da copy de venda e das narrativas de storytelling.
+
+      É como uma dupla de ataque: a Ju coloca a audiência no estádio, o Ícaro converte o gol.
+
+      Juliana traz: calendário editorial, scripts de Reels, estratégia de Stories, formatos.
+      Ícaro traz: copy de página de vendas, emails de conversão, narrativas de storytelling.
+
+      Tudo segue o brand brief (Phase 1) e a estratégia de conteúdo (Phase 2).
+
+    tasks:
+      # ── Juliana Gomes: Conteúdo Orgânico ──
+      - name: "calendario-editorial"
+        agent: "@juliana-gomes"
+        command: "*calendario {nicho}"
+        action: |
+          Montar calendário editorial mensal baseado nos pilares do Phase 2:
+
+          Para cada semana (4 semanas):
+          - 3-4 publicações feed/Reels com:
+            - Pilar de conteúdo (qual dos definidos no Phase 2)
+            - Função 3Hs (Hero, Hub ou Help)
+            - Formato: Reels, carrossel, post estático, vídeo longo
+            - Tema e hook
+            - CTA específica
+
+          Distribuição semanal recomendada:
+          - 2 Reels (1 alcance + 1 engajamento)
+          - 1 carrossel educativo
+          - 1 post de conexão/storytelling
+          - Stories diários (pauta por dia)
+
+          OUTPUT: calendário completo com post por post
+
+      - name: "scripts-reels"
+        agent: "@juliana-gomes"
+        command: "*reels {tema}"
+        action: |
+          Criar 8 scripts de Reels para o primeiro mês:
+
+          Distribuição por função:
+          - 3 de alcance (Função 1 — formato Recipe, gancho forte)
+          - 3 de engajamento (Função 2 — opinião, storytelling, bastidores)
+          - 2 de conversão (Função 3 — prova social, CTA para oferta)
+
+          Cada script contém:
+          - Hook (0-3s): promessa, provocação ou surpresa
+          - Corpo (4-30s): entrega de valor ou narrativa
+          - CTA (últimos 3s): ação específica e clara
+          - Legenda sugerida com palavras-chave do nicho
+          - Hashtags estratégicas (5-10)
+
+      - name: "plano-stories"
+        agent: "@juliana-gomes"
+        command: "*stories {marca}"
+        action: |
+          Criar plano de Stories semanal com roteiro diário:
+
+          Segunda: bastidores + enquete de engajamento
+          Terça: dica rápida do nicho (valor imediato)
+          Quarta: caixa de perguntas ou quiz
+          Quinta: storytelling pessoal ou de cliente
+          Sexta: conteúdo de autoridade + CTA leve
+          Sábado: conteúdo lifestyle + conexão
+          Domingo: reflexão ou antecipação da semana
+
+          Cada dia: 3-5 Stories com texto sugerido e formato (texto, vídeo, foto)
+
+      # ── Ícaro de Carvalho: Copy de Venda ──
+      - name: "copy-pagina-vendas"
+        agent: "@icaro-de-carvalho"
+        command: "*copy pagina-de-vendas"
+        action: |
+          Redigir copy completa da página de vendas principal:
+
+          1. HEADLINE: proposta emocional central (não o nome do produto/serviço)
+          2. SUBHEADLINE: para quem é e o que resolve
+          3. PROBLEMA: ampliação da dor — o que acontece se não resolver
+          4. SOLUÇÃO: o serviço/produto como caminho (não como entregável)
+          5. O QUE ESTÁ DENTRO: conteúdo com linguagem de proposta, não de índice
+          6. PARA QUEM É: exclusão estratégica (quem não deve comprar)
+          7. PROVA SOCIAL: espaço para depoimentos reais com resultado específico
+          8. OFERTA: o que vem, quanto custa, o que garante
+          9. LEQUE DE PREÇOS: variações de ticket (entrada, core, premium)
+          10. CTA: clara, urgente, única — sem opções que paralisam
+
+          Tom: alinhado com brand brief, informal, direto, sem jargão corporativo
+
+      - name: "sequencia-emails"
+        agent: "@icaro-de-carvalho"
+        command: "*email nurture"
+        action: |
+          Redigir sequência de 7 emails de nutrição e conversão:
+
+          EMAIL 1 — Boas-vindas e posicionamento:
+          → Apresenta a marca, a causa, o que esperar. Sem venda.
+
+          EMAIL 2 — Valor puro (dica aplicável):
+          → Resolve uma dor imediata. Demonstra competência. Sem venda.
+
+          EMAIL 3 — Storytelling de transformação:
+          → Caso real ou história que conecta com a proposta emocional.
+
+          EMAIL 4 — Autoridade e bastidores:
+          → Mostra processo, método, diferencial. Constrói confiança.
+
+          EMAIL 5 — Objeção antecipada:
+          → Derruba a maior barreira antes de apresentar a oferta.
+
+          EMAIL 6 — Oferta:
+          → Apresentação completa com proposta emocional + leque de preços + CTA.
+
+          EMAIL 7 — Último aviso:
+          → Urgência real (prazo, vagas, bônus). Sem falsa escassez.
+
+      - name: "narrativas-storytelling"
+        agent: "@icaro-de-carvalho"
+        command: "*storytelling {marca}"
+        action: |
+          Criar 3 narrativas de storytelling para uso em múltiplos canais:
+
+          NARRATIVA 1 — Origem: a história por trás da marca/fundador
+          → Por que existe, qual foi o momento de virada, qual é a causa
+
+          NARRATIVA 2 — Transformação do cliente:
+          → Antes/depois real, com detalhes emocionais e resultado concreto
+
+          NARRATIVA 3 — Visão de futuro:
+          → Para onde a marca está indo, o que quer mudar no mercado
+
+          Cada narrativa: versão longa (email/blog) + versão curta (Stories/Reels)
+
+    # SYNC BARRIER: Ambos agents devem completar ANTES do checkpoint
+    sync_barrier:
+      description: |
+        Phase 3 tem 2 agents em paralelo (@juliana-gomes + @icaro-de-carvalho).
+        O checkpoint só pode ser acionado quando AMBOS completarem seus deliverables.
+        Aprovar com output parcial (só orgânico ou só copy) é VETO.
+      required_completions:
+        - agent: "@juliana-gomes"
+          deliverables: ["calendario-editorial", "scripts-reels", "plano-stories"]
+        - agent: "@icaro-de-carvalho"
+          deliverables: ["copy-pagina-vendas", "sequencia-emails", "storytelling"]
+      rule: "TODOS os deliverables de AMBOS agents devem estar prontos antes do checkpoint"
+      veto_on_partial: true
+
+    checkpoint:
+      name: "QG-3: Pacote de Produção Aprovado"
+      human_review: true
+      pre_condition: "sync_barrier PASSED — ambos agents completaram deliverables"
+      criteria:
+        - "Calendário editorial mensal completo (post por post)"
+        - "8 scripts de Reels com hook, corpo e CTA"
+        - "Plano de Stories semanal com roteiro diário"
+        - "Copy da página de vendas com 10 elementos obrigatórios"
+        - "Sequência de 7 emails de nutrição e conversão"
+        - "3 narrativas de storytelling (versão longa e curta)"
+        - "Todo conteúdo alinhado com brand brief e estratégia de conteúdo"
+      veto_conditions:
+        - "Sync barrier não completo (output parcial de 1 agent) → BLOCK (não avançar com metade)"
+        - "Conteúdo não segue o tom de voz do brand brief → BLOCK (marca inconsistente mata confiança)"
+        - "Calendário sem conteúdo de conversão (só educativo) → BLOCK (conteúdo sem CTA é hobby)"
+        - "Copy da página sem proposta emocional clara → BLOCK (reescrever headline)"
+        - "Emails sem sequência lógica (mistura funções) → BLOCK (cada email, uma função)"
+      output: "pacote-producao-conteudo.md"
+      ask_user: |
+        Pacote de produção completo.
+
+        Conteúdo orgânico (@juliana-gomes):
+        - Calendário: {n_posts} posts em 4 semanas
+        - Reels: {n_reels} scripts prontos
+        - Stories: roteiro semanal completo
+
+        Copy de venda (@icaro-de-carvalho):
+        - Página de vendas: pronta
+        - Emails: 7 emails de nutrição + conversão
+        - Storytelling: 3 narrativas (longa + curta)
+
+        Aprovar e avançar para tráfego pago?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: TRÁFEGO PAGO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-4
+    name: "Tráfego Pago"
+    tier: 2
+    duration: "3-5 dias (setup) + contínuo (gestão)"
+    agents_assigned:
+      - "@pedro-sobral"
+    handoff_from: "PHASE-3"
+    handoff_to: "PHASE-5"
+    description: |
+      @pedro-sobral recebe todo o material produzido nas fases anteriores e monta a
+      estrutura de campanha paga. O conteúdo e a copy são a munição — o Sobral é o atirador.
+
+      Premissa: "Criativo é a principal alavanca de performance. Quem domina o criativo domina o jogo."
+      Premissa: "NUNCA escale sem rastreamento configurado corretamente."
+      Premissa: "Orçamento sem estratégia é doação para a Meta."
+
+    tasks:
+      - name: "pre-requisitos-trafego"
+        agent: "@pedro-sobral"
+        command: "*rastreamento"
+        action: |
+          Verificar e documentar pré-requisitos ANTES de qualquer campanha:
+
+          RASTREAMENTO (obrigatório):
+          - Pixel Meta instalado e disparando corretamente?
+          - Eventos de conversão configurados (compra, lead, pageview)?
+          - Google Analytics com UTMs definidas?
+          - Domínio verificado na Meta?
+
+          LANDING PAGE (obrigatório):
+          - Página de vendas/captura publicada e funcional?
+          - Tempo de carregamento < 3 segundos?
+          - Mobile-first (90%+ do tráfego pago vem do celular)?
+          - CTA visível sem scroll?
+
+          REGRA: sem pixel validado + sem landing page = campanha não sobe. Sem exceção.
+
+      - name: "estrutura-campanhas"
+        agent: "@pedro-sobral"
+        command: "*campanha {marca}"
+        action: |
+          Montar estrutura completa de campanhas:
+
+          CAMPANHA 1 — PROSPECÇÃO (Topo de Funil):
+          - Objetivo: Tráfego ou Conversão (definir com base no volume mínimo)
+          - Públicos: interesses do nicho + LAL de lista/engajamento (1-2%)
+          - Criativos: Reels do Phase 3 adaptados como anúncios
+          - Orçamento: 60-70% da verba total
+          - Formato: vídeo curto (< 30s) com gancho nos 3 primeiros segundos
+
+          CAMPANHA 2 — REMARKETING (Meio/Fundo de Funil):
+          - Objetivo: Conversão
+          - Públicos: visitantes da LP (7/30 dias) + engajamento no perfil
+          - Criativos: copy com objeção + prova social
+          - Orçamento: 20-30% da verba total
+          - Formato: carrossel de depoimentos ou vídeo de objeção
+
+          CAMPANHA 3 — RETENÇÃO (se houver base de clientes):
+          - Objetivo: Remarketing de clientes para upsell/cross-sell
+          - Públicos: lista de compradores
+          - Criativos: oferta exclusiva ou novidade
+          - Orçamento: 10% da verba total
+
+          Para cada campanha: definir CPA máximo, critério de corte e frequência de otimização
+
+      - name: "criativos-pagos"
+        agent: "@pedro-sobral"
+        command: "*criativos {marca}"
+        action: |
+          Criar brief de criativos para teste (3 variações por campanha):
+
+          PROSPECÇÃO — 3 ganchos:
+          Gancho A — Dor imediata: primeira frase que nomeia o problema
+          Gancho B — Resultado com prova: número real + transformação
+          Gancho C — Curiosidade/ruptura: derruba crença do nicho
+
+          REMARKETING — 3 ganchos:
+          Gancho A — Objeção: derruba a maior barreira
+          Gancho B — Urgência: prazo, vagas ou bônus expirando
+          Gancho C — Prova social: depoimento real e específico
+
+          Para cada criativo: texto do anúncio, headline, CTA, sugestão visual
+          Testar ganchos em conjuntos separados, mesmo público, mesmo orçamento.
+
+      - name: "distribuicao-orcamento"
+        agent: "@pedro-sobral"
+        command: "*orcamento {valor}"
+        action: |
+          Distribuir orçamento mensal entre campanhas e definir regras de gestão:
+
+          DISTRIBUIÇÃO INICIAL:
+          - Prospecção: {X}% (R$ {valor})
+          - Remarketing: {Y}% (R$ {valor})
+          - Retenção: {Z}% (R$ {valor})
+          - Reserva para teste de novos criativos: 10% do total
+
+          REGRAS DE GESTÃO:
+          - CPA máximo por campanha (sem esse número, impossível otimizar)
+          - Criativo com CTR < 1% em 3 dias → pausa
+          - Frequência de ajuste: orçamento a cada 2 dias, criativos a cada 3
+          - Escala: +20-30% a cada 2-3 dias quando ROAS positivo (nunca dobrar de uma vez)
+          - Criativo novo ANTES de aumentar orçamento
+
+    checkpoint:
+      name: "QG-4: Campanha de Tráfego Aprovada"
+      human_review: true
+      criteria:
+        - "Rastreamento validado (pixel + eventos + UTMs)"
+        - "Landing page publicada e funcional (mobile-first)"
+        - "Estrutura de 2-3 campanhas com públicos e orçamentos definidos"
+        - "6 variações de criativos (3 prospecção + 3 remarketing)"
+        - "CPA máximo e regras de gestão documentados"
+        - "Distribuição de orçamento aprovada"
+      veto_conditions:
+        - "Pixel não instalado → BLOCK TOTAL (campanha sem dado é dinheiro jogado fora)"
+        - "Landing page não existe → BLOCK (sem destino, sem conversão)"
+        - "CPA máximo não definido → BLOCK (impossível otimizar sem referência)"
+        - "Apenas 1 criativo por campanha → WARN (sem teste, sem otimização)"
+        - "100% do orçamento em prospecção → WARN (remarketing é onde está o dinheiro fácil)"
+      output: "plano-trafego-pago.md"
+      ask_user: |
+        Plano de tráfego pago configurado.
+
+        Campanhas: {n_campanhas} estruturadas
+        Criativos: {n_criativos} variações prontas
+        Orçamento mensal: R$ {orcamento_total}
+        CPA máximo: R$ {cpa_max}
+        Rastreamento: {status_pixel}
+        Landing page: {status_lp}
+
+        Aprovar e colocar campanhas no ar?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: ANALYTICS & OTIMIZAÇÃO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-5
+    name: "Analytics & Otimização"
+    tier: 2
+    duration: "Contínuo — ciclos de 7 dias"
+    agents_assigned:
+      - "@rafael-kiso"
+    handoff_from: "PHASE-4"
+    handoff_to: null
+    description: |
+      @rafael-kiso fecha o ciclo: monitora resultados, identifica gargalos no funil e
+      gera recomendações de otimização. É o termômetro que diz se a operação está saudável
+      ou precisando de ajuste.
+
+      O workflow é unidirecional — mas o output desta fase alimenta o PRÓXIMO CICLO
+      (novo mês, novo calendário, novos criativos). Não volta para fases anteriores.
+
+      Premissa: "Dados > achismo. Toda decisão de marketing precisa ter métrica associada."
+      Premissa: "O funil tem 5 etapas. Se você só mede 1, está cego nas outras 4."
+
+    tasks:
+      - name: "dashboard-performance"
+        agent: "@rafael-kiso"
+        command: "*dashboard {marca}"
+        action: |
+          Montar dashboard unificado de performance:
+
+          MÉTRICAS DE RESULTADO (primárias):
+          - Receita gerada vs. meta
+          - Número de clientes/vendas vs. meta
+          - CPA real vs. CPA máximo (Phase 4)
+          - ROAS das campanhas pagas
+          - ROI total da operação (orgânico + pago)
+
+          MÉTRICAS DE CONTEÚDO (secundárias):
+          - Alcance orgânico médio por publicação
+          - Taxa de engajamento por formato (Reels vs. carrossel vs. post)
+          - Salvamentos e compartilhamentos (indicadores de valor real)
+          - Crescimento de seguidores qualificados (não vaidade)
+
+          MÉTRICAS DE EMAIL (secundárias):
+          - Taxa de abertura por email
+          - Taxa de clique por email
+          - Taxa de conversão do email de oferta
+          - Taxa de descadastro
+
+          MÉTRICAS DE TRÁFEGO PAGO (secundárias):
+          - CTR por criativo
+          - CPC médio por campanha
+          - Frequência média (acima de 3 = fadiga)
+          - Custo por resultado por campanha
+
+      - name: "diagnostico-funil"
+        agent: "@rafael-kiso"
+        command: "*funil {marca}"
+        action: |
+          Diagnosticar o funil completo usando as 5 Etapas Unbound Marketing:
+
+          ETAPA 1 — AWARENESS: as pessoas estão descobrindo a marca?
+          → Métrica: alcance, impressões, novos seguidores
+          → Se baixo: problema de conteúdo de topo ou investimento em prospecção
+
+          ETAPA 2 — DESCOBERTA: estão se interessando e engajando?
+          → Métrica: engajamento, cliques no perfil, visitas na LP
+          → Se baixo: conteúdo não está ressoando ou CTA está fraca
+
+          ETAPA 3 — AÇÃO: estão convertendo?
+          → Métrica: leads, vendas, taxa de conversão da LP
+          → Se baixo: copy da LP, oferta ou preço desalinhados
+
+          ETAPA 4 — EXPERIÊNCIA: clientes estão satisfeitos?
+          → Métrica: NPS, recompra, reclamações
+          → Se baixo: produto ou entrega com problema (fora do escopo de marketing)
+
+          ETAPA 5 — COMPARTILHAMENTO: clientes estão indicando?
+          → Métrica: UGC, indicações, menções orgânicas
+          → Se baixo: não há incentivo ou o produto não gera surpresa
+
+          Para cada etapa com problema: ação de otimização específica
+
+      - name: "relatorio-ciclo"
+        agent: "@rafael-kiso"
+        command: "*relatorio {periodo}"
+        action: |
+          Gerar relatório de ciclo (semanal ou mensal):
+
+          1. RESULTADO VS. META: números crus, sem maquiagem
+          2. TOP 3 — O QUE FUNCIONOU: conteúdos, criativos, emails com melhor resultado
+          3. TOP 3 — O QUE NÃO FUNCIONOU: identificar e propor substituição
+          4. GARGALO DO FUNIL: qual etapa está com maior perda
+          5. RECOMENDAÇÕES: ações específicas para o próximo ciclo
+             - Novos criativos a testar (brief para @pedro-sobral)
+             - Ajustes de conteúdo (brief para @juliana-gomes)
+             - Ajustes de copy (brief para @icaro-de-carvalho)
+          6. PROJEÇÃO: se mantiver esse ritmo, onde chega em 30/60/90 dias?
+
+          OUTPUT: relatório + briefs de otimização para o próximo ciclo
+
+    checkpoint:
+      name: "QG-5: Ciclo Analisado e Próximo Ciclo Planejado"
+      human_review: true
+      criteria:
+        - "Dashboard de performance montado e atualizado"
+        - "Diagnóstico de funil completo (5 etapas)"
+        - "Relatório de ciclo com resultado vs. meta"
+        - "Top 3 aprendizados documentados"
+        - "Recomendações específicas para o próximo ciclo"
+        - "Projeção de 30/60/90 dias"
+      veto_conditions:
+        - "Resultado abaixo da meta sem análise de causa → BLOCK (não repetir sem aprender)"
+        - "Funil não diagnosticado → BLOCK (otimização cega é aposta)"
+        - "Nenhum dado de satisfação do cliente → WARN (etapa 4 e 5 são invisíveis sem feedback)"
+      output: "relatorio-performance.md"
+      ask_user: |
+        Ciclo analisado.
+
+        Resultado: {receita} / Meta: {meta}
+        Vendas/clientes: {n_vendas}
+        CPA real: R$ {cpa_real}
+        ROAS: {roas}
+        Gargalo do funil: Etapa {n} — {nome_etapa}
+
+        Relatório completo em relatorio-performance.md.
+        Recomendações para o próximo ciclo prontas.
+
+        Iniciar novo ciclo com ajustes aplicados?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signals:
+  success:
+    - "Meta de receita ou vendas atingida no primeiro ciclo"
+    - "Todos os quality gates PASS"
+    - "Funil completo operando (awareness → conversão → retenção)"
+    - "Dashboard de KPIs ativo e sendo monitorado"
+    - "Próximo ciclo planejado com ajustes baseados em dados"
+  partial:
+    - "Operação rodando mas resultado abaixo da meta → ajustar criativos e copy no próximo ciclo"
+    - "Orgânico funcionando, pago ainda não → testar novos criativos e públicos"
+    - "Tráfego ok mas conversão baixa → otimizar LP e oferta antes de escalar verba"
+    - "Conteúdo ressoando mas sem tráfego pago → considerar investimento mínimo para acelerar"
+  failure:
+    - "Proposta não ressoou com o público (requer novo diagnóstico PPP)"
+    - "Rastreamento falhou e dados não são confiáveis (reconfigurar antes de gastar)"
+    - "Audiência zero e sem verba para tráfego (construção orgânica pura antes deste workflow)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HANDOFF MAP (fluxo unidirecional — nunca volta)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+handoff_map:
+  PHASE-0:
+    from: null
+    to: PHASE-1
+    agent_from: "@icaro-de-carvalho"
+    agent_to: "@marcos-hiller"
+    artifact: "diagnostico-negocio.md"
+    gap: "zero — handoff imediato após aprovação"
+
+  PHASE-1:
+    from: PHASE-0
+    to: PHASE-2
+    agent_from: "@marcos-hiller"
+    agent_to: "@rafael-kiso"
+    artifact: "brand-brief.md"
+    gap: "zero — handoff imediato após aprovação"
+
+  PHASE-2:
+    from: PHASE-1
+    to: PHASE-3
+    agent_from: "@rafael-kiso"
+    agent_to: "@juliana-gomes + @icaro-de-carvalho"
+    artifact: "estrategia-conteudo.md"
+    gap: "zero — handoff imediato após aprovação"
+
+  PHASE-3:
+    from: PHASE-2
+    to: PHASE-4
+    agent_from: "@juliana-gomes + @icaro-de-carvalho"
+    agent_to: "@pedro-sobral"
+    artifact: "pacote-producao-conteudo.md"
+    gap: "zero — handoff imediato após aprovação"
+
+  PHASE-4:
+    from: PHASE-3
+    to: PHASE-5
+    agent_from: "@pedro-sobral"
+    agent_to: "@rafael-kiso"
+    artifact: "plano-trafego-pago.md"
+    gap: "zero — handoff imediato após aprovação"
+
+  PHASE-5:
+    from: PHASE-4
+    to: null
+    agent_from: "@rafael-kiso"
+    agent_to: null
+    artifact: "relatorio-performance.md"
+    gap: "ciclo contínuo — novo ciclo a cada 7-30 dias"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  primary:
+    - name: "diagnostico-negocio.md"
+      path: "squads/icaro-de-carvalho/output/marketing/{slug}/diagnostico-negocio.md"
+      description: "Diagnóstico PPP + estado atual + rotas de ação"
+
+    - name: "brand-brief.md"
+      path: "squads/icaro-de-carvalho/output/marketing/{slug}/brand-brief.md"
+      description: "Identidade de marca, posicionamento, tom de voz e guia de aplicação"
+
+    - name: "estrategia-conteudo.md"
+      path: "squads/icaro-de-carvalho/output/marketing/{slug}/estrategia-conteudo.md"
+      description: "Framework Unbound Marketing + pilares + 3Hs + KPIs"
+
+    - name: "pacote-producao-conteudo.md"
+      path: "squads/icaro-de-carvalho/output/marketing/{slug}/pacote-producao-conteudo.md"
+      description: "Calendário editorial + scripts Reels + copy LP + emails + storytelling"
+
+    - name: "plano-trafego-pago.md"
+      path: "squads/icaro-de-carvalho/output/marketing/{slug}/plano-trafego-pago.md"
+      description: "Estrutura de campanhas + criativos + orçamento + regras de gestão"
+
+    - name: "relatorio-performance.md"
+      path: "squads/icaro-de-carvalho/output/marketing/{slug}/relatorio-performance.md"
+      description: "Dashboard + diagnóstico de funil + relatório de ciclo + próximo ciclo"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0: "@icaro-de-carvalho"
+  PHASE-1: "@marcos-hiller"
+  PHASE-2: "@rafael-kiso"
+  PHASE-3: "@juliana-gomes + @icaro-de-carvalho"
+  PHASE-4: "@pedro-sobral"
+  PHASE-5: "@rafael-kiso"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created_by: "@icaro-chief"
+  created_at: "2026-03-25"
+  version: "1.0.0"
+  squad: "icaro-de-carvalho"
+  tags: ["marketing", "end-to-end", "branding", "conteúdo", "copy", "tráfego-pago", "analytics", "operação-completa"]
+  frameworks_used:
+    - "PPP — Produto, Proposta, Personalidade (Ícaro de Carvalho)"
+    - "Branding e Arquétipos de Marca (Marcos Hiller)"
+    - "Unbound Marketing — 5 Etapas (Rafael Kiso)"
+    - "5 Passos do Marketing de Conteúdo (Rafael Kiso)"
+    - "3Hs — Hero, Hub, Help (Rafael Kiso)"
+    - "3 Funções do Conteúdo (Juliana Gomes)"
+    - "Anúncios Impossíveis de Ignorar (Pedro Sobral)"
+    - "Storytelling e Copy Emocional (Ícaro de Carvalho)"
+  depends_on:
+    agents:
+      - "@icaro-de-carvalho"
+      - "@marcos-hiller"
+      - "@rafael-kiso"
+      - "@juliana-gomes"
+      - "@pedro-sobral"

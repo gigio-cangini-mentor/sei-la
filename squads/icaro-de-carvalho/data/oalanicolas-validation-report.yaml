@@ -1,0 +1,507 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# VALIDATION REPORT — Squad Ícaro de Carvalho (5 Mind Clones)
+# Validator: @oalanicolas (Mind Cloning Architect)
+# Date: 2026-03-25
+# Methodology: DNA Mental — Source Quality + Voice + Thinking + Traceability + Trinity
+# ═══════════════════════════════════════════════════════════════════════════════
+
+overall:
+  minds_evaluated: 5
+  overall_score: 6.9
+  overall_fidelity: "78%"
+  verdict: |
+    Squad funcional mas com assimetria severa de qualidade entre os minds.
+    Ícaro de Carvalho é um clone de alta fidelidade (Tier 1 real, 193 transcrições).
+    Os outros 4 são clones web-only — funcionais para uso casual, mas com risco
+    de confabulação em cenários específicos. Nenhum dos 4 restantes atinge o
+    patamar de "mind clone" — são "mind sketches" (rascunhos de mente).
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 1. ÍCARO DE CARVALHO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+icaro_de_carvalho:
+  score: 8.7
+  fidelity_claimed: "85-90%"
+  fidelity_validated: "87%"
+
+  source_quality:
+    score: 9.5
+    tier: "Tier 1 (transcrições diretas)"
+    sources_count: 25
+    total_words: 250000
+    source_type: "193 transcrições Deepgram nova-3 do O Novo Mercado"
+    notes: |
+      Única mente do squad com fonte Tier 1 real. 193 aulas transcritas = corpus
+      massivo e verificável. Sampling estratégico de 25 aulas cobrindo 10 temas.
+      É a referência de qualidade do squad.
+
+  voice_dna:
+    score: 9.0
+    signature_phrases: 9  # Rastreáveis a aulas específicas (data_estelar em 17+ aulas)
+    power_words: 13  # Quantificados com contexto de uso
+    tone_calibration: "Excelente — 7 dimensões com valores numéricos"
+    oral_patterns: "Documentados com exemplos (autocorreções, repetição para ênfase)"
+    contradictions: 6  # Bem documentadas (anti-guru-mas-guru, informal-mas-erudito)
+    immune_system: 6  # Triggers com respostas in-character
+    notes: |
+      Voice DNA robusta. Signature phrases com [SOURCE: Aula XXX] verificável.
+      Contradições preservadas são diferencial — capturam a complexidade real da persona.
+      Único gap: sem frequência quantitativa (ex: "puta" aparece Nx por aula).
+
+  thinking_dna:
+    score: 8.5
+    primary_framework: "Produto, Proposta e Personalidade — bem documentado com steps"
+    secondary_frameworks: 4  # Tripwire, Sprint, Injeção de Caixa, Hub
+    heuristics_count: 10  # Todas com IF/THEN
+    veto_heuristics: 7  # Com [SOURCE:]
+    decision_architecture: "Pipeline de 8 estágios + pesos de decisão"
+    anti_patterns: 7  # Com why + source
+    notes: |
+      Thinking DNA completo. Decision architecture com pesos quantificados é raro
+      e valioso. Frameworks secundários cobrem cenários distintos (lançamento, MVP,
+      escala, final de ano). Heurísticas em formato IF/THEN acionável.
+
+  traceability:
+    score: 9.5
+    percentage_with_source: "98%"
+    source_format: "[SOURCE: Aula XXX]"
+    notes: "Praticamente todo claim tem referência à aula específica. Padrão ouro."
+
+  trinity_check:
+    playbook: true  # Frameworks com steps acionáveis
+    framework: true  # Produto/Proposta/Personalidade + 4 secundários
+    swipe: true  # 3 output_examples completos (diagnóstico, precificação, email)
+    score: 9.0
+
+  gaps:
+    - "Sem frequências quantitativas de vocabulary (quantas vezes 'puta' por aula)"
+    - "Episodic memories poderiam ser mais detalhadas (ME com contexto + emoção + lição)"
+    - "Falta cross-reference entre frameworks (quando Tripwire chama Sprint, etc.)"
+
+  recommendation: |
+    Mind clone de alta qualidade. Para ir de 87% a 92%+:
+    1. Adicionar vocabulary fingerprints quantitativos (rodar contagem nos 193 transcripts)
+    2. Expandir episodic memories para formato completo (contexto + emoção + lição)
+    3. Documentar cross-references entre frameworks secundários
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 2. PEDRO SOBRAL
+# ═══════════════════════════════════════════════════════════════════════════════
+
+pedro_sobral:
+  score: 6.5
+  fidelity_claimed: "75-80%"
+  fidelity_validated: "72%"
+
+  source_quality:
+    score: 4.0
+    tier: "Tier 2 (web research — fontes secundárias)"
+    sources_count: 12
+    total_words: "~15-20K estimado"
+    source_type: "Blog posts, artigos de terceiros, descrições de curso"
+    notes: |
+      ZERO transcrições de lives (266+ disponíveis no YouTube).
+      ZERO acesso ao material da Comunidade Subido.
+      Todas as fontes são secundárias ([SOURCE: web]).
+      Para alguém com 900K inscritos no YouTube e 266+ lives semanais gravadas,
+      a ausência de Tier 1 é o principal gap. O canal YouTube é um tesouro
+      inexplorado de Tier 1.
+
+  voice_dna:
+    score: 7.0
+    signature_phrases: 7  # Documentadas mas sem verificação em transcrição direta
+    power_words: 10  # Listados sem frequência quantitativa
+    tone_calibration: "Razoável — 7 dimensões numéricas, sem base em contagem real"
+    community_vocabulary: 8  # Diferencial: baby bosta, padawan, jedi, modo ninja, veno e vino
+    contradictions: 5  # Bem documentadas
+    immune_system: 5  # Triggers com respostas plausíveis
+    notes: |
+      O vocabulário comunitário (subido, baby bosta, padawans, jedis, veno e vino)
+      é o ponto forte — captura cultura da comunidade, não só o expert.
+      Mas sem transcrição real, não há como validar se as frases são literais ou
+      parafraseadas. Risco de "quase-certo" que erra nuance.
+
+  thinking_dna:
+    score: 7.0
+    primary_framework: "Anúncios Impossíveis de Ignorar (Gancho + Corpo + CTA)"
+    secondary_frameworks: 4  # Testes, Escala, 3 Tipos Campanha, Diagnóstico Funil
+    heuristics_count: 10  # IF/THEN bem formulados
+    veto_heuristics: 7
+    mental_models: 4  # Funil como Pipeline, Algoritmo como Parceiro, etc.
+    notes: |
+      Frameworks funcionais e bem estruturados. O diagnóstico de gargalo de funil
+      (topo/meio/fundo) é particularmente útil. Mental models são diferencial.
+      Mas tudo vem de [SOURCE: web] — podem ser reconstruções de terceiros,
+      não a formulação original do Sobral.
+
+  traceability:
+    score: 4.5
+    percentage_with_source: "90% — mas tudo é [SOURCE: web]"
+    source_format: "[SOURCE: web — blog.pedrosobral.com.br/...]"
+    notes: |
+      Tem [SOURCE:] em quase tudo, mas é genérico ("web"). Não distingue
+      se veio do blog oficial, de um artigo de terceiro, ou de uma inferência.
+      Rastreabilidade formal existe, rastreabilidade real é fraca.
+
+  trinity_check:
+    playbook: true  # Frameworks com steps
+    framework: true  # Gancho+Corpo+CTA + 4 secundários
+    swipe: true  # 3 output_examples (criativos, diagnóstico, escala)
+    score: 7.5
+
+  gaps:
+    - "CRÍTICO: zero fontes Tier 1 — 266+ lives no YouTube não foram transcritas"
+    - "Vocabulário comunitário pode ter imprecisões sem transcrição"
+    - "Sem episodic memories (cases reais da comunidade com nomes/números)"
+    - "Sem frequências quantitativas de nenhum termo"
+    - "Output examples são plausíveis mas podem não capturar nuances reais do tom"
+
+  recommendation: |
+    Funcional para uso casual, mas não é mind clone — é mind sketch.
+    Para subir de 72% a 88%+:
+    1. PRIORITÁRIO: Transcrever 15-20 lives do YouTube (sampling por tema: criativos, escala, iniciantes)
+    2. Extrair vocabulary fingerprints com contagem real
+    3. Coletar episodic memories de cases reais da comunidade
+    4. Validar/corrigir signature phrases com citações literais
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 3. RAFAEL KISO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+rafael_kiso:
+  score: 6.2
+  fidelity_claimed: "78-85%"
+  fidelity_validated: "68%"
+
+  source_quality:
+    score: 3.5
+    tier: "Tier 2 (web research — fontes secundárias + resumos de livro)"
+    sources_count: 10
+    total_words: 25000
+    source_type: "Resumos de livro, artigos de blog, entrevistas, LinkedIn"
+    notes: |
+      O livro Unbound Marketing (240 páginas, DVS Editora, 2021) NÃO foi lido
+      diretamente — apenas resumos e resenhas. Marketing na Era Digital (co-autoria)
+      também não. Para um autor com 2 livros publicados em português, a ausência
+      de leitura direta é inaceitável. Podcast Papo Social Media também não teve
+      episódios transcritos.
+
+  voice_dna:
+    score: 6.0
+    signature_phrases: 7  # Genéricas — "baseado em dados" não é phrase exclusiva
+    power_words: 15  # Listados mas muitos são termos genéricos de marketing
+    tone_calibration: "Mediana — valores numéricos sem base em contagem"
+    oral_patterns: 6  # Descritos mas não verificados
+    contradictions: 5
+    immune_system: 4  # Respostas plausíveis mas genéricas
+    notes: |
+      PROBLEMA CENTRAL: Muitas signature phrases são genéricas demais.
+      "Marketing baseado em dados" e "Conteúdo precisa informar, educar ou entreter"
+      são princípios de marketing, não fingerprints do Kiso. Faltam frases que
+      SOMENTE o Kiso diria. "Vi no TikTok é o novo Vi na TV" é a única realmente
+      identitária. Power words como "dados", "métricas", "KPI" são vocabulário
+      padrão de qualquer analista — não são DNA.
+
+  thinking_dna:
+    score: 7.0
+    primary_framework: "Unbound Marketing — 5 Etapas"
+    secondary_frameworks: 3  # Conteúdo Estratégico, Analytics Dashboard, Influência
+    heuristics_count: 10  # IF/THEN bem formulados
+    veto_heuristics: 7
+    notes: |
+      Unbound Marketing é framework proprietário genuíno — diferencial real.
+      As 5 etapas são bem documentadas e acionáveis. Mas os frameworks
+      secundários são reconstituições genéricas, não metodologia proprietária.
+      "Analytics Dashboard de Social Media" é processo padrão da indústria,
+      não framework do Kiso.
+
+  traceability:
+    score: 4.0
+    percentage_with_source: "85% — tudo [SOURCE: web]"
+    source_format: "[SOURCE: web] Livro X, site Y"
+    notes: |
+      Melhor que Pedro Sobral por nomear livros/sites específicos.
+      Mas nenhuma citação é verificável contra o texto original do livro
+      porque o livro não foi lido. Risco de paráfrases de resenhas
+      que distorceram o original.
+
+  trinity_check:
+    playbook: true  # Steps acionáveis
+    framework: true  # Unbound Marketing 5 etapas
+    swipe: true  # 3 output_examples (restaurante, métricas, benchmark)
+    score: 7.0
+
+  gaps:
+    - "CRÍTICO: livro Unbound Marketing não lido — apenas resumos de terceiros"
+    - "CRÍTICO: signature phrases genéricas — faltam fingerprints exclusivos"
+    - "Podcast Papo Social Media não transcrito (dezenas de episódios disponíveis)"
+    - "Sem episodic memories (cases de clientes mLabs, projetos de consultoria)"
+    - "Power words são vocabulário genérico de marketing, não DNA do Kiso"
+    - "Mind DNA complete é superficial — mais resumo que extração"
+
+  recommendation: |
+    Mind sketch funcional mas com risco de produzir output genérico de "analista de mídias sociais"
+    em vez de output que soe como Rafael Kiso especificamente.
+    Para subir de 68% a 85%+:
+    1. PRIORITÁRIO: Ler livro Unbound Marketing completo (240 páginas — Tier 0)
+    2. Transcrever 5-10 episódios do Papo Social Media
+    3. Substituir signature phrases genéricas por fingerprints exclusivos do Kiso
+    4. Coletar episodic memories de cases reais (mLabs, clientes de consultoria)
+    5. Quantificar vocabulary fingerprints no corpus do livro
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 4. MARCOS HILLER
+# ═══════════════════════════════════════════════════════════════════════════════
+
+marcos_hiller:
+  score: 6.3
+  fidelity_claimed: "75-80%"
+  fidelity_validated: "70%"
+
+  source_quality:
+    score: 3.5
+    tier: "Tier 2 (web research — artigos, LinkedIn, descrições de curso)"
+    sources_count: 12
+    total_words: "~15-20K estimado"
+    source_type: "Site marcoshiller.com.br, LinkedIn, artigos públicos"
+    notes: |
+      5 livros publicados e NENHUM foi lido diretamente. "Branding: a arte de construir
+      marcas" (2012) e "Branding: a arte de construir relevância de marca" (2019) são
+      fontes Tier 0 disponíveis. A Formação de Estrategistas de Marcas (20h ao vivo)
+      tem material que poderia ser Tier 1 se transcrito. BrandThinkers também é
+      fonte inexplorada.
+
+  voice_dna:
+    score: 6.5
+    signature_phrases: 8  # "Marcas movem pessoas" é forte, outras são reconstruções
+    power_words: 12  # Mais identitários que Kiso: "relevância", "verdade humana", "território"
+    tone_calibration: "Razoável — sem contagem real"
+    oral_patterns: 7  # Cases internacionais + brasileiros é um padrão bem documentado
+    contradictions: 5  # Acadêmico-mas-hands-on bem capturado
+    immune_system: 4  # Triggers plausíveis
+    notes: |
+      Melhor que Kiso em identidade: "Marcas movem pessoas" é genuinamente dele.
+      "Verdade humana" como conceito recorrente é fingerprint real. "Posicionar é
+      escolher e renunciar" é rastreável a artigo LinkedIn dele. O uso de cases
+      (Apple, Nike + Guaraná Jesus, Habib's) é padrão bem capturado.
+      Mas sem ler os livros, muitas frases podem ser reconstruções inexatas.
+
+  thinking_dna:
+    score: 6.5
+    primary_framework: "Roadmap de Construção de Relevância de Marca (4 etapas)"
+    secondary_frameworks: 3  # 7 Elementos, 5 Passos Posicionamento, ONdivíduos
+    heuristics_count: 10  # IF/THEN
+    veto_heuristics: 7
+    notes: |
+      Frameworks bem estruturados. Os 7 Elementos que Formam uma Marca é framework
+      proprietário verificável (artigo no site). ONdivíduos vem do livro homônimo (2014).
+      Mas o Roadmap de Relevância pode ser reconstrução parcial — sem ler o livro
+      de 2019, não há como confirmar se as 4 etapas correspondem exatamente.
+
+  traceability:
+    score: 4.5
+    percentage_with_source: "80% — misto de [SOURCE: web] e sem tag"
+    source_format: "[SOURCE: web — marcoshiller.com.br/...]"
+    notes: |
+      Algumas heurísticas NÃO têm [SOURCE:] (ex: "Sem pesquisa, não há estratégia").
+      As que têm são genéricas. Melhor do que não ter, mas não permite verificação real.
+
+  trinity_check:
+    playbook: true  # Steps acionáveis no Roadmap
+    framework: true  # 4 etapas + 7 elementos + ONdivíduos
+    swipe: true  # 3 output_examples (academia, legaltech, cosméticos)
+    score: 7.5
+
+  gaps:
+    - "CRÍTICO: 5 livros publicados e nenhum lido — especialmente o de 2019"
+    - "Episodic memories ausentes (cases de Ambev, Bayer, Renault com detalhes)"
+    - "Mind DNA complete é superficial — mais index que extração"
+    - "Formação de Estrategistas de Marcas (20h material) inexplorada"
+    - "Sem vocabulary fingerprints quantitativos"
+    - "Algumas heurísticas sem [SOURCE:]"
+
+  recommendation: |
+    Mind sketch com boa identidade mas raso em profundidade.
+    Para subir de 70% a 85%+:
+    1. PRIORITÁRIO: Ler "Branding: a arte de construir relevância de marca" (2019) — Tier 0
+    2. Se possível, ler ONdivíduos (2014) para framework digital
+    3. Transcrever 3-5 palestras/aulas disponíveis no YouTube
+    4. Coletar episodic memories de cases reais com clientes nomeados
+    5. Quantificar vocabulary no corpus dos livros
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 5. JULIANA GOMES
+# ═══════════════════════════════════════════════════════════════════════════════
+
+juliana_gomes:
+  score: 6.8
+  fidelity_claimed: "75-80%"
+  fidelity_validated: "73%"
+
+  source_quality:
+    score: 5.0
+    tier: "Tier 1.5 (transcrições parciais de podcast + web)"
+    sources_count: 6
+    total_words: "~15-20K estimado"
+    source_type: "Kiwicast #549 (transcrição via VideoHighlight), Kiwicast #199, Jornal de Brasília, Instagram"
+    notes: |
+      MELHOR que Sobral/Kiso/Hiller em fonte: tem pelo menos 1 transcrição
+      de podcast real (Kiwicast #549 via VideoHighlight). Não é Tier 0 (não
+      publicou livro) mas tem Tier 1 parcial. O gap é que são apenas 2 episódios
+      de podcast vs. centenas de horas de conteúdo disponíveis no Instagram e YouTube.
+
+  voice_dna:
+    score: 7.5
+    signature_phrases: 8  # "Quem não oferece, não vende" é forte e verificável
+    power_words: 10  # "orgânico", "função", "consistência" — mais identitários que genéricos
+    tone_calibration: "Boa — warmth 9, formality 2 capturam bem o perfil"
+    oral_patterns: 7  # "Tom de amiga que sabe" bem documentado
+    contradictions: 4  # Simples-mas-estratégica bem capturado
+    immune_system: 5  # Triggers com respostas que soam autênticas
+    notes: |
+      DESTAQUE DO SQUAD (excluindo Ícaro): Melhor Voice DNA entre os 4 web-based.
+      "Quem não oferece, não vende" e "O conteúdo tem que trabalhar" são fingerprints
+      genuínos verificados na transcrição do Kiwicast. A história de origem
+      (1.900 seguidores, R$ 1.200 no primeiro mês) é bem integrada como ativo
+      de credibilidade. Tom acolhedor calibrado para o público-alvo.
+
+  thinking_dna:
+    score: 7.0
+    primary_framework: "As 3 Funções do Conteúdo (Seguidor / Engajamento / Venda)"
+    secondary_frameworks: 4  # Recipe, Pesquisa de Pauta, Stories que Vendem, Calendário
+    heuristics_count: 10  # IF/THEN acionáveis
+    veto_heuristics: 7
+    notes: |
+      Framework primário é proprietário e genuíno — "3 Funções do Conteúdo" com
+      proporção (50/30/20) é diferencial claro. Recipe Format documenta bem a
+      mecânica de viralização. Stories que Vendem é playbook acionável.
+      Limitação: sem dados de resultado que validem os frameworks (ex: "alunas
+      que seguiram as 3 funções cresceram X% em Y dias").
+
+  traceability:
+    score: 5.5
+    percentage_with_source: "70%"
+    source_format: "[SOURCE: web — Kiwicast #549, VideoHighlight transcript]"
+    notes: |
+      Melhor rastreabilidade entre os 4 web-based: referencia episódios específicos
+      de podcast, não só "web" genérico. Mas 30% dos claims não têm [SOURCE:],
+      especialmente nos frameworks secundários.
+
+  trinity_check:
+    playbook: true  # Calendário editorial semanal + Stories que Vendem
+    framework: true  # 3 Funções + Recipe + 3 secundários
+    swipe: true  # 3 output_examples (nutricionista, afiliado, marmitas)
+    score: 8.0
+
+  gaps:
+    - "Sem livro publicado — teto natural de Tier 1"
+    - "Apenas 2 episódios de podcast analisados — Instagram tem centenas de Reels"
+    - "30% dos claims sem [SOURCE:]"
+    - "Sem episodic memories estruturadas (cases de alunas com números)"
+    - "Sem vocabulary fingerprints quantitativos"
+    - "Falta menção ao programa/mentoria paga para entender scope completo"
+
+  recommendation: |
+    Melhor mind sketch do squad (excluindo Ícaro). Framework genuíno e voz autêntica.
+    Para subir de 73% a 85%+:
+    1. Transcrever 10-15 Reels de maior engajamento do @jugomeseu
+    2. Buscar mais episódios de podcast (aparições, não só Kiwicast)
+    3. Coletar cases de alunas com números (R$, seguidores, timeline)
+    4. Adicionar [SOURCE:] aos 30% faltantes
+    5. Documentar o programa/mentoria paga em detalhe
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RANKING COMPARATIVO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+ranking:
+  - position: 1
+    mind: "Ícaro de Carvalho"
+    score: 8.7
+    status: "MIND CLONE (alta fidelidade)"
+    source_tier: "Tier 1"
+
+  - position: 2
+    mind: "Juliana Gomes"
+    score: 6.8
+    status: "MIND SKETCH (funcional, melhor dos web-based)"
+    source_tier: "Tier 1.5"
+
+  - position: 3
+    mind: "Pedro Sobral"
+    score: 6.5
+    status: "MIND SKETCH (funcional, rico em vocabulário comunitário)"
+    source_tier: "Tier 2"
+
+  - position: 4
+    mind: "Marcos Hiller"
+    score: 6.3
+    status: "MIND SKETCH (boa identidade, raso em profundidade)"
+    source_tier: "Tier 2"
+
+  - position: 5
+    mind: "Rafael Kiso"
+    score: 6.2
+    status: "MIND SKETCH (risco de output genérico)"
+    source_tier: "Tier 2"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RECOMENDAÇÕES ESTRATÉGICAS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+strategic_recommendations:
+  priority_1_critical:
+    title: "Elevar Pedro Sobral com transcrição de lives"
+    effort: "alto (15-20 lives = ~15h de áudio)"
+    impact: "72% → 88%+"
+    why: |
+      Sobral é o complemento natural do Ícaro (tráfego pago vs. comunicação).
+      Com 266+ lives públicas no YouTube, o material Tier 1 está disponível
+      e gratuito. É o maior ROI de esforço do squad inteiro.
+
+  priority_2_high:
+    title: "Ler livro Unbound Marketing do Kiso"
+    effort: "médio (240 páginas)"
+    impact: "68% → 82%+"
+    why: |
+      Kiso sem o livro é analista genérico com nome famoso. COM o livro,
+      a metodologia Unbound se torna genuína e as frases se tornam verificáveis.
+
+  priority_3_high:
+    title: "Ler livro de Branding (2019) do Hiller"
+    effort: "médio (~200 páginas estimadas)"
+    impact: "70% → 83%+"
+    why: |
+      O Roadmap de Relevância pode estar incompleto/incorreto sem o livro.
+      Com 5 livros publicados, Hiller é um autor — seus livros SÃO ele.
+
+  priority_4_medium:
+    title: "Expandir corpus Juliana Gomes com Reels"
+    effort: "baixo-médio (transcrever 15 Reels)"
+    impact: "73% → 82%+"
+    why: |
+      Já é a melhor web-based. Com mais corpus do Instagram (seu canal nativo),
+      a fidelidade sobe proporcionalmente. Não tem livro, então Reels/podcasts
+      são sua fonte Tier 1.
+
+  priority_5_structural:
+    title: "Padronizar mind_dna_complete para todos"
+    effort: "baixo"
+    impact: "Consistência do squad"
+    why: |
+      Pedro Sobral não tem mind_dna_complete.yaml (só voice + thinking separados).
+      Marcos Hiller e Juliana Gomes têm mind_dna_complete mas superficiais (resumos).
+      Padronizar formato completo como o do Ícaro para todos.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# SCORE BREAKDOWN (por dimensão)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+score_matrix:
+  headers: ["Mind", "Sources", "Voice", "Thinking", "Trace", "Trinity", "TOTAL"]
+  icaro_de_carvalho:   [9.5, 9.0, 8.5, 9.5, 9.0, 8.7]
+  pedro_sobral:        [4.0, 7.0, 7.0, 4.5, 7.5, 6.5]
+  rafael_kiso:         [3.5, 6.0, 7.0, 4.0, 7.0, 6.2]
+  marcos_hiller:       [3.5, 6.5, 6.5, 4.5, 7.5, 6.3]
+  juliana_gomes:       [5.0, 7.5, 7.0, 5.5, 8.0, 6.8]

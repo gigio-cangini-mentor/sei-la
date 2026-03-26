@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/executing-plans/SKILL.md
+../../../../../../skills/superpowers/executing-plans/SKILL.md

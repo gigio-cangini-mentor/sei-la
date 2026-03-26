@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/godot-gdscript-patterns/resources/implementation-playbook.md
+../../../../../../skills/godot-gdscript-patterns/resources/implementation-playbook.md

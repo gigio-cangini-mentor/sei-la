@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/superpowers/test-driven-development/SKILL.md
+../../../../../../skills/superpowers/test-driven-development/SKILL.md

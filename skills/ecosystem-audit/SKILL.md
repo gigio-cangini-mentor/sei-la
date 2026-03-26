@@ -18,6 +18,14 @@ ou com escopo específico:
 
 ---
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Quer auditar tudo (6 dimensões) ou um escopo específico? (projects, squads, agents, skills, minds, tools)** — (auditoria completa leva mais tempo; escopo reduzido é mais rápido)
+2. **Quer auto-fix para issues simples ou apenas relatório?** — (com `--fix`, corrige automaticamente o que for seguro; sem, apenas reporta)
+3. **Quer gerar stories automaticamente para os issues P0/P1?** — (opcional) (com `--create-stories`, já cria backlog de correção)
+
 ## O Que Faz
 
 Auditoria em **6 dimensões**:

@@ -169,3 +169,15 @@ Salvar em `docs/logs/YYYY-MM-DD_board-deal-{partner_slug}.md`
 ---
 
 *Task v1.0.0 - Created: 2026-01-31*
+
+---
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-deal-01 | Deal marcado como aprovado com scoring incompleto (0/3 ou 1/3 SIM) sem renegociação explícita dos termos | HALT — Score 0/3 = recusar imediatamente; score 1/3 = renegociar ou recusar; nunca "aprovar" abaixo de 2/3 |
+| VC-deal-02 | Matemática de valor/hora não foi calculada pelo Hormozi antes da decisão final | HALT — Sem o cálculo de valor/hora efetivo vs. piso mínimo do José, o deal não pode ser aprovado |
+| VC-deal-03 | Kill condition não foi definida antes do veredicto final do Agente Chefe | HALT — Todo deal aprovado exige uma condição de saída objetiva; sem ela, não há como encerrar o deal se necessário |
+| VC-deal-04 | Deal avaliado sem dados obrigatórios (`partner_name`, `partner_profile`, `deal_structure`, `your_contribution`) e @board-orchestrator assumiu valores | HALT — Elicitar os 4 campos obrigatórios antes de iniciar qualquer análise |
+| VC-deal-05 | Sessão de avaliação não salva em `docs/logs/` com slug do parceiro | HALT — Salvar antes de encerrar; histórico de deals é referência crítica para negociações futuras |

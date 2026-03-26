@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/workflow-playbooks.md
+../../../../../../skills/god-mode/references/workflow-playbooks.md

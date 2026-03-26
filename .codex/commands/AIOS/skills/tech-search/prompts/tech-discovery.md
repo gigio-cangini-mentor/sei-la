@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/tech-search/prompts/tech-discovery.md
+../../../../../../skills/tech-search/prompts/tech-discovery.md

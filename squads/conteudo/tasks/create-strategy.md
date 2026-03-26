@@ -89,3 +89,13 @@ references:
   - data/tipos-de-post.md
   - data/frameworks-copy.md
   - data/oraculo-posts.md
+
+## Veto Conditions
+
+| ID | Condição | Ação |
+|----|----------|------|
+| VC-strategy-01 | Intenção do usuário é ambígua e o Decisor Estratégico selecionou uma estratégia sem confirmação explícita | HALT — apresentar estratégia identificada e aguardar confirmação antes de executar |
+| VC-strategy-02 | Cronograma entregue sem templates prontos para uso — apenas descrição do que fazer, sem o conteúdo real | HALT — refazer substituindo toda teoria por templates funcionais e personalizados |
+| VC-strategy-03 | Algum dia do cronograma não tem progressão emocional em relação ao dia anterior — todos os dias com mesmo tom e intensidade | HALT — reestruturar arc emocional (dor → amplificação → paradigma → prova → ação) |
+| VC-strategy-04 | Estratégia selecionada (E1-E8) não é validada pelo oráculo em nenhuma peça entregue | HALT — executar validação de cada peça antes de marcar estratégia como concluída |
+| VC-strategy-05 | Estratégia entregue não se encaixa em nenhuma das 8 estratégias (E1-E8) e foi criada livremente sem aviso | HALT — mapear para a estratégia mais próxima e justificar desvio ao usuário |

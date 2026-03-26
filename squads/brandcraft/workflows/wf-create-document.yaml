@@ -1,0 +1,54 @@
+# Workflow: Create Document
+# Content -> Branded PDF/PNG (report, carousel, social card)
+
+name: create-document
+description: "Generate branded documents (PDF, carousel, social card) from content"
+trigger: "User provides content + wants PDF, carousel, or social card"
+
+phases:
+  - name: "Load Brand"
+    agent: template-architect
+    action: "*serve {brand_name}"
+    output: "Brand template with all tokens"
+    veto_conditions:
+      - "Brand template not found and no URL to extract from"
+      - "Draft template with less than 80% completeness (missing critical tokens)"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Generate Images"
+    agent: image-generator
+    action: "*generate or *batch (if images needed)"
+    input: "Content description + brand template"
+    output: "Brand-coherent images for embedding"
+    condition: "TRIGGER when: content mentions charts, graphs, illustrations, photos, or visual metaphors. SKIP when: content is text-only (reports, articles, lists)."
+    veto_conditions:
+      - "All 4 MCP providers failed"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Render"
+    agent: doc-generator
+    action: "*render-pdf or *render-carousel or *render-card"
+    input: "Content + brand template + images (if any)"
+    output: "PDF file or PNG slides"
+    veto_conditions:
+      - "Puppeteer/Playwright not available"
+      - "Brand tokens incomplete and no fallbacks"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: auto
+      show: "Rendered output summary (format, pages/slides, file size)"
+      ask: "Output looks correct? Proceed to quality validation?"
+
+  - name: "Validate"
+    agent: quality-validator
+    action: "*validate {output} --brand {name} --type doc"
+    input: "Rendered output + brand template"
+    output: "Quality score (0-100) with PASS/FAIL verdict"
+    enforcement: { blocking: true, on_veto: HALT }
+    on_fail:
+      action: "Send corrections to doc-generator, re-render, re-validate"
+      max_retries: 2
+      escalate_to: brandcraft-chief
+
+flow: "template-architect -> image-generator (conditional) -> doc-generator -> quality-validator"
+estimated_duration: "3-10 minutes"

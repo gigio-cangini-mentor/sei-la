@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/mcp-builder/reference/node_mcp_server.md
+../../../../../skills/mcp-builder/reference/node_mcp_server.md

@@ -20,6 +20,15 @@ Skill reutilizável para converter livros de qualquer formato para Markdown de a
 /AIOS:skills:book-to-markdown /path/to/books/ --batch
 ```
 
+## Discovery Questions
+
+Perguntas para fazer antes de executar. Use AskUserQuestion tool. Pule se o usuário já forneceu esse contexto.
+
+1. **Qual o caminho do(s) arquivo(s) a converter?** — (necessário para executar o comando)
+2. **O livro tem layout complexo (tabelas, fórmulas, blocos de código)?** — (define se usa modo `fast` ou `precise`)
+3. **Precisa preservar referências a imagens/diagramas?** — (ativa `--keep-images` para livros técnicos)
+4. **Onde salvar o output?** — (define `-o`, senão salva ao lado do original) (opcional)
+
 ## Supported Formats
 
 | Format | Tool Used | Quality |

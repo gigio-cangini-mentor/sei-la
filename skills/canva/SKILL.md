@@ -33,6 +33,15 @@ Integração oficial com Canva via MCP. É como ter acesso ao Canva direto do te
 - Design precisa ser versionado em código (use HTML/CSS)
 - Usuário não tem conta Canva
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Que tipo de design precisa? (apresentação, post social, logo, documento)** — (determina template e dimensões corretas)
+2. **Tem um template específico do Canva ou quer buscar um?** — (se já tem, pula busca; se não, filtra por categoria)
+3. **Em qual formato quer exportar? (PNG, PDF, JPG)** — (PNG para social media, PDF para documentos, JPG para compressão)
+4. **Tem elementos de marca (logo, cores, fontes) para incluir?** — (opcional) (autofill de brand assets requer plano pago)
+
 ## Prerequisites
 
 - Conta Canva (free ou paid)

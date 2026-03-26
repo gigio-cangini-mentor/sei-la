@@ -6,7 +6,7 @@
 
 ## When to Use
 
-- User runs `/forge fix "botao de login nao funciona"`
+- User runs `/forge fix "botão de login não funciona"`
 - User describes a bug to fix
 - Scope: 1 story, minimal ceremony
 
@@ -26,19 +26,23 @@ This is the FASTEST Forge workflow. Minimal SDC, no spec, no story factory.
 
 ### Phase 0: Discovery (minimal)
 
-Read `phases/phase-0-discovery.md` but with these adjustments:
+Read `{FORGE_HOME}/phases/phase-0-discovery.md` but with these adjustments:
 - Socratic Gate uses BUG_FIX questions (3 questions):
-  1. "O que deveria acontecer vs o que esta acontecendo?"
-  2. "Quando comecou?"
+  1. "O que deveria acontecer vs o que está acontecendo?"
+  2. "Quando começou?"
   3. "Tem mensagem de erro?"
 - Ecosystem scan: quick scan only (check if relevant skill exists for the error domain)
 - CHECKPOINT: confirm understanding of the bug
 
 ### Phase 3: Build (light mode)
 
-Read `phases/phase-3-build.md` with BUG_FIX mode:
-1. **Skip @sm and @po** — no story creation
-2. @dev goes directly to fix:
+Read `{FORGE_HOME}/phases/phase-3-build.md` with BUG_FIX mode:
+1. **Create minimal story automatically** (Article III compliance):
+   - Title: `fix: {bug description}`
+   - AC: "Bug resolvido. Teste de regressão passa. Comportamento esperado restaurado."
+   - Status: Ready (skip @po validation — it's a fix, not a feature)
+   - Save to `docs/stories/active/` with next available ID
+2. @dev implements the fix:
    - Input: bug description + user's answers from Phase 0
    - Mode: YOLO
    - Find the root cause, implement the fix
@@ -51,7 +55,7 @@ Read `phases/phase-3-build.md` with BUG_FIX mode:
 
 ### Phase 5: Deploy
 
-Read `phases/phase-5-deploy.md`:
+Read `{FORGE_HOME}/phases/phase-5-deploy.md`:
 1. CHECKPOINT: "Fix pronto. Deployar?"
 2. @devops: commit with `fix: {description}` + push + PR
 3. Completion banner

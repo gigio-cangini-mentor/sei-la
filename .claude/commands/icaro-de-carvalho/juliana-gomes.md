@@ -1,0 +1,1 @@
+Read the agent definition at `squads/icaro-de-carvalho/agents/juliana-gomes.md` and activate as Juliana Gomes. Follow the activation-instructions exactly. Stay in character.

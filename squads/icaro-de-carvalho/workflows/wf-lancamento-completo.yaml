@@ -1,0 +1,722 @@
+# WF-LANCAMENTO-COMPLETO: Pipeline de Lançamento Digital Completo
+# Squad: Ícaro de Carvalho
+# Duration: 3-6 semanas (dependendo da maturidade do produto e da audiência)
+# Best for: Lançar produto digital do zero com diagnóstico, branding, conteúdo, copy, tráfego e otimização
+
+workflow:
+  id: wf-lancamento-completo
+  name: "Lançamento Digital Completo"
+  version: "1.0.0"
+  duration: "3-6 semanas"
+  description: |
+    Pipeline completo para lançar um produto digital com base nos frameworks do Ícaro de Carvalho.
+    Começa com o diagnóstico PPP (Produto, Proposta, Personalidade), passa por branding e
+    posicionamento, produção de conteúdo orgânico de pré-lançamento, criação de copy e email
+    marketing, campanha de tráfego pago e termina com análise de resultados e otimização.
+
+    Este workflow produz:
+    - Diagnóstico PPP documentado com proposta de valor validada
+    - Identidade de marca e posicionamento definidos
+    - Calendário editorial de pré-lançamento (orgânico)
+    - Copy completa: emails, página de vendas, CTA
+    - Estrutura de campanha de tráfego pago com criativos
+    - Dashboard de KPIs e relatório de performance pós-lançamento
+
+  best_for:
+    - "Criadores e infoprodutores que vão lançar produto digital pela primeira vez"
+    - "Relançamentos com necessidade de reposicionamento"
+    - "Produtos validados que precisam escalar com tráfego pago"
+    - "Negócios que ainda não têm proposta de valor clara"
+
+  not_for:
+    - "Produtos físicos com logística complexa (use workflow específico)"
+    - "Serviços de alto ticket sem audiência mínima (validar antes)"
+    - "Lançamentos urgentes em menos de 1 semana (use wf-sprint)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# INPUTS (o que o usuário precisa fornecer)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+inputs:
+  required:
+    - name: produto
+      description: "Nome e descrição do produto a ser lançado"
+      example: "Curso de fotografia para celular — vídeos gravados, 8 módulos"
+
+    - name: publico_alvo
+      description: "Perfil do cliente ideal (quem compra e por que)"
+      example: "Mulheres 30-45 anos que querem fotografar melhor os filhos e não sabem mexer no celular"
+
+    - name: preco_pretendido
+      description: "Faixa de preço ou ticket almejado"
+      example: "R$ 297"
+
+  optional:
+    - name: audiencia_atual
+      description: "Tamanho e qualidade da audiência existente (seguidores, lista, etc.)"
+      default: "Zero (construção do zero)"
+
+    - name: orcamento_trafego
+      description: "Verba disponível para tráfego pago"
+      default: "R$ 1.000/mês"
+
+    - name: estrategia_lancamento
+      description: "Modelo de lançamento preferido"
+      values: ["Tripwire", "Sprint", "Injeção Rápida de Caixa", "A definir no diagnóstico"]
+      default: "A definir no diagnóstico"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 0: DIAGNÓSTICO PPP — Produto, Proposta e Personalidade
+# ═══════════════════════════════════════════════════════════════════════════════
+
+phases:
+  - id: PHASE-0
+    name: "Diagnóstico PPP — Produto, Proposta e Personalidade"
+    tier: 0
+    duration: "1-2 dias"
+    agents_assigned:
+      - "@icaro-de-carvalho"
+    description: |
+      O ponto de partida de qualquer lançamento. Não importa o produto — sem diagnóstico PPP,
+      qualquer esforço de branding ou copy vai para o lixo.
+
+      O @icaro-de-carvalho aplica o framework Produto/Proposta/Personalidade:
+      - PRODUTO: o que é de verdade, características racionais, formato, entregável
+      - PROPOSTA: o estímulo emocional — o que o cliente realmente compra (não o produto)
+      - PERSONALIDADE: a voz única que diferencia de commodity
+
+      Premissa central: "No Brasil, Proposta predomina. Consumidor brasileiro é emocional e utilitarista."
+      Calibrar a proporção certa é o que separa lançamento que vende de lançamento que educa.
+
+    tasks:
+      - name: "diagnostico-produto"
+        agent: "@icaro-de-carvalho"
+        command: "*diagnostico {produto}"
+        action: |
+          Aplicar framework PPP ao produto informado:
+
+          PRODUTO:
+          - O que o produto entrega objetivamente?
+          - Qual o formato (vídeo, ebook, programa ao vivo)?
+          - Qual o teto de preço pelo formato? (IC_DH_009: escrito=69,90 / vídeos=397 / programa=1000+)
+          - O preço pretendido está alinhado com o formato?
+
+          PROPOSTA:
+          - Qual o problema real que o cliente quer resolver?
+          - O produto está vendendo o que o cliente QUER ou o que o criador quer vender?
+          - Qual é o estímulo emocional central? (liberdade, status, segurança, pertencimento)
+          - A proposta tem financeiro como camada? (se sim, o teto de preço sobe)
+
+          PERSONALIDADE:
+          - Quem está por trás do produto? A voz existe?
+          - Se eu tapar o logo, sei que é você?
+          - Qual é a causa por trás do produto? (não propósito — causa. Vide Ícaro.)
+
+          OUTPUT esperado: documento PPP com 1 página por pilar + recomendação de estratégia
+          (Tripwire, Sprint ou Injeção Rápida de Caixa)
+
+      - name: "escuta-ecossistema"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Diagnóstico do ecossistema antes de qualquer ação:
+          - As pessoas estão realmente COMPRANDO algo parecido ou só dizendo que querem?
+          - Qual é o KPI real deste lançamento? (sem KPI, sem ação)
+          - Existe reserva de mercado natural (IC_DH_001: talento que dá vantagem desproporcional)?
+          - Qual o maior risco: proposta errada, preço errado ou personalidade ausente?
+
+      - name: "selecionar-estrategia-lancamento"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Com base no diagnóstico, selecionar e documentar a estratégia de lançamento:
+
+          TRIPWIRE: indicado quando há autoridade em construção + audiência pequena
+          → Meses de conteúdo gratuito massivo → uma oferta forte, alto ticket, janela curta
+
+          SPRINT (Tiro Curto): indicado para resultado rápido com afiliados ou audiência alugada
+          → Produzir conteúdo qualificado → alugar páginas com audiência → ação concentrada
+
+          INJEÇÃO RÁPIDA DE CAIXA: indicado para final de ano ou momento de alta emoção
+          → 3-4 lives de comprometimento → explorar dor do ano + promessa de mudança
+
+          Documentar: qual estratégia, por que, cronograma de fases e KPI do lançamento
+
+    checkpoint:
+      name: "QG-0: Diagnóstico PPP Aprovado"
+      human_review: true
+      criteria:
+        - "Documento PPP completo (Produto + Proposta + Personalidade)"
+        - "Proposta emocional central identificada e validada"
+        - "Estratégia de lançamento selecionada com justificativa"
+        - "KPI do lançamento definido (meta de receita, leads ou vendas)"
+        - "Teto de preço validado pelo formato"
+      veto_conditions:
+        - "Proposta não está clara → BLOCK (refazer antes de avançar)"
+        - "Produto e proposta são a mesma coisa → BLOCK (proposta errada mata o lançamento)"
+        - "KPI ausente → BLOCK (sem norte, sem decisão)"
+        - "Personalidade completamente ausente → WARN (construção urgente em Phase 1)"
+      output: "diagnostico-ppp.md"
+      ask_user: |
+        Diagnóstico PPP concluído.
+
+        Produto: {produto}
+        Proposta central: {proposta_emocional}
+        Personalidade: {status_personalidade}
+        Estratégia selecionada: {estrategia}
+        KPI do lançamento: {kpi}
+
+        Podemos prosseguir para branding e posicionamento?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 1: BRANDING E POSICIONAMENTO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-1
+    name: "Branding e Posicionamento"
+    tier: 1
+    duration: "2-3 dias"
+    agents_assigned:
+      - "@marcos-hiller"
+      - "@icaro-de-carvalho"
+    description: |
+      Com o diagnóstico PPP em mãos, @marcos-hiller constrói a identidade de marca e o
+      posicionamento de mercado. @icaro-de-carvalho valida se o branding está alinhado com
+      a proposta emocional e com a personalidade definida no Phase 0.
+
+      Marcos Hiller traz: naming, arquétipo, paleta, tom de voz formal de marca.
+      Ícaro valida: a causa por trás da marca, a reserva de mercado, se a personalidade
+      é diferenciadora ou genérica.
+
+      Premissa: "Personalidade é o que te diferencia de commodity." — Ícaro de Carvalho
+
+    tasks:
+      - name: "construcao-marca"
+        agent: "@marcos-hiller"
+        action: |
+          Com base no diagnóstico PPP aprovado, construir a identidade de marca:
+
+          1. NAMING: o nome comunica a proposta? É fácil de lembrar?
+          2. ARQUÉTIPO DE MARCA: qual arquétipo Jung melhor representa a personalidade?
+             (Herói, Criador, Sábio, Fora da lei, Explorador, etc.)
+          3. POSICIONAMENTO: qual a declaração de posicionamento?
+             "Para [público], [marca] é o [referência] que [benefício único]."
+          4. TOM DE VOZ: guia de como a marca fala (3-5 adjetivos + exemplos)
+          5. PALETA E IDENTIDADE VISUAL (referências, não criação final)
+
+          OUTPUT: brand brief de 1-2 páginas com naming, arquétipo, declaração de posicionamento e tom de voz
+
+      - name: "validacao-causa"
+        agent: "@icaro-de-carvalho"
+        action: |
+          Validar o branding proposto contra os critérios do Ícaro:
+
+          - A marca tem CAUSA (não propósito)? Causa cria militante, não cliente.
+          - A personalidade é única ou é mais uma no mercado?
+          - O tom de voz reflete a proposta emocional do Phase 0?
+          - Há reserva de mercado natural? O talento do criador está sendo aproveitado?
+          - A 80/20 do conteúdo está clara: 80% sobre o ecossistema, 20% sobre o negócio?
+
+          Se houver divergências: documentar e propor ajuste antes de avançar.
+
+    checkpoint:
+      name: "QG-1: Branding e Posicionamento Aprovados"
+      human_review: true
+      criteria:
+        - "Brand brief com naming, arquétipo, declaração de posicionamento e tom de voz"
+        - "Causa da marca identificada e documentada"
+        - "Tom de voz alinhado com a proposta emocional do Phase 0"
+        - "Validação do @icaro-de-carvalho concluída (sem divergências bloqueantes)"
+      veto_conditions:
+        - "Posicionamento genérico sem diferencial claro → BLOCK (reformular)"
+        - "Tom de voz contradiz a proposta emocional → BLOCK (alinhar com Ícaro)"
+        - "Marca sem causa identificável → WARN (construir causa como prioridade no conteúdo)"
+      output: "brand-brief.md"
+      handoff_to: "PHASE-2"
+      ask_user: |
+        Branding e posicionamento finalizados.
+
+        Nome/marca: {nome}
+        Arquétipo: {arquetipo}
+        Posicionamento: {declaracao}
+        Causa da marca: {causa}
+
+        Aprovado para iniciar o conteúdo orgânico de pré-lançamento?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 2: CONTEÚDO ORGÂNICO (PRÉ-LANÇAMENTO)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-2
+    name: "Conteúdo Orgânico de Pré-lançamento"
+    tier: 1
+    duration: "1-3 semanas"
+    agents_assigned:
+      - "@juliana-gomes"
+    description: |
+      @juliana-gomes assume o conteúdo orgânico usando as 3 Funções do Conteúdo:
+      50% ganhar seguidor + 30% engajamento + 20% aquecimento para venda.
+
+      O conteúdo de pré-lançamento não vende — ele aquece. Cria a audiência que vai comprar.
+      Premissa da Ju: "Aqueça antes de oferecer. Não peça casamento no primeiro encontro."
+
+      O tom de voz e a causa mapeados no Phase 1 orientam todos os conteúdos aqui.
+      O conteúdo deve parecer natural, não uma campanha — é a construção da causa.
+
+    tasks:
+      - name: "calendario-pre-lancamento"
+        agent: "@juliana-gomes"
+        command: "*calendario {nicho}"
+        action: |
+          Montar calendário editorial de pré-lançamento (2-3 semanas):
+
+          SEMANA 1 — Construção de audiência (Função 1):
+          - 3 Reels de alcance no formato Recipe sobre o tema central do produto
+          - Hook irresistível nos primeiros 3 segundos: promessa, provocação ou surpresa
+          - Conteúdo que resolve DOR específica do público-alvo definido no Phase 0
+          - Legenda com palavras-chave do nicho (SEO do Instagram)
+
+          SEMANA 2 — Engajamento e conexão (Função 2):
+          - Stories de bastidores do processo de criação do produto
+          - Post de opinião ou storytelling pessoal alinhado com a causa da marca
+          - Enquete ou caixa de perguntas: "Qual sua maior dificuldade com X?"
+          - Carrossel educativo com dica prática do nicho
+
+          SEMANA 3 — Aquecimento para venda (Função 2 + 3):
+          - Prova social: resultados reais, depoimentos, antes/depois (se houver)
+          - Stories de aquecimento: ensina algo diretamente relacionado ao produto
+          - Antecipação da novidade: "Semana que vem tem algo especial..."
+          - Objeção antecipada via Stories: derruba a maior barreira antes do lançamento
+
+          OUTPUT: calendário semanal com post por post, função definida, formato e hook
+
+      - name: "scripts-reels-pre-lancamento"
+        agent: "@juliana-gomes"
+        command: "*reels {tema}"
+        action: |
+          Criar 5 scripts de Reels para o pré-lançamento:
+          - 2 de alcance (Função 1 — formato Recipe)
+          - 2 de engajamento (Função 2 — storytelling ou opinião)
+          - 1 de aquecimento (prova social ou antecipação)
+
+          Cada script: Hook (0-3s) + Corpo + CTA específica para a função
+
+      - name: "sequencia-stories-aquecimento"
+        agent: "@juliana-gomes"
+        command: "*stories {produto}"
+        action: |
+          Criar sequência de 7-10 Stories para os 3 dias antes do lançamento:
+          - Dias 1-2: Stories educativos relacionados ao produto
+          - Dia 3: Prova social e objeção antecipada
+          - Dia 3 (noite): Revelação e oferta com CTA clara
+
+    checkpoint:
+      name: "QG-2: Calendário de Pré-lançamento Aprovado"
+      human_review: true
+      criteria:
+        - "Calendário editorial completo (3 semanas, post por post)"
+        - "5 scripts de Reels com hook, corpo e CTA definidos"
+        - "Sequência de Stories de aquecimento criada"
+        - "Função definida em cada conteúdo (seguidor / engajamento / venda)"
+        - "Tom de voz alinhado com brand brief do Phase 1"
+      veto_conditions:
+        - "Nenhum conteúdo de alcance (Função 1) → BLOCK (não haverá audiência nova para converter)"
+        - "Sequência vai diretamente para venda sem aquecimento → BLOCK (vai afugentar a audiência)"
+        - "Hook dos Reels genérico ou fraco → WARN (revisar antes de publicar)"
+      output: "calendario-pre-lancamento.md"
+      handoff_to: "PHASE-3"
+      ask_user: |
+        Calendário de pré-lançamento pronto.
+
+        - {N} posts mapeados ao longo de {N} semanas
+        - {N} Reels com scripts prontos
+        - Sequência de Stories de aquecimento criada
+
+        Aprovar e avançar para copy e email marketing?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3: COPY + EMAIL MARKETING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-3
+    name: "Copy + Email Marketing"
+    tier: 2
+    duration: "3-5 dias"
+    agents_assigned:
+      - "@icaro-de-carvalho"
+    description: |
+      @icaro-de-carvalho assume a redação persuasiva do lançamento: página de vendas,
+      emails de lançamento e CTAs usando os frameworks Tripwire, Sprint ou Injeção
+      — conforme definido no Phase 0.
+
+      Premissa: "O email é um tiro de 60 mil reais. Escreva segunda, revise quarta, revise sexta."
+      Premissa: "Proposta mata preço. Errar a proposta é mais violento que errar o preço."
+
+      Toda copy parte da proposta emocional validada no Phase 0 e do tom de voz definido no Phase 1.
+
+    tasks:
+      - name: "pagina-de-vendas"
+        agent: "@icaro-de-carvalho"
+        command: "*copy pagina-de-vendas"
+        action: |
+          Redigir página de vendas completa com os elementos obrigatórios:
+
+          1. HEADLINE: proposta emocional central (não o nome do produto)
+          2. SUBHEADLINE: para quem é e o que resolve
+          3. PROBLEMA: ampliação da dor — o que acontece se não resolver
+          4. SOLUÇÃO: o produto como caminho (não como produto)
+          5. O QUE ESTÁ DENTRO: conteúdo com linguagem de proposta, não de índice
+          6. PARA QUEM É: exclusão estratégica (quem não deve comprar também)
+          7. PROVA SOCIAL: depoimentos reais com resultado específico
+          8. OFERTA: o que vem, quanto custa, o que garante
+          9. LEQUE DE PREÇOS: variações (IC_DH_003 — produto único perde vendas)
+          10. CTA: clara, urgente, única — sem opções que paralizam
+
+          Tom: linguagem do Ícaro — informal, direto, sem jargão corporativo
+
+      - name: "sequencia-emails-lancamento"
+        agent: "@icaro-de-carvalho"
+        command: "*email lancamento"
+        action: |
+          Redigir sequência de 5 emails de lançamento:
+
+          EMAIL 1 (dia -3): Relacionamento e antecipação
+          → Não vende. Relembra a dor. Anuncia que algo vem.
+          → Subject sem emoji, sem caps lock, sem fórmula.
+
+          EMAIL 2 (dia -1): Aquecimento e comprometimento
+          → Aprofunda o problema. Pergunta se o leitor se identifica.
+          → CTA leve: "Responde esse email com [palavra]. Quero saber."
+
+          EMAIL 3 (dia 0 — abertura): Lançamento da oferta
+          → A proposta completa com urgência real.
+          → Escassez: vagas, prazo ou bônus com validade.
+
+          EMAIL 4 (dia +2 — meio do carrinho): Objeção e prova social
+          → Derruba a maior objeção identificada.
+          → Depoimento real de quem já passou pelo problema.
+
+          EMAIL 5 (dia +último — fechamento): Urgência e escassez final
+          → Ultimo aviso. Contagem regressiva real.
+          → Transparência: "Vou fechar às {horário}. Sem exceção."
+
+          Regra: cada email tem UMA função. Sem misturar.
+
+      - name: "ctas-complementares"
+        agent: "@icaro-de-carvalho"
+        command: "*copy ctas"
+        action: |
+          Redigir CTAs para cada canal:
+          - CTA da bio do Instagram (alinhado com a fase do lançamento)
+          - CTA final dos Reels (direcionamento para a oferta)
+          - CTA dos Stories (swipe up ou "me chama no DM")
+          - CTA do WhatsApp ou link de vendas
+
+    checkpoint:
+      name: "QG-3: Copy de Lançamento Aprovada"
+      human_review: true
+      criteria:
+        - "Página de vendas completa (10 elementos obrigatórios presentes)"
+        - "Sequência de 5 emails redigidos (um por função)"
+        - "Leque de preços definido (ao menos 2 opções)"
+        - "CTAs para todos os canais criadas"
+        - "Tom do Ícaro preservado (informal, direto, sem jargão)"
+      veto_conditions:
+        - "Página de vendas sem proposta emocional clara → BLOCK (reescrever headline)"
+        - "Email 3 sem escassez real (só simbólica) → WARN (escassez falsa destrói confiança)"
+        - "Leque de preços ausente → WARN (está perdendo vendas de quem quer pagar menos ou mais)"
+        - "CTA dos emails genérica ou com múltiplas ações → BLOCK (uma CTA por email)"
+      output: "copy-lancamento.md"
+      handoff_to: "PHASE-4"
+      ask_user: |
+        Copy de lançamento completa.
+
+        - Página de vendas: {status}
+        - Sequência de emails: 5 emails redigidos
+        - Leque de preços: {opcoes}
+        - CTAs: todos os canais cobertos
+
+        Pronto para criar a campanha de tráfego pago?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4: TRÁFEGO PAGO + SCALING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-4
+    name: "Tráfego Pago e Scaling"
+    tier: 2
+    duration: "Durante o lançamento + pós-lançamento"
+    agents_assigned:
+      - "@pedro-sobral"
+    description: |
+      @pedro-sobral monta a estrutura de campanha de tráfego pago para amplificar o lançamento.
+      A copy e os criativos do Phase 3 são a matéria-prima. O Sobral garante que o dinheiro
+      vai para onde tem retorno.
+
+      Premissa: "Criativo é a principal alavanca de performance. Quem domina o criativo domina o jogo."
+      Premissa: "NUNCA escale sem rastreamento configurado corretamente."
+
+    tasks:
+      - name: "configurar-rastreamento"
+        agent: "@pedro-sobral"
+        command: "*rastreamento"
+        action: |
+          Verificar e documentar configuração de rastreamento ANTES de qualquer campanha:
+          - Pixel Meta instalado e disparando?
+          - Evento de compra configurado e confirmando?
+          - Google Analytics (se aplicável) com UTMs?
+          - CPA máximo aceitável definido?
+
+          REGRA: sem rastreamento validado, campanha não sobe. (PS_DH_009)
+
+      - name: "estrutura-campanha-lancamento"
+        agent: "@pedro-sobral"
+        command: "*campanha lancamento"
+        action: |
+          Montar estrutura de campanha de lançamento:
+
+          CAMPANHA 1 — PROSPECÇÃO (topo de funil):
+          - Objetivo: alcançar novos públicos que ainda não conhecem o produto
+          - Públicos: interesses relacionados ao nicho + LAL de lista atual (1-2%)
+          - Criativos: adaptar os Reels de alcance do Phase 2 como anúncios pagos
+          - Orçamento inicial: R$ 30-50/dia por conjunto de anúncios
+          - Gancho obrigatório: Os primeiros 3 segundos decidem vida ou morte do anúncio
+
+          CAMPANHA 2 — REMARKETING (meio/fundo de funil):
+          - Objetivo: reconverter quem visitou a LP mas não comprou
+          - Públicos: visitantes da página de vendas, engajamento no perfil (últimos 30 dias)
+          - Criativos: copy com objeção + prova social (Email 4 adaptado para anúncio)
+          - Orçamento inicial: 30% do total da prospecção
+
+          DEFINIR ANTES DE RODAR:
+          - CPA máximo por venda (sem esse número, impossível otimizar)
+          - Critério de corte de criativo (CTR < 1% em 3 dias = pausa)
+          - Frequência de ajuste: orçamento a cada 2 dias, criativos a cada 2-3
+
+      - name: "criativos-pagos"
+        agent: "@pedro-sobral"
+        command: "*criativos {produto}"
+        action: |
+          Criar 3 variações de criativo para teste:
+
+          Gancho A — Dor imediata:
+          Primeira frase que nomeia o problema específico do público
+
+          Gancho B — Resultado com prova social:
+          Número real + o que mudou + quem foi
+
+          Gancho C — Curiosidade/ruptura:
+          Derruba crença comum do nicho
+
+          Testar os 3 ganchos em conjuntos separados, mesmo público, mesmo orçamento.
+          O gancho com maior CTR nos primeiros 3 dias ganha a verba.
+
+      - name: "protocolo-escala"
+        agent: "@pedro-sobral"
+        command: "*escalar {campanha}"
+        action: |
+          Protocolo de escala para quando os resultados forem positivos:
+          1. Criativo novo antes de aumentar orçamento (PS_DH_008)
+          2. Orçamento: +20-30% a cada 2-3 dias — nunca dobrar de uma vez
+          3. Públicos: LAL 2%, 3% após validar LAL 1%
+          4. Pós-clique: se ROAS ok mas volume baixo, otimizar LP antes de jogar mais verba
+
+    checkpoint:
+      name: "QG-4: Campanha de Tráfego Aprovada e Rodando"
+      human_review: true
+      criteria:
+        - "Rastreamento validado (pixel disparando, evento de compra confirmado)"
+        - "CPA máximo definido antes de subir campanha"
+        - "Estrutura de prospecção + remarketing configurada"
+        - "3 variações de criativo criadas para teste"
+        - "Protocolo de escala documentado"
+      veto_conditions:
+        - "Rastreamento não validado → BLOCK TOTAL (não sobe campanha sem dado confiável)"
+        - "CPA máximo ausente → BLOCK (impossível otimizar sem referência de resultado)"
+        - "Apenas 1 criativo no ar → WARN (impossível testar, alta chance de desperdício)"
+        - "Orçamento todo em prospecção, zero em remarketing → WARN (dinheiro deixado na mesa)"
+      output: "estrutura-campanha.md"
+      handoff_to: "PHASE-5"
+      ask_user: |
+        Campanha de tráfego configurada e no ar.
+
+        CPA máximo: R$ {cpa_max}
+        Orçamento diário: R$ {orcamento_diario}
+        Criativos em teste: {n_criativos}
+        Rastreamento: {status}
+
+        Avançar para monitoramento e otimização?
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: ANALYTICS + OTIMIZAÇÃO
+# ═══════════════════════════════════════════════════════════════════════════════
+
+  - id: PHASE-5
+    name: "Analytics e Otimização"
+    tier: 2
+    duration: "Contínuo — durante e pós-lançamento"
+    agents_assigned:
+      - "@rafael-kiso"
+    description: |
+      @rafael-kiso assume o monitoramento, análise e otimização baseada em dados.
+      Aplica o framework Analytics Dashboard de Social Media e a metodologia Unbound Marketing
+      para identificar onde o funil está convertendo e onde está vazando.
+
+      Premissa: "Dados > achismo. Toda decisão de marketing precisa ter métrica associada."
+      Premissa: "Sem KPI, não tem estratégia — tem esperança."
+
+    tasks:
+      - name: "dashboard-kpis"
+        agent: "@rafael-kiso"
+        command: "*dashboard {marca}"
+        action: |
+          Montar dashboard de KPIs do lançamento:
+
+          MÉTRICAS DE RESULTADO (primárias):
+          - Receita gerada vs. meta do lançamento
+          - Número de vendas vs. meta
+          - CPA real vs. CPA máximo definido (Phase 4)
+          - Taxa de conversão da página de vendas (visitantes → compradores)
+          - ROAS das campanhas pagas (se houver)
+
+          MÉTRICAS DE CANAL (secundárias):
+          - Alcance orgânico dos Reels de pré-lançamento
+          - Taxa de abertura e clique dos emails (Fase 3)
+          - Engajamento dos Stories de aquecimento
+          - Taxa de clique nas CTAs (bio, Stories, Reels)
+
+          MÉTRICAS DE VAIDADE (monitorar, não decidir por elas):
+          - Curtidas, visualizações totais sem contexto de conversão
+          - Novos seguidores sem qualificação de público
+
+      - name: "diagnostico-funil"
+        agent: "@rafael-kiso"
+        command: "*analytics lancamento"
+        action: |
+          Diagnosticar onde o funil está com problema:
+          - Etapa 1 (Awareness): as pessoas estão chegando na LP?
+          - Etapa 2 (Descoberta): estão ficando na LP ou saindo imediatamente?
+          - Etapa 3 (Ação): estão chegando no checkout mas não finalizando?
+          - Etapa 4 (Experiência): quem comprou está satisfeito? NPS inicial?
+          - Etapa 5 (Compartilhada): compradores estão indicando para outros?
+
+          Para cada etapa com problema: propor ação de otimização (não trocar tudo)
+
+      - name: "relatorio-pos-lancamento"
+        agent: "@rafael-kiso"
+        command: "*relatorio {periodo}"
+        action: |
+          Gerar relatório pós-lançamento com:
+          - Resultado vs. meta (receita, vendas, CPA)
+          - O que funcionou (top 3 — copiar para próximo lançamento)
+          - O que não funcionou (top 3 — não repetir)
+          - Insights de audiência (qual conteúdo mais converteu?)
+          - Recomendação de próximo passo (novo lançamento, escala paga, upsell)
+
+    checkpoint:
+      name: "QG-5: Lançamento Analisado e Próximos Passos Definidos"
+      human_review: true
+      criteria:
+        - "Dashboard de KPIs montado e monitorado"
+        - "Diagnóstico de funil completo (5 etapas Unbound Marketing)"
+        - "Relatório pós-lançamento com resultado vs. meta"
+        - "Top 3 aprendizados documentados (o que funciona e o que não funciona)"
+        - "Próximo passo definido"
+      veto_conditions:
+        - "Meta de lançamento não atingida sem análise de causa → BLOCK (não repetir sem aprender)"
+        - "Funil não diagnosticado → WARN (otimização cega é aposta)"
+        - "Nenhum dado de NPS ou satisfação de compradores → WARN (experiência compartilhada é o destino)"
+      output: "relatorio-pos-lancamento.md"
+      ask_user: |
+        Lançamento concluído e analisado.
+
+        Resultado: {receita_gerada} / Meta: {meta}
+        Vendas: {n_vendas}
+        CPA real: R$ {cpa_real} / CPA máximo: R$ {cpa_max}
+
+        Relatório completo em relatorio-pos-lancamento.md.
+
+        Próximo passo recomendado: {proximo_passo}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMPLETION SIGNALS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+completion_signals:
+  success:
+    - "Meta de receita ou vendas atingida"
+    - "Todos os quality gates PASS"
+    - "Relatório pós-lançamento gerado com aprendizados documentados"
+    - "Próximo passo definido (novo lançamento, upsell ou escala)"
+  partial:
+    - "Lançamento com resultado abaixo da meta → salvar aprendizados, ajustar proposta antes de repetir"
+    - "Tráfego ok mas conversão baixa → otimizar LP e copy antes de escalar verba"
+    - "Orgânico ok mas sem tráfego pago → considerar Sprint com verba mínima para acelerar"
+  failure:
+    - "Proposta não ressoou com o público (requer diagnóstico PPP novamente)"
+    - "Rastreamento falhou e dados não são confiáveis"
+    - "Audiência zero no momento do lançamento (construção orgânica não foi suficiente)"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUTS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+outputs:
+  primary:
+    - name: "diagnostico-ppp.md"
+      path: "squads/icaro-de-carvalho/output/lancamentos/{slug}/diagnostico-ppp.md"
+      description: "Documento PPP completo + estratégia de lançamento selecionada"
+
+    - name: "brand-brief.md"
+      path: "squads/icaro-de-carvalho/output/lancamentos/{slug}/brand-brief.md"
+      description: "Identidade de marca, posicionamento e tom de voz"
+
+    - name: "calendario-pre-lancamento.md"
+      path: "squads/icaro-de-carvalho/output/lancamentos/{slug}/calendario-pre-lancamento.md"
+      description: "Calendário editorial completo com scripts de Reels e Stories"
+
+    - name: "copy-lancamento.md"
+      path: "squads/icaro-de-carvalho/output/lancamentos/{slug}/copy-lancamento.md"
+      description: "Página de vendas + sequência de 5 emails + CTAs"
+
+    - name: "estrutura-campanha.md"
+      path: "squads/icaro-de-carvalho/output/lancamentos/{slug}/estrutura-campanha.md"
+      description: "Estrutura de campanha Meta Ads + criativos + protocolo de escala"
+
+    - name: "relatorio-pos-lancamento.md"
+      path: "squads/icaro-de-carvalho/output/lancamentos/{slug}/relatorio-pos-lancamento.md"
+      description: "Resultado vs. meta + aprendizados + próximos passos"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AGENTS BY PHASE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+agents_by_phase:
+  PHASE-0: "@icaro-de-carvalho"
+  PHASE-1: "@marcos-hiller + @icaro-de-carvalho"
+  PHASE-2: "@juliana-gomes"
+  PHASE-3: "@icaro-de-carvalho"
+  PHASE-4: "@pedro-sobral"
+  PHASE-5: "@rafael-kiso"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# METADATA
+# ═══════════════════════════════════════════════════════════════════════════════
+
+metadata:
+  created_by: "@icaro-chief"
+  created_at: "2026-03-25"
+  version: "1.0.0"
+  squad: "icaro-de-carvalho"
+  tags: ["lançamento", "infoproduto", "marketing-digital", "copy", "trafego-pago", "branding"]
+  frameworks_used:
+    - "PPP — Produto, Proposta, Personalidade (Ícaro de Carvalho)"
+    - "Tripwire / Sprint / Injeção Rápida de Caixa (Ícaro de Carvalho)"
+    - "3 Funções do Conteúdo (Juliana Gomes)"
+    - "Anúncios Impossíveis de Ignorar (Pedro Sobral)"
+    - "Unbound Marketing — 5 Etapas (Rafael Kiso)"
+  depends_on:
+    agents:
+      - "@icaro-de-carvalho"
+      - "@marcos-hiller"
+      - "@juliana-gomes"
+      - "@pedro-sobral"
+      - "@rafael-kiso"

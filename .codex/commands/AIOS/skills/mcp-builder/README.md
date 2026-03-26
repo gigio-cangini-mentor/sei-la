@@ -1,1 +1,1 @@
-../../../../skills/mcp-builder/SKILL.md
+../../../../../skills/mcp-builder/SKILL.md

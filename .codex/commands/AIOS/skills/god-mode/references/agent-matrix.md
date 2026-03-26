@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/agent-matrix.md
+../../../../../../skills/god-mode/references/agent-matrix.md

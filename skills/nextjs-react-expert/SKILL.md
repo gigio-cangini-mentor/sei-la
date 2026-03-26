@@ -11,6 +11,16 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Bash
 
 ---
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Qual o sintoma principal de performance que você está enfrentando?** — (direciona para a seção correta: waterfalls, bundle, re-renders, SSR)
+2. **O projeto usa App Router ou Pages Router?** — (muda completamente os padrões de Server Components e data fetching)
+3. **Tem métricas atuais (Lighthouse, Web Vitals, bundle size)?** — (permite medir impacto antes/depois das otimizações)
+4. **É otimização de app existente ou construção de feature nova?** — (review mode vs. build mode muda a prioridade das regras)
+5. **Usa alguma lib de data fetching (SWR, TanStack Query, fetch direto)?** — (impacta recomendações da Seção 4) (opcional)
+
 ## 🎯 Selective Reading Rule (MANDATORY)
 
 **Read ONLY sections relevant to your task!** Check the content map below and load what you need.

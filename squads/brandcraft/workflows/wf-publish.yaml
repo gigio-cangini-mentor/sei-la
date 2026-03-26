@@ -1,0 +1,55 @@
+# Workflow: Publish
+# Last output -> Platform-specific publishing
+
+name: publish
+description: "Publish last BrandCraft output to social media or export"
+trigger: "User requests *publish {platform} after content creation"
+
+phases:
+  - name: "Validate Output Exists"
+    agent: brandcraft-chief
+    action: "Check last pipeline output exists and has PASS quality score"
+    output: "Confirmed output path + Gauge score"
+    veto_conditions:
+      - "No output from previous pipeline run"
+      - "Last output has FAIL quality score (not yet validated or failed)"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Platform Routing"
+    agent: brandcraft-chief
+    action: "Route to correct publishing method based on platform"
+    output: "Publishing method selected"
+    routing:
+      instagram:
+        skill: "instagram-publisher"
+        formats: ["carousel PNG", "social card PNG", "reel MP4"]
+        notes: "Carousels via Graph API, reels via direct upload"
+      multi_channel:
+        skill: "blotato"
+        formats: ["all formats"]
+        notes: "LinkedIn, Twitter/X, TikTok, YouTube via Blotato MCP"
+      export:
+        action: "Copy output to user-specified directory"
+        formats: ["all formats"]
+        notes: "Local export, no API needed"
+    veto_conditions:
+      - "Output format incompatible with target platform"
+      - "Platform credentials not configured"
+    enforcement: { blocking: true, on_veto: HALT }
+
+  - name: "Publish"
+    agent: brandcraft-chief
+    action: "Execute publishing via delegated skill"
+    input: "Output files + platform config"
+    output: "Published URL or export path"
+    veto_conditions:
+      - "API rate limit exceeded"
+      - "Upload failed after 2 retries"
+    enforcement: { blocking: true, on_veto: HALT }
+    checkpoint:
+      type: user
+      show: "Ready to publish to {platform}: {file_count} files"
+      ask: "Confirm publish? This action is visible to others."
+
+flow: "brandcraft-chief (validate) -> brandcraft-chief (route) -> skill (publish)"
+estimated_duration: "1-3 minutes"

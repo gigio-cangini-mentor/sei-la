@@ -18,6 +18,7 @@ Princípios inegociáveis com gates automáticos. Documento completo: `.aiox-cor
 | IV | No Invention — sem features inventadas | MUST |
 | V | Quality First — lint + typecheck + test passam | MUST |
 | VI | Absolute Imports — `@/` alias, sem `../../` | SHOULD |
+| VII | pt-BR Quality — todo texto pt-BR com acentuação completa, sem exceção. Ref: `skills/pt-br-accentuation/SKILL.md` | NON-NEGOTIABLE |
 
 ---
 

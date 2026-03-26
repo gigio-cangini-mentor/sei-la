@@ -1,0 +1,1 @@
+../../../../../../skills/politica-simulation-mirofish/templates/context-summarizer.md

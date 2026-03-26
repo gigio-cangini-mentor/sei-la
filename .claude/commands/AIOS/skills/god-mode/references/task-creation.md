@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/task-creation.md
+../../../../../../skills/god-mode/references/task-creation.md

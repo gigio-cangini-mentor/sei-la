@@ -1,1 +1,1 @@
-../../../../skills/godot-gdscript-patterns/SKILL.md
+../../../../../skills/godot-gdscript-patterns/SKILL.md

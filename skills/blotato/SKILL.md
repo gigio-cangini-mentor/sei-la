@@ -37,6 +37,15 @@ Publicação e agendamento multi-plataforma. É como ter um assistente que posta
 - Precisa interagir com posts existentes (comentar, curtir)
 - Precisa analytics detalhados (use as APIs nativas)
 
+## Discovery Questions
+
+Questions to ask before executing. Use AskUserQuestion tool. Skip if the user already provided this context.
+
+1. **Em quais plataformas quer publicar?** — (determina quais contas conectadas usar e adapta formato do conteúdo)
+2. **Quer publicar agora ou agendar para um horário específico?** — (define se usa publish imediato ou scheduling com datetime)
+3. **Tem mídia pronta (imagens/vídeos) ou é post somente texto?** — (define se precisa do passo de upload antes da publicação)
+4. **O conteúdo é o mesmo para todas as plataformas ou precisa de variações?** — (opcional) (LinkedIn aceita textos longos, X tem limite de caracteres, IG precisa de mídia)
+
 ## Prerequisites
 
 - Conta Blotato ativa (blotato.com)

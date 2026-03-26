@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/god-mode/references/squad-creation.md
+../../../../../../skills/god-mode/references/squad-creation.md

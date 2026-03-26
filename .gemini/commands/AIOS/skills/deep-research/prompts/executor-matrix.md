@@ -1,1 +1,1 @@
-../../../../../../.aios/skills/deep-research/prompts/executor-matrix.md
+../../../../../../skills/deep-research/prompts/executor-matrix.md

@@ -20,17 +20,17 @@ task:
   purpose_delegation_map:
     squad-building:
       chain:
-        - squad: squad-creator-pro
+        - squad: squad-creator
           task: extract-knowledge
           input_mapping:
             source_path: "{curated_path}"
           output: "Knowledge extraction artifacts"
-        - squad: squad-creator-pro
+        - squad: squad-creator
           task: extract-voice-dna
           input_mapping:
             source_path: "{curated_path}"
           output: "Voice DNA profile"
-        - squad: squad-creator-pro
+        - squad: squad-creator
           task: extract-thinking-dna
           input_mapping:
             source_path: "{curated_path}"
@@ -58,12 +58,12 @@ task:
           input_mapping:
             source_path: "{curated_path}"
           output: "Source collection"
-        - squad: squad-creator-pro
+        - squad: squad-creator
           task: extract-voice-dna
           input_mapping:
             source_path: "{curated_path}"
           output: "Voice DNA profile"
-        - squad: squad-creator-pro
+        - squad: squad-creator
           task: extract-thinking-dna
           input_mapping:
             source_path: "{curated_path}"
@@ -182,9 +182,9 @@ task:
 
           | Step | Squad | Task | Status | Output |
           |------|-------|------|--------|--------|
-          | 1 | squad-creator-pro | extract-knowledge | ✓ DONE | artifacts/... |
-          | 2 | squad-creator-pro | extract-voice-dna | ✓ DONE | voice-dna.md |
-          | 3 | squad-creator-pro | extract-thinking-dna | ✗ TIMEOUT | — |
+          | 1 | squad-creator | extract-knowledge | ✓ DONE | artifacts/... |
+          | 2 | squad-creator | extract-voice-dna | ✓ DONE | voice-dna.md |
+          | 3 | squad-creator | extract-thinking-dna | ✗ TIMEOUT | — |
 
           Completed: 2/3
           Next steps: Re-run step 3 or proceed manually.

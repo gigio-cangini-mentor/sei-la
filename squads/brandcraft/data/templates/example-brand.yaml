@@ -1,0 +1,42 @@
+---
+name: "example-brand"
+description: "Example brand template — use as reference for token structure"
+source_url: "https://example.com"
+extracted_at: "2026-03-24T00:00:00Z"
+version: "1.0.0"
+status: "complete"
+tokens:
+  colors:
+    primary: "#5E6AD2"
+    secondary: "#8B95E0"
+    accent: "#E5484D"
+    background: "#FFFFFF"
+    surface: "#F7F7F8"
+    text_primary: "#1A1523"
+    text_secondary: "#6F6E77"
+  typography:
+    font_heading: "'Inter', sans-serif"
+    font_body: "'Inter', sans-serif"
+    size_h1: "2.5rem"
+    size_h2: "2rem"
+    size_h3: "1.5rem"
+    size_body: "1rem"
+    weight_heading: "700"
+    weight_body: "400"
+  spacing:
+    xs: "4px"
+    sm: "8px"
+    md: "16px"
+    lg: "24px"
+    xl: "32px"
+    xxl: "48px"
+logos:
+  primary: "logos/example-logo.svg"
+  icon: "logos/example-icon.png"
+---
+
+# Example Brand
+
+This is a reference template showing the expected YAML structure for BrandCraft brand templates.
+All fields under `tokens` are required for a template to be considered "complete".
+Templates with missing fields are stored with `status: "draft"`.

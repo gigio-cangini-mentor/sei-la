@@ -42,4 +42,5 @@
 | Obsidian — Avulsos | 2 | ~9K |
 | Base local — Transcrições | 19 | ~147K |
 | Conferência Mágica e Cinema | 1 | ~31K |
-| **TOTAL** | **38** | **~203K** |
+| WhatsApp — Áudios builder history | 1 | ~1.5K |
+| **TOTAL** | **39** | **~205K** |

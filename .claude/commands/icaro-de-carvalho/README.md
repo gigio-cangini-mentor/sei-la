@@ -1,0 +1,1 @@
+Read the squad README at `squads/icaro-de-carvalho/README.md` and present the squad overview to the user.

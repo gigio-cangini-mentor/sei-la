@@ -1,0 +1,279 @@
+# Root Diagnosis Squad Configuration
+# Squad especializado em diagnosticar problemas reais — causas-raiz, adjacentes e sistêmicas
+
+name: root-diagnosis
+version: 1.2.0
+description: "Squad de diagnóstico profundo de problemas. Identifica causas-raiz, problemas adjacentes, dinâmicas ocultas, dinâmicas sistêmicas e empacota para ação. Baseado em 13 elite minds com frameworks documentados e skin in the game."
+author: Leandro Aveiro
+icon: "🔬"
+slash_prefix: RootDiagnosis
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SQUAD METADATA
+# ═══════════════════════════════════════════════════════════════════════════
+
+metadata:
+  domain: problem-diagnosis
+  domain_keywords:
+    - root cause analysis
+    - problem diagnosis
+    - systems thinking
+    - meta-cognition
+    - problem reframing
+    - causal analysis
+    - organizational diagnosis
+    - complexity classification
+    - evidence-based diagnosis
+    - humble inquiry
+  target_users:
+    - Líderes que precisam entender a dor real antes de agir
+    - Consultores que diagnosticam problemas organizacionais
+    - PMs/POs que precisam validar se estão resolvendo o problema certo
+    - Qualquer pessoa que quer "afiar o machado" antes de cortar
+  created: 2026-02-21
+  philosophy: "Diagnosticar antes de agir. O machado afiado corta melhor."
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AGENT ROSTER
+# ═══════════════════════════════════════════════════════════════════════════
+
+agents:
+  orchestrator:
+    - id: root-diagnosis-chief
+      name: Diagnostic Orchestrator
+      role: Orquestra o fluxo diagnóstico completo
+      file: agents/root-diagnosis-chief.md
+
+  tier_0_foundation:
+    description: "Meta-pensadores que definem COMO pensar sobre o problema"
+    agents:
+      - id: dave-snowden
+        name: Dave Snowden
+        framework: Cynefin Framework
+        role: Classificar domínio do problema (Clear/Complicated/Complex/Chaotic)
+        file: agents/dave-snowden.md
+
+      - id: chris-argyris
+        name: Chris Argyris
+        framework: Ladder of Inference + Double-Loop Learning
+        role: Auditar pressupostos e saltos lógicos do diagnosticador
+        file: agents/chris-argyris.md
+
+      - id: stafford-beer
+        name: Stafford Beer
+        framework: Viable System Model (VSM)
+        role: Diagnosticar viabilidade organizacional (S1-S5, Requisite Variety)
+        file: agents/stafford-beer.md
+        optional: true
+
+      - id: peter-senge
+        name: Peter Senge
+        framework: System Dynamics (CLDs, Archetypes, Iceberg, Meadows Leverage Points)
+        role: Mapear dinâmicas sistêmicas — feedback loops, archetypes, leverage points
+        file: agents/peter-senge.md
+
+  tier_1_masters:
+    description: "Metodologistas centrais de diagnóstico profundo"
+    agents:
+      - id: eli-goldratt
+        name: Eli Goldratt
+        framework: TOC Thinking Processes / Current Reality Tree
+        role: Diagnóstico sistêmico — mapear cadeia causal completa
+        file: agents/eli-goldratt.md
+
+      - id: kepner-tregoe
+        name: Kepner & Tregoe
+        framework: KT Rational Process (4 processos)
+        role: Análise forense — isolar causa-raiz com IS/IS NOT
+        file: agents/kepner-tregoe.md
+
+      - id: peter-checkland
+        name: Peter Checkland
+        framework: Soft Systems Methodology (SSM)
+        role: Diagnosticar problemas mal definidos com múltiplos stakeholders
+        file: agents/peter-checkland.md
+
+  tier_2_specialists:
+    description: "Especialistas de diagnóstico para domínios específicos"
+    agents:
+      - id: thomas-wedell-wedellsborg
+        name: Thomas Wedell-Wedellsborg
+        framework: Frame-Reframe-Move Forward
+        role: Desafiar enquadramento — "É ESSE o problema certo?"
+        file: agents/thomas-wedell-wedellsborg.md
+
+      - id: dean-gano
+        name: Dean L. Gano
+        framework: Apollo Root Cause Analysis
+        role: Engenharia de RCA com grafos causais verificáveis
+        file: agents/dean-gano.md
+
+      - id: gary-klein
+        name: Gary Klein
+        framework: Data/Frame + PreMortem + CDM
+        role: Diagnóstico cognitivo e validação final
+        file: agents/gary-klein.md
+
+      - id: douglas-hubbard
+        name: Douglas Hubbard
+        framework: Applied Information Economics / How to Measure Anything
+        role: Quantificar o inquantificável — diagnóstico baseado em evidências
+        file: agents/douglas-hubbard.md
+
+      - id: edgar-schein
+        name: Edgar Schein
+        framework: Humble Inquiry + Clinical Inquiry + 3 Levels of Culture
+        role: Diagnóstico político/cultural/emocional — o que NÃO está sendo dito
+        file: agents/edgar-schein.md
+
+      - id: min-basadur
+        name: Min Basadur
+        framework: Simplex Process (Creative Problem Solving)
+        role: Empacotar diagnóstico para ação — ponte entre diagnóstico e execução
+        file: agents/min-basadur.md
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DIAGNOSTIC WORKFLOW
+# ═══════════════════════════════════════════════════════════════════════════
+
+workflow:
+  primary: workflows/wf-root-diagnosis.yaml
+  phases:
+    - phase: 0
+      name: Intake & Triage
+      agent: root-diagnosis-chief
+      task: tasks/intake-triage.md
+      description: Escopo, profundidade, acesso, cliente do diagnóstico
+
+    - phase: 1
+      name: Domain Classification
+      agent: dave-snowden
+      task: tasks/classify-domain.md
+      description: Classificar tipo do problema via Cynefin
+
+    - phase: 1.5
+      name: Viability Assessment
+      agent: stafford-beer
+      task: tasks/assess-viability.md
+      description: Diagnosticar viabilidade organizacional via VSM (S1-S5)
+      optional: true
+      skip_condition: "Problema puramente técnico, individual ou sem componente organizacional"
+
+    - phase: 2
+      name: Cultural & Political Diagnosis
+      agent: edgar-schein
+      task: tasks/diagnose-culture.md
+      description: Extrair o que NÃO está sendo dito
+
+    - phase: 3
+      name: Assumption Audit
+      agent: chris-argyris
+      task: tasks/audit-assumptions.md
+      description: Auditar pressupostos e saltos lógicos
+
+    - phase: 3.5
+      name: System Dynamics Diagnostic
+      agent: peter-senge
+      task: tasks/model-system-dynamics.md
+      description: Mapear feedback loops, archetypes, leverage points e Iceberg Model
+
+    - phase: 4
+      name: Problem Reframing
+      agent: thomas-wedell-wedellsborg
+      task: tasks/reframe-problem.md
+      description: Desafiar enquadramento — é o problema certo? + Meadows Purpose Test
+
+    - phase: 5
+      name: Deep Diagnosis
+      agent: eli-goldratt OR peter-checkland
+      task: tasks/deep-diagnosis.md
+      description: Diagnóstico profundo — CRT ou SSM conforme tipo
+      decision_point:
+        condition: "Cynefin domain classification result"
+        if_complicated: eli-goldratt
+        if_complex: peter-checkland
+        if_both: sequential
+
+    - phase: 6
+      name: Root Cause Analysis
+      agent: kepner-tregoe OR dean-gano
+      task: tasks/root-cause-analysis.md
+      description: RCA detalhada
+      decision_point:
+        condition: "Problem isolability"
+        if_isolable: kepner-tregoe
+        if_chain: dean-gano
+        if_both: sequential
+
+    - phase: 7
+      name: Evidence Quantification
+      agent: douglas-hubbard
+      task: tasks/quantify-evidence.md
+      description: Quantificar e criar measurement chains
+
+    - phase: 8
+      name: Stress Test
+      agent: gary-klein
+      task: tasks/stress-test.md
+      description: PreMortem — "E se nosso diagnóstico estiver errado?"
+
+    - phase: 9
+      name: Package for Action
+      agent: min-basadur
+      task: tasks/package-for-action.md
+      description: Empacotar problema para execução
+
+    - phase: 10
+      name: Diagnostic Report
+      agent: root-diagnosis-chief
+      task: tasks/generate-report.md
+      description: Compilar relatório diagnóstico completo
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TASKS
+# ═══════════════════════════════════════════════════════════════════════════
+
+tasks:
+  phase_tasks:
+    - intake-triage.md        # Phase 0
+    - classify-domain.md      # Phase 1
+    - assess-viability.md     # Phase 1.5 (opcional — org/business)
+    - diagnose-culture.md     # Phase 2 (opcional)
+    - audit-assumptions.md    # Phase 3
+    - model-system-dynamics.md # Phase 3.5
+    - reframe-problem.md      # Phase 4
+    - deep-diagnosis.md       # Phase 5 (dual-path: Goldratt/Checkland)
+    - root-cause-analysis.md  # Phase 6 (dual-path: KT/Gano)
+    - quantify-evidence.md    # Phase 7 (opcional)
+    - stress-test.md          # Phase 8 (opcional)
+    - package-for-action.md   # Phase 9 (opcional)
+    - generate-report.md      # Phase 10
+  meta_tasks:
+    - full-diagnosis.md       # Orquestra todas as 13 fases (trigger: *diagnose)
+    - quick-diagnosis.md      # Orquestra 8 fases essenciais (trigger: *quick-diagnosis)
+    - start.md                # Entry point de onboarding
+
+# ═══════════════════════════════════════════════════════════════════════════
+# TEMPLATES & CHECKLISTS
+# ═══════════════════════════════════════════════════════════════════════════
+
+templates:
+  - diagnostic-report-tmpl.md
+
+checklists:
+  - diagnosis-quality-gate.md
+
+# ═══════════════════════════════════════════════════════════════════════════
+# QUALITY STANDARDS
+# ═══════════════════════════════════════════════════════════════════════════
+
+quality:
+  minimum_score: 7.0
+  required_phases: [0, 1, 3, 3.5, 4, 5, 6, 10]
+  optional_phases: [1.5, 2, 7, 8, 9]
+  veto_conditions:
+    - "Diagnóstico sem classificação Cynefin (Phase 1 skipped)"
+    - "Root Cause Analysis sem evidências verificáveis"
+    - "Relatório sem distinção entre sintomas e causas-raiz"
+    - "Saltos lógicos não auditados (Phase 3 skipped)"
+    - "Problema Complex sem análise sistêmica (Phase 3.5 skipped sem justificativa)"
