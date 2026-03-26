@@ -7,7 +7,7 @@
 | 3 | storytelling-masters-fosc | 📦 | Research Fala Magnética | tech-search | 2026-03-05 | [INDEX](storytelling-masters-fosc/INDEX.md) |
 | 4 | high-ticket-sales | 📦 | 25 livros mapeados | tech-search | 2026-03-04 | [INDEX](high-ticket-sales/INDEX.md) |
 | 5 | **renner-silva** | 📦 | **Clone v1.2 pronto (9.5/10)** | **Kaizen + squad-chief** | **2026-03-09** | [INDEX](renner-silva/INDEX.md) |
-| 22 | **update-squads** | 📦 | **PLANEJAMENTO COMPLETO — Top 10 priorizado, 0/10 executados** | **Claude Opus 4.6** | **2026-03-26** | [INDEX](update-squads/INDEX.md) |
+| 22 | **update-squads** | 📦 | **4/10 ações feitas — merge + 3 DNA enrichments. Próximo: ai-reels workflows** | **Claude Opus 4.6** | **2026-03-26** | [INDEX](update-squads/INDEX.md) |
 | 21 | **renan-vieira** | 📦 | **✅ DNA extraído 91.5% + Agent criado — squad integration pendente** | **squad-creator + mind-cloning** | **2026-03-17** | [INDEX](renan-vieira/INDEX.md) |
 | 6 | **designcode-ui** | 📦 | **32/32 componentes + 29/29 Storybook stories (100%)** | **design-chief** | **2026-03-11** | [INDEX](designcode-ui/INDEX.md) |
 | 7 | **meta-ads-prospector** | 🏠 | 🔄 **5 stories revisadas e aprovadas — pronto para @dev** | **@pm/@architect/@po/@sm → @dev** | **2026-03-12** | [INDEX](~/CODE/Projects/meta-ads-prospector/.aios/INDEX.md) |
