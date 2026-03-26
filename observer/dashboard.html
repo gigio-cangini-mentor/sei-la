@@ -457,9 +457,15 @@ function renderPipeline(pipeline) {
 
     const icon = isDone ? '✓' : isActive ? '●' : '○';
     const iconClass = isDone ? 'color:var(--green)' : isActive ? 'color:var(--blue)' : '';
-    row.innerHTML =
-      `<span class="stage-icon" style="${iconClass}">${icon}</span>` +
-      `<span class="stage-name">${stage.replace(/_/g, ' ')}</span>`;
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'stage-icon';
+    iconSpan.style.cssText = iconClass;
+    iconSpan.textContent = icon;
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'stage-name';
+    nameSpan.textContent = stage.replace(/_/g, ' ');
+    row.appendChild(iconSpan);
+    row.appendChild(nameSpan);
 
     list.appendChild(row);
   });
@@ -480,10 +486,18 @@ function renderTerminals(terminals) {
   terminals.forEach((t) => {
     const row = document.createElement('div');
     row.className = 'terminal-row';
-    row.innerHTML =
-      `<span class="terminal-agent">${t.agent || '?'}</span>` +
-      `<span class="terminal-pid">pid:${t.pid || '?'}</span>` +
-      `<span class="terminal-task">${t.task || ''}</span>`;
+    const agentSpan = document.createElement('span');
+    agentSpan.className = 'terminal-agent';
+    agentSpan.textContent = t.agent || '?';
+    const pidSpan = document.createElement('span');
+    pidSpan.className = 'terminal-pid';
+    pidSpan.textContent = 'pid:' + (t.pid || '?');
+    const taskSpan = document.createElement('span');
+    taskSpan.className = 'terminal-task';
+    taskSpan.textContent = t.task || '';
+    row.appendChild(agentSpan);
+    row.appendChild(pidSpan);
+    row.appendChild(taskSpan);
     list.appendChild(row);
   });
 }
@@ -580,10 +594,18 @@ function appendEventToLog(event) {
   const typeClass = classifyEvent(type);
   const summary = summarizeData(event);
 
-  row.innerHTML =
-    `<span class="log-time">${ts}</span>` +
-    `<span class="log-type ${typeClass}">${type}</span>` +
-    `<span class="log-data">${summary}</span>`;
+  const timeSpan = document.createElement('span');
+  timeSpan.className = 'log-time';
+  timeSpan.textContent = ts;
+  const typeSpan = document.createElement('span');
+  typeSpan.className = 'log-type ' + typeClass;
+  typeSpan.textContent = type;
+  const dataSpan = document.createElement('span');
+  dataSpan.className = 'log-data';
+  dataSpan.textContent = summary;
+  row.appendChild(timeSpan);
+  row.appendChild(typeSpan);
+  row.appendChild(dataSpan);
 
   // Apply current filter
   if (filterValue && !type.includes(filterValue)) {
@@ -594,7 +616,7 @@ function appendEventToLog(event) {
   logRows.push({ event, el: row });
 
   setText('log-count', `(${logRows.length})`);
-  setText('m-total', logRows.length);
+  setText('m-total', liveState.metrics.total || logRows.length);
 
   if (autoScroll) {
     container.scrollTop = container.scrollHeight;
@@ -727,6 +749,7 @@ function handleMessage(msg) {
         if (data.pipeline) {
           liveState.pipeline.current = data.pipeline.current_stage;
           liveState.pipeline.completed = data.pipeline.completed_stages || [];
+          liveState.currentPhase = liveState.pipeline.current || null;
           renderPipeline(liveState.pipeline);
           setText('agent-phase', liveState.pipeline.current || '—');
         }
