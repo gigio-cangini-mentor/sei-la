@@ -382,12 +382,9 @@ phases:
     unlock_message: "Cada story é uma missão. Cada missão, um passo mais perto."
     complete_message: "As stories estão prontas. A forja espera."
     integration_checks:
-      - name: "Stories existem e estão prontas"
-        type: "command"
-        command: "ls docs/stories/*.md 2>/dev/null | head -1"
-      - name: "Stories referenciam o PRD"
-        type: "command"
-        command: "grep -rl 'PRD\\|prd\\|spec' docs/stories/ 2>/dev/null | head -1"
+      - name: "Stories existem"
+        type: "file_exists"
+        glob: "docs/stories/*.md"
     items:
       - id: "3.1"
         label: "Criar stories"

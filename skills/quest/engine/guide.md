@@ -126,11 +126,18 @@ phases:
 
 Supported types:
 
-| Type | What it does | Example |
-|------|-------------|---------|
-| `command` | Runs shell command, expects exit code 0 | `npm run build` |
-| `file_exists` | Checks glob pattern matches files | `dist/**` |
-| `endpoint` | Starts app, hits URL, checks response | `http://localhost:3000/api/health` |
+| Type | What it does | Example | Timeout |
+|------|-------------|---------|---------|
+| `command` | Runs shell command, expects exit code 0 | `npm run build` | 120s default |
+| `file_exists` | Checks glob pattern matches files | `dist/**` | instant |
+| `endpoint` | Starts app, hits URL, checks response | `http://localhost:3000/api/health` | 30s default |
+
+### Timeout Rules
+
+- **Default timeout for `command`:** 120 seconds. Override with `timeout` field in the check definition.
+- **If timeout is reached:** treat as FAILURE. Show: "Comando demorou mais de {timeout}s — possível travamento. Verifique manualmente."
+- **Use Bash tool with `timeout` parameter** when executing integration check commands.
+- **Never block indefinitely** — every command MUST have a timeout.
 
 ### Fallback: Ask the user
 

@@ -44,6 +44,9 @@ items:
 | `pending` | `{ status: pending }` |
 | `done` | `{ status: done, completed_at: <ISO 8601 UTC> }` |
 | `skipped` | `{ status: skipped, note: <string> }` |
+| `detected` | `{ status: detected, detected_at: <ISO 8601 UTC> }` |
+
+**Note on `detected`:** Used by scan for items in LOCKED phases. When an item is auto-detected in a phase that hasn't been unlocked yet (via Integration Gate), it's marked `detected` instead of `done`. When the phase is finally unlocked (Integration Gate passes), all `detected` items in that phase are automatically promoted to `done`. This prevents scan from bypassing the Integration Gate.
 
 ---
 
@@ -76,6 +79,15 @@ items:
 
 **Steps:**
 
+0. **YAML Parse Guard:** Attempt to read and parse `.aios/quest-log.yaml`. If YAML parsing fails (syntax error, corrupt file):
+   - Show error: "Quest log corrompido — o arquivo YAML não pôde ser lido."
+   - Check if `.aios/quest-log.yaml.bak` exists:
+     - **If backup exists:** ask "Encontrei um backup. Restaurar? (s/n)"
+       - If "s": copy `.bak` over `.yaml`, retry parse
+       - If "n": proceed to recreate
+     - **If no backup:** ask "Quer criar um novo quest log? O progresso anterior será perdido. (s/n)"
+       - If "s": delete corrupt file, trigger Create Quest-log (section 2)
+       - If "n": stop with message "Corrija o arquivo manualmente ou delete `.aios/quest-log.yaml` para recomeçar."
 1. Read and parse `.aios/quest-log.yaml`.
 2. Validate `meta.pack` matches the pack selected by the scanner.
    - **Match:** proceed normally.
@@ -138,11 +150,15 @@ items:
 
 **Steps:**
 
-1. Collect ALL pack items that have a `scan_rule` field — from ALL phases, including LOCKED ones. **Scan does NOT respect phase lock.** This is intentional: scan detects pre-existing work regardless of phase progression. The phase lock guard (section 4) applies only to manual `check` and `skip` commands.
-2. For each item with `scan_rule`:
+1. Collect ALL pack items that have a `scan_rule` field — from ALL phases, including LOCKED ones. Scan detects pre-existing work regardless of phase progression. The phase lock guard (section 4) applies only to manual `check` and `skip` commands.
+2. Determine which phases are currently UNLOCKED (using `is_phase_unlocked` from guide.md §2).
+3. For each item with `scan_rule`:
    - If `quest_log.items[item.id].status` is NOT `pending`, skip (already resolved).
    - Evaluate the `scan_rule` using scanner functions (see table below).
-   - If the rule evaluates to `true`, add to the discoveries list.
+   - If the rule evaluates to `true`:
+     - If item's phase is UNLOCKED → mark as `done` (add to discoveries list)
+     - If item's phase is LOCKED → mark as `detected` (add to detections list)
+   - **Why `detected` instead of `done` for locked phases:** The Integration Gate (guide.md §2.5) must verify that prior phases work together before unlocking the next. Marking items as `done` in locked phases would bypass this critical check. `detected` items are automatically promoted to `done` when the phase is unlocked.
 3. If discoveries list is empty, show: `"Scan completo. Nenhuma nova descoberta."` and stop.
 4. Show the discoveries list:
 
@@ -235,10 +251,11 @@ Items with a `condition` field require special handling.
 
 Every time the quest-log is written to disk:
 
-1. Update `meta.last_updated` to current datetime.
-2. Stats MUST be recalculated via xp-system before saving. Never write stale stats.
-3. Write the full YAML structure (meta, stats, achievements, items) to `.aios/quest-log.yaml`.
-4. Preserve YAML formatting: use 2-space indentation, quote item ids that look like numbers (e.g. `"0.1"`).
+1. **Backup first:** Copy current `.aios/quest-log.yaml` to `.aios/quest-log.yaml.bak` BEFORE writing. This ensures recovery if the write is interrupted or corrupts the file.
+2. Update `meta.last_updated` to current datetime.
+3. Stats MUST be recalculated via xp-system before saving. Never write stale stats.
+4. Write the full YAML structure (meta, stats, achievements, items) to `.aios/quest-log.yaml`.
+5. Preserve YAML formatting: use 2-space indentation, quote item ids that look like numbers (e.g. `"0.1"`).
 
 ---
 
@@ -248,6 +265,7 @@ Every time the quest-log is written to disk:
 - **Item in pack but not in quest-log:** treat as `pending`. Add it to the quest-log on next save.
 - **Empty pack (no phases/items):** create quest-log with empty `items: {}` and zero stats.
 - **Scan rule references missing file:** rule evaluates to `false` (not an error).
-- **Multiple scans:** only affect items that are still `pending`. Already `done` or `skipped` items are never changed by scan.
+- **Multiple scans:** only affect items that are still `pending`. Already `done`, `skipped`, or `detected` items are never changed by scan.
+- **Phase unlock with `detected` items:** When a phase passes the Integration Gate and is unlocked, promote all `detected` items in that phase to `done` (set `completed_at` to current datetime). Recalculate stats after promotion.
 - **Re-check already done item:** no-op. Show: `"Item '{id}' ja esta completo."`.
 - **Re-skip already skipped item:** no-op. Show: `"Item '{id}' ja foi pulado."`.

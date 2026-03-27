@@ -114,6 +114,15 @@ Store the responses in the quest-log `meta` block:
 
 From this point forward, NEVER use "Builder" again. Always use `{hero_name}` to address the user. If they provided a `hero_title`, use it in special moments (celebrations, level ups, final victory) with the format: `{hero_name}, {hero_title}`.
 
+### Input Validation
+
+| Rule | What to do |
+|------|-----------|
+| Empty string (user presses Enter) | Retry: "Preciso de um nome para começar, herói! Pode ser só uma letra." Max 3 retries, then default to "Aventureiro" |
+| Too long (> 30 chars) | Truncate to 30 and confirm: "Vou te chamar de '{truncated}', ok?" |
+| Contains YAML-unsafe chars (`:`, `"`, `\n`, `\t`) | Strip them silently |
+| Only spaces/special chars | Retry: "Hmm, preciso de algo pronunciável. Tenta de novo?" |
+
 ### Rules
 
 - Ask ONCE during first ceremony, never again
@@ -121,6 +130,7 @@ From this point forward, NEVER use "Builder" again. Always use `{hero_name}` to 
 - If user gives name + title together (e.g., "Thorin, Escudo de Carvalho"), parse it: name = "Thorin", title = "Escudo de Carvalho" — skip Step B
 - Use `AskUserQuestion` tool to collect the responses
 - This step happens BEFORE the Loading Sequence — the loading bars should already use the hero name
+- Same validation rules apply to custom hero_title (Step B, option 5)
 
 ---
 
