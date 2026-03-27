@@ -16,7 +16,7 @@ const AGENT_INFO = {
   po: { icon: '🎯', role: 'Product Owner' },
   qa: { icon: '🧪', role: 'QA Engineer' },
   sm: { icon: '🔄', role: 'Scrum Master' },
-  'squad-creator': { icon: '🛠️', role: 'Squad Creator' },
+  'squad-creator-pro': { icon: '🛠️', role: 'Squad Creator' },
   'ux-design-expert': { icon: '🎨', role: 'UX Expert' },
 };
 

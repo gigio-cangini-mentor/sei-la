@@ -303,7 +303,7 @@ function extractAgents() {
       scope: 'Framework governance, constitutional enforcement',
     },
     {
-      id: '@squad-creator',
+      id: '@squad-creator-pro',
       persona: 'Scout',
       scope: 'Squad creation, workspace setup, onboarding',
     },

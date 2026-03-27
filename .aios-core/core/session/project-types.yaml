@@ -28,7 +28,7 @@ projectTypes:
       - "workflows/"
       - "agents/"
     examples:
-      - "squad-creator"
+      - "squad-creator-pro"
       - "mmos-squad"
       - "hormozi-mind"
 

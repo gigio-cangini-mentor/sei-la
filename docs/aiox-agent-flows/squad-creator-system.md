@@ -2,7 +2,7 @@
 
 > **Versão:** 1.0.0
 > **Criado:** 2026-02-04
-> **Owner:** @squad-creator (Craft)
+> **Owner:** @squad-creator-pro (Craft)
 > **Status:** Documentação Oficial
 
 ---
@@ -38,10 +38,10 @@ Este sistema implementa a **arquitetura task-first** do AIOX, onde tasks sao o p
 
 | Arquivo | Propósito |
 |---------|-----------|
-| `.aiox-core/development/agents/squad-creator.md` | Definição core do agente Squad Creator |
-| `.claude/commands/AIOX/agents/squad-creator.md` | Comando Claude Code para ativar @squad-creator |
+| `.aiox-core/development/agents/squad-creator-pro.md` | Definição core do agente Squad Creator |
+| `.claude/commands/AIOX/agents/squad-creator-pro.md` | Comando Claude Code para ativar @squad-creator-pro |
 
-### Arquivos de Tasks do @squad-creator
+### Arquivos de Tasks do @squad-creator-pro
 
 | Arquivo | Comando | Propósito | Status |
 |---------|---------|-----------|--------|
@@ -426,7 +426,7 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-    subgraph SQUAD_CREATOR["🏗️ @squad-creator (Craft)"]
+    subgraph SQUAD_CREATOR["🏗️ @squad-creator-pro (Craft)"]
         SC_CREATE["*create-squad"]
         SC_VALIDATE["*validate-squad"]
         SC_LIST["*list-squads"]
@@ -667,8 +667,8 @@ flowchart LR
 - [Script: squad-generator.js](.aiox-core/development/scripts/squad/squad-generator.js)
 - [Script: squad-validator.js](.aiox-core/development/scripts/squad/squad-validator.js)
 - [Schema: squad-schema.json](.aiox-core/schemas/squad-schema.json)
-- [Agent: squad-creator.md](.aiox-core/development/agents/squad-creator.md)
-- [Command: squad-creator.md](.claude/commands/AIOX/agents/squad-creator.md)
+- [Agent: squad-creator-pro.md](.aiox-core/development/agents/squad-creator-pro.md)
+- [Command: squad-creator-pro.md](.claude/commands/AIOX/agents/squad-creator-pro.md)
 
 ---
 
@@ -691,7 +691,7 @@ flowchart LR
 
 | Data | Autor | Descrição |
 |------|-------|-----------|
-| 2026-02-04 | @squad-creator | Documento inicial criado com 7 diagramas Mermaid |
+| 2026-02-04 | @squad-creator-pro | Documento inicial criado com 7 diagramas Mermaid |
 
 ---
 
