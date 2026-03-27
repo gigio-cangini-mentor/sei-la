@@ -1,0 +1,20 @@
+{
+  "name": "design-system-scaffold",
+  "version": "1.0.0",
+  "description": "Scaffolds a Next.js + Tailwind + Shadcn + Storybook 8 project from extracted design tokens. Part of the Design System Forge pipeline.",
+  "category": "design",
+  "requires": ["aios"],
+  "keywords": ["design-system", "scaffold", "nextjs", "tailwind", "storybook", "shadcn"],
+  "tools": {
+    "tokens-to-tailwind": "lib/tokens-to-tailwind.mjs",
+    "tokens-to-css": "lib/tokens-to-css.mjs",
+    "scaffold-project": "lib/scaffold-project.mjs"
+  },
+  "pipeline_position": 2,
+  "pipeline": [
+    "/design-system-forge — Extract DNA",
+    "/design-system-scaffold — Setup project + Storybook (THIS SKILL)",
+    "/design-system-storybook — Build components + stories",
+    "/design-system-catalog — Register in global catalog"
+  ]
+}

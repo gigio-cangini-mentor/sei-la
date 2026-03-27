@@ -60,6 +60,8 @@ Right after the Title Screen, ask the user how they want to be called. This crea
 
 ### Flow
 
+**Step A — Ask name:**
+
 ```
   Antes de começar, preciso saber...
 
@@ -69,14 +71,37 @@ Right after the Title Screen, ask the user how they want to be called. This crea
   > [user types their name]
 ```
 
-After the user responds with their name, ask for an optional epic title:
+**Step B — Suggest epic titles:**
+
+After receiving the name, the Quest Master proposes 3 epic titles based on the pack theme and the user's name. The suggestions should feel natural and thematic — like an RPG character creation screen.
 
 ```
-  E se você tivesse um título épico, qual seria?
-  (ex: "Escudo de Carvalho", "O Forjador", "Mestre dos Códigos")
-  Ou tecle Enter para pular.
+  {hero_name}... belo nome.
 
-  > [user types title or skips]
+  Todo herói merece um título épico. Que tal um desses?
+
+  1. {hero_name}, {title_suggestion_1}
+  2. {hero_name}, {title_suggestion_2}
+  3. {hero_name}, {title_suggestion_3}
+  4. Prefiro sem título
+  5. Quero escrever o meu próprio
+
+  > [user picks 1-5]
+```
+
+**Title suggestion rules:**
+- Generate 3 suggestions inspired by the **pack theme** (e.g., for app-development: "O Forjador de Apps", "Arquiteto do Código", "Mestre das Builds"; for squad-upgrade: "Senhor dos Squads", "O Estrategista", "Guardião do Ecossistema")
+- Titles should sound RPG-epic but relate to what the quest is about
+- Keep titles short (2-4 words max)
+- If user picks 5, ask them to type their custom title
+
+**If user picks 4 (no title):** set `hero_title` to empty string and move on. No judgment — "Sem título? Sem problema. Suas ações vão falar por você."
+
+**If user picks 5 (custom):**
+```
+  Qual título você escolhe?
+
+  > [user types their title]
 ```
 
 ### Storage
@@ -93,7 +118,7 @@ From this point forward, NEVER use "Builder" again. Always use `{hero_name}` to 
 
 - Ask ONCE during first ceremony, never again
 - If user gives a single word, accept it (e.g., "Lu")
-- If user gives name + title together (e.g., "Thorin, Escudo de Carvalho"), parse it: name = "Thorin", title = "Escudo de Carvalho"
+- If user gives name + title together (e.g., "Thorin, Escudo de Carvalho"), parse it: name = "Thorin", title = "Escudo de Carvalho" — skip Step B
 - Use `AskUserQuestion` tool to collect the responses
 - This step happens BEFORE the Loading Sequence — the loading bars should already use the hero name
 

@@ -1,10 +1,10 @@
 {
   "name": "design-system-forge",
-  "version": "1.0.0",
-  "description": "Orchestrates design system extraction, elevation, and build from any website. CLI-first tooling for the Quest: Design System Forge pack.",
+  "version": "2.0.0",
+  "description": "Interactive pipeline — clone any website into a premium design system with Storybook. Guides user step by step from URL to complete DS.",
   "category": "design",
   "requires": ["aios"],
-  "keywords": ["design-system", "extraction", "playwright", "tokens", "tailwind", "quest"],
+  "keywords": ["design-system", "extraction", "playwright", "tokens", "tailwind", "storybook", "clone", "quest"],
   "quest_pack": "design-system-forge",
   "tools": {
     "dissect": "lib/dissect.mjs",
@@ -14,5 +14,11 @@
     "consolidate-tokens": "lib/consolidate-tokens.mjs",
     "generate-tailwind": "lib/generate-tailwind.mjs",
     "visual-diff": "lib/visual-diff.mjs"
-  }
+  },
+  "pipeline": [
+    "/design-system-forge — Extract DNA (this skill)",
+    "/design-system-scaffold — Setup project + Storybook",
+    "/design-system-storybook — Build components + stories",
+    "/design-system-catalog — Register in global catalog"
+  ]
 }

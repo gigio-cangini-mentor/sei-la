@@ -50,6 +50,7 @@ function parseArgs(args) {
     mobile: false,
     fullPage: true,
     timeout: 30,
+    clone: false,
     help: false,
   };
 
@@ -68,6 +69,8 @@ function parseArgs(args) {
       parsed.mobile = true;
     } else if (arg === '--no-full-page') {
       parsed.fullPage = false;
+    } else if (arg === '--clone') {
+      parsed.clone = true;
     } else if (arg === '--timeout' || arg === '-t') {
       parsed.timeout = parseInt(args[++i]) || 30;
     } else if (!arg.startsWith('-') && !parsed.target) {
@@ -93,6 +96,7 @@ Options:
   --output, -o       Output directory (default: outputs/design-system/scans/{name})
   --viewport, -v     Viewport: WxH (default: 1440x900)
   --mobile           Also capture mobile viewport (375x812)
+  --clone            FULL extraction: assets, fonts, SVGs, bg images, clean HTML
   --no-full-page     Only capture visible viewport
   --timeout, -t      Navigation timeout in seconds (default: 30)
   --help, -h         Show this help
@@ -336,7 +340,23 @@ function extractDesignData() {
 
     // Recurse children (elements only)
     for (const child of element.children) {
-      if (['script', 'style', 'noscript', 'svg', 'path'].includes(child.tagName.toLowerCase())) continue;
+      if (['script', 'style', 'noscript'].includes(child.tagName.toLowerCase())) continue;
+      // Capture SVG as a leaf node (outerHTML) instead of recursing into paths
+      if (child.tagName.toLowerCase() === 'svg') {
+        nodeCount++;
+        const svgRect = child.getBoundingClientRect();
+        node.children.push({
+          tag: 'svg',
+          id: child.id || undefined,
+          classes: child.className && typeof child.className === 'string' ? child.className.split(/\s+/).filter(Boolean) : [],
+          rect: { x: Math.round(svgRect.x), y: Math.round(svgRect.y), width: Math.round(svgRect.width), height: Math.round(svgRect.height) },
+          styles: {},
+          attributes: { viewBox: child.getAttribute('viewBox') || '', fill: child.getAttribute('fill') || '' },
+          svgContent: child.outerHTML.substring(0, 5000),
+          children: [],
+        });
+        continue;
+      }
       const childNode = walkDOM(child, depth + 1);
       if (childNode) node.children.push(childNode);
     }
@@ -597,6 +617,616 @@ async function downloadStylesheets(page, outputDir) {
 }
 
 // ---------------------------------------------------------------------------
+// Clone Mode: Network Asset Interceptor
+// ---------------------------------------------------------------------------
+
+function setupNetworkCapture(page) {
+  const captured = {
+    fonts: [],
+    images: [],
+    css: [],
+    other: [],
+  };
+
+  page.on('response', async (response) => {
+    const url = response.url();
+    const contentType = response.headers()['content-type'] || '';
+    const status = response.status();
+
+    if (status < 200 || status >= 400) return;
+
+    try {
+      if (contentType.includes('font') || /\.(woff2?|ttf|otf|eot)(\?|$)/i.test(url)) {
+        const buffer = await response.body();
+        captured.fonts.push({ url, buffer, contentType });
+      } else if (contentType.includes('image') || /\.(png|jpe?g|gif|webp|avif|ico)(\?|$)/i.test(url)) {
+        const buffer = await response.body();
+        captured.images.push({ url, buffer, contentType });
+      } else if (contentType.includes('css') && !url.includes('data:')) {
+        const text = await response.text();
+        captured.css.push({ url, text });
+      }
+    } catch {
+      // Response body may be unavailable for some requests
+    }
+  });
+
+  return captured;
+}
+
+// ---------------------------------------------------------------------------
+// Clone Mode: Save captured network assets
+// ---------------------------------------------------------------------------
+
+function saveNetworkAssets(captured, outputDir) {
+  const assetMap = { fonts: {}, images: {}, css: {} };
+
+  // Fonts
+  const fontDir = path.join(outputDir, 'fonts');
+  fs.mkdirSync(fontDir, { recursive: true });
+  for (const { url, buffer } of captured.fonts) {
+    const ext = (url.match(/\.(woff2?|ttf|otf|eot)/i) || [null, 'woff2'])[1];
+    const name = url.split('/').pop().split('?')[0].substring(0, 80) || `font-${Date.now()}`;
+    const safeName = name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const filename = safeName.includes('.') ? safeName : `${safeName}.${ext}`;
+    fs.writeFileSync(path.join(fontDir, filename), buffer);
+    assetMap.fonts[url] = `fonts/${filename}`;
+    console.error(`  Font: ${filename} (${buffer.length} bytes)`);
+  }
+
+  // Images
+  const imgDir = path.join(outputDir, 'images');
+  fs.mkdirSync(imgDir, { recursive: true });
+  for (const { url, buffer, contentType } of captured.images) {
+    const extMap = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/gif': 'gif', 'image/webp': 'webp', 'image/avif': 'avif', 'image/svg+xml': 'svg', 'image/x-icon': 'ico' };
+    const ext = extMap[contentType] || (url.match(/\.(png|jpe?g|gif|webp|avif|ico|svg)/i) || [null, 'png'])[1];
+    const rawName = url.split('/').pop().split('?')[0].substring(0, 80) || `img-${Date.now()}`;
+    const safeName = rawName.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const filename = safeName.includes('.') ? safeName : `${safeName}.${ext}`;
+    fs.writeFileSync(path.join(imgDir, filename), buffer);
+    assetMap.images[url] = `images/${filename}`;
+  }
+  console.error(`  Images: ${captured.images.length} files saved`);
+
+  // CSS from CDN (cross-origin sheets we couldn't read via CSSOM)
+  const cssDir = path.join(outputDir, 'stylesheets');
+  fs.mkdirSync(cssDir, { recursive: true });
+  for (const { url, text } of captured.css) {
+    const rawName = url.split('/').pop().split('?')[0].substring(0, 80) || `cdn-${Date.now()}.css`;
+    const safeName = rawName.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const filename = safeName.endsWith('.css') ? safeName : `${safeName}.css`;
+    const filePath = path.join(cssDir, `net-${filename}`);
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, text);
+      assetMap.css[url] = `stylesheets/net-${filename}`;
+      console.error(`  CSS (network): net-${filename} (${text.length} bytes)`);
+    }
+  }
+
+  // Post-process CSS files: rewrite font URLs to local paths
+  const allCssFiles = [
+    ...fs.readdirSync(path.join(outputDir, 'stylesheets')).map(f => path.join(outputDir, 'stylesheets', f)),
+  ].filter(f => f.endsWith('.css'));
+
+  for (const cssFile of allCssFiles) {
+    let css = fs.readFileSync(cssFile, 'utf-8');
+    let rewritten = false;
+    for (const [remoteUrl, localPath] of Object.entries(assetMap.fonts)) {
+      if (css.includes(remoteUrl)) {
+        css = css.replace(new RegExp(remoteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), `../${localPath}`);
+        rewritten = true;
+      }
+    }
+    for (const [remoteUrl, localPath] of Object.entries(assetMap.images)) {
+      if (css.includes(remoteUrl)) {
+        css = css.replace(new RegExp(remoteUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), `../${localPath}`);
+        rewritten = true;
+      }
+    }
+    if (rewritten) {
+      fs.writeFileSync(cssFile, css);
+    }
+  }
+
+  return assetMap;
+}
+
+// ---------------------------------------------------------------------------
+// Clone Mode: Extract SVGs
+// ---------------------------------------------------------------------------
+
+async function extractSvgs(page, outputDir) {
+  const svgDir = path.join(outputDir, 'svgs');
+  fs.mkdirSync(svgDir, { recursive: true });
+
+  const svgs = await page.evaluate(() => {
+    const results = [];
+    const svgElements = document.querySelectorAll('svg');
+    svgElements.forEach((svg, i) => {
+      const parent = svg.parentElement;
+      const context = parent
+        ? `${parent.tagName.toLowerCase()}${parent.className && typeof parent.className === 'string' ? '.' + parent.className.split(/\s+/)[0] : ''}`
+        : 'root';
+      const ariaLabel = svg.getAttribute('aria-label') || '';
+      const role = svg.getAttribute('role') || '';
+      const viewBox = svg.getAttribute('viewBox') || '';
+      const width = svg.getAttribute('width') || svg.style.width || '';
+      const height = svg.getAttribute('height') || svg.style.height || '';
+
+      results.push({
+        index: i,
+        outerHTML: svg.outerHTML,
+        context,
+        ariaLabel,
+        role,
+        viewBox,
+        width,
+        height,
+        childCount: svg.children.length,
+      });
+    });
+    return results;
+  });
+
+  const manifest = [];
+  for (const svg of svgs) {
+    const label = svg.ariaLabel
+      ? svg.ariaLabel.replace(/[^a-zA-Z0-9]/g, '-').substring(0, 40)
+      : `svg-${svg.index}`;
+    const filename = `${label}.svg`;
+    fs.writeFileSync(path.join(svgDir, filename), svg.outerHTML);
+    manifest.push({
+      file: filename,
+      context: svg.context,
+      viewBox: svg.viewBox,
+      width: svg.width,
+      height: svg.height,
+    });
+  }
+
+  console.error(`  SVGs: ${svgs.length} extracted`);
+  return manifest;
+}
+
+// ---------------------------------------------------------------------------
+// Clone Mode: Extract background images from computed styles
+// ---------------------------------------------------------------------------
+
+async function extractBackgroundImages(page, outputDir, existingAssetMap) {
+  const bgUrls = await page.evaluate(() => {
+    const urls = new Set();
+    const allElements = document.querySelectorAll('*');
+    for (const el of allElements) {
+      const computed = getComputedStyle(el);
+      const bg = computed.backgroundImage;
+      if (bg && bg !== 'none') {
+        const matches = bg.matchAll(/url\(["']?(https?:\/\/[^"')]+)["']?\)/g);
+        for (const match of matches) {
+          urls.add(match[1]);
+        }
+      }
+      // Also check <img> src that might be lazy-loaded or srcset
+      if (el.tagName === 'IMG') {
+        const src = el.src || el.dataset.src || el.dataset.lazySrc || '';
+        if (src.startsWith('http')) urls.add(src);
+        // Parse srcset for additional image URLs
+        const srcset = el.getAttribute('srcset') || '';
+        for (const entry of srcset.split(',')) {
+          const url = entry.trim().split(/\s+/)[0];
+          if (url && url.startsWith('http')) urls.add(url);
+        }
+      }
+      // Picture source elements
+      if (el.tagName === 'SOURCE') {
+        const srcset = el.getAttribute('srcset') || '';
+        for (const entry of srcset.split(',')) {
+          const url = entry.trim().split(/\s+/)[0];
+          if (url && url.startsWith('http')) urls.add(url);
+        }
+      }
+    }
+    return [...urls];
+  });
+
+  const bgDir = path.join(outputDir, 'images');
+  fs.mkdirSync(bgDir, { recursive: true });
+  const downloaded = [];
+
+  // Skip URLs already captured via network interception
+  const alreadyCaptured = new Set(Object.keys(existingAssetMap.images || {}));
+
+  for (const url of bgUrls) {
+    // Check if already downloaded (exact or base match)
+    const decoded = decodeURIComponent(url);
+    const baseUrl = decoded.split('?')[0];
+    if (alreadyCaptured.has(url) || alreadyCaptured.has(decoded) || alreadyCaptured.has(baseUrl)) {
+      continue;
+    }
+
+    try {
+      const response = await page.request.get(url, { timeout: 10000 });
+      const status = response.status();
+      if (status < 200 || status >= 400) {
+        downloaded.push({ url, error: `HTTP ${status}` });
+        continue;
+      }
+      const buffer = await response.body();
+      if (buffer.length < 100) continue; // Skip tracking pixels
+
+      const contentType = response.headers()['content-type'] || '';
+      const extMap = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/svg+xml': 'svg', 'image/gif': 'gif', 'image/avif': 'avif' };
+      const ext = extMap[contentType.split(';')[0]] || (url.match(/\.(png|jpe?g|gif|webp|avif|svg)/i) || [null, 'png'])[1];
+
+      const rawName = url.split('/').pop().split('?')[0].substring(0, 80) || `bg-${Date.now()}`;
+      const safeName = rawName.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const filename = safeName.includes('.') ? safeName : `${safeName}.${ext}`;
+      const filePath = path.join(bgDir, filename);
+      if (!fs.existsSync(filePath)) {
+        fs.writeFileSync(filePath, buffer);
+        downloaded.push({ url, file: `images/${filename}`, size: buffer.length });
+        // Add to asset map for URL rewriting
+        existingAssetMap.images[url] = `images/${filename}`;
+      }
+    } catch {
+      downloaded.push({ url, error: 'failed to download' });
+    }
+  }
+
+  const successCount = downloaded.filter(d => !d.error).length;
+  const skipCount = bgUrls.length - downloaded.length;
+  console.error(`  Background images: ${successCount} new + ${skipCount} already captured / ${bgUrls.length} total`);
+  return downloaded;
+}
+
+// ---------------------------------------------------------------------------
+// Clone Mode: Generate reconstructible HTML
+// ---------------------------------------------------------------------------
+
+async function generateCleanHtml(page, outputDir, assetMap) {
+  // Build URL-to-local-path maps for rewriting
+  const imageMap = assetMap.images || {};
+  const fontMap = assetMap.fonts || {};
+  const cssMap = assetMap.css || {};
+
+  // Get all stylesheet URLs and their local filenames for rewriting
+  const allLocalCss = [];
+  const stylesheetDir = path.join(outputDir, 'stylesheets');
+  if (fs.existsSync(stylesheetDir)) {
+    for (const file of fs.readdirSync(stylesheetDir)) {
+      if (file.endsWith('.css')) allLocalCss.push(`stylesheets/${file}`);
+    }
+  }
+
+  const cleanHtml = await page.evaluate((localCssPaths) => {
+    const SKIP_TAGS = new Set(['script', 'noscript', 'iframe']);
+    // Default styles to NOT inline (they're just browser defaults / noise)
+    const DEFAULT_COLORS = new Set([
+      'rgb(0, 0, 0)', 'rgba(0, 0, 0, 0)', 'transparent',
+      'rgb(255, 255, 255)',
+    ]);
+    let indent = 0;
+    const lines = [];
+
+    function addLine(text) {
+      lines.push('  '.repeat(indent) + text);
+    }
+
+    function walkForHtml(element) {
+      const tag = element.tagName.toLowerCase();
+      if (SKIP_TAGS.has(tag)) return;
+
+      // For <style> tags, include them as-is
+      if (tag === 'style') {
+        const css = element.textContent.trim();
+        if (css.length > 0) addLine(`<style>${css}</style>`);
+        return;
+      }
+
+      const computed = getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+
+      // Skip invisible elements (but keep semantic tags)
+      const semanticTags = new Set(['head', 'meta', 'link', 'title', 'header', 'footer', 'nav', 'main', 'section', 'article', 'aside']);
+      if (rect.width === 0 && rect.height === 0 && !semanticTags.has(tag)) return;
+
+      // Build attributes
+      const attrs = [];
+      if (element.id) attrs.push(`id="${element.id}"`);
+      if (element.className && typeof element.className === 'string' && element.className.trim()) {
+        attrs.push(`class="${element.className.trim()}"`);
+      }
+
+      // Key attributes to preserve
+      const preserveAttrs = ['href', 'src', 'alt', 'role', 'aria-label', 'aria-hidden',
+        'type', 'placeholder', 'target', 'rel', 'loading', 'decoding',
+        'data-src', 'data-lazy-src', 'viewBox', 'fill', 'stroke', 'xmlns',
+        'width', 'height', 'srcset', 'sizes', 'media', 'name', 'content'];
+      for (const attr of preserveAttrs) {
+        if (element.hasAttribute(attr)) {
+          attrs.push(`${attr}="${element.getAttribute(attr).replace(/"/g, '&quot;')}"`);
+        }
+      }
+
+      // For SVGs, output outerHTML directly
+      if (tag === 'svg') {
+        addLine(element.outerHTML);
+        return;
+      }
+
+      // Inline ONLY non-default, visually meaningful styles
+      const criticalStyles = [];
+      const bgImage = computed.backgroundImage;
+      if (bgImage && bgImage !== 'none') criticalStyles.push(`background-image:${bgImage}`);
+
+      const bgColor = computed.backgroundColor;
+      if (bgColor && !DEFAULT_COLORS.has(bgColor)) {
+        criticalStyles.push(`background-color:${bgColor}`);
+      }
+
+      // Only inline color if it's NOT the default black and parent doesn't set it
+      const color = computed.color;
+      const parentColor = element.parentElement ? getComputedStyle(element.parentElement).color : 'rgb(0, 0, 0)';
+      if (color && !DEFAULT_COLORS.has(color) && color !== parentColor) {
+        criticalStyles.push(`color:${color}`);
+      }
+
+      // Include explicit inline styles from the element (minus noise)
+      if (element.style.cssText) {
+        const inlineStyle = element.style.cssText
+          .split(';')
+          .map(s => s.trim())
+          .filter(s => s && !s.startsWith('color: rgb(0') && !s.startsWith('color:rgb(0'))
+          .join(';');
+        if (inlineStyle) criticalStyles.push(inlineStyle);
+      }
+
+      if (criticalStyles.length > 0) {
+        attrs.push(`style="${criticalStyles.join(';').replace(/"/g, '&quot;')}"`);
+      }
+
+      // Self-closing tags
+      const selfClosing = new Set(['img', 'br', 'hr', 'input', 'meta', 'link', 'source', 'area', 'col', 'embed', 'wbr']);
+      if (selfClosing.has(tag)) {
+        addLine(`<${tag} ${attrs.join(' ')} />`);
+        return;
+      }
+
+      // Get direct text content
+      const directText = Array.from(element.childNodes)
+        .filter(n => n.nodeType === Node.TEXT_NODE)
+        .map(n => n.textContent.trim())
+        .filter(Boolean)
+        .join(' ');
+
+      const hasChildren = element.children.length > 0;
+      const attrStr = attrs.length > 0 ? ` ${attrs.join(' ')}` : '';
+
+      if (!hasChildren && directText) {
+        addLine(`<${tag}${attrStr}>${directText}</${tag}>`);
+        return;
+      }
+
+      addLine(`<${tag}${attrStr}>`);
+      indent++;
+
+      if (directText) addLine(directText);
+
+      for (const child of element.children) {
+        walkForHtml(child);
+      }
+
+      indent--;
+      addLine(`</${tag}>`);
+    }
+
+    // Start from <html>
+    addLine('<!DOCTYPE html>');
+    const htmlEl = document.documentElement;
+    const lang = htmlEl.getAttribute('lang') || 'en';
+    addLine(`<html lang="${lang}">`);
+    indent++;
+
+    // Head
+    addLine('<head>');
+    indent++;
+    addLine('<meta charset="utf-8" />');
+    addLine('<meta name="viewport" content="width=device-width, initial-scale=1" />');
+    const title = document.title;
+    if (title) addLine(`<title>${title}</title>`);
+
+    // Preserve meta tags
+    for (const meta of document.querySelectorAll('meta[name], meta[property]')) {
+      addLine(meta.outerHTML);
+    }
+
+    // Replace remote CSS links with local paths
+    for (const cssPath of localCssPaths) {
+      addLine(`<link rel="stylesheet" href="${cssPath}" />`);
+    }
+
+    indent--;
+    addLine('</head>');
+
+    // Body — preserve body classes and data attributes
+    const bodyAttrs = [];
+    if (document.body.className) bodyAttrs.push(`class="${document.body.className}"`);
+    if (document.body.style.cssText) bodyAttrs.push(`style="${document.body.style.cssText}"`);
+    const bodyAttrStr = bodyAttrs.length > 0 ? ` ${bodyAttrs.join(' ')}` : '';
+    addLine(`<body${bodyAttrStr}>`);
+    indent++;
+    for (const child of document.body.children) {
+      walkForHtml(child);
+    }
+    indent--;
+    addLine('</body>');
+
+    indent--;
+    addLine('</html>');
+
+    return lines.join('\n');
+  }, allLocalCss);
+
+  // Post-process: rewrite remote image URLs to local paths
+  // Build lookup: normalized URL (no query, decoded) → local path
+  const urlLookup = new Map();
+  for (const [remoteUrl, localPath] of Object.entries(imageMap)) {
+    const base = decodeURIComponent(remoteUrl.split('?')[0]);
+    urlLookup.set(base, localPath);
+    urlLookup.set(remoteUrl, localPath);
+  }
+  for (const [remoteUrl, localPath] of Object.entries(fontMap)) {
+    const base = decodeURIComponent(remoteUrl.split('?')[0]);
+    urlLookup.set(base, localPath);
+    urlLookup.set(remoteUrl, localPath);
+  }
+
+  // Replace all remote URLs in src="..." and href="..." attributes
+  let processedHtml = cleanHtml.replace(
+    /(?:src|href)="(https?:\/\/[^"]+)"/g,
+    (match, url) => {
+      const decoded = decodeURIComponent(url);
+      const baseUrl = decoded.split('?')[0];
+      const encodedBase = url.split('?')[0];
+      const localPath = urlLookup.get(url) || urlLookup.get(decoded) || urlLookup.get(baseUrl) || urlLookup.get(encodedBase);
+      if (localPath) {
+        const attr = match.startsWith('src') ? 'src' : 'href';
+        return `${attr}="${localPath}"`;
+      }
+      return match;
+    }
+  );
+
+  // Strip srcset attributes (Next.js responsive image variants — noisy for clone)
+  processedHtml = processedHtml.replace(/\s*srcset="[^"]*"/g, '');
+
+  // Decode /_next/image?url=... to the actual CDN URL, then rewrite to local
+  processedHtml = processedHtml.replace(
+    /(?:src|href)="\/_next\/image\?url=([^&"]+)[^"]*"/g,
+    (match, encodedUrl) => {
+      const url = decodeURIComponent(encodedUrl);
+      const decoded = decodeURIComponent(url);
+      const baseUrl = decoded.split('?')[0];
+      const localPath = urlLookup.get(url) || urlLookup.get(decoded) || urlLookup.get(baseUrl);
+      if (localPath) {
+        const attr = match.startsWith('src') ? 'src' : 'href';
+        return `${attr}="${localPath}"`;
+      }
+      // Even if not in map, rewrite to direct CDN URL (easier to download later)
+      const attr = match.startsWith('src') ? 'src' : 'href';
+      return `${attr}="${decoded}"`;
+    }
+  );
+
+  // Rewrite content="https://..." in meta tags (og:image, etc.)
+  processedHtml = processedHtml.replace(
+    /content="(https?:\/\/[^"]+)"/g,
+    (match, url) => {
+      const decoded = decodeURIComponent(url);
+      const baseUrl = decoded.split('?')[0];
+      const localPath = urlLookup.get(url) || urlLookup.get(decoded) || urlLookup.get(baseUrl);
+      if (localPath) return `content="${localPath}"`;
+      return match;
+    }
+  );
+
+  // Replace remote URLs in url(...) (CSS background-image inline styles)
+  processedHtml = processedHtml.replace(
+    /url\(["']?(https?:\/\/[^"')]+)["']?\)/g,
+    (match, url) => {
+      const decoded = decodeURIComponent(url);
+      const baseUrl = decoded.split('?')[0];
+      const encodedBase = url.split('?')[0];
+      const localPath = urlLookup.get(url) || urlLookup.get(decoded) || urlLookup.get(baseUrl) || urlLookup.get(encodedBase);
+      if (localPath) return `url("${localPath}")`;
+      return match;
+    }
+  );
+
+  fs.writeFileSync(path.join(outputDir, 'clean-structure.html'), processedHtml);
+  console.error(`  Saved: clean-structure.html (${processedHtml.length} bytes)`);
+
+  // Also generate a section map (high-level structure overview)
+  const sectionMap = await page.evaluate(() => {
+    const sections = [];
+    const topLevel = document.body.children;
+    for (const el of topLevel) {
+      const tag = el.tagName.toLowerCase();
+      if (['script', 'noscript', 'style'].includes(tag)) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.height === 0) continue;
+      const computed = getComputedStyle(el);
+      sections.push({
+        tag,
+        id: el.id || undefined,
+        classes: (el.className && typeof el.className === 'string') ? el.className.trim().substring(0, 100) : '',
+        role: el.getAttribute('role') || undefined,
+        rect: { y: Math.round(rect.y), height: Math.round(rect.height) },
+        background: computed.backgroundColor !== 'rgba(0, 0, 0, 0)' ? computed.backgroundColor : undefined,
+        childCount: el.children.length,
+        textPreview: (el.textContent || '').trim().substring(0, 80),
+      });
+    }
+    return sections;
+  });
+
+  fs.writeFileSync(
+    path.join(outputDir, 'section-map.json'),
+    JSON.stringify(sectionMap, null, 2)
+  );
+  console.error(`  Saved: section-map.json (${sectionMap.length} top-level sections)`);
+
+  // Final pass: download any remaining remote image URLs in the HTML
+  const remainingUrls = [];
+  processedHtml.replace(/src="(https?:\/\/[^"]+)"/g, (_, url) => {
+    remainingUrls.push(url);
+  });
+
+  if (remainingUrls.length > 0) {
+    console.error(`  Downloading ${remainingUrls.length} remaining remote images...`);
+    const imgDir = path.join(outputDir, 'images');
+    let downloaded = 0;
+    for (const url of remainingUrls) {
+      try {
+        const response = await page.request.get(url, { timeout: 10000 });
+        if (response.status() >= 200 && response.status() < 400) {
+          const buffer = await response.body();
+          if (buffer.length < 100) continue;
+          const contentType = response.headers()['content-type'] || '';
+          const extMap = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/svg+xml': 'svg', 'image/gif': 'gif' };
+          const ext = extMap[contentType.split(';')[0]] || 'png';
+          // Use asset ID from URL as filename
+          const urlPath = url.split('?')[0];
+          const assetId = urlPath.split('/').pop().substring(0, 40);
+          const filename = `${assetId}.${ext}`;
+          const filePath = path.join(imgDir, filename);
+          if (!fs.existsSync(filePath)) {
+            fs.writeFileSync(filePath, buffer);
+          }
+          // Rewrite in HTML
+          const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          processedHtml = processedHtml.replace(new RegExp(escaped, 'g'), `images/${filename}`);
+          imageMap[url] = `images/${filename}`;
+          downloaded++;
+        }
+      } catch { /* skip failed downloads */ }
+    }
+    console.error(`  Downloaded: ${downloaded}/${remainingUrls.length}`);
+    // Re-save the updated HTML
+    fs.writeFileSync(path.join(outputDir, 'clean-structure.html'), processedHtml);
+  }
+
+  // Save complete asset map for reconstruction
+  const completeAssetMap = { ...imageMap, ...fontMap, ...cssMap };
+  fs.writeFileSync(
+    path.join(outputDir, 'asset-map.json'),
+    JSON.stringify(completeAssetMap, null, 2)
+  );
+  console.error(`  Saved: asset-map.json (${Object.keys(completeAssetMap).length} URL mappings)`);
+
+  return { htmlSize: processedHtml.length, sectionCount: sectionMap.length };
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -650,8 +1280,12 @@ async function main() {
     });
     const page = await context.newPage();
 
+    // Setup network capture (clone mode or always — lightweight)
+    const networkAssets = args.clone ? setupNetworkCapture(page) : null;
+
     // Navigate
-    console.error('2/7 Loading page...');
+    const totalSteps = args.clone ? 11 : 7;
+    console.error(`2/${totalSteps} Loading page...`);
     await page.goto(target, {
       waitUntil: 'domcontentloaded',
       timeout: args.timeout * 1000,
@@ -661,21 +1295,22 @@ async function main() {
     await page.waitForTimeout(5000);
 
     // Save raw HTML
-    console.error('3/7 Saving HTML source...');
+    console.error(`3/${totalSteps} Saving HTML source...`);
     const html = await page.content();
     fs.writeFileSync(path.join(outputDir, 'source.html'), html);
     console.error(`  Saved: source.html (${html.length} bytes)`);
 
     // Download all stylesheets
-    console.error('4/7 Downloading stylesheets...');
+    console.error(`4/${totalSteps} Downloading stylesheets...`);
     const stylesheetManifest = await downloadStylesheets(page, outputDir);
 
     // Take screenshots
-    console.error('5/7 Capturing screenshots...');
+    console.error(`5/${totalSteps} Capturing screenshots...`);
     await page.screenshot({
       path: path.join(outputDir, 'screenshot-desktop.png'),
       fullPage: args.fullPage,
       type: 'png',
+      timeout: 60000,
     });
     console.error('  Saved: screenshot-desktop.png');
 
@@ -686,6 +1321,7 @@ async function main() {
         path: path.join(outputDir, 'screenshot-mobile.png'),
         fullPage: args.fullPage,
         type: 'png',
+        timeout: 60000,
       });
       console.error('  Saved: screenshot-mobile.png');
 
@@ -695,7 +1331,7 @@ async function main() {
     }
 
     // Extract design data
-    console.error('6/7 Extracting design data (DOM walk + computed styles)...');
+    console.error(`6/${totalSteps} Extracting design data (DOM walk + computed styles)...`);
     const designData = await page.evaluate(extractDesignData);
 
     // Save extracted data
@@ -718,7 +1354,7 @@ async function main() {
     console.error(`  Saved: components.json (${designData.components.length} component types)`);
 
     // Generate tokens
-    console.error('7/7 Generating design tokens...');
+    console.error(`7/${totalSteps} Generating design tokens...`);
     const tokensYaml = generateTokensYaml(designData, {
       name: args.name,
       target: args.target,
@@ -726,6 +1362,24 @@ async function main() {
     });
     fs.writeFileSync(path.join(outputDir, 'tokens.yaml'), tokensYaml);
     console.error('  Saved: tokens.yaml');
+
+    // ---- Clone mode: additional extraction steps ----
+    let cloneData = null;
+    if (args.clone) {
+      cloneData = {};
+
+      console.error(`8/${totalSteps} Saving network-captured assets (fonts, images, CDN CSS)...`);
+      cloneData.networkAssets = saveNetworkAssets(networkAssets, outputDir);
+
+      console.error(`9/${totalSteps} Extracting SVGs...`);
+      cloneData.svgs = await extractSvgs(page, outputDir);
+
+      console.error(`10/${totalSteps} Extracting background images...`);
+      cloneData.bgImages = await extractBackgroundImages(page, outputDir, cloneData.networkAssets);
+
+      console.error(`11/${totalSteps} Generating reconstructible HTML...`);
+      cloneData.html = await generateCleanHtml(page, outputDir, cloneData.networkAssets);
+    }
 
     // Generate manifest
     const manifest = {
@@ -760,6 +1414,17 @@ async function main() {
         totalComponents: designData.components.reduce((sum, c) => sum + c.count, 0),
         stylesheetCount: stylesheetManifest.length,
         inlineStyles: designData.inlineStyles.length,
+        ...(cloneData ? {
+          clone: {
+            fonts: Object.keys(cloneData.networkAssets.fonts).length,
+            images: Object.keys(cloneData.networkAssets.images).length,
+            cdnCss: Object.keys(cloneData.networkAssets.css).length,
+            svgs: cloneData.svgs.length,
+            bgImages: cloneData.bgImages.filter(d => !d.error).length,
+            cleanHtmlSize: cloneData.html.htmlSize,
+            sectionCount: cloneData.html.sectionCount,
+          },
+        } : {}),
       },
     };
 
@@ -790,6 +1455,18 @@ async function main() {
     console.error(`  Total components:   ${manifest.summary.totalComponents}`);
     console.error(`  Stylesheets:        ${manifest.summary.stylesheetCount}`);
     console.error(`  Inline styles:      ${manifest.summary.inlineStyles}`);
+
+    if (manifest.summary.clone) {
+      console.error('');
+      console.error('Clone mode extras:');
+      console.error(`  Fonts captured:     ${manifest.summary.clone.fonts}`);
+      console.error(`  Images captured:    ${manifest.summary.clone.images}`);
+      console.error(`  CDN CSS captured:   ${manifest.summary.clone.cdnCss}`);
+      console.error(`  SVGs extracted:     ${manifest.summary.clone.svgs}`);
+      console.error(`  BG images:          ${manifest.summary.clone.bgImages}`);
+      console.error(`  Clean HTML:         ${manifest.summary.clone.cleanHtmlSize} bytes`);
+      console.error(`  Sections mapped:    ${manifest.summary.clone.sectionCount}`);
+    }
 
   } catch (error) {
     console.error(`\nError: ${error.message}`);

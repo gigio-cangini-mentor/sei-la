@@ -83,10 +83,29 @@
   who: "@dev"
 
 "2.5":
+  command: "@analyst → buscar animações premium nas fontes da tabela do SKILL.md (Aceternity UI, Magic UI, 21st.dev, Animista, LottieFiles, GSAP, Framer Motion). Comparar com @keyframes em design-system/extracted-css.json e salvar referências melhores em design-system/patterns/animations/"
+  who: "@analyst"
+  note: "OBRIGATÓRIO se o site tem animações complexas (scroll, 3D, partículas, morphing)"
+  sources:
+    - "ui.aceternity.com — micro-interactions, cards 3D, spotlight effects"
+    - "magicui.design — componentes animados React copiáveis"
+    - "21st.dev — componentes premium React/Next.js"
+    - "animista.net — gerador visual de @keyframes CSS"
+    - "lottiefiles.com — ícones e ilustrações animadas (Lottie/JSON)"
+    - "awwwards.com/awwwards/collections/css-js-animations — catálogo por categoria"
+    - "grainy-gradients.vercel.app — texturas noise + gradiente"
+    - "haikei.app — backgrounds SVG (waves, blobs, gradients)"
+    - "blobmaker.app — formas orgânicas SVG"
+    - "particles.js.org — partículas, confetti, conexões"
+    - "gsap.com — ScrollTrigger, timelines, performance"
+    - "npmjs.com/package/framer-motion — scroll animations React"
+    - "npmjs.com/package/react-fast-marquee — scroll infinito de logos"
+
+"2.6":
   command: "@ux → documentar anti-patterns em design-system/anti-patterns/"
   who: "@ux"
 
-"2.6":
+"2.7":
   command: "@dev → gerar design-system/INDEX.md com categorias e links"
   who: "@dev"
 

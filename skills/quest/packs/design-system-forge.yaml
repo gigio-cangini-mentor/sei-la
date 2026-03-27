@@ -343,6 +343,15 @@ phases:
         scan_rule: "has_dir('design-system/patterns/hero-sections') OR has_dir('design-system/patterns/animations')"
 
       - id: "2.5"
+        label: "Buscar animações premium em bibliotecas"
+        command: "@analyst → consultar Aceternity UI, Magic UI, 21st.dev, Animista, LottieFiles para animações similares às extraídas. Ver tabela de fontes no SKILL.md."
+        who: "@analyst"
+        required: true
+        xp: 25
+        note: "OBRIGATÓRIO se o site alvo tem animações complexas (scroll, 3D, partículas, morphing). Comparar com @keyframes extraídos e escolher versão premium."
+        scan_rule: "has_file_matching('design-system/patterns/animations/*') OR has_file_matching('design-system/references/animations*')"
+
+      - id: "2.6"
         label: "Documentar anti-patterns"
         command: "@ux → catalogar o que NÃO funciona — erros comuns, patterns datados, problemas de a11y"
         who: "@ux"
@@ -350,7 +359,7 @@ phases:
         xp: 10
         scan_rule: "has_file_matching('design-system/anti-patterns/*')"
 
-      - id: "2.6"
+      - id: "2.7"
         label: "Criar INDEX.md da biblioteca"
         command: "@dev → índice navegável com categorias, quantidade de patterns, e links"
         who: "@dev"

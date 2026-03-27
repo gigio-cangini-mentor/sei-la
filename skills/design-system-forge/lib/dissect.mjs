@@ -37,6 +37,7 @@ let name = null;
 let mobile = false;
 let splitAnimations = false;
 let screenshotsOnly = false;
+let clone = false;
 let viewports = [];
 let timeout = 60;
 
@@ -50,6 +51,8 @@ for (let i = 0; i < args.length; i++) {
     splitAnimations = true;
   } else if (arg === '--screenshots-only') {
     screenshotsOnly = true;
+  } else if (arg === '--clone') {
+    clone = true;
   } else if (arg === '--viewports') {
     viewports = (args[++i] || '').split(',');
   } else if (arg === '--timeout' || arg === '-t') {
@@ -66,6 +69,7 @@ Options:
   --mobile             Also capture mobile viewport (375x812)
   --split-animations   Post-process: split animations.json + effects.json from extracted-css.json
   --screenshots-only   Only capture screenshots, skip CSS extraction
+  --clone              FULL extraction: assets, fonts, SVGs, bg images, clean HTML
   --viewports WxH,...  Multiple viewports (e.g., 390x844,768x1024,1440x900)
   --help, -h           Show this help
 `);
@@ -111,6 +115,10 @@ function runDissect(vpFlag) {
 
   if (mobile) {
     dissectArgs.push('--mobile');
+  }
+
+  if (clone) {
+    dissectArgs.push('--clone');
   }
 
   console.log(`\n> Dissecting ${target} → ${outputDir}`);
