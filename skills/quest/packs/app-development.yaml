@@ -411,6 +411,7 @@ phases:
     description: "A linha de montagem. Aqui o código ganha vida."
     unlock_message: "Hora de transformar pergaminhos em realidade. Fogo na forja!"
     complete_message: "O código está forjado. Hora de testar o aço."
+    milestone: "mvp"
     note: "Repetir para CADA story"
     items:
       - id: "4.1"

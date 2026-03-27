@@ -67,6 +67,15 @@ detection:
   rules: []          # REQUIRED (array, can be empty)
 levels: {}           # REQUIRED
 phases: []           # REQUIRED
+  # Each phase supports:
+  #   name: string (REQUIRED)
+  #   description: string
+  #   unlock_message: string
+  #   complete_message: string
+  #   milestone: string (OPTIONAL — e.g. "mvp", "alpha", "beta")
+  #     When present, triggers special ceremonies on phase completion.
+  #     "mvp" triggers the MVP Launch Guide (guide.md section 4.6).
+  #   items: [] (REQUIRED)
 ```
 
 **Validation procedure:**
