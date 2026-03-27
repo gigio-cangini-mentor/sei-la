@@ -118,7 +118,7 @@ achievements:
   - id: "shipper"
     name: "Shipper"
     icon: "rocket"
-    condition: "item_done:6.3 AND item_done:6.4"
+    condition: "item_done:7.3 AND item_done:7.4"
     xp_bonus: 25
     message: "Fez deploy com sucesso"
 
@@ -544,7 +544,20 @@ phases:
         xp: 15
         condition: "se tech debt"
 
-      - id: "5.5"
+  # ---------------------------------------------------------------------------
+  # WORLD 6: O Salão dos Selos — Crystal Caverns (130 XP)
+  # ---------------------------------------------------------------------------
+  6:
+    name: "O Salão dos Selos"
+    description: "Auditorias especializadas. Cada cristal é um selo de qualidade."
+    unlock_message: "Os cristais brilham com a verdade. Cada selo é uma garantia."
+    complete_message: "Todos os selos brilham. Seu código é certificado."
+    integration_checks:
+      - name: "Code review completo"
+        type: "command"
+        command: "node -e \"const p=require('./package.json');if(!p.scripts||!p.scripts.test){process.exit(0)}\" && npm test"
+    items:
+      - id: "6.1"
         label: "Auditoria frontend"
         command: "/tokenizacao"
         who: "skill"
@@ -552,7 +565,7 @@ phases:
         xp: 15
         condition: "se tem frontend"
 
-      - id: "5.6"
+      - id: "6.2"
         label: "Tier-S checklist"
         command: "/tier-s-checklist"
         who: "skill"
@@ -560,7 +573,7 @@ phases:
         xp: 25
         condition: "recomendado para produção"
 
-      - id: "5.7"
+      - id: "6.3"
         label: "Process audit"
         command: "@pedro-valerio"
         who: "agente"
@@ -568,7 +581,7 @@ phases:
         xp: 20
         condition: "valida workflows e veto conditions do produto"
 
-      - id: "5.8"
+      - id: "6.4"
         label: "Ecosystem health check"
         command: "kaizen squad → health-check"
         who: "squad"
@@ -576,7 +589,7 @@ phases:
         xp: 15
         condition: "captura patterns e learnings do projeto"
 
-      - id: "5.9"
+      - id: "6.5"
         label: "Build final"
         command: "npm run build"
         who: "@devops"
@@ -584,23 +597,39 @@ phases:
         xp: 15
         scan_rule: "has_dir('dist') OR has_dir('build') OR has_dir('.next')"
 
+      - id: "6.6"
+        label: "Auditoria de segurança"
+        command: "/vulnerability-scanner"
+        who: "skill"
+        required: false
+        xp: 25
+        condition: "recomendado para produção"
+
+      - id: "6.7"
+        label: "Refactoring"
+        command: "/code-refactoring-refactor-clean"
+        who: "skill"
+        required: false
+        xp: 15
+        condition: "se tech debt"
+
   # ---------------------------------------------------------------------------
-  # WORLD 6: O Portal do Deploy (150 XP)
+  # WORLD 7: O Portal do Deploy (150 XP)
   # ---------------------------------------------------------------------------
-  6:
+  7:
     name: "O Portal do Deploy"
     description: "Só o @devops tem a chave do portal."
     unlock_message: "O momento final. Tudo converge aqui."
     complete_message: "O código cruzou o portal. Está no ar."
     items:
-      - id: "6.1"
+      - id: "7.1"
         label: "Quality gate pre-push"
         command: "@devops → *pre-push"
         who: "@devops"
         required: true
         xp: 25
 
-      - id: "6.2"
+      - id: "7.2"
         label: "Commit estruturado"
         command: "@devops → *commit"
         who: "@devops"
@@ -608,21 +637,21 @@ phases:
         xp: 25
         scan_rule: "has_remote('origin')"
 
-      - id: "6.3"
+      - id: "7.3"
         label: "Push para remote"
         command: "@devops → *push"
         who: "@devops"
         required: true
         xp: 40
 
-      - id: "6.4"
+      - id: "7.4"
         label: "Criar Pull Request"
         command: "@devops → *create-pr"
         who: "@devops"
         required: true
         xp: 35
 
-      - id: "6.5"
+      - id: "7.5"
         label: "Finalizar branch"
         command: "/superpowers:finishing-a-development-branch"
         who: "skill"
@@ -630,50 +659,50 @@ phases:
         xp: 25
 
   # ---------------------------------------------------------------------------
-  # WORLD 7: A Torre de Vigia (50 XP)
+  # WORLD 8: A Torre de Vigia (50 XP)
   # ---------------------------------------------------------------------------
-  7:
+  8:
     name: "A Torre de Vigia"
     description: "A casa foi entregue. Agora é manter limpa."
     unlock_message: "Builders de verdade cuidam do que construíram."
     complete_message: "O ciclo se completa. Você é um Master Builder."
     items:
-      - id: "7.1"
+      - id: "8.1"
         label: "Sync projetos"
         command: "/sync-pulse"
         who: "skill"
         required: false
         xp: 10
 
-      - id: "7.2"
+      - id: "8.2"
         label: "Auditoria ecossistema"
         command: "/ecosystem-audit"
         who: "skill"
         required: false
         xp: 10
 
-      - id: "7.3"
+      - id: "8.3"
         label: "Quality dashboard"
         command: "/quality-dashboard"
         who: "skill"
         required: false
         xp: 10
 
-      - id: "7.4"
+      - id: "8.4"
         label: "Memory audit"
         command: "/memory-audit"
         who: "skill"
         required: false
         xp: 5
 
-      - id: "7.5"
+      - id: "8.5"
         label: "Context surgeon"
         command: "/context-surgeon"
         who: "skill"
         required: false
         xp: 10
 
-      - id: "7.6"
+      - id: "8.6"
         label: "Config audit"
         command: "/audit-project-config"
         who: "skill"
