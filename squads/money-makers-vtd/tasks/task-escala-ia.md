@@ -299,6 +299,37 @@ A task está completa quando TODOS os critérios são atendidos:
 | V5 | — | SE prompt system não testado com inputs reais → BLOCK. Testar antes de entregar. |
 | V6 | — | SE sem captura de email no funil → ALERTA. App sem lista = produto descartável. |
 
+```yaml
+veto_conditions:
+  - id: V1
+    heuristic: "NO-H001"
+    trigger: "App sem pesquisa de demanda prévia"
+    severity: block
+    action: "BLOQUEAR — não criar app no escuro, validar demanda primeiro"
+  - id: V2
+    heuristic: "NO-H003"
+    trigger: "App multi-funcional que resolve N problemas"
+    severity: block
+    action: "BLOQUEAR — 1 app = 1 problema. Dividir em apps separados"
+  - id: V3
+    trigger: "Pricing standalone < R$47"
+    severity: alert
+    action: "ALERTA — margem insuficiente para cobrir custo de ads"
+  - id: V4
+    heuristic: "NO-F048"
+    trigger: "Funil do app depende só de orgânico para escalar"
+    severity: block
+    action: "VETO — app precisa de tráfego pago para escalar"
+  - id: V5
+    trigger: "Prompt system não testado com inputs reais"
+    severity: block
+    action: "BLOQUEAR — testar com 3 inputs diferentes antes de entregar"
+  - id: V6
+    trigger: "Funil sem captura de email"
+    severity: alert
+    action: "ALERTA — app sem lista de emails = produto descartável"
+```
+
 ---
 
 ## Quality Gate

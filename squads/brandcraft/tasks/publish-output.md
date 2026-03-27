@@ -49,10 +49,11 @@ Safety-first: nothing goes out without a quality PASS and user confirmation.
 
 ## Veto Conditions
 
-- Output file not found → HALT, ask user to generate first
-- Quality score is FAIL or missing → HALT, suggest running quality-validator
-- Platform credentials missing or expired → HALT, guide user to configure credentials
-- User declines confirmation → HALT gracefully
+- **BLOCKER:** Arquivo de output não encontrado — pedir ao usuário que gere o conteúdo primeiro
+- **BLOCKER:** Quality score é FAIL ou inexistente — rodar quality-validator antes de publicar
+- **BLOCKER:** Credenciais da plataforma ausentes ou expiradas — guiar usuário para configurar
+- **BLOCKER:** Usuário recusou confirmação — parar graciosamente, nunca publicar sem aprovação explícita
+- **WARNING:** Output não passou por validação de dimensões para a plataforma alvo — verificar compatibilidade
 
 ## Handoff
 

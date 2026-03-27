@@ -105,6 +105,13 @@ thinking_dna:
       - og_title
       - brand_name
 
+veto_conditions:
+  - "BLOCKER: Extração feita a partir de uma única página — mínimo 2 páginas (homepage + inner)"
+  - "BLOCKER: Cor marcada como MISSING sendo substituída por valor inventado"
+  - "BLOCKER: Tokens exportados sem URL de origem para rastreabilidade"
+  - "WARNING: Logo extraído apenas como favicon (baixa qualidade) sem tentar SVG do header"
+  - "WARNING: Variantes de logo (full + icon) não capturadas"
+
 commands:
   - "*extract {url} - Extract full design system from URL"
   - "*extract-colors {url} - Extract only color palette"

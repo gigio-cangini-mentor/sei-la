@@ -54,9 +54,11 @@ Generates a branded PDF by combining content with brand tokens from the vault. S
 
 ## Veto Conditions
 
-- Puppeteer not available or not installed → HALT
-- Brand tokens incomplete (missing colors or typography) → HALT (run template-status first)
-- Content is empty → HALT
+- **BLOCKER:** Puppeteer não disponível ou não instalado — sem engine de renderização de PDF
+- **BLOCKER:** Brand tokens incompletos (sem cores ou tipografia) — rodar template-status antes
+- **BLOCKER:** Conteúdo vazio — nada para renderizar
+- **WARNING:** Fontes não embarcadas no PDF (usando fallback de sistema) — documento perde fidelidade visual
+- **WARNING:** Margens ou bleeds fora do padrão para o formato selecionado (A4 vs slides)
 
 ## Handoff
 

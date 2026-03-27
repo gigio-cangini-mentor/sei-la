@@ -47,8 +47,10 @@ Receives extracted brand tokens from the Token Extractor (Prober) and persists t
 
 ## Veto Conditions
 
-- Less than 50% of expected tokens extracted → HALT (insufficient data to create useful template)
-- Brand name conflicts with existing template → HALT (use update-template instead)
+- **BLOCKER:** Menos de 50% dos tokens esperados extraídos — dados insuficientes para template útil
+- **BLOCKER:** Nome da marca conflita com template existente — usar update-template em vez de store
+- **BLOCKER:** Tokens sem source_url — rastreabilidade da origem é obrigatória
+- **WARNING:** Template com 50-89% de completude sendo salvo como draft — avisar o usuário sobre limitações
 
 ## Handoff
 

@@ -44,9 +44,11 @@ Creates an animated carousel where each slide is an individual video file. Unlik
 
 ## Veto Conditions
 
-- Remotion not installed → HALT
-- Fewer than 2 slides provided → HALT, need at least 2 for a carousel
-- Brand profile not found → HALT
+- **BLOCKER:** Remotion não instalado — sem engine de composição de vídeo
+- **BLOCKER:** Menos de 2 slides fornecidos — carrossel precisa de no mínimo 2 slides
+- **BLOCKER:** Brand profile não encontrado — rodar extract-design-system primeiro
+- **WARNING:** Mais de 10 slides no carrossel — limite do Instagram é 10
+- **WARNING:** Animações inconsistentes entre slides do mesmo carrossel — motion style deve ser uniforme
 
 ## Handoff
 

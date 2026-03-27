@@ -47,9 +47,11 @@ After generation, the agent reviews the batch for style coherence and retries ou
 
 ## Veto Conditions
 
-- Descriptions array is empty → HALT
-- Brand profile not found → HALT
-- More than 50% of images fail after retries → HALT, report partial results
+- **BLOCKER:** Array de descrições vazio — nada para gerar
+- **BLOCKER:** Brand profile não encontrado — sem contexto visual para injetar nos prompts
+- **BLOCKER:** Mais de 50% das imagens falharam após retries — reportar resultados parciais
+- **WARNING:** Imagens do batch com estilos visualmente inconsistentes — regenerar outliers com constraints mais fortes
+- **WARNING:** Mesmo provedor usado para todos os tipos de imagem — selecionar provedor por tipo (ilustração vs foto vs texto)
 
 ## Handoff
 

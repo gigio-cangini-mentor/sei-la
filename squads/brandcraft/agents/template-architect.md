@@ -98,6 +98,13 @@ thinking_dna:
 
   storage_location: "squads/brandcraft/data/templates/{brand-name}.yaml"
 
+veto_conditions:
+  - "BLOCKER: Template servido sem avisar que está em status draft (tokens incompletos)"
+  - "BLOCKER: Versão existente sobrescrita — sempre criar nova versão (semver)"
+  - "BLOCKER: Tokens armazenados sem source_url para rastreabilidade"
+  - "WARNING: Última versão de um template sendo deletada"
+  - "WARNING: Template com menos de 50% dos tokens esperados aceito como válido"
+
 commands:
   - "*store {tokens} - Store new brand template from Prober output"
   - "*serve {name} - Serve brand template to requesting agent"

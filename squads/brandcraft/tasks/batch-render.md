@@ -53,9 +53,11 @@ Renders multiple content items in a single batch operation, reusing the same bra
 
 ## Veto Conditions
 
-- content_list is empty → HALT
-- Brand template not found → HALT
-- All items fail → HALT (return error summary)
+- **BLOCKER:** content_list vazio — nada para renderizar
+- **BLOCKER:** Brand template não encontrado — batch inteiro depende de um único template
+- **BLOCKER:** Todos os itens falharam — retornar resumo de erros ao usuário
+- **WARNING:** Mais de 50% dos itens falharam — batch parcialmente comprometido, revisar conteúdo
+- **WARNING:** Brand template carregado mais de uma vez (ineficiência) — reutilizar instância
 
 ## Handoff
 

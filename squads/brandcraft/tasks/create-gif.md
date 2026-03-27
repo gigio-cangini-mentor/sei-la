@@ -49,8 +49,10 @@ Generates a branded animated GIF — small, loopable, and optimized for web/chat
 
 ## Veto Conditions
 
-- Content too vague to produce meaningful animation → HALT, ask for specifics
-- Brand profile not found → HALT
+- **BLOCKER:** Conteúdo muito vago para produzir animação significativa — pedir detalhes específicos
+- **BLOCKER:** Brand profile não encontrado — rodar extract-design-system primeiro
+- **WARNING:** Arquivo GIF excede 5MB — otimizar paleta de cores e frame rate
+- **WARNING:** Loop da animação não é seamless — ajustar primeiro e último frames
 
 ## Handoff
 

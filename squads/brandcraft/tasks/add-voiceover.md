@@ -43,9 +43,11 @@ Adds an AI-generated voiceover to an existing video. The agent delegates voice g
 
 ## Veto Conditions
 
-- ElevenLabs API unavailable or key not configured → HALT, escalate to user
-- Video file not found or corrupt → HALT
-- Script empty → HALT
+- **BLOCKER:** ElevenLabs API indisponível ou chave não configurada — sem engine de TTS
+- **BLOCKER:** Arquivo de vídeo não encontrado ou corrompido — sem source para adicionar áudio
+- **BLOCKER:** Script vazio — sem texto para gerar voiceover
+- **WARNING:** Duração do áudio gerado não coincide com a timeline do vídeo — ajustar sincronização
+- **WARNING:** Níveis de áudio desbalanceados (voz abafada por background) — mixar antes de exportar
 
 ## Handoff
 

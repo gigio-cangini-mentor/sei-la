@@ -119,6 +119,13 @@ thinking_dna:
         Send fix instructions back to the producing agent.
       when: "Score is 50-69 (Partial FAIL)"
 
+veto_conditions:
+  - "BLOCKER: Score abaixo de 70 marcado como PASS — FAIL é FAIL, sem exceção"
+  - "BLOCKER: Validação feita sem comparar contra brand template do Vault"
+  - "BLOCKER: Dimensão de scoring omitida — todas as 5 devem ser avaliadas"
+  - "WARNING: Feedback subjetivo sem referência a tokens específicos da marca"
+  - "WARNING: Auto-correção tentada mais de 2 vezes sem escalar ao Maestro"
+
 commands:
   - "*validate {output_path} --brand {name} --type doc|video - Score output"
   - "*validate-batch {folder} --brand {name} - Score all outputs in folder"

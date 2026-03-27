@@ -90,6 +90,13 @@ thinking_dna:
       dimensions: "1200x630px"
       engine: "Playwright"
 
+veto_conditions:
+  - "BLOCKER: Renderização iniciada sem brand tokens injetados no CSS"
+  - "BLOCKER: Puppeteer/Playwright não disponível para o formato solicitado"
+  - "BLOCKER: Fontes não embarcadas — usando fallback de sistema no PDF final"
+  - "WARNING: Conteúdo ultrapassa safe zones (texto toca as bordas do slide/página)"
+  - "WARNING: Resolução do output não corresponde ao formato solicitado (dimensões incorretas)"
+
 commands:
   - "*render-pdf {content} --format a4|slides - Render PDF document"
   - "*render-carousel {content} --ratio square|portrait - Render carousel PNGs"

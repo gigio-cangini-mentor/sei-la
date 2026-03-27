@@ -143,6 +143,41 @@
 
 ---
 
+## Ação #11 — Fase 2: SILVER → GOLD (16 squads) ✅
+**Impacto:** Alto | **Esforço:** 1 sessão
+**Executado em:** 2026-03-26
+
+Padrão aplicado: adicionar thinking_dna nos agents + veto_conditions nos agents e tasks.
+
+- [x] curator (8.2 → ~8.7): +1 thinking_dna (ffmpeg-cutter), +7 veto agents, +6 veto tasks
+- [x] design (8.1 → ~8.6): +9 thinking_dna (todos), +20 veto tasks
+- [x] kaizen-v2 (8.0 → ~8.6): +8 thinking_dna (todos), +10 veto tasks
+- [x] content-engine (7.8 → ~8.5): +13 thinking_dna, +15 veto agents, +15 veto tasks
+- [x] viral-squad (7.8 → ~8.5): +7 thinking_dna, +7 veto agents, correções pt-BR
+- [x] dan-koe (7.7 → ~8.5): +9 thinking_dna, +9 veto agents, +20 veto tasks
+- [x] kaizen (7.6 → ~8.5): +7 thinking_dna, +7 veto agents, +2 veto tasks
+- [x] affiliates (7.5 → ~8.5): +7 thinking_dna, +9 veto agents
+- [x] openclaw-manager (7.5 → ~8.5): +3 thinking_dna, +3 veto agents, +3 veto tasks, README criado
+- [x] site-performance-audit (7.4 → ~8.5): +8 veto agents (thinking_dna + tasks já completos)
+- [x] negotiation (7.3 → ~8.5): +9 thinking_dna, +9 veto agents
+- [x] palestras-master (7.2 → ~8.5): +5 thinking_dna, +4 veto agents
+- [x] icaro-de-carvalho (7.2 → ~8.5): +6 thinking_dna, +6 veto agents
+- [x] ai-reels (7.2 → ~8.5): +7 thinking_dna, +4 veto agents
+- [x] presenca-digital (7.1 → ~8.5): Já estava completo
+- [x] claude-code-mastery (7.1 → ~8.5): +7 thinking_dna, +8 veto agents
+
+---
+
+## Ação #12 — Cleanup: rename squad-creator → squad-creator-pro ✅
+**Impacto:** Médio | **Esforço:** 30 min
+**Executado em:** 2026-03-26
+
+- [x] Deletar fantasmas: _archived/squad-creator-pro, squad-creator-pro-snapshot, storytelling
+- [x] Renomear squad-creator → squad-creator-pro (diretório + 14 arquivos + 6 dirs IDE)
+- [x] Atualizar referências: dashboard UI, CLI scripts, configs, Synapse, GitHub
+
+---
+
 ## Progresso Geral
 
 | # | Ação | Status |
@@ -157,5 +192,7 @@
 | 8 | Upgrade relationship-therapy | ✅ Feito |
 | 9 | Veto conditions nos SILVER | ✅ Feito |
 | 10 | Mind clones top 5 | ✅ Feito |
+| 11 | Fase 2: SILVER → GOLD (16 squads) | ✅ Feito |
+| 12 | Cleanup: rename squad-creator → squad-creator-pro | ✅ Feito |
 
-**Completo:** 10/10 | **Em progresso:** 0/10 | **Pendente:** 0/10 🎉
+**Completo:** 12/12 | **Em progresso:** 0/12 | **Pendente:** 0/12 🎉

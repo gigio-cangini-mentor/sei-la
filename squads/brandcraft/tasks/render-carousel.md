@@ -56,9 +56,11 @@ Creates Instagram carousel slides as individual PNG files. Splits content into d
 
 ## Veto Conditions
 
-- Playwright not available → HALT
-- Content too short for carousel (< 2 slides) → HALT (suggest render-card instead)
-- Brand tokens missing colors → HALT
+- **BLOCKER:** Playwright não disponível — sem engine de renderização de PNG
+- **BLOCKER:** Conteúdo curto demais para carrossel (< 2 slides) — sugerir render-card em vez disso
+- **BLOCKER:** Brand tokens sem cores definidas — impossível aplicar identidade visual
+- **WARNING:** Primeiro slide sem hook/título de alto impacto visual — carrossel perde atenção na timeline
+- **WARNING:** Último slide sem CTA (call-to-action) — carrossel sem conversão
 
 ## Handoff
 

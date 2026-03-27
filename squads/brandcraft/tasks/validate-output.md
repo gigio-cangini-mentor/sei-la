@@ -53,9 +53,11 @@ Scores a single output against the brand template using an objective 100-point s
 
 ## Veto Conditions
 
-- Brand profile not found → HALT
-- Output file not found or corrupt → HALT
-- Type not "doc" or "video" → HALT
+- **BLOCKER:** Brand profile não encontrado — validação impossível sem baseline de comparação
+- **BLOCKER:** Arquivo de output não encontrado ou corrompido — nada para validar
+- **BLOCKER:** Tipo não é "doc" nem "video" — matriz de scoring não aplicável
+- **WARNING:** Score entre 50-69 sem auto-correções geradas — corrigir antes de escalar
+- **WARNING:** Dimensão de scoring omitida do relatório — todas as 5 devem ser avaliadas
 
 ## Handoff
 

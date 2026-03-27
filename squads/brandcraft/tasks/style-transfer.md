@@ -46,9 +46,10 @@ Uses FLUX Kontext Pro as the primary engine for style transfer.
 
 ## Veto Conditions
 
-- `image_path` does not exist or is not a valid image file → HALT
-- Brand profile not found → HALT
-- FLUX Kontext Pro unavailable → HALT, no fallback for style transfer
+- **BLOCKER:** `image_path` não existe ou não é um arquivo de imagem válido — sem source para transfer
+- **BLOCKER:** Brand profile não encontrado — sem paleta/estilo para aplicar
+- **BLOCKER:** FLUX Kontext Pro indisponível — sem fallback para style transfer (engine exclusivo)
+- **WARNING:** Composição ou sujeito da imagem original alterado após transfer — preservar conteúdo, mudar só estilo
 
 ## Handoff
 

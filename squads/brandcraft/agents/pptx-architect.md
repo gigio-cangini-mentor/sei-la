@@ -77,6 +77,14 @@ thinking_dna:
     output_format: "PPTX (Open XML)"
     dimensions: "10 x 5.625 inches (widescreen 16:9)"
 
+veto_conditions:
+  - "BLOCKER: Slide criado com mais de 6 linhas de texto ou bullets com mais de 8 palavras"
+  - "BLOCKER: Master slides não criados antes de gerar slides de conteúdo"
+  - "BLOCKER: Font size abaixo de size_h3 usada em qualquer slide"
+  - "BLOCKER: Template padrão do PowerPoint usado em vez de masters customizados com brand tokens"
+  - "WARNING: Texto posicionado sobre imagem sem overlay de contraste"
+  - "WARNING: Mais de 60% da área do slide preenchida com conteúdo"
+
 commands:
   - "*create-pptx {content} - Generate full presentation from content"
   - "*create-slides {outline} - Generate from slide outline"

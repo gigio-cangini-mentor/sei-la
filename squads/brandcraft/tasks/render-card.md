@@ -51,9 +51,11 @@ Generates an Open Graph-compatible social card (1200x630px) for use as link prev
 
 ## Veto Conditions
 
-- Playwright not available → HALT
-- Content is empty → HALT
-- Brand tokens missing (no colors) → HALT
+- **BLOCKER:** Playwright não disponível — sem engine de renderização de PNG
+- **BLOCKER:** Conteúdo vazio — nada para renderizar no card
+- **BLOCKER:** Brand tokens sem cores definidas — card perde identidade visual
+- **WARNING:** Título com fonte menor que 24px — ilegível em thumbnail de link preview
+- **WARNING:** Dimensões diferentes de 1200x630px — Open Graph padrão não será respeitado
 
 ## Handoff
 

@@ -281,6 +281,36 @@ A task está completa quando TODOS os critérios são atendidos:
 | V5 | — | SE todos os criativos usam mesmo gatilho → BLOCK. Diversidade de gatilhos é obrigatória. |
 | V6 | — | SE CTA genérico ("Saiba mais", "Clique aqui") → VETO. CTA deve refletir sentimento. |
 
+```yaml
+veto_conditions:
+  - id: V1
+    heuristic: "NO-H014"
+    trigger: "Copy sem variação por sentimento"
+    severity: block
+    action: "BLOQUEAR — mínimo 5 sentimentos distintos representados"
+  - id: V2
+    heuristic: "NO-H014"
+    trigger: "Copy genérica sem Hook específico para o sentimento"
+    severity: block
+    action: "BLOQUEAR — Hook deve parar o scroll e atacar o sentimento"
+  - id: V3
+    trigger: "Menos de 30 variações de criativos"
+    severity: block
+    action: "BLOQUEAR — volume é estratégia, não capricho"
+  - id: V4
+    trigger: "Hook com mais de 15 palavras"
+    severity: alert
+    action: "ALERTA — Hook longo não para scroll, encurtar"
+  - id: V5
+    trigger: "Todos os criativos usam o mesmo gatilho"
+    severity: block
+    action: "BLOQUEAR — diversidade de gatilhos é obrigatória (7 gatilhos)"
+  - id: V6
+    trigger: "CTA genérico ('Saiba mais', 'Clique aqui')"
+    severity: block
+    action: "VETO — CTA deve refletir o sentimento da variação"
+```
+
 ---
 
 ## Quality Gate

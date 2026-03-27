@@ -289,6 +289,37 @@ A task está completa quando TODOS os critérios são atendidos:
 | V5 | — | SE ManyChat sem qualificação → BLOCK. Script sem qualificação = spam. |
 | V6 | — | SE campanha sem calendário de execução → BLOCK. Quando postar cada peça? |
 
+```yaml
+veto_conditions:
+  - id: V1
+    trigger: "Email sem call-to-action"
+    severity: block
+    action: "BLOQUEAR — todo email precisa de CTA claro e específico"
+  - id: V2
+    heuristic: "NO-H006"
+    trigger: "Email 3 (domingo) sem escassez real"
+    severity: block
+    action: "BLOQUEAR — escassez falsa queima a lista de emails"
+  - id: V3
+    heuristic: "NO-H014"
+    trigger: "Todos os criativos Instagram com mesmo sentimento"
+    severity: block
+    action: "BLOQUEAR — mínimo 3 sentimentos distintos nos criativos"
+  - id: V4
+    heuristic: "NO-H005"
+    trigger: "Email 1 sem recomendação de horário 11h"
+    severity: alert
+    action: "ALERTA — aula/email de manhã (11h Brasil) converte mais"
+  - id: V5
+    trigger: "Script ManyChat sem etapa de qualificação"
+    severity: block
+    action: "BLOQUEAR — script sem qualificação = spam, não conversão"
+  - id: V6
+    trigger: "Campanha sem calendário de execução"
+    severity: block
+    action: "BLOQUEAR — sem calendário, ninguém sabe quando postar cada peça"
+```
+
 ---
 
 ## Quality Gate

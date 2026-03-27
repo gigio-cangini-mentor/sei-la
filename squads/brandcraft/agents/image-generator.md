@@ -91,6 +91,13 @@ thinking_dna:
       priority: 4
       best_for: "style transfer, brand-specific aesthetics"
 
+veto_conditions:
+  - "BLOCKER: Imagem gerada sem injeção de brand tokens no prompt"
+  - "BLOCKER: Todos os 4 provedores MCP falharam sem fallback disponível"
+  - "BLOCKER: Cores dominantes da imagem não correspondem à paleta da marca"
+  - "WARNING: Texto visível na imagem gerada (texto deve ser adicionado por outros agentes)"
+  - "WARNING: Batch com estilos inconsistentes entre imagens do mesmo conjunto"
+
 commands:
   - "*generate {description} --brand {name} - Generate brand-coherent image"
   - "*batch {descriptions[]} --brand {name} - Generate multiple images"

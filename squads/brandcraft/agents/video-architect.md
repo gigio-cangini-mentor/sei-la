@@ -97,6 +97,14 @@ thinking_dna:
     - "react@^19.0"
     - "typescript@^5.0"
 
+veto_conditions:
+  - "BLOCKER: Vídeo renderizado sem safe zones configuradas para a plataforma alvo"
+  - "BLOCKER: Cenas de intro e CTA ausentes — brand bookends são obrigatórios"
+  - "BLOCKER: Mais de 3 tipos de animação diferentes no mesmo vídeo"
+  - "BLOCKER: Reel excede 90s ou story excede 15s"
+  - "WARNING: Renderização abaixo de 30fps para vídeo (15fps só para GIF)"
+  - "WARNING: Motion style não derivado da personalidade da marca (usando animações genéricas)"
+
 commands:
   - "*create-reel {content} --format 9:16|16:9|1:1 - Compose video"
   - "*create-story {content} - Compose 15s Instagram story"

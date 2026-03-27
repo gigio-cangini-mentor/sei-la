@@ -49,9 +49,11 @@ PptxGenJS is the rendering engine. Every visual decision (colors, fonts, spacing
 
 ## Veto Conditions
 
-- PptxGenJS not available or not installed → HALT, escalate to user
-- Content insufficient to produce minimum 3 slides → HALT, ask for more content
-- Brand profile not found in `data/brands/` → HALT, suggest running extract-design-system first
+- **BLOCKER:** PptxGenJS não disponível ou não instalado — sem engine de renderização, nada pode ser produzido
+- **BLOCKER:** Conteúdo insuficiente para produzir mínimo de 3 slides — pedir mais conteúdo ao usuário
+- **BLOCKER:** Brand profile não encontrado em `data/brands/` — rodar extract-design-system primeiro
+- **BLOCKER:** Master slides não criados antes de gerar slides de conteúdo — consistência visual comprometida
+- **WARNING:** Slide com mais de 6 linhas de texto ou bullets com mais de 8 palavras — editar conteúdo antes de renderizar
 
 ## Handoff
 

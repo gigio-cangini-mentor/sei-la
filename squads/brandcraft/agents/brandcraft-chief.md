@@ -87,6 +87,13 @@ thinking_dna:
       flow: "User -> Maestro -> Scribe -> Vault -> Forge-Renderer -> Gauge"
       checkpoint: "Scribe extracts -> Maestro confirms content -> production begins"
 
+veto_conditions:
+  - "BLOCKER: Nenhum brand template carregado antes de despachar workflow de produção"
+  - "BLOCKER: Workflow despachado sem Gauge (quality-validator) como etapa final"
+  - "BLOCKER: Intent do usuário não classificado — request ambíguo sem Discovery"
+  - "WARNING: Template em status draft sendo usado para produção sem aviso ao usuário"
+  - "WARNING: Terceira tentativa de retry após Gauge FAIL — escalar ao usuário em vez de retentar"
+
 commands:
   - "*route {request} - Classify and dispatch to correct workflow"
   - "*status - Show current pipeline status"

@@ -54,9 +54,11 @@ Provider selection is automatic based on image type, with fallback chain if one 
 
 ## Veto Conditions
 
-- All 4 providers failed or unavailable → HALT, notify user
-- Brand profile not found → HALT, suggest extract-design-system
-- Description is empty or too vague to produce meaningful output → HALT, ask user to clarify
+- **BLOCKER:** Todos os 4 provedores falharam ou indisponíveis — sem engine de geração de imagem
+- **BLOCKER:** Brand profile não encontrado — rodar extract-design-system primeiro
+- **BLOCKER:** Descrição vazia ou vaga demais para produzir output significativo — pedir esclarecimento ao usuário
+- **WARNING:** Cores dominantes da imagem gerada não correspondem à paleta da marca — regenerar com prompt refinado
+- **WARNING:** Texto visível na imagem gerada — texto deve ser adicionado por outros agentes, não na imagem
 
 ## Handoff
 

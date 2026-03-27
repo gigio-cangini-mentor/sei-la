@@ -171,6 +171,30 @@ sections:
 - Missing seasonality → REJECT
 - Text-only output (no tables) → REJECT
 
+```yaml
+veto_conditions:
+  - id: V1
+    trigger: "Keywords sem Business Potential Score"
+    severity: block
+    action: "REJEITAR — toda keyword precisa de BP Score 0-3 (Soulo)"
+  - id: V2
+    trigger: "Contexto brasileiro não aplicado"
+    severity: block
+    action: "REJEITAR — WhatsApp-first, PIX, calendário BR são inegociáveis"
+  - id: V3
+    trigger: "Priorização por volume em vez de ROI"
+    severity: block
+    action: "REJEITAR — usar ICE Score + BP Score, não volume bruto"
+  - id: V4
+    trigger: "Sazonalidade não cruzada com calendário BR"
+    severity: block
+    action: "REJEITAR — identificar picos e vales antes de recomendar"
+  - id: V5
+    trigger: "Output em texto corrido sem tabelas estruturadas"
+    severity: block
+    action: "REJEITAR — mapa de oportunidades SEMPRE em formato tabela"
+```
+
 ---
 
 ## Acceptance Criteria

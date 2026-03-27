@@ -45,8 +45,10 @@ Useful when the user already knows what goes on each slide and just needs it ren
 
 ## Veto Conditions
 
-- Outline is empty or has zero valid slide specs → HALT
-- Brand profile not found → HALT, suggest extract-design-system
+- **BLOCKER:** Outline vazio ou sem slide specs válidos — nada para renderizar
+- **BLOCKER:** Brand profile não encontrado — rodar extract-design-system antes
+- **BLOCKER:** Slide spec sem título definido — cada slide precisa de pelo menos um título
+- **WARNING:** Ordem dos slides no outline não corresponde à lógica narrativa (intro → conteúdo → fechamento)
 
 ## Handoff
 

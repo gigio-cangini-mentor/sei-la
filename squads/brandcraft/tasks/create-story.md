@@ -45,9 +45,11 @@ Safe zones are larger than reels because of Instagram's UI overlays (profile bar
 
 ## Veto Conditions
 
-- Remotion not installed → HALT
-- Content too sparse for a meaningful 15s story → HALT, ask for more content
-- Brand profile not found → HALT
+- **BLOCKER:** Remotion não instalado — sem engine de renderização de vídeo
+- **BLOCKER:** Conteúdo muito escasso para gerar story significativo de 15s — pedir mais conteúdo
+- **BLOCKER:** Brand profile não encontrado — rodar extract-design-system primeiro
+- **WARNING:** Safe zones do Instagram (120px topo, 200px base) não aplicadas — UI do app vai cobrir conteúdo
+- **WARNING:** Duração excede 15 segundos — conteúdo precisa ser condensado
 
 ## Handoff
 

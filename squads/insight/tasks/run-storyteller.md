@@ -188,6 +188,34 @@ gates:
 - Missing ABT structure → REJECT
 - Report without headline → REJECT
 
+```yaml
+veto_conditions:
+  - id: V1
+    trigger: "Números listados sem narrativa contextual"
+    severity: block
+    action: "REJEITAR — cada dado precisa de contexto ABT (And-But-Therefore)"
+  - id: V2
+    trigger: "Jargão técnico sem tradução para linguagem de empresário"
+    severity: block
+    action: "REJEITAR — CTR, bounce rate, CPC devem ser traduzidos"
+  - id: V3
+    trigger: "Report sem call-to-action no final"
+    severity: block
+    action: "REJEITAR — todo report termina com próximo passo claro"
+  - id: V4
+    trigger: "Distorção de dados (eixo manipulado, cherry-picking de período)"
+    severity: block
+    action: "REJEITAR — Cairo 5 Qualities: honestidade é inegociável"
+  - id: V5
+    trigger: "Insights sem estrutura ABT (And-But-Therefore)"
+    severity: block
+    action: "REJEITAR — cada insight precisa de contexto, tensão e resolução"
+  - id: V6
+    trigger: "Report sem headline de impacto"
+    severity: block
+    action: "REJEITAR — começar com 1 frase ABT que resume o report"
+```
+
 ---
 
 ## Acceptance Criteria

@@ -290,6 +290,38 @@ A task está completa quando TODOS os critérios são atendidos:
 | V5 | — | SE high ticket apresentado DEPOIS do low → BLOCK. Ancoragem quebrada. |
 | V6 | NO-H003 | SE 1 produto = vários públicos diferentes → BLOCK. 1 produto = 1 persona. |
 
+```yaml
+veto_conditions:
+  - id: V1
+    heuristic: "NO-F012"
+    trigger: "Mix sem nenhum high ticket"
+    severity: block
+    action: "BLOQUEAR — sem ancoragem = percepção de valor destruída"
+  - id: V2
+    heuristic: "NO-H003"
+    trigger: "1 produto resolvendo múltiplos problemas"
+    severity: block
+    action: "BLOQUEAR — dividir em produtos separados, 1 problema cada"
+  - id: V3
+    trigger: "Plano 1K/dia requer 100+ vendas low ticket por dia"
+    severity: alert
+    action: "ALERTA — irrealista, rebalancear mix com mais mid/high"
+  - id: V4
+    heuristic: "NO-F033"
+    trigger: "Proposta exige custo fixo novo"
+    severity: block
+    action: "VETO — mix de produtos digitais = zero custo fixo adicional"
+  - id: V5
+    trigger: "High ticket apresentado DEPOIS do low ticket"
+    severity: block
+    action: "BLOQUEAR — ancoragem quebrada, reordenar apresentação"
+  - id: V6
+    heuristic: "NO-H003"
+    trigger: "1 produto para vários públicos diferentes"
+    severity: block
+    action: "BLOQUEAR — 1 produto = 1 persona = 1 resultado"
+```
+
 ---
 
 ## Quality Gate

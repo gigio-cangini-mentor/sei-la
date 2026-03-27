@@ -291,6 +291,37 @@ A task está completa quando TODOS os critérios são atendidos:
 | V5 | — | SE análise sem verificação por contexto (página, email, pitch) → INCOMPLETA. |
 | V6 | — | SE recomendações sem priorização → INCOMPLETA. O que fazer PRIMEIRO? |
 
+```yaml
+veto_conditions:
+  - id: V1
+    heuristic: "NO-F012"
+    trigger: "High ticket apresentado DEPOIS do low ticket"
+    severity: block
+    action: "BLOQUEAR — ancoragem invertida destrói percepção de valor"
+  - id: V2
+    heuristic: "NO-F012"
+    trigger: "Mix sem nenhum high ticket"
+    severity: block
+    action: "BLOQUEAR — não há âncora possível sem high ticket"
+  - id: V3
+    heuristic: "NO-F022"
+    trigger: "Sem oferta para os 98% que não compraram"
+    severity: alert
+    action: "ALERTA CRÍTICO — 98% do tráfego sendo desperdiçado"
+  - id: V4
+    trigger: "Spread entre camadas adjacentes < 2x"
+    severity: alert
+    action: "ALERTA — sem percepção de escada de valor"
+  - id: V5
+    trigger: "Análise sem verificação por contexto (página, email, pitch)"
+    severity: incomplete
+    action: "INCOMPLETA — verificar todos os contextos de apresentação"
+  - id: V6
+    trigger: "Recomendações sem priorização"
+    severity: incomplete
+    action: "INCOMPLETA — definir o que fazer PRIMEIRO"
+```
+
 ---
 
 ## Quality Gate

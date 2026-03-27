@@ -44,8 +44,10 @@ Goes beyond a simple pass/fail score — this is the full autopsy report. Every 
 
 ## Veto Conditions
 
-- Output file not found → HALT
-- Brand profile not found → HALT
+- **BLOCKER:** Arquivo de output não encontrado — nada para analisar
+- **BLOCKER:** Brand profile não encontrado — sem baseline para comparação de tokens
+- **BLOCKER:** Relatório gerado sem referências específicas a tokens (feedback genérico) — refazer com dados concretos
+- **WARNING:** Issues catalogados sem severidade (critical/major/minor) — classificar antes de salvar
 
 ## Handoff
 

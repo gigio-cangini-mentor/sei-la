@@ -267,6 +267,31 @@ A task está completa quando TODOS os critérios são atendidos:
 | V4 | — | SE estratégia não corresponde à fase → BLOCK. Estratégia de Crescimento em Declínio = prejuízo. |
 | V5 | — | SE sem CPL estimado → ALERTA. Decisão de escalar sem referência de custo é perigosa. |
 
+```yaml
+veto_conditions:
+  - id: V1
+    heuristic: "NO-H001"
+    trigger: "Análise sem pesquisa real (apenas feeling)"
+    severity: block
+    action: "BLOQUEAR — dados de 3+ fontes são obrigatórios"
+  - id: V2
+    trigger: "Fase classificada sem evidências documentadas"
+    severity: block
+    action: "BLOQUEAR — citar fontes é obrigatório para qualquer classificação"
+  - id: V3
+    trigger: "Tema em Declínio sem alerta de pivô"
+    severity: block
+    action: "BLOQUEAR — pivotar antes de queimar budget"
+  - id: V4
+    trigger: "Estratégia não corresponde à fase do ciclo"
+    severity: block
+    action: "BLOQUEAR — estratégia de Crescimento em Declínio = prejuízo certo"
+  - id: V5
+    trigger: "Sem CPL estimado na análise"
+    severity: alert
+    action: "ALERTA — decisão de escalar sem referência de custo é perigosa"
+```
+
 ---
 
 ## Quality Gate

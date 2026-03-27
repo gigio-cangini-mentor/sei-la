@@ -51,9 +51,11 @@ Every visual decision (colors, fonts, motion style) comes from the brand profile
 
 ## Veto Conditions
 
-- Remotion not installed or not available → HALT, escalate to user
-- Content insufficient to produce minimum 4 scenes → HALT, ask for more content
-- Brand profile not found in `data/brands/` → HALT, suggest running extract-design-system first
+- **BLOCKER:** Remotion não instalado ou não disponível — sem engine de composição de vídeo
+- **BLOCKER:** Conteúdo insuficiente para mínimo de 4 cenas (intro, hook, body, CTA) — pedir mais conteúdo
+- **BLOCKER:** Brand profile não encontrado em `data/brands/` — rodar extract-design-system primeiro
+- **BLOCKER:** Safe zones não configuradas para o formato alvo — conteúdo será cortado pela plataforma
+- **WARNING:** Duração excede 90s para reels — reduzir conteúdo ou dividir em múltiplos vídeos
 
 ## Handoff
 

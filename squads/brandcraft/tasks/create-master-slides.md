@@ -42,8 +42,10 @@ This task only creates the template structure with placeholder content. It does 
 
 ## Veto Conditions
 
-- Brand profile not found in `data/brands/` → HALT
-- Brand profile missing essential tokens (no colors or no fonts) → HALT, request brand extraction first
+- **BLOCKER:** Brand profile não encontrado em `data/brands/` — sem tokens visuais para criar masters
+- **BLOCKER:** Brand profile sem tokens essenciais (sem cores ou sem fontes) — rodar extração de marca primeiro
+- **BLOCKER:** Logo não disponível no brand profile — masters precisam de logo em todas as layouts
+- **WARNING:** Apenas 1-2 cores disponíveis — masters podem ficar visualmente pobres, considerar completar o profile
 
 ## Handoff
 

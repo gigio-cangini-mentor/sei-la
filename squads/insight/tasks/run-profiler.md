@@ -327,6 +327,30 @@ output: "Adicionar resultado do self-QA na seção Metadados"
 | Output salvo em path errado | Mover para path correto |
 | Self-QA falhou em check blocking | Corrigir antes de entregar |
 
+```yaml
+veto_conditions:
+  - id: V1
+    trigger: "Campo obrigatório faltando no input (nome, cidade ou nicho)"
+    severity: block
+    action: "PARAR — pedir dados antes de iniciar qualquer análise"
+  - id: V2
+    trigger: "Score sem breakdown justificado por canal"
+    severity: block
+    action: "NÃO ENTREGAR — cada sub-score precisa de critérios claros"
+  - id: V3
+    trigger: "Canal obrigatório não analisado (site, Maps, social, reputação)"
+    severity: block
+    action: "COMPLETAR — analisar todos os canais obrigatórios"
+  - id: V4
+    trigger: "Dados inventados sem fonte verificável"
+    severity: block
+    action: "REMOVER ou marcar como estimativa — nunca inventar dados"
+  - id: V5
+    trigger: "Comparativo com top 3 concorrentes ausente"
+    severity: block
+    action: "NÃO ENTREGAR — comparativo é a parte mais valiosa do dossiê"
+```
+
 ---
 
 ## Handoff

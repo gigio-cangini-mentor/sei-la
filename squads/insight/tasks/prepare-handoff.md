@@ -133,6 +133,30 @@ sections:
 - Missing target squad → REJECT
 - Briefing without priorities → REJECT
 
+```yaml
+veto_conditions:
+  - id: V1
+    trigger: "Handoff sem dossiê aprovado pelo QA checkpoint"
+    severity: block
+    action: "REJEITAR — dossiê precisa passar no QA antes do handoff"
+  - id: V2
+    trigger: "Squad de destino não identificado"
+    severity: block
+    action: "REJEITAR — definir production, automation ou operations"
+  - id: V3
+    trigger: "Briefing sem lista de prioridades ordenada"
+    severity: block
+    action: "REJEITAR — squad de destino precisa saber o que fazer primeiro"
+  - id: V4
+    trigger: "Handoff sem métricas de sucesso definidas"
+    severity: alert
+    action: "ALERTA — sem métricas, impossível medir impacto do trabalho"
+  - id: V5
+    trigger: "Dados do dossiê ou mapa desatualizados (> 30 dias)"
+    severity: alert
+    action: "ALERTA — considerar re-avaliação antes do handoff"
+```
+
 ---
 
 ## Acceptance Criteria

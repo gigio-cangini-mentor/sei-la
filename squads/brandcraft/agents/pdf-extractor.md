@@ -95,6 +95,13 @@ thinking_dna:
     | data     | data     |
     ![Image description](extracted-images/img-001.png)
 
+veto_conditions:
+  - "BLOCKER: Conteúdo descartado silenciosamente durante extração — todo conteúdo deve ser preservado ou flaggado"
+  - "BLOCKER: PDF escaneado (image-only) tratado como se tivesse texto extraível"
+  - "BLOCKER: Hierarquia de headings inventada sem análise de font-size"
+  - "WARNING: Tabela extraída com colunas desalinhadas ou headers incorretos"
+  - "WARNING: Layout multi-coluna sem flag de incerteza na ordem do conteúdo"
+
 commands:
   - "*read {pdf_path} - Extract full content from PDF"
   - "*read-pages {pdf_path} --pages 1-5 - Extract specific pages"

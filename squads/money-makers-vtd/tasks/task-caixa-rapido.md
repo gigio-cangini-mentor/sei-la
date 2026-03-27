@@ -269,6 +269,39 @@ A task está completa quando TODOS os critérios são atendidos:
 | V5 | NO-F048 | SE plano depende só do orgânico → VETO. Orgânico é consequência. |
 | V6 | NO-F033 | SE plano requer custo fixo novo → VETO. Caixa rápido = zero custo novo. |
 
+```yaml
+veto_conditions:
+  - id: V1
+    heuristic: "NO-H020"
+    trigger: "Budget = R$0 E base de contatos = 0"
+    severity: block
+    action: "BLOQUEAR — sem ads E sem base é impossível gerar caixa"
+  - id: V2
+    heuristic: "NO-F012"
+    trigger: "Oferta sem ancoragem high ticket"
+    severity: alert
+    action: "ALERTA — perda de percepção de valor sem âncora"
+  - id: V3
+    trigger: "Criar produto novo para caixa rápido"
+    severity: block
+    action: "VETO — usar produto que JÁ existe, não criar do zero"
+  - id: V4
+    heuristic: "NO-H014"
+    trigger: "Copy única sem variação por sentimento"
+    severity: block
+    action: "VETO — mínimo 3 variações emocionais (Andromeda)"
+  - id: V5
+    heuristic: "NO-F048"
+    trigger: "Plano depende só do orgânico"
+    severity: block
+    action: "VETO — orgânico é consequência, não estratégia"
+  - id: V6
+    heuristic: "NO-F033"
+    trigger: "Plano requer custo fixo novo"
+    severity: block
+    action: "VETO — caixa rápido = zero custo fixo novo"
+```
+
 ---
 
 ## Quality Gate

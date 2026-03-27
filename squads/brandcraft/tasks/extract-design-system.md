@@ -50,9 +50,11 @@ Like reverse-engineering a recipe by tasting the dish — we figure out every in
 
 ## Veto Conditions
 
-- URL unreachable (timeout, 4xx, 5xx) → HALT, report error
-- No visual content (blank page, JS-only render with no fallback) → HALT, suggest alternative URL
-- Less than 3 color tokens found → WARN, proceed with partial extraction
+- **BLOCKER:** URL inacessível (timeout, 4xx, 5xx) — reportar erro e pedir URL alternativa
+- **BLOCKER:** Página sem conteúdo visual (blank page, JS-only sem fallback) — sugerir URL alternativa
+- **BLOCKER:** Extração feita de uma única página — mínimo 2 páginas para cobertura adequada de tokens
+- **WARNING:** Menos de 3 tokens de cor encontrados — extração parcial, completar manualmente
+- **WARNING:** Logo capturado apenas como favicon — tentar SVG do header antes de aceitar
 
 ## Handoff
 
