@@ -78,13 +78,15 @@
     .tip {
       display: none; position: fixed;
       background: #16213e; border: 2px solid #f5c542;
-      padding: 10px 14px; font-size: 9px; line-height: 1.8;
-      max-width: 320px; z-index: 30; pointer-events: none;
+      padding: 12px 16px; font-size: 9px; line-height: 1.8;
+      max-width: 420px; z-index: 30; pointer-events: none;
       border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.7);
     }
     .tip.on { display: block; }
     .tip-t { color: #f5c542; font-size: 11px; margin-bottom: 4px; }
-    .tip-c { color: #8892b0; font-size: 9px; }
+    .tip-w { color: #e94560; font-size: 9px; margin-bottom: 2px; }
+    .tip-c { color: #8892b0; font-size: 9px; white-space: pre-wrap; word-break: break-word; }
+    .tip-p { color: #4ecca3; font-size: 8px; margin-top: 3px; font-style: italic; }
     .tip-s { margin-top: 4px; }
     .tip-s.done { color: #4ecca3; }
     .tip-s.pending { color: #8892b0; }
@@ -138,7 +140,9 @@
 
 <div class="tip" id="tip">
   <div class="tip-t" id="tip-t"></div>
+  <div class="tip-w" id="tip-w"></div>
   <div class="tip-c" id="tip-c"></div>
+  <div class="tip-p" id="tip-p"></div>
   <div class="tip-s" id="tip-s"></div>
 </div>
 
@@ -563,22 +567,11 @@ function renderOverlay() {
       const labelColor = node.status === 'done' ? '#4ecca3' : isCur ? '#f5c542' : '#8892b0';
       drawLabel(`${idLabel} ${shortLabel}`, px, labelY, labelFs, labelColor, 280 * scale);
 
-      // Extra info (Full only)
-      if (detailLevel === 'full') {
-        let extraY = labelY + labelFs + 8;
-
-        // Who + XP line
-        if (node.who || node.xp) {
-          const metaText = [node.who, node.xp ? `+${node.xp} XP` : ''].filter(Boolean).join('  ·  ');
-          drawLabel(metaText, px, extraY, cmdFs, '#e94560', 280 * scale);
-          extraY += cmdFs + 6;
-        }
-
-        // Command text
-        if (node.command) {
-          const cmdText = node.command.length > 40 ? node.command.slice(0, 38) + '..' : node.command;
-          drawLabel(cmdText, px, extraY, cmdFs, 'rgba(255,255,255,0.6)', 320 * scale);
-        }
+      // Extra info (Full only) — who + XP on canvas, full command in tooltip
+      if (detailLevel === 'full' && (node.who || node.xp)) {
+        const extraY = labelY + labelFs + 8;
+        const metaText = [node.who, node.xp ? `+${node.xp} XP` : ''].filter(Boolean).join('  ·  ');
+        drawLabel(metaText, px, extraY, cmdFs, '#e94560', 280 * scale);
       }
     }
 
@@ -705,12 +698,31 @@ function setupInput() {
     }
 
     if (hovered && !dragging) {
+      // Title: ID + full label
       document.getElementById('tip-t').textContent = `${hovered.id} — ${hovered.label}`;
-      document.getElementById('tip-c').textContent = hovered.command || '';
+
+      // Who + XP
+      const whoEl = document.getElementById('tip-w');
+      const whoText = [hovered.who, hovered.xp ? `+${hovered.xp} XP` : ''].filter(Boolean).join('  ·  ');
+      whoEl.textContent = whoText;
+      whoEl.style.display = whoText ? '' : 'none';
+
+      // Full command (no truncation)
+      const cmdEl = document.getElementById('tip-c');
+      cmdEl.textContent = hovered.command || '';
+      cmdEl.style.display = hovered.command ? '' : 'none';
+
+      // Tip/hint
+      const tipP = document.getElementById('tip-p');
+      tipP.textContent = hovered.tip ? `💡 ${hovered.tip}` : '';
+      tipP.style.display = hovered.tip ? '' : 'none';
+
+      // Status
       const se = document.getElementById('tip-s');
       const m = { done: ['COMPLETO ✓','done'], pending: ['PENDENTE','pending'], skipped: ['PULADO','skipped'] };
       const [t, c] = m[hovered.status] || ['—','pending'];
       se.textContent = t; se.className = `tip-s ${c}`;
+
       tipEl.style.left = (e.clientX + 16) + 'px';
       tipEl.style.top = (e.clientY - 10) + 'px';
       tipEl.classList.add('on');
