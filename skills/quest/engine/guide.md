@@ -64,8 +64,130 @@ function is_phase_unlocked(phase_index, pack, quest_log):
     if item.required == true:
       if quest_log.items[item.id].status != "done":
         return false
+  // NEW: Integration gate — verify prior phase outputs actually work
+  if NOT verify_phase_integration(phase_index, pack, quest_log):
+    return false
   return true
 ```
+
+---
+
+## 2.5 Integration Gate (CRITICAL — prevents isolated components)
+
+**Problem this solves:** Components can be built and marked done individually, but never verified to work together. Like building every gear of a clock separately and never checking if the clock actually tells time.
+
+### When it runs
+
+After ALL required items in a phase are marked `done`, BEFORE unlocking the next phase. This is a **mandatory gate** — the next phase cannot start until integration is verified.
+
+### How it works
+
+```
+function verify_phase_integration(phase_index, pack, quest_log):
+  if phase_index == 0: return true  // No prior phase to integrate with
+
+  previous_phase = pack.phases[phase_index - 1]
+
+  // 1. Check if phase has integration_checks defined
+  checks = previous_phase.integration_checks
+  if checks is empty or undefined:
+    // Fallback: ask the user explicitly
+    return ask_integration_question(previous_phase, pack, quest_log)
+
+  // 2. Run each integration check
+  for check in checks:
+    result = run_integration_check(check)
+    if NOT result.success:
+      show_integration_failure(check, result)
+      return false
+
+  return true
+```
+
+### Integration check types (from pack YAML)
+
+Packs define `integration_checks` per phase:
+
+```yaml
+phases:
+  4:
+    name: "A Forja"
+    integration_checks:
+      - name: "App compila sem erros"
+        type: "command"
+        command: "npm run build"
+      - name: "Testes passam"
+        type: "command"
+        command: "npm test"
+      - name: "Artefatos de build existem"
+        type: "file_exists"
+        glob: "dist/** OR build/** OR .next/**"
+```
+
+Supported types:
+
+| Type | What it does | Example |
+|------|-------------|---------|
+| `command` | Runs shell command, expects exit code 0 | `npm run build` |
+| `file_exists` | Checks glob pattern matches files | `dist/**` |
+| `endpoint` | Starts app, hits URL, checks response | `http://localhost:3000/api/health` |
+
+### Fallback: Ask the user
+
+If the pack has NO `integration_checks`, the Quest Master asks explicitly:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ⚠️  INTEGRATION GATE — {previous_phase.name}
+
+  {hero_name}, antes de avançar para {next_phase.name},
+  preciso confirmar que tudo que você construiu funciona junto.
+
+  Teste rápido:
+  1. O app inicia sem erros?
+  2. As funcionalidades das fases anteriores ainda funcionam?
+  3. Os módulos se comunicam entre si (não são peças soltas)?
+
+  Tudo integrado e funcionando? (s/n)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+If user says "n":
+- Ask what está quebrado
+- Show: "Corrija a integração antes de avançar. Use `/quest status` para ver o progresso."
+- Do NOT unlock next phase
+- Do NOT show World Complete celebration
+
+### Integration failure output
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ❌  INTEGRAÇÃO FALHOU — {check.name}
+
+  {hero_name}, o teste de integração não passou:
+
+  Comando: {check.command}
+  Resultado: {error_output}
+
+  Isso significa que os módulos foram construídos mas não
+  estão conectados. Corrija antes de avançar.
+
+  Dica: verifique se os outputs da fase anterior são
+  consumidos corretamente pela próxima fase.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+### Rules
+
+- **NEVER skip** integration gate — it's mandatory
+- If user says "tudo funciona" but the command check fails, **trust the command**, not the user
+- Integration checks run EVERY TIME a phase unlock is attempted (not cached)
+- If a check fails, the user can fix and try again (`/quest scan` re-triggers)
+- Log integration results in quest-log under `integration_results`
 
 ---
 
@@ -237,9 +359,15 @@ Triggered when ALL phases are complete (no pending items in any phase). Output t
 
 ### 4.6 MVP Launch Guide
 
-Triggered when a phase with `milestone: "mvp"` is completed (all items in that phase are `done` or `skipped`). This is a special ceremony that teaches the user how to actually USE what they just built.
+Triggered when a phase with `milestone: "mvp"` has all items marked `done` or `skipped`. This runs **BEFORE** the World Complete celebration — it's a validation + walkthrough gate.
 
-**Purpose:** The user just built something. Now they need to experience it. This is NOT a celebration — it's a practical walkthrough. Think of it as handing over the car keys and showing them the ignition, the mirrors, and the gas pedal.
+**Purpose:** The user just built something. Now they need to experience it AND verify it works end-to-end. This is NOT just a celebration — it's a practical walkthrough that also serves as the final integration check. Think of it as handing over the car keys, showing the ignition, AND taking a test drive together.
+
+**CRITICAL FLOW:**
+1. All items in MVP phase done → trigger Launch Guide
+2. User follows steps to run the app
+3. If it works → proceed to World Complete celebration
+4. If it DOESN'T work → **BLOCK** World Complete, help fix, try again
 
 **CRITICAL:** This MUST be generated by actually reading the project's current state — not from templates. The Quest Master should:
 
@@ -310,6 +438,13 @@ Triggered when a phase with `milestone: "mvp"` is completed (all items in that p
 - **If env vars are needed**, list them explicitly with description of where to get values
 - **Feature list** should map directly to completed quest items — "Você construiu X na missão 4.2, acesse em /path"
 - **After showing the guide**, ask: "Conseguiu acessar tudo? Algo não funcionou?"
+- **If user says YES** (everything works) → proceed to World Complete celebration
+- **If user says NO** (something broken):
+  - Ask what failed specifically
+  - Help diagnose and fix
+  - Re-run the Launch Guide after fixes
+  - Do NOT show World Complete until user confirms it works
+  - This is a **hard gate** — the phase is NOT complete until the MVP actually runs
 
 **When NOT to show:**
 - If the phase has no `milestone` field

@@ -75,6 +75,10 @@ phases: []           # REQUIRED
   #   milestone: string (OPTIONAL — e.g. "mvp", "alpha", "beta")
   #     When present, triggers special ceremonies on phase completion.
   #     "mvp" triggers the MVP Launch Guide (guide.md section 4.6).
+  #   integration_checks: [] (OPTIONAL — list of checks run before unlocking next phase)
+  #     Each check: { name, type, command|glob }
+  #     Types: "command" (runs shell, expects exit 0), "file_exists" (glob match)
+  #     See guide.md section 2.5 for full spec.
   #   items: [] (REQUIRED)
 ```
 

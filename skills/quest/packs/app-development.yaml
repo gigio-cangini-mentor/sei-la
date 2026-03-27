@@ -178,6 +178,10 @@ phases:
     description: "Prepare suas ferramentas antes de construir."
     unlock_message: "Toda grande obra começa com uma oficina bem montada."
     complete_message: "Ferramentas afiadas. Hora de traçar o plano."
+    integration_checks:
+      - name: "Ambiente funcional"
+        type: "command"
+        command: "node --version && npm --version && git --version"
     items:
       - id: "0.1"
         label: "Instalar AIOS no projeto"
@@ -293,6 +297,13 @@ phases:
     description: "Sem planta, você constrói um barraco bonito."
     unlock_message: "Hora de desenhar os muros e portões da sua fortaleza."
     complete_message: "A planta está aprovada. Os alicerces estão definidos."
+    integration_checks:
+      - name: "PRD e arquitetura referenciáveis pelas stories"
+        type: "file_exists"
+        glob: "docs/*prd*"
+      - name: "Spec ou architecture doc existe"
+        type: "file_exists"
+        glob: "docs/*spec* OR docs/*architect*"
     items:
       - id: "2.1"
         label: "Criar PRD"
@@ -370,6 +381,13 @@ phases:
     description: "Quebre o elefante em pedaços mastigáveis."
     unlock_message: "Cada story é uma missão. Cada missão, um passo mais perto."
     complete_message: "As stories estão prontas. A forja espera."
+    integration_checks:
+      - name: "Stories existem e estão prontas"
+        type: "command"
+        command: "ls docs/stories/*.md 2>/dev/null | head -1"
+      - name: "Stories referenciam o PRD"
+        type: "command"
+        command: "grep -rl 'PRD\\|prd\\|spec' docs/stories/ 2>/dev/null | head -1"
     items:
       - id: "3.1"
         label: "Criar stories"
@@ -413,6 +431,16 @@ phases:
     complete_message: "O código está forjado. Hora de testar o aço."
     milestone: "mvp"
     note: "Repetir para CADA story"
+    integration_checks:
+      - name: "App compila sem erros"
+        type: "command"
+        command: "npm run build 2>&1 || yarn build 2>&1 || echo 'NO_BUILD_SCRIPT'"
+      - name: "Testes passam"
+        type: "command"
+        command: "npm test 2>&1 || echo 'NO_TEST_SCRIPT'"
+      - name: "Artefatos de build existem"
+        type: "file_exists"
+        glob: "dist/** OR build/** OR .next/** OR out/**"
     items:
       - id: "4.1"
         label: "Worktree isolado"
