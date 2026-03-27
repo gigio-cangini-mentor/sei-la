@@ -629,8 +629,9 @@
     3: { name: 'O Pergaminho das Stories', tagline: 'Quebre o elefante em peda\u00E7os mastig\u00E1veis.' },
     4: { name: 'A Forja', tagline: 'A linha de montagem. Aqui o c\u00F3digo ganha vida.' },
     5: { name: 'O Tribunal da Qualidade', tagline: 'Tr\u00EAs inspetores. Nada passa sem julgamento.' },
-    6: { name: 'O Portal do Deploy', tagline: 'S\u00F3 o @devops tem a chave do portal.' },
-    7: { name: 'A Torre de Vigia', tagline: 'A casa foi entregue. Agora \u00E9 manter limpa.' },
+    6: { name: 'O Sal\u00E3o dos Selos', tagline: 'Auditorias especializadas. Cada cristal \u00E9 um selo.' },
+    7: { name: 'O Portal do Deploy', tagline: 'S\u00F3 o @devops tem a chave do portal.' },
+    8: { name: 'A Torre de Vigia', tagline: 'A casa foi entregue. Agora \u00E9 manter limpa.' },
   };
 
   const LEVELS = [
@@ -1223,7 +1224,7 @@
     detectCelebrations(name, stats, level, achievements);
 
     // Find current world — a world is "complete for unlock" when all REQUIRED items are done
-    var currentWorld = '7';
+    var currentWorld = '8';
     var sortedPhaseKeys = Object.keys(stats.phases).sort(function(a, b) { return parseInt(a) - parseInt(b); });
     for (var i = 0; i < sortedPhaseKeys.length; i++) {
       var ph = stats.phases[sortedPhaseKeys[i]];
